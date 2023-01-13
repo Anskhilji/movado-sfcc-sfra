@@ -2,6 +2,8 @@
     var assets = require('*/cartridge/scripts/assets');
     assets.addCss('/css/components/checkoutPickupStore.css');
 </isscript>
+<isset name="checkoutAlertNote" value="${dw.system.Site.current.getCustomPreferenceValue('bopisCheckoutAlertNote')}" scope="page" />
+
 <isif condition="${pdict.preferedPickupStore}">
     <div class="selected-pickup-store selected-pickup-store-label">${Resource.msg('store.pickup.checkout.selected', 'storePickUp', null)}</div>
     <div class="">
@@ -12,12 +14,16 @@
             <span class="text-underline-content">${pdict.preferedPickupStore.phone ? pdict.preferedPickupStore.phone : ''}</span>
         </div>
     </div>
-    <div class="row store-hours mt-4">
-        <div class="col-md-6 col-sm-6">
-            <div class="store-hours-container"><isprint value="${pdict.preferedPickupStore.storeHours}" encoding="off" /></div>
-        </div>
+    <div class="row store-hours align-items-center mt-4">
+        <isif condition="${pdict.preferedPickupStore.storeHours}">
+            <div class="col-md-6 col-sm-6">
+                <div class="store-hours-container">
+                    <isprint value="${pdict.preferedPickupStore.storeHours}" encoding="off" />
+                </div>
+            </div>
+        </isif>
         <div class="col-md-6 col-sm-6 store-note">
-            <p class="store-note-text">${Resource.msg('store.pickup.checkout.store.note', 'storePickUp', null)}</p>
+            <p class="store-note-text m-0">${checkoutAlertNote ? checkoutAlertNote : '' }</p>
         </div>
     </div>
 </isif>

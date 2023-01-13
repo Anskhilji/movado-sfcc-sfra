@@ -1,10 +1,15 @@
 'use strict';
 $(function () {
-    updateStorePickupProductAvailability();
-})
+    checkAllLineItem();
+});
+
 $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', function (event) {
-    var $url = $(this).data('url');
-    var $pickupFromStore = $(this).prop('checked');
+    checkAllLineItem();
+});
+
+function checkAllLineItem() {
+    var $url = $('.cart-store-pickup').data('url');
+    var $pickupFromStore = $('.cart-store-pickup').prop('checked');
     $.ajax({
         url: $url,
         data: {
@@ -20,7 +25,7 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
                 if (response.viewData !== '' && response.viewData !== undefined) {
                     updateBOPISShippingMethods(response.viewData, $pickupFromStore);
                 }
-            }else{
+            } else {
                 updateStorePickupProductAvailability(response.viewData);
                 if (response.viewData !== '' && response.viewData !== undefined) {
                     updateBOPISShippingMethods(response.viewData, $pickupFromStore);
@@ -32,11 +37,11 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
             $.spinner().stop();
         }
     });
-});
+}
 
 function updateBOPISShippingMethods(data, $pickupFromStore) {
     $('#shippingMethods').empty();
-    var shipments = data ? data.cartModel.shipments[0].shippingMethods : '';
+    var shipments = data && data.cartModel && data.cartModel.shipments && data.cartModel.shipments.length > 0 ? data.cartModel.shipments[0].shippingMethods : '';
     var html;
     if (shipments !== undefined && shipments !== '') {
         shipments.forEach(function (shipment) {
@@ -50,16 +55,27 @@ function updateBOPISShippingMethods(data, $pickupFromStore) {
         });
     }
 
-    var shippingTotal = data ? data.cartModel.totals.totalShippingCost : '';
+    var shippingTotal = data && data.cartModel && data.cartModel.totals && data.cartModel.totals.totalShippingCost ? data.cartModel.totals.totalShippingCost : '';
     if (shippingTotal !== undefined && shippingTotal !== '') {
         if (data.cartModel.shipments[0].selectedShippingMethod !== undefined) {
             $('.shipping-cost').empty().append(shippingTotal);
         }
     }
 
-    var grandTotal = data ? data.cartModel.totals.grandTotal : '';
+    var grandTotal = data && data.cartModel && data.cartModel.totals && data.cartModel.totals.grandTotal ? data.cartModel.totals.grandTotal : '';
     if (grandTotal !== undefined && grandTotal !== '') {
         $('.grand-total-sum').empty().append(grandTotal);
+    }
+    
+    var discountHMTL = data && data.cartModel && data.cartModel.totals && data.cartModel.totals.discountsHtml ? data.cartModel.totals.discountsHtml : '';
+    $('.coupons-and-promos').empty().append(discountHMTL);
+
+    if (data && data.cartModel && data.cartModel.totals.orderLevelDiscountTotal && data.cartModel.totals.orderLevelDiscountTotal.value > 0) {
+        $('.order-discount').removeClass('hide-order-discount');
+        $('.order-discount-total').empty()
+            .append('- ' + data.cartModel.totals.orderLevelDiscountTotal.formatted);
+    } else {
+        $('.order-discount').addClass('hide-order-discount');
     }
  
     if ($pickupFromStore) {
@@ -70,23 +86,25 @@ function updateBOPISShippingMethods(data, $pickupFromStore) {
 }
 
 function handleAvailabilityOnStore(data) {
-    data.items.forEach(function (item) {
-        var $pickUpStoreAvailableIcon = $('.pickup-store-inventory-seperator .availabe-icon' + item.id);
-        var $pickUpStoreAvailableText = $('.pickup-store-inventory-seperator .availabe-msg' + item.id);
-        var $pickUpStoreUnavailableIcon = $('.pickup-store-inventory-seperator .unavailable-icon' + item.id);
-        var $pickUpStoreUnavailableText = $('.pickup-store-inventory-seperator .unavailable-msg' + item.id);
-        if (item.storePickupAvailable) {
-            $pickUpStoreAvailableIcon.removeClass('d-none');
-            $pickUpStoreAvailableText.removeClass('d-none');
-            $pickUpStoreUnavailableIcon.addClass('d-none');
-            $pickUpStoreUnavailableText.addClass('d-none');
-        } else {
-            $pickUpStoreUnavailableIcon.removeClass('d-none');
-            $pickUpStoreUnavailableText.removeClass('d-none');
-            $pickUpStoreAvailableIcon.addClass('d-none');
-            $pickUpStoreAvailableText.addClass('d-none');
-        }
-    });
+    if (data && data.items) {
+        data.items.forEach(function (item) {
+            var $pickUpStoreAvailableIcon = $('.pickup-store-inventory-seperator .availabe-icon' + item.id);
+            var $pickUpStoreAvailableText = $('.pickup-store-inventory-seperator .availabe-msg' + item.id);
+            var $pickUpStoreUnavailableIcon = $('.pickup-store-inventory-seperator .unavailable-icon' + item.id);
+            var $pickUpStoreUnavailableText = $('.pickup-store-inventory-seperator .unavailable-msg' + item.id);
+            if (item.storePickupAvailable) {
+                $pickUpStoreAvailableIcon.removeClass('d-none');
+                $pickUpStoreAvailableText.removeClass('d-none');
+                $pickUpStoreUnavailableIcon.addClass('d-none');
+                $pickUpStoreUnavailableText.addClass('d-none');
+            } else {
+                $pickUpStoreUnavailableIcon.removeClass('d-none');
+                $pickUpStoreUnavailableText.removeClass('d-none');
+                $pickUpStoreAvailableIcon.addClass('d-none');
+                $pickUpStoreAvailableText.addClass('d-none');
+            }
+        });
+    }
 }
 
 function updateStorePickupProductAvailability(data) {
@@ -112,6 +130,7 @@ function updateStorePickupProductAvailability(data) {
         $('.more-ways-text').addClass('d-none');
         $('#shippingMethods').attr('disabled', 'disabled');
         $('.pickup-store-error').addClass('d-none');
+        $('.product-gift-wrap').addClass('d-none');
         setTimeout(function () {
             $('.gpay-button').addClass('d-none');
             $('.apple-pay-cart').addClass('d-none');
@@ -122,6 +141,7 @@ function updateStorePickupProductAvailability(data) {
         $('.checkout-btn').addClass('disabled');
         $('#shippingMethods').attr('disabled', 'disabled');
         $('.pickup-store-error').removeClass('d-none');
+        $('.product-gift-wrap').addClass('d-none');
         setTimeout(function () {
             $('.gpay-button').addClass('d-none');
             $('.apple-pay-cart').addClass('d-none');
@@ -131,6 +151,7 @@ function updateStorePickupProductAvailability(data) {
         $('.paypal-btn').removeClass('d-none');
         $('.more-ways-text').removeClass('d-none');
         $('#shippingMethods').removeAttr('disabled');
+        $('.product-gift-wrap').removeClass('d-none');
         setTimeout(function () {
             $('.gpay-button').removeClass('d-none');
             $('.apple-pay-cart').removeClass('d-none');

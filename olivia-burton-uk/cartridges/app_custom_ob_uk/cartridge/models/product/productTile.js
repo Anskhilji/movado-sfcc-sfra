@@ -51,7 +51,6 @@ module.exports = function productTile(product, apiProduct, productType, params, 
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
     var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
-
     if (!productSearchHit) {
         return null;
     }

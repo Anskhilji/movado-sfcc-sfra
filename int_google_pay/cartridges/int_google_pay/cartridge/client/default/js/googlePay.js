@@ -208,18 +208,8 @@ function onPaymentAuthorized(paymentData) {
                         }
                     });
                 } else {
-                    var redirectUrl = data.redirectUrl;
-                    var urlParams = {
-                        ID: data.orderID
-                    };
-
-                    redirectUrl += (redirectUrl.indexOf('?') !== -1 ? '&' : '?') +
-                        Object.keys(urlParams).map(function (key) {
-                            return key + '=' + encodeURIComponent(urlParams[key]);
-                        }).join('&');
-
                     setTimeout(() => {
-                        window.location.href = redirectUrl
+                        window.location.href = data.redirectUrl
                     }, 300);
                     resolve({ transactionState: 'SUCCESS' });
                 }
@@ -398,7 +388,7 @@ function addGooglePayButton() {
             googlePayContainer.append(button);
         });
     } else {
-        var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill');
+        var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill-new-style');
         if ($googlePayButton.length === 0) {
             button = paymentsClient.createButton(buttonConfigs);
             document.getElementById('google-pay-container-mini-cart').appendChild(button);

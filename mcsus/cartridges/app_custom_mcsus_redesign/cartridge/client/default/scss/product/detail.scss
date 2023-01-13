@@ -769,6 +769,10 @@
                         &.product-detail {
                             margin-top: rem(23);
 
+                            .gpay-error {
+                                background-color: $white;
+                            }
+
                             // .product-breadcrumb-redesign
                             .paddind-sm-0 {
                                 @include media-breakpoint-down(sm) {
@@ -1420,7 +1424,6 @@
 
                                         .google-pay-container {
                                             width: 100%;
-                                            height: rem(50);
                                             border-radius: rem(3);
                                             background-color: $black;
                                             display: flex;
@@ -1435,9 +1438,7 @@
                                                 }
                                             }
 
-                                            .gpay-button-fill {
-                                                padding: rem(5px) rem(0);
-
+                                            .gpay-button-fill-new-style {
                                                 button {
                                                     height: rem(40);
                                                 }
@@ -2060,8 +2061,13 @@
                                         &-icon {
                                             background-image: url(../../images/map-pin.svg);
                                             padding: rem(15);
-                                            margin-right: rem(9);
+                                            margin-right: rem(5);
                                             transform: translateX(-2px);
+
+                                            @include media-breakpoint-down(xs) {
+                                                background-image: url(../../images/map-pin-mobile.svg);
+                                                transform: translateX(-8px);
+                                            }
                                         }
                                     }
                                 }
@@ -2106,3 +2112,14 @@
     }
 }
 // CSS End: isPick up store pdp redesign
+
+// CSS Start: listrak persistent popup
+.listrak-persistent-popup {
+    display: none !important;
+}
+.button-floting {
+    &.button-product-detail {
+        bottom: rem(160);
+    }
+}
+// CSS End: listrak persistent popup

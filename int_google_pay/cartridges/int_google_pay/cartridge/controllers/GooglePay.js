@@ -96,6 +96,9 @@ server.post('ProcessPayments',
 
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var referralUrl = req.referer;
+        var googlePayEntryPoint = referralUrl && (referralUrl.indexOf('Cart-Show') > -1) || (referralUrl.indexOf('shopping-bag') > -1) ? false : true;
+        var productID = (!empty(currentBasket)) ? currentBasket.productLineItems[0].productID : '';
         if (!currentBasket) {
             res.json({
                 error: true,
@@ -105,6 +108,12 @@ server.post('ProcessPayments',
                 redirectUrl: URLUtils.url('Cart-Show').toString()
             });
             return;
+        }
+
+        if (session.privacy.pickupFromStore) {
+            Transaction.wrap(function () {
+                COCustomHelpers.removeGiftMessageLineItem(currentBasket);
+            });
         }
 
          // Added Smart Gift Logic
@@ -142,7 +151,33 @@ server.post('ProcessPayments',
             var selectedShippingMethod = googlePayResponse.shippingOptionData.id;
             var shippingAddressData = googlePayResponse.shippingAddress;
             shippingAddressData.email = googlePayResponse.email;
-            googlePayHelper.setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, currentBasket.defaultShipment);
+            var response = googlePayHelper.setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, currentBasket.defaultShipment);
+            
+            if (response) {
+                if (googlePayEntryPoint) {
+                    res.json({
+                        error: false,
+                        lastNameError: true,
+                        redirectUrl: (URLUtils.url('Product-Show', 'pid', productID, 'lastNameError', true)).toString()
+                    });
+                    return next();
+    
+                } else {
+                    res.json({
+                        error: false,
+                        lastNameError: true,
+                        redirectUrl: (URLUtils.url('Cart-Show', 'lastNameError', true)).toString()
+                    });
+                    return next();
+    
+                }
+            }
+
+            var email = googlePayResponse.email;
+            if (!empty(email)) {
+                var maskedEmail = COCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(GooglePay) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
+            }
         }
 
 
@@ -225,6 +260,12 @@ server.post('ProcessPayments',
             cvvResultCode: 'M', // CVV2 Match
             paymentMethod: 'Google_Pay'
         });
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(GooglePay) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+        }
     
         if (riskifiedCheckoutCreateResponse && riskifiedCheckoutCreateResponse.error) {
             hooksHelper(
@@ -270,22 +311,21 @@ server.post('ProcessPayments',
             res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
             return next();
         } else {
-                var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
-                if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-                        // Riskified order declined response from decide API
-                        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-                        if (riskifiedOrderDeclined) {
-                            res.json({
-                                error: false,
-                                orderID: orderNumber,
-                                redirectUrl: URLUtils.url('Checkout-Declined').toString()
-                            });
-                            return next();
-                        }
-                } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
-                    // Riskified order approved response from decide API
-                    RiskifiedOrderDescion.orderApproved(order);
-                }
+            var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+            if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+                    // Riskified order declined response from decide API
+                    riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+                    if (riskifiedOrderDeclined) {
+                        res.json({
+                            error: false,
+                            redirectUrl: URLUtils.url('Checkout-Declined').toString()
+                        });
+                        return next();
+                    }
+            } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+                // Riskified order approved response from decide API
+                RiskifiedOrderDescion.orderApproved(order);
+            }
         }
 
          // Calling fraud detection hook
@@ -417,6 +457,12 @@ server.post('ProcessPayments',
             error: false,
             redirectUrl: URLUtils.abs('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString()
         });
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(GooglePay) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+        }
 
         return next();
     }

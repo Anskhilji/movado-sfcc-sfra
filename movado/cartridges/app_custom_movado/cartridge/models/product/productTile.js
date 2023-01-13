@@ -120,7 +120,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: yotpoReviewsCustomAttribute
         });
     }
-
     if (!empty(apiProduct)) {
         Object.defineProperty(product, 'productBasePrice', {
             enumerable: true,

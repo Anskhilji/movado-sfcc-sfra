@@ -1,6 +1,7 @@
 'use strict';
 
 var price = module.superModule;
+
 var BaseAttributeValue = require('*/cartridge/models/search/attributeRefinementValue/base');
 var ProductPagination = require('*/cartridge/scripts/helpers/ProductPagination');
 
@@ -46,7 +47,7 @@ function PriceObject(productSearch,
         });
         return priceObj;
     }
-    
+
     return priceModel;
 }
 
@@ -148,5 +149,8 @@ function PriceRefinementValueWrapper(productSearch, refinementDefinition, refine
     }, this);
 }
 
+
+
 module.exports = PriceObject;
 module.exports = PriceRefinementValueWrapper;
+

@@ -435,7 +435,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer, data.OptionsValidationError);
                 var listrakTracking = require('movado/listrakActivityTracking.js');
-                listrakTracking.listrackProductTracking();
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -836,6 +836,13 @@ module.exports = {
                 form.options = getOptions($productContainer);
             }
             form.currentPage = $('.page[data-action]').data('action') || '';
+
+            var personalize = $('.popup-tabs .personalize');
+            if (personalize.length && personalize.length > 0) {
+                var personalizationType = personalize.val();
+                form.personalizationType = personalizationType; 
+            }
+
             $(this).trigger('updateAddToCartFormData', form);
             if (addToCartUrl) {
                 $.ajax({

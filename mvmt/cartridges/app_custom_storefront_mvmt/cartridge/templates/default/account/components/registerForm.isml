@@ -1,3 +1,5 @@
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
 <iscomment> Custom Start: Changing in html structure similar to mvmt design </iscomment>
 <form
     action="${pdict.createAccountUrl}"
@@ -37,7 +39,9 @@
         <div class="dob-wrapper row">
             <div class="custom-select-wrapper col-6">
                 <label for="month" class="sr-only">${Resource.msg('label.input.dateofbirth.month','forms',null)}</label>
-                <select class="form-control custom-select" id="month" <isprint value="${pdict.profileForm.customer.birthmonth.attributes}" encoding="off" />>
+                <select class="form-control custom-select" id="month" <isprint value="${pdict.profileForm.customer.birthmonth.attributes}" encoding="off" />
+                data-birthdate ="${JSON.stringify(pdict.profileForm.customer.birthdate.options)}"
+                >
                     <isloop items=${pdict.profileForm.customer.birthmonth.options} var="month">
                         <option id="${'month-'+month.id}" value="${month.htmlValue}" <isif condition="${month.selected}">selected</isif> >${month.label}</option>
                     </isloop>
@@ -164,10 +168,14 @@
     </div>
 
     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+    <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" name="${pdict.profileForm.customer.grecaptchatoken.htmlName}" 
+        <isprint value=${pdict.profileForm.customer.grecaptchatoken.attributes} encoding="off" />
+    >
     <div class="row justify-content-center no-gutters">
-	    <button type="submit" class="btn create-account btn-block btn-primary">
-	        ${Resource.msg('button.createaccount.registration', 'registration', null)}
-	    </button>
+    <button type="submit" class="btn create-account btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''} form-submit">${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
+    <isif condition="${isGoogleRecaptchaEnabled}">
+        <button type="submit" class="btn create-account btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha'>${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
+    </isif>
     </div>
 </form>
 <iscomment> Custom End </iscomment>

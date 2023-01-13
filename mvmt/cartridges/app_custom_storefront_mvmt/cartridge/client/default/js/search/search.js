@@ -456,8 +456,18 @@ function moveFocusToTop() {
     }, 600);
 }
 
+// Mobile: For Filter & Sort button show x matach count update 
+function totalProductCountResultupdate() {
+    var $mobileMenuContainerMainCountResult = $('.mobile-menu-container-main .mobile-filter-options .redesign-filter-mobile .total-products-count-result').first();
+    var $mobileSortMenuContainerCountResultDataVal = $mobileMenuContainerMainCountResult.data('total-product-count')
+    var $mobileSortMenuContainerCountResultInnerText = $mobileMenuContainerMainCountResult.text();
+    var $mobileSortMenuContainerCountResult = $('.mobile-sort-menu-container .total-products-count-result');
+    $mobileSortMenuContainerCountResult.data('total-product-count', $mobileSortMenuContainerCountResultDataVal);
+    $mobileSortMenuContainerCountResult.html($mobileSortMenuContainerCountResultInnerText);
+}
+
 // Desktop Filter bar plp: on plp after clicked on filters bar close btn
-function removeSelectedFilterDesktop($element) {
+function removeSelectedFilterDesktop($element, desktopActiveTabId) {
     var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
 
     if (isSelectedFilterBar) {
@@ -470,30 +480,30 @@ function removeSelectedFilterDesktop($element) {
             $('.plp-filter-bar .plp-filter-btn').removeClass('active');
             $('.plp-grid-overlay').removeClass('active');
 
-            var RemoveUrlParams = getUrlParamObj(document.location.href);
+            var removeUrlParams = getUrlParamObj(document.location.href);
             var oldUrl = document.location.href;
             var url = oldUrl.split('?')[0];
             var urlReload = oldUrl.split('?')[1];
             var newFilteredUrl = url;
 
-            if (RemoveUrlParams.hasOwnProperty('q') == true) {
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;
+            if (removeUrlParams.hasOwnProperty('q') == true) {
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;
                         newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
                     }
                 }
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;  
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;  
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                     }
                 }
             } else {
-                if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.srule) {
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.srule) {
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
                     }
                 }
@@ -501,12 +511,12 @@ function removeSelectedFilterDesktop($element) {
             window.history.pushState({}, '', newFilteredUrl);
 
             if (urlReload) {
-                window.location.reload();
+                filterBarEmpty($(this), newFilteredUrl);
             }
             return;
         } else {
             filterLoadInProgress = true;
-
+            var clickedFilterTabId = desktopActiveTabId;
             var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
             if (parentSelectorOuter) {
                 var parentSelector = parentSelectorOuter.querySelectorAll('.filter-refinement-container');
@@ -515,10 +525,11 @@ function removeSelectedFilterDesktop($element) {
                 var params = '';
                 var pminValue = '';
                 var pmaxValue = '';
+                var prefn;
 
                 parentSelector.forEach(function (el, index) {
                     if (el.hasChildNodes()) {
-                        var prefn = el.dataset.filterId;
+                        prefn = el.dataset.filterId;
                         var childElement = el.querySelectorAll('.filter-element');
                         
                         childElement.forEach(function (e, i) {
@@ -656,6 +667,22 @@ function removeSelectedFilterDesktop($element) {
                             loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                         }
 
+                        var filterSelectedTab;
+                        var isFilterSelectedTabId;
+                        var isClickedFilterTab = document.querySelectorAll('.plp-filter-list');
+                        if (isClickedFilterTab && isClickedFilterTab.length > 0) {
+                            isClickedFilterTab.forEach(function (el) {
+                                filterSelectedTab =  el.firstChild.nextSibling;
+                                isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
+                                if (isFilterSelectedTabId == clickedFilterTabId) {
+                                    var filterSelectedPopup = el.lastChild.previousSibling;
+                                    filterSelectedTab.classList.add('active');
+                                    filterSelectedPopup.classList.add('loaded', 'active');
+                                    $('.plp-grid-overlay').addClass('active');
+                                    $('.plp-active-filter-selected').removeClass('d-none');
+                                }
+                            });
+                        }
                     },
                     error: function () {
                         $.spinner().stop();
@@ -673,6 +700,17 @@ function removeSelectedFilterMobile($element) {
     var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
             
     if (isSelectedFilterBar) {
+
+        var isFilterSort = document.querySelector('.mobile-sort-menu.mobile-sort-menu-container');
+        var isFilterSortActive = isFilterSort.classList.contains('active');
+
+        if (!isFilterSortActive) {
+            var clickedFilterTabMobile = document.querySelector('.mvmt-redesign-filter-button.active');
+            if (clickedFilterTabMobile) {
+                var clickedFilterTabMobileDataValue = clickedFilterTabMobile.dataset.optionSelect;
+            }
+        }
+        
         var isFilterChildList = isSelectedFilterBar.children.length > 0;
 
         if (!isFilterChildList) {
@@ -682,41 +720,41 @@ function removeSelectedFilterMobile($element) {
             $('.plp-filter-bar .plp-filter-btn').removeClass('active');
             $('.plp-grid-overlay').removeClass('active');
             $('.mobile-filter-redesign').removeClass('active-filter-closed-mobile');
+            $('body').removeClass('lock-bg');
             var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
             var mobileMenuContainerMain = document.querySelector('.mobile-menu-container-main');
             var isSortActive = mobileSortMenu.classList.contains('active');
             var isMobileActive = mobileMenuContainerMain.classList.contains('active');
             if (isSortActive) {
                 $('.mobile-sort-menu').removeClass('active');
-                $('body').removeClass('lock-bg');
             } 
             if (isMobileActive) {
                 mobileMenuContainerMain.classList.remove('active');
             }
-            var RemoveUrlParams = getUrlParamObj(document.location.href);
+            var removeUrlParams = getUrlParamObj(document.location.href);
             var oldUrl = document.location.href;
             var url = oldUrl.split('?')[0];
             var urlReload = oldUrl.split('?')[1];
             var newFilteredUrl = url;
 
-            if (RemoveUrlParams.hasOwnProperty('q') == true) {
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;
+            if (removeUrlParams.hasOwnProperty('q') == true) {
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;
                         newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
                     }
                 }
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;  
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;  
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                     }
                 }
             } else {
-                if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.srule) {
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.srule) {
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
                     }
                 }
@@ -724,7 +762,7 @@ function removeSelectedFilterMobile($element) {
             window.history.pushState({}, '', newFilteredUrl);
 
             if (urlReload) {
-                window.location.reload();
+                filterBarEmpty($(this), newFilteredUrl);
             }
             return;
         } else {
@@ -745,10 +783,11 @@ function removeSelectedFilterMobile($element) {
                 var params = '';
                 var pminValue = '';
                 var pmaxValue = '';
+                var prefn;
 
                 selectedFiltersAll.forEach(function (el, index) {
                         if (el.hasChildNodes()) {
-                            var prefn = el.dataset.filterId;
+                            prefn = el.dataset.filterId;
                             var childElement = el.querySelectorAll('.filter-element');
                             
                             childElement.forEach(function (e, i) {
@@ -882,8 +921,42 @@ function removeSelectedFilterMobile($element) {
                         if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                             loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                         }
+                        // Custom Start: mobile filter active
+                        if (!isFilterSortActive) { 
+                            var mobileFilterMenuMain = document.querySelector('.mobile-filter-menu.mobile-menu-container-main');
+                            if (mobileFilterMenuMain) {
+                                var mobileActiveFilter = mobileFilterMenuMain.querySelector(clickedFilterTabMobileDataValue);
+                                if (mobileActiveFilter) {
+                                    mobileFilterMenuMain.classList.add('active');
+                                    mobileFilterMenuMain.classList.remove('disable-events');
+                                    mobileActiveFilter.classList.add('active');
+                                    var mobileActiveFilterChild = mobileActiveFilter.children[0];
+                                    var firstChild = mobileActiveFilterChild.firstChild.nextSibling;
+                                    var lastChild = mobileActiveFilterChild.lastChild.previousSibling;
+                                    firstChild.classList.add('loaded');
+                                    lastChild.classList.add('loaded');
+
+                                    var mobileFilterBtnDataValue;
+                                    var mobileFilterButtonAll = document.querySelectorAll('.mvmt-redesign-filter-button');
+                                    mobileFilterButtonAll.forEach(function (el) {
+                                        mobileFilterBtnDataValue = el.dataset.optionSelect;
+                                        if (mobileFilterBtnDataValue && mobileFilterBtnDataValue == clickedFilterTabMobileDataValue) {
+                                            el.classList.add('active');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                        // Custom End
+
+                        // Custom Start: mobile sort & filter active
+                        if (isFilterSortActive) {
+                            isFilterSort.classList.add('active');
+                        }
+                        // Custom end
                         bulidLifeStyleCarousel();
                         filterScroll();
+                        totalProductCountResultupdate();
                     },
                     error: function () {
                         $.spinner().stop();
@@ -894,10 +967,732 @@ function removeSelectedFilterMobile($element) {
 
     }
 }
+
+function clearAllBtnTrigger($element) {
+    var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
+            
+    if (isSelectedFilterBar) {
+        var isFilterChildList = isSelectedFilterBar.children.length > 0;
+
+        if (!isFilterChildList) {
+            $('.filter-group').removeClass('active loaded');
+            $('.plp-active-filter').removeClass('loaded');
+            $('.plp-active-filter-selected').addClass('d-none');
+            $('.plp-filter-bar .plp-filter-btn').removeClass('active');
+            $('.plp-grid-overlay').removeClass('active');
+            $('.mobile-filter-redesign').removeClass('active-filter-closed-mobile');
+            $('body').removeClass('lock-bg');
+            var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
+            var mobileMenuContainerMain = document.querySelector('.mobile-menu-container-main');
+            var isSortActive = mobileSortMenu.classList.contains('active');
+            var isMobileActive = mobileMenuContainerMain.classList.contains('active');
+            if (isSortActive) {
+                $('.mobile-sort-menu').removeClass('active');
+            } 
+            if (isMobileActive) {
+                mobileMenuContainerMain.classList.remove('active');
+            }
+            var removeUrlParams = getUrlParamObj(document.location.href);
+            var oldUrl = document.location.href;
+            var url = oldUrl.split('?')[0];
+            var urlReload = oldUrl.split('?')[1];
+            var newFilteredUrl = url;
+
+            if (removeUrlParams.hasOwnProperty('q') == true) {
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;
+                        newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
+                    }
+                }
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;  
+                        var queryParamSrule = removeUrlParams.srule;  
+                        newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
+                    }
+                }
+            } else {
+                if (removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.srule) {
+                        var queryParamSrule = removeUrlParams.srule;  
+                        newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
+                    }
+                }
+            }
+            window.history.pushState({}, '', newFilteredUrl);
+
+            if (newFilteredUrl) {
+                filterBarEmpty($element, newFilteredUrl);
+            }
+            return;
+        } else {
+            filterLoadInProgress = true;
+            var selectedFiltersAll;
+            var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
+            var isActive = mobileSortMenu.classList.contains('active');
+            if (isActive) {
+                selectedFiltersAll = mobileSortMenu.querySelectorAll('.filter-refinement-container');
+            } else {
+                var mobileMenuContainerMain  = document.querySelector('.mobile-menu-container-main');
+                selectedFiltersAll = mobileMenuContainerMain.querySelectorAll('.filter-refinement-container');
+            }
+
+            if (selectedFiltersAll) {
+                var prefv = '';
+                var indexValue = 1;
+                var params = '';
+                var pminValue = '';
+                var pmaxValue = '';
+                var prefn;
+
+                selectedFiltersAll.forEach(function (el, index) {
+                        if (el.hasChildNodes()) {
+                            prefn = el.dataset.filterId;
+                            var childElement = el.querySelectorAll('.filter-element');
+                            
+                            childElement.forEach(function (e, i) {
+                                var hasFilerSelected = e.querySelector('.check-filter-selected');
+
+                                if (hasFilerSelected) {
+                                    if (prefv.indexOf('%7C') == -1) {
+                                        prefv +='%7C';
+                                    }
+                                    if (e.dataset.filterId == 'price') {
+                                        pminValue += e.dataset.valuePmin;
+                                        pmaxValue += e.dataset.valuePmax;
+                                    } else {
+                                        prefv += e.dataset.selectedFilter;
+                                    }
+                                    if (prefv.indexOf('%7C') !== -1) {
+                                        prefv +='%7C';
+                                    } 
+                                }
+                            });
+                            if (prefv) {
+                                if (params.indexOf('?') == -1) {
+                                    params += '?';
+                                } else {
+                                    params +='&';
+                                }
+                                prefv = prefv.slice(3, -3);
+                                if(prefn == "pmid"){
+                                    params += `pmid=${prefv}`;
+                                    indexValue--;
+                                } else if (prefn == 'price') {
+                                    // ?pmin=500.00&pmax=1000.00
+                                    if (pminValue !== '' && pmaxValue !== '') {
+                                        params += `pmin=${pminValue}&pmax=${pmaxValue}`;
+                                        indexValue--;
+                                    }
+                                }else{
+                                    params += `prefn${indexValue}=${prefn}&prefv${indexValue}=${prefv}`;
+                                }
+                                indexValue++;
+                            }
+                            
+                        };
+                    prefv = '';
+                });
+
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = params;    
+                var currentSelectedSortId = '';
+
+                if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParamSrule(filtersURL, 'srule', currentSelectedSortId);
+                        
+                    }
+                }
+                if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == true) {
+                    if (urlparams.q && urlparams.srule) {
+                        var paramSrule = urlparams.srule;
+                        var paramSearchQuery = urlparams.q;
+                        filtersURL = replaceUrlParamSruleQ(filtersURL, 'srule', paramSrule, 'q', paramSearchQuery);
+                    }
+                }
+                if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                    if (urlparams.pmid && urlparams.srule) {
+                        var paramSrule = urlparams.srule;
+                        var paramPmid = urlparams.pmid;
+                        filtersURL = replaceUrlParamPmidSrule(filtersURL, 'pmid', paramPmid, 'srule', paramSrule);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == true) {
+                    if (urlparams.q) {
+                        var paramSearchQuery = urlparams.q;
+                        filtersURL = replaceUrlParamSearchQuery(filtersURL, 'q', paramSearchQuery);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == false) {
+                    if (urlparams.q) {
+                        var paramSearchQuery = urlparams.q;
+                        var paramPmid = urlparams.pmid;
+                        filtersURL = replaceUrlParamSearchQueryPmid(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.q) {
+                        var paramSearchQuery = urlparams.q;
+                        var paramPmid = urlparams.pmid;
+                        var paramSrule = urlparams.srule;
+                        filtersURL = replaceUrlParamSearchQueryPmidSrule(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid, 'srule', paramSrule);
+                    }
+                }
+
+                var baseUrl = document.location.href;
+                if (baseUrl.indexOf('?') !== -1) {
+                    baseUrl = baseUrl.split('?')[0];
+                }
+                filtersURL = baseUrl + filtersURL;
+                $.spinner().start();
+                $element.trigger('search:filter', $element);
+                $.ajax({
+                    url: filtersURL,
+                    data: {
+                        page: $('.grid-footer').data('page-number'),
+                        selectedUrl: filtersURL
+                    },
+                    method: 'GET',
+                    success: function (response) {
+                        var params = '';
+                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                        $('body').trigger('facet:success', [gtmFacetArray]);
+                        parseResults(response);
+                        updatePageURLForFacets(filtersURL);
+                        $.spinner().stop();
+                        moveFocusToTop();
+                        swatches.showSwatchImages();
+                        $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                        $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
+                        $('body').removeClass('lock-bg');
+                        $('.mvmt-plp .grid-header .sort-col').remove();
+                        $('.mvmt-plp .grid-header .filter-col').remove();
+                        $('.mobile-filter-redesign').removeClass('active-filter-closed-mobile');
+                        if (isActive) {
+                            $('.mobile-sort-menu').removeClass('active');
+                            $('body').removeClass('lock-bg');
+                        }
+                        checkClearAllBtn();
+                        if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+                            loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+                        }
+                        bulidLifeStyleCarousel();
+                        filterScroll();
+                        totalProductCountResultupdate();
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                    }
+                });
+            }                    
+        }
+
+    }
+}
+
+// Desktop & Mobile Filter bar plp: on plp clicked on last filter btn without reload the page populate the results
+function filterBarEmpty($element, filtersURL) {
+    $.spinner().start();
+    $element.trigger('search:filter', $element);
+    $.ajax({
+        url: filtersURL,
+        data: {
+            page: $('.grid-footer').data('page-number'),
+            selectedUrl: filtersURL
+        },
+        method: 'GET',
+        success: function (response) {
+            var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+            $('body').trigger('facet:success', [gtmFacetArray]);
+            parseResults(response);
+            $.spinner().stop();
+            moveFocusToTop();
+            swatches.showSwatchImages();
+
+            $('.mobile-filter-menu').removeClass('active');
+            $('.mobile-sort-menu').removeClass('active').addClass('disable-events');
+            $('body').removeClass('lock-bg');
+            $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+            $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
+            $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
+            $('.plp-grid-overlay').removeClass('active');
+            $('.plp-active-filter-selected').addClass('d-none');
+            $('.plp-filter-redesign').removeClass('active-filter-closed-desktop');
+            bulidLifeStyleCarousel();
+            if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+                loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+            }
+            totalProductCountResultupdate();
+        },
+        error: function () {
+            $.spinner().stop();
+            filterLoadInProgress = false;
+        }
+    });
+}
+
+// Desktop filter selection
+function desktopFilterSelect(currentElement) {
+    filterLoadInProgress = true;
+    // Get currently selected sort option to retain sorting rules
+    var clicked = currentElement.target.closest('.filter-elements');
+    var filterBar = document.querySelectorAll('.selected-filter-bar');
+
+    if (!clicked) return;
+    if (clicked) {
+        var isSelected = clicked.querySelector('.selected');
+        var filterBarValue = clicked.dataset.selectedFilter;
+        var filterBarId = clicked.dataset.filterId;
+        var isCheckSquare = clicked.querySelector('.check-square');
+        var isSquareO = clicked.querySelector('.square-o');
+        var isCheckCircle = clicked.querySelector('.check-circle');
+        var isCheckO = clicked.querySelector('.check-o');
+        
+        if (isSelected && isCheckSquare == null && isSquareO == null && isCheckCircle == null && isCheckO == null) {
+            var containClass = isSelected.classList.toggle('filter-selected');
+            if (containClass) {
+                isSelected.classList.add('check-filter-selected');
+                var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
+                                <a href="">${filterBarValue}</a>
+                            </li>`;
+                filterBar.forEach(function (e) {
+                    e.insertAdjacentHTML('beforeend', html);    
+                });
+           } else {
+            var selectedFilterId = isSelected.dataset.selectedFilter;
+                var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+
+                if (slectedFilterBarAll.length > 0) {
+                    slectedFilterBarAll.forEach(function (el) {
+                        if (el.hasChildNodes()) {
+                            var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                            addedFilterBarAll.forEach(function (e) {
+                                if (e.dataset.addedFilterBar == selectedFilterId) {
+                                    e.remove();
+                                }
+                            });
+                        }
+                    });
+                }
+                isSelected.classList.remove('check-filter-selected');
+           }                  
+        } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
+            var filterElement = clicked.parentNode;
+            var isFilterElementFilterId = filterElement.dataset.filterId;
+            if (isFilterElementFilterId == 'pmid') {
+                var isFilterElementValue = filterElement.dataset.selectedFilter;
+                var isSquareOParent = isSquareO.parentNode;
+
+                var selectedFilterId = '';
+                var isparentSelector = document.querySelectorAll('.filter-refinement-container');
+                if (isparentSelector) {
+                    isparentSelector.forEach(function (el, index) {
+                        if (el.hasChildNodes()) {
+                            var isPriceFilter = el.dataset.filterId;
+                            if (isPriceFilter == 'pmid') {
+                                var childElement = el.querySelectorAll('.filter-element');
+                            
+                                childElement.forEach(function (e, i) {
+                                    var isPriceFilterSelected = e.querySelector('.check-filter-selected');
+                                    
+                                    if (isPriceFilterSelected) {
+                                        if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
+                                            selectedFilterId = e.dataset.selectedFilter;
+                                            isPriceFilterSelected.classList.remove('check-filter-selected');
+
+                                            if (isPriceFilterSelected.hasChildNodes()) {
+                                                var pmidFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-square');
+                                                
+                                                if (pmidFilterChildEl) {
+                                                    pmidFilterChildEl.classList.remove('fa-check-square', 'check-square');
+                                                    pmidFilterChildEl.classList.add('fa-square-o', 'square-o');
+                                                }
+                                            }
+                                            
+                                        }
+                                    }
+                                });
+                            }
+                        };
+                    });
+                }
+                
+                var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+                if (slectedFilterBarAll.length > 0) {
+                    slectedFilterBarAll.forEach(function (el) {
+                        if (el.hasChildNodes()) {
+                            var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                            addedFilterBarAll.forEach(function (e) {
+                                if (e.dataset.addedFilterBar == selectedFilterId) {
+                                    e.remove();
+                                }
+                            });
+                        }
+                    });
+                }
+
+                isSquareOParent.classList.add('check-filter-selected');
+                isSquareO.classList.remove('square-o');
+                isSquareO.classList.remove('fa-square-o');
+                isSquareO.classList.add('fa-check-square');
+                isSquareO.classList.add('check-square');
+                var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
+                                <a href="">${filterBarValue}</a>
+                            </li>`;
+                filterBar.forEach(function (e) {
+                    e.insertAdjacentHTML('beforeend', html);    
+                });
+            } else {
+                var isFilterElementValue = filterElement.dataset.selectedFilter;
+                var isSquareOParent = isSquareO.parentNode;
+
+                isSquareOParent.classList.add('check-filter-selected');
+                isSquareO.classList.remove('square-o');
+                isSquareO.classList.remove('fa-square-o');
+                isSquareO.classList.add('fa-check-square');
+                isSquareO.classList.add('check-square');
+                var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
+                                <a href="">${filterBarValue}</a>
+                            </li>`;
+                filterBar.forEach(function (e) {
+                    e.insertAdjacentHTML('beforeend', html);    
+                });
+            }
+
+        } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
+            var filterElementLabelParent = clicked.parentNode;
+            var selectedFilterId  = filterElementLabelParent.dataset.selectedFilter
+            var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+
+            if (slectedFilterBarAll.length > 0) {
+                slectedFilterBarAll.forEach(function (el) {
+                    if (el.hasChildNodes()) {
+                        var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                        addedFilterBarAll.forEach(function (e) {
+                            if (e.dataset.addedFilterBar == selectedFilterId) {
+                                e.remove();
+                            }
+                        });
+                    }
+                });
+            }
+
+            var isCheckSquaretParent = isCheckSquare.parentNode;
+            isCheckSquaretParent.classList.remove('check-filter-selected');
+            isCheckSquare.classList.remove('fa-check-square');
+            isCheckSquare.classList.remove('check-square');
+            isCheckSquare.classList.add('square-o');
+            isCheckSquare.classList.add('fa-square-o');
+        } else if (isSelected && isSquareO == null && isCheckSquare == null && isCheckCircle == null && isCheckO !== null) {
+            var selectedFilterId = '';
+            var isparentSelector = document.querySelectorAll('.filter-refinement-container');
+            if (isparentSelector) {
+                isparentSelector.forEach(function (el, index) {
+                if (el.hasChildNodes()) {
+                    var isPriceFilter = el.dataset.filterId;
+                    if (isPriceFilter == 'price') {
+                        var childElement = el.querySelectorAll('.filter-element');
+                    
+                        childElement.forEach(function (e, i) {
+                            var isPriceFilterSelected = e.querySelector('.check-filter-selected');
+                            
+                            if (isPriceFilterSelected) {
+                                if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
+                                    selectedFilterId = isPriceFilterSelected.dataset.selectedFilter;
+                                    isPriceFilterSelected.classList.remove('check-filter-selected');
+
+                                    if (isPriceFilterSelected.hasChildNodes()) {
+                                        var priceFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-circle');
+                                        
+                                        if (priceFilterChildEl) {
+                                            priceFilterChildEl.classList.remove('fa-check-circle', 'check-circle');
+                                            priceFilterChildEl.classList.add('check-o', 'fa-circle-o');
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        });
+                    }
+                };
+            });
+        }
+                        
+        var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+        if (slectedFilterBarAll.length > 0) {
+            slectedFilterBarAll.forEach(function (el) {
+                if (el.hasChildNodes()) {
+                    var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                    addedFilterBarAll.forEach(function (e) {
+                        if (e.dataset.addedFilterBar == selectedFilterId) {
+                            e.remove();
+                        }
+                    });
+                }
+            });
+        }      
+
+        var isCheckOParent = isCheckO.parentNode;
+        isCheckOParent.classList.add('check-filter-selected');
+        isCheckO.classList.remove('check-o', 'fa-circle-o');
+        isCheckO.classList.add('fa-check-circle', 'check-circle');
+        var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
+                            <a href="">${filterBarValue}</a>
+                        </li>`;
+        filterBar.forEach(function (e) {
+            e.insertAdjacentHTML('beforeend', html);    
+        });
+    }
+}
+}
+
+// Mobile fitler selection
+function mobileFilterSelect(currentElement) {
+    filterLoadInProgress = true;
+    // Get currently selected sort option to retain sorting rules
+    var clicked = currentElement.target.closest('.filter-elements');
+    var filterBar = document.querySelectorAll('.selected-filter-bar');
+
+    if (!clicked) return;
+    if (clicked) {
+        var isSelected = clicked.querySelector('.selected');
+        var filterBarValue = clicked.dataset.selectedFilter;
+        var filterBarId = clicked.dataset.filterId;
+        var isCheckSquare = clicked.querySelector('.check-square');
+        var isSquareO = clicked.querySelector('.square-o');
+        var isCheckCircle = clicked.querySelector('.check-circle');
+        var isCheckO = clicked.querySelector('.check-o');
+        if (isSelected && isCheckSquare == null && isSquareO == null && isCheckCircle == null && isCheckO == null) {
+            var containClass = isSelected.classList.toggle('filter-selected');
+            if (containClass) {
+                isSelected.classList.add('check-filter-selected');
+                var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
+                                <a href="">${filterBarValue}</a>
+                            </li>`;
+                filterBar.forEach(function (e) {
+                    e.insertAdjacentHTML('beforeend', html);    
+                });
+           } else {
+                var selectedFilterId = isSelected.dataset.selectedFilter;
+                var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+
+                if (slectedFilterBarAll.length > 0) {
+                    slectedFilterBarAll.forEach(function (el) {
+                        if (el.hasChildNodes()) {
+                            var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                            addedFilterBarAll.forEach(function (e) {
+                                if (e.dataset.addedFilterBar == selectedFilterId) {
+                                    e.remove();
+                                }
+                            });
+                        }
+                    });
+                }
+                isSelected.classList.remove('check-filter-selected');
+           }                  
+        } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
+            var isFiltersCheckBox = clicked.querySelector('.filters-checkbox');
+            var filterElement = clicked.parentNode;
+            var isFilterElementFilterId = filterElement.dataset.filterId;
+            if (isFilterElementFilterId == 'pmid') {
+                if (isFiltersCheckBox) {
+                    var filterElementLabel = filterElement.querySelector('.filter-elements');
+                    filterElementLabel.classList.add('label-selected');
+                } 
+                var isFilterElementValue = filterElement.dataset.selectedFilter;
+                var isSquareOParent = isSquareO.parentNode;
+
+                var selectedFilterId = '';
+                var isparentSelector = document.querySelectorAll('.filter-refinement-container');
+                if (isparentSelector) {
+                    isparentSelector.forEach(function (el, index) {
+                        if (el.hasChildNodes()) {
+                            var isPriceFilter = el.dataset.filterId;
+                            if (isPriceFilter == 'pmid') {
+                                var childElement = el.querySelectorAll('.filter-element');
+                            
+                                childElement.forEach(function (e, i) {
+                                    var isPriceFilterSelected = e.querySelector('.check-filter-selected');
+                                    
+                                    if (isPriceFilterSelected) {
+                                        var isSelectLabelParent = isPriceFilterSelected.parentNode;
+                                        if (isSelectLabelParent.classList.contains('label-selected')) {
+                                            isSelectLabelParent.classList.remove('label-selected');
+                                        }
+                                        if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
+                                            selectedFilterId = e.dataset.selectedFilter;
+                                            isPriceFilterSelected.classList.remove('check-filter-selected');
+
+                                            if (isPriceFilterSelected.hasChildNodes()) {
+                                                var pmidFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-square');
+                                                
+                                                if (pmidFilterChildEl) {
+                                                    pmidFilterChildEl.classList.remove('fa-check-square', 'check-square');
+                                                    pmidFilterChildEl.classList.add('fa-square-o', 'square-o');
+                                                }
+                                            }
+                                            
+                                        }
+                                    }
+                                });
+                            }
+                        };
+                    });
+                }
+                var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+                if (slectedFilterBarAll.length > 0) {
+                    slectedFilterBarAll.forEach(function (el) {
+                        if (el.hasChildNodes()) {
+                            var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                            addedFilterBarAll.forEach(function (e) {
+                                if (e.dataset.addedFilterBar == selectedFilterId) {
+                                    e.remove();
+                                }
+                            });
+                        }
+                    });
+                }
+
+                isSquareOParent.classList.add('check-filter-selected');
+                isSquareO.classList.remove('square-o');
+                isSquareO.classList.remove('fa-square-o');
+                isSquareO.classList.add('fa-check-square');
+                isSquareO.classList.add('check-square');
+                var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
+                                <a href="">${filterBarValue}</a>
+                            </li>`;
+                filterBar.forEach(function (e) {
+                    e.insertAdjacentHTML('beforeend', html);    
+                });
+            } else {
+                if (isFiltersCheckBox) {
+                    var filterElementLabel = filterElement.querySelector('.filter-elements');
+                    filterElementLabel.classList.add('label-selected');
+                } 
+                var isFilterElementValue = filterElement.dataset.selectedFilter;
+                var isSquareOParent = isSquareO.parentNode;
+
+                isSquareOParent.classList.add('check-filter-selected');
+                isSquareO.classList.remove('square-o');
+                isSquareO.classList.remove('fa-square-o');
+                isSquareO.classList.add('fa-check-square');
+                isSquareO.classList.add('check-square');
+                var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
+                                <a href="">${filterBarValue}</a>
+                            </li>`;
+                filterBar.forEach(function (e) {
+                    e.insertAdjacentHTML('beforeend', html);    
+                });
+            }
+
+        } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
+            var filterElementLabelParent = clicked.parentNode;
+            var selectedFilterId  = filterElementLabelParent.dataset.selectedFilter
+            var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+
+            if (slectedFilterBarAll.length > 0) {
+                slectedFilterBarAll.forEach(function (el) {
+                    if (el.hasChildNodes()) {
+                        var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                        addedFilterBarAll.forEach(function (e) {
+                            if (e.dataset.addedFilterBar == selectedFilterId) {
+                                e.remove();
+                            }
+                        });
+                    }
+                });
+            }
+
+            var isCheckSquaretParent = isCheckSquare.parentNode;
+            var filterElementLabelRemove = filterElementLabelParent.querySelector('.filter-elements');
+            if (filterElementLabelRemove.classList.contains('label-selected')) {
+                filterElementLabelRemove.classList.remove('label-selected');
+            }
+            isCheckSquaretParent.classList.remove('check-filter-selected');
+            isCheckSquare.classList.remove('fa-check-square');
+            isCheckSquare.classList.remove('check-square');
+            isCheckSquare.classList.add('square-o');
+            isCheckSquare.classList.add('fa-square-o');
+        } 
+        else if (isSelected && isSquareO == null && isCheckSquare == null && isCheckCircle == null && isCheckO !== null) {
+            var selectedFilterId = '';
+            var isparentSelector = document.querySelectorAll('.filter-refinement-container');
+            if (isparentSelector) {
+                isparentSelector.forEach(function (el, index) {
+                if (el.hasChildNodes()) {
+                    var isPriceFilter = el.dataset.filterId;
+                    if (isPriceFilter == 'price') {
+                        var childElement = el.querySelectorAll('.filter-element');
+                    
+                        childElement.forEach(function (e, i) {
+                            var isPriceFilterSelected = e.querySelector('.check-filter-selected');
+                            
+                            if (isPriceFilterSelected) {
+                                if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
+                                    selectedFilterId = isPriceFilterSelected.dataset.selectedFilter;
+                                    isPriceFilterSelected.classList.remove('check-filter-selected');
+
+                                    if (isPriceFilterSelected.hasChildNodes()) {
+                                        var priceFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-circle');
+                                        
+                                        if (priceFilterChildEl) {
+                                            priceFilterChildEl.classList.remove('fa-check-circle', 'check-circle');
+                                            priceFilterChildEl.classList.add('check-o', 'fa-circle-o');
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        });
+                    }
+                };
+            });
+        }
+                        
+        var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+        if (slectedFilterBarAll.length > 0) {
+            slectedFilterBarAll.forEach(function (el) {
+                if (el.hasChildNodes()) {
+                    var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                    addedFilterBarAll.forEach(function (e) {
+                        if (e.dataset.addedFilterBar == selectedFilterId) {
+                            e.remove();
+                        }
+                    });
+                }
+            });
+        }      
+
+        var isCheckOParent = isCheckO.parentNode;
+        isCheckOParent.classList.add('check-filter-selected');
+        isCheckO.classList.remove('check-o', 'fa-circle-o');
+        isCheckO.classList.add('fa-check-circle', 'check-circle');
+        var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
+                        <a href="">${filterBarValue}</a>
+                    </li>`;
+        filterBar.forEach(function (e) {
+            e.insertAdjacentHTML('beforeend', html);    
+        });
+    }
+    checkClearAllBtn();
+}
+}
+
 // Added container-fluid class alongside container
 
 module.exports = {
 
+    load: function() {
+        $(window).load('load', function(e) {
+            $('.filter-and-count').css('visibility','visible');
+        }); 
+    },
     filter: function () {
         // Display refinements bar when Menu icon clicked
         $('.container, .container-fluid').on('click', 'button.filter-results', function () {
@@ -961,6 +1756,7 @@ module.exports = {
                     $('.mobile-sort-menu').removeClass('active');
                     $('body').removeClass('lock-bg');
                     $('.mobile-menu-close, .mobile-sort-order').removeClass('loaded');
+                    $('.mobile-filter-redesign').removeClass('active-filter-closed-mobile');
                     bulidLifeStyleCarousel();
                 },
                 error: function () {
@@ -1110,13 +1906,16 @@ module.exports = {
         // Handle refinement value selection and reset click
             $('.container, .container-fluid').on(
                 'click',
-                '.search-refinement-close', function(e) {
+                '.filter-refinement-container', function(e) {
             e.preventDefault();
-            // e.stopPropagation();
+            var $this = e;
+            desktopFilterSelect($this);
+            var clicked = e.target.closest('.filter-elements');
             var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
+
             if (isSelectedFilterBar) {
                 var isFilterChildList = isSelectedFilterBar.children.length > 0;
-                if (!isFilterChildList) {
+                if (!isFilterChildList && clicked) {
                     $('.filter-group').removeClass('active loaded');
                     $('.plp-active-filter').removeClass('loaded');
                     $('.plp-active-filter-selected').addClass('d-none');
@@ -1124,30 +1923,30 @@ module.exports = {
                     $('.plp-grid-overlay').removeClass('active');
                     $('.plp-filter-redesign').removeClass('active-filter-closed-desktop');
 
-                    var RemoveUrlParams = getUrlParamObj(document.location.href);
+                    var removeUrlParams = getUrlParamObj(document.location.href);
                     var oldUrl = document.location.href;
                     var url = oldUrl.split('?')[0];
                     var urlReload = oldUrl.split('?')[1];
                     var newFilteredUrl = url;
 
-                    if (RemoveUrlParams.hasOwnProperty('q') == true) {
-                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
-                            if (RemoveUrlParams.q) {
-                                var queryParamQ = RemoveUrlParams.q;
+                    if (removeUrlParams.hasOwnProperty('q') == true) {
+                        if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                            if (removeUrlParams.q) {
+                                var queryParamQ = removeUrlParams.q;
                                 newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
                             }
                         }
-                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
-                            if (RemoveUrlParams.q) {
-                                var queryParamQ = RemoveUrlParams.q;  
-                                var queryParamSrule = RemoveUrlParams.srule;  
+                        if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                            if (removeUrlParams.q) {
+                                var queryParamQ = removeUrlParams.q;  
+                                var queryParamSrule = removeUrlParams.srule;  
                                 newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                             }
                         }
                     } else {
-                        if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                            if (RemoveUrlParams.srule) {
-                                var queryParamSrule = RemoveUrlParams.srule;  
+                        if (removeUrlParams.hasOwnProperty('srule') == true) {
+                            if (removeUrlParams.srule) {
+                                var queryParamSrule = removeUrlParams.srule;  
                                 newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
                             }
                         }
@@ -1155,13 +1954,14 @@ module.exports = {
                     window.history.pushState({}, '', newFilteredUrl);
 
                     if (urlReload) {
-                        window.location.reload();
+                        filterBarEmpty($(this), newFilteredUrl);
                     }
                     return;
-                } else {
+                } else if (isFilterChildList && clicked){
                     filterLoadInProgress = true;
-    
+                    var clickedFilterTab = $(this).parent().parent().prev().attr('id');
                     var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
+
                     if (parentSelectorOuter) {
                         var parentSelector = parentSelectorOuter.querySelectorAll('.filter-refinement-container');
                         var prefv = '';
@@ -1169,10 +1969,11 @@ module.exports = {
                         var params = '';
                         var pminValue = '';
                         var pmaxValue = '';
-    
+                        var prefn;
+
                         parentSelector.forEach(function (el, index) {
                                 if (el.hasChildNodes()) {
-                                    var prefn = el.dataset.filterId;
+                                    prefn = el.dataset.filterId;
                                     var childElement = el.querySelectorAll('.filter-element');
                                     
                                     childElement.forEach(function (e, i) {
@@ -1294,6 +2095,7 @@ module.exports = {
                                 parseResults(response);
                                 updatePageURLForFacets(filtersURL);
                                 $.spinner().stop();
+
                                 moveFocusToTop();
                                 swatches.showSwatchImages();
     
@@ -1310,7 +2112,23 @@ module.exports = {
                                 if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                                     loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                                 }
-    
+                                
+                                var filterSelectedTab;
+                                var isFilterSelectedTabId;
+                                var isClickedFilterTab = document.querySelectorAll('.plp-filter-list');
+                                if (isClickedFilterTab && isClickedFilterTab.length > 0) {
+                                    isClickedFilterTab.forEach(function (el) {
+                                        filterSelectedTab =  el.firstChild.nextSibling;
+                                        isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
+                                        if (isFilterSelectedTabId == clickedFilterTab) {
+                                            var filterSelectedPopup = el.lastChild.previousSibling;
+                                            filterSelectedTab.classList.add('active');
+                                            filterSelectedPopup.classList.add('loaded', 'active');
+                                            $('.plp-grid-overlay').addClass('active');
+                                            $('.plp-active-filter-selected').removeClass('d-none');
+                                        }
+                                    });
+                                }
                             },
                             error: function () {
                                 $.spinner().stop();
@@ -1324,537 +2142,65 @@ module.exports = {
         });
     },
 
-    // desktop filters multi selection
-    applyFilterSelect: function () {
-        // Handle refinement value selection and reset click
-        $('.container, .container-fluid').on(
-            'click',
-            '.filter-refinement-container',
-            function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                filterLoadInProgress = true;
-                // Get currently selected sort option to retain sorting rules
-                var clicked = e.target.closest('.filter-elements');
-                var filterBar = document.querySelectorAll('.selected-filter-bar');
-
-                if (!clicked) return;
-                if (clicked) {
-                    var isSelected = clicked.querySelector('.selected');
-                    var filterBarValue = clicked.dataset.selectedFilter;
-                    var filterBarId = clicked.dataset.filterId;
-                    var isCheckSquare = clicked.querySelector('.check-square');
-                    var isSquareO = clicked.querySelector('.square-o');
-                    var isCheckCircle = clicked.querySelector('.check-circle');
-                    var isCheckO = clicked.querySelector('.check-o');
-                    
-                    if (isSelected && isCheckSquare == null && isSquareO == null && isCheckCircle == null && isCheckO == null) {
-                        var containClass = isSelected.classList.toggle('filter-selected');
-                        if (containClass) {
-                            isSelected.classList.add('check-filter-selected');
-                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
-                                            <a href="">${filterBarValue}</a>
-                                        </li>`;
-                            filterBar.forEach(function (e) {
-                                e.insertAdjacentHTML('beforeend', html);    
-                            });
-                       } else {
-                        var selectedFilterId = isSelected.dataset.selectedFilter;
-                            var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-
-                            if (slectedFilterBarAll.length > 0) {
-                                slectedFilterBarAll.forEach(function (el) {
-                                    if (el.hasChildNodes()) {
-                                        var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                        addedFilterBarAll.forEach(function (e) {
-                                            if (e.dataset.addedFilterBar == selectedFilterId) {
-                                                e.remove();
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                            isSelected.classList.remove('check-filter-selected');
-                       }                  
-                    } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
-                        var filterElement = clicked.parentNode;
-                        var isFilterElementFilterId = filterElement.dataset.filterId;
-                        if (isFilterElementFilterId == 'pmid') {
-                            var isFilterElementValue = filterElement.dataset.selectedFilter;
-                            var isSquareOParent = isSquareO.parentNode;
-    
-                            var selectedFilterId = '';
-                            var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                            if (isparentSelector) {
-                                isparentSelector.forEach(function (el, index) {
-                                    if (el.hasChildNodes()) {
-                                        var isPriceFilter = el.dataset.filterId;
-                                        if (isPriceFilter == 'pmid') {
-                                            var childElement = el.querySelectorAll('.filter-element');
-                                        
-                                            childElement.forEach(function (e, i) {
-                                                var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                                
-                                                if (isPriceFilterSelected) {
-                                                    if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
-                                                        selectedFilterId = e.dataset.selectedFilter;
-                                                        isPriceFilterSelected.classList.remove('check-filter-selected');
-    
-                                                        if (isPriceFilterSelected.hasChildNodes()) {
-                                                            var pmidFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-square');
-                                                            
-                                                            if (pmidFilterChildEl) {
-                                                                pmidFilterChildEl.classList.remove('fa-check-square', 'check-square');
-                                                                pmidFilterChildEl.classList.add('fa-square-o', 'square-o');
-                                                            }
-                                                        }
-                                                        
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    };
-                                });
-                            }
-                            
-                            var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-                            if (slectedFilterBarAll.length > 0) {
-                                slectedFilterBarAll.forEach(function (el) {
-                                    if (el.hasChildNodes()) {
-                                        var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                        addedFilterBarAll.forEach(function (e) {
-                                            if (e.dataset.addedFilterBar == selectedFilterId) {
-                                                e.remove();
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-    
-                            isSquareOParent.classList.add('check-filter-selected');
-                            isSquareO.classList.remove('square-o');
-                            isSquareO.classList.remove('fa-square-o');
-                            isSquareO.classList.add('fa-check-square');
-                            isSquareO.classList.add('check-square');
-                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
-                                            <a href="">${filterBarValue}</a>
-                                        </li>`;
-                            filterBar.forEach(function (e) {
-                                e.insertAdjacentHTML('beforeend', html);    
-                            });
-                        } else {
-                            var isFilterElementValue = filterElement.dataset.selectedFilter;
-                            var isSquareOParent = isSquareO.parentNode;
-    
-                            isSquareOParent.classList.add('check-filter-selected');
-                            isSquareO.classList.remove('square-o');
-                            isSquareO.classList.remove('fa-square-o');
-                            isSquareO.classList.add('fa-check-square');
-                            isSquareO.classList.add('check-square');
-                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
-                                            <a href="">${filterBarValue}</a>
-                                        </li>`;
-                            filterBar.forEach(function (e) {
-                                e.insertAdjacentHTML('beforeend', html);    
-                            });
-                        }
-
-                    } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
-                        var filterElementLabelParent = clicked.parentNode;
-                        var selectedFilterId  = filterElementLabelParent.dataset.selectedFilter
-                        var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-
-                        if (slectedFilterBarAll.length > 0) {
-                            slectedFilterBarAll.forEach(function (el) {
-                                if (el.hasChildNodes()) {
-                                    var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                    addedFilterBarAll.forEach(function (e) {
-                                        if (e.dataset.addedFilterBar == selectedFilterId) {
-                                            e.remove();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        var isCheckSquaretParent = isCheckSquare.parentNode;
-                        isCheckSquaretParent.classList.remove('check-filter-selected');
-                        isCheckSquare.classList.remove('fa-check-square');
-                        isCheckSquare.classList.remove('check-square');
-                        isCheckSquare.classList.add('square-o');
-                        isCheckSquare.classList.add('fa-square-o');
-                    } else if (isSelected && isSquareO == null && isCheckSquare == null && isCheckCircle == null && isCheckO !== null) {
-                        var selectedFilterId = '';
-                        var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                        if (isparentSelector) {
-                            isparentSelector.forEach(function (el, index) {
-                            if (el.hasChildNodes()) {
-                                var isPriceFilter = el.dataset.filterId;
-                                if (isPriceFilter == 'price') {
-                                    var childElement = el.querySelectorAll('.filter-element');
-                                
-                                    childElement.forEach(function (e, i) {
-                                        var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                        
-                                        if (isPriceFilterSelected) {
-                                            if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
-                                                selectedFilterId = isPriceFilterSelected.dataset.selectedFilter;
-                                                isPriceFilterSelected.classList.remove('check-filter-selected');
-
-                                                if (isPriceFilterSelected.hasChildNodes()) {
-                                                    var priceFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-circle');
-                                                    
-                                                    if (priceFilterChildEl) {
-                                                        priceFilterChildEl.classList.remove('fa-check-circle', 'check-circle');
-                                                        priceFilterChildEl.classList.add('check-o', 'fa-circle-o');
-                                                    }
-                                                }
-                                                
-                                            }
-                                        }
-                                    });
-                                }
-                            };
-                        });
-                    }
-                                    
-                    var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-                    if (slectedFilterBarAll.length > 0) {
-                        slectedFilterBarAll.forEach(function (el) {
-                            if (el.hasChildNodes()) {
-                                var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                addedFilterBarAll.forEach(function (e) {
-                                    if (e.dataset.addedFilterBar == selectedFilterId) {
-                                        e.remove();
-                                    }
-                                });
-                            }
-                        });
-                    }      
-
-                    var isCheckOParent = isCheckO.parentNode;
-                    isCheckOParent.classList.add('check-filter-selected');
-                    isCheckO.classList.remove('check-o', 'fa-circle-o');
-                    isCheckO.classList.add('fa-check-circle', 'check-circle');
-                    var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
-                                        <a href="">${filterBarValue}</a>
-                                    </li>`;
-                    filterBar.forEach(function (e) {
-                        e.insertAdjacentHTML('beforeend', html);    
-                    });
-                }
-            }
-        });
-    },
-
-    // trigger desktop filter on overlay click
-    triggerapplyFilter: function () {
-        $('.plp-grid-overlay').click(
-            function (e) {
-            $(this).trigger('search:applyFilter');
-        });
-    },
     // Custom end: Desktop filters
-
-    //Custom Start: Mobile filters
-    // mobile filters multi selection
-    applyFilterSelectMobile: function () {
-        // Handle refinement value selection and reset click
-        $('.mobile-menu-container-main, .mobile-sort-menu-container').on(
-            'click',
-            '.filter-refinement-container',
-            function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                filterLoadInProgress = true;
-                // Get currently selected sort option to retain sorting rules
-                var clicked = e.target.closest('.filter-elements');
-                var filterBar = document.querySelectorAll('.selected-filter-bar');
-
-                if (!clicked) return;
-                if (clicked) {
-                    var isSelected = clicked.querySelector('.selected');
-                    var filterBarValue = clicked.dataset.selectedFilter;
-                    var filterBarId = clicked.dataset.filterId;
-                    var isCheckSquare = clicked.querySelector('.check-square');
-                    var isSquareO = clicked.querySelector('.square-o');
-                    var isCheckCircle = clicked.querySelector('.check-circle');
-                    var isCheckO = clicked.querySelector('.check-o');
-                    if (isSelected && isCheckSquare == null && isSquareO == null && isCheckCircle == null && isCheckO == null) {
-                        var containClass = isSelected.classList.toggle('filter-selected');
-                        if (containClass) {
-                            isSelected.classList.add('check-filter-selected');
-                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
-                                            <a href="">${filterBarValue}</a>
-                                        </li>`;
-                            filterBar.forEach(function (e) {
-                                e.insertAdjacentHTML('beforeend', html);    
-                            });
-                       } else {
-                            var selectedFilterId = isSelected.dataset.selectedFilter;
-                            var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-
-                            if (slectedFilterBarAll.length > 0) {
-                                slectedFilterBarAll.forEach(function (el) {
-                                    if (el.hasChildNodes()) {
-                                        var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                        addedFilterBarAll.forEach(function (e) {
-                                            if (e.dataset.addedFilterBar == selectedFilterId) {
-                                                e.remove();
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                            isSelected.classList.remove('check-filter-selected');
-                       }                  
-                    } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
-                        var isFiltersCheckBox = clicked.querySelector('.filters-checkbox');
-                        var filterElement = clicked.parentNode;
-                        var isFilterElementFilterId = filterElement.dataset.filterId;
-                        if (isFilterElementFilterId == 'pmid') {
-                            if (isFiltersCheckBox) {
-                                var filterElementLabel = filterElement.querySelector('.filter-elements');
-                                filterElementLabel.classList.add('label-selected');
-                            } 
-                            var isFilterElementValue = filterElement.dataset.selectedFilter;
-                            var isSquareOParent = isSquareO.parentNode;
-    
-                            var selectedFilterId = '';
-                            var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                            if (isparentSelector) {
-                                isparentSelector.forEach(function (el, index) {
-                                    if (el.hasChildNodes()) {
-                                        var isPriceFilter = el.dataset.filterId;
-                                        if (isPriceFilter == 'pmid') {
-                                            var childElement = el.querySelectorAll('.filter-element');
-                                        
-                                            childElement.forEach(function (e, i) {
-                                                var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                                
-                                                if (isPriceFilterSelected) {
-                                                    var isSelectLabelParent = isPriceFilterSelected.parentNode;
-                                                    if (isSelectLabelParent.classList.contains('label-selected')) {
-                                                        isSelectLabelParent.classList.remove('label-selected');
-                                                    }
-                                                    if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
-                                                        selectedFilterId = e.dataset.selectedFilter;
-                                                        isPriceFilterSelected.classList.remove('check-filter-selected');
-    
-                                                        if (isPriceFilterSelected.hasChildNodes()) {
-                                                            var pmidFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-square');
-                                                            
-                                                            if (pmidFilterChildEl) {
-                                                                pmidFilterChildEl.classList.remove('fa-check-square', 'check-square');
-                                                                pmidFilterChildEl.classList.add('fa-square-o', 'square-o');
-                                                            }
-                                                        }
-                                                        
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    };
-                                });
-                            }
-                            var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-                            if (slectedFilterBarAll.length > 0) {
-                                slectedFilterBarAll.forEach(function (el) {
-                                    if (el.hasChildNodes()) {
-                                        var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                        addedFilterBarAll.forEach(function (e) {
-                                            if (e.dataset.addedFilterBar == selectedFilterId) {
-                                                e.remove();
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-    
-                            isSquareOParent.classList.add('check-filter-selected');
-                            isSquareO.classList.remove('square-o');
-                            isSquareO.classList.remove('fa-square-o');
-                            isSquareO.classList.add('fa-check-square');
-                            isSquareO.classList.add('check-square');
-                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
-                                            <a href="">${filterBarValue}</a>
-                                        </li>`;
-                            filterBar.forEach(function (e) {
-                                e.insertAdjacentHTML('beforeend', html);    
-                            });
-                        } else {
-                            if (isFiltersCheckBox) {
-                                var filterElementLabel = filterElement.querySelector('.filter-elements');
-                                filterElementLabel.classList.add('label-selected');
-                            } 
-                            var isFilterElementValue = filterElement.dataset.selectedFilter;
-                            var isSquareOParent = isSquareO.parentNode;
-    
-                            isSquareOParent.classList.add('check-filter-selected');
-                            isSquareO.classList.remove('square-o');
-                            isSquareO.classList.remove('fa-square-o');
-                            isSquareO.classList.add('fa-check-square');
-                            isSquareO.classList.add('check-square');
-                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
-                                            <a href="">${filterBarValue}</a>
-                                        </li>`;
-                            filterBar.forEach(function (e) {
-                                e.insertAdjacentHTML('beforeend', html);    
-                            });
-                        }
-
-                    } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
-                        var filterElementLabelParent = clicked.parentNode;
-                        var selectedFilterId  = filterElementLabelParent.dataset.selectedFilter
-                        var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-
-                        if (slectedFilterBarAll.length > 0) {
-                            slectedFilterBarAll.forEach(function (el) {
-                                if (el.hasChildNodes()) {
-                                    var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                    addedFilterBarAll.forEach(function (e) {
-                                        if (e.dataset.addedFilterBar == selectedFilterId) {
-                                            e.remove();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        var isCheckSquaretParent = isCheckSquare.parentNode;
-                        var filterElementLabelRemove = filterElementLabelParent.querySelector('.filter-elements');
-                        if (filterElementLabelRemove.classList.contains('label-selected')) {
-                            filterElementLabelRemove.classList.remove('label-selected');
-                        }
-                        isCheckSquaretParent.classList.remove('check-filter-selected');
-                        isCheckSquare.classList.remove('fa-check-square');
-                        isCheckSquare.classList.remove('check-square');
-                        isCheckSquare.classList.add('square-o');
-                        isCheckSquare.classList.add('fa-square-o');
-                    } 
-                    else if (isSelected && isSquareO == null && isCheckSquare == null && isCheckCircle == null && isCheckO !== null) {
-                        var selectedFilterId = '';
-                        var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                        if (isparentSelector) {
-                            isparentSelector.forEach(function (el, index) {
-                            if (el.hasChildNodes()) {
-                                var isPriceFilter = el.dataset.filterId;
-                                if (isPriceFilter == 'price') {
-                                    var childElement = el.querySelectorAll('.filter-element');
-                                
-                                    childElement.forEach(function (e, i) {
-                                        var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                        
-                                        if (isPriceFilterSelected) {
-                                            if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
-                                                selectedFilterId = isPriceFilterSelected.dataset.selectedFilter;
-                                                isPriceFilterSelected.classList.remove('check-filter-selected');
-
-                                                if (isPriceFilterSelected.hasChildNodes()) {
-                                                    var priceFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-circle');
-                                                    
-                                                    if (priceFilterChildEl) {
-                                                        priceFilterChildEl.classList.remove('fa-check-circle', 'check-circle');
-                                                        priceFilterChildEl.classList.add('check-o', 'fa-circle-o');
-                                                    }
-                                                }
-                                                
-                                            }
-                                        }
-                                    });
-                                }
-                            };
-                        });
-                    }
-                                    
-                    var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-                    if (slectedFilterBarAll.length > 0) {
-                        slectedFilterBarAll.forEach(function (el) {
-                            if (el.hasChildNodes()) {
-                                var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                addedFilterBarAll.forEach(function (e) {
-                                    if (e.dataset.addedFilterBar == selectedFilterId) {
-                                        e.remove();
-                                    }
-                                });
-                            }
-                        });
-                    }      
-
-                    var isCheckOParent = isCheckO.parentNode;
-                    isCheckOParent.classList.add('check-filter-selected');
-                    isCheckO.classList.remove('check-o', 'fa-circle-o');
-                    isCheckO.classList.add('fa-check-circle', 'check-circle');
-                    var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
-                                    <a href="">${filterBarValue}</a>
-                                </li>`;
-                    filterBar.forEach(function (e) {
-                        e.insertAdjacentHTML('beforeend', html);    
-                    });
-
-
-                }
-                checkClearAllBtn();
-            }
-
-        });
-    },
 
     // making urls for prefn1,pmid,pmin,pmax,srule and based on url getting the data
     applyFilterMobile: function () {
             $('.mobile-menu-container-main, .mobile-sort-menu-container').on(
                 'click',
-                '.mobile-menu-close-filters', function(e) {
+                '.filter-refinement-container', function(e) {
             e.preventDefault();
             e.stopPropagation();
+            var $this = e;
+            mobileFilterSelect($this);
+            var clicked = e.target.closest('.filter-elements');
             var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
-            
+
             if (isSelectedFilterBar) {
 
                 var isFilterChildList = isSelectedFilterBar.children.length > 0;
-                if (!isFilterChildList) {
+                if (!isFilterChildList && clicked) {
                     $('.filter-group').removeClass('active loaded');
                     $('.plp-active-filter').removeClass('loaded');
                     $('.plp-active-filter-selected').addClass('d-none');
                     $('.plp-filter-bar .plp-filter-btn').removeClass('active');
                     $('.plp-grid-overlay').removeClass('active');
                     $('.mobile-filter-redesign').removeClass('active-filter-closed-mobile');
+                    $('body').removeClass('lock-bg');
                     var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
                     var mobileMenuContainerMain = document.querySelector('.mobile-menu-container-main');
                     var isSortActive = mobileSortMenu.classList.contains('active');
                     var isMobileActive = mobileMenuContainerMain.classList.contains('active');
                     if (isSortActive) {
                         $('.mobile-sort-menu').removeClass('active');
-                        $('body').removeClass('lock-bg');
                     } 
                     if (isMobileActive) {
                         mobileMenuContainerMain.classList.remove('active');
                     }
-                    var RemoveUrlParams = getUrlParamObj(document.location.href);
+                    var removeUrlParams = getUrlParamObj(document.location.href);
                     var oldUrl = document.location.href;
                     var url = oldUrl.split('?')[0];
                     var urlReload = oldUrl.split('?')[1];
                     var newFilteredUrl = url;
 
-                    if (RemoveUrlParams.hasOwnProperty('q') == true) {
-                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
-                            if (RemoveUrlParams.q) {
-                                var queryParamQ = RemoveUrlParams.q;
+                    if (removeUrlParams.hasOwnProperty('q') == true) {
+                        if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                            if (removeUrlParams.q) {
+                                var queryParamQ = removeUrlParams.q;
                                 newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
                             }
                         }
-                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
-                            if (RemoveUrlParams.q) {
-                                var queryParamQ = RemoveUrlParams.q;  
-                                var queryParamSrule = RemoveUrlParams.srule;  
+                        if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                            if (removeUrlParams.q) {
+                                var queryParamQ = removeUrlParams.q;  
+                                var queryParamSrule = removeUrlParams.srule;  
                                 newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                             }
                         }
                     } else {
-                        if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                            if (RemoveUrlParams.srule) {
-                                var queryParamSrule = RemoveUrlParams.srule;  
+                        if (removeUrlParams.hasOwnProperty('srule') == true) {
+                            if (removeUrlParams.srule) {
+                                var queryParamSrule = removeUrlParams.srule;  
                                 newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
                             }
                         }
@@ -1862,10 +2208,25 @@ module.exports = {
                     window.history.pushState({}, '', newFilteredUrl);
 
                     if (urlReload) {
-                        window.location.reload();
+                        filterBarEmpty($(this), newFilteredUrl);
                     }
                     return;
-                } else {
+                } else if (isFilterChildList && clicked) {
+
+                    var isFilterSort = document.querySelector('.mobile-sort-menu.mobile-sort-menu-container');
+                    var isFilterSortActive = isFilterSort.classList.contains('active');
+
+                    if (!isFilterSortActive) {
+                        var clickedFilterTabMobile = document.querySelector('.mvmt-redesign-filter-button.active');
+                        if (clickedFilterTabMobile) {
+                            var clickedFilterTabMobileDataValue = clickedFilterTabMobile.dataset.optionSelect;
+                        }
+                    } else {
+                        //custom start: mobile filter & sort
+                        var clickedFilterTab = $(this).parent().parent().prev().attr('id');
+                        //custom start
+                    }
+     
                     filterLoadInProgress = true;
                     var selectedFiltersAll;
                     var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
@@ -1883,10 +2244,11 @@ module.exports = {
                         var params = '';
                         var pminValue = '';
                         var pmaxValue = '';
-    
+                        var prefn;
+
                         selectedFiltersAll.forEach(function (el, index) {
                                 if (el.hasChildNodes()) {
-                                    var prefn = el.dataset.filterId;
+                                    prefn = el.dataset.filterId;
                                     var childElement = el.querySelectorAll('.filter-element');
                                     
                                     childElement.forEach(function (e, i) {
@@ -2020,8 +2382,59 @@ module.exports = {
                                 if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                                     loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                                 }
+
+                                // Custom Start: mobile filter active
+                                var mobileFilterMenuMain = document.querySelector('.mobile-filter-menu.mobile-menu-container-main');
+                                if (mobileFilterMenuMain) {
+                                    var mobileActiveFilter = mobileFilterMenuMain.querySelector(clickedFilterTabMobileDataValue);
+                                    if (mobileActiveFilter) {
+                                        mobileFilterMenuMain.classList.add('active');
+                                        mobileFilterMenuMain.classList.remove('disable-events');
+                                        mobileActiveFilter.classList.add('active');
+                                        var mobileActiveFilterChild = mobileActiveFilter.children[0];
+                                        var firstChild = mobileActiveFilterChild.firstChild.nextSibling;
+                                        var lastChild = mobileActiveFilterChild.lastChild.previousSibling;
+                                        firstChild.classList.add('loaded');
+                                        lastChild.classList.add('loaded');
+
+                                        var mobileFilterBtnDataValue;
+                                        var mobileFilterButtonAll = document.querySelectorAll('.mvmt-redesign-filter-button');
+                                        mobileFilterButtonAll.forEach(function (el) {
+                                            mobileFilterBtnDataValue = el.dataset.optionSelect;
+                                            if (mobileFilterBtnDataValue && mobileFilterBtnDataValue == clickedFilterTabMobileDataValue) {
+                                                el.classList.add('active');
+                                            }
+                                        });
+                                    }
+                                }
+                                // Custom End
+
+                                // Custom Start: mobile sort & filter active
+                                if (isFilterSortActive) {
+                                    var filterSelectedTab;
+                                    var isFilterSelectedTabId;
+                                    var sortFilterTabActive = document.querySelector('.mobile-sort-menu.mobile-sort-menu-container');
+                                    sortFilterTabActive.classList.add('active');
+                                    var isClickedFilterTab = document.querySelectorAll('.plp-filter-list');
+                                    if (isClickedFilterTab && isClickedFilterTab.length > 0) {
+                                        isClickedFilterTab.forEach(function (el) {
+                                            filterSelectedTab =  el.firstChild.nextSibling;
+                                            isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
+                                            if (isFilterSelectedTabId == clickedFilterTab) {
+                                                var filterSelectedPopup = el.lastChild.previousSibling;
+                                                filterSelectedTab.classList.add('active');
+                                                filterSelectedPopup.classList.add('loaded', 'active');
+                                                $('.plp-grid-overlay').addClass('active');
+                                                $('.plp-active-filter-selected').removeClass('d-none');
+                                            }
+                                        });
+                                    }
+                                }
+                                // Custom end
+
                                 bulidLifeStyleCarousel();
                                 filterScroll();
+                                totalProductCountResultupdate();
                             },
                             error: function () {
                                 $.spinner().stop();
@@ -2093,10 +2506,35 @@ module.exports = {
                      }
                  });
                 checkClearAllBtn();
+                clearAllBtnTrigger($(this));
+        });
+    },
 
-                var oldUrl = document.location.href;
-                var url = oldUrl.split('?')[0];
-                window.history.pushState({}, '/', url);
+    mobileFilterClose: function () {
+        $('.mobile-menu-container-main, .mobile-sort-menu-container').on(
+            'click',
+            '.mobile-menu-close-filters', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var bodyLock = document.querySelector('.lock-bg');
+                var mobileMenuContainerMain = e.target.closest('.mobile-menu-container-main');
+                var mobileSortMenuContaienr = e.target.closest('.mobile-sort-menu-container');
+
+                $('.mvmt-redesign-filter-button').removeClass('active');
+                if (mobileMenuContainerMain) {
+                    var isMobileMenuContainerMainActive = mobileMenuContainerMain.classList.contains('active');
+                    if (isMobileMenuContainerMainActive) {
+                        mobileMenuContainerMain.classList.remove('active');
+                    }
+                } else {
+                    var ismobileSortMenuContaienrActive = mobileSortMenuContaienr.classList.contains('active');
+
+                    if (ismobileSortMenuContaienrActive) {
+                        mobileSortMenuContaienr.classList.remove('active');
+                    }
+                }
+                bodyLock.classList.remove('lock-bg');
+
         });
     },
     // check clear all button is disabled or not based on window load
@@ -2109,7 +2547,6 @@ module.exports = {
     
     // Custom filters: this method will work for desktop and mobile filters
     removedSelectedFilters: function () {
-    //     $('.selected-filter-bar').click(
         $('.mobile-filter-redesign, .plp-active-filter, .plp-active-filter-list').on(
             'click',
             '.selected-filter-bar',
@@ -2215,8 +2652,15 @@ module.exports = {
 
                 var mobileActiveFilterClosed = document.querySelector('.active-filter-closed-mobile');
                 var desktopActiveFilterClosed = document.querySelector('.active-filter-closed-desktop');
+
+                // Custom start desktop: getting active filter tab id
+                var activeTabEl = document.querySelector('.plp-filter-btn.active');
+                var activeTabElAll = document.querySelectorAll('.plp-filter-btn.plp-filter-btn-redesign.redesigned.active');
+                var desktopActiveTabId = activeTabEl && activeTabElAll.length == 0 ? activeTabEl.getAttribute('id') : activeTabElAll.length > 0 && activeTabElAll[1] ? activeTabElAll[1].getAttribute('id') : null;
+                // Custom end desktop
+
                 if (!desktopActiveFilterClosed && mobileActiveFilterClosed) {
-                    removeSelectedFilterDesktop($(this));
+                    removeSelectedFilterDesktop($(this), desktopActiveTabId);
                 } else if (desktopActiveFilterClosed && !mobileActiveFilterClosed) {
                     removeSelectedFilterMobile($(this));
                 } else if (!desktopActiveFilterClosed && !mobileActiveFilterClosed) {
@@ -2224,6 +2668,14 @@ module.exports = {
                     var $windowWidth = $(window).width();
                     if ($windowWidth >= mediumWidth) {
                         removeSelectedFilterDesktop($(this));
+                    } else {
+                        removeSelectedFilterMobile($(this));
+                    }
+                } else if (desktopActiveFilterClosed && mobileActiveFilterClosed) {
+                    var mediumWidth = 992;
+                    var $windowWidth = $(window).width();
+                    if ($windowWidth >= mediumWidth) {
+                        removeSelectedFilterDesktop($(this), desktopActiveTabId);
                     } else {
                         removeSelectedFilterMobile($(this));
                     }
@@ -2415,6 +2867,12 @@ module.exports = {
             if (!isFilterContains) {
                 $('.plp-filter-redesign').addClass('active-filter-closed-desktop');
             }
+            var isMobileFilterTab = $(this).closest('button');
+            if (isMobileFilterTab.length > 0) {
+                var isMobileFilterTabContain = isMobileFilterTab.hasClass('mvmt-redesign-filter-button');
+                $('.mvmt-redesign-filter-button').removeClass('active');
+                isMobileFilterTab.addClass('active');
+            }
         });
     },
 
@@ -2451,4 +2909,78 @@ module.exports = {
         });
     },
     // Custom End
+    // Custom start: Listrak persistent popup
+listrakPersistentApply: function () {
+    $(document).on('click','.listrak-popup', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var isContainListrakPopup = e.target.closest('.listrak-popup');
+        var targetEl = e.target;
+        var isTargetContain = targetEl.classList.contains('close-icon-popup');
+        if (isContainListrakPopup && !isTargetContain) {
+            var listrakPersistenPopupUrl = document.querySelector('.listrak-persistent-url');
+            var url = listrakPersistenPopupUrl.dataset.listrakUrl;
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (response) {
+                    if (response.success == true) {
+                        var interval = setInterval(function() {
+                            if (typeof _ltk != "undefined" && typeof _ltk.Popup != "undefined") {
+                                _ltk.Popup.openManualByName(response.popupID);
+                                clearInterval(interval);
+                            }
+                        }, 1000);
+                    }
+                },
+                error: function () {
+                    $.spinner().stop();
+                }
+            });
+        }
+    });
+},
+listrakPersistentClose: function () {
+    $(document).on('click','.close-icon-popup', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var isContainListrakPopup = e.target.closest('.listrak-popup');
+        var targetEl = e.target;
+        var isTargetContain = targetEl.classList.contains('close-icon-popup');
+        if (isContainListrakPopup && isTargetContain) {
+            sessionStorage.setItem("listrakPersistenPopup", "false");
+            isContainListrakPopup.remove();
+        }
+    });
+},
+listrakPersistentCheckLoad: function () {
+    window.onload = () => {
+        var listrakPopup = document.querySelector('.listrak-popup');
+        var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
+        var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
+        var data = sessionStorage.getItem("listrakPersistenPopup");
+        if (data == null) {
+            var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
+        
+            if (isListrakPopupContain) {
+                listrakPopup.classList.remove('listrak-persistent-popup');
+            }
+        }
+        if (listrakPopupSearchResult) {
+            var mediumWidth = 992;
+            var $windowWidth = $(window).width();
+            if ($windowWidth < mediumWidth) {
+                listrakPopup.classList.add('button-search-result');
+            }
+        }
+        if (listrakPopupProductDetail) {
+            var mediumWidth = 992;
+            var $windowWidth = $(window).width();
+            if ($windowWidth < mediumWidth) {
+                listrakPopup.classList.add('button-product-detail');
+            }
+        }
+    };
+}
+// Custom End: Listrak persistent popup
 };

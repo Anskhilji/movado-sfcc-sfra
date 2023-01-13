@@ -14,7 +14,6 @@ var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Logger = require('dw/system/Logger').getLogger('Listrak');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
-var Constants = require('bm_listrak/cartridge/scripts/util/ListrakConstants');
 
 /**
  * Object that holds inflated product information.
@@ -45,7 +44,7 @@ function ltkProduct() {
     this.categoryStartLevel = catStartLevel;
     this.additionalAttributes = dw.system.Site.current.preferences.custom.Listrak_Additional_Attributes;
     this.categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
-    this.getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_GetAssignedCategories');
+    this.getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     this.additionalAttributeValues = new dw.util.HashMap();
 
     // Custom Start: Adding Product Sale information
@@ -70,6 +69,10 @@ function ltkProduct() {
     this.size = '';
     this.meta4 = '';
     this.meta5 = '';
+    // Custom End:
+
+    // Custom Start: [MSS-1987 Movado - Listrak Product Feed Change]
+    this.jewelryType = '';
     // Custom End:
 }
 
@@ -177,6 +180,13 @@ ltkProduct.prototype.LoadProduct = function (product) {
         } else if (!empty(productCurrentCategory.specifiedMeta5) && empty(productCurrentCategory.specifiedMeta4)) {
             this.meta5 = productCurrentCategory.specifiedMeta5;
         }
+    }
+    // Custom End
+
+    // Custom Start: [MSS-1987 Movado - Listrak Product Feed Change]
+    var productFeedJewelryType = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
+    if (!empty(productFeedJewelryType)) {
+        this.jewelryType = this.getJewelryType(product);
     }
     // Custom End
 };
@@ -488,6 +498,7 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
     var specifiedMeta4 = '';
     var specifiedMeta5 = '';
     var specifiedCategories = {};
+    var getConfiguredCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     try {
         if (!empty(product) && product.categories.empty === false) {
             var productCategories = product.categories;
@@ -501,17 +512,17 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
                 }
                 while (productCategory.parent != null) {
                     if (productCategory.parent.topLevel === true) {
-                        if (productCategory.parent.displayName == Constants.LTK_CURRENT_CATEGORY_DEAL) {
-                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_DEALS;
-                        } else if(productCategory.parent.displayName == Constants.LTK_CURRENT_CATEGORY_CLEARANCE) {
-                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_CLEARANCE;
+                        for (var j = 0; j < getConfiguredCategories.length; j++) {
+                            if (productCategory.parent.displayName == getConfiguredCategories[j]) {
+                                specifiedMeta5 = getConfiguredCategories[j];
+                            }
                         }
                         break;
                     } else if(productCategory.topLevel === true) {
-                        if (productCategory.displayName == Constants.LTK_CURRENT_CATEGORY_DEAL) {
-                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_DEALS;
-                        } else if(productCategory.displayName == Constants.LTK_CURRENT_CATEGORY_CLEARANCE) {
-                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_CLEARANCE;
+                        for (var k = 0; k < getConfiguredCategories.length; k++) {
+                            if (productCategory.displayName == getConfiguredCategories[k]) {
+                                specifiedMeta5 = getConfiguredCategories[k];
+                            }
                         }
                         break;
                     }
@@ -527,4 +538,27 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
         return specifiedCategories;
     }
 }
+// Custom End
+
+// Custom Start: [MSS-1987 Movado - Listrak Product Feed Change]
+ltkProduct.prototype.getJewelryType = function (product) {
+    var jewelry = '';
+    var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
+
+    try {
+        productFeedJewelryJson = JSON.parse(productFeedJewelryJson);
+        var JewelryAttr = product.custom.jewelryType;
+        if (!empty(JewelryAttr)) {
+            var JewelryArr = JewelryAttr.split(',');
+        }
+        if (!empty(productFeedJewelryJson) && !empty(JewelryArr[0])) {
+            jewelry = productFeedJewelryJson[JewelryArr[0]];
+        }
+
+        return jewelry;
+    } catch (error) {
+        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        return jewelry;
+    }
+};
 // Custom End
