@@ -245,5 +245,9 @@
         height: rem(18);
         background: url("../images/Icons_Search.png") center center no-repeat;
         background-size: contain;
+        
+        &::before {
+            content: '';
+        }
     }
 }
