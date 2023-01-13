@@ -349,7 +349,7 @@
                     max-width: rem(250);
 
                     @include custom-media-query-max($medium-screen-width) {
-                       bottom: rem(9px);
+                       bottom: rem(9);
                     }
 
                     li {
