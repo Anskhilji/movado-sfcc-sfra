@@ -387,8 +387,12 @@ $(document).ready(function () {
     var $availability = $('.product-availability .availability-msg').text();
     var $availabilityWrapper = $availability.replace(/\s/g, '');
     var $cartWrapper = $('.cart-and-ipay');
+    var $stickyWrapper = $('.cart-sticky-wrapper-btn');
     if ($productWrapper !== '' || $productWrapper !== undefined || $productWrapper !== null) {
         if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock') || ($availabilityWrapper === 'SelectStylesforAvailability')) {
+            if ($stickyWrapper !== '' || $stickyWrapper !== undefined || $stickyWrapper !== null) {
+                $stickyWrapper.addClass('d-none');
+            }    
             if (!($cartWrapper.hasClass('d-none'))) {
                 $cartWrapper.addClass('d-none');
             }
