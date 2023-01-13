@@ -384,9 +384,11 @@ function ratingRedesign() {
 
 $(document).ready(function () {
     var $productWrapper = $('.product-availability .availability-msg-text').text();
+    var $availability = $('.product-availability .availability-msg').text();
+    var $availabilityWrapper = $availability.replace(/\s/g, '');
     var $cartWrapper = $('.cart-and-ipay');
     if ($productWrapper !== '' || $productWrapper !== undefined || $productWrapper !== null) {
-        if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock')) {
+        if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock') || ($availabilityWrapper === 'SelectStylesforAvailability')) {
             if (!($cartWrapper.hasClass('d-none'))) {
                 $cartWrapper.addClass('d-none');
             }

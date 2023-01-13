@@ -14,7 +14,7 @@
             </isif>
         </button>
 
-        <isif condition="${product.available && product.readyToOrder}">
+        <isif condition="${product.available}">
             <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
             <isif condition="${isEswEnabled}">

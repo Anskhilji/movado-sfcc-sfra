@@ -802,7 +802,7 @@ function handleVariantResponse(response, $productContainer) {
         var $cartWrapper = $('.cart-and-ipay');
         
         if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
-            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock')) {
+            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock') || ($availabilityWrapper === 'Select Styles for Availability')) {
                 $cartWrapper.addClass('d-none');
             } else {
                 $cartWrapper.removeClass('d-none');
