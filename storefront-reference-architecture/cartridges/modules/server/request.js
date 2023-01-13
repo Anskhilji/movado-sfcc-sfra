@@ -377,7 +377,7 @@ function Request(request, customer, session) {
 
                 if (!empty(localizeSalePriceBooks) || !empty(localizeBasePriceBooks)) {
                     var productShow = Constants.PRODUCT_SHOW;
-                    var updateGrid = Constants.PRODUCT_SHOW;
+                    var updateGrid = Constants.UPDATE_GRID;
                     if (request.httpPath == productShow || request.httpPath == updateGrid) {
                         applicablePricebooks = PriceBookMgr.applicablePriceBooks.toArray();
                         filterPriceBooks = applicablePricebooks.filter(function(data) {
