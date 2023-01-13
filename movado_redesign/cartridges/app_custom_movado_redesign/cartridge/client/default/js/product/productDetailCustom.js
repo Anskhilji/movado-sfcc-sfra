@@ -390,7 +390,7 @@ $(document).ready(function () {
     var $stickyWrapper = $('.cart-sticky-wrapper-btn');
     if ($productWrapper !== '' || $productWrapper !== undefined || $productWrapper !== null) {
         if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock') || ($availabilityWrapper === 'SelectStylesforAvailability')) {
-            if ($stickyWrapper !== '' || $stickyWrapper !== undefined || $stickyWrapper !== null) {
+            if ($stickyWrapper) {
                 $stickyWrapper.addClass('d-none');
             }    
             if (!($cartWrapper.hasClass('d-none'))) {
