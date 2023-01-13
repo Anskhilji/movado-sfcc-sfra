@@ -323,7 +323,7 @@
 
         &.recommendation-carousel-pdp {
             width: unset;
-            margin: rem(0) rem(10) rem(0) rem(11);
+            margin: rem(0) rem(12) rem(0) rem(10.5);
 
             @include media-breakpoint-down(sm) {
                 margin: rem(0) rem(5) rem(0) rem(4);
@@ -334,6 +334,7 @@
 
                 @include custom-media-query-max($medium-screen-width)  {
                     margin-bottom: rem(40);
+                    color: $black;
                 }
 
                 @include media-breakpoint-down(xs) {
@@ -346,6 +347,10 @@
 
                 .slick-dots {
                     max-width: rem(250);
+
+                    @include custom-media-query-max($medium-screen-width) {
+                       bottom: rem(9px);
+                    }
 
                     li {
                         
