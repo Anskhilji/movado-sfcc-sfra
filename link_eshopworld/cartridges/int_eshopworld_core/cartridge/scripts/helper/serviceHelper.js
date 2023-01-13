@@ -707,8 +707,7 @@ function createOrder(eswEmail) {
     });
     try {
         order = Transaction.wrap(function () {
-            var basket = BasketMgr.getCurrentBasket();
-            return OrderMgr.createOrder(basket);
+            return OrderMgr.createOrder(cart);
         });
         //order = cart.createOrder();
         session.privacy.orderNo = order.orderNo;

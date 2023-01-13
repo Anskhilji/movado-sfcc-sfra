@@ -9,7 +9,6 @@
         <div class="auauthanicated-error text-danger"></div>
     </div>
 
-
     <div class="submit-form-section text-left">
         <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
         <button type="submit" class="btn btn-block btn-primary">${Resource.msg('link.text.sign.in', 'account', null)}</button>

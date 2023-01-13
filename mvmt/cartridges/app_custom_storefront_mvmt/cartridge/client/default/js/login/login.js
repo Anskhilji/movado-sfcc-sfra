@@ -42,22 +42,21 @@ module.exports = function () {
         return false;
     });
 
-
     $('form.eswCouponValidation').off('submit').on('submit', function (e) {
-        var currentForm = $(this);
-        var customerEmail = $("#esw-coupon-validation-form").val();
-        var form = {
-            customerEmail : customerEmail
+        var $currentForm = $(this);
+        var $customerEmail = $("#esw-coupon-validation-form").val();
+        var $form = {
+            customerEmail : $customerEmail
         };
         e.preventDefault();
-        var url = currentForm.attr('action');
+        var $url = $currentForm.attr('action');
         $.spinner().start();
         $('form.eswCouponValidation').trigger('eswCouponValidation:submit', e);
         $.ajax({
-            url: url,
+            url: $url,
             type: 'post',
             dataType: 'json',
-            data: form,
+            data: $form,
             success: function (data) {
                 $.spinner().stop();
                 if (!data.success && data.errorMessage !== undefined && data.errorMessage !== '') {

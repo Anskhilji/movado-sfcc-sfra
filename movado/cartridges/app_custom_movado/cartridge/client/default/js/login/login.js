@@ -6,20 +6,20 @@ var createErrorNotification = require('base/components/errorNotification');
 module.exports = {
     login: function () {
         $('form.login').submit(function (e) {
-            var form = $(this);
+            var $form = $(this);
             e.preventDefault();
-            var url = form.attr('action');
-            form.spinner().start();
+            var $url = $form.attr('action');
+            $form.spinner().start();
             $('form.login').trigger('login:submit', e);
             $.ajax({
-                url: url,
+                url: $url,
                 type: 'post',
                 dataType: 'json',
-                data: form.serialize(),
+                data: $form.serialize(),
                 success: function (data) {
-                    form.spinner().stop();
+                    $form.spinner().stop();
                     if (!data.success) {
-                        formValidation(form, data);
+                        formValidation($form, data);
                         $('form.login').trigger('login:error', data);
                     } else {
                         $('form.login').trigger('login:success', data);
@@ -31,7 +31,7 @@ module.exports = {
                         window.location.href = data.responseJSON.redirectUrl;
                     } else {
                         $('form.login').trigger('login:error', data);
-                        form.spinner().stop();
+                        $form.spinner().stop();
                     }
                 }
             });
@@ -41,20 +41,20 @@ module.exports = {
 
     register: function () {
         $('form.registration').submit(function (e) {
-            var form = $(this);
+            var $form = $(this);
             e.preventDefault();
-            var url = form.attr('action');
-            form.spinner().start();
+            var $url = $form.attr('action');
+            $form.spinner().start();
             $('form.registration').trigger('login:register', e);
             $.ajax({
-                url: url,
+                url: $url,
                 type: 'post',
                 dataType: 'json',
-                data: form.serialize(),
+                data: $form.serialize(),
                 success: function (data) {
-                    form.spinner().stop();
+                    $form.spinner().stop();
                     if (!data.success) {
-                        formValidation(form, data);
+                        formValidation($form, data);
                     } else {
                         location.href = data.redirectUrl;
                     }
@@ -66,7 +66,7 @@ module.exports = {
                         createErrorNotification($('.error-messaging'), err.responseJSON.errorMessage);
                     }
 
-                    form.spinner().stop();
+                    $form.spinner().stop();
                 }
             });
             return false;
@@ -75,20 +75,20 @@ module.exports = {
 
     eswCouponValidation : function () {
         $('form.eswCouponValidation').off('submit').on('submit', function (e) {
-            var currentForm = $(this);
-            var customerEmail = $("#esw-coupon-validation-form").val();
-            var form = {
-                customerEmail : customerEmail
+            var $currentForm = $(this);
+            var $customerEmail = $("#esw-coupon-validation-form").val();
+            var $form = {
+                customerEmail : $customerEmail
             };
             e.preventDefault();
-            var url = currentForm.attr('action');
+            var $url = $currentForm.attr('action');
             $.spinner().start();
             $('form.eswCouponValidation').trigger('eswCouponValidation:submit', e);
             $.ajax({
-                url: url,
+                url: $url,
                 type: 'post',
                 dataType: 'json',
-                data: form,
+                data: $form,
                 success: function (data) {
                     $.spinner().stop();
                     if (!data.success && data.errorMessage !== undefined && data.errorMessage !== '') {
@@ -123,20 +123,20 @@ module.exports = {
 
     resetPassword: function () {
         $('.reset-password-form').submit(function (e) {
-            var form = $(this);
+            var $form = $(this);
             e.preventDefault();
-            var url = form.attr('action');
-            form.spinner().start();
+            var $url = $form.attr('action');
+            $form.spinner().start();
             $('.reset-password-form').trigger('login:register', e);
             $.ajax({
-                url: url,
+                url: $url,
                 type: 'post',
                 dataType: 'json',
-                data: form.serialize(),
+                data: $form.serialize(),
                 success: function (data) {
-                    form.spinner().stop();
+                    $form.spinner().stop();
                     if (!data.success) {
-                        formValidation(form, data);
+                        formValidation($form, data);
                     } else {
                         $('.request-password-title').text(data.receivedMsgHeading);
                         $('.request-password-body').empty()
@@ -155,7 +155,7 @@ module.exports = {
                     }
                 },
                 error: function () {
-                    form.spinner().stop();
+                    $form.spinner().stop();
                 }
             });
             return false;

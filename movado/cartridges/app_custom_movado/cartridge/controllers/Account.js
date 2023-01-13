@@ -842,7 +842,6 @@ server.post('EswCouponValidation', function (req, res, next) {
     var collections = require('*/cartridge/scripts/util/collections');
     var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
 
-
     var currentBasket = BasketMgr.getCurrentBasket();
     var couponLineItems = currentBasket.couponLineItems;
     var EswGuestemail = req.form.customerEmail;
