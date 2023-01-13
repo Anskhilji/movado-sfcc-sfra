@@ -12,3 +12,7 @@ exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.ECOM_SALE_PRICE_BOOK = 'sale';
 exports.PRICE_BOOK_DATE_FORMATE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+
+exports.ECOM_USD_RP_SALE = ECOM_USD_RP_SALE;
+exports.PRODUCT_SHOW = '/on/demandware.store/Sites-MVMTUS-Site/en_US/Search-Show';
+exports.UPDATE_GRID = '/on/demandware.store/Sites-MVMTUS-Site/en_US/Search-UpdateGrid';

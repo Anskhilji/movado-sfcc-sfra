@@ -237,7 +237,7 @@ function execute(args) {
             }
         });
     } catch (e) {
-        Logger.error('Product promotional price book: ' + e);
+        Logger.error('SFCC Generate Sale Pricing Job error: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         return new Status(Status.ERROR);
     }
     return new Status(Status.OK);
@@ -265,7 +265,7 @@ function removeProductBasePrice(args) {
             });
         }
     } catch (e) {
-        Logger.error('Product custom attribute empty: ' + e);
+        Logger.error('Product custom attribute empty error: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         return new Status(Status.ERROR);
     }
     return new Status(Status.OK);
