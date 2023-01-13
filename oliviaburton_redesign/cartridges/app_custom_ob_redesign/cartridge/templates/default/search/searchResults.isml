@@ -99,7 +99,7 @@
 									</isif>
 									<isset name="prductCount" value="${prodStatus.index + 1}" scope="page">
 									<isscript>
-									var sitePreferences =  require('dw/system/Site').getCurrent().getPreferences().getCustom();
+										var sitePreferences =  require('dw/system/Site').getCurrent().getPreferences().getCustom();
 										var plpTileSlotPosition = JSON.parse(sitePreferences.plpTileSlotPosition);
 										var contentSlotName = '';
 											plpTileSlotPosition.filter( function (productSlot) {
@@ -108,27 +108,27 @@
 											}
 										});
 									</isscript>
-									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_1st'}">
+									<isif condition="${contentSlotName == Resource.msg('plp.tile.slot.1st', 'search', null)}">
 										<div class="col-6 col-sm-4">
 											<isslot id="cs_plp_marketing_tile_slot_1st" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 										</div>
 									</isif>
-									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_2nd'}">
+									<isif condition="${contentSlotName == Resource.msg('plp.tile.slot.2nd', 'search', null)}">
 										<div class="col-6 col-sm-4">
 											<isslot id="cs_plp_marketing_tile_slot_2nd" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 										</div>
 									</isif>
-									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_3rd'}">
+									<isif condition="${contentSlotName == Resource.msg('plp.tile.slot.3rd', 'search', null)}">
 										<div class="col-6 col-sm-4">
 											<isslot id="cs_plp_marketing_tile_slot_3rd" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 										</div>
 									</isif>
-									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_4th'}">
+									<isif condition="${contentSlotName == Resource.msg('plp.tile.slot.4th', 'search', null)}">
 										<div class="col-6 col-sm-4">
 											<isslot id="cs_plp_marketing_tile_slot_4th" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 										</div>
 									</isif>
-									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_5th'}">
+									<isif condition="${contentSlotName == Resource.msg('plp.tile.slot.5th', 'search', null)}">
 										<div class="col-6 col-sm-4">
 											<isslot id="cs_plp_marketing_tile_slot_5th" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 										</div>
