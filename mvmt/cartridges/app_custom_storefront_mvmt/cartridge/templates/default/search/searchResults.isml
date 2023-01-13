@@ -96,12 +96,13 @@
                                     <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
                                 </div>
 							</isif>
+                            <isset name="prductCount" value="${prodStatus.index + 1}" scope="page">
                             <isscript>
                             var sitePreferences =  require('dw/system/Site').getCurrent().getPreferences().getCustom();
                                 var plpTileSlotPosition = JSON.parse(sitePreferences.plpTileSlotPosition);
                                 var contentSlotName = '';
                                     plpTileSlotPosition.filter( function (productSlot) {
-                                    if(productSlot.index == prodStatus.index){
+                                    if(productSlot.index == prductCount){
                                         return contentSlotName = productSlot.slotName;
                                     }
                                 });
