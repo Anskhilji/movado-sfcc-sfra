@@ -92,6 +92,7 @@ function create(orderNumber, paymentInstrument) {
                 result.response = serviceResult;
             }    
         }
+    }
     return result;
 }
 
