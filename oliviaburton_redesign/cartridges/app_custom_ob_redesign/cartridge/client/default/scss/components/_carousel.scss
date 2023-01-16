@@ -345,6 +345,11 @@
             .cs-carousel {
                 margin-bottom: rem(16);
 
+                @include media-breakpoint-down(sm) {
+                    margin-left: rem(-10);
+                    margin-right: rem(-10);
+                }
+
                 .slick-dots {
                     max-width: rem(250);
 
