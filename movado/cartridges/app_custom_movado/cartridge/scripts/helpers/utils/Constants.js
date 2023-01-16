@@ -29,4 +29,3 @@ exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 
 exports.ECOM_SALE_PRICE_BOOK = 'sale';
-exports.ECOM_USD_RP_SALE = 'ECOM_USD_RP_SALE';

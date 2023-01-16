@@ -22,5 +22,3 @@ exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.ECOM_SALE_PRICE_BOOK = 'sale';
 exports.PRICE_BOOK_DATE_FORMATE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 exports.COLOR_WATCH = 'colorWatch';
-
-exports.ECOM_USD_RP_SALE = 'ECOM_USD_RP_SALE';

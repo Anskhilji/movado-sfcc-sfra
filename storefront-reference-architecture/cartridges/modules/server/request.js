@@ -326,6 +326,8 @@ function Request(request, customer, session) {
         var salePriceBooks = JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion'));
         var applicablePricebooks;
         var filterPriceBooks;
+        var localizeSalePriceBooks;
+        var localizeBasePriceBooks;
         salePriceBooks.forEach(function (localizeObj) {
             localizeSalePriceBooks = localizeObj.promotionalConversion.sale_pricebook;
             localizeBasePriceBooks = localizeObj.promotionalConversion.base_pricebook;
@@ -338,7 +340,7 @@ function Request(request, customer, session) {
             if (request.httpPath == productShow || request.httpPath == updateGrid) {
                 applicablePricebooks = PriceBookMgr.applicablePriceBooks.toArray();
                 filterPriceBooks = applicablePricebooks.filter(function(data) {
-                    return data.ID == Constants.ECOM_USD_RP_SALE;
+                    return data.ID == localizeSalePriceBooks;
                 });
                 if (!filterPriceBooks) {
                     PriceBookMgr.setApplicablePriceBooks(localizeSalePriceBooks);
@@ -346,7 +348,7 @@ function Request(request, customer, session) {
             } else {
                 applicablePricebooks = PriceBookMgr.applicablePriceBooks.toArray();
                 filterPriceBooks = applicablePricebooks.filter(function(data) {
-                    return data.ID !== Constants.ECOM_USD_RP_SALE;
+                    return data.ID !== localizeSalePriceBooks;
                 });
 
                 PriceBookMgr.setApplicablePriceBooks(filterPriceBooks);
