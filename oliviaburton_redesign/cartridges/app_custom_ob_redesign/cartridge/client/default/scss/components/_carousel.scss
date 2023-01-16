@@ -355,7 +355,7 @@
 
                     li {
 
-                        @include custom-media-query-max($medium-screen-width){
+                        @include custom-media-query-max($medium-screen-width) {
                             width: 100%;
                         }
                         
