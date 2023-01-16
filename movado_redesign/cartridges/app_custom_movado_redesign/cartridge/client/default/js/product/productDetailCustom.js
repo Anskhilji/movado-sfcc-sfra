@@ -425,7 +425,7 @@ $(document).ready(function () {
     var $availability = $('.product-availability .availability-msg').text();
     var $availabilityWrapper = $availability.replace(/\s/g, '');
     var $cartWrapper = $('.cart-and-ipay');
-    var $stickyWrapper = $('.cart-sticky-wrapper-btn');
+    var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
     if ($productWrapper !== '' || $productWrapper !== undefined || $productWrapper !== null) {
         if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock') || ($availabilityWrapper === 'SelectStylesforAvailability')) {
             if ($stickyWrapper) {
