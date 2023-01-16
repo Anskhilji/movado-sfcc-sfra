@@ -128,7 +128,7 @@ $('.search-results.plp-new-design .refinement-bar').keyup(function(event) {
     }
 });
 
-$(document).on('click', '.search-results.plp-new-design  .close-refinebar,.show-bottom-btn .result-count', function (e) {
+$(document).on('click', '.search-results.plp-new-design  .close-refinebar, .show-bottom-btn .result-count', function (e) {
     e.preventDefault();
     $('.modal-background').addClass('fadeOut').css('z-index', '');
     $('body').removeClass('no-overflow');
