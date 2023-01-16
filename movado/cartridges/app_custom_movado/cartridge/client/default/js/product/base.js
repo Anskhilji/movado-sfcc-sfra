@@ -800,7 +800,7 @@ function handleVariantResponse(response, $productContainer) {
     $(document).ready(function () {
         var $availabilityWrapper = $('.product-availability .availability-msg').text();
         var $cartWrapper = $('.cart-and-ipay');
-        var $stickyWrapper = $('.cart-sticky-wrapper-btn');
+        var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
 
         if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
             if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock') || ($availabilityWrapper === 'Select Styles for Availability')) {
