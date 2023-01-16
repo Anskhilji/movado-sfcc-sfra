@@ -2214,6 +2214,8 @@
                 line-height: rem(40);
                 text-align: center;
                 padding: 0;
+                cursor: pointer;
+                
                   span {
                       color: $white;
                       @include font-demi;
