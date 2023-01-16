@@ -323,14 +323,14 @@ function Request(request, customer, session) {
         //Custom End
 
         //Custom Start: Set applicable sale pricebook only on plp urls
-        var salePriceBooks = !empty(dw.system.Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion')) ? JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion')) : false;
+        var salePriceBooks = !empty(dw.system.Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion')) ? JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion')) : '';
 
         var applicablePricebooks;
         var filterPriceBooks;
         var localizeSalePriceBooks;
         var localizeBasePriceBooks;
 
-        if (salePriceBooks) {
+        if (!empty(salePriceBooks)) {
             salePriceBooks.forEach(function (localizeObj) {
                 localizeSalePriceBooks = localizeObj.promotionalConversion.sale_pricebook;
                 localizeBasePriceBooks = localizeObj.promotionalConversion.base_pricebook;
