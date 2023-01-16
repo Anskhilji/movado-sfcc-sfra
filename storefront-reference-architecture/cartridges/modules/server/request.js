@@ -304,6 +304,7 @@ function Request(request, customer, session) {
         var eswEnabled = dw.system.Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
         var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;
         var isOneTrustEnabled = !empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false;
+        var URLUtils = require('dw/web/URLUtils');
         var PriceBookMgr = require('dw/catalog/PriceBookMgr');
         var Logger = require('dw/system/Logger');
 
@@ -318,6 +319,39 @@ function Request(request, customer, session) {
             } else if (!isOneTrustEnabled) {
                 rakutenCookiesHelper.createCookieInSession(request);
             }
+        }
+        //Custom End
+
+        //Custom Start: Set applicable sale pricebook only on plp urls
+        var salePriceBooks = JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion'));
+        var applicablePricebooks;
+        var filterPriceBooks;
+        salePriceBooks.forEach(function (localizeObj) {
+            localizeSalePriceBooks = localizeObj.promotionalConversion.sale_pricebook;
+            localizeBasePriceBooks = localizeObj.promotionalConversion.base_pricebook;
+        });
+
+        if (!empty(localizeSalePriceBooks) || !empty(localizeBasePriceBooks)) {
+            var productShow = URLUtils.url('Search-Show').toString();
+            var updateGrid = URLUtils.url('Search-UpdateGrid').toString();
+
+            if (request.httpPath == productShow || request.httpPath == updateGrid) {
+                applicablePricebooks = PriceBookMgr.applicablePriceBooks.toArray();
+                filterPriceBooks = applicablePricebooks.filter(function(data) {
+                    return data.ID == Constants.ECOM_USD_RP_SALE;
+                });
+                if (!filterPriceBooks) {
+                    PriceBookMgr.setApplicablePriceBooks(localizeSalePriceBooks);
+                }
+            } else {
+                applicablePricebooks = PriceBookMgr.applicablePriceBooks.toArray();
+                filterPriceBooks = applicablePricebooks.filter(function(data) {
+                    return data.ID !== Constants.ECOM_USD_RP_SALE;
+                });
+
+                PriceBookMgr.setApplicablePriceBooks(filterPriceBooks);
+            }
+             
         }
         //Custom End
 
@@ -365,36 +399,6 @@ function Request(request, customer, session) {
                         delete session.privacy.countryCode;
                         session.privacy.countryCode = countryCode;
                     }
-                }
-
-                var salePriceBooks = JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion'));
-                var applicablePricebooks;
-                var filterPriceBooks;
-                salePriceBooks.forEach(function (localizeObj) {
-                    localizeSalePriceBooks = localizeObj.promotionalConversion.sale_pricebook;
-                    localizeBasePriceBooks = localizeObj.promotionalConversion.base_pricebook;
-                });
-
-                if (!empty(localizeSalePriceBooks) || !empty(localizeBasePriceBooks)) {
-                    var productShow = Constants.PRODUCT_SHOW;
-                    var updateGrid = Constants.UPDATE_GRID;
-                    if (request.httpPath == productShow || request.httpPath == updateGrid) {
-                        applicablePricebooks = PriceBookMgr.applicablePriceBooks.toArray();
-                        filterPriceBooks = applicablePricebooks.filter(function(data) {
-                            return data.ID == Constants.ECOM_USD_RP_SALE;
-                        });
-                        if (!filterPriceBooks) {
-                            PriceBookMgr.setApplicablePriceBooks(localizeSalePriceBooks);
-                        }
-                    } else {
-                        applicablePricebooks = PriceBookMgr.applicablePriceBooks.toArray();
-                        filterPriceBooks = applicablePricebooks.filter(function(data) {
-                            return data.ID !== Constants.ECOM_USD_RP_SALE;
-                        });
-
-                        PriceBookMgr.setApplicablePriceBooks(filterPriceBooks);
-                    }
-                     
                 }
 
             } catch (e) {

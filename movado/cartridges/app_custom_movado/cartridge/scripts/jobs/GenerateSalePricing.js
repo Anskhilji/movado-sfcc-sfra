@@ -12,7 +12,7 @@ var StringUtils = require('dw/util/StringUtils');
 var Calendar = require('dw/util/Calendar');
 var formatMoney = require('dw/util/StringUtils').formatMoney;
 var Transaction = require('dw/system/Transaction');
-
+exports.ECOM_SALE_PRICE_BOOK = 'sale';
 /**
  * Get local price books details mentioned in site prefrence.
  * @param {Object} localizeObj configured in site preference
