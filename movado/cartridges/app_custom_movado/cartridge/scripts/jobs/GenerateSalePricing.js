@@ -10,6 +10,8 @@ var Money = require('dw/value/Money');
 var Currency = require('dw/util/Currency');
 var StringUtils = require('dw/util/StringUtils');
 var Calendar = require('dw/util/Calendar');
+var formatMoney = require('dw/util/StringUtils').formatMoney;
+var Transaction = require('dw/system/Transaction');
 /**
  * Get local price books details mentioned in site prefrence.
  * @param {Object} localizeObj configured in site preference
@@ -55,10 +57,17 @@ function convertedSalePrice(product,localizeObj) {
         var basePriceBook = PriceBookMgr.getPriceBook(localizeObj.promotionalConversion.base_pricebook);
         PriceBookMgr.setApplicablePriceBooks(basePriceBook);
     }
-
+    
     PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
 
-    if(PromotionIt){
+    if(PromotionIt) {
+        if (product && product.priceModel && product.priceModel.price) {
+            var formattedPrice = formatMoney(product.priceModel.price);
+            Transaction.wrap(function () {
+                product.custom.productBasePrice = formattedPrice;
+            });
+        }
+
         while (PromotionIt.hasNext()) {
             var promo = PromotionIt.next();
             if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
@@ -227,10 +236,41 @@ function execute(args) {
             }
         });
     } catch (e) {
-        Logger.error('ESW Localize Pricing Job error: ' + e);
+        Logger.error('SFCC Generate Sale Pricing Job error: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         return new Status(Status.ERROR);
     }
     return new Status(Status.OK);
 }
 
-exports.execute = execute;
+function removeProductBasePrice(args) {
+    
+    try {
+        var ProductSearchModel = require('dw/catalog/ProductSearchModel'), 
+        psm = new ProductSearchModel(),
+        products;
+        psm.setCategoryID('root');
+        psm.setRecursiveCategorySearch(true);
+        psm.search();
+
+        var salableProducts = psm.getProductSearchHits();
+        while (salableProducts.hasNext()) {
+            products = salableProducts.next().getRepresentedProducts().toArray();
+            products.forEach(function (product) { // eslint-disable-line no-loop-func
+                if (product && product.priceModel && product.priceModel.price) {
+                    Transaction.wrap(function () {
+                        product.custom.productBasePrice = '';
+                    });
+                }
+            });
+        }
+    } catch (e) {
+        Logger.error('Product custom attribute empty error: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        return new Status(Status.ERROR);
+    }
+    return new Status(Status.OK);
+}
+
+module.exports = {
+    execute: execute,
+    removeProductBasePrice: removeProductBasePrice
+};
