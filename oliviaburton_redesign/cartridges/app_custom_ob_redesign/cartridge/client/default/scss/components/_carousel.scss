@@ -325,8 +325,8 @@
             width: unset;
             margin: rem(0) rem(10) rem(0) rem(10);
 
-            @include media-breakpoint-down(xs) {
-                margin: rem(0) rem(6) rem(0) rem(4);
+            @include media-breakpoint-down(sm) {
+                margin: rem(0) rem(16) rem(0) rem(16);
             }
 
             .carousel-title {
@@ -350,13 +350,22 @@
 
                     @include custom-media-query-max($medium-screen-width) {
                        bottom: rem(9);
+                       width: rem(165);
                     }
 
                     li {
+
+                        @include custom-media-query-max($medium-screen-width) {
+                            width: 100%;
+                        }
                         
                         button {
                             height: rem(3);
                             background-color: $transparent-gray-4;
+
+                            @include custom-media-query-max($medium-screen-width) {
+                                width: 100%;
+                            }
                         }
 
                         &.slick-active {
