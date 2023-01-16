@@ -90,7 +90,9 @@ function calculateTax(basket) {
       sabrixTaxHelper.populateTaxBreakupInSFCC(responseWrapper);
       Logger.getLogger('SabrixTaxHelper').debug('Tax successfully updated in basket : ');
       Transaction.wrap(function () {
-        basket.custom.AmzPaySabrixTaxError = false;
+        if (basket.custom.AmzPaySabrixTaxError) {
+          basket.custom.AmzPaySabrixTaxError = false;
+        }
       });
       return new Status(Status.OK);
     } catch (e) {
