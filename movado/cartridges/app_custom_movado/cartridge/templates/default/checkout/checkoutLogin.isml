@@ -38,7 +38,7 @@
                             ${Resource.msg('msg.guest.checkout2', 'checkout', null)}
                         </p>
 
-                        <isif condition="${!domesticAllowedCountry}" >
+                        <isif condition="${!domesticAllowedCountry}">
                             <isinclude template="account/components/eswEmailForm" />
                         <iselse/>
                             <a
