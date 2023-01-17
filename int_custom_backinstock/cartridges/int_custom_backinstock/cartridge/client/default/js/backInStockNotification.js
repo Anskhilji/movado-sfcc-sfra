@@ -32,17 +32,26 @@ var submitBackInStockEmail = function ($selector) {
     var url = $selector.data('url');
     var pid = $selector.data('pid');
     var emailAddress = $selector.find('.back-in-stock-notification-email').val();
+    var phoneNo = $selector.find('.back-in-stock-notification-phone').val();
     var enabledMarketing = false;
+    var smsSubscription = false;
     if ($selector.find('#backInStockMarketingCloudPreference').length > 0) {
         if ($selector.find('#backInStockMarketingCloudPreference').is(':checked')) {
             enabledMarketing = true;
+        }
+    }
+    if ($selector.find('#backInStockSMSSubscription').length > 0) {
+        if ($selector.find('#backInStockSMSSubscription').is(':checked')) {
+            smsSubscription = true;
         }
     }
 
     var form = {
         pid: pid,
         email: emailAddress,
-        enabledMarketing: enabledMarketing
+        enabledMarketing: enabledMarketing,
+        phoneNo: phoneNo,
+        smsSubscription: smsSubscription
     }
 
     $.ajax({

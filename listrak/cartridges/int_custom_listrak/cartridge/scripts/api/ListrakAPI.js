@@ -86,7 +86,81 @@ function sendTransactionalEmailToListrak(requestParams) {
     return result;
 }
 
+function sendContactToListrak(requestParam) {
+    var authServiceID = Constants.SERVICE_ID.LTK_AUTH;
+    var serviceID = Constants.SERVICE_ID.LTK_SMS_SUBSCRIPTION;
+    try {
+        var params = {
+            isExpired: false,
+            authServiceID: authServiceID
+        }
+        var accessToken = LTKAPIHelper.getAuthToken(params);
+        var service = null;
+
+        params.phone = requestParam.phone;
+        if (requestParam.email) {
+            params.email = requestParam.email;
+        }
+
+        service = LTKAPIHelper.getContactStatusAPIService(serviceID, Constants.LTK_GET_CONTACT_STATUS_API_ENDPOINT, accessToken, requestParam.phone);
+        var result = LTKAPIHelper.addContactStatusToLTK(params, service);
+    } catch (e) {
+        Logger.error('Listrak sendContactToListrak: some exception occured while sending SMS Subscription contact - {0}', e.toString());
+    }
+    return result;
+}
+
+function subscribeContactToListrak(requestParam) {
+    var authServiceID = Constants.SERVICE_ID.LTK_AUTH;
+    var serviceID = Constants.SERVICE_ID.LTK_SMS_SUBSCRIPTION;
+    try {
+        var params = {
+            isExpired: false,
+            authServiceID: authServiceID
+        }
+        var accessToken = LTKAPIHelper.getAuthToken(params);
+        var service = null;
+
+        params.phone = requestParam.phone;
+        if (requestParam.email) {
+            params.email = requestParam.email;
+        }
+
+        service = LTKAPIHelper.getSubscribeContactAPIService(serviceID, Constants.LTK_SUBSCRIBE_CONTACT_API_ENDPOINT, accessToken, requestParam.phone);
+        var result = LTKAPIHelper.addSubscribeContactToLTK(params, service);
+    } catch (e) {
+        Logger.error('Listrak sendContactToListrak: some exception occured while sending SMS Subscription contact - {0}', e.toString());
+    }
+    return result;
+}
+
+function createContactToListrak(requestParam) {
+    var authServiceID = Constants.SERVICE_ID.LTK_AUTH;
+    var serviceID = Constants.SERVICE_ID.LTK_SMS_SUBSCRIPTION;
+    try {
+        var params = {
+            isExpired: false,
+            authServiceID: authServiceID
+        }
+        var accessToken = LTKAPIHelper.getAuthToken(params);
+        var service = null;
+
+        params.phone = requestParam.phone;
+        if (requestParam.email) {
+            params.email = requestParam.email;
+        }
+
+        service = LTKAPIHelper.getCreateContactAPIService(serviceID, Constants.LTK_CREATE_CONTACT_API_ENDPOINT, accessToken, requestParam.phone);
+        var result = LTKAPIHelper.addCreateContactToLTK(params, service);
+    } catch (e) {
+        Logger.error('Listrak sendContactToListrak: some exception occured while sending SMS Subscription contact - {0}', e.toString());
+    }
+    return result;
+}
+
 module.exports = {
     sendSubscriberToListrak: sendSubscriberToListrak,
-    sendTransactionalEmailToListrak: sendTransactionalEmailToListrak
-}   
+    sendTransactionalEmailToListrak: sendTransactionalEmailToListrak,
+    sendContactToListrak: sendContactToListrak,
+    subscribeContactToListrak: subscribeContactToListrak
+}

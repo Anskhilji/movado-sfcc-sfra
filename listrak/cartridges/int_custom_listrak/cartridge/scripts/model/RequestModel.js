@@ -235,8 +235,44 @@ function generateTransactionalEmailToLTKPayload(params) {
     return payload;
 }
 
+// function generateContactStatusToLTKPayload(params) {
+//     var payload = {
+//         "emailAddress": params.email || '',
+//         "subscriptionState": Constants.SMS_Subscription,
+//         "segmentationFieldValues": [
+//             {
+//                 "segmentationFieldId": Site.current.preferences.custom.Listrak_Birthday || '',
+//                 "value": params.phone || ''
+//             },
+//         ]
+//     };
+//     return payload;
+// }
+
+function generateCreateContactToLTKPayload(params) {
+    var payload = {
+        "phoneNumber": '',
+        "emailAddress": params.email || '',
+        "firstName": '',
+        "lastName": '',
+        "birthday": "2023-01-09T11:23:07Z",
+        "postalCode": '',
+        "optedOut": '',
+        "subscriptionState": Constants.SMS_Subscription,
+        "segmentationFieldValues": [
+            {
+                "segmentationFieldId": Site.current.preferences.custom.Listrak_Birthday || '',
+                "value": params.phone || ''
+            },
+        ]
+    };
+    return payload;
+}
+
 module.exports = {
     generateAuthenticationPayLoad: generateAuthenticationPayLoad,
     generateAddContactToLTKPayload: generateAddContactToLTKPayload,
-    generateTransactionalEmailToLTKPayload: generateTransactionalEmailToLTKPayload
+    generateTransactionalEmailToLTKPayload: generateTransactionalEmailToLTKPayload,
+    // generateContactStatusToLTKPayload: generateContactStatusToLTKPayload
+    generateCreateContactToLTKPayload: generateCreateContactToLTKPayload
 }

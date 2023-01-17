@@ -121,6 +121,20 @@ function isValidEmail(email) {
 }
 
 /**
+ * Validates if provided phone is valid
+ * @param {String} phone - Phone no submitted by customer
+ * @returns {Boolean} isValid - Validation result
+ */
+function isValidPhone(phone) {
+    var isValid = false;
+    if (!empty(phone)) {
+        var pattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+        isValid = pattern.test(phone);
+    }
+    return isValid;
+}
+
+/**
  * Checks is user has already subscribed
  * @param {Object} params - Object containing subscription data
  * @returns {Boolean} isSubscribed
@@ -158,5 +172,6 @@ module.exports = {
     saveBackInStockNotificationObj: saveBackInStockNotificationObj,
     isValidEmail: isValidEmail,
     isAlreadySubscribed: isAlreadySubscribed,
-    isProductListrakBackInStockEnabled: isProductListrakBackInStockEnabled
+    isProductListrakBackInStockEnabled: isProductListrakBackInStockEnabled,
+    isValidPhone: isValidPhone
 }

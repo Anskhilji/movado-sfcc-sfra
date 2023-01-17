@@ -39,17 +39,35 @@ function getTransactionalAPIService(serviceID, endpoint, accessToken, messageId)
     return service;
 }
 
+function getContactStatusAPIService(serviceID, endpoint, accessToken, phone) {
+    var service = ListrakCloudServiceRegistry.getContactStatusOptAPIService(serviceID, endpoint, phone);
+    service.addHeader('Authorization', 'Bearer ' + accessToken);
+    return service;
+}
+
+function getSubscribeContactAPIService(serviceID, endpoint, accessToken, phone) {
+    var service = ListrakCloudServiceRegistry.getSubscribeContactsAPIService(serviceID, endpoint, phone);
+    service.addHeader('Authorization', 'Bearer ' + accessToken);
+    return service;
+}
+
+function getCreateContactAPIService(serviceID, endpoint, accessToken, phone) {
+    var service = ListrakCloudServiceRegistry.getCreateContactsAPIService(serviceID, endpoint, phone);
+    service.addHeader('Authorization', 'Bearer ' + accessToken);
+    return service;
+}
+
 function getAuthToken(params) {
     var accessToken = null;
-    if (!params.isExpired) {
-        accessToken = ltkHelper.getSavedAuthToken();
-        return accessToken ? accessToken.custom.token : '';
-    }
-    if (!accessToken) {
+    // if (!params.isExpired) {
+    //     accessToken = ltkHelper.getSavedAuthToken();
+    //     return accessToken ? accessToken.custom.token : '';
+    // }
+    // if (!accessToken) {
         accessToken = getAuthTokenFromAPI(params);
         ltkHelper.saveNewAuthToken(accessToken);
         return accessToken;
-    }
+    // }
 }
 
 function addContactToLTK(params, service) {
@@ -118,10 +136,111 @@ function addTransactionalEmailToLTK(params, service) {
     return result;
 }
 
+function addContactStatusToLTK(params, service) {
+    // var contactStatusPayload = RequestModel.generateContactStatusToLTKPayload(params);
+    var result = {
+        success: true
+    }
+    var responsePayload = null;
+    try {
+        // responsePayload = service.call(contactStatusPayload);
+        responsePayload = service.call();
+    } catch (e) {
+        Logger.error('Listrak addContactStatusToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+
+    if (responsePayload.error == 401) {
+        params.isExpired = true;
+        var accessToken = getAuthToken(params);
+        params.isExpired = false;
+        service.addHeader('Authorization', 'Bearer ' + accessToken);
+        try {
+            responsePayload = service.call();
+        } catch (e) {
+            Logger.error('Listrak addContactStatusToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        }
+    }
+
+    if (!responsePayload.object && responsePayload.error) {
+        Logger.error('Listrak addContactStatusToLTK: {0}', responsePayload.errorMessage.tostring());
+        result.success = false;
+    }
+    return result;
+}
+
+function addSubscribeContactToLTK(params, service) {
+    // var subscribeContactPayload = RequestModel.generateContactStatusToLTKPayload(params);
+    var result = {
+        success: true
+    }
+    var responsePayload = null;
+    try {
+        // responsePayload = service.call(subscribeContactPayload);
+        responsePayload = service.call();
+    } catch (e) {
+        Logger.error('Listrak addSubscribeContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+
+    if (responsePayload.error == 401) {
+        params.isExpired = true;
+        var accessToken = getAuthToken(params);
+        params.isExpired = false;
+        service.addHeader('Authorization', 'Bearer ' + accessToken);
+        try {
+            responsePayload = service.call(subscribeContactPayload);
+        } catch (e) {
+            Logger.error('Listrak addSubscribeContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        }
+    }
+
+    if (!responsePayload.object && responsePayload.error) {
+        Logger.error('Listrak addSubscribeContactToLTK: {0}', responsePayload.errorMessage.tostring());
+        result.success = false;
+    }
+    return result;
+}
+
+function addCreateContactToLTK(params, service) {
+    var createContactPayload = RequestModel.generateCreateContactToLTKPayload(params);
+    var result = {
+        success: true
+    }
+    var responsePayload = null;
+    try {
+        // responsePayload = service.call(subscribeContactPayload);
+        responsePayload = service.call();
+    } catch (e) {
+        Logger.error('Listrak addCreateContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+
+    if (responsePayload.error == 401) {
+        params.isExpired = true;
+        var accessToken = getAuthToken(params);
+        params.isExpired = false;
+        service.addHeader('Authorization', 'Bearer ' + accessToken);
+        try {
+            responsePayload = service.call(subscribeContactPayload);
+        } catch (e) {
+            Logger.error('Listrak addCreateContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        }
+    }
+
+    if (!responsePayload.object && responsePayload.error) {
+        Logger.error('Listrak addCreateContactToLTK: {0}', responsePayload.errorMessage.tostring());
+        result.success = false;
+    }
+    return result;
+}
+
 module.exports = {
     getAuthToken: getAuthToken,
     getAPIService: getAPIService,
     addContactToLTK: addContactToLTK,
     addTransactionalEmailToLTK: addTransactionalEmailToLTK,
-    getTransactionalAPIService: getTransactionalAPIService
+    getTransactionalAPIService: getTransactionalAPIService,
+    addContactStatusToLTK: addContactStatusToLTK,
+    getContactStatusAPIService: getContactStatusAPIService,
+    addSubscribeContactToLTK: addSubscribeContactToLTK,
+    getCreateContactAPIService: getCreateContactAPIService,
+    addCreateContactToLTK: addCreateContactToLTK
 }

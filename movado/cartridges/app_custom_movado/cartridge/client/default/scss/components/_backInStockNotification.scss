@@ -49,8 +49,8 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         text-align: left;
     }
 
-    &-listrack-confirmation-copy {
-        height: rem(20);
+    &-listrack-confirmation-copy, &-sms-subscription {
+        // height: rem(20);
         color: $granite-gray;
         font-size: rem(13);
         font-weight: 300;
@@ -151,7 +151,7 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         }
     }
 
-    &-listrack-container {
+    &-listrack-container, &-sms-subscription-container {
         display: flex;
 
         @include media-breakpoint-up(md) {

@@ -11,14 +11,19 @@ exports.LTK_ORDER_CONTEXT = 'Order';
 exports.DATE_SEPRATOR = '/';
 exports.TOTAL_TAX = 'TBD';
 exports.Subscription_State = 'Subscribed';
+exports.SMS_Subscription = 'SMS Subcription';
 exports.LTK_API_ENDPOINT = {
     CONTACT: '/List/{listId}/Contact/',
 }
 exports.LTK_TRANSACTIONAL_API_ENDPOINT = 'List/{listId}/TransactionalMessage/{transactionalMessageId}/Message';
+exports.LTK_GET_CONTACT_STATUS_API_ENDPOINT = 'ShortCode/{shortCodeId}/Contact/{phoneNumber}';
+exports.LTK_SUBSCRIBE_CONTACT_API_ENDPOINT = 'ShortCode/{shortCodeId}/Contact/{phoneNumber}/PhoneList/{phoneListId}';
+exports.LTK_CREATE_CONTACT_API_ENDPOINT = 'SShortCode/{shortCodeId}/PhoneList/{phoneListId}/Contact';
 exports.SERVICE_ID = {
     LTK_AUTH: 'listrak.auth.api',
     LTK_EVENT: 'listrak.event.api',
     LTK_TRANSACTIONAL: 'listrak.transactional.email',
+    LTK_SMS_SUBSCRIPTION: 'listrak.sms.subscription'
 }
 exports.Source = {
     Footer: 'Listrak_FooterSourceID',
