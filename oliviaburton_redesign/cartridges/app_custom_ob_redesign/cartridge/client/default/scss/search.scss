@@ -1994,3 +1994,7 @@
 .veil {
     z-index: 99999;
 }
+
+.content-tile:not(:has(div)) {
+    display: none;
+  }
