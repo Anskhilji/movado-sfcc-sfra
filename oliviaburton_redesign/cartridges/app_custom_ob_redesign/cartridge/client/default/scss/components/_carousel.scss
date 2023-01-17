@@ -324,6 +324,7 @@
         &.recommendation-carousel-pdp {
             width: unset;
             margin: rem(0) rem(10) rem(0) rem(10);
+            overflow: unset;
 
             @include media-breakpoint-down(sm) {
                 margin: rem(0) rem(16) rem(0) rem(16);
@@ -331,6 +332,7 @@
 
             .carousel-title {
                 margin-bottom: rem(30);
+                font-size: rem(35);
 
                 @include custom-media-query-max($medium-screen-width)  {
                     margin-bottom: rem(40);
@@ -400,9 +402,11 @@
                     border-radius: 100%;
                     background-color: transparent;
                     box-shadow: 0 3px 8px 0 $transparent-gray-3;
+                    top: 34%;
+                    transform: translate(-50%,-50%);
         
                     &.slick-next {
-                        right: rem(13);
+                        right: rem(-15);
                         background-image: url(../../images/arrow-right-circle.svg);
         
                         &:focus {
@@ -411,7 +415,7 @@
                     }
         
                     &.slick-prev {
-                        left: rem(10);
+                        left: rem(32);
                         background-image: url(../../images/arrow-left-circle.svg);
         
                         &:focus {
