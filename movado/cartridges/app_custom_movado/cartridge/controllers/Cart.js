@@ -432,6 +432,12 @@ server.append(
             });
         }
 
+        if (!empty(req.querystring.errormessage)) {
+            res.setViewData({ 
+                couponValidationErrormessage: req.querystring.errormessage
+            });
+        }
+
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
         var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');

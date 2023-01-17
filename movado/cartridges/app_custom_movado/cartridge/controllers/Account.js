@@ -846,6 +846,7 @@ server.post('EswCouponValidation', function (req, res, next) {
     var couponLineItems = currentBasket.couponLineItems;
     var EswGuestemail = req.form.customerEmail;
     var filterRedemptions = false;
+    var couponValidationErrormessage = "Esw Cart Error ! invalid Coupon Code";
     
     if (!empty(EswGuestemail)) {
         for(var i = 0; i < couponLineItems.length; i++) {
@@ -869,7 +870,7 @@ server.post('EswCouponValidation', function (req, res, next) {
             res.json({
                 success: false,
                 error: true,
-                redirectUrl : URLUtils.url('Cart-Show', 'eswfail', true).toString()
+                redirectUrl : URLUtils.url('Cart-Show', 'errormessage', couponValidationErrormessage).toString()
             });
         } else {
             res.json({
@@ -878,12 +879,6 @@ server.post('EswCouponValidation', function (req, res, next) {
                 redirectUrl : URLUtils.url('Checkout-Begin', 'eswEmail', EswGuestemail).toString()
             });
         }
-    } else {
-        res.json({
-            success: false,
-            error: true,
-            errorMessage : Resource.msg('esw.guest.email.required', 'account', null)
-        }); 
     }
 
     return next();
