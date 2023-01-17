@@ -7,27 +7,27 @@
 	<isloop items="${JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition)}" var="plpTileSlot" status ="slotStatus">
 		<isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot}">
 			<isif condition="${plpTileSlot.index == pdict.productSearch.pageSize + prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.1st', 'search', null)}">
-				<div class="col-6 col-sm-4 content-tile">
+				<div class="col-6 col-sm-4 content-tile slot-column">
 					<isslot id="cs_plp_marketing_tile_slot_1st" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 				</div>
 			</isif>
 			<isif condition="${plpTileSlot.index == pdict.productSearch.pageSize + prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.2nd', 'search', null)}">
-				<div class="col-6 col-sm-4 content-tile">
+				<div class="col-6 col-sm-4 content-tile slot-column">
 					<isslot id="cs_plp_marketing_tile_slot_2nd" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 				</div>
 			</isif>
 			<isif condition="${plpTileSlot.index == pdict.productSearch.pageSize + prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.3rd', 'search', null)}">
-				<div class="col-6 col-sm-4 content-tile">
+				<div class="col-6 col-sm-4 content-tile slot-column">
 					<isslot id="cs_plp_marketing_tile_slot_3rd" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 				</div>
 			</isif>
 			<isif condition="${plpTileSlot.index == pdict.productSearch.pageSize + prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.4th', 'search', null)}">
-				<div class="col-6 col-sm-4 content-tile">
+				<div class="col-6 col-sm-4 content-tile slot-column">
 					<isslot id="cs_plp_marketing_tile_slot_4th" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 				</div>
 			</isif>
 			<isif condition="${plpTileSlot.index == pdict.productSearch.pageSize + prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.5th', 'search', null)}">
-				<div class="col-6 col-sm-4 content-tile">
+				<div class="col-6 col-sm-4 content-tile slot-column">
 					<isslot id="cs_plp_marketing_tile_slot_5th" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 				</div>
 			</isif>
