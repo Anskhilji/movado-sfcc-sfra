@@ -6,18 +6,47 @@
 
 var elem = document.querySelector('.product-number span');
 var productId = elem ? elem.textContent : null;
+var salePrice;
+var listPrice;
+var productData;
+if (document.querySelector('.product-number span')) {
+    productId = document.querySelector('.product-number span').innerHTML || '';
+} else {
+    var cartValue = document.querySelector('.add-to-cart');
+    var clydeCta = document.querySelector('#clyde-cta');
+    if (clydeCta && cartValue) {
+        productId = cartValue.dataset.pid;
+    }
+}
 
-if (window.ClydeSitePreferences && !Clyde.checkReady() && productId) {
-    Clyde.init({
-        key: ClydeSitePreferences.CLYDE_API_KEY,
-        defaultSelector: '#clyde-cta',
-        skipGeoIp: ClydeSitePreferences.CLYDE_SKIP_GEO_IP
-    }, function () {
-        var clydeWidgetHandler = Clyde.getSettings();
-        if (clydeWidgetHandler.productPage) {
-            Clyde.setActiveProduct(productId);
+if (window.ClydeSitePreferences && productId) {
+    if (typeof Clyde !== 'undefined') {
+        if (Clyde.checkReady() === false) {
+            Clyde.init({
+                key: ClydeSitePreferences.CLYDE_API_KEY,
+                defaultSelector: '#clyde-cta',
+                skipGeoIp: ClydeSitePreferences.CLYDE_SKIP_GEO_IP
+            }, function () {
+                var clydeWidgetHandler = Clyde.getSettings();
+                if (clydeWidgetHandler.productPage === true) {
+                    // Custom start: Add code for product price with sku:
+                    salePrice = $('.prices .sale-price-mvmt span').attr('content');
+                    if (salePrice) {
+                        productData = { sku: productId, price: salePrice };
+                    } else {
+                        listPrice = $('.prices .price-pdp-mvmt .strike-through span').attr('price-value');
+                        if (listPrice) {
+                            productData = { sku: productId, price: listPrice };
+                        } else {
+                            productData = { sku: productId, price: '' };
+                        }
+                    }
+                    // Custom End
+                    Clyde.setActiveProduct(productData);
+                }
+            });
         }
-    });
+    }
 }
 /**
  * @description Get the selected contract on the product detail page
