@@ -53,6 +53,9 @@ function addProductToCart() {
  * function use to display contracts
  */
 function displayContract() {
+    var salePrice;
+    var listPrice;
+    var productData;
     Clyde.init({
         key: ClydeSitePreferences.CLYDE_API_KEY,
         skipGeoIp: ClydeSitePreferences.CLYDE_SKIP_GEO_IP
@@ -63,7 +66,22 @@ function displayContract() {
             for (var i = 0; i < clydeCartWidget.length; i++) {
                 var productId = clydeCartWidget[i].getAttribute('data-product-id');
                 var container = '#' + clydeCartWidget[i].id;
-                Clyde.appendToSelectorWithSku(productId, container, addProductToCart);
+                // Custom start: Add code for product price with sku:
+                var priceUUID = container.split('uuid')[1];
+                var itemTotalUUID = '.item-total' + priceUUID;
+                salePrice = $('.line-item-total-price  '+ itemTotalUUID +' .line-item-total-price-amount').attr('price-value');
+                if (salePrice) {
+                    productData = { sku: productId, price: salePrice };
+                } else {
+                    listPrice = $('.line-item-total-price '+ itemTotalUUID +' .original-price').attr('price-value');
+                    if (listPrice) {
+                        productData = { sku: productId, price: listPrice };
+                    } else {
+                        productData = { sku: productId, price: '' };
+                    }
+                }
+                // Custom End
+                Clyde.appendToSelectorWithSku(productData, container, addProductToCart);
             }
         }
     });
