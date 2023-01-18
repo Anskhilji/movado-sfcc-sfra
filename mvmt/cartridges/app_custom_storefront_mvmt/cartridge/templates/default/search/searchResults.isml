@@ -92,7 +92,7 @@
                                 </div>
                             </isif>
                             <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
-                                <div class="col-6 col-sm-4">
+                                <div class="col-6 col-sm-4 content-tile">
                                     <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
                                 </div>
 							</isif>
