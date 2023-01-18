@@ -76,7 +76,8 @@ function getResources(pageContext) {
         PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
         ESW_COUPON_VALIDATION_EMAIL_REQUIRE: Resource.msg('esw.guest.email.required', 'account', null),
-        INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
+        INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null)
+        
     };
     return resources;
 }
