@@ -59,15 +59,15 @@ function getCreateContactAPIService(serviceID, endpoint, accessToken, phone) {
 
 function getAuthToken(params) {
     var accessToken = null;
-    // if (!params.isExpired) {
-    //     accessToken = ltkHelper.getSavedAuthToken();
-    //     return accessToken ? accessToken.custom.token : '';
-    // }
-    // if (!accessToken) {
+    if (!params.isExpired) {
+        accessToken = ltkHelper.getSavedAuthToken();
+        return accessToken ? accessToken.custom.token : '';
+    }
+    if (!accessToken) {
         accessToken = getAuthTokenFromAPI(params);
         ltkHelper.saveNewAuthToken(accessToken);
         return accessToken;
-    // }
+    }
 }
 
 function addContactToLTK(params, service) {
