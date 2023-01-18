@@ -838,7 +838,7 @@
 			}
 			@include media-breakpoint-down(sm) {
 				max-height: rem(450);
-				height: rem(450);
+				height: auto;
 			}
 
 			.main-ob-carousel {
@@ -857,7 +857,7 @@
 					align-items: center;
 					justify-content: center;
 					@include media-breakpoint-down(sm) {
-						height: rem(450);
+						height: auto;
 						display: flex !important;
 					}
 
