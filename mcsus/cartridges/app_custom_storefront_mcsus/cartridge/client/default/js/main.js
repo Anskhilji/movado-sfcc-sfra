@@ -6,5 +6,4 @@ $(document).ready(function () {
     processInclude(require('./accountLogout'));
     processInclude(require('./pickupStoreModal'));
     processInclude(require('./header/header'));
-    processInclude(require('./getClydeWidget'));
 });
