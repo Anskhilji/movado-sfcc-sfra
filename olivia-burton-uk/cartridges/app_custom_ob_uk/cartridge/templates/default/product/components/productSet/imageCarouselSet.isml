@@ -17,13 +17,12 @@
             <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
                 <div class="carousel-tile">
                     <picture>
-                         <source media="(min-width: 992px)" srcset="${product.images.zoom1660[loopStatus.count - 1].url}" />
-                         <source media="(max-width: 544px)" srcset="${product.images.zoom1660[loopStatus.count - 1].url}" />
-                         <source media="(max-width: 320px)" srcset="${product.images.zoom1660[loopStatus.count - 1].url}" />
-                        <img src="${image.url}" alt="${image.alt}" itemprop="image"
-                        data-zoom-mobile-url="${product.images.zoom830[loopStatus.count - 1].url}"
-                        data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count - 1].url}" />
-                        <isset name="isImageExist" value="true" scope="page" />
+                        <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
+                        <source media="(min-width: 544px)" srcset="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
+                        <source media="(min-width: 320px)" srcset="${!empty(product.images) && !empty(product.images.zoom691X830[loopStatus.count - 1]) && !empty(product.images.zoom691X830[loopStatus.count - 1].url) ? product.images.zoom691X830[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
+                        <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" itemprop="image"
+                            data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom691X830[loopStatus.count - 1]) && !empty(product.images.zoom691X830[loopStatus.count - 1].url) ? product.images.zoom691X830[loopStatus.count - 1].url : ''}"
+                            data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
                     </picture>
                     <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
                         <video class="slide-video d-none " loop muted autoplay playsinline>
