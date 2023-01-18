@@ -837,6 +837,7 @@ server.prepend('Header', server.middleware.include, function (req, res, next) {
 server.post('EswCouponValidation', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var CouponMgr = require('dw/campaign/CouponMgr');
+    var ContentMgr = require('dw/content/ContentMgr');
     var collections = require('*/cartridge/scripts/util/collections');
     var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
 
@@ -844,6 +845,8 @@ server.post('EswCouponValidation', function (req, res, next) {
     var couponLineItems = currentBasket.couponLineItems;
     var EswGuestemail = req.form.customerEmail;
     var filterRedemptions = false;
+    var eswCouponErrorContent = ContentMgr.getContent('ca-esw-coupon-validation-error');
+    var couponValidationErrormessage = eswCouponErrorContent && eswCouponErrorContent.custom && eswCouponErrorContent.custom.body ? eswCouponErrorContent.custom.body : '';
     
     if (!empty(EswGuestemail)) {
         for(var i = 0; i < couponLineItems.length; i++) {
@@ -867,7 +870,7 @@ server.post('EswCouponValidation', function (req, res, next) {
             res.json({
                 success: false,
                 error: true,
-                redirectUrl : URLUtils.url('Cart-Show', 'eswfail', true).toString()
+                redirectUrl : URLUtils.url('Cart-Show', 'errormessage', couponValidationErrormessage).toString()
             });
         } else {
             res.json({
@@ -876,12 +879,6 @@ server.post('EswCouponValidation', function (req, res, next) {
                 redirectUrl : URLUtils.url('Checkout-Begin', 'eswEmail', EswGuestemail).toString()
             });
         }
-    } else {
-        res.json({
-            success: false,
-            error: true,
-            errorMessage : Resource.msg('esw.guest.email.required', 'account', null)
-        }); 
     }
 
     return next();

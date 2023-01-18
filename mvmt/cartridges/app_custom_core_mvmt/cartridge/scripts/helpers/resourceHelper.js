@@ -81,7 +81,9 @@ function getResources(pageContext) {
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
         FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
         FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
-        INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null)
+        INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
+        ESW_COUPON_VALIDATION_EMAIL_REQUIRE: Resource.msg('esw.guest.email.required', 'account', null),
+        INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null)
     };
     return resources;
 }
