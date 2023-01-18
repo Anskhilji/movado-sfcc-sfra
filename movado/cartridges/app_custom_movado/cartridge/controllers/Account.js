@@ -839,6 +839,7 @@ server.prepend('Header', server.middleware.include, function (req, res, next) {
 server.post('EswCouponValidation', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var CouponMgr = require('dw/campaign/CouponMgr');
+    var ContentMgr = require('dw/content/ContentMgr');
     var collections = require('*/cartridge/scripts/util/collections');
     var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
 
@@ -846,7 +847,8 @@ server.post('EswCouponValidation', function (req, res, next) {
     var couponLineItems = currentBasket.couponLineItems;
     var EswGuestemail = req.form.customerEmail;
     var filterRedemptions = false;
-    var couponValidationErrormessage = "Esw Cart Error ! invalid Coupon Code";
+    var eswCpuponErrorContent = ContentMgr.getContent('ca-esw-coupon-validation-error');
+    var couponValidationErrormessage = eswCpuponErrorContent && eswCpuponErrorContent.custom && eswCpuponErrorContent.custom.body ? eswCpuponErrorContent.custom.body : ''
     
     if (!empty(EswGuestemail)) {
         for(var i = 0; i < couponLineItems.length; i++) {
