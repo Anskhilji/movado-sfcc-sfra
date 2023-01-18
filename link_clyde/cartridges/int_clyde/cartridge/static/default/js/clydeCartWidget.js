@@ -70,7 +70,7 @@ function displayContract() {
                 var priceUUID = container.split('uuid')[1];
                 var itemTotalUUID = '.item-total' + priceUUID;
                 salePrice = $('.line-item-total-price  '+ itemTotalUUID +' .line-item-total-price-amount').attr('price-value');
-                if (salePrice) {
+                if (salePrice && ClydeSitePreferences.IS_PROMOTIONAL_PRICE) {
                     productData = { sku: productId, price: salePrice };
                 } else {
                     listPrice = $('.line-item-total-price '+ itemTotalUUID +' .original-price').attr('price-value');

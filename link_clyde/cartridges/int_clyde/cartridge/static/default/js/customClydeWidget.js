@@ -31,7 +31,7 @@ if (window.ClydeSitePreferences && productId) {
                 if (clydeWidgetHandler.productPage === true) {
                     // Custom start: Add code for product price with sku:
                     salePrice = $('.prices .sale-price-mvmt span').attr('content');
-                    if (salePrice) {
+                    if (salePrice && ClydeSitePreferences.IS_PROMOTIONAL_PRICE) {
                         productData = { sku: productId, price: salePrice };
                     } else {
                         listPrice = $('.prices .price-pdp-mvmt .strike-through span').attr('price-value');
