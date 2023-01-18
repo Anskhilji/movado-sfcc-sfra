@@ -848,7 +848,7 @@ server.post('EswCouponValidation', function (req, res, next) {
     var EswGuestemail = req.form.customerEmail;
     var filterRedemptions = false;
     var eswCouponErrorContent = ContentMgr.getContent('ca-esw-coupon-validation-error');
-    var couponValidationErrormessage = eswCouponErrorContent && eswCouponErrorContent.custom && eswCouponErrorContent.custom.body ? eswCouponErrorContent.custom.body : ''
+    var couponValidationErrormessage = eswCouponErrorContent && eswCouponErrorContent.custom && eswCouponErrorContent.custom.body ? eswCouponErrorContent.custom.body : '';
     
     if (!empty(EswGuestemail)) {
         for(var i = 0; i < couponLineItems.length; i++) {
