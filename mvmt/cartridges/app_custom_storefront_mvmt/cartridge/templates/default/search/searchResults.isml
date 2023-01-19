@@ -85,17 +85,6 @@
                     <!--- Product Grid --->
                     <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product" data-initial-products="${sitePref.pageSize}" >
                         <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus" >
-                        
-                            <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (sitePref.marketingContentInjectionTileNumber - 1)}">
-                                <div class="${pdict.isEnableSingleProductRow ? 'col-12 col-sm-4 col-lg-4' : 'col-6 col-sm-4 col-lg-3'} content-tile">
-                                    <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
-                                </div>
-                            </isif>
-                            <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
-                                <div class="col-6 col-sm-4 content-tile">
-                                    <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
-                                </div>
-							</isif>
                             <isif condition="${plpTileSlotPosition}">
                                 <isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
                                     <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot}">
