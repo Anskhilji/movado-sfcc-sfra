@@ -227,7 +227,7 @@ function execute(args) {
         var salePriceBooks = Site.current.preferences.custom.promotionalPriceBookConverstion ? JSON.parse(Site.current.preferences.custom.promotionalPriceBookConverstion) : false;
         var writeDirPath = args.impexDirPath;
         var totalAssignedProducts;
-        
+ 
         if (salePriceBooks) {
             salePriceBooks.forEach(function (localizeObj) {
                 var	localizePriceBooks = getLocalPriceBooksDetails(localizeObj);
@@ -239,7 +239,7 @@ function execute(args) {
                 }
             });
         }
-
+        
     } catch (e) {
         Logger.error('SFCC Generate Sale Pricing Job error: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         return new Status(Status.ERROR);
