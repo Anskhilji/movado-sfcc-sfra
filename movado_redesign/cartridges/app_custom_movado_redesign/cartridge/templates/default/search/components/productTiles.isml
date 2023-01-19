@@ -5,9 +5,9 @@
             <isslot id="category_fifth_tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
         </div>
     </isif>
-	<isset name="plpTileSlotPosition" value="${!empty(dw.system.Site.current.preferences.custom.plpTileSlotPosition) ? JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition) : false}" scope="page" />
+    <isset name="plpTileSlotPosition" value="${!empty(dw.system.Site.current.preferences.custom.plpTileSlotPosition) ? JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition) : false}" scope="page" />
     <isif condition="${plpTileSlotPosition}">
-		<isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
+        <isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
 			<isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.isRefinedCategorySearch == false}">
 				<isset name="slotNumber" value="${pdict.productSearch.pageNumber > 0 ? (pdict.productSearch.pageSize) * (pdict.productSearch.pageNumber) : 0}" scope="page">
 				<isif condition="${plpTileSlot.index == slotNumber + prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.1st', 'search', null)}">
