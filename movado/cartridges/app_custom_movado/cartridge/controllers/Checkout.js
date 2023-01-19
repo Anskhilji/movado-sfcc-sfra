@@ -18,6 +18,7 @@ server.append(
     function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
         var Site = require('dw/system/Site');
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
 
@@ -32,6 +33,10 @@ server.append(
                 return next();
             }    
         }
+        var runningABTest = productCustomHelper.getRunningABTestSegments();
+        res.setViewData({
+            runningABTest: runningABTest
+        });
         // Custom End
 
         if (currentBasket && !req.currentCustomer.profile) {
@@ -57,10 +62,15 @@ server.append(
 	function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
         var Locale = require('dw/util/Locale');
+        var Money = require('dw/value/Money');
         var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
-        var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
+        var Constants = require('*/cartridge/scripts/util/Constants');
+        var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+        
+        var currentCountry = productCustomHelper.getCurrentCountry();
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
         var currentCustomer = req.currentCustomer.raw;
@@ -70,6 +80,15 @@ server.append(
 
         var currentBasket = BasketMgr.getCurrentBasket();
         var countryCode = orderCustomHelper.getCountryCode(req);
+
+        if (session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = false;
+        } else {
+            session.custom.StorePickUp = false;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
+        }
 
         if (!currentBasket) {
             res.redirect(URLUtils.url('Cart-Show'));
@@ -124,10 +143,10 @@ server.append(
                 shippable: allValid,
                 countryCode: currentLocale.country,
                 containerView: 'basket',
-                defaultShipment: true
+                defaultShipment: true,
             }
         );
-
+        
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             order: orderModel,
@@ -135,10 +154,17 @@ server.append(
             totals: totals,
             customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
             expirationYears: creditCardExpirationYears,
-            countryCode: countryCode
+            countryCode: countryCode,
+            couponLineItems: currentBasket.couponLineItems
         });
 
         next();
+});
+
+server.get('Declined', function (req, res, next) {
+
+    res.render('checkout/declinedOrder');
+    next();
 });
 
 module.exports = server.exports();

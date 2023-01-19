@@ -2,10 +2,4 @@
     var assets = require('*/cartridge/scripts/assets');
     assets.addJs('/js/backInStockNotification.js');
 </isscript>
-<div class="form-outer">
-    <div class="back-in-stock-notification-container ${product.isBackInStockEnabled ? '' : 'd-none'}" data-pid="${product.id}"
-        data-url="${URLUtils.url('BackInStockNotification-Subscribe')}">
-        <isslot id="cs-pdp-back-in-stock-notification" context="global"
-            description="Content slot for back in stock notification on pdp" />
-    </div>
-</div>
+<isinclude url="${URLUtils.https('BackInStockNotification-ShowBackInStock', 'pid', product.id)}"/>

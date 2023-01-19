@@ -127,7 +127,7 @@ function loadAmazonButton() {
             if(applePayLength == 1){
                 $('.shipping-paypal-btn img').css('height', '19px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "28.5px" });
-                $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px","vertical-align":"middle"});
+                $(".gpay-button-fill-new-style > .gpay-button.white, .gpay-button-fill-new-style > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px","vertical-align":"middle"});
             }
             $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
         } else if(colSize == 4){
@@ -138,7 +138,7 @@ function loadAmazonButton() {
                     $('.shipping-paypal-btn img').css('height', '19px');
             }
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px"});
-            $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"8px 15% 8px","vertical-align":"middle"});
+            $(".gpay-button-fill-new-style > .gpay-button.white, .gpay-button-fill-new-style > .gpay-button.black").css({"padding":"8px 15% 8px","vertical-align":"middle"});
         } else if (colSize == 6 && $(window).width() <= 742) {
             $('.shipping-paypal-btn img').css('height', '18px');
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
@@ -427,7 +427,7 @@ function processNonSwatchValues(attr, $productContainer) {
  */
 function updateAttrs(attrs, $productContainer) {
     // Currently, the only attribute type that has image swatches is Color.
-    var attrsWithSwatches = ['color'];
+    var attrsWithSwatches = ['color','colorWatch'];
 
     attrs.forEach(function (attr) {
         if (attrsWithSwatches.indexOf(attr.id) > -1) {
@@ -827,28 +827,13 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var primaryImageUrls = response.product.images;
-    primaryImageUrls.pdp600.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('.carousel-tile').eq(idx)
-            .attr('data-thumb', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
-
-    // Update gallery images Quadrant
-    primaryImageUrls.pdp453.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('.carousel-tile').eq(idx)
-            .attr('data-thumb', imageUrl.url);
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
+    $('.quadrant-pdp-wrapper').remove();
+    $('.show-mobile-pdp').remove();
+    $('.zoom-modal-inner').remove();
+    $('.pdp-quadrant').prepend(response.productImages);
+    if ($(window).width() > 768) {
+        $('.show-mobile-pdp').remove();
+    }
 
     // pdp Video for variations
     var pdpVideoConfigs = response.product.pdpVideoConfigs;
@@ -873,7 +858,7 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update Family Name and Case Diameter
     if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
-        $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+        $productContainer.find('.product-brand-info .collection-name, .category-watches .watches-collection-name').text(response.product.collectionName);
     }
     if (typeof response.product.caseDiameter !== 'undefined' && response.product.caseDiameter !== '' && response.product.caseDiameter !== null) {
         $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
@@ -939,13 +924,24 @@ function handleVariantResponse(response, $productContainer) {
    if (response.product.available) {
         var badges = response.badges;
 
+        // Update promotion badge on pdp after change variations
+        if (response.product.promotions && response.product.promotions.length > 0) {
+            var promotionBages = response.product.promotions;
+
+            promotionBages.forEach(function (badge) {
+                if (badge.promotionBadge == true && badge.promotionMsg !== '') {
+                    $exclusiveBadges.prepend('<span class="badge custom-promotion-badge badge-bg text-uppercase hide-plp">' + badge. promotionMsg + '</span>');
+                }
+            });
+        }
+
         if (badges.textBadges && badges.textBadges.length > 0) {
             badges.textBadges.forEach(function (badge) {
                 $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
             });
         }
 
-    // Update image Badges
+        // Update image Badges
         if (badges.imageBadges && badges.imageBadges.length > 0) {
             badges.imageBadges.forEach(function (imageBadge, idx) {
                 if (idx === 0) {
@@ -1059,7 +1055,20 @@ function handleVariantResponse(response, $productContainer) {
         var $productNameSelector = $('.product-side-details .product-name');
         $productNameSelector.text(response.product.productName);
         var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id + '&isStrapAjax=true';
-
+        
+        //update case diameter for watches
+        if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
+            if ($productContainer.find('.product-brand-info .watches-case-diameter').length > 0) {
+                $productContainer.find('.product-brand-info .watches-case-diameter').text(response.product.caseDiameterRedesigned);
+            } else {
+                $productNameSelector.html(response.product.productName + '<span class="watches-case-diameter w-100" data-selected-variation-attr="caseDiameter">'+ response.product.caseDiameterRedesigned +'</span>')
+            }
+        }
+        if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
+            if ($productContainer.find('.pd-desc-mvmt.product-description').length > 0) {
+                $productContainer.find('.pd-desc-mvmt.product-description').text(response.product.shortDescription);
+            }
+        }
         $.ajax({
             url: $variationProductURL,
             method: 'GET',
@@ -1233,6 +1242,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
+                var listrakTracking = require('movado/listrakActivityTracking.js');
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1324,11 +1335,14 @@ movadoBase.selectAttribute = function () {
 }
 
 movadoBase.colorAttribute = function () {
-    $(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
+    $(document).off('click', '.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
         e.preventDefault();
     
         if ($(this).attr('disabled') || $(this).hasClass('active')) {
             return;
+        } else {
+            $('.product-size-options.color-variation.active').removeClass('active');
+            $(this).addClass('active');
         }
     
         var $productContainer = $(this).closest('.set-item');

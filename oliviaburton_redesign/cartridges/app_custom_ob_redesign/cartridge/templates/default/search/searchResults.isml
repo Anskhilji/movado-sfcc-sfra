@@ -1,98 +1,99 @@
 <iscomment> A/B test implemented </iscomment>
 <isdecorate template="common/layout/page">
-    <isscript>
-        var assets = require('*/cartridge/scripts/assets');
-        assets.addJs('/js/search-redesign.js');
-        assets.addCss('/css/search.css');
-    </isscript>
+<isinclude template="/components/modules" sf-toolkit="off" />
+	<isscript>
+		var assets = require('*/cartridge/scripts/assets');
+		assets.addJs('/js/search-redesign.js');
+		assets.addCss('/css/search.css');
+	</isscript>
     <isset name="plpTileSlotPosition" value="${!empty(dw.system.Site.current.preferences.custom.plpTileSlotPosition) ? JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition) : false}" scope="page" />
-    <isif condition=${false}>
-        <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-    </isif>
-    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
-        <isinclude template="reporting/reportingUrls" />
-    </isif>
-    <div class="hero search-banner plp-redesign container-fluid">
-        <isif condition="${pdict.productSearch.isCategorySearch}">
-            <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
-                <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}" />
-            </isif>
-            <isslot id="cs-plp-banner-image" description="Category banner Image" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-        <iselse>
-            <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
-                <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}" />
-            </isif>
-            <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
-        </isif>
-        <div class="banner-breadcrumbs">
-            <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-        </div>
-    </div>
+	<isif condition=${false}>
+		<isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+	</isif>
+	<isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+		<isinclude template="reporting/reportingUrls" />
+	</isif>
+	<div class="hero search-banner plp-redesign container-fluid">
+		<isif condition="${pdict.productSearch.isCategorySearch}">
+			<isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+				<isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}" />
+			</isif>
+			<isslot id="cs-plp-banner-image" description="Category banner Image" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+		<iselse>
+			<isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+				<isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}" />
+			</isif>
+			<isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
+		</isif>
+		<div class="banner-breadcrumbs">
+			<isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+		</div>
+	</div>
 
-    <div class="container container-fluid search-results plp-redesign">
-        <isif condition="${!pdict.productSearch.isCategorySearch}">
-            <div class="row">
-                <div class="search-nav">
-                    <div class="nav-tabs-wrapper">
-                        <ul class="nav nav-tabs nav-fill" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active product-search" href="#product-search-results" data-toggle="tab" role="tab"
-                                aria-expanded="true">
-                                    <isif condition="${pdict.productSearch.count>0}" >
-                                        ${Resource.msgf('tab.nav.search.productsresults', 'search', null, pdict.productSearch.count)}
-                                    <iselse/>
-                                        ${Resource.msg('tab.nav.search.productsresults.empty', 'search', null)}
-                                    </isif>
-                                </a>
-                            </li>
-                            
-                            <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount !== 0}">
-                                <li class="nav-item">
-                                    <a class="nav-link content-search" href="#content-search-results-pane" data-toggle="tab" role="tab" aria-expanded="false"
-                                    data-url="${URLUtils.url('Search-Content', 'q', pdict.productSearch.searchKeywords, 'startingPage', 0)}">
-                                        ${Resource.msgf('tab.nav.search.artclesresults', 'search', null, pdict.contentSearch.contentCount)}
-                                    </a>
-                                </li>
-                            </isif>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </isif>
-        <div class="row">
-            <div class="tab-content col-12">
-                <div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
-                    <isif condition="${pdict.productSearch.productIds.length > 0}">
-                        <isinclude url="${pdict.refineurl}" />
-                        <div class="row grid-header">
-                            <div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
-                    <iselse>
-                                    <div class="row grid-header justify-content-center">
-                                        <div class="result-count col">
-                    </isif>
-                    <isinclude template="search/resultsCount" />
-                </div>
-                <isif condition="${pdict.productSearch.productIds.length > 0}">
-                    <div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
-                        <button type="button" class="btn btn-primary filter-results col-12">
-                            ${Resource.msg('button.filter', 'search', null)}
-                        </button>
-                    </div>
-                </isif>
-            </div>
-            <isif condition="${pdict.productSearch.productIds.length > 0}">
-                <div class="row filter-bar">
-                    <isinclude template="search/filterBar" />
-                </div>
-            </isif>
-            <isif condition="${pdict.productSearch.productIds.length > 0}">
-                <!--- Refinement bar --->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="container-fluid">
-                            <!--- Product Grid --->
-                            <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
-                                <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
+	<div class="container container-fluid search-results plp-redesign">
+		<isif condition="${!pdict.productSearch.isCategorySearch}">
+			<div class="row">
+				<div class="search-nav">
+					<div class="nav-tabs-wrapper">
+						<ul class="nav nav-tabs nav-fill" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active product-search" href="#product-search-results" data-toggle="tab" role="tab"
+								aria-expanded="true">
+									<isif condition="${pdict.productSearch.count>0}" >
+										${Resource.msgf('tab.nav.search.productsresults', 'search', null, pdict.productSearch.count)}
+									<iselse/>
+										${Resource.msg('tab.nav.search.productsresults.empty', 'search', null)}
+									</isif>
+								</a>
+							</li>
+							
+							<isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount !== 0}">
+								<li class="nav-item">
+									<a class="nav-link content-search" href="#content-search-results-pane" data-toggle="tab" role="tab" aria-expanded="false"
+									data-url="${URLUtils.url('Search-Content', 'q', pdict.productSearch.searchKeywords, 'startingPage', 0)}">
+										${Resource.msgf('tab.nav.search.artclesresults', 'search', null, pdict.contentSearch.contentCount)}
+									</a>
+								</li>
+							</isif>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</isif>
+		<div class="row">
+			<div class="tab-content col-12">
+				<div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
+					<isif condition="${pdict.productSearch.productIds.length > 0}">
+						<isinclude url="${pdict.refineurl}" />
+						<div class="row grid-header">
+							<div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
+					<iselse>
+									<div class="row grid-header justify-content-center">
+										<div class="result-count col">
+					</isif>
+					<isinclude template="search/resultsCount" />
+				</div>
+				<isif condition="${pdict.productSearch.productIds.length > 0}">
+					<div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
+						<button type="button" class="btn btn-primary filter-results col-12">
+							${Resource.msg('button.filter', 'search', null)}
+						</button>
+					</div>
+				</isif>
+			</div>
+			<isif condition="${pdict.productSearch.productIds.length > 0}">
+				<div class="row filter-bar">
+					<isinclude template="search/filterBar" />
+				</div>
+			</isif>
+			<isif condition="${pdict.productSearch.productIds.length > 0}">
+				<!--- Refinement bar --->
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="container-fluid">
+							<!--- Product Grid --->
+							<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
+								<isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
                                     <isif condition="${plpTileSlotPosition}">
                                         <isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
                                             <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot}">
@@ -124,55 +125,68 @@
                                             </isif>
                                         </isloop>
                                     </isif>
-                                    <isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
-                                    <iselse>
-                                        <div class="col-6 col-sm-4 col-lg-3 custom-col" data-gtm-refinements='${product.productSearchHit.productID}'>
-                                            <isobject object="${product.productSearchHit}" view="searchhit">
-                                                <isif condition="${pdict.productSearch.category}">
-                                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name, 'plpTile', true)}" />
-                                                <iselse>
-                                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'plpTile', true)}" />
-                                                </isif>
-                                            </isobject>
-                                        </div>
-                                    </isif>
-                                </isloop>
 
-                                <isif condition="${pdict.productSearch.enablePagination}">
-                                    <isinclude template="search/pagination" />
-                                <iselse>
-                                    <isinclude template="search/showMore" />
-                                </isif>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </isif>
-        </div>
-        <!--- Content Grid --->
-        <div class="tab-pane" id="content-search-results-pane" role="tabpanel" aria-expanded="false">
-            <div id="content-search-results" class="content-grid-header"></div>
-        </div>
-    
-    </div>
-    </div>
-    </div>
-    
+									<isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
+									<iselse>
+										<div class="col-6 col-sm-4 col-lg-3 custom-col" data-gtm-refinements='${product.productSearchHit.productID}'>
+											<isobject object="${product.productSearchHit}" view="searchhit">
+												<isif condition="${pdict.productSearch.category}">
+													<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name, 'plpTile', true)}" />
+												<iselse>
+													<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'plpTile', true)}" />
+												</isif>
+											</isobject>
+										</div>
+									</isif>
+								</isloop>
 
-    <isif condition="${dw.campaign.ABTestMgr.isParticipant('EinsteinOrManualProdcutRecommendations','EinsteinRecommendation')}">
-        <isslot id="einstein-recommendations-plp" description="Einstein recommendations for PLP" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-    <iselse>
-        <isif condition="${pdict.productSearch.category}">
-            <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-            <isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-            <isslot id="cs_plp_marketing_bottom_slot" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-            <isslot id="cs_plp_marketing_bottom_slot_desktop" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+								<isif condition="${pdict.productSearch.enablePagination}">
+									<isinclude template="search/pagination" />
+								<iselse>
+									<isinclude template="search/showMore" />
+								</isif>
+							</div>
+						</div>
+					</div>
+				</div>
+			</isif>
+		</div>
+
+        <isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
+            <isslot id="noresult-recommendations" description="Recommendations for no result search" context="global" />
+            <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
         </isif>
-    </isif>
+		
+		<!--- Content Grid --->
+		<div class="tab-pane" id="content-search-results-pane" role="tabpanel" aria-expanded="false">
+			<div id="content-search-results" class="content-grid-header"></div>
+		</div>
+	
+	</div>
+	</div>
+	</div>
+	
 
-    <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
-        <div class="d-none" id="color-swatch-images">
-            <isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
-        </div>
+	<isif condition="${dw.campaign.ABTestMgr.isParticipant('EinsteinOrManualProdcutRecommendations','EinsteinRecommendation')}">
+		<isslot id="einstein-recommendations-plp" description="Einstein recommendations for PLP" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+	<iselse>
+		<isif condition="${pdict.productSearch.category}">
+			<isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+			<isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+		</isif>
+	</isif>
+
+	<isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
+		<div class="d-none" id="color-swatch-images">
+			<isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
+		</div>
+	</isif>
+		<!-- Start: Listrak persistent popup -->
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+        <span class="listrak-popup-search-result"></span>
+        <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
     </isif>
+    <!-- End: Listrak persistent popup -->
 </isdecorate>

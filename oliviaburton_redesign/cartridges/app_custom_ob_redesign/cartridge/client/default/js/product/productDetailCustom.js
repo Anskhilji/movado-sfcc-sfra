@@ -29,6 +29,28 @@ module.exports = {
                 $('.debossing-form').removeClass('submitted');
             }
 
+            var standard = $('.debossing-tabs.standard');
+            var script = $('.debossing-tabs.script');
+            var horizontal= $('.debossing-tabs.horizontal');
+            var vertical = $('.debossing-tabs.vertical');
+            var personalize = $('.popup-tabs .personalize');
+
+            if (standard  || script || horizontal || vertical) {
+                if (standard.hasClass('active')) {
+                    var personalization = standard.data('personalize');
+                    personalize.val(personalization);
+                } else if (script.hasClass('active')) {
+                    var personalization = script.data('personalize');
+                    personalize.val(personalization);
+                } else if (horizontal.hasClass('active')) {
+                    var personalization = horizontal.data('personalize');
+                    personalize.val(personalization);
+                } else if (vertical.hasClass('active')) {
+                    var personalization = vertical.data('personalize');
+                    personalize.val(personalization);
+                }
+            }
+    
             setTimeout(function() {
                 var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
                 var debossingtextEdit=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input').val());
@@ -113,7 +135,6 @@ module.exports = {
     
     primarySlider: function () {
 
-        
         $('.primary-images .main-ob-carousel').slick({
             lazyLoad: 'ondemand',
             slidesToShow: 1,
@@ -124,14 +145,6 @@ module.exports = {
                 var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
             },
-        });
-
-        $(document).on('beforeChange', '.primary-images .main-ob-carousel', function (event, slick, currentSlide, nextSlide) {
-            var nextSlide = slick.$slides.get(nextSlide);
-            var $slideSourceSets = $(nextSlide).find('source');
-            $($slideSourceSets).each(function () {
-                $(this).attr('srcset', $(this).data('lazy'));
-            });
         });
 
     },
@@ -258,8 +271,82 @@ module.exports = {
                 }
             });
         }
-    }
+    },
     // Custom End
+    // Custom start: Listrak persistent popup
+    listrakPersistentApply: function () {
+        $(document).on('click','.listrak-popup', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var isContainListrakPopup = e.target.closest('.listrak-popup');
+            var targetEl = e.target;
+            var isTargetContain = targetEl.classList.contains('close-icon-popup');
+            if (isContainListrakPopup && !isTargetContain) {
+                var listrakPersistenPopupUrl = document.querySelector('.listrak-persistent-url');
+                var url = listrakPersistenPopupUrl.dataset.listrakUrl;
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    success: function (response) {
+                        if (response.success == true) {
+                            var interval = setInterval(function() {
+                                if (typeof _ltk != "undefined" && typeof _ltk.Popup != "undefined") {
+                                    _ltk.Popup.openManualByName(response.popupID);
+                                    clearInterval(interval);
+                                }
+                            }, 1000);
+                        }
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                    }
+                });
+            }
+        });
+    },
+    listrakPersistentClose: function () {
+        $(document).on('click','.close-icon-popup', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var isContainListrakPopup = e.target.closest('.listrak-popup');
+            var targetEl = e.target;
+            var isTargetContain = targetEl.classList.contains('close-icon-popup');
+            if (isContainListrakPopup && isTargetContain) {
+                sessionStorage.setItem("listrakPersistenPopup", "false");
+                isContainListrakPopup.remove();
+            }
+        });
+    },
+    listrakPersistentCheckLoad: function () {
+        window.onload = () => {
+            var listrakPopup = document.querySelector('.listrak-popup');
+            var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
+            var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
+            var data = sessionStorage.getItem("listrakPersistenPopup");
+            if (data == null) {
+                var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
+            
+                if (isListrakPopupContain) {
+                    listrakPopup.classList.remove('listrak-persistent-popup');
+                }
+            }
+            if (listrakPopupSearchResult) {
+                var mediumWidth = 992;
+                var $windowWidth = $(window).width();
+                if ($windowWidth < mediumWidth) {
+                    listrakPopup.classList.add('button-search-result');
+                }
+            }
+            if (listrakPopupProductDetail) {
+                var mediumWidth = 992;
+                var $windowWidth = $(window).width();
+                if ($windowWidth < mediumWidth) {
+                    listrakPopup.classList.add('button-product-detail');
+                }
+            }
+        };
+    },
+    // Custom End: Listrak persistent popup
 }
 
 

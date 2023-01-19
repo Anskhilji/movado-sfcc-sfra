@@ -15,7 +15,7 @@
     }
     .card-button {
         padding: rem(11) rem(12);
-        font-family: $font-medium;
+        font-family: $font-HelveticaNeueLT-medium;
         font-size: rem(16);
         border: rem(1) solid $grey14;
         letter-spacing: rem(0.4);
@@ -61,7 +61,7 @@
         padding: rem(10) rem(15) rem(25) rem(15);
 
         .form-control-label {
-            font-family: $font-book;
+            font-family: $font-HelveticaNeueLT-book;
             font-size: rem(14);
             color: $grey14;
             letter-spacing: rem(0.4);
@@ -111,7 +111,7 @@
         }
 
         .store-name {
-            font-family: $font-bold;
+            font-family: $font-HelveticaNeueLT-bold;
             @extend %store-name;
         }
 
@@ -128,7 +128,7 @@
             text-align-last: left;
             border: rem(1) solid $grey14;
             color: $grey14;
-            font-family: $font-medium;
+            font-family: $font-HelveticaNeueLT-medium;
             line-height: rem(19);
             letter-spacing: rem(0.4);
 
@@ -141,7 +141,7 @@
 
 .get-direction {
     a {
-        font-family: $font-book;
+        font-family: $font-HelveticaNeueLT-book;
         font-size: rem(14);
         text-decoration: underline;
         @include media-breakpoint-up(md) {

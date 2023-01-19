@@ -290,11 +290,33 @@ function updatePageURLForPagination(showMoreUrl) {
  * Moving the focus to top after pagination and filtering
  */
 function moveFocusToTop() {
-    var topScrollHeight = $('.tab-content').offset().top - $('header').outerHeight();
-    $('html, body').animate({
-        scrollTop: topScrollHeight
-    }, 500);
+    var element = document.querySelector('.tab-content');
+    var headerEl = document.querySelector('.header-menu-wrapper');
+    var stickyNav = document.querySelector('.filter-box');
+    var filters = $('.filter-bar').outerHeight();
+    var headerElHeight = headerEl.getBoundingClientRect().height;
+    var stickyNavHeight = stickyNav.getBoundingClientRect().height;
+    var totalHeight = headerElHeight + stickyNavHeight + filters;
+    var y = element.getBoundingClientRect().top + window.pageYOffset - totalHeight;
+    window.scrollTo({top: y, behavior: 'smooth'});
 }
+
+// filter bar sticky styling MSS-1912
+$(window).scroll(function() {    
+    var scroll = $(window).scrollTop();
+    var screenWidth = 130;
+    
+    //  this var use for mobile scree 
+    if (window.innerWidth <= 767) {
+        screenWidth = 45;
+    }
+
+    if (scroll > screenWidth) {
+        $('.filter-box').addClass('filter-bar-sticky');
+    } else {
+        $('.filter-box').removeClass('filter-bar-sticky');
+    }
+}); 
 
 module.exports = {
     filter: function () {

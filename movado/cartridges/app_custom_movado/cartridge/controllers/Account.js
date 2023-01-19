@@ -136,17 +136,43 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var CustomerMgr = require('dw/customer/CustomerMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
+
+    var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
     var formErrors = require('*/cartridge/scripts/formErrors');
+    var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+
+    var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
+    var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+    var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
     var registrationForm = null;
     var registrationFormObj = null;
     var redirectUrl = null;
-    var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
-    var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
-    var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
+
+    if (isGoogleRecaptchaEnabled) {
+        var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+        var googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value;
+        if (empty(googleRecaptchaToken)) {
+            res.json({
+                success: false,
+                errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+            });
+            return next(); 
+        }
+
+        var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+        if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score <= googleRecaptchaScore))) {
+            res.json({
+                success: false,
+                errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+            });
+            return next(); 
+        }
+    }
+
     redirectUrl = accountHelpers.getLoginRedirectURL(req.querystring.rurl, req.session.privacyCache, true);
     if (registrationForm.customer.email.value.toLowerCase() !== registrationForm.customer.emailconfirm.value.toLowerCase()) {
         registrationForm.customer.email.valid = false;
@@ -161,8 +187,6 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
             if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
                 (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
                     registrationForm.valid = false;
-            } else {
-                registrationForm.valid = true;
             }
         }
         // Custom End
@@ -320,7 +344,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                     fields: formErrors.getFormErrors(registrationForm)
                 });
             }
-            if (!empty(authenticatedCustomer.profile.custom.customerCurrentCountry)) {
+            if (!empty(authenticatedCustomer && authenticatedCustomer.profile.custom.customerCurrentCountry)) {
                 // Custom Start: Yotpo Swell Integration 
                 if (isYotpoSwellLoyaltyEnabled && authenticatedCustomer.profile.custom.customerCurrentCountry.equalsIgnoreCase('US')) {
                     var viewData = res.getViewData();
@@ -664,16 +688,17 @@ server.replace('SaveNewPassword', server.middleware.https, function (req, res, n
                 var emailMarketingContent = ContentMgr.getContent('email-password-changed-marketing');
 
                 var objectForEmail = {
+                    email: email,
                     firstName: resettingCustomer.profile.firstName,
                     lastName: resettingCustomer.profile.lastName,
-		  url: url,
-		  passwordChangedTitle: Resource.msg('passwordchangedemail.subject', 'account', null),
-		  dear: Resource.msg('msg.passwordemail.dear', 'login', null),
-		  emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
-		  emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
-		  apiContentBody: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
-		  emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
-		  shopNow: Resource.msg('email.shop.now', 'account', null),
+                    url: url,
+                    passwordChangedTitle: Resource.msg('passwordchangedemail.subject', 'account', null),
+                    dear: Resource.msg('msg.passwordemail.dear', 'login', null),
+                    emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
+                    emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
+                    apiContentBody: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
+                    emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
+                    shopNow: Resource.msg('email.shop.now', 'account', null),
                     resettingCustomer: resettingCustomer
                 };
 

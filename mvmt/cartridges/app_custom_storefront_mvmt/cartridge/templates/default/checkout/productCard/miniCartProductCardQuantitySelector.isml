@@ -1,6 +1,6 @@
 <iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
 <div class="quantity-form">
-    <input class="form-control quantity quantity-select custom-select pid-${lineItem.id}"
+    <input class="form-control quantity quantity-select custom-select pid-${lineItem.id+lineItem.UUID}"
         data-uuid="${lineItem.UUID}"
         data-pid="${lineItem.id}"
         data-action="${pdict.actionUrls.updateQuantityUrl}"
@@ -9,14 +9,14 @@
         name="quantity" type="number"/>
     <div class="quantity-btn-group">
         <button type="button" class="quantity-btn quantity-btn-up increased-qty-btn up-qty-btn"
-            data-pid="pid-${lineItem.id}" id="${lineItem.id}">
+            data-pid="pid-${lineItem.id+lineItem.UUID}" id="${lineItem.id}">
             <svg class="svg-icon" viewBox="0 0 213.333 213.333" x="0px" y="0px">
             <g><polygon points="106.667,53.333 0,160 213.333,160"></polygon></g>
             </svg>
         </button>
         
         <button type="button" class="quantity-btn quantity-btn-down decreased-qty-btn down-qty-btn"
-            ${lineItem.quantity > 1 ? '' : 'disabled'} data-pid="pid-${lineItem.id}" id="decreased-${lineItem.id}">
+            ${lineItem.quantity > 1 ? '' : 'disabled'} data-pid="pid-${lineItem.id+lineItem.UUID}" id="decreased-${lineItem.id}">
             <svg class="svg-icon" viewBox="0 0 213.333 213.333">
             <g><polygon points="0,53.333 106.667,160 213.333,53.333"></polygon></g>
             </svg>

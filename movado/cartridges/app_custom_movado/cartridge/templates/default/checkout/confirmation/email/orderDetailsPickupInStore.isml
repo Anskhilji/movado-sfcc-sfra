@@ -1,0 +1,36 @@
+<isloop items="${pdict.order.shipping}" var="shippingModel">
+<table class="responsive-550" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" class="yahoo-center-fix" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+	<tr>
+		<td style="color:#000001;vertical-align:top;" >
+			<table border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+                <isinclude template="/checkout/confirmation/email/productDetailsPickupInStore" /> 
+            </table>
+		</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+</table>
+</isloop>
+<table class="responsive-550" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" class="yahoo-center-fix" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+	<tr>
+		<td style="color:#000001;vertical-align:top;" >
+			<table class="order-details" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+				<tr><td class="h1 uppercase pad-40-top" style="font-size:20px;text-transform:uppercase;padding-top:85px;padding-bottom:30px;color:#000001;vertical-align:top;font-weight:500;" >${pdict.paymentTotalLabel}</td></tr>
+				<tr>
+					<td style="color:#000001;vertical-align:top;" >
+						<isinclude template="/checkout/confirmation/email/orderTotalsPickupInStore" />
+					</td>
+				</tr>
+				<tr>
+                    <isinclude template="/checkout/confirmation/email/paymentDetailsPickupInStore" />	
+				</tr>
+			</table>
+		</td>
+		<td style="color:#000001;vertical-align:top;" >
+			<table class="order-details" border="0" cellpadding="0" cellspacing="0" align="right" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+				<isinclude template="/checkout/confirmation/email/shippingDetailsPickupInStore" />
+                <isinclude template="/checkout/confirmation/email/billingDetailsPickupInStore" />
+			</table>
+		</td>
+	</tr>
+</table>

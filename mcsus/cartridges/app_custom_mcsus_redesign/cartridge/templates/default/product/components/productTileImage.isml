@@ -2,6 +2,13 @@
     <isloop items="${product.badges.imageBadges}" var="imageBadge">
     	<div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
     </isloop>
+    <div class="d-flex text-badges-container">
+        <isloop items="${product.badges.textBadges}" var="badge">
+            <div class="exclusive-product">
+                ${badge.text}
+            </div>
+        </isloop>
+    </div>
     <a href="${pdict.urls.product}">
 	    <isif condition="${product && product.images}"> 
 	        <picture>

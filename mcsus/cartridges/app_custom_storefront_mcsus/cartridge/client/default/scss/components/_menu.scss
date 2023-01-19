@@ -47,7 +47,10 @@
     }
 
     .navbar .navbar-nav {
-
+        @include media-breakpoint-up(lg) {
+          z-index: 0;
+        }
+        
       .nav-link {
         font-weight: 500;
         &:hover {

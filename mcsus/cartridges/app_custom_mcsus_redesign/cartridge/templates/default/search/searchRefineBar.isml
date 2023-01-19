@@ -1,7 +1,7 @@
 <!--- Close button --->
-<div class="filter-header">
-    <div class="header-bar d-md-none clearfix">
-        <div class="pull-left d-md-none result-count">
+<div class="filter-header mx-sm-0">
+    <div class="header-bar clearfix">
+        <div class="pull-left result-count">
             <isinclude template="search/resultsCount" />
         </div>
         <button class="pull-right close">
@@ -37,7 +37,7 @@
                     </isif>
 
                     <!--- ATTRIBUTE REFINEMENTS --->
-                    <isif condition="${refinement.isAttributeRefinement}">
+                    <isif condition="${refinement.isAttributeRefinement || refinement.isPromotionRefinement}">
                         <isinclude template="search/refinements/attributes" />
                     </isif>
 

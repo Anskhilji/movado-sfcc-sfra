@@ -95,6 +95,13 @@
           }
         }
       }
+
+      .sort-filter-box {
+
+          img {
+              display: none;
+          }
+      }
     }
   }
 }
@@ -440,4 +447,13 @@
 }
 .secondary-bar-mt {
   margin-top: rem(19.5);
+}
+
+.listrak-persistent-popup {
+  display: none !important;
+}
+.button-floting {
+  &.button-search-result {
+    bottom: rem(41);
+  }
 }

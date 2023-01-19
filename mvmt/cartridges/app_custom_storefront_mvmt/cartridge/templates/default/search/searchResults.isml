@@ -1,5 +1,6 @@
 <iscomment> Custom Start: HTML structure change for result show </iscomment>
 <isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/search.js');
@@ -147,7 +148,8 @@
 
     <button class="scroll-top"></button>
     <isif condition="${pdict.productSearch.productIds.length > 0}">
-        <div class="plp-grid-overlay">
+        <div class="container">
+            <div class="plp-grid-overlay search-refinement-close"></div>
         </div>
     </isif>
 
@@ -163,7 +165,6 @@
         <isslot id="cs_plp_second_bottom_slot" context="category" description="Second Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         <isslot id="shop-all-bottom-slot" description="Shop all bottom slot" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         <isslot id="cs_plp_marketing_bottom_slot" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-		<isslot id="cs_plp_marketing_bottom_slot_desktop" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </isif>
     <iscomment> Start: Create category slots for strapsd design </iscomment>
     <isif condition=${false}>
@@ -176,4 +177,12 @@
             <isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
         </div>
     </isif>
+    
+    <!-- Start: Listrak persistent popup -->
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+        <span class="listrak-popup-search-result"></span>
+        <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+    </isif>
+    <!-- End: Listrak persistent popup -->
 </isdecorate>

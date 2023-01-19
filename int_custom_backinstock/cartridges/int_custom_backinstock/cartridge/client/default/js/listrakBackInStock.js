@@ -1,4 +1,4 @@
-'use strict';
+var backInStockNotification = require('../js/backInStockNotification');
 
 $('.form').submit(function(e) {
     e.preventDefault();
@@ -12,6 +12,7 @@ $('.form').submit(function(e) {
     var $emailRequired = $('.back-in-stock-notification-error-required');
     var $emailInvalid = $('.back-in-stock-notification-error-invalid');
     var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
+    var $backInStockListrakPreference = $('#backInStockMarketingCloudPreference');
     $emailRequired.text('');
     $emailInvalid.text('');
     $phoneInvalid.text('');
@@ -23,6 +24,16 @@ $('.form').submit(function(e) {
 
         if ($email) {
             $isValid = $pattern.test($email);
+            if ($isValid) {
+                if ($backInStockListrakPreference.length > 0) {
+                    e.preventDefault();
+                    var $selector;
+                    if ($backInStockContainerMain.length > 0) {
+                        $selector = $('.listrak-back-in-stock-notification-container-main');
+                    }
+                    backInStockNotification.submitBackInStockEmail($selector);
+                }
+            }
         }
         
         if ($form.find('.back-in-stock-notification-phone').length > 0) {

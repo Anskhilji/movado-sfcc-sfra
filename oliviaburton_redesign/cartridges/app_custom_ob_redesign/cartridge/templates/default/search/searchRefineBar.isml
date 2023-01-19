@@ -1,7 +1,7 @@
 <iscomment> HTML structure changed according to design requirments </iscomment>
 <isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
 
-<div class="plp-filter-mobile">
+<div class="plp-filter-mobile filter-and-count-margin">
     <div class="refinement-bar">
         <div class="filter-header">
             <div class="header-bar clearfix">
@@ -43,7 +43,7 @@
                             </isif>
 
 
-                            <isif condition="${refinement.isAttributeRefinement}">
+                            <isif condition="${refinement.isAttributeRefinement || refinement.isPromotionRefinement}">
                                 <isinclude template="search/refinements/attributes" />
                             </isif>
 
@@ -57,7 +57,7 @@
             </div>
         </div>   
     </div> 
-    <div class="plp-filter-mobile-row row justify-content-between">
+    <div class="plp-filter-mobile-row row justify-content-between filter-and-count">
         <div class="result-count">
             <isinclude template="search/resultsCount" />
         </div>
@@ -95,7 +95,7 @@
                                                 </isif>
 
                                                 <!--- ATTRIBUTE REFINEMENTS --->
-                                                <isif condition="${refinement.isAttributeRefinement}">
+                                                <isif condition="${refinement.isAttributeRefinement || refinement.isPromotionRefinement}">
                                                     <isinclude template="search/refinements/attributes" />
                                                 </isif>
 

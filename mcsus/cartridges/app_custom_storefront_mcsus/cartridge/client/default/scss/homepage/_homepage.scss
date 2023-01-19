@@ -222,7 +222,7 @@
             }
 
             .yotpo {
-               &.bottomLine {
+              &.bottomLine {
                 .yotpo-display-wrapper {
                     .yotpo-bottomline {
                         margin-bottom: rem(10); 
@@ -296,6 +296,47 @@
         letter-spacing: rem(0);
         margin-bottom: rem(35);
       }
+    }
+
+    &.mcs-product-carousel-override {
+
+        .mcs-product-carousel-column {
+
+            .cs-carousel-wrapper {
+
+                .product-tile {
+
+                    .tile-body {
+
+                        .pdp-link {
+                          
+                            a, .product-name {
+                                color: $light-black1;
+                                font-size: rem(18);
+                                font-weight: bold;
+                                letter-spacing: normal;
+                                line-height: rem(26);
+                                word-break: break-word;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 2;
+                                -webkit-box-orient: vertical;
+                                font-weight: 400;
+                                height: inherit;
+                                text-transform: capitalize;
+            
+                                @include media-breakpoint-down(xs) {
+                                    font-size: rem(14);
+                                    line-height: rem(18);
+                                    letter-spacing: rem(0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
   }
 

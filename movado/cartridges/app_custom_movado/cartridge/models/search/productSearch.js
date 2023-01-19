@@ -43,12 +43,12 @@ function getRefinements(productSearch, refinements, refinementDefinitions) {
     return collections.map(refinementDefinitions, function (definition) {
         var refinementValues = refinements.getAllRefinementValues(definition);
         var values = searchRefinementsFactory.get(productSearch, definition, refinementValues);
-
         return {
             displayName: definition.displayName,
             isCategoryRefinement: definition.categoryRefinement,
             isAttributeRefinement: definition.attributeRefinement,
             isPriceRefinement: definition.priceRefinement,
+            isPromotionRefinement: definition.promotionRefinement,
             values: values
         };
     });
@@ -123,6 +123,7 @@ function getPagingModel(productHits, count, pageSize, startIndex) {
  */
 function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProductSearchHits) {
     var showMoreEndpoint = 'Search-UpdateGrid';
+
     var currentStart = httpParams.start || 0;
     var pageSize = httpParams.sz || DEFAULT_PAGE_SIZE;
     var category = catalogMgr.getCategory(productSearch.categoryID);
@@ -253,6 +254,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
         }
 
     }
+    
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
         paramContainer = {
             pid: searchHitResultProduct.productID

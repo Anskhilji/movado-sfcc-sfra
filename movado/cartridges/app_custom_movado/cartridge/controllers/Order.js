@@ -32,6 +32,7 @@ server.replace(
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
         var userIPAddress = request.httpRemoteAddress || '';
+        var currencyCode = order.getCurrencyCode();
 
         if (!order
             || !token
@@ -123,14 +124,18 @@ server.replace(
                 returningCustomer: false,
                 passwordForm: passwordForm,
                 reportingURLs: reportingURLs,
-                yotpoConversionTrackingData: yotpoConversionTrackingData
+                yotpoConversionTrackingData: yotpoConversionTrackingData,
+                orderObj: order,
+                currencyCode: currencyCode
             });
         } else {
             res.render('checkout/confirmation/confirmation', {
                 order: orderModel,
                 returningCustomer: true,
                 reportingURLs: reportingURLs,
-                yotpoConversionTrackingData: yotpoConversionTrackingData
+                yotpoConversionTrackingData: yotpoConversionTrackingData,
+                orderObj: order,
+                currencyCode: currencyCode
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
@@ -335,6 +340,11 @@ server.append('Confirm', function (req, res, next) {
         couponCode: discountCode,
         orderLineItemArray: orderLineItemArray
     };
+
+    if(session.privacy.pickupFromStore) {
+        session.privacy.pickupFromStore = false;
+    }
+    
     res.setViewData({
         orderConfirmationObj: JSON.stringify(orderConfirmationObj)
     });

@@ -1,0 +1,19 @@
+{
+    "step-types": {
+        "script-module-step": [
+            {
+                "@type-id":"custom.exportBeamOrders",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Update Beam Orders in OMS",
+                "module": "int_beam/cartridge/scripts/jobs/exportBeamOrdersToOMS.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": []
+                }
+            }
+        ]
+    }
+}

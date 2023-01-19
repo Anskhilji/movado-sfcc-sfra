@@ -15,11 +15,14 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 
 		var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 		var formErrors = require('*/cartridge/scripts/formErrors');
+		var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
 
-		var registrationForm = server.forms.getForm('profile');
-		var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
-		// Custom: Start [added the registration limit on this controller]
 		var blockRegistrationOnSalesSites = Site.current.preferences.custom.blockRegistrationOnSalesSites;
+		var registrationForm = server.forms.getForm('profile');
+		var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+		var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
+		
+		// Custom: Start [added the registration limit on this controller]
 
 		if (blockRegistrationOnSalesSites) {
 			res.json({
@@ -30,6 +33,28 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 			return next();
 		}
 		// Custom: End
+
+
+		if (isGoogleRecaptchaEnabled) {
+			var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+			var googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value;
+			if (empty(googleRecaptchaToken)) {
+				res.json({
+					success: false,
+					errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+				});
+				return next(); 
+			}
+
+			var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+			if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score <= googleRecaptchaScore))) {
+				res.json({
+					success: false,
+					errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+				});
+				return next(); 
+			}
+		}
 
 		// form validation
 		if (registrationForm.customer.email.value.toLowerCase()
@@ -47,8 +72,6 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
             if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
                 (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
                     registrationForm.valid = false;
-            } else {
-                registrationForm.valid = true;
             }
         }
         // Custom End
@@ -133,6 +156,8 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 								var newCustomerProfile = newCustomer.getProfile();
 
 								var newsletterSignupProssesed;
+								var geolocation = !empty(req.geolocation.countryCode) ? req.geolocation.countryCode : '';
+								
 								if (registrationForm.addToEmailList) {
 									var requestParams = {
 										email: registrationForm.email
@@ -147,6 +172,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 										requestParams.lastName= registrationForm.lastName;
 										requestParams.birthDate= registrationForm.birthdate;
 										requestParams.birthMonth= registrationForm.birthmonthNumber;
+										requestParams.country = !empty(requestParams.country) ? requestParams.country : geolocation;
 										ltkApi.sendSubscriberToListrak(requestParams);
 									} else {
 										var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
