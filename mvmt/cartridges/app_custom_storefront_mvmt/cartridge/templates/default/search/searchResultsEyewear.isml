@@ -6,7 +6,7 @@
         assets.addJs('/js/search.js');
         assets.addCss('/css/search.css');
     </isscript>
-
+    <isset name="plpTileSlotPosition" value="${!empty(dw.system.Site.current.preferences.custom.plpTileSlotPosition) ? JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition) : false}" scope="page" />
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
         <isinclude template="reporting/reportingUrls" />
     </isif>
@@ -99,7 +99,6 @@
                                             context-object="${pdict.productSearch.category.raw}" />
                                     </div>
                                 </isif>
-                                <isset name="plpTileSlotPosition" value="${!empty(dw.system.Site.current.preferences.custom.plpTileSlotPosition) ? JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition) : false}" scope="page" />
                                 <isif condition="${plpTileSlotPosition}">
                                     <isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
                                         <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot}">
