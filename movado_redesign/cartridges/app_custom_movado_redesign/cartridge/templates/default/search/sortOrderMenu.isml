@@ -10,5 +10,5 @@
             </option>
         </isloop>
     </select>
-    <iscomment> <i class="fa fa-angle-down"></i> </iscomment>
+    <i class="fa fa-angle-down d-md-none"></i>
 </isif>
