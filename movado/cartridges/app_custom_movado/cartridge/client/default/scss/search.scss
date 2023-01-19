@@ -463,4 +463,8 @@
     &.button-search-result {
       bottom: rem(41);
     }
-  }
+}
+
+.content-tile:not(:has(div)) {
+    display: none;
+}

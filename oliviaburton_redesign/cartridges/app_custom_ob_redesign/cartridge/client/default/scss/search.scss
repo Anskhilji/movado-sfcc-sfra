@@ -2032,7 +2032,10 @@
         }
   }
 
-
 .filter-count-visible { 
     visibility: visible;
 }
+
+.content-tile:not(:has(div)) {
+    display: none;
+  }
