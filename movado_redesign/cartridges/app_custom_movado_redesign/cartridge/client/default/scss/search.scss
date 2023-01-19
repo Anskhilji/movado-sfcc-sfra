@@ -1430,6 +1430,8 @@
                       line-height: rem(40);
                       text-align: center;
                       padding: 0;
+                      text-transform: uppercase;
+                      
                         span {
                             color: $white;
                             @include font-demi;
