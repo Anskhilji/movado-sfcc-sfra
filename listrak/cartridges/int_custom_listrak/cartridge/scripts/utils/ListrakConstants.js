@@ -18,7 +18,7 @@ exports.LTK_API_ENDPOINT = {
 exports.LTK_TRANSACTIONAL_API_ENDPOINT = 'List/{listId}/TransactionalMessage/{transactionalMessageId}/Message';
 exports.LTK_GET_CONTACT_STATUS_API_ENDPOINT = 'ShortCode/{shortCodeId}/Contact/{phoneNumber}';
 exports.LTK_SUBSCRIBE_CONTACT_API_ENDPOINT = 'ShortCode/{shortCodeId}/Contact/{phoneNumber}/PhoneList/{phoneListId}';
-exports.LTK_CREATE_CONTACT_API_ENDPOINT = 'SShortCode/{shortCodeId}/PhoneList/{phoneListId}/Contact';
+exports.LTK_CREATE_CONTACT_API_ENDPOINT = 'ShortCode/{shortCodeId}/PhoneList/{phoneListId}/Contact';
 exports.SERVICE_ID = {
     LTK_AUTH: 'listrak.auth.api',
     LTK_EVENT: 'listrak.event.api',

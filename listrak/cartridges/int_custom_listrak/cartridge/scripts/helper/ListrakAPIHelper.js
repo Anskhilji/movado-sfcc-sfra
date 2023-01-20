@@ -137,13 +137,11 @@ function addTransactionalEmailToLTK(params, service) {
 }
 
 function addContactStatusToLTK(params, service) {
-    // var contactStatusPayload = RequestModel.generateContactStatusToLTKPayload(params);
     var result = {
         success: true
     }
     var responsePayload = null;
     try {
-        // responsePayload = service.call(contactStatusPayload);
         responsePayload = service.call();
     } catch (e) {
         Logger.error('Listrak addContactStatusToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
@@ -159,6 +157,10 @@ function addContactStatusToLTK(params, service) {
         } catch (e) {
             Logger.error('Listrak addContactStatusToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
+    }
+
+    if (responsePayload.error == 404) {
+        return responsePayload;
     }
 
     if (!responsePayload.object && responsePayload.error) {
@@ -208,7 +210,7 @@ function addCreateContactToLTK(params, service) {
     var responsePayload = null;
     try {
         // responsePayload = service.call(subscribeContactPayload);
-        responsePayload = service.call();
+        responsePayload = service.call(createContactPayload);
     } catch (e) {
         Logger.error('Listrak addCreateContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }

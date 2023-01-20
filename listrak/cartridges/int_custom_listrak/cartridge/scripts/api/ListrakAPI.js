@@ -95,6 +95,8 @@ function sendContactToListrak(requestParam) {
             authServiceID: authServiceID
         }
         var accessToken = LTKAPIHelper.getAuthToken(params);
+        // var accessToken = 'Xs-6nddfHfN08MN-IUGfsK_D--FkNEb8UoXV5Vq4GpbFsCdidoFh8C-QAoXjXDZO-8h14V0xAifQg28Nh-NUviADJfilNruEJtlN_K258xDwA9f6NGxg16RrOYzeSmP2mEz8BxtNdxPAAbcYyXMv3F36dV5KRRj9rysQObsr32pEb-8PPChKSaZAcKYIBsJ_jVbDW1Fnu1BpSZsHQe-jiNX3m0WvZaI8BNexEDQcX3nIPEVgBO1qgN2QvPTAlj8TANMYlTdb3OVkkRZh6AEhcq8Vz0rf9Pa_yFiIE4vj1IHHTsxeOoV01FbXIZc0nLsl'
+
         var service = null;
 
         params.phone = requestParam.phone;
@@ -143,6 +145,7 @@ function createContactToListrak(requestParam) {
             authServiceID: authServiceID
         }
         var accessToken = LTKAPIHelper.getAuthToken(params);
+        // var accessToken = 'Xs-6nddfHfN08MN-IUGfsK_D--FkNEb8UoXV5Vq4GpbFsCdidoFh8C-QAoXjXDZO-8h14V0xAifQg28Nh-NUviADJfilNruEJtlN_K258xDwA9f6NGxg16RrOYzeSmP2mEz8BxtNdxPAAbcYyXMv3F36dV5KRRj9rysQObsr32pEb-8PPChKSaZAcKYIBsJ_jVbDW1Fnu1BpSZsHQe-jiNX3m0WvZaI8BNexEDQcX3nIPEVgBO1qgN2QvPTAlj8TANMYlTdb3OVkkRZh6AEhcq8Vz0rf9Pa_yFiIE4vj1IHHTsxeOoV01FbXIZc0nLsl'
         var service = null;
 
         params.phone = requestParam.phone;
@@ -162,5 +165,6 @@ module.exports = {
     sendSubscriberToListrak: sendSubscriberToListrak,
     sendTransactionalEmailToListrak: sendTransactionalEmailToListrak,
     sendContactToListrak: sendContactToListrak,
-    subscribeContactToListrak: subscribeContactToListrak
+    subscribeContactToListrak: subscribeContactToListrak,
+    createContactToListrak: createContactToListrak
 }

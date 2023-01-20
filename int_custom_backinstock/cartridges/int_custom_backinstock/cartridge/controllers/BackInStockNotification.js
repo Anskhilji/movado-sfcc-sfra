@@ -55,11 +55,10 @@ server.post('Subscribe', server.middleware.https, cache.applyDefaultCache, funct
             }
             if ((form.smsSubscription == 'true' || form.smsSubscription == true) && Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
                 var optedOutStatus = ltkApi.sendContactToListrak(requestParam);
-                if (optedOutStatus.data.optedOut == true) {
-                    ltkApi.subscribeContactToListrak(requestParam);
-                }
-                var a = true;
-                if (a) {
+                // if (!empty(optedOutStatus) && optedOutStatus.data.optedOut == true) {
+                //     ltkApi.subscribeContactToListrak(requestParam);
+                // }
+                if (optedOutStatus.error == '404') {
                     ltkApi.createContactToListrak(requestParam);
                 }
             }
