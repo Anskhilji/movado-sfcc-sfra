@@ -19,7 +19,12 @@
 		<tr>
 			<td class="p pad-40-btm"
 				style="line-height:18px;font-size:12px;padding-bottom:40px;color:#000001;vertical-align:top;font-weight:500;">
-				${pdict.pickUpThankYou} ${pdict.pickUpOrderConfirmText}</td>
+				${pdict.pickUpThankYou}</td>
+		</tr>
+		<tr>
+			<td class="p pad-40-btm"
+				style="line-height:18px;font-size:12px;padding-bottom:40px;color:#000001;vertical-align:top;font-weight:500;">
+				${pdict.pickUpOrderConfirmText}</td>
 		</tr>
 		<tr>
 			<td class="p center"
