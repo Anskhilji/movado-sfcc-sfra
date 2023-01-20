@@ -128,7 +128,7 @@ $('.search-results.plp-new-design .refinement-bar').keyup(function(event) {
     }
 });
 
-$(document).on('click', '.search-results.plp-new-design  .close-refinebar', function (e) {
+$(document).on('click', '.search-results.plp-new-design  .close-refinebar, .show-bottom-btn .result-count', function (e) {
     e.preventDefault();
     $('.modal-background').addClass('fadeOut').css('z-index', '');
     $('body').removeClass('no-overflow');
@@ -136,6 +136,7 @@ $(document).on('click', '.search-results.plp-new-design  .close-refinebar', func
     $('.header-menu-wrapper').removeClass('sticky-bar-index');
     $('.refinement-bar-redesign').removeClass('d-block');
     $('.modal-background').removeClass('d-block');
+    $('.modal-background').removeAttr("style");
 });
 
 const $filter = $('.refinement-bar, .filter-btn, .more-filter-btn, .search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom');

@@ -20,7 +20,7 @@
 <div class="refine-wrapper-sidebar">
     <div class="sort-order-menu-box order-md-1">
         <isif condition="${pdict.productSearch.productIds.length > 0}">
-            <div class="mb-3 sort-col sort-open-state-modal position-relative sort-order-mobile-menu d-none">
+            <div class="mb-3 sort-col sort-open-state-modal sort-col-margin position-relative sort-order-mobile-menu d-none">
                 <isinclude template="search/sortOrderMenu" />
             </div>
         </isif>
