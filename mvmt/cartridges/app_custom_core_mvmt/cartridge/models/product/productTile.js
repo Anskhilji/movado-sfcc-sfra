@@ -338,6 +338,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: apiProduct.variationModel.defaultVariant.custom.color || ''
                 });
+
+                Object.defineProperty(product, 'defaultProductBasePrice', {
+                    enumerable: true,
+                    value: apiProduct.variationModel.defaultVariant.custom.productBasePrice || ''
+                });
             }
             
         }

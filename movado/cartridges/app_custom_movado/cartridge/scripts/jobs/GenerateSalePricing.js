@@ -61,7 +61,7 @@ function convertedSalePrice(product,localizeObj) {
     PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
 
     if(PromotionIt) {
-        if (product && product.priceModel && product.priceModel.price) {
+        if (PromotionIt.hasNext() && product && product.priceModel && product.priceModel.price) {
             var formattedPrice = formatMoney(product.priceModel.price);
             Transaction.wrap(function () {
                 product.custom.productBasePrice = formattedPrice;
@@ -223,18 +223,22 @@ function execute(args) {
     var Site = require('dw/system/Site').getCurrent();
 
     try {
-        var salePriceBooks = JSON.parse(Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion'));
+        var salePriceBooks = Site.current.preferences.custom.promotionalPriceBookConverstion ? JSON.parse(Site.current.preferences.custom.promotionalPriceBookConverstion) : false;
         var writeDirPath = args.impexDirPath;
         var totalAssignedProducts;
-        salePriceBooks.forEach(function (localizeObj) {
-            var	localizePriceBooks = getLocalPriceBooksDetails(localizeObj);
-            if (!empty(localizePriceBooks)) {
-                localizePriceBooks.forEach(function (priceBook) {
-                    totalAssignedProducts = buildPriceBookSchema(writeDirPath, priceBook, localizeObj);
-                    Logger.info('{0} products localized prices assigned to new price book {1}', totalAssignedProducts, priceBook.id);
-                });
-            }
-        });
+ 
+        if (salePriceBooks) {
+            salePriceBooks.forEach(function (localizeObj) {
+                var	localizePriceBooks = getLocalPriceBooksDetails(localizeObj);
+                if (!empty(localizePriceBooks)) {
+                    localizePriceBooks.forEach(function (priceBook) {
+                        totalAssignedProducts = buildPriceBookSchema(writeDirPath, priceBook, localizeObj);
+                        Logger.info('{0} products localized prices assigned to new price book {1}', totalAssignedProducts, priceBook.id);
+                    });
+                }
+            });
+        }
+        
     } catch (e) {
         Logger.error('SFCC Generate Sale Pricing Job error: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         return new Status(Status.ERROR);
