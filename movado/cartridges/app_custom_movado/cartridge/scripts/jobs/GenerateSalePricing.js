@@ -62,17 +62,19 @@ function convertedSalePrice(product,localizeObj) {
     PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
 
     if(PromotionIt) {
-        if (PromotionIt.hasNext() && product && product.priceModel && product.priceModel.price) {
-            var formattedPrice = formatMoney(product.priceModel.price);
-            Transaction.wrap(function () {
-                product.custom.productBasePrice = formattedPrice;
-            });
-        }
+
 
         while (PromotionIt.hasNext()) {
             var promo = PromotionIt.next();
             if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
                
+                if (product && product.priceModel && product.priceModel.price) {
+                    var formattedPrice = formatMoney(product.priceModel.price);
+                    Transaction.wrap(function () {
+                        product.custom.productBasePrice = formattedPrice;
+                    });
+                }
+                
                 if (product.optionProduct) {
                     currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
                 } else {
