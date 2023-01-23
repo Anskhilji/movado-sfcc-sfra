@@ -34,12 +34,12 @@ function forEach(collection, callback, scope) {
  * function to prepare pre order request object for API Version 2
  * @returns {Object} - request object
  */
-function preparePreOrderV2() {
+function preparePreOrderV2(eswEmail) {
     var currentBasket = BasketMgr.getCurrentBasket();
     var requestObj = {};
     if (currentBasket != null) {
         requestObj = {
-            'contactDetails': getContactDetails(),
+            'contactDetails': getContactDetails(eswEmail),
             'retailerPromoCodes': getRetailerPromoCodes(),
             'cartItems': getCartItemsV2(),
             'cartDiscounts': [],
@@ -420,8 +420,8 @@ function getRetailerCheckoutMetadataItems() {
 /*
  * function to get customer address
  */
-function getContactDetails() {
-    if (customer.profile == null) {
+function getContactDetails(eswEmail) {
+    if (customer.profile == null && eswEmail == null) {
         return [];
     }
     var addresses = (customer.profile != null) ? customer.profile.addressBook.addresses : null,
@@ -449,7 +449,7 @@ function getContactDetails() {
     } else {
         var address = {
             'contactDetailsType': 'isDelivery',
-            'email': customer.profile.email,
+            'email': customer && customer.profile && customer.profile.email ? customer.profile.email : eswEmail,
             'country': request.getHttpCookies()['esw.location'].value
         };
         addressObj.push(address);

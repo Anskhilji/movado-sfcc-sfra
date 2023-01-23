@@ -43,7 +43,7 @@ function handlePreOrderRequestV2(eswEmail) {
     }
     session.privacy.eswOAuthToken = JSON.parse(oAuthResult.object).access_token;
 
-    var requestObj = eswServiceHelper.preparePreOrderV2();
+    var requestObj = eswServiceHelper.preparePreOrderV2(eswEmail);
     requestObj.retailerCartId = eswServiceHelper.createOrder(eswEmail);
     var result = preorderServiceObj.call(JSON.stringify(requestObj));
     return result;
