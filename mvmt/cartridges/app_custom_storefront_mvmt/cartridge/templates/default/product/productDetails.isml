@@ -249,8 +249,6 @@
                                     <div class="d-block">
                                         <!-- Cart and [Optionally] Apple Pay -->
                                         <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
-                                        <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
-
                                     </div>
                                 </div>
                             </div>
