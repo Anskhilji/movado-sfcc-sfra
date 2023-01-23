@@ -646,7 +646,8 @@ module.exports = {
                         $("body").removeClass("no-overflow-ctm");
                         var $bannerCount = $('.banner-count .result-count');
                         var $sideBarCount = $('.show-bottom-btn .result-count');
-                        var $productSearchResult = $('.grid-header .result-count .category-name .mobile-category-name').data('result-counts');
+                        var $productSearchResult = $('.grid-header .result-count .category-name.mobile-category-name').data('result-counts');
+                        var $productSearchItems = $('.grid-header .result-count .category-name').data('result-counts');
                         var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
                         var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
                         var filterBarLayout = $('.filter-bar-overlay');
@@ -654,7 +655,7 @@ module.exports = {
                         if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
                             $bannerSearchResultCountAppend.html($bannerSearchResultCount);
                         } else if ($productSearchResult && $productSearchResult !== undefined) {
-                            var $html = '<span>' + $productSearchResult + '</span>';
+                            var $html = '<span>' + $productSearchItems + '</span>';
                             $bannerCount.html($html);
                             if($sideBarCount && $sideBarCount.length){
                                 var $html = '<span>' + $productSearchResult + '</span>';
