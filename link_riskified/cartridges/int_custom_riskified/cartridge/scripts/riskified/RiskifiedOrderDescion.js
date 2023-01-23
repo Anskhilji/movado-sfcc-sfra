@@ -64,7 +64,6 @@ function orderDeclined(order) {
           } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
               message = '(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo;
               checkoutLogger.error(message);
-              checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
               OrderMgr.cancelOrder(order);
               order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
           }
