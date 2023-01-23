@@ -646,7 +646,7 @@ module.exports = {
                         $("body").removeClass("no-overflow-ctm");
                         var $bannerCount = $('.banner-count .result-count');
                         var $sideBarCount = $('.show-bottom-btn .result-count');
-                        var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
+                        var $productSearchResult = $('.grid-header .result-count .category-name .mobile-category-name').data('result-counts');
                         var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
                         var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
                         var filterBarLayout = $('.filter-bar-overlay');
@@ -654,10 +654,10 @@ module.exports = {
                         if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
                             $bannerSearchResultCountAppend.html($bannerSearchResultCount);
                         } else if ($productSearchResult && $productSearchResult !== undefined) {
-                            var $html = '<span>(' + $productSearchResult + ')</span>';
+                            var $html = '<span>' + $productSearchResult + '</span>';
                             $bannerCount.html($html);
                             if($sideBarCount && $sideBarCount.length){
-                                var $html = '<span>(' + $productSearchResult + ')</span>';
+                                var $html = '<span>' + $productSearchResult + '</span>';
                                 $sideBarCount.html($html);
                             }
                         } else {
@@ -666,10 +666,10 @@ module.exports = {
                                 var $html = '<span class="make-bold">' + 0 + '</span> Results for';
                                 $bannerSearchResultCountAppend.html($html);
                             } else {
-                                var $html = '<span>(' + 0 + ' items)</span>';
-                                $bannerCount.html($html);
+                                var $html = '<span>' + 0 + ' items</span>';
+                            $bannerCount.html($html);
                                 if($sideBarCount && $sideBarCount.length){
-                                    var $html = '<span>(' + $productSearchResult + ')</span>';
+                                    var $html = '<span>' + $productSearchResult + '</span>';
                                     $sideBarCount.html($html);
                                 }
                             }
