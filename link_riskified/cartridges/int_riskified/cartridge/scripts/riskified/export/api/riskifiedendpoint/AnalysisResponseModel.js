@@ -164,7 +164,7 @@ function handle(callerModule) {
         error   : false,
         message : 'Order review status udpated successfully.'
     };
-    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
+    
     return response;
 }
 
