@@ -1550,3 +1550,62 @@ $stored-payment-spacing: rem(16);
         padding: rem(0) rem(15);
     }
 }
+// MSS-1541
+.custom-radio-check input[type="radio"] + label:before{
+  display: none;
+}
+.custom-radio-check {
+  display: flex;
+  overflow: inherit;
+  flex-wrap: wrap;
+
+  .start-lines {
+  padding: 0;
+  box-sizing: border-box;
+  margin-left: 20px;
+
+  // &:nth-child(odd) {
+  //   margin-left: 0;
+  // }
+}
+
+  label {
+    height: rem(100);
+    border: 1px solid #D2D2D2;
+    padding: rem(14) rem(15) rem(12) rem(15);
+    width: rem(220) ;
+  }
+
+  span {
+    font-size: rem(12);
+  }
+
+  .shipping-cost-control {
+    margin-left: rem(10);
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.65);
+    line-height: rem(24);
+  }
+
+  .display-name {
+    font-size: rem(14);
+    font-weight: 500;
+    letter-spacing: rem(0.75);
+    line-height: rem(24);
+    color:#444444;
+  }
+  .arrival-time {
+    color: #787777;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.65);
+    line-height: rem(20);
+    margin-top: rem(9);
+  }
+}
+
+.custom-radio-check input[type="radio"]:checked + label {
+  border-color: #000;
+
+}
