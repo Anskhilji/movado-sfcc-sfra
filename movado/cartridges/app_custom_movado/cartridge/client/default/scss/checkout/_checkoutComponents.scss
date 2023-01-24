@@ -1564,9 +1564,9 @@ $stored-payment-spacing: rem(16);
   box-sizing: border-box;
   margin-left: 20px;
 
-  // &:nth-child(odd) {
-  //   margin-left: 0;
-  // }
+  &:nth-child(3n+1) {
+    margin-left: 0;
+  }
 }
 
   label {
