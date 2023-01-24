@@ -12,7 +12,7 @@ footer {
           @include media-breakpoint-down(sm) {
             flex-direction: column;
             margin-top: rem(10);
-            width: 100% !important;
+            width: 100% !important; // here is coming some inline css therfore i need to overwrite this
           }
 
           .form-control {
