@@ -636,6 +636,7 @@
 
     .mcs-product-carousel-container {
         max-width: inherit;
+        padding-inline: rem(70);
 
         .mcs-product-carousel-row {
 
@@ -646,11 +647,11 @@
                     .cs-carousel {
 
                         .slick-prev {
-                            left: rem(0);
+                            left: rem(4);
                         }
 
                         .slick-next {
-                            right: rem(0);
+                            right: rem(3);
                         }
                     }
                 }
@@ -665,7 +666,9 @@
 
         .mcs-product-carousel-container {
             max-width: inherit;
-    
+            padding-left: rem(70);
+            padding-right: rem(70);
+
             .mcs-product-carousel-row {
     
                 .mcs-product-carousel-column {
@@ -675,7 +678,7 @@
                         .cs-carousel {
     
                             .slick-prev {
-                                left: rem(-50);
+                                left: rem(3);
     
                                 @include media-breakpoint-down (lg) {
                                     left: rem(5);
@@ -683,7 +686,7 @@
                             }
     
                             .slick-next {
-                                right: rem(-50);
+                                right: rem(3);
     
                                 @include media-breakpoint-down (lg) {
                                     right: rem(5);
