@@ -262,11 +262,17 @@ $stored-payment-spacing: rem(16);
 
   .shipping-method-block {
     .ship-method-header {
-      @extend %card-header;
-      color: $grey14;
+      font-size: rem(15);
+      letter-spacing: rem(0.7);
+      line-height: rem(21);
+      color: $grey8;
       margin-top: rem(10);
-      margin-bottom: rem(10);
+      margin-bottom: rem(20);
       text-transform: uppercase;
+
+      @include media-breakpoint-down(xs) {
+        font-size: rem(15);
+      }
     }
     
     &.mx-shipping-box {
@@ -1561,30 +1567,37 @@ $stored-payment-spacing: rem(16);
   .start-lines {
   padding: 0;
   box-sizing: border-box;
-  margin-left: 20px;
+  margin-left: rem(20);
+  margin-bottom: rem(15);
 
   &:nth-child(3n+1) {
     margin-left: 0;
   }
-}
 
-  label {
-    height: rem(100);
-    border: 1px solid #D2D2D2;
-    padding: rem(14) rem(15) rem(12) rem(15);
-    width: rem(220) ;
+  @include media-breakpoint-down(lg) {
+    margin-left: rem(20);
+    width: calc(51% - 20px);
+
+    &:nth-child(3n+1) {
+      margin-left: rem(20);
+    }
+
+    &:nth-child(odd) {
+      margin-left: rem(0);
+    }
+
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+      margin-left: 0;
+
+      &:nth-child(3n+1) {
+        margin-left: rem(0);
+      }
+    }
   }
 
-  span {
-    font-size: rem(12);
-  }
-
-  .shipping-cost-control {
-    margin-left: rem(10);
-    font-size: rem(12);
-    font-weight: 500;
-    letter-spacing: rem(0.65);
-    line-height: rem(24);
+  .end-lines {
+    display: none;
   }
 
   .display-name {
@@ -1592,19 +1605,51 @@ $stored-payment-spacing: rem(16);
     font-weight: 500;
     letter-spacing: rem(0.75);
     line-height: rem(24);
-    color:#444444;
+    color: $google-grey1;
   }
+
+  .shipping-cost-control {
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.65);
+    line-height: rem(24);
+    color: $black;
+  }
+
   .arrival-time {
-    color: #787777;
+    color: $grey17;
     font-size: rem(12);
     font-weight: 500;
     letter-spacing: rem(0.65);
     line-height: rem(20);
-    margin-top: rem(9);
+  }
+}
+
+  label {
+    height: rem(100);
+    border: 1px solid $grey16;
+    padding: rem(14) rem(15) rem(12) rem(15);
+    width: rem(220);
+    margin-bottom: 0;
+    border-radius: rem(3);
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
+    
+    .price-naming {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: rem(8);
+    }
+  }
+
+  span {
+    font-size: rem(12);
   }
 }
 
 .custom-radio-check input[type="radio"]:checked + label {
-  border-color: #000;
+  border: rem(2) solid $black;
 
 }
