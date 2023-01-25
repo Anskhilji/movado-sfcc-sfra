@@ -653,7 +653,7 @@
                             &.selected,
                             &:focus {
                                 border-color: $black;
-                                background: $gray;
+                                background: $gray-light-1;
                                 text-decoration: none;
                                 outline: none;
                             }
@@ -947,7 +947,7 @@
                                 &:hover,
                                 &.selected {
                                     border-color: $black;
-                                    background: $gray;
+                                    background: $gray-light-1;
                                     font-weight: 600;
                                     text-decoration: none;
                                     outline: none;
