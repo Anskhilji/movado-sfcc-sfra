@@ -249,6 +249,9 @@
                                     <div class="d-block">
                                         <!-- Cart and [Optionally] Apple Pay -->
                                         <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
+                                        <isif condition="${product.available && pdict.readyToOrder}">
+                                            <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
+                                        </isif>
                                     </div>
                                 </div>
                             </div>
