@@ -2,7 +2,7 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
     <script>
         $(document).ready(function() {
-             window.slickSlider.initCarousel($('.custom-js-carousel'));
+            window.slickSlider.initCarousel($('.custom-js-carousel'));
         });
     </script>
     <div class="container custom-js-carousel">
