@@ -1190,7 +1190,7 @@ function handleVariantResponse(response, $productContainer) {
         }
         var currentCountry = response.product.currentCountry.toLowerCase();
         if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
-            var applePayButton = $('.apple-pay-pdp', response.$productContainer);
+            var applePayButton = $('.apple-pay-pdp', $productContainer);
             if (applePayButton.length !== 0) {
                 applePayButton.attr('sku', response.product.id);
             } else {
