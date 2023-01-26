@@ -240,15 +240,13 @@ function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
         message = 'Payment related information is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
 
-        if (sendErrorEmail === false) {
-            if (isRiskifiedSyncIntegerationEnabled) {
-                if (attemptCounter === 1) {
-                    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
-                }
-            }
+        // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails 
+        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         } else if (sendErrorEmail === true) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         }
+        // Custom End
 
         return false;
     }
@@ -257,16 +255,14 @@ function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
         message = 'checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
 
-        if (sendErrorEmail === false) {
-            if (isRiskifiedSyncIntegerationEnabled) {
-                if (attemptCounter === 1) {
-                    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
-                }
-            }
+        // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails
+        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         } else if (sendErrorEmail === true) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
-        }        
-        
+        }     
+        // Custom End
+
         return false;
     }
 
@@ -290,15 +286,13 @@ function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
         message = 'Error occured while exporting order ' + order.orderNo + ' to Riskified. \n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
 
-        if (sendErrorEmail === false) {
-            if (isRiskifiedSyncIntegerationEnabled) {
-                if (attemptCounter === 0) {
-                    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
-                }
-            }
+        // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails
+        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         } else if (sendErrorEmail === true) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         }
+        // Custom End
         
         if (response.recoveryNeeded) {
             RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
