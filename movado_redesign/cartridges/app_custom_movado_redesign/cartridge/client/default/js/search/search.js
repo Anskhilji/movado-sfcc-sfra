@@ -418,9 +418,6 @@ module.exports = {
                     // edit
                     updatePageURLForSortRule(url);
                     // edit
-
-                    var $productSearchResult = $('.result-count .category-name.mobile-category-name').data('result-counts-sort');
-                    $('.result-count span').text($productSearchResult);
                     $.spinner().stop();
                 },
                 error: function () {
