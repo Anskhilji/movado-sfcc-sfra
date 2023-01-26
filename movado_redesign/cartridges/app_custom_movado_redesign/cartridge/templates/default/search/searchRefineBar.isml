@@ -8,7 +8,7 @@
         <isif condition="${pdict.productSearch.productIds.length > 0}">
             <div class="pull-right w-100 text-right reset-button-mt">
                 <div class="secondary-bar p-0">
-                    <a class="reset w-auto d-inline-block" href="${pdict.productSearch.resetLink}">
+                    <a class="reset w-auto d-inline-block" data-reset-filter="true" href="${pdict.productSearch.resetLink}">
                         ${Resource.msg('link.reset.new', 'search', null)}
                     </a>
                 </div>
