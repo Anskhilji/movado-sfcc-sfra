@@ -69,7 +69,7 @@ $(document).on('click', '.store-pickup-select', function () {
         } else if (storePickup.inventory === undefined || storePickup.inventory[0].records[0].ato === 0) {
             $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-store-icon'); 
             $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-inventory-icon');
-            $('.pdp-icon-box').addClass('pickup-store-inventory-status-icon-unavailable'); 
+            $('.pdp-icon-box').addClass('pickup-store-inventory-status-icon-unavailable unavailable-icon-block'); 
             $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_UNAVAILABLE_TEXT);
         } else {
             $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-store-icon'); 
