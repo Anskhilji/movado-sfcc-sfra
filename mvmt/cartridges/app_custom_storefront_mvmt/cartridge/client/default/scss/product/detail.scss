@@ -2081,6 +2081,24 @@
                 width: 100%;
                 height: rem(60);
             }
+            &.out-of-stock-btn {
+                background: $light-grey10;
+                opacity: 0.5;
+                color: $black;
+                border-color: $light-grey10;
+
+                .product-price-mobile {
+
+                    .price {
+                        color: $black;
+                    }
+                }
+        
+                &:hover {
+                    background: $light-grey10;
+                    border-color: $light-grey10;
+                }
+            }
         }
 
         .add-to-cart {
