@@ -561,7 +561,7 @@ module.exports = {
                 var urlparams = getUrlParamObj(document.location.href);
                 var filtersURL = e.currentTarget.href;
                 var currentSelectedSortId = '';
-                var resetFilterbtn = $(this).data('reset-filter');
+                var resetFilterBtn = $(this).data('reset-filter');
                 if (urlparams.hasOwnProperty('srule') == true) {
                     if (urlparams.srule) {
                         currentSelectedSortId = urlparams.srule;
@@ -586,7 +586,7 @@ module.exports = {
                         updatePageURLForFacets(filtersURL);
                         var $selectedFiltersNav = $('.selected-filters-nav');
                         var $selectedFilterVal = '';
-                        if (resetFilterbtn == true) {
+                        if (resetFilterBtn == true) {
                             $('.close-refinebar').trigger('click');
                         }
                         $selectedFiltersNav.each(function() {
