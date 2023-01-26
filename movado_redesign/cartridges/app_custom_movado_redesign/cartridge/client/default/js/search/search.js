@@ -561,6 +561,7 @@ module.exports = {
                 var urlparams = getUrlParamObj(document.location.href);
                 var filtersURL = e.currentTarget.href;
                 var currentSelectedSortId = '';
+                var resetFilterBtn = $(this).data('reset-filter');
                 if (urlparams.hasOwnProperty('srule') == true) {
                     if (urlparams.srule) {
                         currentSelectedSortId = urlparams.srule;
@@ -585,6 +586,9 @@ module.exports = {
                         updatePageURLForFacets(filtersURL);
                         var $selectedFiltersNav = $('.selected-filters-nav');
                         var $selectedFilterVal = '';
+                        if (resetFilterBtn == true) {
+                            $('.close-refinebar').trigger('click');
+                        }
                         $selectedFiltersNav.each(function() {
                             var $isChildEl = $(this).find('.filter-value');
                             if ($isChildEl.length > 0) {
@@ -731,6 +735,7 @@ module.exports = {
             var $selectedValue = e.target.innerText;
             var $html = 'Sort by: ' + $selectedValue;
             $mobileFilterBtn.html($html);
+            $('.close-refinebar').trigger('click');
         });
     },
 };
