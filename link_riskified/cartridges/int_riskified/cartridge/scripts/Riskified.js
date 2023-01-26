@@ -241,7 +241,7 @@ function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
         RCLogger.logMessage(message);
 
         // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails 
-        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
+        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 1) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         } else if (sendErrorEmail === true) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
@@ -256,7 +256,7 @@ function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
         RCLogger.logMessage(message);
 
         // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails
-        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
+        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 1) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         } else if (sendErrorEmail === true) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
@@ -287,7 +287,7 @@ function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
         RCLogger.logMessage(message);
 
         // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails
-        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
+        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 1) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         } else if (sendErrorEmail === true) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
