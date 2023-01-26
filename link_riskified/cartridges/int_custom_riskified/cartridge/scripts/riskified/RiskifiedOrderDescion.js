@@ -27,12 +27,14 @@ function orderDeclined(order) {
 
     var message = '(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo;
     checkoutLogger.info(message);
+    checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
     // void or reverse the payment if card payment or not paid
     // (Order.PAYMENT_STATUS_NOTPAID) else refund the payment if already
     // captured and send mail to customer
     if (order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID || (paymentMethod.ID == 'CREDIT_CARD' && order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID)) {
         message = '(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to get the responseObject from hooksHelper with paymentReversal param and order number is: ' + order.orderNo;
         checkoutLogger.info(message);
+        checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
         responseObject = hooksHelper(
                 'app.riskified.paymentreversal',
                 'paymentReversal',
@@ -90,7 +92,8 @@ function orderApproved(order) {
     // riskifiedStatus as approved then mark as confirmed
     message = '(RiskifiedOrderDescion.js) -> orderApproved: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo;
     checkoutLogger.info(message);
-
+    checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
+    
     if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
         Transaction.wrap(function () {
             order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);

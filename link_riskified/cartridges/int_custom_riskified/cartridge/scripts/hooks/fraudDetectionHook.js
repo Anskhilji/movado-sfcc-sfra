@@ -11,6 +11,7 @@ var PaymentMgr = require('dw/order/PaymentMgr');
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
 var attemptCounter = 0;
 var maxAttempted = !empty(Site.current.preferences.custom.riskifiedTimeoutOrderTriesNo) ? Site.current.preferences.custom.riskifiedTimeoutOrderTriesNo : '';
+var sendErrorEmail = false;
 
 function checkoutCreate(orderNumber, paymentInstrument) {
     var order = OrderMgr.getOrder(orderNumber);
@@ -68,8 +69,8 @@ function create(orderNumber, paymentInstrument) {
     var isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
     var isRiskifiedSyncIntegerationEnabled = !empty(Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled) ? Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled : false;
     var result = {status: 'success'};
-    if (isRiskifiedflag) {
-        var serviceResult = RiskifiedService.sendCreateOrder(order);
+    if (isRiskifiedflag) {      
+        var serviceResult = RiskifiedService.sendCreateOrder(order, attemptCounter, sendErrorEmail);
         result.response = serviceResult;
         if (serviceResult.error) {
             if (isRiskifiedSyncIntegerationEnabled) {

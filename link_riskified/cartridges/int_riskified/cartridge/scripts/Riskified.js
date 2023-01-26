@@ -28,6 +28,8 @@ var RiskifiedAPI = require('int_riskified/cartridge/scripts/riskifiedhandler');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 var Transaction = require('dw/system/Transaction');
+var Site = require('dw/system/Site');
+var isRiskifiedSyncIntegerationEnabled = !empty(Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled) ? Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled : false;
 
 /**
  * This method saves payment related information during billing step in checkout. It also generates
@@ -206,7 +208,7 @@ function sendCheckoutDenied(order, paymentParams, authErrorParams) {
  *
  * @return {Boolean}
  */
-function sendCreateOrder(order) {
+function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
     var logLocation = _moduleName + '.sendCreateOrder()',
         OrderModel,
         orderParams,
@@ -237,14 +239,34 @@ function sendCreateOrder(order) {
     if (empty(riskifiedPaymentParams) && !hasGiftCert) {
         message = 'Payment related information is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
-        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+
+        if (sendErrorEmail === false) {
+            if (isRiskifiedSyncIntegerationEnabled) {
+                if (attemptCounter === 1) {
+                    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+                }
+            }
+        } else if (sendErrorEmail === true) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        }
+
         return false;
     }
 
     if (empty(session.custom.checkoutUUID)) {
         message = 'checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
-        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+
+        if (sendErrorEmail === false) {
+            if (isRiskifiedSyncIntegerationEnabled) {
+                if (attemptCounter === 1) {
+                    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+                }
+            }
+        } else if (sendErrorEmail === true) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        }        
+        
         return false;
     }
 
@@ -267,8 +289,17 @@ function sendCreateOrder(order) {
     if (response.error) {
         message = 'Error occured while exporting order ' + order.orderNo + ' to Riskified. \n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
 
+        if (sendErrorEmail === false) {
+            if (isRiskifiedSyncIntegerationEnabled) {
+                if (attemptCounter === 0) {
+                    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+                }
+            }
+        } else if (sendErrorEmail === true) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        }
+        
         if (response.recoveryNeeded) {
             RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
         }

@@ -123,7 +123,8 @@ server.get('OptIn', function (req, res, next) {
                 COHelpers.sendConfirmationEmail(order, req.locale.id);
 
                 session.custom.decoOptIn = true;
-                RiskifiedService.sendCreateOrder(order);
+                var sendErrorEmail = true;
+                RiskifiedService.sendCreateOrder(order, sendErrorEmail);
                 var submitUrl = URLUtils.url('Order-Confirm','ID', orderNo).toString() + "&token=" + order.orderToken;
                 emptyBasket();
                 reply.ok = true;
