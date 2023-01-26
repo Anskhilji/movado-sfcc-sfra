@@ -436,49 +436,91 @@
                         .product-family {
 
                             h3 {
-                                text-align: center;
                                 min-height: rem(20);
+                                letter-spacing: rem(1);
+                                line-height: rem(20);
+
+                                @include media-breakpoint-down(md) {
+                                    font-size: rem(13);
+                                    line-height: rem(16);
+                                }
+
+                                @include media-breakpoint-down(sm-small) {
+                                    font-size: rem(12);
+                                    line-height: rem(12);
+                                }
                             }
                         }
     
                         .pdp-link {
                             margin-bottom: rem(10);
                             min-height: rem(50);
-                            text-align: center;
     
                             a {
                                 color: $gray20;
-                                font-size: rem(16);
-                                letter-spacing: 0;
-                                line-height: rem(24);
-                                text-align: center;
-                                font-weight: 400;
+                                font-size: rem(15);
+                                letter-spacing: rem(0.5);
+                                line-height: rem(20);
+                                font-weight: 300;
+
+                                @include media-breakpoint-down(md) {
+                                    font-size: rem(13);
+                                    line-height: rem(18);
+                                }
+
+                                @include media-breakpoint-down(sm-small) {
+                                    font-size: rem(12);
+                                }
                               
                             }
                         }
     
                         .pricing-save {
-                            justify-content: center;
                            
                             .price {
+                                font-size: rem(15);
                                 color: $gray20;
-                                font-size: rem(18);
-                                font-weight: 300;
-                                letter-spacing: 0;
-                                line-height: rem(18);
+                                letter-spacing: rem(0.5);
+                                line-height: rem(20);
                                 text-align: center;
+                                font-weight: 600;
+                                font-family: $font-gill-sans-std;
+
+                                @include media-breakpoint-down(sm-small) {
+                                    line-height: rem(12);
+                                }
+
+                                .price-pdp-mvmt {
+                                    display: inline-flex;
+                                    flex-wrap: wrap;
+                                }
 
                                 .strike-through , .sale-price-mvmt {
                                     @include media-breakpoint-down(sm) {
                                         margin-right: rem(10);
                                     }
                                 }
+                                
+                                .strike-through {
+                                    color: $dark-gray;
+                                    display: inline-flex;
+                                    font-weight: 300;
+                                } 
 
                                 .value {
-                                    font-size: rem(18);
+                                    font-size: rem(15);
+                                    line-height: rem(20);
+                                    display: inline-flex;
+                                    letter-spacing: rem(0.5);
 
-                                    @include media-breakpoint-down(sm) {
-                                        font-size: rem(18);
+                                    @include media-breakpoint-down(md) {
+                                        font-size: rem(13);
+                                        line-height: rem(16);
+                                    }
+
+                                    @include media-breakpoint-down(sm-small) {
+                                        font-size: rem(12);
+                                        line-height: rem(12);
                                     }
                                 }
                             }
