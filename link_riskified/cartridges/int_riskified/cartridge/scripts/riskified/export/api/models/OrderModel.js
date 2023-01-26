@@ -198,7 +198,8 @@ function updateOrderConfirmationStatus(order, orderConfirmationStatus, callerMod
 
     message = 'SetOrderConfirmationStatus: The order confirmation status is : ' + orderConfirmationStatus, 'debug', logLocation;
     RCLogger.logMessage(message);
-
+    checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
+    
     try {
         Transaction.wrap(function () {
             order.setConfirmationStatus(orderConfirmationStatus);
@@ -231,6 +232,7 @@ function setOrderAnalysisStatus(order, status, callerModule) {
 
     message = 'The order analysis status is: ' + status, 'debug', logLocation;
     RCLogger.logMessage(message);
+    checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
 
     try {
         if (empty(session.custom.delayRiskifiedStatus) || session.custom.delayRiskifiedStatus) {
