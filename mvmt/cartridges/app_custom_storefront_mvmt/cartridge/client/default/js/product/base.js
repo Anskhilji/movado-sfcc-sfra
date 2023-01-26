@@ -1193,10 +1193,11 @@ function handleVariantResponse(response, $productContainer) {
             var applePayButton = $('.apple-pay-pdp', $productContainer);
             if (applePayButton.length !== 0) {
                 applePayButton.attr('sku', response.product.id);
+                applePayButton.removeClass('d-none');
             } else {
                 if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
-                    $('.cart-and-ipay').append('<isapplepay class="apple-pay-pdp btn"' +
-                        'sku=' + response.product.id + '></isapplepay>');
+                    $('.cart-and-ipay .apple-pay-pdp').removeClass('d-none');
+                    $('.cart-and-ipay .apple-pay-pdp').attr('sku', response.product.id);
                 }
             }
         } 
@@ -1210,7 +1211,7 @@ function handleVariantResponse(response, $productContainer) {
         if (window.Resources.GOOGLE_PAY_ENABLED) {
             $('.google-pay-container').hide();
         }
-        $('.apple-pay-pdp').remove();
+        $('.apple-pay-pdp').addClass('d-none');
     }
     $('body').on('product:afterAttributeSelect', function (e, response) {
         setTimeout(function(){
