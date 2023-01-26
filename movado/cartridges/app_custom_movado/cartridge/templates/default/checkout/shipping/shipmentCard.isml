@@ -45,7 +45,7 @@
             <iselse/>
                 <fieldset class="shipping-method-block mx-shipping-box shipping-method-box-wrapper">
                     <div class="row">
-                        <div class="col-12 col-wrapper-space-left">
+                        <div class="col-12 col-wrapper-space-left new-shipping-sec">
                             <h5 class="ship-method-header">${Resource.msg('heading.shipping.method', 'checkout', null)}</h5>
             
                             <isinclude template="checkout/shipping/shippingMethod" />

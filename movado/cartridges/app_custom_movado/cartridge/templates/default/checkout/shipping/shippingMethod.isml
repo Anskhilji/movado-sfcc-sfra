@@ -28,20 +28,19 @@
 <!---------------------------------------------------------------------------------->
 <!-- Template used by client to redraw shipping methods                           -->
 <!---------------------------------------------------------------------------------->
-<div id="shipping-method-template" style="display:none;" >
-    <div class="form-check start-lines">
-        <input type="radio" class="form-check-input" id="shippingMethodRadioButton">
-        <label class="form-check-label shipping-method-option" for="shippingMethodRadioButton">
-         <div class="price-naming">
-            <span class="display-name"></span>
+<div class="custom-radio-check">
+    <div id="shipping-method-template" style="display:none;" >
+        <div class="form-check start-lines">
+            <input type="radio" class="form-check-input" id="shippingMethodRadioButton">
+            <label class="form-check-label shipping-method-option" for="shippingMethodRadioButton">
+                <div class="price-naming">
+                    <span class="display-name"></span>
                     <span class="shipping-cost shipping-cost-control"></span>
-         </div>
-            <span class="arrival-time" style="display:none"></span>
-        </label>
-          <div class="text-right shipping-method-pricing end-lines">
-        
-
+                </div>
+                <span class="arrival-time" style="display:none"></span>
+            </label>
+            <div class="text-right shipping-method-pricing end-lines"></div>
+        </div>
+    
     </div>
-    </div>
-  
 </div>

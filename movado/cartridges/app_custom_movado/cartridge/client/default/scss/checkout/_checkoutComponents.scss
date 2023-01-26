@@ -262,17 +262,11 @@ $stored-payment-spacing: rem(16);
 
   .shipping-method-block {
     .ship-method-header {
-      font-size: rem(15);
-      letter-spacing: rem(0.7);
-      line-height: rem(21);
-      color: $grey8;
+      @extend %card-header;
+      color: $grey14;
       margin-top: rem(10);
-      margin-bottom: rem(20);
+      margin-bottom: rem(10);
       text-transform: uppercase;
-
-      @include media-breakpoint-down(xs) {
-        font-size: rem(15);
-      }
     }
     
     &.mx-shipping-box {
@@ -1606,6 +1600,7 @@ $stored-payment-spacing: rem(16);
     letter-spacing: rem(0.75);
     line-height: rem(24);
     color: $google-grey1;
+    font-family: $font-demi;
   }
 
   .shipping-cost-control {
@@ -1614,6 +1609,8 @@ $stored-payment-spacing: rem(16);
     letter-spacing: rem(0.65);
     line-height: rem(24);
     color: $black;
+    font-family: $font-demi;
+    margin-left: rem(10);
   }
 
   .arrival-time {
@@ -1622,16 +1619,18 @@ $stored-payment-spacing: rem(16);
     font-weight: 500;
     letter-spacing: rem(0.65);
     line-height: rem(20);
+    font-family: $font-demi;
   }
 }
 
   label {
-    height: rem(100);
+    // height: rem(100);
     border: 1px solid $grey16;
     padding: rem(14) rem(15) rem(12) rem(15);
     width: rem(220);
     margin-bottom: 0;
     border-radius: rem(3);
+    font-family: $font-demi;
 
     @include media-breakpoint-down(lg) {
       width: 100%;
@@ -1652,4 +1651,42 @@ $stored-payment-spacing: rem(16);
 .custom-radio-check input[type="radio"]:checked + label {
   border: rem(2) solid $black;
 
+}
+
+.data-checkout-stage {
+
+  .shipping-method-block {
+    
+    .new-shipping-sec {
+
+      h5 {
+
+        &.ship-method-header {
+          font-size: rem(15);
+          letter-spacing: rem(0.7);
+          line-height: rem(21);
+          color: $grey8;
+          margin-top: rem(10);
+          margin-bottom: rem(20);
+          text-transform: uppercase;
+          font-family: $font-demi;
+          font-weight: 500;
+
+          @include media-breakpoint-down(xs) {
+            font-size: rem(15);
+          }
+        }
+      }
+    }
+  }
+}
+
+.custom-radio-check {
+  
+  .form-check {
+
+    &.start-lines {
+      padding: 0;
+    }
+  }
 }
