@@ -1194,13 +1194,8 @@ function handleVariantResponse(response, $productContainer) {
             if (applePayButton.length !== 0) {
                 applePayButton.attr('sku', response.product.id);
                 applePayButton.removeClass('d-none');
-            } else {
-                if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
-                    $('.cart-and-ipay .apple-pay-pdp').removeClass('d-none');
-                    $('.cart-and-ipay .apple-pay-pdp').attr('sku', response.product.id);
-                }
             }
-        } 
+        }
     } else {
         $addToCartSelector.addClass('out-of-stock-btn');
         $addToCartSelector.prop('disabled', true);
