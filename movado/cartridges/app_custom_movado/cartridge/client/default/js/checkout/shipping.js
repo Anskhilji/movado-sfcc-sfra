@@ -591,6 +591,7 @@ function shippingFormResponse(defer, data) {
 
                 $('.checkout-form-error').removeClass('d-none')
             });
+            checkoutFieldValidationIcon();
             defer.reject(data);
         }
 

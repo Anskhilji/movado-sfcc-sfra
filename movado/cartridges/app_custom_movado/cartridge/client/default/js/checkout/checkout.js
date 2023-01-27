@@ -284,7 +284,7 @@ var formHelpers = require('./formErrors');
                                   $('.saved-payment-instrument.' +
                         'selected-payment ' +
                     '.form-control').addClass('is-invalid');
-                                shippingHelpers.methods.checkoutFieldValidationIcon();
+                                  shippingHelpers.methods.checkoutFieldValidationIcon();
                                   defer.reject();
                                   return defer;
                               }
@@ -880,9 +880,5 @@ var exports = {
             }
         }
     });
-});
-
-$('.submit-payment').on('click', function(){
-    shippingHelpers.methods.checkoutFieldValidationIcon();
 });
 module.exports = exports;

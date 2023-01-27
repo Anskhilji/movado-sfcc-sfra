@@ -153,17 +153,12 @@
                 }
             }
 
-            &.is-valid {
-                background: url("../../images/green_tick.svg") center right no-repeat;
-                background-position-x: 97%;
-            }
-
             &#shippingState,
             &#shippingCountrydefault,
             &#billingState,
             &#billingCountry {
                 &.form-control {
-                    &.is-invalid,&.is-valid {
+                    &.is-invalid {
                         background-position-x: 82%;
                     }
                 }
@@ -178,7 +173,7 @@
             &#billingFirstName,
             &#billingLastName {
                 &.form-control {
-                    &.is-invalid,&.is-valid {
+                    &.is-invalid {
                         background-position-x: 93.5%;
                     }
                 }
