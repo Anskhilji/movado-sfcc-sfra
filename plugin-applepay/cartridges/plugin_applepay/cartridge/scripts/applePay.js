@@ -39,6 +39,17 @@ function comparePoBox(address) {
 }
 
 /**
+ * This method is used for checking email address passed as parameter.
+ * @param email
+ * @returns results
+ */
+function emailValidation (email) {
+    var regex = /(^(?=[\w]{1,64}(?!.*?\.\.)+(?!\@)+[\w!.#$%&amp;&apos;*+-=?^_`{|}~\S]{1,64})+[^\()\[\]\\@,;:&quot;&lt;\s]{1,64}[^\/()\[\]\\@.,;:&quot;&lt;\s-]+@[^\/()\[\]\\@!.,;:#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;+\s\-][\w\.\-]*[^\/()\[\]\\@,;:!#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;\s]*[\.]+(?!.*web|.*'')[A-Za-z]{2,15}$)/g;
+    var results = regex.test(email);
+    return results;
+}
+
+/**
  * This method is used for checking for Postal Code validation in the address passed as parameter.
  * @param address
  * @returns results
@@ -205,8 +216,15 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 
         var email = order.customerEmail;
         if (!empty(email)) {
-            var maskedEmail = checkoutCustomHelpers.maskEmail(email);
-            checkoutLogger.info('(applePay.js) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+            var emailValidate = emailValidation(email);
+            if (!emailValidate) {
+                addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_CONTACT);
+                deliveryValidationFail = true;
+                Logger.error('Invalid email address for order {0}', order.orderNo);
+            } else {
+                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(applePay.js) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+            }
         }
     } catch (e) {
         Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
