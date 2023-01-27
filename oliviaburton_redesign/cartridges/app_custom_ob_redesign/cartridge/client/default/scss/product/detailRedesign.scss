@@ -2056,7 +2056,7 @@
             border-radius: 100%;
 
             @include media-breakpoint-down(sm-custom) {
-                                display: none;
+                display: none;
             }
             
             @include media-breakpoint-down(xxxl) {
