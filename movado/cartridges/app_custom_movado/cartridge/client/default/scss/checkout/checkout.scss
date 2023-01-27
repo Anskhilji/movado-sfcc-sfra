@@ -716,10 +716,6 @@ header {
 .billing-address,
 .shipping-form{
     .form-group {
-        &.is-valid {
-            background-image: url("../../images/green_tick.svg") center right no-repeat;
-            background-position-x: 97%;
-        }
         .form-control {
             &.is-invalid {
                 border: rem(1) solid $invalid-red;
@@ -737,6 +733,11 @@ header {
                         background: none;
                     }
                 }
+            }
+
+            &.is-valid {
+                background-image: url("../../images/green_tick.svg") center right no-repeat;
+                background-position-x: 97%;
             }
 
             &#shippingState,

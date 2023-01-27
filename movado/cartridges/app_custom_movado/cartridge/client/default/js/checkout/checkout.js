@@ -284,6 +284,7 @@ var formHelpers = require('./formErrors');
                                   $('.saved-payment-instrument.' +
                         'selected-payment ' +
                     '.form-control').addClass('is-invalid');
+                                shippingHelpers.methods.checkoutFieldValidationIcon();
                                   defer.reject();
                                   return defer;
                               }
@@ -344,7 +345,7 @@ var formHelpers = require('./formErrors');
 
                               $('#cardNumber').val($('#originalCardNumber').val());
                               $('#securityCode').val('');
-
+                              shippingHelpers.methods.checkoutFieldValidationIcon();
                               defer.reject();
                           } else {
                   //
@@ -364,7 +365,7 @@ var formHelpers = require('./formErrors');
                   ) {
                                   $('.cancel-new-payment').removeClass('checkout-hidden');
                               }
-
+                              shippingHelpers.methods.checkoutFieldValidationIcon();
                               defer.resolve(data);
                           }
                       },
@@ -881,4 +882,7 @@ var exports = {
     });
 });
 
+$('.submit-payment').on('click', function(){
+    shippingHelpers.methods.checkoutFieldValidationIcon();
+});
 module.exports = exports;
