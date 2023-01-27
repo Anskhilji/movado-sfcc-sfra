@@ -33,7 +33,7 @@
     <iselseif condition="${!session.privacy.pickupFromStore}"/>
         <option value="manual-entry"
             data-first-name="${!empty(billingAddress) && !empty(billingAddress.firstName) ? billingAddress.firstName : ''}"
-            data-last-name="${!empty(billingAddress) && !empty(billingAddress.lastName) ? : ''}"
+            data-last-name="${!empty(billingAddress) && !empty(billingAddress.lastName) ? billingAddress.lastName : ''}"
             data-company-name="${!empty(billingAddress) && !empty(billingAddress.companyName) ? billingAddress.companyName : ''}"
             data-address1="${!empty(billingAddress) && !empty(billingAddress.address1) ? billingAddress.address1 : ''}"
             data-address2="${!empty(billingAddress) && !empty(billingAddress.address2) ? billingAddress.address2 : ''}"
