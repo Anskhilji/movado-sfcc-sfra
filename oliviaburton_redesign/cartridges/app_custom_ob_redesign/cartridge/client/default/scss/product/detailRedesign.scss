@@ -2491,16 +2491,25 @@
 
 // 2133
 .pdp-obuk {
-    margin-bottom: rem(40);
+
+    @include media-breakpoint-up(lg) {
+        margin-bottom: rem(40);
+    }
 
     &.product-wrapper {
 
         .product-section-mobile {
-            padding-bottom: 0;
+
+            @include media-breakpoint-up(lg) {
+                padding-bottom: 0;
+            }
         }
     }
 
     .linked-product-list {
-        margin-bottom: 0;
+        @include media-breakpoint-up(lg) {
+            margin-bottom: 0;
+        }
+       
     }
 }
