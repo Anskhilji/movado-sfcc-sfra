@@ -1,3 +1,4 @@
+<iscomment> due to regressions for ebel so we diceded to foeword a template for ebel cartrudge </iscomment>
 <iscontent type="text/html" charset="UTF-8" compact="true"/>
 
 <isinclude template="/components/modules" sf-toolkit="off" />
@@ -32,7 +33,7 @@
         <isinclude template="/resources/appresources" />
         </div>
         <div class="error-messaging"></div>
-        <div class="movado modal-background"></div>
+        <div class="modal-background"></div>
         <iscontentasset aid="cookie_hint" />
          <!--[if lt IE 10]>-->
             <isinclude sf-toolkit="off" template="/common/scripts" />
