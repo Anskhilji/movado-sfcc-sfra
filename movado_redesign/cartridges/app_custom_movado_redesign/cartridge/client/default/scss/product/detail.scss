@@ -190,6 +190,17 @@ $arrow-height: 1.25em;
 
         img {
             margin: 0 auto;
+            @include media-breakpoint-up(lg) {
+                &.carousel-indicator-image {
+                    width: rem(98);
+                    height: rem(98);
+                }
+                &.tile-image {
+                    width: rem(354);
+                    height: rem(426.5);
+                }
+            }
+
         }
     }
 
@@ -342,6 +353,8 @@ $arrow-height: 1.25em;
                     @include media-breakpoint-up(xl) {
                         min-width: auto;
                         max-width: 100%;
+                        height: rem(600);
+                        width: rem(600);
                     }
                 }
             }

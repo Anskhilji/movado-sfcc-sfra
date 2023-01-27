@@ -945,6 +945,10 @@
 
                                         img {
                                             cursor: zoom-in;
+                                            @include media-breakpoint-up(lg){
+                                                    width: rem(605);
+                                                    height: rem(605);
+                                            }
                                         }
 
                                         @include media-breakpoint-down(md) {

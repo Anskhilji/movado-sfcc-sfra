@@ -120,6 +120,10 @@
                     &-current{
                         img {
                             display: block !important;
+                            @include media-breakpoint-up(lg){
+                                width: rem(646);
+                                height: rem(646);
+                            }
                         }  
                     }
 
