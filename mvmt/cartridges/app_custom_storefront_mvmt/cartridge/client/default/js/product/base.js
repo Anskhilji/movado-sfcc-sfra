@@ -793,26 +793,31 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
-    if (!(response.product.isGiftBoxAllowed)) {
-        $('.gift-box-wrapper').css('visibility', 'hidden');
-        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
-            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
-        }
-    }
-    else {
-        if ($(window).width() >= 768) {
-            if($('.gift-box-wrapper').attr('style')) {
-                $('.gift-box-wrapper').removeAttr('style');
+    if (!response.product.available) {
+        $('.gift-box-wrapper.d-show-desktop').hide();
+        $('.gift-box-wrapper.d-show-mobile').hide();
+    } else {
+        if (!(response.product.isGiftBoxAllowed)) {
+            $('.gift-box-wrapper').css('visibility', 'hidden');
+            if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+                $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
             }
-            $('.gift-box-wrapper.d-desktop-show').show();
-        } else {
-            if($('.gift-box-wrapper').attr('style')) {
-                $('.gift-box-wrapper').removeAttr('style');
-            }
-            $('.gift-box-wrapper.d-mobile-show').show();
         }
-        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
-            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        else {
+            if ($(window).width() >= 768) {
+                if($('.gift-box-wrapper').attr('style')) {
+                    $('.gift-box-wrapper').removeAttr('style');
+                }
+                $('.gift-box-wrapper.d-show-desktop').show();
+            } else {
+                if($('.gift-box-wrapper').attr('style')) {
+                    $('.gift-box-wrapper').removeAttr('style');
+                }
+                $('.gift-box-wrapper.d-show-mobile').show();
+            }
+            if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+                $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+            }
         }
     }
     
