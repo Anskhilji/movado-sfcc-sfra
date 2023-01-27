@@ -84,6 +84,7 @@ server.append('SubmitPayment',
 
 server.replace('PlaceOrder', server.middleware.https, function (req, res, next) {
 	  var BasketMgr = require('dw/order/BasketMgr');
+	  var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 	  var Resource = require('dw/web/Resource');
 	  var Transaction = require('dw/system/Transaction');
 	  var URLUtils = require('dw/web/URLUtils');
@@ -357,7 +358,13 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  
 	  res.setViewData({orderNo: placeOrderResult.order.orderNo, trackingCode: currentBasket.custom.smartGiftTrackingCode});
 	  // remove session params
-	  session.custom.paymentParams = '';
+
+      Transaction.wrap(function () {
+          var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+		  if (currentSessionPaymentParams) {
+			  CustomObjectMgr.remove(currentSessionPaymentParams);
+		  }
+      });
 	  session.custom.cardIIN = '';
 	  session.custom.checkoutUUID = '';
 
