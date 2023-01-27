@@ -36,7 +36,7 @@
         <isset name="price" value="${!empty(finalOrigPrice) ? finalOrigPrice.sales : ''}" scope="page" />
     </isif>
     <isif condition="${isEswEnabled}">
-        <span class="sales sale-price-mvmt sale-gift-price-mvmt-${lineItem && lineItem.UUID ? lineItem.UUID : ''}">
+        <span class="sales sale-price-mvmt sale-gift-price-mvmt-${typeof lineItem != 'undefined' && lineItem.UUID ? lineItem.UUID : ''}">
             <isif condition="${isLowPrice == 'range-low'}">
                 <span class="value" itemprop="lowprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
             </isif>
@@ -49,7 +49,7 @@
             <isinclude template="/product/components/pricing/formatted" />
         </span>
     <iselse/>
-        <span class="sales sale-price-mvmt sale-gift-price-mvmt-${lineItem && lineItem.UUID ? lineItem.UUID : ''}">
+        <span class="sales sale-price-mvmt sale-gift-price-mvmt-${typeof lineItem != 'undefined' && lineItem.UUID ? lineItem.UUID : ''}">
             <isif condition="${isLowPrice == 'range-low'}">
                 <span class="value" itemprop="lowprice" content="${price instanceof dw.value.Money ? price.decimalValue : price.decimalPrice}">
             </isif>
