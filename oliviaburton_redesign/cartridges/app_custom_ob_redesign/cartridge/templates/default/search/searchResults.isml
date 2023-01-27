@@ -6,9 +6,7 @@
 		assets.addJs('/js/search-redesign.js');
 		assets.addCss('/css/search.css');
 	</isscript>
-	<isif condition=${false}>
-		<isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-	</isif>
+	
 	<isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
 		<isinclude template="reporting/reportingUrls" />
 	</isif>
@@ -127,7 +125,6 @@
 
         <isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
             <isslot id="noresult-recommendations" description="Recommendations for no result search" context="global" />
-            <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
         </isif>
 		
 		<!--- Content Grid --->
