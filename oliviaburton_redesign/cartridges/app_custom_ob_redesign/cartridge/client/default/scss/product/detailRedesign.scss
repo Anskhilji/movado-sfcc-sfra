@@ -332,7 +332,6 @@
                 @include media-breakpoint-down(sm-custom) {
                     padding-top: rem(30);
                     background-color: $white;
-                    box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                     position: relative;
 
                     &::before {
