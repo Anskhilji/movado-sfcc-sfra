@@ -210,11 +210,27 @@ $receipt-font-size: rem(14);
 }
 
 .data-checkout-stage .form-group .form-control {
-  @include media-breakpoint-up(lg) {
-    font-size:rem(16);
-    font-family: $font-medium;
-    font-weight: 500;
-  }
+
+    @include media-breakpoint-up(lg) {
+      font-size:rem(16);
+      font-family: $font-medium;
+      font-weight: 500;
+    }
+
+    &.is-valid {
+      background: url("../../images/green_tick.svg") center right no-repeat !important;
+      background-position-x: 97% !important;
+    }
+
+    &.custom-select {
+
+      &.custom-select-box {
+
+        &.is-valid {
+          background-position-x: 90% !important;
+        }
+      }
+    }
 }
 
 .billing-address,
