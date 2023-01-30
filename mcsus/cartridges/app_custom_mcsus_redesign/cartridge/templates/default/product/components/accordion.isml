@@ -49,8 +49,8 @@
 
                 <div id="reviews" class="collapse" aria-labelledby="headingOne">
                     <div class="accordion-redesign-detail">
-                            Yotpo reviews widget will appear here, if these needs to be relocated
-                            then appropriate template should be overridden. 
+                            <iscomment> Yotpo reviews widget will appear here, if these needs to be relocated
+                            then appropriate template should be overridden.  </iscomment>
                             <isinclude template="widget/yotporeviewswidget" />
                     </div>
                 </div>
