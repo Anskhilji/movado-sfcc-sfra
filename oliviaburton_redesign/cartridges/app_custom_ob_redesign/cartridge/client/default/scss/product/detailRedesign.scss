@@ -332,7 +332,6 @@
                 @include media-breakpoint-down(sm-custom) {
                     padding-top: rem(30);
                     background-color: $white;
-                    border-radius: rem(40) rem(40) 0 0;
                     box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                     position: relative;
 
@@ -2055,6 +2054,11 @@
             transform: translate(50%, -50%);
             left: rem(100.2);
             border-radius: 100%;
+
+            @include media-breakpoint-down(sm-custom) {
+                display: none;
+            }
+            
             @include media-breakpoint-down(xxxl) {
                 bottom: 0.1vh;
             }
