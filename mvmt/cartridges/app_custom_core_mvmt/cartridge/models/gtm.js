@@ -733,8 +733,8 @@ function getBasketParameters() {
                     // Custom End
                     // Custom Start : Added payment method
                     paymentMethod: paymentMethod,
-                    familyName: familyName,
-                    productColor: productColor,
+                    dimension22: familyName,
+                    dimension23: productColor,
                     optionId: optionProducts ? optionProducts.id : '',
                     optionPrice: optionProducts ? optionProducts.price : '' 
                 });
