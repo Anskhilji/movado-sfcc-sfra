@@ -124,6 +124,21 @@
                                 width: rem(646);
                                 height: rem(646);
                             }
+
+                            @media (max-width: $custom-sm4) {
+                                width: rem(345);
+                                height: rem(345); 
+                            }
+
+                            @media (max-width: $small-screen-width375) {
+                                width: rem(295);
+                                height: rem(295);                                       
+                            }
+
+                            @media (max-width: $small-screen-width) {
+                                width: rem(240);
+                                height: rem(240);                                       
+                            }
                         }  
                     }
 
@@ -1721,6 +1736,21 @@
                             height: rem(500);
                             width: rem(500);
                             margin-bottom: rem(0);
+                        }
+
+                        @media (max-width: $custom-sm4) {
+                            width: rem(425);
+                            height: rem(425); 
+                        }
+
+                        @media (max-width: $small-screen-width375) {
+                            width: rem(375);
+                            height: rem(375);                                       
+                        }
+
+                        @media (max-width: $small-screen-width) {
+                            width: rem(320);
+                            height: rem(320);                                       
                         }
                     }
                 }
