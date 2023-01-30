@@ -81,6 +81,7 @@ function getDiscounts(lineItemContainer) {
             UUID: couponLineItem.UUID,
             couponCode: couponLineItem.couponCode,
             applied: couponLineItem.applied,
+            excludeProductLevelPromotionCalloutMsg: couponLineItem.promotion && couponLineItem.promotion.custom.excludeProductLevelPromotion ? couponLineItem.promotion.custom.excludeProductLevelPromotionCalloutMsg : '',
             valid: couponLineItem.valid,
             relationship: priceAdjustments,
         };

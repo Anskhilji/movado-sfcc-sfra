@@ -509,9 +509,15 @@ server.replace(
             var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
             if (couponErrorMessages) {
+                var basketModel = new CartModel(currentBasket);
                 var errorCodes = JSON.parse(couponErrorMessages);
                 var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-                var errorMessage = localeErrorCodes[e.errorCode] || localeErrorCodes.DEFAULT;
+
+                if (basketModel.items.length > 0 && basketModel.items[0].appliedPromotions && basketModel.items[0].appliedPromotions.length > 0 && basketModel.items[0].appliedPromotions[0].excludeProductLevelPromotion) {
+                    var errorMessage = localeErrorCodes.EXCLUDE_PRODUCT_WHICH_RECEIVED_PRODUCT_LEVEL_DISCOUNT;
+                } else {
+                    var errorMessage = localeErrorCodes[e.errorCode] || localeErrorCodes.DEFAULT;
+                }
                 // Custom End
             } else {
                 var errorCodes = {
