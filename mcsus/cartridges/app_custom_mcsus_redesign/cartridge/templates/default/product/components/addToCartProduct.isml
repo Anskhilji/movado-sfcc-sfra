@@ -1,5 +1,5 @@
 <iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
-<isset name="mcsPdpATCABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSPdpATCTest','render-ATC-Style')}" scope="page" />
+<isset name="mcsPdpATCABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSPdpATCTest','render-new-design')}" scope="page" />
 <div class="cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">

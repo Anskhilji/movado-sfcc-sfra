@@ -1,5 +1,5 @@
 <isset name="product" value="${pdict.product}" scope="page" />
-<isset name="mcsPdpATCABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSPdpATCTest','render-ATC-Style')}" scope="page" />
+<isset name="mcsPdpATCABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSPdpATCTest','render-new-design')}" scope="page" />
 <div class="sticky-container-redesign w-100 ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none " : ""}">
     <div class="d-flex justify-content-between align-items-center check-scroll sticky-prodct-cart-redesign">
             <div class="d-none d-sm-flex align-items-center">

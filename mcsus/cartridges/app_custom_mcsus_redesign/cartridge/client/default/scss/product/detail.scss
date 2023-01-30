@@ -644,7 +644,7 @@
 
     &.sticky-test-wrapper {
         @include media-breakpoint-down(xs) {
-            background-color: $brown-mobile;
+            background-color: $light-brown-1;
         }
     }
 }
@@ -742,16 +742,16 @@
                 }
 
                 &.test-style-wrapper {
-                    background-color: $brown-desktop;
-                    border-color: $brown-desktop;
+                    background-color: $light-brown;
+                    border-color: $light-brown;
                     color: $white;
                     font-weight: 600;
                     font-size: rem(14);
                     border-radius: 0;
 
                     @include media-breakpoint-down(xs) {
-                        background-color: $brown-mobile1;
-                        border-color: $brown-mobile1;
+                        background-color: $light-brown2;
+                        border-color: $light-brown2;
                         color: $black;
                         font-weight: 600;
                         letter-spacing: rem(1);
@@ -759,10 +759,10 @@
                     }
 
                     &:focus {
-                        box-shadow: 0 0 0 rem(3.2) rgba($brown-desktop, 0.5);
+                        box-shadow: 0 0 0 rem(3.2) rgba($light-brown, 0.5);
 
                         @include media-breakpoint-down(xs) {
-                            box-shadow: 0 0 0 rem(3.2) rgba($brown-mobile1, 0.5);
+                            box-shadow: 0 0 0 rem(3.2) rgba($light-brown2, 0.5);
                         }
                     }
                 }
@@ -1441,15 +1441,15 @@
                                         }
 
                                         &.test-style-wrapper {
-                                            background-color: $brown-desktop;
-                                            border-color: $brown-desktop;
+                                            background-color: $light-brown;
+                                            border-color: $light-brown;
                                             border-radius: 0;
                                             color: $white;
                                             font-weight: 600;
                                             font-size: rem(14);
 
                                             &:focus {
-                                                box-shadow: 0 0 0 rem(3.2) rgba($brown-desktop, 0.5);
+                                                box-shadow: 0 0 0 rem(3.2) rgba($light-brown, 0.5);
                                             }
                                         }
 
