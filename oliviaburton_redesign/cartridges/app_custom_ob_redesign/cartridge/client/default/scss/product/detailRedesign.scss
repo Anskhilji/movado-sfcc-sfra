@@ -2507,6 +2507,7 @@
     }
 
     .linked-product-list {
+        
         @include media-breakpoint-up(lg) {
             margin-bottom: 0;
         }
