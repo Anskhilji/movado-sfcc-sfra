@@ -25,6 +25,10 @@
         </isif>
     </div>
 
+    <div class="product-breadcrumb">
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+    </div>
+
     <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}" data-is-enable-single-product-row="${pdict.isEnableSingleProductRow || false}" data-is-non-watches-tile-enable="${pdict.isNonWatchesTileEnable || false}">
         <isif condition="${!pdict.productSearch.isCategorySearch}">
         <div class="row">
