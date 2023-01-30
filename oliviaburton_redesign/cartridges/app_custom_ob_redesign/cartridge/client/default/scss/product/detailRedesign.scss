@@ -2488,3 +2488,29 @@
 .promotions {
     text-align: left;
 }
+
+// 2133
+.pdp-obuk {
+
+    @include media-breakpoint-up(lg) {
+        margin-bottom: rem(40);
+    }
+
+    &.product-wrapper {
+
+        .product-section-mobile {
+
+            @include media-breakpoint-up(lg) {
+                padding-bottom: 0;
+            }
+        }
+    }
+
+    .linked-product-list {
+        
+        @include media-breakpoint-up(lg) {
+            margin-bottom: 0;
+        }
+       
+    }
+}
