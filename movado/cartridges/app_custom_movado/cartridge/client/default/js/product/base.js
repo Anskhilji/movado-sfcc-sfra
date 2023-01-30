@@ -539,7 +539,7 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
              }
          }
 
-        if ($addToCartWrapper.hasClass('test-style-wrapper')) {
+        if ($addToCartWrapper.hasClass('static-style-wrapper')) {
             $('.bottom-sticky-card').addClass('sticky-test-wrapper');
         }
 

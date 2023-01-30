@@ -4,7 +4,7 @@
     <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
         <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
-        <button class='add-to-cart btn btn-primary ${mcsPdpATCABTest ? 'test-style-wrapper' : ''} <isif condition="${product.isProductRestricted}">d-none</isif>'
+        <button class='add-to-cart btn btn-primary ${mcsPdpATCABTest ? 'static-style-wrapper' : ''} <isif condition="${product.isProductRestricted}">d-none</isif>'
             data-pid="${product.id}"
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
@@ -18,7 +18,7 @@
                 <iscomment> price  </iscomment>
                 <isif condition="${!pdict.isPLPProduct}"> 
                     <isset name="price" value="${product.price}" scope="page" />
-                    <div class="add-to-cart-price-holder addtocart-innter-price ${mcsPdpATCABTest ? 'test-style-wrapper' : ''}">
+                    <div class="add-to-cart-price-holder addtocart-innter-price ${mcsPdpATCABTest ? 'static-style-wrapper' : ''}">
                         <isinclude template="product/components/pricing/main" />
                     </div>
                 </isif>
