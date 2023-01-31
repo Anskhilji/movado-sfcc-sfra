@@ -641,7 +641,11 @@
                     margin-top: rem(20);
                     display: flex;
                     justify-content: center;
-                    
+
+                    @include media-breakpoint-down(sm-custom) {
+                        margin: rem(20) auto 0;
+                    } 
+
                     @include media-breakpoint-up(lg) { 
                         display: block;
                     }

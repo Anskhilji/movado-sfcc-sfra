@@ -180,10 +180,20 @@ label.availability {
 
 @include media-breakpoint-up(sm) {
 	.klarna-promo-parent-container {
-    .klarna-placement {
-      max-width: 351px !important;
+
+        .klarna-placement {
+            max-width: rem(350);
+        }
     }
-  }
+}
+
+@include media-breakpoint-down(sm) {
+	.klarna-promo-parent-container {
+
+        .klarna-placement {
+            max-width: rem(350);
+        }
+    }
 }
 
 .klarna-promo-parent-container {
