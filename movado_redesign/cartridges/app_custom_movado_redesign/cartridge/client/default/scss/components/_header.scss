@@ -546,6 +546,9 @@ header.new-header {
 
   .header-menu-wrapper {
     transition: 0.2s;
+    &.header-active {
+      z-index: 1025;
+    }
 
     .desktop-menu {
       position: static;
@@ -698,12 +701,18 @@ header.new-header {
 }
 
 @include media-breakpoint-up(lg) {
-  
+
   header.new-header {
 
     .fixed-header {
       .header-menu-wrapper {
-        position: fixed;
+          position: fixed;
+          z-index: 99999;
+      }
+
+      .sticky-bar-index {
+          z-index: 999;
+          transition: unset;
       }
     }
 
