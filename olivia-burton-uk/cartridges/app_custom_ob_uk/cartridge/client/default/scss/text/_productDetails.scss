@@ -1013,6 +1013,10 @@
 					left: rem(0);
 				}
 
+				@include media-breakpoint-down(sm) {
+					display: none;
+				}
+
 				&.btn:not(:disabled):not(.disabled):active,
 				&.btn:not(:disabled):not(.disabled).active {
 					background: url("../../images/zoom_in.svg") center center no-repeat;
