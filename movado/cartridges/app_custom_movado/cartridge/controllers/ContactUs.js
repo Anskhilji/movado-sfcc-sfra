@@ -41,6 +41,30 @@ server.post(
         var contentMap = dwUtil.HashMap();
         var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
 
+        var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+        var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+
+        if (isGoogleRecaptchaEnabled) {
+            var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+            var googleRecaptchaToken = contactUsForm.grecaptchatoken.value;
+            if (empty(googleRecaptchaToken)) {
+                res.json({
+                    success: false,
+                    error: Resource.msg('error.contact.us.form', 'common', null)
+                });
+                return next();
+            }
+
+            var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+            if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
+                res.json({
+                    success: false,
+                    error: Resource.msg('error.contact.us.form', 'common', null)
+                });
+                return next();
+            }
+        }
+        
         if (contactUsForm.valid) {
             var result = {
                 firstName: !empty(contactUsForm.firstname) ? contactUsForm.firstname.value : !empty(contactUsForm.name) ? contactUsForm.name.value : '',

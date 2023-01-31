@@ -69,9 +69,9 @@ server.append('GetEswHeader', function (req, res, next) {
         eswHelper.setAllAvailablePriceBooks();
         eswHelper.selectCountry(availableCountry, currency, req.locale.id);
     } else {
-    ​    if (!empty(currency)) {
+        if (!eswHelper.overridePrice(req, availableCountry, currency)) {
             eswHelper.setAllAvailablePriceBooks();
-            eswHelper.setBaseCurrencyPriceBook(req, currency);
+            eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
         }
     }
     // Custom End:
@@ -134,9 +134,9 @@ server.append('GetEswFooter', function (req, res, next) {
         eswHelper.setAllAvailablePriceBooks();
         eswHelper.selectCountry(availableCountry, currency, req.locale.id);
     } else {
-    ​    if (!empty(currency)) {
+        if (!eswHelper.overridePrice(req, availableCountry, currency)) {
             eswHelper.setAllAvailablePriceBooks();
-            eswHelper.setBaseCurrencyPriceBook(req, currency);
+            eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
         }
     }
     // Custom End:

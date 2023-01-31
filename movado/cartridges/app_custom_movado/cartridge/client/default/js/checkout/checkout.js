@@ -4,6 +4,7 @@ var shippingHelpers = require('./shipping');
 var billingHelpers = require('./billing');
 var summaryHelpers = require('./summary');
 var formHelpers = require('./formErrors');
+require('./fedexAddressValidate');
 
 
 /**
@@ -196,7 +197,7 @@ var formHelpers = require('./formErrors');
                   var form = $(formSelector);
 
                   if (isMultiShip && form.length === 0) {
-              // in case the multi ship form is already submitted
+                  // in case the multi ship form is already submitted
                       var url = $('#checkout-main').attr('data-checkout-get-url');
                       $.ajax({
                           url: url,
@@ -214,6 +215,8 @@ var formHelpers = require('./formErrors');
                     '<span aria-hidden="true">&times;</span>' +
                     '</button>' + errorMsg + '</div>';
                                   $('.shipping-error').append(errorHtml);
+                                  $('.fedex-btn-popup-call').attr('data-fedex', 'false');
+                                  
                                   defer.reject();
                               }
                           },
@@ -240,6 +243,7 @@ var formHelpers = require('./formErrors');
                           success: function (data) {
                               shippingHelpers.methods.shippingFormResponse(defer, data);
                               if (!data.error) {
+                                $('.fedex-btn-popup-call').attr('data-fedex', 'false');
                                 var scrollUtil = require('../utilities/scrollUtil');
                                 scrollUtil.scrollPaymentSection('.payment-form', 65);
 
@@ -253,8 +257,8 @@ var formHelpers = require('./formErrors');
                               defer.reject(err.responseJSON);
                           }
                       });
+                      return defer;
                   }
-                  return defer;
               } else if (stage === 'payment') {
             //
             // Submit the Billing Address Form
