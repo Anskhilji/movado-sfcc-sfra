@@ -84,6 +84,23 @@
         .title {
             font-family: $font-raleway-book;
         }
+
+        .description {
+
+            .title {
+                &.text-unset-wrapper {
+                    @include media-breakpoint-down(xs) {
+                        display: block;
+                    }
+                }
+            }
+        
+            .product-bottom-detail {
+                @include media-breakpoint-down(xs) {
+                    display: block;
+                }
+            }
+        }
     }
 
     .drop-hint {
