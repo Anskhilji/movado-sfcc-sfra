@@ -1,11 +1,12 @@
 <iscomment> Custom: HTML Structure change</iscomment>
 <isslot id="header-banner-m" description="Slot above the site header" context="global" />
-<header class="new-header">
+<header class="new-header transparent-header ${!empty(dw.system.Site.current.preferences.custom.navigationColor) ? (dw.system.Site.current.preferences.custom.navigationColor == 'black' ? 'header-black-text' : 'header-white-text') : ''} ${!empty(dw.system.Site.current.preferences.custom.isHeaderTransparent) ? (dw.system.Site.current.preferences.custom.isHeaderTransparent == true ? 'home-header-transparent' : '') : ''}">
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
     <isif condition="${isEswEnabled}" >
         <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage', 'countryCode', 
         !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
     </isif>
+
     <iscomment> Custom End </iscomment>
     <nav>
         <div class="sticky-header-wrapper">
