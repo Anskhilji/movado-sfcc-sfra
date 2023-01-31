@@ -8,12 +8,16 @@
             ${Resource.msg('msg.new.address', 'checkout', null)}
         </option>
     <iselse/>
-        <option value="new" data-first-name="${billingAddress.firstName || ''}"
-            data-last-name="${billingAddress.lastName || ''}" data-company-name="${billingAddress.companyName || ''}"
-            data-address1="${billingAddress.address1 || ''}" data-address2="${billingAddress.address2 || ''}"
-            data-city="${billingAddress.city || ''}" data-state-code="${billingAddress.stateCode}"
-            data-country-code="${billingAddress.countryCode ? billingAddress.countryCode.value : ''}"
-            data-postal-code="${billingAddress.postalCode}" data-phone="${billingAddress.phone}">
+        <option value="new" data-first-name="${!empty(billingAddress) && !empty(billingAddress.firstName) ? billingAddress.firstName : ''}"
+            data-last-name="${!empty(billingAddress) && !empty(billingAddress.lastName) ? billingAddress.lastName : ''}" 
+            data-company-name="${!empty(billingAddress) && !empty(billingAddress.companyName) ? billingAddress.companyName : ''}"
+            data-address1="${!empty(billingAddress) && !empty(billingAddress.address1) ? billingAddress.address1 : ''}" 
+            data-address2="${!empty(billingAddress) && !empty(billingAddress.address2) ? billingAddress.address2 : ''}"
+            data-city="${!empty(billingAddress) && !empty(billingAddress.city) ? billingAddress.city : ''}" 
+            data-state-code="${!empty(billingAddress) && !empty(billingAddress.stateCode) ? billingAddress.stateCode : ''}"
+            data-country-code="${!empty(billingAddress) && !empty(billingAddress.countryCode) ? billingAddress.countryCode.value : ''}"
+            data-postal-code="${!empty(billingAddress) && !empty(billingAddress.postalCode) ? billingAddress.postalCode : ''}" 
+            data-phone="${!empty(billingAddress) && !empty(billingAddress.phone) ? billingAddress.phone : ''}">
             ${Resource.msg('msg.new.address', 'checkout', null)}
         </option>
     </isif>
@@ -28,23 +32,23 @@
         </option>
     <iselseif condition="${!session.privacy.pickupFromStore}"/>
         <option value="manual-entry"
-            data-first-name="${billingAddress.firstName||''}"
-            data-last-name="${billingAddress.lastName||''}"
-            data-company-name="${billingAddress.companyName||''}"
-            data-address1="${billingAddress.address1||''}"
-            data-address2="${billingAddress.address2||''}"
-            data-city="${billingAddress.city||''}"
-            data-state-code="${billingAddress.stateCode}"
-            data-country-code="${billingAddress.countryCode ? billingAddress.countryCode.value : ''}"
-            data-postal-code="${billingAddress.postalCode}"
-            data-phone="${billingAddress.phone}">
-         ${billingAddress.firstName || ''}
-         ${billingAddress.lastName || ''}
-         ${billingAddress.companyName||''}
-         ${billingAddress.address1 || ''}
-         ${billingAddress.city || ''}${!billingAddress.city || ','}
-         ${billingAddress.stateCode||''}
-         ${billingAddress.postalCode||''}
+            data-first-name="${!empty(billingAddress) && !empty(billingAddress.firstName) ? billingAddress.firstName : ''}"
+            data-last-name="${!empty(billingAddress) && !empty(billingAddress.lastName) ? billingAddress.lastName : ''}"
+            data-company-name="${!empty(billingAddress) && !empty(billingAddress.companyName) ? billingAddress.companyName : ''}"
+            data-address1="${!empty(billingAddress) && !empty(billingAddress.address1) ? billingAddress.address1 : ''}"
+            data-address2="${!empty(billingAddress) && !empty(billingAddress.address2) ? billingAddress.address2 : ''}"
+            data-city="${!empty(billingAddress) && !empty(billingAddress.city) ? billingAddress.city : ''}"
+            data-state-code="${!empty(billingAddress) && !empty(billingAddress.stateCode) ? billingAddress.stateCode : ''}"
+            data-country-code="${!empty(billingAddress) && !empty(billingAddress.countryCode) ? billingAddress.countryCode.value : ''}"
+            data-postal-code="${!empty(billingAddress) && !empty(billingAddress.postalCode) ? billingAddress.postalCode : ''}"
+            data-phone="${!empty(billingAddress) && !empty(billingAddress.phone) ? billingAddress.phone : ''}">
+            ${!empty(billingAddress) && !empty(billingAddress.firstName) ? billingAddress.firstName : ''}
+            ${!empty(billingAddress) && !empty(billingAddress.lastName) ? billingAddress.lastName : ''}
+            ${!empty(billingAddress) && !empty(billingAddress.companyName) ? billingAddress.companyName : ''}
+            ${!empty(billingAddress) && !empty(billingAddress.address1) ? billingAddress.address1 : ''}
+            ${!empty(billingAddress) && !empty(billingAddress.city) ? billingAddress.city : ''}${!billingAddress.city || ','}
+            ${!empty(billingAddress) && !empty(billingAddress.stateCode) ? billingAddress.stateCode : ''}
+            ${!empty(billingAddress) && !empty(billingAddress.postalCode) ? billingAddress.postalCode : ''}
         </option>
     </isif>
     <isinclude template="checkout/billing/addressSelectorShipping">
