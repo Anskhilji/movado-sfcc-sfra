@@ -106,10 +106,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         return new Status(Status.ERROR);
     }
 
-    if (session.privacy.pickupFromStore) {
-        Transaction.wrap(function () {
-            COCustomHelpers.removeGiftMessageLineItem(order);
-        });
+    if (order.custom.storePickUp) {
         session.custom.applePayCheckout = false;
     } else {
         session.custom.StorePickUp = false;
@@ -287,6 +284,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
         }
     }
+
+    var email = order.customerEmail;
+    if (!empty(email)) {
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        checkoutLogger.info('(applePay.js) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+    }
     // End Salesforce Order Management
 
     var email = order.customerEmail;
@@ -343,11 +346,10 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
-
     var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {
-        if (!session.privacy.pickupFromStore) {
+        if (!basket.custom.storePickUp) {
             session.custom.StorePickUp = false;
             session.custom.applePayCheckout = true;
         } else {
@@ -358,7 +360,7 @@ exports.prepareBasket = function (basket, parameters) {
             }
         }
     } else {
-        if (!session.privacy.pickupFromStore) {
+        if (!basket.custom.storePickUp) {
             session.custom.applePayCheckout = true;
             if (currentCountry == Constants.US_COUNTRY_CODE) {
                 session.custom.isEswShippingMethod = false;

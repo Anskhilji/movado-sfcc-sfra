@@ -100,7 +100,17 @@
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
                             <div class="d-none d-sm-block rating-box-redisgn">
-                                <isinclude template="product/components/pidRating" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                    <div class="product-number-rating">
+                                        <div class="ratings">
+                                            <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                                <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/pidRating" />
+                                </isif>
                             </div>
                         </isif>
                     </div>
@@ -258,12 +268,12 @@
         <div class="bottom-sticky-card ${mcsPdpATCABTest ? 'sticky-test-wrapper' : ''} scroll-hidden">
             <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
-            <!-- Start: Listrak persistent popup -->
-    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
-        <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
-        <span class="listrak-popup-product-detail"></span>
-        <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
-    </isif>
-    <!-- End: Listrak persistent popup -->
+        <!-- Start: Listrak persistent popup -->
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+            <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+            <span class="listrak-popup-product-detail"></span>
+            <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+        </isif>
+        <!-- End: Listrak persistent popup -->
     </isobject>
 </isdecorate>

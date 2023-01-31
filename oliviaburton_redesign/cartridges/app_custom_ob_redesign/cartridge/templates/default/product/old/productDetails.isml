@@ -1,6 +1,5 @@
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />
-
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
@@ -240,9 +239,6 @@
                             <iselse>
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
-                            <div class="row description">
-                                <isinclude template="product/components/old/productWhyBuyMe" />
-                            </div>
                             <div class="row description description-text">
                                 <isinclude template="product/components/old/description" />
                             </div>

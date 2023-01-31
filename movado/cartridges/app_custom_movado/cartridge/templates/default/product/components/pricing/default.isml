@@ -22,11 +22,25 @@
     
         <del>
             <span class="strike-through list">
-                <span class="value" content="${price}">
+                <span class="value" content="${price}" price-value="${price.value}">
                     <span class="sr-only">
                         ${Resource.msg('label.price.reduced.from', 'pricing', null)}
                     </span>
                     <isinclude template="/product/components/pricing/formatted" />
+                    <span class="sr-only">
+                        ${Resource.msg('label.price.to', 'pricing', null)}
+                    </span>
+                </span>
+            </span>
+        </del>
+    <iselseif condition="${finalOrigPrice && finalOrigPrice.list == null && product && !empty(product.productBasePrice)}"/>
+        <del>
+            <span class="strike-through list">
+                <span class="value" content="${price}">
+                    <span class="sr-only">
+                        ${Resource.msg('label.price.reduced.from', 'pricing', null)}
+                    </span>
+                    ${product.productBasePrice}
                     <span class="sr-only">
                         ${Resource.msg('label.price.to', 'pricing', null)}
                     </span>
@@ -39,7 +53,6 @@
     <iselse>
         <isset name="price" value="${!empty(finalOrigPrice) ? finalOrigPrice.sales : ''}" scope="page" />
     </isif>
-
     <isif condition="${isEswEnabled}">
         <span class="sales sale-price-mvmt">
             <isif condition="${isLowPrice == 'range-low'}">

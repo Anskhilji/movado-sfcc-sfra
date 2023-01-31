@@ -482,7 +482,6 @@
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
             padding-top: rem(25);
-
             .mini-cart-fixed {
                 margin: 0 rem(12) rem(12) rem(12);
                 padding-bottom: rem(20);
@@ -2008,7 +2007,6 @@
                             del {
 
                                 .strike-through {
-
                                     span {
                                         color: $black;
                                         font-family: $font-medium;
@@ -2023,7 +2021,6 @@
                         }
             
                     }
-
                     .cart-and-ipay {
                         @include media-breakpoint-up(lg) {
                             opacity: 1;

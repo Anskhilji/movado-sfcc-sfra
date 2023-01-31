@@ -50,7 +50,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
     var productSearchHit = getProductSearchHit(apiProduct);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
-
+    
     if (!productSearchHit) {
         return null;
     }
@@ -111,5 +111,12 @@ module.exports = function productTile(product, apiProduct, productType, params, 
             value: ociPreOrderParameters
         });
     }
+    if (!empty(apiProduct)) {
+        Object.defineProperty(product, 'productBasePrice', {
+            enumerable: true,
+            value: apiProduct.custom.productBasePrice ? apiProduct.custom.productBasePrice : ''
+        });
+    }
+
     return product;
 };

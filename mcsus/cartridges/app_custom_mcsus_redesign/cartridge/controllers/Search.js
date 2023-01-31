@@ -96,7 +96,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             });
         }
     });
-
     var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
 
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
@@ -139,7 +138,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
                 relativeURL: URLUtils.url('Search-Show', 'cgid', productSearch.category.id),
                 popupID: listrakPersistentPopup
-
             });
         }
     } else {
@@ -205,7 +203,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             });
         }
     }
-    
+
     try {
         var viewData = res.getViewData();
         var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');

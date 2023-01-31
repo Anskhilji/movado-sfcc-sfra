@@ -1,5 +1,6 @@
 <isdecorate template="common/layout/checkoutRedesign">
     <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+    <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
 
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
@@ -35,11 +36,15 @@
                             ${Resource.msg('msg.guest.checkout1', 'checkout', null)}
                             ${Resource.msg('msg.guest.checkout2', 'checkout', null)}
                         </p>
-                        <a
-                            href="${URLUtils.https('Checkout-Begin')}"
-                            class="btn btn-block btn-primary checkout-as-guest">
-                            ${Resource.msg('button.checkout.as.guest', 'checkout', null)}
-                        </a>
+                        <isif condition="${!domesticAllowedCountry}">
+                            <isinclude template="account/components/eswEmailForm" />
+                        <iselse/>
+                            <a
+                                href="${URLUtils.https('Checkout-Begin')}"
+                                class="btn btn-block btn-primary checkout-as-guest">
+                                ${Resource.msg('button.checkout.as.guest', 'checkout', null)}
+                            </a>
+                        </isif>
                         <iscomment> Amazon Pay Button </iscomment>
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                         <isif condition="${isEswEnabled && !empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" > 

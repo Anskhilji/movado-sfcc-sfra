@@ -29,6 +29,20 @@
                 </span>
             </span>
         </del>
+    <iselseif condition="${finalOrigPrice && finalOrigPrice.list == null && product && !empty(product.productBasePrice) || !empty(product.defaultProductBasePrice)}"/>
+        <del>
+            <span class="strike-through list">
+                <span class="value" content="${price}">
+                    <span class="sr-only">
+                        ${Resource.msg('label.price.reduced.from', 'pricing', null)}
+                    </span>
+                    ${product.defaultProductBasePrice ? product.defaultProductBasePrice : product.productBasePrice }
+                    <span class="sr-only">
+                        ${Resource.msg('label.price.to', 'pricing', null)}
+                    </span>
+                </span>
+            </span>
+        </del>
     </isif>
     <isif condition="${isEswEnabled && !empty(matchingLineItem)}">
         <isset name="price" value="${formatMoney(eswHelper.getUnitPriceCost(matchingLineItem))}" scope="page" />
@@ -63,4 +77,3 @@
         </span>
     </isif>
 </span>
-

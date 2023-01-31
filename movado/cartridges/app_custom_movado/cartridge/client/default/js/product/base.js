@@ -43,7 +43,7 @@ function getQuantitySelector($el) {
         slidesToShow: 1,
         slidesToScroll: 1,
         asNavFor: '.carousel-nav',
-        dots: false,
+        dots: false, 
         arrows:true,
         focusOnSelect: true,
         fade: true,
@@ -897,10 +897,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
                 var listrakTracking = require('movado/listrakActivityTracking.js');
                 listrakTracking.listrackProductTracking(data.product.id);
-
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1492,3 +1490,11 @@ module.exports = {
     getPidValue: getPidValue,
     getQuantitySelected: getQuantitySelected
 };
+
+// MSS-2074
+$( document ).ready(function() {
+    var pdpLink = $('.pdp-link');
+    if (pdpLink.length > 0) {
+        pdpLink.css('-webkit-box-orient', 'vertical');
+    }
+});

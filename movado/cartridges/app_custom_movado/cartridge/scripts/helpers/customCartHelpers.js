@@ -115,13 +115,13 @@ function getCartAssets(){
 	return emptyCartDom;
 }
 
-function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
+function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage, form){
     var productGtmArray = {};
     var variant;
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     collections.forEach(lineItemCtnr.productLineItems, function (pli) {
 
-        if (pli.UUID == productUUID) {
+        if (pli.product.ID == productUUID || pli.UUID == productUUID) {
             var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
             var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
@@ -136,6 +136,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
                         "id" : productID,
+                        "addToCartLocation" : form.addToCartLocation ? form.addToCartLocation : '',
                         "name" : pli.product.name,
                         "brand" : pli.product.brand,
                         "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID

@@ -44,7 +44,7 @@
     
     <isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
         dataLayer.push ({
-            'ecommerce':{ 
+            'ecommerce':{
             'detail': { "actionField": {"list": "detail"},
                 'products':[ {
                     'id': '${pdict.gtm.product.productID}',
@@ -56,9 +56,9 @@
                     'variant': '${pdict.gtm.product.productPersonalization}',
                     'list': '${pdict.gtm.product.list}',
                     'currency': '${pdict.gtm.product.currency}',
-                    'quantity': '${pdict.gtm.product.quantity}'
+                    'quantity': '${pdict.gtm.product.quantity}',
                 }]
-            }
+            },
         },
         "event": "productDetail"
         });

@@ -89,7 +89,6 @@ require('./fedexAddressValidate');
                 $('.checkout-pickup-items').removeClass('d-none');
                 $('.personalize-price').addClass('option-wrapper');
                 $('.personalize-msg').addClass('option-wrapper');
-
                 var customerData = $('.submit-shipping').data('customer');
                 if (!customerData) {
                     if (window.Resources.PICKUP_FROM_STORE) {
@@ -181,7 +180,6 @@ require('./fedexAddressValidate');
               var stage = checkoutStages[members.currentStage];
               var defer = $.Deferred(); // eslint-disable-line
               //  Handle active and completed step
-
               if (stage === 'shipping') {
             //
             // Clear Previous Errors
@@ -214,14 +212,14 @@ require('./fedexAddressValidate');
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                     '<span aria-hidden="true">&times;</span>' +
                     '</button>' + errorMsg + '</div>';
-                                  $('.shipping-error').append(errorHtml);
-                                  $('.fedex-btn-popup-call').attr('data-fedex', 'false');
-                                  
+                                $('.shipping-error').append(errorHtml);
+                                $('.fedex-btn-popup-call').attr('data-fedex', 'false');
+
                                   defer.reject();
                               }
                           },
                           error: function () {
-                  // Server error submitting form
+                    // Server error submitting form
                               defer.reject();
                           }
                       });
@@ -884,5 +882,4 @@ var exports = {
         }
     });
 });
-
 module.exports = exports;

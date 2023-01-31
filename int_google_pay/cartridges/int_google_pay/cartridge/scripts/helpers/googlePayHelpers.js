@@ -17,7 +17,6 @@ var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 
-
 /**
  * Checks if google pay is enabled
  * @returns {Boolean}
@@ -105,7 +104,6 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
 
 }
 
-
 function removeAllProductLineItemsFromBasket(currentBasket) {
     Transaction.wrap(function () {
         collections.forEach(currentBasket.productLineItems, function (item) {
@@ -175,7 +173,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
             isEswShippingMethod = false;
         }
         if (shippingMethod.custom.storePickupEnabled) {
-            if (session.privacy.pickupFromStore) { 
+            if (currentBasket.custom.storePickUp) { 
                 shippingOption = {
                     id: shippingMethod.ID,
                     label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
@@ -309,7 +307,7 @@ function getTransactionInfo(req) {
     form.options = [];
     var currentCountry = productCustomHelper.getCurrentCountry();
 
-    if (session.privacy.pickupFromStore) {
+    if (currentBasket.custom.storePickUp) {
         session.custom.applePayCheckout = false;
     } else {
         if (currentCountry == constants.US_COUNTRY_CODE) {
@@ -320,7 +318,7 @@ function getTransactionInfo(req) {
     switch (req.form.googlePayEntryPoint) {
         case 'Product-Show':
             addProductToCart(currentBasket, productId, quantity, childProducts, options, form);
-            if (session.privacy.pickupFromStore) {
+            if (currentBasket.custom.storePickUp) {
                 session.custom.applePayCheckout = true;
                 Transaction.wrap(function () {
                     ShippingHelper.selectShippingMethod(currentBasket.defaultShipment);

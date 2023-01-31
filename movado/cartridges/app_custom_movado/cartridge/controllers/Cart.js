@@ -10,6 +10,7 @@ var collections = require('*/cartridge/scripts/util/collections');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
+
 var page = module.superModule;
 server.extend(page);
 
@@ -174,7 +175,7 @@ server.append('AddProduct', function (req, res, next) {
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
-        var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
+        var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage, req.form);
         viewData.addCartGtmArray = addCartGtmArray;
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
@@ -341,11 +342,11 @@ server.append(
         var BasketMgr = require('dw/order/BasketMgr');
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
+
         var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
         var Constants = require('*/cartridge/scripts/util/Constants');
         var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
         var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
-
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
@@ -391,7 +392,7 @@ server.append(
         }
         // Custom End
         var session = req.session.raw;
-        if (session.privacy.pickupFromStore) {
+        if (currentBasket.custom.storePickUp) {
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
@@ -447,6 +448,12 @@ server.append(
         if (!empty(req.querystring.lastNameError)) {
             res.setViewData({ 
                 lastNameError: req.querystring.lastNameError
+            });
+        }
+
+        if (!empty(req.querystring.errormessage)) {
+            res.setViewData({ 
+                couponValidationErrormessage: req.querystring.errormessage
             });
         }
 
@@ -660,9 +667,13 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     emptyCartDom = customCartHelpers.getCartAssets();
 
     if (currentBasket.productLineItems.length === 0) {
-        if (session.privacy.pickupFromStore) {
-            delete session.privacy.pickupFromStore;
+
+        if (currentBasket.custom.storePickUp) {
+            Transaction.wrap(function () {
+                currentBasket.custom.storePickUp = false;
+            });
         }
+        
     	var cartAnalyticsTrackingData;
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             cartAnalyticsTrackingData = {

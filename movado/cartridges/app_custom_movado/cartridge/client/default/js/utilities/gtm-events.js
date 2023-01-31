@@ -241,7 +241,8 @@ var onLoadProductTile = function () {
 			            brand: gtmTrackingData.brand,
 			            category: gtmTrackingData.category,
 			            position: gtmTrackingData.position,
-			            list: gtmTrackingData.list });
+			            list: gtmTrackingData.list
+                    });
             currency = gtmTrackingData.currency;
         }
     });
@@ -270,6 +271,7 @@ var onPromoImpressionsLoad = function (e) {
 };
 
 var sliceProductImpressionArray = function (e, currency) {
+
     if ($('.slick-slider').length) {
         showProductImpressionCaraousel(e, currency);
     } else {
@@ -283,7 +285,6 @@ var sliceProductImpressionArray = function (e, currency) {
                     ecommerce: {
                         currencyCode: currency,
                         impressions: productObj
-
                     }
                 });
             }
@@ -429,7 +430,8 @@ var updateCheckoutStage = function () {
              var productObj = dataLayerCheckout.splice(0, maxProducts);
              dataLayer.push({ ecommerce: { checkout: {
                  actionField: { step: checkoutStep, option: checkoutStage },
-                 products: productObj }
+                 products: productObj
+                }
              },
                  event: 'checkout' });
          }
