@@ -1549,7 +1549,7 @@ $stored-payment-spacing: rem(16);
         padding: rem(0) rem(15);
     }
 }
-// MSS-1541
+// MSS-1541 checkout design update 
 .custom-radio-check input[type="radio"] + label:before{
   display: none;
 }
@@ -1563,6 +1563,10 @@ $stored-payment-spacing: rem(16);
   box-sizing: border-box;
   margin-left: rem(20);
   margin-bottom: rem(15);
+
+  .show-more {
+    font-size: 12px;
+  }
 
   &:nth-child(3n+1) {
     margin-left: 0;
@@ -1649,7 +1653,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .custom-radio-check input[type="radio"]:checked + label {
-  border: rem(2) solid $black;
+  border: rem(1) solid $black;
 
 }
 
