@@ -1193,6 +1193,14 @@ function handleVariantResponse(response, $productContainer) {
         if (window.Resources.GOOGLE_PAY_ENABLED) {
             $('.google-pay-container').show();
         }
+        var currentCountry = response.product.currentCountry.toLowerCase();
+        if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
+            var applePayButton = $('.apple-pay-pdp', $productContainer);
+            if (applePayButton.length !== 0) {
+                applePayButton.attr('sku', response.product.id);
+                applePayButton.removeClass('d-none');
+            }
+        }
     } else {
         $addToCartSelector.addClass('out-of-stock-btn');
         $addToCartSelector.prop('disabled', true);
@@ -1203,6 +1211,7 @@ function handleVariantResponse(response, $productContainer) {
         if (window.Resources.GOOGLE_PAY_ENABLED) {
             $('.google-pay-container').hide();
         }
+        $('.apple-pay-pdp').addClass('d-none');
     }
     $('body').on('product:afterAttributeSelect', function (e, response) {
         setTimeout(function(){
