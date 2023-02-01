@@ -812,10 +812,10 @@
             .mvmt-pdp-carousel {
 
                 img {
-
-                   @include media-breakpoint-up(lg) {
-                    width: rem(600);
-                    height: rem(600);
+                    
+                    @include media-breakpoint-up(lg) {
+                        width: rem(600);
+                        height: rem(600);
                    }
                 }
             }
