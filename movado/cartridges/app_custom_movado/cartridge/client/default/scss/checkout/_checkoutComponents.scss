@@ -1566,6 +1566,7 @@ $stored-payment-spacing: rem(16);
 
   .show-more {
     font-size: 12px;
+    display: none;
   }
 
   &:nth-child(3n+1) {

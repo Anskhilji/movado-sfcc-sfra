@@ -261,6 +261,7 @@ function updateShippingMethods(shipping) {
                 });
             }
         });
+        showMoreBtn();
     }
 
     $('body').trigger('shipping:updateShippingMethods', { shipping: shipping });
@@ -790,6 +791,36 @@ function editOrEnterMultiShipInfo(element, mode) {
     root.data('saved-state', JSON.stringify(savedState));
 }
 
+function showMoreBtn() {
+    var showChar = 50;  // Characters that are shown by default
+    var moretext = ' show more';
+    var lesstext = ' show less';
+    $('.custom-radio-check .arrival-time').each(function() {
+        var content = $(this).html();
+        if(content.length > showChar) {
+            var c = content.substr(0, showChar);
+            var h = content.substr(showChar, content.length - showChar);
+            var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a>';
+            $(this).html(html);
+        }
+    });
+
+    $('.morelink-wrapper').on('click',function() {
+        if($(this).hasClass('less')) {
+            $(this).removeClass('less');
+            $(this).html(moretext);
+            $('.morelink-wrapper').css('margin-left','4px');
+            $('.morecontent-wrapper').css('display','none');
+        } else {
+            $(this).addClass('less');
+            $(this).html(lesstext);
+            $('.morelink-wrapper').css('margin-left','4px');
+            $('.morecontent-wrapper').css('display','inline');
+        }
+        return false;
+    });
+}
+
 module.exports = {
     methods: {
         updateShippingAddressSelector: updateShippingAddressSelector,
@@ -808,7 +839,8 @@ module.exports = {
         editMultiShipAddress: editMultiShipAddress,
         editOrEnterMultiShipInfo: editOrEnterMultiShipInfo,
         createErrorNotification: createErrorNotification,
-        viewMultishipAddress: viewMultishipAddress
+        viewMultishipAddress: viewMultishipAddress,
+        showMoreBtn: showMoreBtn
     },
 
     selectShippingMethod: function () {
@@ -1176,6 +1208,35 @@ module.exports = {
             var $emailAddress = $(this).val();      
             $emailAddress = $.trim($emailAddress);
             $(this).val($emailAddress);
+        });
+    },
+ 
+    showMoreBtn: function() {
+        var showChar = 50;  // Characters that are shown by default
+        var moretext = ' show more';
+        var lesstext = ' show less';
+        $('.custom-radio-check .arrival-time').each(function() {
+            var content = $(this).html();
+            if(content.length > showChar) {
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar, content.length - showChar);
+                var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a>';
+                $(this).html(html);
+            }
+        });
+        $('.morelink-wrapper').on('click',function() {
+            if($(this).hasClass('less')) {
+                $(this).removeClass('less');
+                $(this).html(moretext);
+                $('.morelink-wrapper').css('margin-left','4px');
+                $('.morecontent-wrapper').css('display','none');
+            } else {
+                $(this).addClass('less');
+                $(this).html(lesstext);
+                $('.morelink-wrapper').css('margin-left','4px');
+                $('.morecontent-wrapper').css('display','inline');
+            }
+            return false;
         });
     }
 };
