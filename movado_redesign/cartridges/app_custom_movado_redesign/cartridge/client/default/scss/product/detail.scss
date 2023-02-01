@@ -190,6 +190,59 @@ $arrow-height: 1.25em;
 
         img {
             margin: 0 auto;
+
+            @include media-breakpoint-up(lg) {
+
+                &.carousel-indicator-image {
+                    width: rem(98);
+                    height: rem(98);
+                }
+
+                &.tile-image {
+                    width: rem(354);
+                    height: rem(426.5);
+                }
+            }
+            
+            @media (max-width: $custom-sm4) {
+
+                &.carousel-indicator-image {
+                    width: rem(68);
+                    height: rem(68); 
+                }
+
+                &.tile-image {
+                    width: rem(117);
+                    height: rem(213);
+                }
+            }
+            
+            @media (max-width: $small-screen-width375) {
+
+                &.carousel-indicator-image {
+                    width: rem(68);
+                    height: rem(68);
+                }
+
+                &.tile-image {
+                    width: rem(152);
+                    height: rem(183);
+                }
+            }
+            
+            @media (max-width: $small-screen-width) {
+                
+                &.carousel-indicator-image {
+                    width: rem(68);
+                    height: rem(68);
+                }
+
+                &.tile-image {
+                    width: rem(125);
+                    height: rem(150);
+                }
+            }
+
         }
     }
 
@@ -342,6 +395,23 @@ $arrow-height: 1.25em;
                     @include media-breakpoint-up(xl) {
                         min-width: auto;
                         max-width: 100%;
+                        height: rem(600);
+                        width: rem(600);
+                    }
+
+                    @media (max-width: $custom-sm4) {
+                        width: rem(409);
+                        height: rem(409);
+                    }
+                    
+                    @media (max-width: $small-screen-width375) {
+                        height: rem(359);
+                        width: rem(359);
+                    }
+                    
+                    @media (max-width: $small-screen-width) {
+                        height: rem(304);
+                        width: rem(304);
                     }
                 }
             }
@@ -468,6 +538,18 @@ $arrow-height: 1.25em;
 
     .zoom-img {
        cursor: zoom-in;
+
+        @media (max-width: $custom-sm4) {
+            height: rem(409);
+        }
+
+        @media (max-width: $small-screen-width375) {
+            height: rem(359);
+        }
+
+        @media (max-width: $small-screen-width) {
+            height: rem(304);
+        }
 
         &.zoomed-img {
             cursor: zoom-out;

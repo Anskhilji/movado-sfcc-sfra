@@ -36,6 +36,7 @@ $green-2: #30770d;
 
 // Large Screen Down
 $large-screen-width-down: 1400px;
+$custom-sm4: 440px;
 
 @mixin custom-media-query-down($large-screen-width-down) {
     @media (max-width:#{$large-screen-width-down}) {

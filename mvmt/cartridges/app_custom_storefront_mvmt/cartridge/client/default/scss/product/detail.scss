@@ -541,6 +541,10 @@
                 max-height: rem(400);
                 }
 
+                @include media-breakpoint-up(lg) {
+                    width: rem(284);
+                    height: rem(284);
+                }
             }
         }
 
@@ -4024,6 +4028,14 @@
                     &:hover {
                         cursor: zoom-in;
                     }
+
+                    @include media-breakpoint-up(lg) {
+
+                        &.zoom-product-modal {
+                            width: rem(453);
+                            height: rem(453);
+                        }
+                    }
                 }
                
 
@@ -4572,6 +4584,14 @@
 
                                 .upsell_image {
                                     margin: rem(0) auto;
+
+                                    @include media-breakpoint-up(lg) {
+
+                                        &.upsell_image {
+                                            width: rem(167);
+                                            height: rem(167);
+                                        }
+                                    }
                                 }
                             }
                         }
