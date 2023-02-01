@@ -38,7 +38,7 @@
          <iscomment> custom style:MSS-1829 hidden reviews accordion </iscomment>
         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
             <div class="accordion-redesign">
-                <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#reviews" aria-expanded="true" aria-controls="Reviews">
+                <div class="reviews-accordion accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#reviews" aria-expanded="true" aria-controls="Reviews">
                     <div class="d-flex">
                         <div>${Resource.msg('accordion.heading.reviews','products',null)}</div>
                         <isinclude template="product/components/pidRating" />
