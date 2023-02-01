@@ -72,11 +72,12 @@
             max-width: 100%; 
             height: auto;
 
-            @include media-breakpoint-up(lg){
-              & .tile-image {
-                width: rem(390);
-                height: rem(390);
-              }
+            @include media-breakpoint-up(lg) {
+
+                &.tile-image {
+                    width: rem(390);
+                    height: rem(390);
+                }
             }
         }
       }
