@@ -27,7 +27,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <isif condition="${discount.applied && empty(discount.excludeProductLevelPromotionCalloutMsg)}">
+                <isif condition="${discount.applied}">
                     <div class="coupon-applied">${Resource.msg('msg.coupon.applied','cart',null)}</div>
                 <iselseif condition="${!discount.applied && !empty(discount.excludeProductLevelPromotionCalloutMsg)}">
                     <div class="coupon-not-applied">${discount.excludeProductLevelPromotionCalloutMsg}</div>
