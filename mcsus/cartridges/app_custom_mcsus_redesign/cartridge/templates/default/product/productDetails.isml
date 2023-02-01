@@ -236,12 +236,6 @@
             </div>
             </div>
         </div>
-        <iscomment> product detail redesign section end here </iscomment>
-         <div class="container pdp-bottom-rating">
-            <isinclude template="widget/yotporeviewswidget" />
-        </div>
-        
-
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
        </isif>
