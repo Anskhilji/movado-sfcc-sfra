@@ -21,3 +21,25 @@ if(location.hash && location.hash == myid) {
     $('.reviews-accordion').removeClass('collapsed');
     $('#reviews').addClass('show');
 }
+
+$('body').on('click', '.info-icon.info-icon-bopis', function (e) {
+    e.preventDefault();
+    var $winWidth = $(window).width();
+    var $mediumBreakPoint = 544;
+
+    if ($('.tooltip').hasClass('d-block')) {
+        $('.tooltip').removeClass('d-block');
+        return;
+    }
+
+    if ($winWidth < $mediumBreakPoint) {
+        $('.tooltip').addClass('d-block');
+    }
+}); 
+
+$('.info-icon.info-icon-bopis').on('mouseleave focusout', function (e) {
+    if (e.type === 'focusout' || e.type === 'mouseleave') {
+      e.stopPropagation();
+      $('.tooltip').removeClass('d-block');
+    }
+});

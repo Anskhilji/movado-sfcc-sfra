@@ -1,5 +1,5 @@
 <iscomment>Custom Start: Removing the cart page url address because it is not in the mvmt design </iscomment>
-<isif condition="${pdict.isMobile.equalsIgnoreCase('true')}">
+<isif condition="${!empty(pdict.isMobile) && pdict.isMobile.equalsIgnoreCase('true')}">
     <button class="js-trigger-cart-mobile mobile-cart-btn">
         <div class="header-nav-cart-icon header-icon mobile-cart-icon">
             <span class="cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">

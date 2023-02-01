@@ -116,14 +116,22 @@ function getCartAssets(){
 }
 
 function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
-	var productGtmArray={};
-	var variant;
-	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
+    var productGtmArray = {};
+    var variant;
+    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+    collections.forEach(lineItemCtnr.productLineItems, function (pli) {
 
         if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
             var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+            var category = pli.product && pli.product.primaryCategory
+            ? pli.product.primaryCategory
+            : '';
+            var categoryHierarchy = searchCustomHelper.getCategoryBreadcrumb(category);
+            var primarySiteSection = escapeQuotes(categoryHierarchy.primaryCategory);
+            var secoundarySiteSection = escapeQuotes(categoryHierarchy.secondaryCategory);
+            secoundarySiteSection = !empty(secoundarySiteSection) ? '|' + secoundarySiteSection : '';
 
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
@@ -135,6 +143,9 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
                         "variant" : variant,
                         "price" : productPrice,
                         "currency" : pli.product.priceModel.price.currencyCode,
+                        "quantity" : pli.quantity && pli.quantity.value ? pli.quantity.value: pli.quantity,
+                        "deparmentIncludedCategoryName": !empty(primarySiteSection) && !empty(secoundarySiteSection) ? primarySiteSection + secoundarySiteSection : '',
+                        "discountPrice": pli.basePrice.value - pli.adjustedGrossPrice.value > 0 ? pli.adjustedGrossPrice.value: '',
                         "list" : Resource.msg('gtm.list.pdp.value','cart',null)
                     };
                 }
@@ -355,6 +366,18 @@ function getGiftTransactionATC(currentBasket, giftsParentUUID) {
         }
     }
 };
+
+/**
+ * Function to escape quotes
+ * @param value
+ * @returns escape quote value
+ */
+function escapeQuotes(value) {
+    if (value != null) {
+        return value.replace(/'/g, "\\'");
+    }
+    return value;
+}
 
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
