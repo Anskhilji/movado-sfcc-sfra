@@ -644,7 +644,7 @@
                 max-height: rem(400);
                 }
 
-                @include media-breakpoint-up(lg){
+                @include media-breakpoint-up(lg) {
                     width: rem(284);
                     height: rem(284);
                 }
