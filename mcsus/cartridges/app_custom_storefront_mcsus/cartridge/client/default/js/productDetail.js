@@ -17,7 +17,7 @@ $('.ratings > .yotpoBottomLine').on('click', function () {
 
 // 2093 by default open accordion when clicked on plp product rating
 var myid = '#yotpo-reviews-top-div'
-if(location.hash == myid) {
-    $(".reviews-accordion").removeClass('collapsed');
-    $("#reviews").addClass('show');
+if(location.hash && location.hash == myid) {
+    $('.reviews-accordion').removeClass('collapsed');
+    $('#reviews').addClass('show');
 }
