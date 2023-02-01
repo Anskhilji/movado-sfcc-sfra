@@ -584,13 +584,14 @@ function shippingFormResponse(defer, data) {
                         if ($('.data-checkout-stage').data('customer-type') === 'registered') {
                             $('.shipping-address .saveShippingAddress').trigger('click');
                         }
-
+                        checkoutFieldValidationIcon();
                         $('.btn-show-details').click();
                     }
                 }
 
                 $('.checkout-form-error').removeClass('d-none')
             });
+            checkoutFieldValidationIcon();
             defer.reject(data);
         }
 
@@ -627,9 +628,10 @@ function shippingFormResponse(defer, data) {
         if (data.customer && data.customer.profile && data.customer.profile.email) {
             $('#email').val(data.customer.profile.email);
         }
-
+        checkoutFieldValidationIcon();
         defer.resolve(data);
     }
+
 }
 /**
  * Clear out all the shipping form values and select the new address in the drop down
@@ -790,6 +792,19 @@ function editOrEnterMultiShipInfo(element, mode) {
     root.data('saved-state', JSON.stringify(savedState));
 }
 
+function checkoutFieldValidationIcon() {
+    $('.mx-field-wrapper input.input-wrapper-checkout,.mx-field-wrapper select.custom-select-box').each(function () {
+        if (!$(this).hasClass('is-invalid') && $(this).val().length > 0) {
+            if ($(this).val().length > 0) {
+                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                $(this).addClass('is-valid');
+            }
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('d-none');
+        }
+    });
+}
 module.exports = {
     methods: {
         updateShippingAddressSelector: updateShippingAddressSelector,
@@ -808,7 +823,8 @@ module.exports = {
         editMultiShipAddress: editMultiShipAddress,
         editOrEnterMultiShipInfo: editOrEnterMultiShipInfo,
         createErrorNotification: createErrorNotification,
-        viewMultishipAddress: viewMultishipAddress
+        viewMultishipAddress: viewMultishipAddress,
+        checkoutFieldValidationIcon: checkoutFieldValidationIcon
     },
 
     selectShippingMethod: function () {

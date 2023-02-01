@@ -1131,6 +1131,11 @@ $stored-payment-spacing: rem(16);
                 }
               }
           }
+
+          &.is-valid {
+            background: url("../../images/green_tick.svg") center right no-repeat;
+            background-position-x: 97%;
+          }
         }
 
         .field-label-wrapper {

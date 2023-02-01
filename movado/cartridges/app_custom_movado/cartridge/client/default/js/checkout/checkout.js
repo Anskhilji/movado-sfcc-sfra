@@ -286,6 +286,7 @@ require('./fedexAddressValidate');
                                   $('.saved-payment-instrument.' +
                         'selected-payment ' +
                     '.form-control').addClass('is-invalid');
+                                  shippingHelpers.methods.checkoutFieldValidationIcon();
                                   defer.reject();
                                   return defer;
                               }
@@ -346,7 +347,7 @@ require('./fedexAddressValidate');
 
                               $('#cardNumber').val($('#originalCardNumber').val());
                               $('#securityCode').val('');
-
+                              shippingHelpers.methods.checkoutFieldValidationIcon();
                               defer.reject();
                           } else {
                   //
@@ -366,7 +367,7 @@ require('./fedexAddressValidate');
                   ) {
                                   $('.cancel-new-payment').removeClass('checkout-hidden');
                               }
-
+                              shippingHelpers.methods.checkoutFieldValidationIcon();
                               defer.resolve(data);
                           }
                       },
