@@ -64,7 +64,7 @@ function send(emailObj, template, context) {
                     context.order.totals.totalTax = null;
                 }
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
-                requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
+                requestParams.messageId = context.currentOrder.custom.storePickUp ? Site.current.preferences.custom.Listrak_BopisOrderConfirmation : Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = !empty(context.order.orderNo) ?  context.order.orderNo : context.order.orderNumber;
                 requestParams.totalTax = !empty(context.order.totals.totalTax) ? context.order.totals.totalTax : zeroAmount;
                 requestParams.shippingCost = !empty(context.order.totals.totalShippingCost) ? context.order.totals.totalShippingCost : zeroAmount;
