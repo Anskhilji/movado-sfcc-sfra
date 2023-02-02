@@ -794,7 +794,7 @@ function showMoreBtn() {
         if (content.length > showChar) {
             var c = content.substr(0, showChar);
             var h = content.substr(showChar, content.length - showChar);
-            var html = c + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 4px;">' +moretext+ '</a>';
+            var html = c + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +moretext+ '</a>';
             $(this).html(html);
         }
     });
@@ -803,12 +803,12 @@ function showMoreBtn() {
             if ($(this).hasClass('less')) {
                 $(this).removeClass('less');
                 $(this).html(moretext);
-                $(this).css('margin-left','4px');
+                $(this).css('margin-left','5px');
                 $('.morecontent-wrapper').css('display','none');
             } else {
                 $(this).addClass('less');
                 $(this).html(lesstext);
-                $(this).css('margin-left','4px');
+                $(this).css('margin-left','5px');
                 $(this).siblings('.morecontent-wrapper').css('display','inline');
             }
             return false;
@@ -922,7 +922,7 @@ module.exports = {
             if (content.length > showChar) {
                 var c = content.substr(0, showChar);
                 var h = content.substr(showChar, content.length - showChar);
-                var html = c + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 4px;">' +moretext+ '</a>';
+                var html = c + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +moretext+ '</a>';
                 $(this).html(html);
             }
         });
@@ -931,12 +931,12 @@ module.exports = {
                 if ($(this).hasClass('less')) {
                     $(this).removeClass('less');
                     $(this).html(moretext);
-                    $(this).css('margin-left','4px');
+                    $(this).css('margin-left','5px');
                     $('.morecontent-wrapper').css('display','none');
                 } else {
                     $(this).addClass('less');
                     $(this).html(lesstext);
-                    $(this).css('margin-left', '4px');
+                    $(this).css('margin-left', '5px');
                     $(this).siblings('.morecontent-wrapper').css('display', 'inline');
                 }
                 return false;

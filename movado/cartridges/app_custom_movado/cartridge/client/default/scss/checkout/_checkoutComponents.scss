@@ -1549,88 +1549,90 @@ $stored-payment-spacing: rem(16);
         padding: rem(0) rem(15);
     }
 }
+
 // MSS-1541 checkout design update 
-.custom-radio-check input[type="radio"] + label:before{
+.custom-radio-check input[type="radio"]+label:before {
   display: none;
 }
+
 .custom-radio-check {
   display: flex;
   overflow: inherit;
   flex-wrap: wrap;
 
   .start-lines {
-  padding: 0;
-  box-sizing: border-box;
-  margin-left: rem(20);
-  margin-bottom: rem(15);
-
-  .show-more {
-    font-size: 12px;
-    display: none;
-  }
-
-  &:nth-child(3n+1) {
-    margin-left: 0;
-  }
-
-  @include media-breakpoint-down(lg) {
+    padding: 0;
+    box-sizing: border-box;
     margin-left: rem(20);
-    width: calc(51% - 20px);
+    margin-bottom: rem(15);
+
+    .show-more {
+      font-size: 12px;
+      display: none;
+    }
 
     &:nth-child(3n+1) {
-      margin-left: rem(20);
-    }
-
-    &:nth-child(odd) {
-      margin-left: rem(0);
-    }
-
-    @include media-breakpoint-down(sm) {
-      width: 100%;
       margin-left: 0;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-left: rem(20);
+      width: calc(51% - 20px);
 
       &:nth-child(3n+1) {
+        margin-left: rem(20);
+      }
+
+      &:nth-child(odd) {
         margin-left: rem(0);
       }
+
+      @include media-breakpoint-down(sm) {
+        width: 100%;
+        margin-left: 0;
+
+        &:nth-child(3n+1) {
+          margin-left: rem(0);
+        }
+      }
+    }
+
+    .end-lines {
+      display: none;
+    }
+
+    .display-name {
+      font-size: rem(14);
+      font-weight: 500;
+      letter-spacing: rem(0.75);
+      line-height: rem(24);
+      color: $google-grey1;
+      font-family: $font-demi;
+
+      @include media-breakpoint-up(md) {
+        height: rem(50);
+      }
+    }
+
+    .shipping-cost-control {
+      font-size: rem(12);
+      font-weight: 500;
+      letter-spacing: rem(0.65);
+      line-height: rem(24);
+      color: $black;
+      font-family: $font-demi;
+      margin-left: rem(10);
+    }
+
+    .arrival-time {
+      color: $grey17;
+      font-size: rem(12);
+      font-weight: 500;
+      letter-spacing: rem(0.65);
+      line-height: rem(20);
+      font-family: $font-demi;
     }
   }
-
-  .end-lines {
-    display: none;
-  }
-
-  .display-name {
-    font-size: rem(14);
-    font-weight: 500;
-    letter-spacing: rem(0.75);
-    line-height: rem(24);
-    color: $google-grey1;
-    font-family: $font-demi;
-
-    @include media-breakpoint-up(md) {
-      height: rem(50);
-    }
-  }
-
-  .shipping-cost-control {
-    font-size: rem(12);
-    font-weight: 500;
-    letter-spacing: rem(0.65);
-    line-height: rem(24);
-    color: $black;
-    font-family: $font-demi;
-    margin-left: rem(10);
-  }
-
-  .arrival-time {
-    color: $grey17;
-    font-size: rem(12);
-    font-weight: 500;
-    letter-spacing: rem(0.65);
-    line-height: rem(20);
-    font-family: $font-demi;
-  }
-}
 
   label {
     min-height: rem(130);
@@ -1648,7 +1650,7 @@ $stored-payment-spacing: rem(16);
     @include custom-media-query-max($medium-screen-width) {
       min-height: rem(82);
     }
-    
+
     .price-naming {
       display: flex;
       justify-content: space-between;
@@ -1661,7 +1663,7 @@ $stored-payment-spacing: rem(16);
   }
 }
 
-.custom-radio-check input[type="radio"]:checked + label {
+.custom-radio-check input[type="radio"]:checked+label {
   border: rem(2) solid $black;
 
 }
@@ -1669,7 +1671,7 @@ $stored-payment-spacing: rem(16);
 .data-checkout-stage {
 
   .shipping-method-block {
-    
+
     .new-shipping-sec {
 
       h5 {
@@ -1696,7 +1698,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .custom-radio-check {
-  
+
   .form-check {
 
     &.start-lines {
