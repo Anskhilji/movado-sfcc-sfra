@@ -33,6 +33,13 @@
       <div class="js-carousel main-carousel main-carousel-movado traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['pdp600']}" var="image" status="loopStatus">
+              <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                  <div class="carousel-tile poster-frame-video">
+                      <video class="slide-video" loop muted autoplay playsinline >
+                          <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                      </video>
+                  </div>
+              </isif>
               <div class="carousel-tile">
                   <picture>
                       <source media="(min-width: 992px)" srcset="${product.images.pdp600[loopStatus.count-1].url}" />
@@ -40,17 +47,22 @@
                       <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
-                  <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
-                      <video class="slide-video d-none " loop muted autoplay playsinline >
-                          <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
-                      </video>
-                  </isif>
               </div>
           </isloop>
       </div>
       <iscomment>Added pagination slider</iscomment>
       <div class="carousel-nav" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isloop items="${product.images['tile150']}" var="image" status="loopStatus">
+              <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                  <div class="carousel-tile"> 
+                      <picture>
+                          <source media="(min-width: 992px)" srcset="${product.posterFrame.url}" />
+                          <source media="(max-width: 991px)" srcset="${product.posterFrame.url}" />
+                          <img class="carousel-indicator-image" src="${product.posterFrame.url}" alt="${product.posterFrame.alt}" itemprop="image" />
+                          <isset name="isImageExist" value="true" scope="page" />
+                      </picture>
+                    </div>
+              </isif>
               <div class="carousel-tile">
                   <picture>
                       <source media="(min-width: 992px)" srcset="${product.images.tile150[loopStatus.count-1].url}" />

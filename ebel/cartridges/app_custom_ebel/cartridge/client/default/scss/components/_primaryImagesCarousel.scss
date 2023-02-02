@@ -9,9 +9,13 @@
     }
 
     .carousel-tile {
-      display: table-cell;
+      display: table-cell;  
       position: relative;
       width: 100%;
+    }
+
+    .poster-frame-video {
+      height: rem(600) !important;
     }
 
     .slick-arrow {
