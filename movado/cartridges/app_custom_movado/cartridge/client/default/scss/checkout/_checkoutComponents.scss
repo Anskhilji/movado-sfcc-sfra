@@ -1606,6 +1606,10 @@ $stored-payment-spacing: rem(16);
     line-height: rem(24);
     color: $google-grey1;
     font-family: $font-demi;
+
+    @include media-breakpoint-up(md) {
+      height: rem(50);
+    }
   }
 
   .shipping-cost-control {
@@ -1629,7 +1633,7 @@ $stored-payment-spacing: rem(16);
 }
 
   label {
-    // height: rem(100);
+    min-height: rem(130);
     border: 1px solid $grey16;
     padding: rem(14) rem(15) rem(12) rem(15);
     width: rem(220);
@@ -1640,11 +1644,15 @@ $stored-payment-spacing: rem(16);
     @include media-breakpoint-down(lg) {
       width: 100%;
     }
+
+    @include custom-media-query-max($medium-screen-width) {
+      min-height: rem(82);
+    }
     
     .price-naming {
       display: flex;
       justify-content: space-between;
-      margin-bottom: rem(8);
+      margin-bottom: rem(6);
     }
   }
 
@@ -1654,7 +1662,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .custom-radio-check input[type="radio"]:checked + label {
-  border: rem(1) solid $black;
+  border: rem(2) solid $black;
 
 }
 
@@ -1679,6 +1687,7 @@ $stored-payment-spacing: rem(16);
 
           @include media-breakpoint-down(xs) {
             font-size: rem(15);
+            margin-bottom: rem(15);
           }
         }
       }
