@@ -273,39 +273,33 @@ function updateShippingMethods(shipping) {
  */
 
 function updateShippingMethodList($shippingForm) {
-    // delay for autocomplete!
-    setTimeout(function () {
-
-        var $shippingMethodList = $shippingForm.find('.shipping-method-list');
-        var url = $shippingMethodList.data('actionUrl');
-        if (url) {
-            var urlParams = addressHelpers.methods.getAddressFieldsFromUI($shippingForm);
-            var shipmentUUID = $shippingForm.find('[name=shipmentUUID]').val();
-            urlParams.shipmentUUID = shipmentUUID;
-
-            $shippingMethodList.spinner().start();
-            $.ajax({
-                url: url,
-                type: 'post',
-                dataType: 'json',
-                data: urlParams,
-                success: function (data) {
-                    if (data.error) {
-                        window.location.href = data.redirectUrl;
-                    } else {
-                        $('body').trigger('checkout:updateCheckoutView',
-                            {
-                                order: data.order,
-                                customer: data.customer,
-                                options: { keepOpen: true }
-                            });
-
-                        $shippingMethodList.spinner().stop();
-                    }
+    var $shippingMethodList = $shippingForm.find('.shipping-method-list');
+    var url = $shippingMethodList.data('actionUrl');
+    if (url) {
+        var urlParams = addressHelpers.methods.getAddressFieldsFromUI($shippingForm);
+        var shipmentUUID = $shippingForm.find('[name=shipmentUUID]').val();
+        urlParams.shipmentUUID = shipmentUUID;
+        $shippingMethodList.spinner().start();
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            data: urlParams,
+            success: function (data) {
+                if (data.error) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    $('body').trigger('checkout:updateCheckoutView',
+                        {
+                            order: data.order,
+                            customer: data.customer,
+                            options: { keepOpen: true }
+                        });
+                    $shippingMethodList.spinner().stop();
                 }
-            });
-        }
-    }, 300);
+            }
+        });
+    }
 }
 
 /**
@@ -792,32 +786,33 @@ function editOrEnterMultiShipInfo(element, mode) {
 }
 
 function showMoreBtn() {
-    var showChar = 50;  // Characters that are shown by default
-    var moretext = ' show more';
-    var lesstext = ' show less';
+    var showChar = 45;  // Characters that are shown by default
+    var moretext = 'show more';
+    var lesstext = 'show less';
     $('.custom-radio-check .arrival-time').each(function() {
         var content = $(this).html();
-        if(content.length > showChar) {
+        if (content.length > showChar) {
             var c = content.substr(0, showChar);
             var h = content.substr(showChar, content.length - showChar);
-            var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a>';
+            var html = c + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 4px;">' +moretext+ '</a>';
             $(this).html(html);
         }
     });
-
-    $('.morelink-wrapper').on('click',function() {
-        if($(this).hasClass('less')) {
-            $(this).removeClass('less');
-            $(this).html(moretext);
-            $('.morelink-wrapper').css('margin-left','4px');
-            $('.morecontent-wrapper').css('display','none');
-        } else {
-            $(this).addClass('less');
-            $(this).html(lesstext);
-            $('.morelink-wrapper').css('margin-left','4px');
-            $('.morecontent-wrapper').css('display','inline');
-        }
-        return false;
+    $('.morelink-wrapper').each(function() {
+        $(this).on('click',function() {
+            if ($(this).hasClass('less')) {
+                $(this).removeClass('less');
+                $(this).html(moretext);
+                $(this).css('margin-left','4px');
+                $('.morecontent-wrapper').css('display','none');
+            } else {
+                $(this).addClass('less');
+                $(this).html(lesstext);
+                $(this).css('margin-left','4px');
+                $(this).siblings('.morecontent-wrapper').css('display','inline');
+            }
+            return false;
+        });
     });
 }
 
@@ -915,6 +910,37 @@ module.exports = {
     selectSingleShipping: function () {
         $('body').on('shipping:selectSingleShipping', function () {
             $('.single-shipping .shipping-address').removeClass('d-none');
+        });
+    },
+
+    showMoreBtn: function() {
+        var showChar = 45;  // Characters that are shown by default
+        var moretext = 'show more';
+        var lesstext = 'show less';
+        $('.custom-radio-check .arrival-time').each(function() {
+            var content = $(this).html();
+            if (content.length > showChar) {
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar, content.length - showChar);
+                var html = c + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 4px;">' +moretext+ '</a>';
+                $(this).html(html);
+            }
+        });
+        $('.morelink-wrapper').each(function() {
+            $(this).on('click',function() {
+                if ($(this).hasClass('less')) {
+                    $(this).removeClass('less');
+                    $(this).html(moretext);
+                    $(this).css('margin-left','4px');
+                    $('.morecontent-wrapper').css('display','none');
+                } else {
+                    $(this).addClass('less');
+                    $(this).html(lesstext);
+                    $(this).css('margin-left', '4px');
+                    $(this).siblings('.morecontent-wrapper').css('display', 'inline');
+                }
+                return false;
+            });
         });
     },
 
@@ -1069,13 +1095,13 @@ module.exports = {
     },
 
     updateShippingList: function () {
-        $(window).on('load',function() {
+        $(document).ready(function () {
             updateShippingMethodList($('.shipping-method-list').parents('form'));
         });
         $('select[name$="shippingAddress_addressFields_states_stateCode"]')
             .on('change', function (e) {
                 updateShippingMethodList($(e.currentTarget.form));
-            });
+        });
     },
 
     updateDataAddressMode: function () {
@@ -1208,35 +1234,6 @@ module.exports = {
             var $emailAddress = $(this).val();      
             $emailAddress = $.trim($emailAddress);
             $(this).val($emailAddress);
-        });
-    },
- 
-    showMoreBtn: function() {
-        var showChar = 50;  // Characters that are shown by default
-        var moretext = ' show more';
-        var lesstext = ' show less';
-        $('.custom-radio-check .arrival-time').each(function() {
-            var content = $(this).html();
-            if(content.length > showChar) {
-                var c = content.substr(0, showChar);
-                var h = content.substr(showChar, content.length - showChar);
-                var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a>';
-                $(this).html(html);
-            }
-        });
-        $('.morelink-wrapper').on('click',function() {
-            if($(this).hasClass('less')) {
-                $(this).removeClass('less');
-                $(this).html(moretext);
-                $('.morelink-wrapper').css('margin-left','4px');
-                $('.morecontent-wrapper').css('display','none');
-            } else {
-                $(this).addClass('less');
-                $(this).html(lesstext);
-                $('.morelink-wrapper').css('margin-left','4px');
-                $('.morecontent-wrapper').css('display','inline');
-            }
-            return false;
         });
     }
 };
