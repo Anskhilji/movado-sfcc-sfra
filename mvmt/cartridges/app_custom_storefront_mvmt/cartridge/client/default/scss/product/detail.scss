@@ -709,6 +709,17 @@
             position: relative;
             margin-bottom: 0;
 
+            .mvmt-pdp-carousel {
+
+                img {
+                    
+                    @include media-breakpoint-up(lg) {
+                        width: rem(600);
+                        height: rem(600);
+                   }
+                }
+            }
+
             .zoom-icon {
                 transition: all .25s ease;
                 right: 0;
