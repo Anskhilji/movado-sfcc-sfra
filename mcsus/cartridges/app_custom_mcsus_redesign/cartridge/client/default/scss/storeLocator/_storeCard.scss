@@ -82,6 +82,7 @@
                 &-arrow-dwon {
                     padding-right: rem(18);
                     position: relative;
+                    cursor: pointer;
 
                     &::after {
                         content: "";

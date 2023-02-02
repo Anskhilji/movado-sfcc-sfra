@@ -1,6 +1,6 @@
 <div class="store-Locator-overlayer"></div>
-<div class="store-sidebar hide-scroll">
-    <isinclude template="storeLocator/radius" />
+<isinclude template="storeLocator/radius" />
+<div class="store-sidebar">
     <div class="side-header">
         <div class="store-sidebar-header d-flex align-items-center justify-content-between">
             <div class="store-sidebar-header-title">
