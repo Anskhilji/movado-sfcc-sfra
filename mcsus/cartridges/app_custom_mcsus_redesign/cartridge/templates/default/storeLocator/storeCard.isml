@@ -1,0 +1,50 @@
+<div class="store-sidebar-card">
+    <div class="d-flex justify-content-between">
+        <div class="store-detail">
+            <div class="store-detail-name">
+                Camarillo Premium Outlets
+            </div>
+            <div class="store-detail-address">
+                990 Camarillo Center Dr, Ste 1002 Camarillo, CA 93010
+            </div>
+            <a href="#" class="store-detail-phone">
+                1-760-295-7776
+            </a>
+            <div class="store-detail-ml">
+                10.0 mi.
+            </div>
+        </div>
+        <div class="store-image">
+            <img src="${URLUtils.staticURL('/images/store-name.png')}" alt="store" />
+        </div>
+    </div>
+    <div class="store-bottom d-flex align-items-start">
+        <div class="select-store select-opt d-flex align-items-center">
+            <img class="d-none" src="${URLUtils.staticURL('/images/clarity_store-line.svg')}" alt="store">
+            <img src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
+            <span>Set My Store</span>
+        </div>
+        <div class="select-time-box">
+            <div class="select-time select-opt d-flex align-items-center">
+                <img src="${URLUtils.staticURL('/images/carbon_time.svg')}" alt="store">
+                <span class="select-time-arrow-dwon">Store Hours</span>
+            </div>
+        </div>
+        <a href="#" class="select-location select-opt d-flex align-items-center">
+            <img src="${URLUtils.staticURL('/images/carbon_location.svg')}" alt="store">
+            <span>Get Directions</span>
+        </a>
+    </div>
+    <div class="select-time-dropdwon">
+        <ul class="time-dropmenu d-flex align-items-center flex-column">
+            <li class="time-list"><span>Mon</span>: 9 AM - 5 PM</li>
+            <li class="time-list"><span>Tue</span>: 9 AM - 5 PM</li>
+            <li class="time-list"><span>Wed</span>: 9 AM - 5 PM</li>
+            <li class="time-list"><span>Thu</span>: 9 AM - 5 PM</li>
+            <li class="time-list"><span>Fri</span>: 9 AM - 5 PM</li>
+            <li class="time-list"><span>Sat</span>: 9 AM - 5 PM</li>
+            <li class="time-list"><span>Sun</span>: Closed</li>
+        </ul>
+    </div>
+
+</div>

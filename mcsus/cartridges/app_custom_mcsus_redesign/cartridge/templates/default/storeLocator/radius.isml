@@ -1,0 +1,35 @@
+<div class="radius-sidebar w-100">
+    <div class="radius-sidebar-header d-flex align-items-center justify-content-between">
+        <div class="radius-sidebar-header-title">
+            <img src="${URLUtils.staticURL('/images/angle-left-white.svg')}" class="angle-left-icon"
+                alt="" />${Resource.msgf('locator.radius', 'search', null)}
+        </div>
+    </div>
+
+    <div class="radius-sidebar-list">
+        <div class="heading-ml w-100 d-flex align-items-center justify-content-between">
+            <span>Radius</span>
+            <img src="${URLUtils.staticURL('/images/akar-icons_plus.svg')}" class="angle-left-icon">
+        </div>
+        <ul class="radius-box">
+            <li>
+                <label class="container-radius">0-50 Miles
+                    <input type="radio" checked="checked" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </li>
+            <li>
+                <label class="container-radius">50-100 Miles
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </li>
+            <li>
+                <label class="container-radius">100+ Miles
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>
