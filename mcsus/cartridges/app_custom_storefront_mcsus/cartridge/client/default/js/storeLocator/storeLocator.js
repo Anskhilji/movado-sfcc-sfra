@@ -8,4 +8,5 @@ processInclude(require('movado/storeLocator/storeLocator'));
 
 $('.store-sidebar-link').click(function(){
     $('.store-sidebar').addClass('show');
+    $('.store-Locator-overlayer').addClass('d-block');
 });
