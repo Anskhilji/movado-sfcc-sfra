@@ -58,9 +58,11 @@
                         <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-center">${product.productName}</h2>
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
                             <iscomment> product rating </iscomment>
+                           <a href="#reviews">
                             <div class="d-block rating-box-redisgn">
                                 <isinclude template="product/components/pidRating" />
                             </div>
+                           </a>
                         </isif>
                     </div>
                       <iscomment> mobile family namd , name and badges end </iscomment>
@@ -98,9 +100,11 @@
                         <iscomment> product rating </iscomment>
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
+                         <a href="#reviews">
                             <div class="d-none d-sm-block rating-box-redisgn">
                                 <isinclude template="product/components/pidRating" />
                             </div>
+                         </a>
                         </isif>
                     </div>
 

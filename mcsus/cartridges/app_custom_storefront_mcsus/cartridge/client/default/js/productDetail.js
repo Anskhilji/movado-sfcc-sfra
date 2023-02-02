@@ -22,6 +22,13 @@ if(location.hash && location.hash == yotpoReview) {
     $('#reviews').addClass('show');
 }
 
+// click
+$(".rating-box-redisgn").click(function(){
+    $('.reviews-accordion').removeClass('collapsed');
+    $('#reviews').addClass('show');
+    $(document).scrollTop('#reviews');
+});
+
 $('body').on('click', '.info-icon.info-icon-bopis', function (e) {
     e.preventDefault();
     var $winWidth = $(window).width();
