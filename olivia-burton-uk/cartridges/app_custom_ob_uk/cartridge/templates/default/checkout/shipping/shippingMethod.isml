@@ -13,7 +13,6 @@
                     <span class="arrival-time">(${shippingMethod.deliveryDate})</span>
                 <iselse>
                     <span class="arrival-time">(${shippingMethod.description})</span>
-                    <span class="show-more">show more</span>
                 </isif>
             </label>
             <div class="text-right shipping-method-pricing end-lines">
