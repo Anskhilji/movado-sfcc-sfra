@@ -804,7 +804,7 @@ function showMoreBtn() {
                 $(this).removeClass('less');
                 $(this).html($moretext);
                 $(this).css('margin-left','5px');
-                $('.morecontent-wrapper').css('display','none');
+                $(this).siblings('.morecontent-wrapper').css('display','none');
             } else {
                 $(this).addClass('less');
                 $(this).html($lesstext);
@@ -932,7 +932,7 @@ module.exports = {
                     $(this).removeClass('less');
                     $(this).html($moretext);
                     $(this).css('margin-left','5px');
-                    $('.morecontent-wrapper').css('display','none');
+                    $(this).siblings('.morecontent-wrapper').css('display','none');
                 } else {
                     $(this).addClass('less');
                     $(this).html($lesstext);
