@@ -383,3 +383,19 @@ $('.radius-box').on('change', function () {
         closefilter();
     }, 500);
 });
+// $('.store-sidebar-card .select-time').on('click', function() {
+//     $('.store-sidebar-card .select-time-dropdwon').each(function() {
+//         $(this).toggleClass('show')
+//     });
+// });
+
+$('.store-sidebar-card').each(function() {
+    var $card = $(this);
+    var $selectTime = $card.find('.select-time');
+    var $selectTimeDropdown = $card.find('.select-time-dropdwon');
+  
+    $selectTime.on('click', function() {
+      $selectTimeDropdown.toggleClass('show');
+    });
+  });
+

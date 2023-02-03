@@ -105,12 +105,10 @@
     .select-time {
         &-dropdwon {
             height: 0;
-            transition: all 0.4s;
-            opacity: 0;
+            overflow: hidden;
 
             &.show {
                 height: 100%;
-                opacity: 1;
             }
 
             .time-dropmenu {
@@ -125,6 +123,10 @@
                     letter-spacing: 0;
                     line-height: rem(14);
                     list-style: none;
+                    min-width: rem(105);
+                    &:not(:last-of-type) {
+                        margin-bottom: rem(10);
+                    }
 
                     span {
                         font-weight: 600;
