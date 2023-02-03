@@ -65,14 +65,6 @@
                     }
                 }
             }
-
-            .tile-image {
-
-                @include media-breakpoint-up(lg) {
-                    width: rem(411);
-                    height: rem(411);
-                }
-            }
         }
         
         .tile-body {

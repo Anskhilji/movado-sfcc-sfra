@@ -183,7 +183,7 @@ $arrow-height: 1.25em;
         font-size: rem(16);
         letter-spacing: normal;
         width: 100%;
-        height: rem(38);
+        height: rem(46);
     }
 
     .slick-slide {
@@ -198,10 +198,6 @@ $arrow-height: 1.25em;
                     height: rem(98);
                 }
 
-                &.tile-image {
-                    width: rem(354);
-                    height: rem(426.5);
-                }
             }
             
             @media (max-width: $custom-sm4) {
@@ -211,10 +207,6 @@ $arrow-height: 1.25em;
                     height: rem(68); 
                 }
 
-                &.tile-image {
-                    width: rem(117);
-                    height: rem(213);
-                }
             }
             
             @media (max-width: $small-screen-width375) {
@@ -224,10 +216,6 @@ $arrow-height: 1.25em;
                     height: rem(68);
                 }
 
-                &.tile-image {
-                    width: rem(152);
-                    height: rem(183);
-                }
             }
             
             @media (max-width: $small-screen-width) {
@@ -237,10 +225,6 @@ $arrow-height: 1.25em;
                     height: rem(68);
                 }
 
-                &.tile-image {
-                    width: rem(125);
-                    height: rem(150);
-                }
             }
 
         }
