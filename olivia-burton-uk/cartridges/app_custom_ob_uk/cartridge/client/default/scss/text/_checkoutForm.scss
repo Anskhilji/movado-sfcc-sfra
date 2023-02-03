@@ -132,43 +132,49 @@
             &#shippingLastName,
             &#shippingAddressCity,
             &#shippingZipCode {
-                &.form-control {
-                    &.is-invalid {
 
-                      @include media-breakpoint-down(xs) {
-                        background-position-x: 97%;
-                      }
-                    }
+              &.form-control {
+                
+                &.is-invalid {
+
+                  @include media-breakpoint-down(xs) {
+                    background-position-x: 97%;
+                  }
                 }
+              }
             }
 
             &#shippingCountry {
-                &.form-control {
-                    &.is-valid {
 
-                    @include media-breakpoint-down(lg) {
-                        background-position-x: 85% ;
-                    }
+              &.form-control {
 
-                    @include media-breakpoint-down(sm) {
-                        background-position-x: 90%;
-                    }
-                    }
+                &.is-valid {
+
+                  @include media-breakpoint-down(lg) {
+                    background-position-x: 85% ;
+                  }
+
+                  @include media-breakpoint-down(sm) {
+                    background-position-x: 90%;
+                  }
                 }
+              }
             }
             
             &#shippingFirstName,
             &#shippingLastName,
             &#shippingAddressCity,
             &#shippingZipCode {
-                &.form-control {
-                    &.is-invalid {
 
-                      @include media-breakpoint-down(xs) {
-                        background-position-x: 97%;
-                      }
-                    }
+              &.form-control {
+
+                &.is-invalid {
+
+                  @include media-breakpoint-down(xs) {
+                    background-position-x: 97%;
+                  }
                 }
+              }
             }
         }
 
