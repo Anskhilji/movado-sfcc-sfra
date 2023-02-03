@@ -786,28 +786,28 @@ function editOrEnterMultiShipInfo(element, mode) {
 }
 
 function showMoreBtn() {
-    var showChar = 45;  // Characters that are shown by default
-    var moretext = 'show more';
-    var lesstext = 'show less';
+    var $showChar = 45;  // Characters that are shown by default
+    var $moretext = 'show more';
+    var $lesstext = 'show less';
     $('.custom-radio-check .arrival-time').each(function() {
-        var content = $(this).html();
-        if (content.length > showChar) {
-            var characterToShow = content.substr(0, showChar);
-            var characterToHide = content.substr(showChar, content.length - showChar);
-            var html = characterToShow + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + characterToHide + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +moretext+ '</a>';
-            $(this).html(html);
+        var $content = $(this).html();
+        if ($content.length > $showChar) {
+            var $characterToShow = $content.substr(0, $showChar);
+            var $characterToHide = $content.substr($showChar, $content.length - $showChar);
+            var $html = $characterToShow + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + $characterToHide + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +$moretext+ '</a>';
+            $(this).html($html);
         }
     });
     $('.morelink-wrapper').each(function() {
         $(this).on('click',function() {
             if ($(this).hasClass('less')) {
                 $(this).removeClass('less');
-                $(this).html(moretext);
+                $(this).html($moretext);
                 $(this).css('margin-left','5px');
                 $('.morecontent-wrapper').css('display','none');
             } else {
                 $(this).addClass('less');
-                $(this).html(lesstext);
+                $(this).html($lesstext);
                 $(this).css('margin-left','5px');
                 $(this).siblings('.morecontent-wrapper').css('display','inline');
             }
@@ -914,28 +914,28 @@ module.exports = {
     },
 
     showMoreBtn: function() {
-        var showChar = 45;  // Characters that are shown by default
-        var moretext = 'show more';
-        var lesstext = 'show less';
+        var $showChar = 45;  // Characters that are shown by default
+        var $moretext = 'show more';
+        var $lesstext = 'show less';
         $('.custom-radio-check .arrival-time').each(function() {
-            var content = $(this).html();
-            if (content.length > showChar) {
-                var characterToShow = content.substr(0, showChar);
-                var characterToHide = content.substr(showChar, content.length - showChar);
-                var html = characterToShow + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + characterToHide + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +moretext+ '</a>';
-                $(this).html(html);
+            var $content = $(this).html();
+            if ($content.length > $showChar) {
+                var $characterToShow = $content.substr(0, $showChar);
+                var $characterToHide = $content.substr($showChar, $content.length - $showChar);
+                var $html = $characterToShow + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + $characterToHide + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +$moretext+ '</a>';
+                $(this).html($html);
             }
         });
         $('.morelink-wrapper').each(function() {
             $(this).on('click',function() {
                 if ($(this).hasClass('less')) {
                     $(this).removeClass('less');
-                    $(this).html(moretext);
+                    $(this).html($moretext);
                     $(this).css('margin-left','5px');
                     $('.morecontent-wrapper').css('display','none');
                 } else {
                     $(this).addClass('less');
-                    $(this).html(lesstext);
+                    $(this).html($lesstext);
                     $(this).css('margin-left', '5px');
                     $(this).siblings('.morecontent-wrapper').css('display', 'inline');
                 }
