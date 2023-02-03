@@ -15,7 +15,11 @@
     }
 
     .poster-frame-video {
-      height: rem(600) !important;
+      height: rem(600);
+
+      @include media-breakpoint-down(sm) { 
+        height: rem(360);
+      }
     }
 
     .slick-arrow {
