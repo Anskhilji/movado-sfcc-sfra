@@ -864,71 +864,72 @@ $stored-payment-spacing: rem(16);
                 padding: rem(0) rem(5);
             }
 
-          .credit-card-form-container {
-              @include custom-media-query-max($medium-screen-width) {
-                  padding: rem(0) rem(5);
-              }
+            .credit-card-form-container {
+                @include custom-media-query-max($medium-screen-width) {
+                    padding: rem(0) rem(5);
+                }
 
-              @include media-breakpoint-down(sm) {
-                  padding: rem(0);
-              }
+                @include media-breakpoint-down(sm) {
+                    padding: rem(0);
+                }
 
-              .mx-field-wrapper {
-                  @include media-breakpoint-down(xs) {
-                      padding: rem(0) rem(10);
-                  }
-              }
-              .dwfrm_billing_subscribetomovado {
-                  @include media-breakpoint-down(xs) {
-                      padding: rem(0) rem(10);
-                  }
-              }
+                .mx-field-wrapper {
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0) rem(10);
+                    }
+                }
+                .dwfrm_billing_subscribetomovado {
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0) rem(10);
+                    }
+                }
 
-              .form-group {
+                .form-group {
 
-                  .form-control {
+                    .form-control {
 
-                      &.is-invalid {
-                          border: rem(2.4) solid $invalid-red;
-                          background: url("../../images/invalid.svg") center right no-repeat;
-                          background-position-x: 97%;
-                      }
-    
-                      &.is-valid {
-                          background: url("../../images/green_tick.svg") center right no-repeat;
-                          background-position-x: 97%;
-                      }
+                        &.is-invalid {
+                            border: rem(2.4) solid $invalid-red;
+                            background: url("../../images/invalid.svg") center right no-repeat;
+                            background-position-x: 97%;
+                        }
+      
+                        &.is-valid {
+                            background: url("../../images/green_tick.svg") center right no-repeat;
+                            background-position-x: 97%;
+                        }
 
-                      &#holderName,
-                      &#cardNumber {
-                          &.form-control {
+                        &#holderName,
+                        &#cardNumber {
 
-                              &.is-invalid,&.is-valid {
-                                  background-position-x: 98.4%;
-                              }
-                          }
-                      }
+                            &.form-control {
 
-                      &#expirationDate,
-                      &#securityCode {
+                                &.is-invalid,&.is-valid {
+                                    background-position-x: 98.4%;
+                                }
+                            }
+                        }
 
-                          &.form-control {
+                        &#expirationDate,
+                        &#securityCode {
 
-                              &.is-invalid,&.is-valid {
+                            &.form-control {
 
-                                  @include media-breakpoint-down(md) {
-                                      background-position-x: 98.4%;
-                                  }
-                              }
-                          }
-                      }
-                  }
+                                &.is-invalid,&.is-valid {
 
-                .invalid-feedback {
-                    font-size: rem(16);
-                  }
-              }
-          }
+                                    @include media-breakpoint-down(md) {
+                                        background-position-x: 98.4%;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .invalid-feedback {
+                        font-size: rem(16);
+                    }
+                }
+            }
         }
 
         .card-body {
