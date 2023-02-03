@@ -219,7 +219,62 @@ $receipt-font-size: rem(14);
 
     &.is-valid {
       background: url("../../images/green_tick.svg") center right no-repeat !important;
-      background-position-x: 97% !important;
+      background-position-x: 93.5% !important;
+    }
+
+    &#cardNumber,
+    &#holderName {
+
+      &.form-control {
+
+        &.is-valid {
+            background-position-x: 98.4% !important;
+        }
+      }
+    }
+
+    &#email,
+    &#shippingCompanyName,
+    &#shippingAddressOne,
+    &#shippingAddressTwo,
+    &#shippingPhoneNumber {
+
+      &.form-control {
+
+        &.is-valid {
+            background-position-x: 97% !important;
+        }
+      }
+    }
+
+    &#shippingFirstName,
+    &#shippingLastName,
+    &#shippingAddressCity,
+    &#shippingZipCode {
+
+      &.form-control {
+
+        &.is-valid {
+           
+          @include media-breakpoint-down(xs) {
+            background-position-x: 97% !important;
+          }
+        }
+      }
+    }
+
+    &#securityCode,
+    &#expirationDate {
+        &.form-control {
+
+            &.is-valid {
+                background-position-x: 97% !important;
+
+                @include media-breakpoint-down(md) {
+                  background-position-x: 98.4% !important;;
+                }
+            }
+        }
     }
 
     &.custom-select {
@@ -238,12 +293,9 @@ $receipt-font-size: rem(14);
     .form-group {
         .form-control {
             &.is-invalid {
-                border: rem(1) solid $invalid-red;
+                border: rem(2.4) solid $invalid-red;
                 background: url("../../images/invalid.svg") center right no-repeat;
                 background-position-x: 97%;
-                @include media-breakpoint-down(sm) {
-                  background: none;
-                }
             }
 
             &#shippingState,
@@ -253,9 +305,6 @@ $receipt-font-size: rem(14);
               &.is-invalid {
                 background: url("../../images/invalid.svg") center right no-repeat !important;
                 background-position-x: 90% !important;
-                @include media-breakpoint-down(sm) {
-                  background: none !important;
-                }
               }
             }
 
@@ -274,7 +323,7 @@ $receipt-font-size: rem(14);
         }
 
         .invalid-feedback {
-          font-size: rem(11);
+          font-size: rem(16);
           font-weight: 500;
           letter-spacing: rem(0.33);
           line-height: rem(24);
@@ -349,7 +398,7 @@ $receipt-font-size: rem(14);
       
             &.info-icon-email {
                 position: absolute;
-                right: rem(25);
+                right: rem(64);
                 top: rem(9);
                 
                 .icon {
@@ -366,7 +415,7 @@ $receipt-font-size: rem(14);
                     top: rem(9);
 
                     @include media-breakpoint-down(sm) {
-                      right: rem(25);
+                      right: rem(48);
                     }
                 }
               }
