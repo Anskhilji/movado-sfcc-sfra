@@ -886,47 +886,47 @@ $stored-payment-spacing: rem(16);
 
               .form-group {
 
-                .form-control {
+                  .form-control {
 
-                  &.is-invalid {
-                    border: rem(2.4) solid $invalid-red;
-                    background: url("../../images/invalid.svg") center right no-repeat;
-                    background-position-x: 97%;
-                  }
-   
-                  &.is-valid {
-                    background: url("../../images/green_tick.svg") center right no-repeat;
-                    background-position-x: 97%;
-                  }
-
-                  &#holderName,
-                  &#cardNumber {
-                    &.form-control {
-
-                      &.is-invalid,&.is-valid {
-                        background-position-x: 98.4%;
+                      &.is-invalid {
+                          border: rem(2.4) solid $invalid-red;
+                          background: url("../../images/invalid.svg") center right no-repeat;
+                          background-position-x: 97%;
                       }
-                    }
-                  }
-
-                  &#expirationDate,
-                  &#securityCode {
-
-                    &.form-control {
-
-                      &.is-invalid,&.is-valid {
-
-                        @include media-breakpoint-down(md) {
-                          background-position-x: 98.4%;
-                        }
+    
+                      &.is-valid {
+                          background: url("../../images/green_tick.svg") center right no-repeat;
+                          background-position-x: 97%;
                       }
-                    }
+
+                      &#holderName,
+                      &#cardNumber {
+                          &.form-control {
+
+                              &.is-invalid,&.is-valid {
+                                  background-position-x: 98.4%;
+                              }
+                          }
+                      }
+
+                      &#expirationDate,
+                      &#securityCode {
+
+                          &.form-control {
+
+                              &.is-invalid,&.is-valid {
+
+                                  @include media-breakpoint-down(md) {
+                                      background-position-x: 98.4%;
+                                  }
+                              }
+                          }
+                      }
                   }
-                }
 
                 .invalid-feedback {
-                  font-size: rem(16);
-                }
+                    font-size: rem(16);
+                  }
               }
           }
         }
