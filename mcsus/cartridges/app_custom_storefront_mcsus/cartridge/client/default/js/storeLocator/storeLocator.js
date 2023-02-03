@@ -302,6 +302,7 @@ function searchLocator(url) {
         method: 'GET',
         success: function (data) {
             $('.store-results-box').empty().html(data.html);
+            closefilter();
             setHours();
             $.spinner().stop();
         },
@@ -309,26 +310,45 @@ function searchLocator(url) {
             $.spinner().stop();
         }
     });
+};
+
+function searchWithin() {
+    $('.search-within').on('click', function () {
+        var url = $(this).data('action');
+        var radius = $(this).data('radius-value');
+        if (radius) {
+            urlParams = {
+                radius: radius
+            };
+            url = appendToUrl(url, urlParams);
+        }
+        searchLocator(url);
+    });
+
 }
+
+function closefilter() {
+    $('.ftr-close').on('click', function () {
+        $('.store-sidebar-link').click();
+        $('input[name="radio"]').prop('checked', false);
+    });
+};
 
 $('.store-sidebar-link').on('click', function () {
     $('.store-sidebar').addClass('show');
     $('.store-Locator-overlayer').addClass('d-block');
     var url = $(this).data('action');
     searchLocator(url);
-   
 });
 
 $('.button-search').on('click', function () {
     var searchValue = $('.search-input').val().trim();
+    var radius = $('input[name="radio"]:checked').val();
     var url = $(this).data('action');
-    var urlParams = null;
-    if (searchValue) {
-        urlParams = {
-            address: searchValue
-        };
-        url = appendToUrl(url, urlParams);
-    }
+    var urlParams = {};
+    searchValue ? urlParams.address = searchValue : null;
+    radius ? urlParams.radius = radius : null;
+    url = appendToUrl(url, urlParams);
     searchLocator(url);
 });
 
@@ -357,37 +377,14 @@ $('.store-Locator-overlayer').on('click', function () {
     $('.store-Locator-overlayer').removeClass('d-block');
 });
 
-function searchWithin() {
-    $('.search-within').on('click', function () {
-        var url = $(this).data('action');
-        var radius = $(this).data('radius-value');
-        if (radius) {
-            urlParams = {
-                radius: radius
-            };
-            url = appendToUrl(url, urlParams);
-        }
-        searchLocator(url);
-    });
-
-}
-
-function closefilter() {
-    $('.ftr-close').on('click', function () {
-        $('.store-sidebar-link').click();
-    });
-};
-
 $('.miles-action-btn-apply').on('click', function () {
     var radius = $('input[name="radio"]:checked').val();
+    var searchValue = $('.search-input').val().trim();
     var url = $(this).data('action');
-    var urlParams = null;
-    if (radius) {
-        urlParams = {
-            radius: radius
-        };
-        url = appendToUrl(url, urlParams);
-    }
+    var urlParams = {};
+    searchValue ? urlParams.address = searchValue : null;
+    radius ? urlParams.radius = radius : null;
+    url = appendToUrl(url, urlParams);
     searchLocator(url);
     $('.radius-sidebar').removeClass('show');
     $('.store-sidebar').removeClass('hide-scroll');
@@ -397,10 +394,9 @@ $('.miles-action-btn-apply').on('click', function () {
     }, 500);
 });
 
-
-
 $('.miles-action-btn-clear').on('click', function () {
     $('.store-sidebar-link').click();
+    $('input[name="radio"]').prop('checked', false);
     $('.radius-sidebar').removeClass('show');
     $('.store-sidebar').removeClass('hide-scroll');
 });
