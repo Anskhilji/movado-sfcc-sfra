@@ -11,22 +11,22 @@
             <span>Radius</span>
             <img src="${URLUtils.staticURL('/images/akar-icons_plus.svg')}" class="angle-left-icon">
         </div>
-        <ul class="radius-box">
+        <ul class="radius-box" data-action = ${URLUtils.url('Stores-FindStores')}>
             <li>
                 <label class="container-radius">0-50 Miles
-                    <input type="radio" checked="checked" name="radio">
+                    <input type="radio" value="50" name="radio">
                     <span class="checkmark"></span>
                 </label>
             </li>
             <li>
                 <label class="container-radius">50-100 Miles
-                    <input type="radio" name="radio">
+                    <input type="radio" name="radio" value="100">
                     <span class="checkmark"></span>
                 </label>
             </li>
             <li>
                 <label class="container-radius">100+ Miles
-                    <input type="radio" name="radio">
+                    <input type="radio" name="radio" value="300">
                     <span class="checkmark"></span>
                 </label>
             </li>

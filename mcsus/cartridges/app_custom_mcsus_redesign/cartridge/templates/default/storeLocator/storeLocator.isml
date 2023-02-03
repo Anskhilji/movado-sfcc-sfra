@@ -15,7 +15,7 @@
             <div class="search-box d-flex align-items-center">
                 <input class="search-input" type="text" name=""
                     placeholder="${Resource.msgf('locator.searchPlaceholder', 'search', null)}">
-                <div class="button-search">
+                <div class="button-search" data-action = ${URLUtils.url('Stores-FindStores')}>
                     <img src="${URLUtils.staticURL('/images/seach-icon.svg')}" alt="serach" />
                 </div>
             </div>
@@ -23,35 +23,7 @@
                 <img src="${URLUtils.staticURL('/images/filter-icon.svg')}" alt="filter" />
             </div>
         </div>
-
-        <div class="info-text-locator">
-            There are currently no stores available within 50 Miles of your location.
-        </div>
-
-        <div class="miles-selected">
-            <button class="d-flex align-items-center justify-content-between">
-                <span>Within 100 Miles</span>
-                <div class="ftr-close">
-                    <img src="${URLUtils.staticURL('/images/close-black-icon.svg')}" alt="clsoe" />
-                </div>
-            </button>
-        </div>
     </div>
 
-    <div class="store-card-box">
-        <isinclude template="storeLocator/storeCard" />
-        <isinclude template="storeLocator/storeCard" />
-        <isinclude template="storeLocator/storeCard" />
-        <isinclude template="storeLocator/storeCard" />
-        <isinclude template="storeLocator/storeCard" />
-    </div>
-
-
-    <div class="no-result-store d-flex align-items-center justify-content-center">
-        <div class="no-result">
-            <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
-            <p>No stores found within 30 miles. Please set a larger area of search.</p>
-            <a href="#" class="search-within">Search within 100 Miles</a>
-        </div>
-    </div>
+    <div class="store-results-box"></div>
 </div>

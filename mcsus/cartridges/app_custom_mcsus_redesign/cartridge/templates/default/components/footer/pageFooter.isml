@@ -45,9 +45,11 @@
                 </isif>
                 <iscomment> Custom End </iscomment>
 
-                <div class="store-sidebar-link">
-                    LOCATE STORE
+                <div class="store-sidebar-link" data-action = ${URLUtils.url('Stores-FindStores')}>
+                    Locate Store
                 </div>
+
+                <iscomment> <button type="button" class="store-sidebar-link data-action = ${URLUtils.url('Stores-Find')}">Locate Store</button> </iscomment>
             </div>
             <div class="footer-item col-sm-3 collapsible-xs">
                 <iscontentasset aid="ca-footer-account" />
