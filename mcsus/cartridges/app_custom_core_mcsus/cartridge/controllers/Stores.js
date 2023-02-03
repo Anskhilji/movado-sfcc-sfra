@@ -99,7 +99,7 @@ server.replace('FindStores', function (req, res, next) {
                 if (stores && stores.radius && stores.radius >= 50) {
                     map.put('radius', stores.radius);
                 }
-                var html = template.render(map).text;
+                    var html = template.render(map).text;
                 res.json({
                     html: html,
                     selectedRadius: stores.radius

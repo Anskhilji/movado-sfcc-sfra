@@ -1,19 +1,21 @@
-<iscomment> <isif condition="${param.stores && param.stores.length === 0}">
+<iscomment>
+    <isif condition="${param.stores && param.stores.length === 0}">
 
-    <isif condition="${param.radius && param.radius >= 50}">
-        <div class="info-text-locator">
-            There are currently no stores available within ${param.radius} Miles of your location.
-        </div>
-        <div class="miles-selected d-none">
-            <button class="d-flex align-items-center justify-content-between">
-                <span class="selected-radius">Within ${param.radius} Miles</span>
-                <div class="ftr-close">
-                    <img src="${URLUtils.staticURL('/images/close-black-icon.svg')}" alt="clsoe" />
-                </div>
-            </button>
-        </div>
+        <isif condition="${param.radius && param.radius >= 50}">
+            <div class="info-text-locator">
+                There are currently no stores available within ${param.radius} Miles of your location.
+            </div>
+            <div class="miles-selected d-none">
+                <button class="d-flex align-items-center justify-content-between">
+                    <span class="selected-radius">Within ${param.radius} Miles</span>
+                    <div class="ftr-close">
+                        <img src="${URLUtils.staticURL('/images/close-black-icon.svg')}" alt="clsoe" />
+                    </div>
+                </button>
+            </div>
+        </isif>
     </isif>
-</isif> </iscomment>
+</iscomment>
 
 <isif condition="${param.radius}">
     <isif condition="${param.stores && param.stores.length === 0}">
@@ -42,7 +44,11 @@
                             ${store.name}
                         </div>
                         <div class="store-detail-address">
-                            ${store.address1}
+                            <isif condition="${empty(store.address2.trim())}">
+                                ${store.address1}
+                            <iselse/>
+                                ${store.address1}, ${store.address2}
+                            </isif>
                         </div>
                         <a href="#" class="store-detail-phone">
                             ${store.phone}
@@ -51,14 +57,20 @@
                             10.0 mi.
                         </div>
                     </div>
-                    <div class="store-image">
-                        <img src="${URLUtils.staticURL('/images/store-name.png')}" alt="store" />
-                    </div>
+                    <isif condition="${store.image && store.image.url}">
+                        <div class="store-image">
+                            <img src="${store.image.url}" alt="store" />
+                        </div>
+                    </isif>
                 </div>
                 <div class="store-bottom d-flex align-items-start">
-                    <div class="select-store select-opt d-flex align-items-center">
-                        <img class="d-none" src="${URLUtils.staticURL('/images/clarity_store-line.svg')}" alt="store">
-                        <img src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
+                    <div class="store-pickup-select select-opt d-flex align-items-center"
+                        data-url="${URLUtils.https('PickupStore-SetStoreIDSession', 'storeID', store.ID)}"
+                        data-store="${JSON.stringify(store)}">
+                        <img class="un-select-store" src="${URLUtils.staticURL('/images/clarity_store-line.svg')}"
+                            alt="store">
+                        <img class="set-store-selected d-none"
+                            src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
                         <span>Set My Store</span>
                     </div>
                     <div class="select-time-box">
@@ -67,12 +79,12 @@
                             <span class="select-time-arrow-dwon">Store Hours</span>
                         </div>
                     </div>
-                    <a href="#" class="select-location select-opt d-flex align-items-center">
+                    <a href="https://maps.google.com/?daddr=${store.latitude},${store.longitude}"
+                        class="select-location select-opt d-flex align-items-center">
                         <img src="${URLUtils.staticURL('/images/carbon_location.svg')}" alt="store">
                         <span>Get Directions</span>
                     </a>
                 </div>
-
 
                 <div class="select-time-dropdwon">
                     <ul class="time-dropmenu d-flex align-items-center flex-column">
