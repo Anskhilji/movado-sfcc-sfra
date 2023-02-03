@@ -122,7 +122,6 @@ function showValidation(validationResult) {
             }
         }
     }
-    // $('#cardNumber').addClass('is-valid');
     $('#invalidCardDetails').show();
     $('.card-number-wrapper').addClass('card-number-mr');
 }
