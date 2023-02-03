@@ -383,11 +383,6 @@ $('.radius-box').on('change', function () {
         closefilter();
     }, 500);
 });
-// $('.store-sidebar-card .select-time').on('click', function() {
-//     $('.store-sidebar-card .select-time-dropdwon').each(function() {
-//         $(this).toggleClass('show')
-//     });
-// });
 
 $('.store-sidebar-card').each(function() {
     var $card = $(this);
