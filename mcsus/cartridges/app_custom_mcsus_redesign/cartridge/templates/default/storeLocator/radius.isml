@@ -15,48 +15,29 @@
             <ul class="radius-box">
                 <li>
                     <label class="container-radius">0-50 Miles
-                        <input type="radio" checked="checked" name="radio">
+                        <input type="radio" value="50" name="radio">
                         <span class="checkmark"></span>
                     </label>
                 </li>
                 <li>
                     <label class="container-radius">50-100 Miles
-                        <input type="radio" name="radio">
+                        <input type="radio" name="radio" value="100">
                         <span class="checkmark"></span>
                     </label>
                 </li>
                 <li>
                     <label class="container-radius">100+ Miles
-                        <input type="radio" name="radio">
+                        <input type="radio" name="radio" value="300">
                         <span class="checkmark"></span>
                     </label>
                 </li>
             </ul>
         </div>
-        <ul class="radius-box" data-action = ${URLUtils.url('Stores-FindStores')}>
-            <li>
-                <label class="container-radius">0-50 Miles
-                    <input type="radio" value="50" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-            </li>
-            <li>
-                <label class="container-radius">50-100 Miles
-                    <input type="radio" name="radio" value="100">
-                    <span class="checkmark"></span>
-                </label>
-            </li>
-            <li>
-                <label class="container-radius">100+ Miles
-                    <input type="radio" name="radio" value="300">
-                    <span class="checkmark"></span>
-                </label>
-            </li>
-        </ul>
+
     </div>
 
     <div class="miles-action-btn d-flex justif-content-between">
         <button type="button" class="miles-action-btn-clear">Clear</button>
-        <button type="button" class="miles-action-btn-apply">Apply Filters</button>
+        <button type="button" class="miles-action-btn-apply" data-action = ${URLUtils.url('Stores-FindStores')}>Apply Filters</button>
     </div>
 </div>

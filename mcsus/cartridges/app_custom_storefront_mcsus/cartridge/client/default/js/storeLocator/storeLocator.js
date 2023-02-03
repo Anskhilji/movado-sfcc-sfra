@@ -195,21 +195,6 @@ function search(element) {
     return false;
 }
 
-function searchLocator(url) {
-    $.spinner().start();
-    $.ajax({
-        url: url,
-        method: 'GET',
-        success: function (data) {
-            $('.store-results-box').empty().html(data.html);
-            $.spinner().stop();
-        },
-        error: function (err) {
-            $.spinner().stop();
-        }
-    });
-}
-
 module.exports = {
 
     //Custom Start: Overriding the initialization method of store locator.
@@ -297,14 +282,41 @@ module.exports = {
     updateSelectStoreButton: $movadoStoreLocator.updateSelectStoreButton()
 };
 
+function setHours() {
+    $('.store-sidebar-card').each(function () {
+        var $card = $(this);
+        var $selectTime = $card.find('.select-time');
+        var $selectTimeDropdown = $card.find('.select-time-dropdwon');
 
+        $selectTime.on('click', function () {
+            $selectTimeDropdown.toggleClass('show');
+        });
+    });
+};
+
+
+function searchLocator(url) {
+    $.spinner().start();
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function (data) {
+            $('.store-results-box').empty().html(data.html);
+            setHours();
+            $.spinner().stop();
+        },
+        error: function (err) {
+            $.spinner().stop();
+        }
+    });
+}
 
 $('.store-sidebar-link').on('click', function () {
     $('.store-sidebar').addClass('show');
     $('.store-Locator-overlayer').addClass('d-block');
     var url = $(this).data('action');
     searchLocator(url);
-
+   
 });
 
 $('.button-search').on('click', function () {
@@ -366,9 +378,10 @@ function closefilter() {
     });
 };
 
-$('.radius-box').on('change', function () {
+$('.miles-action-btn-apply').on('click', function () {
     var radius = $('input[name="radio"]:checked').val();
     var url = $(this).data('action');
+    var urlParams = null;
     if (radius) {
         urlParams = {
             radius: radius
@@ -384,13 +397,10 @@ $('.radius-box').on('change', function () {
     }, 500);
 });
 
-$('.store-sidebar-card').each(function() {
-    var $card = $(this);
-    var $selectTime = $card.find('.select-time');
-    var $selectTimeDropdown = $card.find('.select-time-dropdwon');
-  
-    $selectTime.on('click', function() {
-      $selectTimeDropdown.toggleClass('show');
-    });
-  });
 
+
+$('.miles-action-btn-clear').on('click', function () {
+    $('.store-sidebar-link').click();
+    $('.radius-sidebar').removeClass('show');
+    $('.store-sidebar').removeClass('hide-scroll');
+});
