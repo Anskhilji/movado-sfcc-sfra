@@ -792,9 +792,9 @@ function showMoreBtn() {
     $('.custom-radio-check .arrival-time').each(function() {
         var content = $(this).html();
         if (content.length > showChar) {
-            var c = content.substr(0, showChar);
-            var h = content.substr(showChar, content.length - showChar);
-            var html = c + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +moretext+ '</a>';
+            var characterToShow = content.substr(0, showChar);
+            var characterToHide = content.substr(showChar, content.length - showChar);
+            var html = characterToShow + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + characterToHide + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +moretext+ '</a>';
             $(this).html(html);
         }
     });
@@ -920,9 +920,9 @@ module.exports = {
         $('.custom-radio-check .arrival-time').each(function() {
             var content = $(this).html();
             if (content.length > showChar) {
-                var c = content.substr(0, showChar);
-                var h = content.substr(showChar, content.length - showChar);
-                var html = c + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +moretext+ '</a>';
+                var characterToShow = content.substr(0, showChar);
+                var characterToHide = content.substr(showChar, content.length - showChar);
+                var html = characterToShow + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + characterToHide + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +moretext+ '</a>';
                 $(this).html(html);
             }
         });
