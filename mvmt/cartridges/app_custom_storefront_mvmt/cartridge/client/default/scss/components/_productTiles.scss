@@ -68,17 +68,9 @@
         display: block;
 
         .tile-image {
-            width: auto; 
-            max-width: 100%; 
-            height: auto;
-
-            @include media-breakpoint-up(lg) {
-
-                &.tile-image {
-                    width: rem(390);
-                    height: rem(390);
-                }
-            }
+          width: auto; 
+          max-width: 100%; 
+          height: auto;
         }
       }
   
