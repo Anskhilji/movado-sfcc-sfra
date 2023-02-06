@@ -33,7 +33,7 @@
                                 ${store.address1}, ${store.address2}
                             </isif>
                         </div>
-                        <a href="#" class="store-detail-phone">
+                        <a href="tel:${store.phone}" class="store-detail-phone">
                             ${store.phone}
                         </a>
                         <div class="store-detail-ml">
@@ -73,17 +73,10 @@
                         <span>${Resource.msg('locator.getDirections', 'search', null)}</span>
                     </a>
                 </div>
-
                 <div class="select-time-dropdwon">
-                    <ul class="time-dropmenu d-flex align-items-center flex-column">
-                        <li class="time-list"><span>Mon</span>: 9 AM - 5 PM</li>
-                        <li class="time-list"><span>Tue</span>: 9 AM - 5 PM</li>
-                        <li class="time-list"><span>Wed</span>: 9 AM - 5 PM</li>
-                        <li class="time-list"><span>Thu</span>: 9 AM - 5 PM</li>
-                        <li class="time-list"><span>Fri</span>: 9 AM - 5 PM</li>
-                        <li class="time-list"><span>Sat</span>: 9 AM - 5 PM</li>
-                        <li class="time-list"><span>Sun</span>: Closed</li>
-                    </ul>
+                    <isif condition="${store.storeHours}">
+                        <isprint value="${store.storeHours}" encoding="off" />
+                    </isif>
                 </div>
             </div>
         </isloop>
@@ -96,7 +89,7 @@
                 <div class="no-result">
                     <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
                     <p>${Resource.msgf('locator.noStoresFoundWithIn', 'search', null, param.radius)}</p>
-                    <div class="search-within" data-action= ${URLUtils.url('Stores-FindStores')} data-radius-value="100">
+                    <div class="search-within" data-action=${URLUtils.url('Stores-FindStores')} data-radius-value="100">
                         ${Resource.msg('locator.withIn100Miles', 'search', null)}</div>
                 </div>
             </div>

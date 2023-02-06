@@ -58,6 +58,7 @@
 
     .store-image {
         width: rem(84);
+        min-width: rem(84);
         height: rem(84);
         border-radius: rem(3);
         overflow: hidden;
@@ -66,6 +67,7 @@
         &-placeholder {
             height: rem(84);
             width: rem(84);
+            min-width: rem(84);
             background-color: $gray8;
             padding: rem(11);
             border-radius: rem(3);
