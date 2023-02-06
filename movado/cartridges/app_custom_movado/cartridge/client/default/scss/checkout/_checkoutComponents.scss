@@ -1566,6 +1566,12 @@ $stored-payment-spacing: rem(16);
         margin-left: rem(20);
         margin-bottom: rem(15);
 
+        @include media-breakpoint-down(xs) {
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
         .show-more {
             font-size: 12px;
             display: none;
