@@ -150,6 +150,7 @@ function searchLocator(url) {
             setHours();
             selectStoreIcon();
             showMore();
+            getFilterValues();
             $.spinner().stop();
         },
         error: function (err) {
@@ -176,10 +177,10 @@ function searchWithin() {
 function closefilter() {
     $('.ftr-close').on('click', function () {
         sessionStorage.removeItem('radius');
+        $('input[name="radio"]').prop('checked', false);
         getFilterValues();
         $('.store-sidebar-link').click();
         $('.button-search').click();
-        $('input[name="radio"]').prop('checked', false);
     });
 };
 
@@ -251,9 +252,9 @@ $('.miles-action-btn-apply').on('click', function () {
 
 $('.miles-action-btn-clear').on('click', function () {
     sessionStorage.removeItem('radius');
+    $('input[name="radio"]').prop('checked', false);
     getFilterValues();
     $('.store-sidebar-link').click();
-    $('input[name="radio"]').prop('checked', false);
     $('.radius-sidebar').removeClass('show');
     $('.store-sidebar').removeClass('hide-scroll');
 });
