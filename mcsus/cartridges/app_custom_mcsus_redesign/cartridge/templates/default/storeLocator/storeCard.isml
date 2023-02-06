@@ -21,13 +21,13 @@
     <div class="section-sticky-add">
         <isif condition="${param.stores && param.stores.length === 0}">
             <div class="info-text-locator">
-                There are currently no stores available within ${param.radius} Miles of your location.
+                ${Resource.msgf('locator.currentlyNoStores', 'search', null, param.radius)}
             </div>
         </isif>
 
         <div class="miles-selected">
             <button class="d-flex align-items-center justify-content-between">
-                <span class="selected-radius">Within ${param.radius} Miles</span>
+                <span class="selected-radius">${Resource.msgf('locator.withInMiles', 'search', null, param.radius)}</span>
                 <div class="ftr-close">
                     <img src="${URLUtils.staticURL('/images/close-black-icon.svg')}" alt="clsoe" />
                 </div>
@@ -56,7 +56,7 @@
                             ${store.phone}
                         </a>
                         <div class="store-detail-ml">
-                            ${store.raduis} mi.
+                            ${Resource.msgf('locator.mi', 'search', null, store.radius)}.
                         </div>
                     </div>
                     <isif condition="${store.image && store.image.url}">
@@ -66,7 +66,8 @@
 
                     <iselse/>
                         <div class="store-image-placeholder d-flex align-items-center justify-content-center">
-                            <img src="${URLUtils.staticURL('/images/placeholder-image.svg')}" class="img-fluid" alt="placeholder" />
+                            <img src="${URLUtils.staticURL('/images/placeholder-image.svg')}" class="img-fluid"
+                                alt="placeholder" />
                         </div>
                     </isif>
                 </div>
@@ -78,18 +79,18 @@
                             alt="store">
                         <img class="set-store-selected d-none"
                             src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
-                        <span>Set My Store</span>
+                        <span>${Resource.msg('locator.myStore', 'search', null)}</span>
                     </div>
                     <div class="select-time-box">
                         <div class="select-time select-opt d-flex align-items-center">
                             <img src="${URLUtils.staticURL('/images/carbon_time.svg')}" alt="store">
-                            <span class="select-time-arrow-dwon">Store Hours</span>
+                            <span class="select-time-arrow-dwon">${Resource.msg('locator.storeHours', 'search', null)}</span>
                         </div>
                     </div>
                     <a href="https://maps.google.com/?daddr=${store.latitude},${store.longitude}"
                         class="select-location select-opt d-flex align-items-center">
                         <img src="${URLUtils.staticURL('/images/carbon_location.svg')}" alt="store">
-                        <span>Get Directions</span>
+                        <span>${Resource.msg('locator.getDirections', 'search', null)}</span>
                     </a>
                 </div>
 
@@ -114,16 +115,16 @@
             <div class="no-result-store d-flex align-items-center justify-content-center">
                 <div class="no-result">
                     <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
-                    <p>No stores found within ${param.radius} miles. Please set a larger area of search.</p>
-                    <div class="search-within" data-action=${URLUtils.url('Stores-FindStores')} data-radius-value="100">
-                        Search within 100 Miles</div>
+                    <p>${Resource.msgf('locator.noStoresFoundWithIn', 'search', null, param.radius)}</p>
+                    <div class="search-within" data-action= ${URLUtils.url('Stores-FindStores')} data-radius-value="100">
+                        ${Resource.msg('locator.withIn100Miles', 'search', null)}</div>
                 </div>
             </div>
         <iselse/>
             <div class="no-result-store d-flex align-items-center justify-content-center">
                 <div class="no-result">
                     <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
-                    <p>No stores found within ${param.radius} miles. Please set a larger area of search.</p>
+                    <p>${Resource.msgf('locator.noStoresFoundWithIn', 'search', null, param.radius)}</p>
                 </div>
             </div>
         </isif>
@@ -131,7 +132,7 @@
         <div class="no-result-store d-flex align-items-center justify-content-center">
             <div class="no-result">
                 <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
-                <p>No stores found within your current location.</p>
+                <p>${Resource.msg('locator.noStoresFound', 'search', null)}</p>
             </div>
         </div>
     </isif>
@@ -142,6 +143,6 @@
 
 <div class="load-more-button text-center">
     <button class="show-more-button" type="button">
-        ${Resource.msgf('locator.showMoreStore', 'search', null)}
+        ${Resource.msg('locator.showMoreStore', 'search', null)}
     </button>
 </div>

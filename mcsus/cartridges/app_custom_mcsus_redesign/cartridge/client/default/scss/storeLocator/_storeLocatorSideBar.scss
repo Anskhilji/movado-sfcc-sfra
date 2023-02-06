@@ -201,7 +201,7 @@
         font-family: $font-regular;
         max-width: rem(290);
         margin: 0 auto;
-        height: calc(100% - 348px);
+        height: calc(100vh - 348px);
 
         .no-result {
             text-align: center;
