@@ -1,22 +1,3 @@
-<iscomment>
-    <isif condition="${param.stores && param.stores.length === 0}">
-
-        <isif condition="${param.radius && param.radius >= 50}">
-            <div class="info-text-locator">
-                There are currently no stores available within ${param.radius} Miles of your location.
-            </div>
-            <div class="miles-selected d-none">
-                <button class="d-flex align-items-center justify-content-between">
-                    <span class="selected-radius">Within ${param.radius} Miles</span>
-                    <div class="ftr-close">
-                        <img src="${URLUtils.staticURL('/images/close-black-icon.svg')}" alt="clsoe" />
-                    </div>
-                </button>
-            </div>
-        </isif>
-    </isif>
-</iscomment>
-
 <isif condition="${param.radius}">
     <div class="section-sticky-add">
         <isif condition="${param.stores && param.stores.length === 0}">
@@ -63,7 +44,6 @@
                         <div class="store-image d-flex align-items-center justify-content-center">
                             <img src="${store.image.url}" alt="store" class="img-fluid" />
                         </div>
-
                     <iselse/>
                         <div class="store-image-placeholder d-flex align-items-center justify-content-center">
                             <img src="${URLUtils.staticURL('/images/placeholder-image.svg')}" class="img-fluid"
@@ -142,7 +122,7 @@
 </isif>
 
 <div class="load-more-button text-center">
-    <button class="show-more-button" type="button">
-        ${Resource.msg('locator.showMoreStore', 'search', null)}
+    <button class="show-more-button" type="button" data-store-count="5">
+        ${Resource.msgf('locator.showMoreStore', 'search', null)}
     </button>
 </div>

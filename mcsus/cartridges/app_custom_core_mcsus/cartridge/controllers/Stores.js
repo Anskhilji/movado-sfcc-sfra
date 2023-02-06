@@ -15,54 +15,15 @@ var page = module.superModule;
 server.extend(page);
 
 /**
- * Find route : Searches for stores calling getStores method from storeHelpers using the geo location.
- * It renders the storelocator.
- */
-server.replace('Find', server.middleware.https, cache.applyDefaultCache, consentTracking.consent, function (req, res, next) {
-    var radius = req.querystring.radius;
-    var countryCode = req.querystring.countryCode;
-    var lat = req.querystring.lat;
-    var lng = req.querystring.long;
-    var showMap = req.querystring.showMap;
-    var horizontalView = req.querystring.horizontalView || false;
-    var isForm = req.querystring.isForm || false;
-
-    var viewData = res.getViewData();
-    var countries = [];
-
-    for (var i = 0; i < data.length; i++) {
-        countries[i] = data[i];
-    }
-
-    var storeResult = storeHelpers.getStores(radius, lat, lng, req.geolocation, countryCode, showMap, null, null);
-
-    if (!countryCode) {
-        countryCode = request.geolocation.countryCode;
-    }
-
-    viewData = {
-        countries: countries,
-        stores: storeResult,
-        horizontalView: horizontalView,
-        isForm: isForm,
-        showMap: showMap,
-        countryCode: countryCode
-    };
-    res.setViewData(viewData);
-    res.render('storeLocator/storeLocator', viewData);
-    next();
-});
-
-/**
  * FindStores route : Searches for stores calling getStores method from storeHelpers
  * using the longitude & latitude returned by the Google GeoCode API.
  * It returns the store data as JSON.
  */
 server.replace('FindStores', function (req, res, next) {
-    var radius = req.querystring.radius;
+    var radius = req.querystring.radius || session.privacy.radius;
     var showMap = req.querystring.showMap;
     var queryCountryCode = req.querystring.countryCode || 'US';
-    var queryAddress = req.querystring.address || '90011';
+    var queryAddress = req.querystring.address || session.privacy.address || '90011';
     var stores = null;
     var status = null;
 

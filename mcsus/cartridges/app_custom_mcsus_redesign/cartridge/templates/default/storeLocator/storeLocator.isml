@@ -2,7 +2,7 @@
 <isinclude template="storeLocator/radius" />
 <div class="store-sidebar">
     <div class="side-header">
-        <div class="store-sidebar-header d-flex align-items-center justify-content-between">
+    <div class="store-sidebar-header d-flex align-items-center justify-content-between">
             <div class="store-sidebar-header-title">
                 ${Resource.msg('locator.sideBarTitle', 'search', null)}
             </div>

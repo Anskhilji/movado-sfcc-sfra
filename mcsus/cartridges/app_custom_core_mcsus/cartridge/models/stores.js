@@ -8,6 +8,15 @@ var StoreModel = require('*/cartridge/models/store');
 function toRad(Value) {
     return Value * Math.PI / 180;
 }
+
+/**
+ * Calculate the distance between current location and store
+ * @param {string} lat1 - latitude of current location
+ * @param {string} long1 - longitude of store location
+ * @param {string} lat2 - latitude of current location
+ * @param {string} long2 - longitude of store location
+ * @returns {string} distance between current location and store
+ */
 function calculateRad(lat1, lon1, lat2, lon2) {
     var R = 6371; // km
     var dLat = toRad(lat2 - lat1);
@@ -31,7 +40,7 @@ function createStoresObject(storesObject, searchKey) {
     return Object.keys(storesObject).map(function (key) {
         var store = storesObject[key];
         var storeModel = new StoreModel(store);
-        storeModel.raduis = calculateRad(searchKey.lat, searchKey.long, storeModel.latitude, storeModel.longitude);
+        storeModel.radius = calculateRad(searchKey.lat, searchKey.long, storeModel.latitude, storeModel.longitude);
         return storeModel;
     });
 }
