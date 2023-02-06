@@ -2,6 +2,10 @@
     padding: rem(6) rem(20) rem(0) rem(20);
 }
 
+.store-results-box {
+    height: 100%;
+}
+
 .store-sidebar-card {
     font-family: $font-regular;
     background-color: $white;
@@ -67,6 +71,7 @@
                 line-height: rem(14);
                 margin-right: rem(8);
                 text-decoration: underline;
+                cursor: pointer;
 
                 &:last-of-type {
                     margin-right: rem(0)
@@ -124,6 +129,7 @@
                     line-height: rem(14);
                     list-style: none;
                     min-width: rem(105);
+
                     &:not(:last-of-type) {
                         margin-bottom: rem(10);
                     }
@@ -137,5 +143,25 @@
                 }
             }
         }
+    }
+}
+
+.show-more-button {
+    color: $black;
+    font-family: $font-regular;
+    font-size: rem(14);
+    letter-spacing: 0;
+    line-height: rem(17);
+    text-align: center;
+    text-decoration: underline;
+    margin-top: rem(25);
+    margin-bottom: rem(34);
+    outline: none;
+    background: none;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    &:focus {
+        outline: none;
     }
 }

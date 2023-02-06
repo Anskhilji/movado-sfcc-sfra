@@ -60,7 +60,6 @@
         top: 0;
         background-color: $gray5;
         z-index: 1;
-        padding-bottom: rem(14);
     }
 
     &-header {
@@ -154,6 +153,14 @@
         line-height: rem(18);
         margin-top: rem(19);
         padding: rem(0) rem(20);
+    }
+
+    .section-sticky-add {
+        position: sticky;
+        top: rem(115);
+        z-index: 1;
+        background-color: $gray5;
+        padding-bottom: rem(14);
     }
 
     .miles-selected {
