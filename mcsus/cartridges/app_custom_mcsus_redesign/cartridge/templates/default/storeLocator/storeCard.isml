@@ -54,7 +54,7 @@
                             ${store.phone}
                         </a>
                         <div class="store-detail-ml">
-                            10.0 mi.
+                            ${store.raduis} mi.
                         </div>
                     </div>
                     <isif condition="${store.image && store.image.url}">

@@ -62,7 +62,7 @@ server.replace('FindStores', function (req, res, next) {
     var radius = req.querystring.radius;
     var showMap = req.querystring.showMap;
     var queryCountryCode = req.querystring.countryCode || 'US';
-    var queryAddress = req.querystring.address || '02108';
+    var queryAddress = req.querystring.address || '90011';
     var stores = null;
     var status = null;
 
