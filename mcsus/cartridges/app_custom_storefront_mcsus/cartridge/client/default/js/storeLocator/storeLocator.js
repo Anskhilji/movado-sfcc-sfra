@@ -53,6 +53,13 @@ function setHours() {
     });
 };
 
+function closeStoreLocator() {
+    $('.radius-sidebar').removeClass('show');
+    $('.store-sidebar').removeClass('hide-scroll');
+    $('.store-sidebar').removeClass('show');
+    $('.store-Locator-overlayer').removeClass('d-block');
+}
+
 function selectStoreIcon() {
     $(document).on('click', '.store-pickup-select', function () {
         var stringifyData = JSON.stringify($(this).data('store'));
@@ -76,11 +83,16 @@ function selectStoreIcon() {
             $('.set-your-store').text(storePickup.address1);
             $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
             $('.pick-up-store-change-store').text('Change');
-            $('#pickupStoreModal').modal('hide');
+            closeStoreLocator();
             if (storePickup.inventory && storePickup.inventory[0].records[0].ato > 0) {
                 $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available');
                 $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-inventory-icon');
                 $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-store-icon');
+            } else if (storePickup.inventory === undefined || storePickup.inventory[0].records[0].ato === 0) {
+                $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-store-icon');
+                $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-inventory-icon');
+                $('.pdp-icon-box').addClass('pickup-store-inventory-status-icon-unavailable unavailable-icon-block');
+                $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_UNAVAILABLE_TEXT);
             } else {
                 $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-store-icon');
             }
@@ -228,10 +240,7 @@ $('.radius-sidebar-header-title').on('click', function () {
 });
 
 $('.store-Locator-overlayer').on('click', function () {
-    $('.radius-sidebar').removeClass('show');
-    $('.store-sidebar').removeClass('hide-scroll');
-    $('.store-sidebar').removeClass('show');
-    $('.store-Locator-overlayer').removeClass('d-block');
+    closeStoreLocator();
 });
 
 $('.miles-action-btn-apply').on('click', function () {
