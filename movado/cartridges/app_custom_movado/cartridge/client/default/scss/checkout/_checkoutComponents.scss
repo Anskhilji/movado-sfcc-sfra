@@ -1568,7 +1568,7 @@ $stored-payment-spacing: rem(16);
 
         @include media-breakpoint-down(xs) {
             &:last-child {
-                margin-bottom: 0;
+                margin-bottom: rem(2);
             }
         }
 
@@ -1579,6 +1579,19 @@ $stored-payment-spacing: rem(16);
 
         &:nth-child(3n+1) {
             margin-left: 0;
+        }
+
+        @include custom-media-query-xs-small($large-screen-width-1200, $large-screen-width-1320) {
+            margin-left: rem(20);
+            width: calc(51% - 20px);
+
+            &:nth-child(3n+1) {
+                margin-left: rem(20);
+            }
+
+            &:nth-child(odd) {
+                margin-left: rem(0);
+            }
         }
 
         @include media-breakpoint-down(lg) {
@@ -1604,19 +1617,21 @@ $stored-payment-spacing: rem(16);
         }
 
         .end-lines {
-            display: none;
+            // display: none;
+            margin: 0;
+            padding: 0;
         }
 
         .display-name {
-            font-size: rem(14);
-            font-weight: 500;
-            letter-spacing: rem(0.75);
+            font-size: rem(14) !important;  //i'm using important to overwrite css which they're already using important
+            font-weight: 500 !important; //i'm using important to overwrite css which they're already using important
+            letter-spacing: rem(0.75) !important;//i'm using important to overwrite css which they're already using important
             line-height: rem(24);
             color: $google-grey1;
-            font-family: $font-demi;
 
             @include media-breakpoint-up(md) {
                 height: rem(50);
+                overflow: hidden;
             }
         }
 
@@ -1626,7 +1641,6 @@ $stored-payment-spacing: rem(16);
             letter-spacing: rem(0.65);
             line-height: rem(24);
             color: $black;
-            font-family: $font-demi;
             margin-left: rem(10);
         }
 
@@ -1636,7 +1650,6 @@ $stored-payment-spacing: rem(16);
             font-weight: 500;
             letter-spacing: rem(0.65);
             line-height: rem(20);
-            font-family: $font-demi;
         }
     }
 
@@ -1647,7 +1660,10 @@ $stored-payment-spacing: rem(16);
         width: rem(220);
         margin-bottom: 0;
         border-radius: rem(3);
-        font-family: $font-demi;
+
+        @include custom-media-query-xs-small($large-screen-width-1200, $large-screen-width-1320) {
+            width: 100%;
+        }
 
         @include media-breakpoint-down(lg) {
             width: 100%;
@@ -1690,7 +1706,6 @@ $stored-payment-spacing: rem(16);
                     margin-top: rem(10);
                     margin-bottom: rem(20);
                     text-transform: uppercase;
-                    font-family: $font-demi;
                     font-weight: 500;
 
                     @include media-breakpoint-down(xs) {
@@ -1710,5 +1725,17 @@ $stored-payment-spacing: rem(16);
         &.start-lines {
             padding: 0;
         }
+    }
+}
+.adjust-mar {
+
+    .start-lines {
+
+       @include media-breakpoint-down(xs) {
+
+        &:last-child {
+            margin-bottom: rem(4);
+        }
+       }
     }
 }

@@ -237,10 +237,10 @@ function updateShippingMethods(shipping) {
                     // set or hide arrival time
                     var arrivalTime;
                     if (shippingMethod.deliveryDate) {
-                        arrivalTime = '(' + shippingMethod.deliveryDate + ')';
+                        arrivalTime = shippingMethod.deliveryDate;
                     } else {
                         if (shippingMethod.description) {
-                            arrivalTime = '(' + shippingMethod.description + ')';
+                            arrivalTime = shippingMethod.description;
                         }
                     }
 

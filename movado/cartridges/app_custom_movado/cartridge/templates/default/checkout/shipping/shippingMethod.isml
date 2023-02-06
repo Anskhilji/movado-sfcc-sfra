@@ -1,5 +1,5 @@
 <isset name="shippingAddress" value="${pdict.forms.shippingForm.shippingAddress}" scope="page"/>
-<div class="custom-radio-check  leading-lines shipping-method-list" data-select-shipping-method-url="${URLUtils.https('CheckoutShippingServices-SelectShippingMethod')}" data-action-url="${URLUtils.https('CheckoutShippingServices-UpdateShippingMethodsList')}">
+<div class=" custom-radio-check  leading-lines shipping-method-list" data-select-shipping-method-url="${URLUtils.https('CheckoutShippingServices-SelectShippingMethod')}" data-action-url="${URLUtils.https('CheckoutShippingServices-UpdateShippingMethodsList')}">
 	<input name="shipmentUUID" type="hidden" value="${shippingModel.UUID}" />
     <isloop items="${shippingModel.applicableShippingMethods}" var="shippingMethod">
         <isif condition="${!shippingMethod.validShippingMethod === true}">
@@ -8,7 +8,7 @@
                 <label class="form-check-label shipping-method-option" for="shippingMethod-${shippingMethod.ID}">
                   <div class="price-naming">
                     <span class="display-name">${shippingMethod.displayName}</span>
-                    <span class="shipping-cost shipping-cost-control">${shippingMethod.shippingCost}</span>
+                    <div class="shipping-method-pricing end-lines"><span class="shipping-cost shipping-cost-control">${shippingMethod.shippingCost}</span></div>
                   </div>
                     <isif condition="${shippingMethod.deliveryDate}">
                         <span class="arrival-time">(${shippingMethod.deliveryDate})</span>
@@ -16,7 +16,9 @@
                         <span class="arrival-time">(${shippingMethod.description})</span>
                     </isif>
                 </label>
-                <div class="text-right shipping-method-pricing end-lines"></div>
+                  <div class="text-right shipping-method-pricing end-lines">
+                
+            </div>
             </div>
           
         </isif>
@@ -33,7 +35,7 @@
             <label class="form-check-label shipping-method-option" for="shippingMethodRadioButton">
                 <div class="price-naming">
                     <span class="display-name"></span>
-                    <span class="shipping-cost shipping-cost-control"></span>
+                  <div class="shipping-method-pricing end-lines"><span class="shipping-cost shipping-cost-control"></span></div>
                 </div>
                 <span class="arrival-time" style="display:none"></span>
             </label>
