@@ -162,7 +162,6 @@ function updateBillingAddressFormValues(order) {
         	$('input[name$=cardNumber]', form).val($('#originalCardNumber').val());
         }
         $('.securityCode').removeClass('is-valid');
-        $('.securityCode').closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('d-none');
     }
 }
 

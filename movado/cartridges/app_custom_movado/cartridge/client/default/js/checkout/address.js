@@ -174,6 +174,7 @@ module.exports = {
             form.attr('data-address-mode', 'details');
             form.find('.multi-ship-address-actions').removeClass('d-none');
             form.find('.multi-ship-action-buttons .col-12.btn-save-multi-ship').addClass('d-none');
+            checkoutFieldValidationIcon();
         });
     },
 
@@ -206,15 +207,11 @@ module.exports = {
 };
 
 function checkoutFieldValidationIcon() {
-    $('.mx-field-wrapper input.input-wrapper-checkout,.mx-field-wrapper select.custom-select-box').each(function () {
+    $('.mx-field-wrapper input.input-wrapper-checkout,.mx-field-wrapper select.custom-select-box,.shipping-section .mx-field-wrapper input.input-wrapper-checkout,shipping-section .mx-field-wrapper select.custom-select-box').each(function () {
         if (!$(this).hasClass('is-invalid') && $(this).val().length > 0) {
-            if ($(this).val().length > 0) {
-                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
-                $(this).addClass('is-valid');
-            }
+            $(this).addClass('is-valid');
         } else {
             $(this).removeClass('is-valid');
-            $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('d-none');
         }
     });
 }

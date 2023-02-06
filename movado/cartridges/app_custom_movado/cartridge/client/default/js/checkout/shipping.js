@@ -790,13 +790,9 @@ function editOrEnterMultiShipInfo(element, mode) {
 function checkoutFieldValidationIcon() {
     $('.mx-field-wrapper input.input-wrapper-checkout,.mx-field-wrapper select.custom-select-box').each(function () {
         if (!$(this).hasClass('is-invalid') && $(this).val().length > 0) {
-            if ($(this).val().length > 0) {
-                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
-                $(this).addClass('is-valid');
-            }
+            $(this).addClass('is-valid');
         } else {
             $(this).removeClass('is-valid');
-            $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('d-none');
         }
     });
 }

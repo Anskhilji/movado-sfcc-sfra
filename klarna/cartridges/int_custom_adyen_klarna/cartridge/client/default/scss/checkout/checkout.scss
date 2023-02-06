@@ -1,2 +1,32 @@
 @import "~movado/checkout/checkout";
 @import "checkoutComponents";
+
+.data-checkout-stage {
+
+    .billing-address,
+    .shipping-form{
+
+        .form-group {
+
+            .form-control {
+
+                &#shippingState {
+
+                    &.form-control {
+
+                        &.is-valid {
+
+                            @include media-breakpoint-up(sm) {
+                                background-position-x: 93.5% !important;
+                            }
+
+                            @include media-breakpoint-down(xs) {
+                                background-position-x: 97% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
