@@ -2,9 +2,11 @@
     padding: rem(6) rem(20) rem(0) rem(20);
 }
 
-.store-results-box {
-    height: 100%;
-}
+// .store-results-box {
+//     height: 100%;
+//     overflow-y: auto;
+//     @include custom-scroll;
+// }
 
 .store-sidebar-card {
     font-family: $font-regular;
@@ -60,6 +62,16 @@
         border-radius: rem(3);
         overflow: hidden;
         margin-left: rem(15);
+
+        &-placeholder {
+            height: rem(84);
+            width: rem(84);
+            background-color: $gray8;
+            padding: rem(11);
+            border-radius: rem(3);
+            overflow: hidden;
+            margin-left: rem(15);
+        }
     }
 
     .store-bottom {
@@ -161,6 +173,7 @@
     border: none;
     box-shadow: none;
     cursor: pointer;
+
     &:focus {
         outline: none;
     }

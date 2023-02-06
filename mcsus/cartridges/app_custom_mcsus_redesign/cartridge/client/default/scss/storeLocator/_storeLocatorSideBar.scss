@@ -1,6 +1,3 @@
-@import "storeCard";
-@import "radius.scss";
-
 @mixin custom-scroll {
 
     /* width */
@@ -19,6 +16,9 @@
     }
 
 }
+
+@import "storeCard";
+@import "radius.scss";
 
 .store-Locator-overlayer {
     background-color: $grey-light14;
@@ -83,7 +83,7 @@
     }
 
     &-search-filter {
-        padding: rem(14) rem(15) rem(0) rem(15);
+        padding: rem(14) rem(15) rem(14) rem(15);
 
         .search-box {
             max-width: rem(345);
@@ -151,8 +151,7 @@
         font-size: rem(14);
         letter-spacing: 0;
         line-height: rem(18);
-        margin-top: rem(19);
-        padding: rem(0) rem(20);
+        padding: rem(5) rem(20) rem(15);
     }
 
     .section-sticky-add {
@@ -165,6 +164,7 @@
 
     .miles-selected {
         margin: rem(0) rem(20);
+        padding-top: rem(6);
 
         button {
             outline: none;
@@ -177,7 +177,6 @@
             border: rem(0.3) solid $gray7;
             width: auto;
             cursor: pointer;
-            margin-top: rem(20);
 
             span {
                 color: $grey-light11;

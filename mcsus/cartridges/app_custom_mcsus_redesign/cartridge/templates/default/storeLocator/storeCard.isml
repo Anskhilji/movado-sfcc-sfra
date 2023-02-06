@@ -60,8 +60,13 @@
                         </div>
                     </div>
                     <isif condition="${store.image && store.image.url}">
-                        <div class="store-image">
-                            <img src="${store.image.url}" alt="store" />
+                        <div class="store-image d-flex align-items-center justify-content-center">
+                            <img src="${store.image.url}" alt="store" class="img-fluid" />
+                        </div>
+
+                    <iselse/>
+                        <div class="store-image-placeholder d-flex align-items-center justify-content-center">
+                            <img src="${URLUtils.staticURL('/images/placeholder-image.svg')}" class="img-fluid" alt="placeholder" />
                         </div>
                     </isif>
                 </div>
