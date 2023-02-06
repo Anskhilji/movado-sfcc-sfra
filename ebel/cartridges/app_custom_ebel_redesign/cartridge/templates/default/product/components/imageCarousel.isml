@@ -42,9 +42,9 @@
               <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
                   <div class="carousel-tile"> 
                       <picture>
-                          <source media="(min-width: 992px)" srcset="${product.posterFrame.url}" />
-                          <source media="(max-width: 991px)" srcset="${product.posterFrame.url}" />
-                          <img class="carousel-indicator-image" src="${product.posterFrame.url}" alt="${product.posterFrame.alt}" itemprop="image" />
+                          <source media="(min-width: 992px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
+                          <source media="(max-width: 991px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
+                          <img class="carousel-indicator-image" src="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" alt="${product.posterFrame.alt}" itemprop="image" />
                           <isset name="isImageExist" value="true" scope="page" />
                       </picture>
                     </div>
