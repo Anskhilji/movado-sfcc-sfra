@@ -340,6 +340,7 @@
                                 <isinclude template="product/components/recommendedProducts" />
                             </div>
                         </isif>
+                        
                         <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                             <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
                         <iselseif condition="${isListrakEnable}">
