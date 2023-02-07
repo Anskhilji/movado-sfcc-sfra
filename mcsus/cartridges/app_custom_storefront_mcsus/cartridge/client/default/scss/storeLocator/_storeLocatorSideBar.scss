@@ -1,0 +1,229 @@
+@mixin custom-scroll {
+
+    /* width */
+    &::-webkit-scrollbar {
+        width: rem(5);
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: $light-grey6;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: $light-gray3;
+    }
+
+}
+
+@import "storeCard";
+@import "radius.scss";
+
+.store-Locator-overlayer {
+    background-color: $grey-light14;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1026;
+    display: none;
+}
+
+.store-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    max-height: 100vh;
+    height: 100%;
+    width: rem(375);
+    background-color: $gray5;
+    z-index: 1030;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: all 0.4s;
+    @include custom-scroll;
+
+    &.hide-scroll {
+        overflow: hidden;
+    }
+
+    &.show {
+        transform: translateX(0);
+    }
+
+    .side-header {
+        position: sticky;
+        top: 0;
+        background-color: $gray5;
+        z-index: 1;
+    }
+
+    &-header {
+        background-color: $black6;
+        padding: rem(12) rem(17);
+
+        &-title {
+            color: $grey-light10;
+            font-family: $futura-book;
+            font-size: rem(18);
+            font-weight: 300;
+            letter-spacing: 0;
+            line-height: rem(22);
+            cursor: pointer;
+        }
+
+        &-close {
+            transform: translateY(-1px);
+            cursor: pointer;
+        }
+    }
+
+    &-search-filter {
+        padding: rem(14) rem(15) rem(14) rem(15);
+
+        .search-box {
+            max-width: rem(345);
+            width: 100%;
+            height: rem(40);
+            border: rem(0.5) solid $black;
+            border-radius: rem(25);
+            background-color: $white;
+            box-sizing: border-box;
+            padding: rem(4);
+            overflow: hidden;
+
+            .search-input {
+                outline: none;
+                background: none;
+                border: none;
+                box-shadow: none;
+                color: $grey-light6;
+                font-family: $font-regular;
+                font-size: rem(14);
+                letter-spacing: 0;
+                line-height: rem(17);
+                width: 100%;
+                margin-left: rem(12);
+
+                &::placeholder {
+                    color: $grey-light6;
+                }
+            }
+
+            .button-search {
+                cursor: pointer;
+                width: rem(32);
+                min-width: rem(32);
+                height: rem(32);
+                line-height: rem(32);
+                text-align: center;
+                background-color: $black;
+                border-radius: 100%;
+                margin-left: rem(12);
+
+                img {
+                    transform: translateY(-1px);
+                }
+            }
+        }
+
+        .filter-button {
+            cursor: pointer;
+            width: rem(32);
+            min-width: rem(32);
+            height: rem(32);
+            line-height: rem(32);
+            text-align: center;
+            background-color: $black;
+            border-radius: 100%;
+            margin-left: rem(12);
+        }
+    }
+
+    .info-text-locator {
+        color: $black;
+        font-family: $font-regular;
+        font-weight: 400;
+        font-size: rem(14);
+        letter-spacing: 0;
+        line-height: rem(18);
+        padding: rem(5) rem(20) rem(15);
+    }
+
+    .section-sticky-add {
+        position: sticky;
+        top: rem(115);
+        z-index: 1;
+        background-color: $gray5;
+        padding-bottom: rem(14);
+    }
+
+    .miles-selected {
+        margin: rem(0) rem(20);
+        padding-top: rem(6);
+
+        button {
+            outline: none;
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding: rem(2);
+            height: rem(30);
+            border-radius: rem(18);
+            border: rem(0.3) solid $gray7;
+            width: auto;
+            cursor: pointer;
+
+            span {
+                color: $grey-light11;
+                font-family: $font-regular;
+                font-size: rem(12);
+                letter-spacing: 0;
+                line-height: rem(14);
+                margin-left: rem(9);
+            }
+
+            .ftr-close {
+                height: rem(26);
+                width: rem(26);
+                border-radius: 100%;
+                background-color: $grey-light12;
+                margin-left: rem(10);
+            }
+        }
+    }
+
+    .no-result-store {
+        font-family: $font-regular;
+        max-width: rem(290);
+        margin: 0 auto;
+        height: calc(100vh - 348px);
+
+        .no-result {
+            text-align: center;
+
+            p {
+                padding: 0;
+                margin: rem(18) rem(0) rem(16);
+                color: $black;
+                font-size: rem(16);
+                letter-spacing: 0;
+                line-height: rem(22);
+            }
+
+            .search-within {
+                color: $grey-light11;
+                font-size: rem(14);
+                font-weight: 500;
+                letter-spacing: 0;
+                line-height: rem(17);
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+}
