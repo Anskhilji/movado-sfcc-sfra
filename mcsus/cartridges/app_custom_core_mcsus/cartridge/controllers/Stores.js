@@ -11,6 +11,9 @@ var Template = require('dw/util/Template');
 var googleService = require('*/cartridge/scripts/googleMapService');
 
 var ZERO_RESULTS = constants.ZERO_RESULTS;
+var COUNTRY_US = constants.COUNTRY_US;
+var DEFAULT_POSTAL_CODE = constants.DEFAULT_POSTAL_CODE;
+var STATUS_OK = constants.STATUS_OK;
 
 var server = require('server');
 var page = module.superModule;
@@ -24,8 +27,8 @@ server.extend(page);
 server.replace('FindStores', function (req, res, next) {
     var radius = req.querystring.radius || session.privacy.radius;
     var showMap = req.querystring.showMap;
-    var queryCountryCode = req.querystring.countryCode || 'US';
-    var queryAddress = req.querystring.address || session.privacy.address || '90011';
+    var queryCountryCode = req.querystring.countryCode || COUNTRY_US;
+    var queryAddress = req.querystring.address || session.privacy.address || DEFAULT_POSTAL_CODE;
     var stores = null;
     var status = null;
 
@@ -43,7 +46,7 @@ server.replace('FindStores', function (req, res, next) {
         googleServiceObject.setURL(googleServiceObject.getURL() + '&address=' + params.address + '&components=country:' + params.countryCodeFromRequest);
         var googleServiceResultObj = googleServiceObject.call(params);
 
-        if (googleServiceResultObj.status === 'OK' && googleServiceResultObj.object.status !== ZERO_RESULTS) {
+        if (googleServiceResultObj.status === STATUS_OK && googleServiceResultObj.object.status !== ZERO_RESULTS) {
             var googleServiceResult = googleServiceResultObj.object.results[0];
 
             if (googleServiceResult) {
@@ -68,7 +71,7 @@ server.replace('FindStores', function (req, res, next) {
                     selectedRadius: stores.radius
                 });
             }
-        } else if (googleServiceResultObj && (googleServiceResultObj.status !== 'OK' || googleServiceResultObj.object.status === ZERO_RESULTS)) {
+        } else if (googleServiceResultObj && (googleServiceResultObj.status !== STATUS_OK || googleServiceResultObj.object.status === ZERO_RESULTS)) {
             status = googleServiceResultObj.object.status;
             stores = storeHelpers.getStores(radius, null, null, null, null, showMap, null, googleServiceResultObj.object.status);
             res.json(stores);

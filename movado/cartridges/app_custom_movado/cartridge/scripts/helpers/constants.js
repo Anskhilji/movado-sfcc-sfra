@@ -23,3 +23,6 @@ exports.PRODUCT_TYPE = 'set';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.ZERO_RESULTS = 'ZERO_RESULTS';
+exports.COUNTRY_US = 'US';
+exports.STATUS_OK = 'OK';
+exports.DEFAULT_POSTAL_CODE = '90011';
