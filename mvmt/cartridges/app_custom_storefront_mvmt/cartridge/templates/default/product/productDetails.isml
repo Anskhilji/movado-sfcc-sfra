@@ -340,21 +340,16 @@
                                 <isinclude template="product/components/recommendedProducts" />
                             </div>
                         </isif>
-                           <h1>test back in stock </h1>
                         <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
-                        <h1>Test1</h1>
                             <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
                         <iselseif condition="${isListrakEnable}">
                             <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
-                            <h1>Test4</h1>
                                 <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
                             <iselse>
-                            <h1>Test3</h1>
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                         </iselseif> 
                         <iselse>
-                        <h1>Test2</h1>
                             <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                         </isif>
 
