@@ -27,6 +27,26 @@ function getAuthTokenFromAPI(requestParams) {
     }
 }
 
+
+function getSMSAuthTokenFromAPI(requestParams) {
+    var service = ListrakCloudServiceRegistry.getSMSAuthorizationService(requestParams.authServiceID);
+    var params = {
+        clientID: Site.current.preferences.custom.Listrak_SMS_ClientID || '',
+        clientSecret: Site.current.preferences.custom.Listrak_SMS_ClientSecret || ''
+    }
+    var payload = RequestModel.generateAuthenticationPayLoadForSMSApi(params);
+    try {
+        var responsePayload = service.call(payload);
+        if (responsePayload.object) {
+            return responsePayload.object.access_token;
+        } else {
+            Logger.error('Listrak: Get SMS Auth Token Call. Error code : {0} Error => ResponseStatus: {1} ', responsePayload.getError().toString(), responsePayload.getStatus());
+        }
+    } catch (e) {
+        Logger.error('Listrak: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+}
+
 function getAPIService(serviceID, endpoint, accessToken, eventId, subscribe, countryCode) {
     var service = ListrakCloudServiceRegistry.getAPIService(serviceID, endpoint, eventId, subscribe, countryCode);
     service.addHeader('Authorization', 'Bearer ' + accessToken);
@@ -66,6 +86,19 @@ function getAuthToken(params) {
     if (!accessToken) {
         accessToken = getAuthTokenFromAPI(params);
         ltkHelper.saveNewAuthToken(accessToken);
+        return accessToken;
+    }
+}
+
+function getSMSAuthToken(params) {
+    var accessToken = null;
+    if (!params.isExpired) {
+        accessToken = ltkHelper.getSavedSMSAuthToken();
+        return accessToken ? accessToken.custom.token : '';
+    }
+    if (!accessToken) {
+        accessToken = getSMSAuthTokenFromAPI(params);
+        ltkHelper.saveNewSMSAuthToken(accessToken);
         return accessToken;
     }
 }
@@ -149,7 +182,7 @@ function addContactStatusToLTK(params, service) {
 
     if (responsePayload.error == 401) {
         params.isExpired = true;
-        var accessToken = getAuthToken(params);
+        var accessToken = getSMSAuthToken(params);
         params.isExpired = false;
         service.addHeader('Authorization', 'Bearer ' + accessToken);
         try {
@@ -185,7 +218,7 @@ function addSubscribeContactToLTK(params, service) {
 
     if (responsePayload.error == 401) {
         params.isExpired = true;
-        var accessToken = getAuthToken(params);
+        var accessToken = getSMSAuthToken(params);
         params.isExpired = false;
         service.addHeader('Authorization', 'Bearer ' + accessToken);
         try {
@@ -217,7 +250,7 @@ function addCreateContactToLTK(params, service) {
 
     if (responsePayload.error == 401) {
         params.isExpired = true;
-        var accessToken = getAuthToken(params);
+        var accessToken = getSMSAuthToken(params);
         params.isExpired = false;
         service.addHeader('Authorization', 'Bearer ' + accessToken);
         try {
@@ -236,6 +269,7 @@ function addCreateContactToLTK(params, service) {
 
 module.exports = {
     getAuthToken: getAuthToken,
+    getSMSAuthToken: getSMSAuthToken,
     getAPIService: getAPIService,
     addContactToLTK: addContactToLTK,
     addTransactionalEmailToLTK: addTransactionalEmailToLTK,

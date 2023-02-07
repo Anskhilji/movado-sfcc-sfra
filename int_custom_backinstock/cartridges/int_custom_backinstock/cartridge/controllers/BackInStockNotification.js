@@ -15,7 +15,8 @@ server.post('Subscribe', server.middleware.https, cache.applyDefaultCache, funct
     var result = {
         success: false,
         isValidEmail: false,
-        isAlreadySubscribed: false
+        isAlreadySubscribed: false,
+        smsApiResponse: false
     };
     if (!empty(form)) {
         if (!empty(form.email) && backInStockNotificationHelper.isValidEmail(form.email)) {
@@ -46,7 +47,7 @@ server.post('Subscribe', server.middleware.https, cache.applyDefaultCache, funct
             }
             //Custom End:
         }
-        if (!empty(form.phoneNo) && (form.smsSubscription == 'true' || form.smsSubscription == true) && backInStockNotificationHelper.isValidPhone(form.phoneNo)) {
+        if (!empty(form.phoneNo) && (form.smsSubscription == 'true' || form.smsSubscription == true) && backInStockNotificationHelper.isValidPhone(form.phoneNo, form.smsSubscription)) {
             var requestParam = {
                 phone: form.phoneNo
             }
@@ -59,7 +60,7 @@ server.post('Subscribe', server.middleware.https, cache.applyDefaultCache, funct
                 //     ltkApi.subscribeContactToListrak(requestParam);
                 // }
                 if (optedOutStatus.error == '404') {
-                    ltkApi.createContactToListrak(requestParam);
+                    result.smsApiResponse = ltkApi.createContactToListrak(requestParam);
                 }
             }
         }

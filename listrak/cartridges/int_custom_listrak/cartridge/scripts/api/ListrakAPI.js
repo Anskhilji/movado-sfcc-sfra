@@ -87,15 +87,15 @@ function sendTransactionalEmailToListrak(requestParams) {
 }
 
 function sendContactToListrak(requestParam) {
-    var authServiceID = Constants.SERVICE_ID.LTK_AUTH;
+    var authServiceID = Constants.SERVICE_ID.LTK_SMS_AUTH;
     var serviceID = Constants.SERVICE_ID.LTK_SMS_SUBSCRIPTION;
     try {
         var params = {
             isExpired: false,
             authServiceID: authServiceID
         }
-        var accessToken = LTKAPIHelper.getAuthToken(params);
-        // var accessToken = 'Xs-6nddfHfN08MN-IUGfsK_D--FkNEb8UoXV5Vq4GpbFsCdidoFh8C-QAoXjXDZO-8h14V0xAifQg28Nh-NUviADJfilNruEJtlN_K258xDwA9f6NGxg16RrOYzeSmP2mEz8BxtNdxPAAbcYyXMv3F36dV5KRRj9rysQObsr32pEb-8PPChKSaZAcKYIBsJ_jVbDW1Fnu1BpSZsHQe-jiNX3m0WvZaI8BNexEDQcX3nIPEVgBO1qgN2QvPTAlj8TANMYlTdb3OVkkRZh6AEhcq8Vz0rf9Pa_yFiIE4vj1IHHTsxeOoV01FbXIZc0nLsl'
+        var accessToken = LTKAPIHelper.getSMSAuthToken(params);
+        // var accessToken = 'LRbszWd4zRb16ckvXjUne88ORWKsUCtnwBkqeXTbJZ8QJ2iAUuUN5zHkef5FEU9CBltnt0IO-9-2NXRmq3QVFkw8y3Yf9lbMwwOPs9RiXQiPihwXpTwztn0_Ycb_jnq461QevGfsdSQ6nNuO6RO9Bd_a8WA7MpaTcyIiWCtDJnj_wWYFX64zlAOt6jUefF-v7-ycoW1MSUSePsXHX_jkxUhEv5k8HS_l9SKoR9PWPDXt50Jc7-Wd0OcSsBgtNqeQxre1Ugg2HE9wprhqnRXLJkNDJFw-RzdshAIHNwASn57tZH1Z5BJnGsSFKAdCjJgv';
 
         var service = null;
 
@@ -113,14 +113,15 @@ function sendContactToListrak(requestParam) {
 }
 
 function subscribeContactToListrak(requestParam) {
-    var authServiceID = Constants.SERVICE_ID.LTK_AUTH;
+    var authServiceID = Constants.SERVICE_ID.LTK_SMS_AUTH;
     var serviceID = Constants.SERVICE_ID.LTK_SMS_SUBSCRIPTION;
     try {
         var params = {
             isExpired: false,
             authServiceID: authServiceID
         }
-        var accessToken = LTKAPIHelper.getAuthToken(params);
+        var accessToken = LTKAPIHelper.getSMSAuthToken(params);
+        // var accessToken = 'LRbszWd4zRb16ckvXjUne88ORWKsUCtnwBkqeXTbJZ8QJ2iAUuUN5zHkef5FEU9CBltnt0IO-9-2NXRmq3QVFkw8y3Yf9lbMwwOPs9RiXQiPihwXpTwztn0_Ycb_jnq461QevGfsdSQ6nNuO6RO9Bd_a8WA7MpaTcyIiWCtDJnj_wWYFX64zlAOt6jUefF-v7-ycoW1MSUSePsXHX_jkxUhEv5k8HS_l9SKoR9PWPDXt50Jc7-Wd0OcSsBgtNqeQxre1Ugg2HE9wprhqnRXLJkNDJFw-RzdshAIHNwASn57tZH1Z5BJnGsSFKAdCjJgv';
         var service = null;
 
         params.phone = requestParam.phone;
@@ -137,15 +138,15 @@ function subscribeContactToListrak(requestParam) {
 }
 
 function createContactToListrak(requestParam) {
-    var authServiceID = Constants.SERVICE_ID.LTK_AUTH;
+    var authServiceID = Constants.SERVICE_ID.LTK_SMS_AUTH;
     var serviceID = Constants.SERVICE_ID.LTK_SMS_SUBSCRIPTION;
     try {
         var params = {
             isExpired: false,
             authServiceID: authServiceID
         }
-        var accessToken = LTKAPIHelper.getAuthToken(params);
-        // var accessToken = 'Xs-6nddfHfN08MN-IUGfsK_D--FkNEb8UoXV5Vq4GpbFsCdidoFh8C-QAoXjXDZO-8h14V0xAifQg28Nh-NUviADJfilNruEJtlN_K258xDwA9f6NGxg16RrOYzeSmP2mEz8BxtNdxPAAbcYyXMv3F36dV5KRRj9rysQObsr32pEb-8PPChKSaZAcKYIBsJ_jVbDW1Fnu1BpSZsHQe-jiNX3m0WvZaI8BNexEDQcX3nIPEVgBO1qgN2QvPTAlj8TANMYlTdb3OVkkRZh6AEhcq8Vz0rf9Pa_yFiIE4vj1IHHTsxeOoV01FbXIZc0nLsl'
+        var accessToken = LTKAPIHelper.getSMSAuthToken(params);
+        // var accessToken = 'LRbszWd4zRb16ckvXjUne88ORWKsUCtnwBkqeXTbJZ8QJ2iAUuUN5zHkef5FEU9CBltnt0IO-9-2NXRmq3QVFkw8y3Yf9lbMwwOPs9RiXQiPihwXpTwztn0_Ycb_jnq461QevGfsdSQ6nNuO6RO9Bd_a8WA7MpaTcyIiWCtDJnj_wWYFX64zlAOt6jUefF-v7-ycoW1MSUSePsXHX_jkxUhEv5k8HS_l9SKoR9PWPDXt50Jc7-Wd0OcSsBgtNqeQxre1Ugg2HE9wprhqnRXLJkNDJFw-RzdshAIHNwASn57tZH1Z5BJnGsSFKAdCjJgv';
         var service = null;
 
         params.phone = requestParam.phone;
@@ -157,6 +158,7 @@ function createContactToListrak(requestParam) {
         var result = LTKAPIHelper.addCreateContactToLTK(params, service);
     } catch (e) {
         Logger.error('Listrak sendContactToListrak: some exception occured while sending SMS Subscription contact - {0}', e.toString());
+        result.success = false;
     }
     return result;
 }

@@ -2,6 +2,8 @@
 
 exports.LTK_ACCESS_TOKEN_OBJECT = 'ltk_AccessToken';
 exports.LTK_ACCESS_TOKEN_OBJECT_ID = 'ltk_AccessToken';
+exports.LTK_SMS_ACCESS_TOKEN_OBJECT = 'ltk_SMSAccessToken';
+exports.LTK_SMS_ACCESS_TOKEN_OBJECT_ID = 'ltk_SMSAccessToken';
 exports.CURRENCY_USD = 'USD';
 exports.GERMANY_COUNTRYCODE = 'DE';
 exports.BIRTH_YEAR = '1900';
@@ -21,6 +23,7 @@ exports.LTK_SUBSCRIBE_CONTACT_API_ENDPOINT = 'ShortCode/{shortCodeId}/Contact/{p
 exports.LTK_CREATE_CONTACT_API_ENDPOINT = 'ShortCode/{shortCodeId}/PhoneList/{phoneListId}/Contact';
 exports.SERVICE_ID = {
     LTK_AUTH: 'listrak.auth.api',
+    LTK_SMS_AUTH: 'listrak.sms.auth.api',
     LTK_EVENT: 'listrak.event.api',
     LTK_TRANSACTIONAL: 'listrak.transactional.email',
     LTK_SMS_SUBSCRIPTION: 'listrak.sms.subscription'

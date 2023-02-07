@@ -94,6 +94,20 @@ function getAuthorizationServiceConfigs() {
     return serviceConfig;
 }
 
+function getSMSAuthorizationServiceConfigs() {
+    var serviceConfig = {
+        createRequest: function (svc, args) {
+            svc.addHeader('Content-Type', 'application/x-www-form-urlencoded');
+            svc.setRequestMethod('POST');
+            return args;
+        },
+        parseResponse: function (svc, client) {
+            return JSON.parse(client.text);
+        }
+    };
+    return serviceConfig;
+}
+
 function getAPIService(serviceID, endpoint, eventId, subscribe, countryCode) {
     var serviceConfig = null;
     serviceConfig = getDataAPIServiceConfigs();
@@ -185,8 +199,14 @@ function getAuthorizationService(serviceID) {
     return auhtorizationService;
 }
 
+function getSMSAuthorizationService(serviceID) {
+    var auhtorizationService = LocalServiceRegistry.createService(serviceID, getSMSAuthorizationServiceConfigs());
+    return auhtorizationService;
+}
+
 module.exports = {
     getAuthorizationService: getAuthorizationService,
+    getSMSAuthorizationService: getSMSAuthorizationService,
     getAPIService: getAPIService,
     getTransactionalAPIService: getTransactionalAPIService,
     getContactStatusOptAPIService: getContactStatusOptAPIService,

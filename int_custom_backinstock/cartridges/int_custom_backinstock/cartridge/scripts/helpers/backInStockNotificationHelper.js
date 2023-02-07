@@ -125,10 +125,15 @@ function isValidEmail(email) {
  * @param {String} phone - Phone no submitted by customer
  * @returns {Boolean} isValid - Validation result
  */
-function isValidPhone(phone) {
+function isValidPhone(phone, smsSubscription) {
     var isValid = false;
+    var pattern;
     if (!empty(phone)) {
-        var pattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+        if (smsSubscription) {
+            pattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/
+        } else {
+            pattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+        }
         isValid = pattern.test(phone);
     }
     return isValid;

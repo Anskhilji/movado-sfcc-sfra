@@ -35,6 +35,9 @@ var submitBackInStockEmail = function ($selector) {
     var phoneNo = $selector.find('.back-in-stock-notification-phone').val();
     var enabledMarketing = false;
     var smsSubscription = false;
+    var $phoneNoPattern;
+    var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
+    
     if ($selector.find('#backInStockMarketingCloudPreference').length > 0) {
         if ($selector.find('#backInStockMarketingCloudPreference').is(':checked')) {
             enabledMarketing = true;
@@ -54,6 +57,19 @@ var submitBackInStockEmail = function ($selector) {
         smsSubscription: smsSubscription
     }
 
+    if (form.smsSubscription) {
+        $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
+    } else {
+        $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    }
+    var $isValidPhoneNo = $phoneNoPattern.test(form.phoneNo);
+
+    if (!$isValidPhoneNo && form.smsSubscription) {
+        $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
+        $phoneInvalid.removeClass('d-none');
+        phoneNo = '';
+    }
+
     $.ajax({
         url: url,
         data: form,
@@ -61,8 +77,14 @@ var submitBackInStockEmail = function ($selector) {
         success: function (response) {
             if (response.result) {
                 processResponse($selector, response.result);
+                if (response.result.smsApiResponse == false || response.result.smsApiResponse.success == false) {
+                    $('.listrak-sms-api-response-msg').removeClass('d-none');
+                } else {
+                    $('.listrak-sms-api-response-msg').addClass('d-none');
+                }
             } else {
                 $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
+                $('.listrak-sms-api-response-msg').removeClass('d-none');
             }
             $selector.spinner().stop();
         },

@@ -39,3 +39,4 @@
     </form>
 </div>
 <p class="listrak-success-msg"></p>
+<p class="listrak-sms-api-response-msg d-none">${Resource.msg('listrak.sms.api.response.msg', 'product', null)}</p>
