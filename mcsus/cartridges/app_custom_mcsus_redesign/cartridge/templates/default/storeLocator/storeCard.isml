@@ -55,10 +55,15 @@
                     <div class="store-pickup-select select-opt d-flex align-items-center"
                         data-url="${URLUtils.https('PickupStore-SetStoreIDSession', 'storeID', store.ID)}"
                         data-store="${JSON.stringify(store)}">
-                        <img class="un-select-store" src="${URLUtils.staticURL('/images/clarity_store-line.svg')}"
-                            alt="store">
                         <img class="set-store-selected d-none"
                             src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
+                        <isif condition="${store.ID === session.privacy.pickupStoreID}">
+                            <img class="set-store-selected"
+                                src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
+                        <iselse/>
+                            <img class="un-select-store" src="${URLUtils.staticURL('/images/clarity_store-line.svg')}"
+                                alt="store">
+                        </isif>
                         <span>${Resource.msg('locator.myStore', 'search', null)}</span>
                     </div>
                     <div class="select-time-box">
@@ -89,7 +94,8 @@
                 <div class="no-result">
                     <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
                     <p>${Resource.msgf('locator.noStoresFoundWithIn', 'search', null, param.radius)}</p>
-                    <div class="search-within" data-action="${URLUtils.url('Stores-FindStores')}" data-radius-value="100">
+                    <div class="search-within" data-action="${URLUtils.url('Stores-FindStores')}"
+                        data-radius-value="100">
                         ${Resource.msg('locator.withIn100Miles', 'search', null)}</div>
                 </div>
             </div>
