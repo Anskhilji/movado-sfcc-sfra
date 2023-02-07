@@ -301,9 +301,9 @@ function getTransactionInfo(req) {
         totalPriceLabel: Resource.msg('total.price.label', 'googlePay', null)
     }
     var displayItems = [];
-    var quantity = 1;
     var productId = req.form.pid;
     var form = req.form;
+    var quantity = req.form && req.form.quantityPDP && req.form.quantityPDP > 0 && req.form.quantityPDP != null ? Number(req.form.quantityPDP) : 1;
     var childProducts = [];
     var options = [];
     form.options = [];

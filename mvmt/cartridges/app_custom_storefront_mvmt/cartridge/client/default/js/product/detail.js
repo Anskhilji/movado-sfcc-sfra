@@ -392,18 +392,22 @@ module.exports = {
                 var currentCountry = response.product.currentCountry.toLowerCase();
                 if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
                     var applePayButton = $('.apple-pay-pdp', response.$productContainer);
+                    debugger
                     if (applePayButton.length !== 0) {
                         applePayButton.attr('sku', response.product.id);
+                        debugger
                     } else {
                         if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
                             $('.cart-and-ipay').append('<isapplepay class="apple-pay-pdp btn"' +
                                 'sku=' + response.product.id + '></isapplepay>');
+                                debugger
                         }
                     }
                 } 
                 // Custom End
             } else {
                 $('.apple-pay-pdp').remove();
+                debugger
             }
         });
     },

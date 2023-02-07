@@ -202,6 +202,154 @@ function updateAvailability(data, uuid) {
 }
 
 /**
+ * This event binding function will handle the keyboard pressed keys on the basis of 
+ * conditions and also it will replace the alphabets with empty string then update the 
+ * quantity of the product.
+ * @param e
+ */
+// $('.quantity-form > .quantity').bind('keyup', function (e) {
+//     this.value = this.value.replace(/[^\d].+/, '');
+
+//     var $keyCode = (e.$keyCode ? e.$keyCode : e.which);
+//     //for down key arrow
+//     if ($keyCode == 40) {
+//         decreaseQuantity(this);
+//     }
+
+//     //for up key arrow
+//     if ($keyCode == 38) {
+//         increaseQuantity(this);
+//     }
+
+//     if ($keyCode != 8 && $keyCode != 46) {
+//         if (($keyCode >= 48 && $keyCode <= 57) || ($keyCode >= 96 && $keyCode <= 105)) {
+//             updateCartQuantity(this, true);
+//         }
+//     }
+
+//     if ($keyCode < 48 || $keyCode > 57 || $keyCode < 96 || $keyCode > 105) {
+//         e.preventDefault();
+//     }
+// });
+
+/**
+ * DecreaseQuantity function is used to decrease the quantity of the selected product if 
+ * quantity of the product is empty or null then this function will add the one quantity instead of 
+ * empty or null. if selected product quantity is one then it will disable the decreaseQuantity button.
+ * @param quantitySelector
+ * @param id
+ */
+// function decreaseQuantity(quantitySelector, id) {
+//     var $quantity = parseInt($(quantitySelector).val());
+//     var $decreasedSelector = $('button.decreased-btn[data-pid="' + id + '"]');
+//     if (isNaN($quantity)) {
+//         $decreasedSelector.attr('disabled', true);
+//         $quantity = 1;
+//     }
+
+//     $quantity = ($quantity > 1) ? $quantity - 1 : $quantity;
+
+//     if ($quantity == 1) {
+//         $decreasedSelector.attr('disabled', true);
+//     } else {
+//         $decreasedSelector.attr('disabled', false);
+//     }
+//     $(quantitySelector).val($quantity);
+//     updateCartQuantity(quantitySelector, false);
+// }
+
+/**
+ * IncreaseQuantity function is used to increase the quantity of the selected product if 
+ * quantity of the product is empty or null then this function will add the one quantity instead of 
+ * empty or null. if selected product quantity is one then it will disable the decreaseQuantity button.
+ * @param quantitySelector
+ * @param id
+ */
+// function increaseQuantity(quantitySelector, id) {
+//     var $quantity = parseInt($(quantitySelector).val());
+//     var $decreasedSelector = $('button.decreased-btn[data-pid="' + id + '"]');
+//     if (isNaN($quantity)) {
+//         $(quantitySelector).val(1);
+//         $decreasedSelector.attr('disabled', true);
+//     }
+
+//     if ($quantity >= 1) {
+//         $decreasedSelector.attr('disabled', false);
+//         $quantity = $quantity + 1;
+//         $(quantitySelector).val($quantity);
+//     }
+//     updateCartQuantity(quantitySelector, false);
+// }
+
+/**
+ * updateCartQuantity function will update the quantity in the product and the cart.
+ * quantitySelector param is used to get the selected product class and it data attributes.
+ * @param quantitySelector
+ * @param isKeyEvent is used to check the current event is fire from keys or mouse.
+ */
+function updateCartQuantity(quantitySelector, isKeyEvent) {
+    var $preSelectQty = $(quantitySelector).data('pre-select-qty');
+    var $quantity = isKeyEvent ? parseInt(quantitySelector.value) : parseInt($(quantitySelector).val());
+    var $productID = $(quantitySelector).data('pid');
+    var $url = $(quantitySelector).data('action');
+    var $uuid = $(quantitySelector).data('uuid');
+
+    if (isNaN($quantity) || $quantity == 0) {
+        $quantity = 1;
+        $(quantitySelector).val($quantity);
+    }
+
+    if ($quantity == 1 || $quantity == 0) {
+        $('#decreased-' + $productID).attr('disabled', true);
+    } else {
+        $('#decreased-' + $productID).attr('disabled', false);
+    }
+
+    var $urlParams = {
+        pid: $productID,
+        quantity: $quantity,
+        uuid: $uuid
+    };
+
+    $url = appendToUrl($url, $urlParams);
+    $(quantitySelector).parents('.product-info, .align-items-center').spinner().start();
+
+    $.ajax({
+        url: $url,
+        type: 'get',
+        context: quantitySelector,
+        dataType: 'json',
+        success: function (data) {
+            $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
+            $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
+            $('.minicart-footer .subtotal-total-discount').empty().append(data.totals.subTotal);
+            var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
+            $miniCartSelector.length > 0 ? updateMiniCartTotals(data) : updateCartTotals(data);
+            updateApproachingDiscounts(data.approachingDiscounts);
+            updateAvailability(data, $uuid);
+            validateBasket(data);
+            $(quantitySelector).data('pre-select-qty', $quantity);
+            $.spinner().stop();
+            //Custom Start: [MSS-1451] Listrak SendSCA on Cart Quantity Update
+            if (window.Resources.LISTRAK_ENABLED) {
+                var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+            }
+            //Custom End
+        },
+        error: function (err) {
+            if (err.responseJSON.redirectUrl) {
+                window.location.href = err.responseJSON.redirectUrl;
+            } else {
+                createErrorNotification(err.responseJSON.errorMessage);
+                $(quantitySelector).val(parseInt($preSelectQty, 10));
+                $.spinner().stop();
+            }
+        }
+    });
+}
+
+/**
  * Finds an element in the array that matches search parameter
  * @param {array} array - array of items to search
  * @param {function} match - function that takes an element and returns a boolean indicating if the match is made
@@ -539,6 +687,17 @@ module.exports = function () {
                 }
             }
         });
+    });
+
+    /**
+     * This is override change event function on the quantity input field.
+     * It is used to update the quantity of the product in the cart. It will call
+     * the updateCartQuantity function that will handle the quantity update
+     * functionality.
+     */
+    $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form .quantity', function (e) {
+        e.preventDefault();
+        updateCartQuantity(this, false);
     });
 
     $('body').on('change', '.quantity-form > .quantity', function () {

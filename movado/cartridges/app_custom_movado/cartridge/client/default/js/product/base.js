@@ -1046,7 +1046,7 @@ function getChildProducts() {
  * @param {jQuery} $productContainer - DOM element for current product
  * @return {string} - Product options and their selected values
  */
-function getOptions($productContainer) {
+function getOptions($productContainer, clydeContractSku) {
     var options = $productContainer
         .find('.product-option')
         .map(function () {
@@ -1059,6 +1059,9 @@ function getOptions($productContainer) {
                 selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
                 .data('value-id');
             }
+            // if ($elOption == 'clydeWarranty') {
+            //     selectedValueId: clydeContractSku
+            // }
             return {
                 optionId: $(this).data('option-id'),
                 selectedValueId: selectedValueId
@@ -1217,6 +1220,13 @@ module.exports = {
             var pidsObj;
             var setPids;
             var giftPid;
+            var productQuantity = null;
+            if ($('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+                productQuantity = $('.quantity-selector > .quantity').val();
+                if (productQuantity == "") {
+                    productQuantity = null;
+                }
+            }
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -1253,6 +1263,10 @@ module.exports = {
             }
 
             addToCartUrl = getAddToCartUrl();
+            var quantity = 1;
+            if (productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
+                quantity = productQuantity;
+            }
 
             var form = {
                 pid: pid,
@@ -1270,7 +1284,7 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1,
+                    quantity: quantity,
                     giftPid: giftPid ? giftPid : ''
                 };
             }
@@ -1298,6 +1312,12 @@ module.exports = {
 
             if (!$('.bundle-item').length) {
                 form.options = getOptions($productContainer);
+                // var no = form.clydeContractSku;
+                // if (form.clydeContractSku) {
+                //     form.options = getOptions($productContainer, String(form.clydeContractSku));
+                // } else {
+                //     form.options = getOptions($productContainer, 0);
+                // }
             }
             form.currentPage = $('.page[data-action]').data('action') || '';
             $(this).trigger('updateAddToCartFormData', form);

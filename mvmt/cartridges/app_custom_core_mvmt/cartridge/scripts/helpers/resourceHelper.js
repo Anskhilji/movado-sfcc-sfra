@@ -59,6 +59,8 @@ function getResources(pageContext) {
         COUPON_LINE_ITEM_LENGTH: Resource.msg('coupon.applied.counter','cart', null),
         KLARNA_PDP_MESSAGES_ENABLED: !empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
         IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
+        IS_PDP_QUANTITY_SELECTOR: Site.current.preferences.custom.enablePDPQuantitySelector || false,
+        IS_CART_QUANTITY_SELECTOR: Site.current.preferences.custom.enableCartQuantitySelector || false,
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,

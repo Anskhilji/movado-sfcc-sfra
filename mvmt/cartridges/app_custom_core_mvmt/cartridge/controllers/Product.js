@@ -135,7 +135,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         smartGiftAddToCartURL: smartGiftAddToCartURL,
         plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
-        popupID: listrakPersistentPopup
+        popupID: listrakPersistentPopup,
+        updateQuantityUrl: URLUtils.url('Cart-UpdateQuantity').toString()
     };
 
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);

@@ -345,7 +345,7 @@ exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
 
     var currentCountry = productCustomHelper.getCurrentCountry();
-
+// $('.sdfsd').attr('qty',63746)
     if (!empty(parameters.sku)) {
         if (!session.privacy.pickupFromStore) {
             session.custom.StorePickUp = false;

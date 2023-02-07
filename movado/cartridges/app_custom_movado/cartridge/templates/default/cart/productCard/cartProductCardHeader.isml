@@ -12,6 +12,10 @@
         <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}">${lineItem.productName}</a>
         <iscomment>Custom End: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
     </div>
+    <h1>HamzaMCSCart</h1>
+    <div class="col-4 col-lg-2 line-item-quantity">
+        <isinclude template="checkout/productCard/productCardQuantitySelectors" />
+    </div>
     <isif condition="${!lineItem.isBonusProductLineItem}"/>
         <div class="remove-line-item">
             <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
