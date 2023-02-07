@@ -45,7 +45,7 @@
                 </isif>
                 <iscomment> Custom End </iscomment>
 
-                <div class="store-sidebar-link" data-action = ${URLUtils.url('Stores-FindStores')}>
+                <div class="store-sidebar-link" data-action = "${URLUtils.url('Stores-FindStores')}">
                     Locate Store
                 </div>
 

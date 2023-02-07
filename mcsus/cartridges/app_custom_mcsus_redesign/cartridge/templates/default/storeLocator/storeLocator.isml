@@ -15,7 +15,7 @@
             <div class="search-box d-flex align-items-center">
                 <input class="search-input" type="text" name=""
                     placeholder="${Resource.msg('locator.searchPlaceholder', 'search', null)}">
-                <div class="button-search" data-action = ${URLUtils.url('Stores-FindStores')}>
+                <div class="button-search" data-action = "${URLUtils.url('Stores-FindStores')}">
                     <img src="${URLUtils.staticURL('/images/seach-icon.svg')}" alt="serach" />
                 </div>
             </div>

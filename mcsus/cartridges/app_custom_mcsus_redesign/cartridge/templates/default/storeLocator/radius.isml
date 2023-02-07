@@ -38,6 +38,6 @@
 
     <div class="miles-action-btn d-flex justif-content-between">
         <button type="button" class="miles-action-btn-clear">${Resource.msg('locator.radiusClear', 'search', null)}</button>
-        <button type="button" class="miles-action-btn-apply" data-action = ${URLUtils.url('Stores-FindStores')}>${Resource.msg('locator.radiusApplyFilters', 'search', null)}</button>
+        <button type="button" class="miles-action-btn-apply" data-action = "${URLUtils.url('Stores-FindStores')}">${Resource.msg('locator.radiusApplyFilters', 'search', null)}</button>
     </div>
 </div>

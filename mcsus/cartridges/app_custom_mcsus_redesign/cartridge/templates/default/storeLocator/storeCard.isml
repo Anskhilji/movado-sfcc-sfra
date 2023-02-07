@@ -89,7 +89,7 @@
                 <div class="no-result">
                     <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
                     <p>${Resource.msgf('locator.noStoresFoundWithIn', 'search', null, param.radius)}</p>
-                    <div class="search-within" data-action=${URLUtils.url('Stores-FindStores')} data-radius-value="100">
+                    <div class="search-within" data-action="${URLUtils.url('Stores-FindStores')}" data-radius-value="100">
                         ${Resource.msg('locator.withIn100Miles', 'search', null)}</div>
                 </div>
             </div>
