@@ -798,7 +798,7 @@ function checkoutFieldValidationIcon() {
 }
 
 function showMoreBtn() {
-    var $showChar = 45;  // Characters that are shown by default
+    var $showChar = 40;  // Characters that are shown by default
     var $moretext = 'show more';
     var $lesstext = 'show less';
     $('.custom-radio-check .arrival-time').each(function() {
@@ -927,7 +927,7 @@ module.exports = {
     },
 
     showMoreBtn: function() {
-        var $showChar = 45;  // Characters that are shown by default
+        var $showChar = 40;  // Characters that are shown by default
         var $moretext = 'show more';
         var $lesstext = 'show less';
         $('.custom-radio-check .arrival-time').each(function() {
