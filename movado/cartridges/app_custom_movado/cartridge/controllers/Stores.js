@@ -59,8 +59,8 @@ server.replace('Find', server.middleware.https, cache.applyDefaultCache, consent
 server.replace('FindStores', function (req, res, next) {
     var radius = req.querystring.radius;
     var showMap = req.querystring.showMap;
-    var queryCountryCode = req.querystring.countryCode || 'US';
-    var queryAddress = req.querystring.address || '02108';
+    var queryCountryCode = req.querystring.countryCode;
+    var queryAddress = req.querystring.address;
     var stores = null;
     var status = null;
 

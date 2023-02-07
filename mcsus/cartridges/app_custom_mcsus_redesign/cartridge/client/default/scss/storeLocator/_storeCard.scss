@@ -2,12 +2,6 @@
     padding: rem(6) rem(20) rem(0) rem(20);
 }
 
-// .store-results-box {
-//     height: 100%;
-//     overflow-y: auto;
-//     @include custom-scroll;
-// }
-
 .store-sidebar-card {
     font-family: $font-regular;
     background-color: $white;
@@ -77,6 +71,7 @@
     }
 
     .store-bottom {
+        
         .select {
             &-opt {
                 color: $black;
