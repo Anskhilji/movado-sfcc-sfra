@@ -175,7 +175,7 @@ server.replace(
 
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
-    var Site = require('dw/system/Site');w
+    var Site = require('dw/system/Site');
     var viewData = res.getViewData();
     var marketingProductsData = [];
     var orderAnalyticsTrackingData;

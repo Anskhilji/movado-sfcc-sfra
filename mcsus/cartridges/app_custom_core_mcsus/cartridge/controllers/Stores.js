@@ -2,13 +2,15 @@
 
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
-var storeHelpers = require('*/cartridge/scripts/helpers/customStoreHelper');
-var googleService = require('*/cartridge/scripts/googleMapService');
+var constants = require('*/cartridge/scripts/helpers/constants')
 var data = require('*/cartridge/controllers/countries.json');
-var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
+var storeHelpers = require('*/cartridge/scripts/helpers/customStoreHelper');
+var Template = require('dw/util/Template');
 
-var ZERO_RESULTS = 'ZERO_RESULTS';
+var googleService = require('*/cartridge/scripts/googleMapService');
+
+var ZERO_RESULTS = constants.ZERO_RESULTS;
 
 var server = require('server');
 var page = module.superModule;
