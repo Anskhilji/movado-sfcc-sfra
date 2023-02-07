@@ -1,5 +1,5 @@
 <isset name="shippingAddress" value="${pdict.forms.shippingForm.shippingAddress}" scope="page"/>
-<div class="custom-radio-check leading-lines shipping-method-list" data-select-shipping-method-url="${URLUtils.https('CheckoutShippingServices-SelectShippingMethod')}" data-action-url="${URLUtils.https('CheckoutShippingServices-UpdateShippingMethodsList')}">
+<div class="custom-radio-check checkout-mb leading-lines shipping-method-list" data-select-shipping-method-url="${URLUtils.https('CheckoutShippingServices-SelectShippingMethod')}" data-action-url="${URLUtils.https('CheckoutShippingServices-UpdateShippingMethodsList')}">
     <input name="shipmentUUID" type="hidden" value="${shippingModel.UUID}" />
     <isloop items="${shippingModel.applicableShippingMethods}" var="shippingMethod">
         <div class="form-check start-lines">
@@ -10,9 +10,9 @@
                 <span class="shipping-cost shipping-cost-control">${shippingMethod.shippingCost}</span>
             </div>
                 <isif condition="${shippingMethod.deliveryDate}">
-                    <span class="arrival-time">(${shippingMethod.deliveryDate})</span>
+                    <span class="arrival-time">${shippingMethod.deliveryDate}</span>
                 <iselse>
-                    <span class="arrival-time">(${shippingMethod.description})</span>
+                    <span class="arrival-time">${shippingMethod.description}</span>
                 </isif>
             </label>
             <div class="text-right shipping-method-pricing end-lines">
