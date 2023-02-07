@@ -449,6 +449,21 @@ server.append(
                 lastNameError: req.querystring.lastNameError
             });
         }
+        
+        if (currentBasket && currentBasket.couponLineItems.length > 0) {
+            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
+            var errorCodes = JSON.parse(couponErrorMessages);
+            for (var i = 0; i < currentBasket.couponLineItems.length; i++) {
+                if (!currentBasket.couponLineItems[i].applied && currentBasket.couponLineItems[i].promotion.custom.excludeProductLevelPromotion == true && currentBasket.couponLineItems[i].statusCode == 'NO_APPLICABLE_PROMOTION') {
+                    var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                    var errorMessage = localeErrorCodes[currentBasket.couponLineItems[i].statusCode] || localeErrorCodes.DEFAULT;
+                    res.setViewData({
+                        excludeProductLevelMessage: errorMessage
+                    });
+                    break;
+                }
+            }
+        }
 
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
@@ -477,7 +492,6 @@ server.replace(
         var CartModel = require('*/cartridge/models/cart');
         var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
         var Site = require('dw/system/Site');
-        var errorCodes;
 
         var currentBasket = BasketMgr.getCurrentBasket();
 
@@ -504,19 +518,20 @@ server.replace(
             Transaction.wrap(function () {
                 return currentBasket.createCouponLineItem(req.querystring.couponCode, true);
             });
-            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
-            var errorCodes = JSON.parse(couponErrorMessages);
-            if (currentBasket && currentBasket.couponLineItems.length > 0) {
-                for (var i = 0; i <= currentBasket.couponLineItems.length; i++) {
-                    if (!currentBasket.couponLineItems[i].applied && currentBasket.couponLineItems[i].promotion.custom.excludeProductLevelPromotion && currentBasket.couponLineItems[i].statusCode == 'NO_APPLICABLE_PROMOTION') {
-                        var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-                        errorMessage = localeErrorCodes[currentBasket.couponLineItems[i].statusCode] || localeErrorCodes.DEFAULT
-                        error = true;
-                        errorMessage = errorMessage;
-                        break;
-                    }
-                }
-            }
+           
+            // if (currentBasket && currentBasket.couponLineItems.length > 0) {
+            //     var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
+            //     var errorCodes = JSON.parse(couponErrorMessages);
+            //     for (var i = 0; i < currentBasket.couponLineItems.length; i++) {
+            //         if (!currentBasket.couponLineItems[i].applied && currentBasket.couponLineItems[i].promotion.custom.excludeProductLevelPromotion == true && currentBasket.couponLineItems[i].statusCode == 'NO_APPLICABLE_PROMOTION') {
+            //             var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+            //             errorMessage = localeErrorCodes[currentBasket.couponLineItems[i].statusCode] || localeErrorCodes.DEFAULT;
+            //             error = true;
+            //             errorMessage = errorMessage;
+            //             break;
+            //         }
+            //     }
+            // }
             
         } catch (e) {
             error = true;
@@ -524,14 +539,9 @@ server.replace(
             var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
             if (couponErrorMessages) {
-                var basketModel = new CartModel(currentBasket);
-                errorCodes = JSON.parse(couponErrorMessages);
+                var errorCodes = JSON.parse(couponErrorMessages);
                 var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-                if (basketModel.items.length > 0 && basketModel.items[0].appliedPromotions && basketModel.items[0].appliedPromotions.length > 0 && basketModel.items[0].appliedPromotions[0].excludeProductLevelPromotion) {
-                    var errorMessage = localeErrorCodes.EXCLUDE_PRODUCT_WHICH_RECEIVED_PRODUCT_LEVEL_DISCOUNT;
-                } else {
-                    var errorMessage = localeErrorCodes[e.errorCode] || localeErrorCodes.DEFAULT;
-                }
+                var errorMessage = localeErrorCodes[e.errorCode] || localeErrorCodes.DEFAULT;
                 // Custom End
             } else {
                 var errorCodes = {
