@@ -67,10 +67,12 @@
                         <span>${Resource.msg('locator.myStore', 'search', null)}</span>
                     </div>
                     <div class="select-time-box">
-                        <div class="select-time select-opt d-flex align-items-center">
-                            <img src="${URLUtils.staticURL('/images/carbon_time.svg')}" alt="store">
-                            <span class="select-time-arrow-dwon">${Resource.msg('locator.storeHours', 'search', null)}</span>
-                        </div>
+                        <isif condition="${store.storeHours}">
+                            <div class="select-time select-opt d-flex align-items-center ">
+                                <img src="${URLUtils.staticURL('/images/carbon_time.svg')}" alt="store">
+                                <span class="select-time-arrow-dwon">${Resource.msg('locator.storeHours', 'search', null)}</span>
+                            </div>
+                        </isif>
                     </div>
                     <a href="https://maps.google.com/?daddr=${store.latitude},${store.longitude}"
                         class="select-location select-opt d-flex align-items-center">

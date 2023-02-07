@@ -7,10 +7,7 @@
     background-color: $white;
     border-radius: rem(4);
     padding: rem(22) rem(20) rem(20) rem(16);
-
-    &:not(:last-of-type) {
-        margin-bottom: rem(20);
-    }
+    margin-bottom: rem(20);
 
     .store-detail {
         letter-spacing: 0;
@@ -163,7 +160,7 @@
     line-height: rem(17);
     text-align: center;
     text-decoration: underline;
-    margin-top: rem(25);
+    margin-top: rem(5);
     margin-bottom: rem(34);
     outline: none;
     background: none;
