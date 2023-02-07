@@ -1,6 +1,6 @@
 <iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
 <isset name="enablePDPQuantitySelector" value="${!empty(dw.system.Site.current.preferences.custom.enablePDPQuantitySelector) ? dw.system.Site.current.preferences.custom.enablePDPQuantitySelector : false}" scope="page" />
-<isif condition="${enablePDPQuantitySelector}">
+<iscomment> <isif condition="${enablePDPQuantitySelector}"> </iscomment>
     <iscomment> <div class="quantity-form">
         <input class="form-control quantity quantity-select custom-select pid-${lineItem.id+lineItem.UUID}"
             data-uuid="${lineItem.UUID}"
@@ -69,5 +69,5 @@ HamzaMCSQuantityPDP
     </div>
 
 
-</isif>
+<iscomment> </isif> </iscomment>
 <iscomment> Custom End </iscomment>

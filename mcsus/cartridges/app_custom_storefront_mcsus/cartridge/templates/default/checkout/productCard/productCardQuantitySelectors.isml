@@ -1,6 +1,6 @@
 <iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
 <isset name="enableCartQuantitySelector" value="${!empty(dw.system.Site.current.preferences.custom.enableCartQuantitySelector) ? dw.system.Site.current.preferences.custom.enableCartQuantitySelector : false}" scope="page" />
-<isif condition="${enableCartQuantitySelector}">
+<iscomment> <isif condition="${enableCartQuantitySelector}"> </iscomment>
 HamzaCardMCS
     <div class="quantity-form">
         <label class="line-item-pricing-info quantity-label" for="quantity">${Resource.msg('field.selectquantity','cart',null)}</label>
@@ -22,5 +22,5 @@ HamzaCardMCS
             </isloop>
         </select>
     </div>
-</isif>
+<iscomment> </isif> </iscomment>
 <iscomment> Custom End </iscomment>
