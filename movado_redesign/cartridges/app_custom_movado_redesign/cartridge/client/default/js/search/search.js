@@ -308,20 +308,23 @@ function closeRefinementFilters() {
     $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
 }
 function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground) {
-    $refinementBox.on('click', function() {
-        $('.refinement-box-filter-desktop').removeClass('active');
-        $(this).addClass('active');
-        $('.modal-background').addClass('d-block');
-        $('.desktop-search-refine-bar-redesing').addClass('active');
-        $('.header-menu-wrapper').addClass('header-active');
-        $('.dk-fillter-m').addClass('dk-fillter-check');
-
-        $dkFilterCheck.on('click', function(e) {
-            if(!$('.modal-background').hasClass('d-block')) {
-                $('.modal-background').addClass('d-block');
-            }
-        });
-
+    $refinementBox.on('click', function () {
+        if ($(this).closest('.refinement-box-filter-desktop').hasClass('active')) {
+            closeRefinementFilters();
+        } else {
+            $('.refinement-box-filter-desktop').removeClass('active');
+            $(this).closest('.refinement-box-filter-desktop').addClass('active');
+            $('.modal-background').addClass('d-block');
+            $('.desktop-search-refine-bar-redesing').addClass('active');
+            $('.header-menu-wrapper').addClass('header-active');
+            $('.dk-fillter-m').addClass('dk-fillter-check');
+    
+            $dkFilterCheck.on('click', function(e) {
+                if(!$('.modal-background').hasClass('d-block')) {
+                    $('.modal-background').addClass('d-block');
+                }
+            });
+        }
     });
 
     $modelBackground.on('click', function(e){
@@ -635,7 +638,7 @@ module.exports = {
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                         // Custom:MSS-2073 start
-                        var $refinementBox = $('.refinement-box-filter-desktop');
+                        var $refinementBox = $('.refinement-btn-clicked');
                         var $dkFilterCheck = $('.dk-fillter-check');
                         var $modelBackground = $('.modal-background');
                         var $moreFilterBtn = $('.more-filter-btn');
