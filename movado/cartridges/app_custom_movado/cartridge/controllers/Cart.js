@@ -450,21 +450,6 @@ server.append(
             });
         }
         
-        if (currentBasket && currentBasket.couponLineItems.length > 0) {
-            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
-            var errorCodes = JSON.parse(couponErrorMessages);
-            for (var i = 0; i < currentBasket.couponLineItems.length; i++) {
-                if (!currentBasket.couponLineItems[i].applied && currentBasket.couponLineItems[i].promotion.custom.excludeProductLevelPromotion == true && currentBasket.couponLineItems[i].statusCode == 'NO_APPLICABLE_PROMOTION') {
-                    var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-                    var errorMessage = localeErrorCodes[currentBasket.couponLineItems[i].statusCode] || localeErrorCodes.DEFAULT;
-                    res.setViewData({
-                        excludeProductLevelMessage: errorMessage
-                    });
-                    break;
-                }
-            }
-        }
-
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
         var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
@@ -518,21 +503,7 @@ server.replace(
             Transaction.wrap(function () {
                 return currentBasket.createCouponLineItem(req.querystring.couponCode, true);
             });
-           
-            // if (currentBasket && currentBasket.couponLineItems.length > 0) {
-            //     var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
-            //     var errorCodes = JSON.parse(couponErrorMessages);
-            //     for (var i = 0; i < currentBasket.couponLineItems.length; i++) {
-            //         if (!currentBasket.couponLineItems[i].applied && currentBasket.couponLineItems[i].promotion.custom.excludeProductLevelPromotion == true && currentBasket.couponLineItems[i].statusCode == 'NO_APPLICABLE_PROMOTION') {
-            //             var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-            //             errorMessage = localeErrorCodes[currentBasket.couponLineItems[i].statusCode] || localeErrorCodes.DEFAULT;
-            //             error = true;
-            //             errorMessage = errorMessage;
-            //             break;
-            //         }
-            //     }
-            // }
-            
+
         } catch (e) {
             error = true;
             // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages json 
