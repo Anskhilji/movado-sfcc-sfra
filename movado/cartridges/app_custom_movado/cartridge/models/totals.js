@@ -77,9 +77,9 @@ function getDiscounts(lineItemContainer) {
                     callOutMsg: priceAdjustment.promotion.calloutMsg
                 };
             });
-            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
-            var errorCodes = JSON.parse(couponErrorMessages);
             if (!couponLineItem.applied && couponLineItem.promotion.custom.excludeProductLevelPromotion == true && couponLineItem.statusCode == 'NO_APPLICABLE_PROMOTION') {
+                var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
+                var errorCodes = JSON.parse(couponErrorMessages);
                 var localeErrorCodes = errorCodes[Site.current.defaultLocale] || errorCodes['default'];
                 excludeProductLevelMessage = localeErrorCodes[couponLineItem.statusCode] || localeErrorCodes.DEFAULT;
             }

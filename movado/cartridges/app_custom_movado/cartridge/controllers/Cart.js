@@ -449,6 +449,7 @@ server.append(
                 lastNameError: req.querystring.lastNameError
             });
         }
+
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
         var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
