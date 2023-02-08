@@ -57,6 +57,10 @@ server.post('Subscribe', server.middleware.https, cache.applyDefaultCache, funct
             }
             if ((form.smsSubscription == 'true' || form.smsSubscription == true) && Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
                 var optedOutStatus = ltkApi.sendContactToListrak(requestParam);
+                
+                //Custom Start [MSS-1984]: this code is used send the customer phone no to listrack 
+                //we are commenting this code because we don't have any scenario to test this
+
                 // if (!empty(optedOutStatus) && optedOutStatus.data.optedOut == true) {
                 //     ltkApi.subscribeContactToListrak(requestParam);
                 // }
