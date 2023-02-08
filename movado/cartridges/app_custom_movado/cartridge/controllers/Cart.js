@@ -531,6 +531,20 @@ server.replace(
             }
         }
 
+        if (currentBasket && currentBasket.couponLineItems.length > 1) {
+            for (var i = 1; i <= currentBasket.couponLineItems.length; i++) {
+                if (!currentBasket.couponLineItems[i].applied && currentBasket.couponLineItems[0].promotion.ID != currentBasket.couponLineItems[i].promotion.ID && currentBasket.couponLineItems[i].statusCode == 'NO_APPLICABLE_PROMOTION') {
+                        var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
+                        var errorCodes = JSON.parse(couponErrorMessages);
+                        var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                        errorMessage = localeErrorCodes['PROMOTION_COUPON_REPLICATED'] || localeErrorCodes.DEFAULT
+                        error = true;
+                        errorMessage = errorMessage;
+                        break;
+                }
+            }
+        }
+
         if (error) {
             res.json({
                 error: error,
