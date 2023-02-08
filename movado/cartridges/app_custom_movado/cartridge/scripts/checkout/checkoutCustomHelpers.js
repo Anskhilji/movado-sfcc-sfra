@@ -106,7 +106,7 @@ function sendOrderConfirmationEmail(order, locale) {
         shippingMethodLabel: Resource.msg('order.confirmation.email.label.shippingmethod', 'order', null),
         shippingStatusLabel: Resource.msg('order.confirmation.email.label.shippingstatus', 'order', null),
         billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
-        cuurentOrder: order
+        currentOrder: order
     };
 
     var subject = isPickupStoreEnabled && order.custom.BOPIS ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber);
