@@ -87,18 +87,18 @@
       touch-action: double-tap-zoom;
 
       @media (max-width: $custom-sm4) {
-        width: rem(388);
-        height: rem(388); 
+        width: rem(308);
+        height: rem(308); 
       }
 
       @media (max-width: $small-screen-width375) {
-       width: rem(375);
-       height: rem(375);                                       
+       width: rem(263);
+       height: rem(263);                                       
       }
 
       @media (max-width: $small-screen-width) {
-        width: rem(310);
-        height: rem(310);                                       
+        width: rem(224);
+        height: rem(224);                                       
       }
     }
   }

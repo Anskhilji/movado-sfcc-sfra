@@ -212,8 +212,8 @@ $arrow-height: 1.25em;
             @media (max-width: $small-screen-width375) {
 
                 &.carousel-indicator-image {
-                    width: rem(68);
-                    height: rem(68);
+                    width: rem(57);
+                    height: rem(57);
                 }
 
             }
@@ -221,8 +221,8 @@ $arrow-height: 1.25em;
             @media (max-width: $small-screen-width) {
                 
                 &.carousel-indicator-image {
-                    width: rem(68);
-                    height: rem(68);
+                    width: rem(46);
+                    height: rem(46);
                 }
 
             }
@@ -384,8 +384,8 @@ $arrow-height: 1.25em;
                     }
 
                     @media (max-width: $custom-sm4) {
-                        width: rem(409);
-                        height: rem(409);
+                        width: rem(424);
+                        height: rem(424);
                     }
                     
                     @media (max-width: $small-screen-width375) {
