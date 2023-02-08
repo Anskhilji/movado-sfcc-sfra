@@ -122,23 +122,23 @@
                             display: block !important;
 
                             @include media-breakpoint-up(lg) {
-                                width: rem(596);
-                                height: rem(596);
+                                width: rem(646);
+                                height: rem(646);
                             }
 
                             @media (max-width: $custom-sm4) {
-                                width: rem(360);
-                                height: rem(360); 
+                                width: rem(425);
+                                height: rem(510); 
                             }
 
                             @media (max-width: $small-screen-width375) {
-                                width: rem(295);
-                                height: rem(295);                                       
+                                width: rem(375);
+                                height: rem(450);                                       
                             }
 
                             @media (max-width: $small-screen-width) {
-                                width: rem(240);
-                                height: rem(240);                                       
+                                width: rem(320);
+                                height: rem(384);                                       
                             }
                         }  
                     }
