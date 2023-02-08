@@ -626,6 +626,7 @@ $stored-payment-spacing: rem(16);
                 }
 
                 &.is-invalid {
+                    border: rem(2.4) solid $invalid-red;
 
                     &:focus {
                         border: rem(2.4) solid $invalid-red;

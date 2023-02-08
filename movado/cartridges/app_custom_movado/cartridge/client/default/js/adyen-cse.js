@@ -113,6 +113,7 @@ function showValidation(validationResult) {
                     break;
                 case 'cvc':
                     $('#securityCode').addClass('is-valid');
+                    $('.info-icon.info-icon-email').addClass('d-none');
                     break;
                 default:
                     break;

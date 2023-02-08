@@ -217,9 +217,17 @@ $receipt-font-size: rem(14);
       font-weight: 500;
     }
 
+    &#billingAddressOne,
+    &#billingAddressTwo {
+        &.form-control {
+            &.is-valid {
+                    background-position-x: 97% !important;
+            }
+        }
+    }
+
     &.is-valid {
         background: url("../../images/green_tick.svg") center right no-repeat !important;
-        background-position-x: 93.5% !important;
     }
 
     &#cardNumber,

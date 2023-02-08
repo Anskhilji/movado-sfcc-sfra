@@ -469,6 +469,7 @@ var formHelpers = require('./formErrors');
               });
 
               $('.payment-summary .edit-button', plugin).on('click', function () {
+                  $('.card-number-wrapper').addClass('card-number-mr');
                   if($('.shipping-express-checkout').length && !$('.shipping-express-checkout').is(':visible')) {
                       $('.shipping-express-checkout').removeClass('d-none');
                   }  

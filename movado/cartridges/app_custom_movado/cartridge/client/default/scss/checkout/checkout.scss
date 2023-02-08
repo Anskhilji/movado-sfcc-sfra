@@ -778,6 +778,17 @@ header {
                 }
             }
 
+            &#billingAddressOne,
+            &#billingAddressTwo {
+                &.form-control {
+                    &.is-valid {
+                        @include media-breakpoint-down(xs) {
+                            background-position-x: 93.5%;
+                        }
+                    }
+                }
+            }
+
             &#shippingFirstName,
             &#shippingLastName,
             &#email,
@@ -816,13 +827,13 @@ header {
     height: rem(24);
     width: rem(600);
     color: $invalid-red;
-    font-size: rem(14);
+    font-size: rem(16);
     font-weight: 500;
     letter-spacing: rem(0.75);
     line-height: rem(24);
 
     @include media-breakpoint-down(sm) {
-        font-size: rem(13);
+        font-size: rem(16);
         margin-bottom: rem(20);
         letter-spacing: rem(0.7);
         background: url("../../images/invalid-mobile.svg") center left no-repeat;
