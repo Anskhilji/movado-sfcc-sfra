@@ -83,7 +83,8 @@ function getResources(pageContext) {
         FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
         INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
         ESW_COUPON_VALIDATION_EMAIL_REQUIRE: Resource.msg('esw.guest.email.required', 'account', null),
-        INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null)
+        INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
+        LISTRAK_SMS_API_CLIENT_SECRET: !empty(Site.current.preferences.custom.Listrak_SMS_ClientSecret) ? Site.current.preferences.custom.Listrak_SMS_ClientSecret : ''
     };
     return resources;
 }

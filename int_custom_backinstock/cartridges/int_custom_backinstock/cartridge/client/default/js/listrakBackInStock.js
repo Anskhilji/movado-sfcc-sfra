@@ -6,26 +6,58 @@ $('.form').submit(function(e) {
     var $form = $('.back-in-stock-notification-form');
     var $pid = $('#productSKU').val();
     var $email = '';
-    var $phone = ''
+    var $phone = '';
     var $alertCode = $('#alertCode').val();
     var $listrakSuccessMsg= $('.listrak-success-msg');
     var $emailRequired = $('.back-in-stock-notification-error-required');
     var $emailInvalid = $('.back-in-stock-notification-error-invalid');
     var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
     var $backInStockListrakPreference = $('#backInStockMarketingCloudPreference');
+    var $backInStockSmsSubscription = $('#backInStockSMSSubscription');
     $emailRequired.text('');
     $emailInvalid.text('');
     $phoneInvalid.text('');
 
     if ($form.find('.back-in-stock-notification-email').length > 0) {
         $email = $('.back-in-stock-notification-email').val().trim();
+        var $phoneNo = $('.back-in-stock-notification-phone').val().trim();
         var $pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
+        var smsSubscription = false;
+        var $phoneNoPattern;
+        var $backinStockselector = $('.listrak-back-in-stock-notification-container-main');
         var $isValid;
+        var $isValidPhoneNo;
 
-        if ($email) {
+        if ($backinStockselector.find('#backInStockSMSSubscription').length > 0) {
+            if ($backinStockselector.find('#backInStockSMSSubscription').is(':checked')) {
+                smsSubscription = true;
+            }
+        }
+
+        if (smsSubscription) {
+            $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
+        } else {
+            $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+        }
+
+        if ($email && $phoneNo) {
             $isValid = $pattern.test($email);
-            if ($isValid) {
-                if ($backInStockListrakPreference.length > 0) {
+            $isValidPhoneNo = $phoneNoPattern.test($phoneNo);
+            if ($isValid && $isValidPhoneNo) {
+                if ($backInStockListrakPreference.length > 0 && $backInStockSmsSubscription.length > 0) {
+                    e.preventDefault();
+                    var $selector;
+                    if ($backInStockContainerMain.length > 0) {
+                        $selector = $('.listrak-back-in-stock-notification-container-main');
+                    }
+                    backInStockNotification.submitBackInStockEmail($selector);
+                }
+            }
+        } else if ($email || $phoneNo) {
+            $isValid = $pattern.test($email);
+            $isValidPhoneNo = $phoneNoPattern.test($phoneNo);
+            if ($isValid || $isValidPhoneNo) {
+                if ($backInStockListrakPreference.length > 0 || $backInStockSmsSubscription.length > 0) {
                     e.preventDefault();
                     var $selector;
                     if ($backInStockContainerMain.length > 0) {
@@ -35,11 +67,17 @@ $('.form').submit(function(e) {
                 }
             }
         }
-        
+
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
             $phone = $('.back-in-stock-notification-phone').val().trim();
-            var $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            var $phonePattern;
             var $isValidPhone;
+
+            if (smsSubscription) {
+                $phonePattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
+            } else {
+                $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            }
 
             if ($phone) {
                 $isValidPhone = $phonePattern.test($phone)
@@ -92,8 +130,14 @@ $('.form').submit(function(e) {
     } else {
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
             $phone = $('.back-in-stock-notification-phone').val().trim();
-            var $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            var $phonePattern;
             var $isValidPhone;
+
+            if (smsSubscription) {
+                $phonePattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
+            } else {
+                $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            }
             
             if ($phone) {
                 $isValidPhone = $phonePattern.test($phone)
