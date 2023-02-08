@@ -25,10 +25,10 @@ server.extend(page);
  * It returns the store data as JSON.
  */
 server.replace('FindStores', function (req, res, next) {
-    var radius = req.querystring.radius || session.privacy.radius;
+    var radius = req.querystring.radius;
     var showMap = req.querystring.showMap;
     var queryCountryCode = req.querystring.countryCode || COUNTRY_US;
-    var queryAddress = req.querystring.address || session.privacy.address || DEFAULT_POSTAL_CODE;
+    var queryAddress = req.querystring.address || DEFAULT_POSTAL_CODE;
     var stores = null;
     var status = null;
 
