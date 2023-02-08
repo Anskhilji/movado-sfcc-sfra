@@ -22,6 +22,19 @@ if(location.hash && location.hash == yotpoReview) {
     $('#reviews').addClass('show');
 }
 
+// click
+$('.rating-box-redisgn').on('click', function() {
+    $('.reviews-accordion').removeClass('collapsed');
+    $('#reviews').addClass('show');
+    $(document).scrollTop('#reviews');
+});
+
+$('.accordion-redesign .reviews-accordion .ratings').on('click', function () {
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $('#accordionPdpMcs').offset().top
+    }, 1000);
+});
+
 $('body').on('click', '.info-icon.info-icon-bopis', function (e) {
     e.preventDefault();
     var $winWidth = $(window).width();
