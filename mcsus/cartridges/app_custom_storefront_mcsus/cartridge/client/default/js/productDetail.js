@@ -29,6 +29,12 @@ $(".rating-box-redisgn").click(function(){
     $(document).scrollTop('#reviews');
 });
 
+$('.accordion-redesign .reviews-accordion .ratings').click(function () {
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $('#accordionPdpMcs').offset().top
+    }, 1000);
+});
+
 $('body').on('click', '.info-icon.info-icon-bopis', function (e) {
     e.preventDefault();
     var $winWidth = $(window).width();
