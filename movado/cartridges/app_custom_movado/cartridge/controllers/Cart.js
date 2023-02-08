@@ -449,7 +449,6 @@ server.append(
                 lastNameError: req.querystring.lastNameError
             });
         }
-        
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
         var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
@@ -503,7 +502,6 @@ server.replace(
             Transaction.wrap(function () {
                 return currentBasket.createCouponLineItem(req.querystring.couponCode, true);
             });
-
         } catch (e) {
             error = true;
             // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages json 
