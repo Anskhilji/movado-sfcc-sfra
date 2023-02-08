@@ -1,0 +1,43 @@
+<div class="radius-sidebar w-100 d-flex flex-column justify-content-between">
+    <div>
+        <div class="radius-sidebar-header d-flex align-items-center justify-content-between">
+            <div class="radius-sidebar-header-title">
+                <img src="${URLUtils.staticURL('/images/angle-left-white.svg')}" class="angle-left-icon"
+                    alt="" />${Resource.msg('locator.radius', 'search', null)}
+            </div>
+        </div>
+
+        <div class="radius-sidebar-list">
+            <div class="heading-ml w-100 d-flex align-items-center justify-content-between">
+                <span>${Resource.msg('locator.radiusFilter', 'search', null)}</span>
+                <img src="${URLUtils.staticURL('/images/akar-icons_plus.svg')}" class="angle-left-icon">
+            </div>
+            <ul class="radius-box">
+                <li>
+                    <label class="container-radius">${Resource.msg('locator.50Miles', 'search', null)}
+                        <input type="radio" value="50" name="radio">
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+                <li>
+                    <label class="container-radius">${Resource.msg('locator.100Miles', 'search', null)}
+                        <input type="radio" name="radio" value="100">
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+                <li>
+                    <label class="container-radius">${Resource.msg('locator.100MilesPlus', 'search', null)}
+                        <input type="radio" name="radio" value="300">
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="miles-action-btn d-flex justif-content-between">
+        <button type="button" class="miles-action-btn-clear">${Resource.msg('locator.radiusClear', 'search', null)}</button>
+        <button type="button" class="miles-action-btn-apply" data-action = "${URLUtils.url('Stores-FindStores')}">${Resource.msg('locator.radiusApplyFilters', 'search', null)}</button>
+    </div>
+</div>

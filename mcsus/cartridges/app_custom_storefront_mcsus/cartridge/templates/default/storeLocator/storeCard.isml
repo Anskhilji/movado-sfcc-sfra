@@ -1,0 +1,129 @@
+<isif condition="${param.radius}">
+    <div class="section-sticky-add">
+        <isif condition="${param.stores && param.stores.length === 0}">
+            <div class="info-text-locator">
+                ${Resource.msgf('locator.currentlyNoStores', 'search', null, param.radius)}
+            </div>
+        </isif>
+
+        <div class="miles-selected">
+            <button class="d-flex align-items-center justify-content-between">
+                <span class="selected-radius">${Resource.msgf('locator.withInMiles', 'search', null, param.radius)}</span>
+                <div class="ftr-close">
+                    <img src="${URLUtils.staticURL('/images/close-black-icon.svg')}" alt="clsoe" />
+                </div>
+            </button>
+        </div>
+    </div>
+</isif>
+
+<isif condition="${param.stores && param.stores.length > 0}">
+    <div class="store-card-box">
+        <isloop items="${param.stores}" var="store">
+            <div class="store-sidebar-card">
+                <div class="d-flex justify-content-between">
+                    <div class="store-detail">
+                        <div class="store-detail-name">
+                            ${store.name}
+                        </div>
+                        <div class="store-detail-address">
+                            <isif condition="${empty(store.address2.trim())}">
+                                ${store.address1}
+                            <iselse/>
+                                ${store.address1}, ${store.address2}
+                            </isif>
+                        </div>
+                        <a href="tel:${store.phone}" class="store-detail-phone">
+                            ${store.phone}
+                        </a>
+                        <div class="store-detail-ml">
+                            ${Resource.msgf('locator.mi', 'search', null, store.radius)}.
+                        </div>
+                    </div>
+                    <isif condition="${store.image && store.image.url}">
+                        <div class="store-image d-flex align-items-center justify-content-center">
+                            <img src="${store.image.url}" alt="store" class="img-fluid" />
+                        </div>
+                    <iselse/>
+                        <div class="store-image-placeholder d-flex align-items-center justify-content-center">
+                            <img src="${URLUtils.staticURL('/images/placeholder-image.svg')}" class="img-fluid"
+                                alt="placeholder" />
+                        </div>
+                    </isif>
+                </div>
+                <div class="store-bottom d-flex align-items-start">
+                    <div class="store-pickup-select select-opt d-flex align-items-center"
+                        data-url="${URLUtils.https('PickupStore-SetStoreIDSession', 'storeID', store.ID)}"
+                        data-store="${JSON.stringify(store)}">
+                        <img class="set-store-selected d-none"
+                            src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
+                        <isif condition="${store.ID === session.privacy.pickupStoreID}">
+                            <img class="set-store-selected"
+                                src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
+                        <iselse/>
+                            <img class="un-select-store" src="${URLUtils.staticURL('/images/clarity_store-line.svg')}"
+                                alt="store">
+                        </isif>
+                        <span>${Resource.msg('locator.myStore', 'search', null)}</span>
+                    </div>
+                    <div class="select-time-box">
+                        <isif condition="${store.storeHours}">
+                            <div class="select-time select-opt d-flex align-items-center ">
+                                <img src="${URLUtils.staticURL('/images/carbon_time.svg')}" alt="store">
+                                <span class="select-time-arrow-dwon">${Resource.msg('locator.storeHours', 'search', null)}</span>
+                            </div>
+                        </isif>
+                    </div>
+                    <a href="https://maps.google.com/?daddr=${store.latitude},${store.longitude}"
+                        class="select-location select-opt d-flex align-items-center">
+                        <img src="${URLUtils.staticURL('/images/carbon_location.svg')}" alt="store">
+                        <span>${Resource.msg('locator.getDirections', 'search', null)}</span>
+                    </a>
+                </div>
+                <div class="select-time-dropdwon">
+                    <isif condition="${store.storeHours}">
+                        <isprint value="${store.storeHours}" encoding="off" />
+                    </isif>
+                </div>
+            </div>
+        </isloop>
+    </div>
+<iselse/>
+
+    <isif condition="${param.radius}">
+        <isif condition="${param.radius < 100}">
+            <div class="no-result-store d-flex align-items-center justify-content-center">
+                <div class="no-result">
+                    <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
+                    <p>${Resource.msgf('locator.noStoresFoundWithIn', 'search', null, param.radius)}</p>
+                    <div class="search-within" data-action="${URLUtils.url('Stores-FindStores')}"
+                        data-radius-value="100">
+                        ${Resource.msg('locator.withIn100Miles', 'search', null)}</div>
+                </div>
+            </div>
+        <iselse/>
+            <div class="no-result-store d-flex align-items-center justify-content-center">
+                <div class="no-result">
+                    <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
+                    <p>${Resource.msgf('locator.noStoresFoundWithIn', 'search', null, param.radius)}</p>
+                </div>
+            </div>
+        </isif>
+    <iselse/>
+        <div class="no-result-store d-flex align-items-center justify-content-center">
+            <div class="no-result">
+                <img src="${URLUtils.staticURL('/images/clarity_store-no.svg')}" alt="store" />
+                <p>${Resource.msg('locator.noStoresFound', 'search', null)}</p>
+            </div>
+        </div>
+    </isif>
+
+
+
+</isif>
+
+<div class="load-more-button text-center">
+    <button class="show-more-button" type="button" data-store-count="5">
+        ${Resource.msgf('locator.showMoreStore', 'search', null)}
+    </button>
+</div>
