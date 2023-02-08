@@ -23,13 +23,13 @@ if(location.hash && location.hash == yotpoReview) {
 }
 
 // click
-$(".rating-box-redisgn").click(function(){
+$('.rating-box-redisgn').click(function() {
     $('.reviews-accordion').removeClass('collapsed');
     $('#reviews').addClass('show');
     $(document).scrollTop('#reviews');
 });
 
-$('.accordion-redesign .reviews-accordion .ratings').click(function () {
+$('.accordion-redesign .reviews-accordion .ratings').click(function() {
     $([document.documentElement, document.body]).animate({
         scrollTop: $('#accordionPdpMcs').offset().top
     }, 1000);
