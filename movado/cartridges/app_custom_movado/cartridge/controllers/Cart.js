@@ -540,6 +540,9 @@ server.replace(
                         errorMessage = localeErrorCodes['PROMOTION_COUPON_REPLICATED'] || localeErrorCodes.DEFAULT
                         error = true;
                         errorMessage = errorMessage;
+                        Transaction.wrap(function () {
+                            currentBasket.removeCouponLineItem(currentBasket.couponLineItems[i]);
+                        });
                         break;
                 }
             }
