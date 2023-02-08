@@ -54,7 +54,8 @@ var submitBackInStockEmail = function ($selector) {
         email: emailAddress,
         enabledMarketing: enabledMarketing,
         phoneNo: phoneNo,
-        smsSubscription: smsSubscription
+        smsSubscription: smsSubscription,
+        clientSecret: encodeURIComponent(window.Resources.LISTRAK_SMS_API_CLIENT_SECRET)
     }
 
     if (form.smsSubscription) {

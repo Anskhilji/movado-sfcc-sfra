@@ -65,7 +65,8 @@ function getResources(pageContext) {
         EMIAL_ADDRESS_REQUIRED: Resource.msg('listrak.required.email', 'product', null),
         PHONE_NUMBER_INVALID: Resource.msg('listrak.invalid.phone', 'product', null),
         PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
-        LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null)
+        LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
+        LISTRAK_SMS_API_CLIENT_SECRET: !empty(Site.current.preferences.custom.Listrak_SMS_ClientSecret) ? Site.current.preferences.custom.Listrak_SMS_ClientSecret : ''
     };
     return resources;
 }

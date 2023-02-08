@@ -2,15 +2,17 @@
 
 var Site = require('dw/system/Site');
 var Constants = require('~/cartridge/scripts/utils/ListrakConstants');
+var Logger = require('dw/system/Logger').getLogger('Listrak');
 
 function generateAuthenticationPayLoad(params) {
-    var queryParam = "client_id=" + params.clientID + '&client_secret=' + 'iByk%2FpPvwMKlz5Mj%2BOAmiuk0pqzGWWkLYp%2FWXw%2B0RmE' + '&grant_type=client_credentials';
+    var queryParam = "client_id=" + params.clientID + '&client_secret=' + params.clientSecret + '&grant_type=client_credentials';
     return queryParam;
 }
 
 function generateAuthenticationPayLoadForSMSApi(params) {
-    var queryParam = "client_id=" + encodeURI(params.clientID) + '&client_secret=' + 'iByk%2FpPvwMKlz5Mj%2BOAmiuk0pqzGWWkLYp%2FWXw%2B0RmE' + '&grant_type=client_credentials';
+    var queryParam = "client_id=" + params.clientID + '&client_secret=' + params.clientSecret + '&grant_type=client_credentials';
     return queryParam;
+
 }
 
 function generateAddContactToLTKPayload(params) {

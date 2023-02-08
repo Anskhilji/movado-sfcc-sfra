@@ -49,7 +49,8 @@ server.post('Subscribe', server.middleware.https, cache.applyDefaultCache, funct
         }
         if (!empty(form.phoneNo) && (form.smsSubscription == 'true' || form.smsSubscription == true) && backInStockNotificationHelper.isValidPhone(form.phoneNo, form.smsSubscription)) {
             var requestParam = {
-                phone: form.phoneNo
+                phone: form.phoneNo,
+                clientSecret : form.clientSecret ? form.clientSecret : ''
             }
             if (form.email) {
                 requestParam.email = form.email

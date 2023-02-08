@@ -32,7 +32,7 @@ function getSMSAuthTokenFromAPI(requestParams) {
     var service = ListrakCloudServiceRegistry.getSMSAuthorizationService(requestParams.authServiceID);
     var params = {
         clientID: Site.current.preferences.custom.Listrak_SMS_ClientID || '',
-        clientSecret: Site.current.preferences.custom.Listrak_SMS_ClientSecret || ''
+        clientSecret: requestParams.clientSecret || ''
     }
     var payload = RequestModel.generateAuthenticationPayLoadForSMSApi(params);
     try {
@@ -204,13 +204,11 @@ function addContactStatusToLTK(params, service) {
 }
 
 function addSubscribeContactToLTK(params, service) {
-    // var subscribeContactPayload = RequestModel.generateContactStatusToLTKPayload(params);
     var result = {
         success: true
     }
     var responsePayload = null;
     try {
-        // responsePayload = service.call(subscribeContactPayload);
         responsePayload = service.call();
     } catch (e) {
         Logger.error('Listrak addSubscribeContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
@@ -222,7 +220,7 @@ function addSubscribeContactToLTK(params, service) {
         params.isExpired = false;
         service.addHeader('Authorization', 'Bearer ' + accessToken);
         try {
-            responsePayload = service.call(subscribeContactPayload);
+            responsePayload = service.call();
         } catch (e) {
             Logger.error('Listrak addSubscribeContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
@@ -242,7 +240,6 @@ function addCreateContactToLTK(params, service) {
     }
     var responsePayload = null;
     try {
-        // responsePayload = service.call(subscribeContactPayload);
         responsePayload = service.call(createContactPayload);
     } catch (e) {
         Logger.error('Listrak addCreateContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);

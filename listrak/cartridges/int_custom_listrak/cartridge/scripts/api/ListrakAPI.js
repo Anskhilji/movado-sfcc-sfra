@@ -140,7 +140,8 @@ function createContactToListrak(requestParam) {
     try {
         var params = {
             isExpired: false,
-            authServiceID: authServiceID
+            authServiceID: authServiceID,
+            clientSecret : requestParam.clientSecret
         }
         var accessToken = LTKAPIHelper.getSMSAuthToken(params);
         var service = null;
