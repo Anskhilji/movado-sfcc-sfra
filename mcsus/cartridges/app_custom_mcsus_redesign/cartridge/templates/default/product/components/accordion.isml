@@ -39,8 +39,8 @@
         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
             <div class="accordion-redesign">
                 <div class="reviews-accordion accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#reviews" aria-expanded="true" aria-controls="Reviews">
-                    <div class="d-flex">
-                        <div>${Resource.msg('accordion.heading.reviews','products',null)}</div>
+                    <div class="d-flex align-items-center">
+                        <div class="rating-text-accordion">${Resource.msg('accordion.heading.reviews','products',null)}</div>
                         <isinclude template="product/components/pidRating" />
                     </div>
                     <span class="plus-minus">
