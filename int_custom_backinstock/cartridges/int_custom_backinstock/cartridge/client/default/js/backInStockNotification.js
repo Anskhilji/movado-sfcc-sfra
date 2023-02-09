@@ -31,13 +31,24 @@ var submitBackInStockEmail = function ($selector) {
     $selector.spinner().start();
     var url = $selector.data('url');
     var pid = $selector.data('pid');
-    var emailAddress = $selector.find('.back-in-stock-notification-email').val();
-    var phoneNo = $selector.find('.back-in-stock-notification-phone').val();
+    var emailAddress = ''
+    var phoneNo = ''
     var enabledMarketing = false;
     var smsSubscription = false;
     var $phoneNoPattern;
     var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
     
+    if ($selector.find('.back-in-stock-notification-email').length > 0) {
+        $('.back-in-stock-notification-email').each(function() {
+            emailAddress = $(this).val().trim();
+        });
+    }
+    if ($selector.find('.back-in-stock-notification-phone').length > 0) {
+        $('.back-in-stock-notification-phone').each(function() {
+            phoneNo = $(this).val().trim();
+        });
+    }
+
     if ($selector.find('#backInStockMarketingCloudPreference').length > 0) {
         if ($selector.find('#backInStockMarketingCloudPreference').is(':checked')) {
             enabledMarketing = true;
@@ -108,12 +119,19 @@ $(document).ready(function () {
     });
 
     $(document).on('keyup , focus, click, input', '.back-in-stock-notification-email', function (event) {
-        var $emailField = $('.back-in-stock-notification-email');
+        var $emailField = '';
+        $('.back-in-stock-notification-email').each(function() {
+            $emailField = $(this).val().trim();
+        });
         var $backInStockNotificationConfirmButton = $('.back-in-stock-notification-button');
-        if ($emailField.val().length > 0) {
-            $backInStockNotificationConfirmButton.addClass('d-block');
+        if ($emailField.length > 0) {
+            $backInStockNotificationConfirmButton.each(function () {
+                $(this).addClass('d-block');
+            });
         } else {
-            $backInStockNotificationConfirmButton.removeClass('d-block');
+            $backInStockNotificationConfirmButton.each(function () {
+                $(this).removeClass('d-block');
+            });
         }
     });
 
