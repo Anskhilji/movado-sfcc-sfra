@@ -79,6 +79,10 @@
             letter-spacing: 0;
             line-height: rem(22);
             cursor: pointer;
+            
+            &.remove-cursor {
+                cursor: unset;  
+            }
         }
 
         &-close {
