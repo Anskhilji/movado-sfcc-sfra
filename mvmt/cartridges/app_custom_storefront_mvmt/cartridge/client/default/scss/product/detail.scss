@@ -1245,19 +1245,8 @@
 
         &.zoomed-images {
 
-            .main-mvmt-carousel {
-
-                .slick-slide {
-
-                    .slide-video{
-                        display: none !important;
-                    }
-                }
-            }
-        }
-
-        &.zoomed-images {
             .cs-carousel-wrapper {
+                
                 @include media-breakpoint-down(md-down) {
                     overflow: hidden;
                     position: fixed;
@@ -1273,14 +1262,7 @@
                         top: 23%;
                     }
                 }
-
-                .slick-slider {
-                    .slide-video {
-                        display: none;
-                    }
-                }
             }
-
         }
     }
 
