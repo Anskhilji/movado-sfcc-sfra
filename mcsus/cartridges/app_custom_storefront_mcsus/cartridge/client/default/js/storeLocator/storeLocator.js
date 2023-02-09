@@ -34,6 +34,7 @@ function getFilterValues() {
         sessionStorage.setItem("radius", radius);
     } else {
         radius = sessionStorage.getItem("radius");
+        $('input[name="radio"][value='+radius+']').prop('checked', true);
     }
     return {
         searchValue: searchValue,
@@ -64,15 +65,6 @@ function closeStoreLocator() {
 function selectStoreIcon() {
     $(document).on('click', '.store-pickup-select', function () {
         var stringifyData = JSON.stringify($(this).data('store'));
-        var $setStore = $(this);
-        var $selectedIcon = $setStore.find('.set-store-selected');
-        var $myStore = $setStore.find('.my-store');
-        var $unSelected = $setStore.find('.un-select-store');
-        $('.set-store-selected').addClass('d-none');
-        $('.un-select-store').removeClass('d-none');
-        $selectedIcon.removeClass('d-none');
-        $myStore.removeClass('d-none');
-        $unSelected.addClass('d-none');
         if (stringifyData !== '') {
             var storePickup = JSON.parse(stringifyData);
             var storeAddress1 = storePickup.address1;

@@ -49,9 +49,6 @@
                     <div class="store-pickup-select select-opt d-flex align-items-center"
                         data-url="${URLUtils.https('PickupStore-SetStoreIDSession', 'storeID', store.ID)}"
                         data-store="${JSON.stringify(store)}">
-                        <img class="set-store-selected d-none"
-                            src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
-                        <span class="my-store d-none">${Resource.msg('locator.myStore', 'search', null)}</span>
                         <isif condition="${store.ID === session.privacy.pickupStoreID}">
                             <img class="set-store-selected"
                                 src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
