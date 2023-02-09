@@ -7,7 +7,7 @@
         <select class="form-control quantity custom-select"
                 data-uuid="${lineItem.UUID}"
                 data-pid="${lineItem.id}"
-                data-action="${pdict.actionUrls.updateQuantityUrl}"
+                data-action="${URLUtils.url('Cart-UpdateQuantity').toString()}"
                 data-pre-select-qty="${lineItem.quantity}"
                 id="quantity"
                 name="quantity">
