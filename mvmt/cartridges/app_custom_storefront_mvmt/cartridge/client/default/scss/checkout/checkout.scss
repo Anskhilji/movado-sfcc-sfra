@@ -53,7 +53,7 @@
             color: $light-gray7;
             background-color: $white;
             padding: 0 rem(10);
-            transition: all 0.2s ease-out;
+            transition: none;
 
             @include media-breakpoint-down(sm) {
                 font-size: rem(16);
@@ -67,8 +67,7 @@
             }
 
             &.is-invalid {
-                border-width: rem(2);
-                border-color: $red1;
+                border: rem(2.4) solid $invalid-red;
                 padding-left: rem(9);
             }
 
@@ -157,6 +156,7 @@
                 &.form-control {
                     &.is-invalid {
                         background-position-x: 82%;
+                        border: rem(2.4) solid $invalid-red;
                     }
                 }
             }
@@ -204,6 +204,7 @@
                 &.form-control {
                     &.is-invalid {
                         background-position-x: 93.5%;
+                        border: rem(2.4) solid $invalid-red;
                     }
                 }
             }
@@ -1216,6 +1217,7 @@ header {
 
                     
                     &.is-invalid {
+                        border: rem(2.4) solid $invalid-red;
 
                         &:focus {
                             border: rem(2.4) solid $invalid-red;
@@ -1248,6 +1250,7 @@ header {
                             }
 
                             &.is-invalid {
+                                border: rem(2.4) solid $invalid-red;
 
                                 &:focus {
                                     border: rem(2.4) solid $invalid-red;
@@ -1256,6 +1259,7 @@ header {
                         }
 
                         &.is-invalid {
+                            border: rem(2.4) solid $invalid-red;
 
                             &:focus {
                                 border: rem(2.4) solid $invalid-red;
