@@ -2,7 +2,7 @@
 <iscomment> CardFromMCSInner </iscomment>
 <isif condition="${lineItem.quantityOptions.minOrderQuantity > 0 && lineItem.quantityOptions.maxOrderQuantity > 0}">
     <div class="quantity-form">
-        <label class="line-item-pricing-info quantity-label" for="quantity">${Resource.msg('field.selectquantity', 'cart', null)}</label>
+        <label class="line-item-pricing-info quantity-label" for="quantity">${Resource.msg('field.selectquantityselector', 'cart', null)}</label>
         <label class="line-item-pricing-info quantity-label-mbl" for="quantity">${Resource.msg('field.selectquantity.cart', 'cart', null)}</label>
         <select class="form-control quantity custom-select"
                 data-uuid="${lineItem.UUID}"

@@ -27,12 +27,11 @@
     <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>
         <div class="savings mb-2">${Resource.msg('cart.label.savings','cart',null)} ${lineItem && lineItem.priceTotal && lineItem.priceTotal.formattedSavingPrice ? lineItem.priceTotal.formattedSavingPrice : 0}</div>
     </isif>
-    <iscomment> <h1>MCSPriceCartOuter</h1> </iscomment>
-    <iscomment> <isif condition="${enableCartQuantitySelector}"> </iscomment>
+    <isif condition="${enableCartQuantitySelector}">
         <div class="cart-quantity-btn line-item-quantity">
             <isinclude template="checkout/productCard/productCardQuantitySelector" />
         </div>
-    <iscomment> </isif> </iscomment>
+    </isif>
     <div class="mb-2 total-amount">${Resource.msg('cart.label.itemTotal','cart',null)}
         <span class="line-item-total-price-amount item-total-${lineItem.UUID}" price-value="${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPriceValue ? lineItem.priceTotal.saleFormattedPriceValue : 0}">
             <isif condition="${isEswEnabled}" >

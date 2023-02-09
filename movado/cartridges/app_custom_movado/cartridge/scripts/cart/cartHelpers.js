@@ -132,25 +132,26 @@ function hasSameOptions(existingOptions, selectedOptions) {
         return false;
     }
     return collections.every(existingOptions, function (option) {
-        return option.optionValueID == selected[option.optionID];
+        return option.optionValueID === selected[option.optionID];
     });
 }
 
 function hasSameOptionsForQuantity(existingOptions, selectedOptions) {
     var flags = [];
-    if (existingOptions.empty) {
-        return false;
-    }
-    var existingOption = existingOptions.toArray();
-    if (selectedOptions.length == existingOption.length) {
-        selectedOptions.forEach(function(i) {
-            existingOption.forEach(function(j) {
-                if (i.optionId == j.optionID && i.selectedValueId == j.optionValueID) {
-                    flags.push(true);
-                    return;
-                }
+    if (existingOptions.length == 0 && empty(selectedOptions)) {
+        return true;
+    } else {
+        var existingOption = existingOptions.toArray();
+        if (selectedOptions.length == existingOption.length) {
+            selectedOptions.forEach(function(i) {
+                existingOption.forEach(function(j) {
+                    if (i.optionId == j.optionID && i.selectedValueId == j.optionValueID) {
+                        flags.push(true);
+                        return;
+                    }
+                });
             });
-        });
+        }
     }
 
     if (!empty(flags) && flags.length == selectedOptions.length) {
@@ -391,7 +392,6 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     var optionModel = productHelper.getCurrentOptionModel(product.optionModel, options);
     var isClydeEnabled = Site.getCurrent().preferences.custom.isClydeEnabled;
     var isPDPQuantitySelectorEnabled = Site.current.preferences.custom.enablePDPQuantitySelector;
-    // var isClydeEnabled = false;
 
     if (isPDPQuantitySelectorEnabled) {
         if (!empty(form) && !empty(form.clydeContractSku)) {
@@ -569,9 +569,8 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             productInCart = getExistingProductLineItemInCart(
                     product, productId, productLineItems, childProducts, options);
         }
-        if (productInCart) {
+        if (productInCart && empty(optionModel)) {
             productQuantityInCart = productInCart.quantity.value;
-            productQuantityInCart = 1;
             quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
             availableToSell = productInCart.product.availabilityModel.inventoryRecord.ATS.value;
             /**
@@ -593,7 +592,6 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                     ? Resource.msg('error.alert.max.quantity.in.cart', 'product', null)
                     : Resource.msg('error.alert.selected.quantity.cannot.be.added', 'product', null);
             }
-
         } else {
             var productLineItem;
             try {
@@ -603,7 +601,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                     quantity,
                     childProducts,
                     optionModel,
-                    defaultSheipment
+                    defaultShipment
                 );
                 if (isClydeEnabled) {
                     var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
