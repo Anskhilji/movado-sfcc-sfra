@@ -34,6 +34,7 @@ function getFilterValues() {
         sessionStorage.setItem("radius", radius);
     } else {
         radius = sessionStorage.getItem("radius");
+        $('input[name="radio"][value='+radius+']').prop('checked', true);
     }
     return {
         searchValue: searchValue,
@@ -49,6 +50,7 @@ function setHours() {
 
         $selectTime.on('click', function () {
             $selectTimeDropdown.toggleClass('show');
+            $selectTime.toggleClass('active');
         });
     });
 };
@@ -63,13 +65,6 @@ function closeStoreLocator() {
 function selectStoreIcon() {
     $(document).on('click', '.store-pickup-select', function () {
         var stringifyData = JSON.stringify($(this).data('store'));
-        var $setStore = $(this);
-        var $selectedIcon = $setStore.find('.set-store-selected');
-        var $unSelected = $setStore.find('.un-select-store');
-        $('.set-store-selected').addClass('d-none');
-        $('.un-select-store').removeClass('d-none');
-        $selectedIcon.removeClass('d-none');
-        $unSelected.addClass('d-none');
         if (stringifyData !== '') {
             var storePickup = JSON.parse(stringifyData);
             var storeAddress1 = storePickup.address1;
@@ -158,11 +153,12 @@ function searchLocator(url) {
         success: function (data) {
             $('.store-results-box').empty().html(data.html);
             $(".store-sidebar-card").hide();
-            closefilter();
             setHours();
             selectStoreIcon();
             showMore();
             getFilterValues();
+            closefilter();
+            searchWithin();
             $.spinner().stop();
         },
         error: function (err) {
@@ -174,10 +170,14 @@ function searchLocator(url) {
 function searchWithin() {
     $('.search-within').on('click', function () {
         var url = $(this).data('action');
+        var searchValue = $('.search-input').val().trim();
         var radius = $(this).data('radius-value');
+        $('input[name="radio"]').prop('checked', true);
+        $('input[name="radio"][value='+radius+']').prop('checked', true);
         if (radius) {
             urlParams = {
-                radius: radius
+                radius: radius,
+                address: searchValue
             };
             url = appendToUrl(url, urlParams);
         }
@@ -192,6 +192,7 @@ function closefilter() {
         $('input[name="radio"]').prop('checked', false);
         getFilterValues();
         $('.store-sidebar-link').click();
+        $.spinner().stop();
         $('.button-search').click();
     });
 };
@@ -202,13 +203,18 @@ $('.store-sidebar-link').on('click', function () {
     var url = $(this).data('action');
     var searchFilter = getFilterValues();
     var urlParams = {};
-    searchFilter.searchValue ? urlParams.address = searchFilter.searchValue : null;
+    if (searchFilter.searchValue) {
+        urlParams.address = searchFilter.searchValue;
+        $('.search-input').val(sessionStorage.getItem("address"));
+    }
     searchFilter.radius ? urlParams.radius = searchFilter.radius : null;
     url = appendToUrl(url, urlParams);
     searchLocator(url);
 });
 
 $('.button-search').on('click', function () {
+    var searchValue = $('.search-input').val().trim();
+    sessionStorage.setItem("address", searchValue);
     var searchFilter = getFilterValues();
     var url = $(this).data('action');
     var urlParams = {};
@@ -253,10 +259,6 @@ $('.miles-action-btn-apply').on('click', function () {
     searchLocator(url);
     $('.radius-sidebar').removeClass('show');
     $('.store-sidebar').removeClass('hide-scroll');
-    setTimeout(function () {
-        searchWithin();
-        closefilter();
-    }, 500);
 });
 
 $('.miles-action-btn-clear').on('click', function () {

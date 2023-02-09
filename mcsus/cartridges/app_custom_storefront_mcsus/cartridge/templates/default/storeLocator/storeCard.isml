@@ -1,11 +1,5 @@
 <isif condition="${param.radius}">
     <div class="section-sticky-add">
-        <isif condition="${param.stores && param.stores.length === 0}">
-            <div class="info-text-locator">
-                ${Resource.msgf('locator.currentlyNoStores', 'search', null, param.radius)}
-            </div>
-        </isif>
-
         <div class="miles-selected">
             <button class="d-flex align-items-center justify-content-between">
                 <span class="selected-radius">${Resource.msgf('locator.withInMiles', 'search', null, param.radius)}</span>
@@ -55,16 +49,15 @@
                     <div class="store-pickup-select select-opt d-flex align-items-center"
                         data-url="${URLUtils.https('PickupStore-SetStoreIDSession', 'storeID', store.ID)}"
                         data-store="${JSON.stringify(store)}">
-                        <img class="set-store-selected d-none"
-                            src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
                         <isif condition="${store.ID === session.privacy.pickupStoreID}">
                             <img class="set-store-selected"
                                 src="${URLUtils.staticURL('/images/check_circle_black_24dp.svg')}" alt="store">
+                            <span>${Resource.msg('locator.myStore', 'search', null)}</span>
                         <iselse/>
                             <img class="un-select-store" src="${URLUtils.staticURL('/images/clarity_store-line.svg')}"
                                 alt="store">
+                            <span>${Resource.msg('locator.setMyStore', 'search', null)}</span>
                         </isif>
-                        <span>${Resource.msg('locator.myStore', 'search', null)}</span>
                     </div>
                     <div class="select-time-box">
                         <isif condition="${store.storeHours}">
@@ -82,7 +75,9 @@
                 </div>
                 <div class="select-time-dropdwon">
                     <isif condition="${store.storeHours}">
+                    <div class="time-dropmenu d-flex align-items-center flex-column">
                         <isprint value="${store.storeHours}" encoding="off" />
+                    </div>
                     </isif>
                 </div>
             </div>
