@@ -406,8 +406,8 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
         var pdpQuantityValue = null;
-        if ($('.quantity-form1').length && $('.quantity-form1').closest('quantity1')) {
-            pdpQuantityValue = $('.quantity-form1 > .quantity1').val();
+        if ($('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+            pdpQuantityValue = $('.quantity-selector > .quantity').val();
             pdpQuantityValue = pdpQuantityValue;
             if (pdpQuantityValue == "") {
                 pdpQuantityValue = null;

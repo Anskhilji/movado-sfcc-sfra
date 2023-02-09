@@ -3,7 +3,6 @@
 var cartHelpers = module.superModule;
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Resource = require('dw/web/Resource');
-var Site = require('dw/system/Site');
 
 var collections = require('*/cartridge/scripts/util/collections');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
@@ -122,9 +121,8 @@ cartHelpers.addProductToCart = function addProductToCart(currentBasket, productI
     }
 
     productInCart = cartHelpers.getExistingProductLineItemInCart(product, productId, productLineItems, childProducts, options);
-    var cartQuantitySelector = Site.current.preferences.custom.enableCartQuantitySelector;
 
-    if (cartQuantitySelector && productInCart && empty(productInCart.custom.giftParentUUID)) {
+    if (productInCart && empty(productInCart.custom.giftParentUUID)) {
         productQuantityInCart = productInCart.quantity.value;
         quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
         availableToSell = productInCart.product.availabilityModel.inventoryRecord.ATS.value;

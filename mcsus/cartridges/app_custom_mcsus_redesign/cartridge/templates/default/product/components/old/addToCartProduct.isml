@@ -20,7 +20,6 @@
         <isif condition="${isEswEnabled}">
             <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
                 <isif condition="${product.available && product.readyToOrder}">
-                Hamza3
                     <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
                 </isif>
             </isif>
@@ -35,7 +34,6 @@
             </isif>
         <iselse/>
              <isif condition="${product.available && product.readyToOrder}">
-             Hamza4
                 <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
                 <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
                     <div class="btn btn-border-none p-0">
