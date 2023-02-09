@@ -22,7 +22,12 @@
             <div class="cart-and-ipay mb-0 ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none " : ""}">
                 <div class="cta-add-to-cart">
                     <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
-                    <button class='add-to-cart btn btn-primary mr-0 d-flex align-items-center justify-content-between <isif condition="${product.isProductRestricted}">d-none</isif>' data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""}>
+
+                     <div class="quantity-btn sticky-quantity-btn">
+            <div class="quantity-selector-pdp attribute quantity">
+                <isinclude template="product/components/productQuantitySelector" />
+            </div>
+             <button class='add-to-cart btn btn-primary mr-0 d-flex align-items-center justify-content-between <isif condition="${product.isProductRestricted}">d-none</isif>' data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""}>
                         <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                             ${Resource.msg('button.preorder.now', 'common', null)} </br>
                         <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
@@ -38,6 +43,7 @@
                             </div>
                         </isif>
                     </button>
+            </div>
                 </div>
             </div>
         </div>

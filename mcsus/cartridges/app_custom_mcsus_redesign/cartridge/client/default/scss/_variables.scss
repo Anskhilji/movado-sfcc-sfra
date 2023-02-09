@@ -17,6 +17,7 @@ $light-grey5: #6C757D;
 $light-grey6: #F8f8f8;
 $light-grey7: #4F4F4F;
 $light-grey8: #414141;
+$light-grey9: #444444;
 $gray4: #E7E7E7;
 
 $grey-light4: rgba(207,207,207,0.3) !default;
@@ -33,6 +34,7 @@ $green-2: #30770d;
 
 // Large Screen Down
 $large-screen-width-down: 1400px;
+$small-screen-width-down: 375px;
 
 @mixin custom-media-query-down($large-screen-width-down) {
     @media (max-width:#{$large-screen-width-down}) {

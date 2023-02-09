@@ -394,7 +394,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     // var isClydeEnabled = false;
 
     if (isPDPQuantitySelectorEnabled) {
-        if (form.clydeContractSku) {
+        if (!empty(form) && !empty(form.clydeContractSku)) {
             for (i = 0; i < options.length; i++) {
                 if (options[i].optionId == 'clydeWarranty') {
                     options[i].selectedValueId = form.clydeContractSku;
