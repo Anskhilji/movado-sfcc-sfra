@@ -1517,7 +1517,7 @@
                                     cursor: pointer;
                                     position: relative;
 
-                                    .rating-text-accordion-b {
+                                    .rating-text-accordion {
 
                                         @include media-breakpoint-down(xs) {
                                             transform: translateY(2px);
