@@ -25,7 +25,7 @@
             font-size: rem(12);
             font-weight: 300;
             line-height: rem(18);
-            margin-bottom: rem(10);
+            margin-bottom: rem(4);
         }
 
         &-phone {
@@ -68,7 +68,7 @@
     }
 
     .store-bottom {
-        
+
         .select {
             &-opt {
                 color: $black;
@@ -109,6 +109,15 @@
                         right: rem(8);
                     }
                 }
+
+                &.active {
+
+                    .select-time-arrow-dwon {
+                        &::after {
+                            transform: translateY(-50%) scaleY(-1);
+                        }
+                    }
+                }
             }
         }
     }
@@ -127,7 +136,7 @@
                 margin: rem(9.5) rem(0) rem(0) rem(0);
                 padding: rem(14) rem(0) rem(0) rem(0);
 
-                .time-list {
+                .hour-labels {
                     color: $black;
                     font-size: rem(12);
                     font-weight: 400;
@@ -135,16 +144,19 @@
                     line-height: rem(14);
                     list-style: none;
                     min-width: rem(105);
+                    margin-bottom: rem(10);
 
-                    &:not(:last-of-type) {
-                        margin-bottom: rem(10);
+                    &:last-of-type {
+                       margin-bottom: 0;
                     }
 
                     span {
-                        font-weight: 600;
-                        margin-right: rem(10);
-                        width: rem(25);
-                        display: inline-block;
+                        &:not(:last-of-type) {
+                            font-weight: 600;
+                            margin-right: rem(10);
+                            width: rem(25);
+                            display: inline-block;
+                        }
                     }
                 }
             }
@@ -167,6 +179,11 @@
     border: none;
     box-shadow: none;
     cursor: pointer;
+
+    @include media-breakpoint-down(sm) {
+        margin-top: rem(5);
+        margin-bottom: rem(30);
+    }
 
     &:focus {
         outline: none;

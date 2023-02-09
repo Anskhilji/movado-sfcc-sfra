@@ -78,7 +78,9 @@
                 </div>
                 <div class="select-time-dropdwon">
                     <isif condition="${store.storeHours}">
+                    <div class="time-dropmenu d-flex align-items-center flex-column">
                         <isprint value="${store.storeHours}" encoding="off" />
+                    </div>
                     </isif>
                 </div>
             </div>

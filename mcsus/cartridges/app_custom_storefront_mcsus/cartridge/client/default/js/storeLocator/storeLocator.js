@@ -49,6 +49,7 @@ function setHours() {
 
         $selectTime.on('click', function () {
             $selectTimeDropdown.toggleClass('show');
+            $selectTime.toggleClass('active');
         });
     });
 };
