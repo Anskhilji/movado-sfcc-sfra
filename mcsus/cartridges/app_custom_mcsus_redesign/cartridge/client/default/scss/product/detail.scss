@@ -202,7 +202,7 @@
         }
         
         .cs-carousel {
-            padding: rem(0) rem(5);
+            padding: rem(0) rem(6);
             margin-bottom: rem(24);
         }
 
@@ -240,14 +240,6 @@
                     min-width: auto;
                     max-width: 100%;
                 }
-            }
-        }
-
-        .slide-video {
-
-            @include media-breakpoint-up(xl) {
-                padding-left: 15%;
-                padding-right: 15%;
             }
         }
     }
