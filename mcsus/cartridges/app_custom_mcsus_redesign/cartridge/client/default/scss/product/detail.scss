@@ -1517,10 +1517,19 @@
                                     cursor: pointer;
                                     position: relative;
 
+                                    .rating-text-accordion-b {
+
+                                        @include media-breakpoint-down(xs) {
+                                            transform: translateY(2px);
+                                        }
+                                    }
+
                                     // product-number-rating 
                                     .product-number-rating {
                                         margin-left: rem(12);
                                         display: inline-block;
+                                        pointer-events: none;
+
                                         .ratings {
                                             margin-bottom: rem(0);
                                         }   
