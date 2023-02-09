@@ -3,7 +3,7 @@
 <div class="store-sidebar">
     <div class="side-header">
     <div class="store-sidebar-header d-flex align-items-center justify-content-between">
-            <div class="store-sidebar-header-title">
+            <div class="store-sidebar-header-title remove-cursor">
                 ${Resource.msg('locator.sideBarTitle', 'search', null)}
             </div>
             <div class="store-sidebar-header-close">

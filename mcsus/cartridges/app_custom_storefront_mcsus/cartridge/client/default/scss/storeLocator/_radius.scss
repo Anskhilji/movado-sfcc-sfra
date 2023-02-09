@@ -11,6 +11,7 @@
     transform: translateX(100%);
     transition: all 0.4s;
     max-width: rem(375);
+    text-transform: unset;
 
     &.show {
         transform: translateX(0);
