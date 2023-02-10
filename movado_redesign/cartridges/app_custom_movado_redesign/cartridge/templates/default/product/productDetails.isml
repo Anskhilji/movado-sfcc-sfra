@@ -152,6 +152,7 @@
                                     </isloop>
                                 </div>
                             </isif>
+
                             <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isset name="isClydeEnable" value="${!empty(dw.system.Site.current.preferences.custom.isClydeEnabled) ? dw.system.Site.current.preferences.custom.isClydeEnabled : false}" scope="page" />
                             <isset name="isClydeWidgetEnable" value="${!empty(dw.system.Site.current.preferences.custom.clydeWidgetDisplay) ? dw.system.Site.current.preferences.custom.clydeWidgetDisplay : false}" scope="page" />
