@@ -17,11 +17,11 @@
                         &.is-valid {
 
                             @include media-breakpoint-up(sm) {
-                                background-position-x: 85% !important;
+                                background-position-x: 93.5% !important;
                             }
 
                             @include media-breakpoint-down(xs) {
-                                background-position-x: 90% !important;
+                                background-position-x: 97% !important;
                             }
                         }
                     }
