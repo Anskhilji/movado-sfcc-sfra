@@ -6,6 +6,11 @@
 header {
     &.new-header {
         &.transparent-header {
+
+            .sticky-header-placeholder {
+                display: none;
+            }
+
             // Custom:MSS-2083  this style only works when the header transparent
             &.home-header-transparent {
                 // Custom:MSS-2083 text white class
