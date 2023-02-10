@@ -226,8 +226,35 @@ $receipt-font-size: rem(14);
         }
     }
 
+    &#billingAddressOne,
+    &#billingAddressTwo,
+    &#billingCompanyName {
+        &.form-control {
+            &.is-valid {
+                @include media-breakpoint-down(xs) {
+                    background-position-x: 93.5% !important;
+                }            
+            }
+        }
+    }
+
+    &#billingCompanyName {
+      &.form-control {
+          &.is-valid {
+              @include media-breakpoint-up(sm) {
+                  background-position-x: 97% !important;
+              }            
+          }
+      }
+    }
+
     &.is-valid {
-        background: url("../../images/green_tick.svg") center right no-repeat !important;
+        background: url("../../images/green_tick.svg") center right no-repeat !important;  
+        background-position-x: 93.5% !important;
+
+        @include media-breakpoint-up(xs) {
+          background-position-x: 93.5% !important;
+        }
     }
 
     &#cardNumber,
@@ -251,6 +278,10 @@ $receipt-font-size: rem(14);
 
             &.is-valid {
                 background-position-x: 97% !important;
+
+                @include media-breakpoint-down(xs) {
+                  background-position-x: 97% !important;
+                }
             }
         }
     }
@@ -263,6 +294,9 @@ $receipt-font-size: rem(14);
         &.form-control {
 
             &.is-valid {
+                @include media-breakpoint-up(sm) {
+                  background-position-x: 93.5% !important;
+                }
               
                 @include media-breakpoint-down(xs) {
                     background-position-x: 97% !important;
