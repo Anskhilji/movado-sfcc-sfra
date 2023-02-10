@@ -1,7 +1,6 @@
 <iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
 <div class="quantity-selector">
     <label for="quantity-dropdown">${Resource.msg('label.quantity', 'common', null)}</label>
-    <iscomment> <h1 data-value="${JSON.stringify(product)}">DataValuePDP</h1> </iscomment>
     <select class="quantity-select quantity custom-select form-control" id="quantity-dropdown">
         <isloop items="${product.quantities}" var="quantity">
             <option value="${quantity.value}"
@@ -12,5 +11,4 @@
         </isloop>
     </select>
 </div>
-
 <iscomment> Custom End </iscomment>

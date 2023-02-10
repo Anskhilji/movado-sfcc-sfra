@@ -81,11 +81,10 @@ function getTotalPrice(lineItem, quantity) {
         }
     }
     savingsPrice = priceHelper.getsavingsPrice(lineItem.getPrice(), price);
-     if (savingsPrice) {
-         result.formattedSavingPrice = formatMoney(savingsPrice);
-         result.savingPrice = savingsPrice;
-     }
-
+    if (savingsPrice) {
+        result.formattedSavingPrice = formatMoney(savingsPrice);
+        result.savingPrice = savingsPrice;
+    }
 
     context = { lineItem:
     {

@@ -135,12 +135,18 @@ function hasSameOptions(existingOptions, selectedOptions) {
     });
 }
 
-function hasSameOptionsForQuantity(existingOptions, selectedOptions) {
+function hasSameOptionsForQuantity(existingOptions, selectedOptions, form) {
     var flags = [];
     if (existingOptions.length == 0 && empty(selectedOptions)) {
         return true;
     } else if (!existingOptions.length == 0 && empty(selectedOptions)) {
-        return true;
+        if (!empty(existingOptions[0].custom) && !empty(existingOptions[0].custom.ClydeContractSku) && !empty(form) && !empty(form.clydeContractSku) && existingOptions[0].custom.ClydeContractSku == form.clydeContractSku) {
+            return true;
+        } else if (!empty(existingOptions[0].custom) && !existingOptions[0].custom.ClydeContractSku && !empty(form) && !form.clydeContractSku) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
         var existingOption = existingOptions.toArray();
         if (selectedOptions.length == existingOption.length) {
@@ -325,20 +331,20 @@ function getExistingProductLineItemInCart(product, productId, productLineItems, 
     return getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options)[0];
 }
 
-function getExistingProductsLineItemInCart(product, productId, productLineItems, childProducts, options) {
+function getExistingProductsLineItemInCart(product, productId, productLineItems, childProducts, options, form) {
     var matchingProductsObj = getMatchingProducts(productId, productLineItems);
     var matchingProducts = matchingProductsObj.matchingProducts;
     var productLineItemsInCart = matchingProducts.filter(function (matchingProduct) {
         return product.bundle
             ? allBundleItemsSame(matchingProduct.bundledProductLineItems, childProducts)
-            : hasSameOptionsForQuantity(matchingProduct.optionProductLineItems, options || []);
+            : hasSameOptionsForQuantity(matchingProduct.optionProductLineItems, options, form || []);
     });
 
     return productLineItemsInCart;
 }
 
-function getExistingProductsLineItemsInCart(product, productId, productLineItems, childProducts, options) {
-    return getExistingProductsLineItemInCart(product, productId, productLineItems, childProducts, options)[0];
+function getExistingProductsLineItemsInCart(product, productId, productLineItems, childProducts, options, form) {
+    return getExistingProductsLineItemInCart(product, productId, productLineItems, childProducts, options, form)[0];
 }
 
 /**
@@ -450,7 +456,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             return result;
         }
 
-        productInCart = getExistingProductsLineItemsInCart(product, productId, productLineItems, childProducts, options);
+        productInCart = getExistingProductsLineItemsInCart(product, productId, productLineItems, childProducts, options, form);
         if (productInCart && empty(clydeSKU)) {
             productQuantityInCart = productInCart.quantity.value;
             quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
