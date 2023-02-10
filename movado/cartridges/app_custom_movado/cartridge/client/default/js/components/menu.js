@@ -13,10 +13,10 @@ var clearSelection = function (element) {
 
 // Custom:MSS-2150 Apply the .header-banner and .header-wrapper height to the sticky header placeholder as an inline style
 function updateStickyHeaderHeight() {
-    var $headerBannerHeight = $('.header-banner').height();
-    var $headerWrapperHeight = $('.header-wrapper').height();
-    var $totalHeight = $headerBannerHeight + $headerWrapperHeight;
-    $('.sticky-header-placeholder').css('height', $totalHeight + 'px','background-color',);
+        var $headerBannerHeight = $('.header-banner').length > 0 ? $('.header-banner').height() : 0;
+        var $headerWrapperHeight = $('.header-wrapper').length > 0 ? $('.header-wrapper').height() : 0;   
+        var $totalHeight = $headerBannerHeight + $headerWrapperHeight;
+        $('.sticky-header-placeholder').css('height', $totalHeight + 'px');
 }
 
 // Custom:MSS-2150 Call the updateStickyHeaderHeight function both when the document is ready and when the screen is resized
