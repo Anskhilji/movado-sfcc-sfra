@@ -259,8 +259,6 @@
         <isslot id="cs_pdp_you_may_like" context="global" description="style you may like pdp slot" />
         <isslot id="cs_pdp_collection_you_may_like" context="global" description="Collection you may like slot" />
 
-
-
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
