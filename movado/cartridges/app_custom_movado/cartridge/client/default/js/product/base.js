@@ -165,10 +165,10 @@ $('body').on('click', '.carousel-indicator-image', function (e) {
 
 $('body').off('change', '.quantity-selector > .quantity').on('change', '.quantity-selector .quantity', function (e) {
     e.preventDefault();
-    var selectQuantity = null;
+    var $selectQuantity = null;
     if ($('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
-        selectQuantity = $('.quantity-selector > .quantity').val();
-        if (selectQuantity > 1) {
+        $selectQuantity = $('.quantity-selector > .quantity').val();
+        if ($selectQuantity > 1) {
             $('.apple-pay-pdp').addClass('d-none');
         } else {
             $('.apple-pay-pdp').removeClass('d-none');
