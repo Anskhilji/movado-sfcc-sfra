@@ -406,7 +406,7 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
         var pdpQuantityValue = null;
-        if ($('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+        if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
             pdpQuantityValue = $('.quantity-selector > .quantity').val();
             pdpQuantityValue = pdpQuantityValue;
             if (pdpQuantityValue == "") {
