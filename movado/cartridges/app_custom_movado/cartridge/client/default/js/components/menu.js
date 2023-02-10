@@ -9,6 +9,20 @@ var clearSelection = function (element) {
     $(element).closest('.dropdown.show').removeClass('show');
     $(element).closest('li').detach();
 };
+    
+
+// Custom:MSS-2150 Apply the .header-banner and .header-wrapper height to the sticky header placeholder as an inline style
+function updateStickyHeaderHeight() {
+    var headerBannerHeight = $('.header-banner').height();
+    var headerWrapperHeight = $('.header-wrapper').height();
+    var totalHeight = headerBannerHeight + headerWrapperHeight;
+    $('.sticky-header-placeholder').css('height', totalHeight + 'px','background-color',);
+}
+
+// Custom:MSS-2150 Call the updateStickyHeaderHeight function both when the document is ready and when the screen is resized
+$(window).resize(function(){
+    updateStickyHeaderHeight();
+});
 
 $(document).ready(function() {
     var visitAccessibility = true;
@@ -22,6 +36,9 @@ $(document).ready(function() {
             visitAccessibility = false;
         }
     });
+
+// Custom:MSS-2150 Call the updateStickyHeaderHeight function both when the document is ready
+    updateStickyHeaderHeight();
 });
 
 module.exports = function () {

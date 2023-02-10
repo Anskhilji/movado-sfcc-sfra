@@ -571,7 +571,7 @@ header.new-header {
       top: rem(37) !important; //already use the important inline style. needs to override to use important 
       left: 0;
       right: 0;
-      z-index: 105;
+      z-index: 1024;
 
       .header-container {
         box-shadow: rem(1) rem(1) rem(7) 0 $grey-transparent-7;
@@ -769,12 +769,12 @@ header.new-header {
       background: $white;
       position: relative;
     }
-    .fixed-header {
-      .header-wrapper {
-        position: fixed;
-        top: rem(37) !important; //already use the important inline style. needs to override to use important 
-      }
-    }
+    // .fixed-header {
+    //   .header-wrapper {
+    //     position: fixed;
+    //     top: rem(0) !important; //already use the important inline style. needs to override to use important 
+    //   }
+    // }
     .multilevel-dropdown {
 
       .close-menu {
