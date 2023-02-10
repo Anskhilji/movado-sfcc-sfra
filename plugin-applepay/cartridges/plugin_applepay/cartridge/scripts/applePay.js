@@ -347,7 +347,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
     var currentCountry = productCustomHelper.getCurrentCountry();
-
     if (!empty(parameters.sku)) {
         if (!basket.custom.storePickUp) {
             session.custom.StorePickUp = false;
