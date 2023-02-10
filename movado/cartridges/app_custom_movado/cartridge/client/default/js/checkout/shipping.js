@@ -794,7 +794,24 @@ function editOrEnterMultiShipInfo(element, mode) {
 
 function checkoutFieldValidationIcon() {
     $('.mx-field-wrapper input.input-wrapper-checkout,.mx-field-wrapper select.custom-select-box').each(function () {
-        if (!$(this).hasClass('is-invalid') && $(this).val().length > 0) {
+        var a = $(this)[0].id;
+        if ($(this)[0].id == 'billingCountry') {
+            var selectedOption = $(this).siblings('.field-label-wrapper');
+            $(this).removeClass('is-valid');
+            if (selectedOption.hasClass('input-has-value')) {
+                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                $(this).addClass('is-valid');
+                $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+            }
+        } else if ($(this)[0].id == 'billingState') {
+            var selectedOption = $(this).siblings('.field-label-wrapper');
+            $(this).removeClass('is-valid');
+            if (selectedOption.hasClass('input-has-value')) {
+                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                $(this).addClass('is-valid');
+                $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+            }
+        } else if (!$(this).hasClass('is-invalid') && $(this).val().length > 0) {
             $(this).addClass('is-valid');
             $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
         } else {
