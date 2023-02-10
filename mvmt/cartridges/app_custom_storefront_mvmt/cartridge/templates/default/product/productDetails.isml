@@ -384,6 +384,7 @@
                 <isprint value="${product.pdpMarketingContentAssetHTML}" encoding="off" />
             </isif>
         </div>
+        <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
 
         <div class="description-container p-0">
            <div class="description-and-detail">

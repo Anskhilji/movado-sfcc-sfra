@@ -257,8 +257,18 @@
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
-
+        <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
+            <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
         <isinclude template="product/components/contentAssets" />
+
+        <div class="container-fluid pdp-mobile pdp-v-one my-md-5 collection-you-may-like">
+            <isslot id="pdp-collection-you-may-like" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
+
+        <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
+            <isslot id="pdp-recently-viewed-products" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
         <div class="modal fade share-via-email-overlay" id="sendtofriendform">

@@ -129,6 +129,13 @@
         </div>
     </isif>
 
+    <isif condition="${pdict.productSearch.category}">
+        <div class="search-bottom-content extra-large-container">
+            <isslot id="cs_plp_bottom_content_slot" context="category" description="Category content slot at the bottom of PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        </div>
+        <isslot id="cs_plp_collection_bottom_slot" context="category" description="Collection content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        <isslot id="cs_plp_second_bottom_slot" context="category" description="Second Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+    </isif>
     <iscomment> Start: Create category slots for strapsd design </iscomment>
     <isif condition=${false}>
         <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" /> 
