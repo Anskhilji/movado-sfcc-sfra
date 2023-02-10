@@ -92,8 +92,7 @@ function getTotalPrice(lineItem, quantity) {
           quantityOptions : getMinMaxQuantityOptions(lineItem, quantity),
           UUID: lineItem.UUID,
           quantity: lineItem.quantity.value,
-          id: lineItem.productID,
-          actionUrls : getCartActionUrls()
+          id: lineItem.productID
         }
     };
     result.saleFormattedPrice = formatMoney(lineItem.adjustedPrice);
