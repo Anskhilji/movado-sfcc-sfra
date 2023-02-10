@@ -1059,7 +1059,7 @@ function getChildProducts() {
  * @param {jQuery} $productContainer - DOM element for current product
  * @return {string} - Product options and their selected values
  */
-function getOptions($productContainer, clydeContractSku) {
+function getOptions($productContainer) {
     var options = $productContainer
         .find('.product-option')
         .map(function () {

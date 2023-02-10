@@ -87,14 +87,15 @@ function getTotalPrice(lineItem, quantity) {
      }
 
 
-    context = { lineItem: 
-        { priceTotal: result,
-          quantityOptions : getMinMaxQuantityOptions(lineItem, quantity),
-          UUID: lineItem.UUID,
-          quantity: lineItem.quantity.value,
-          id: lineItem.productID
-        }
-    };
+    context = { lineItem:
+    {
+        priceTotal: result,
+        quantityOptions: getMinMaxQuantityOptions(lineItem, quantity),
+        UUID: lineItem.UUID,
+        quantity: lineItem.quantity.value,
+        id: lineItem.productID
+    }
+};
     result.saleFormattedPrice = formatMoney(lineItem.adjustedPrice);
     result.saleFormattedPriceValue = lineItem.adjustedPrice.value;
     result.renderedPrice = renderTemplateHelper.getRenderedHtml(context, template);
@@ -142,6 +143,6 @@ function getMinMaxQuantityOptions(productLineItem, quantity) {
 module.exports = function (object, lineItem, quantity) {
     Object.defineProperty(object, 'priceTotal', {
         enumerable: true,
-        value: getTotalPrice(lineItem,quantity)
+        value: getTotalPrice(lineItem, quantity)
     });
 };

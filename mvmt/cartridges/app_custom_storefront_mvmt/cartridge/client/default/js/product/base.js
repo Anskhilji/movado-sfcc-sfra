@@ -1417,7 +1417,6 @@ movadoBase.addToCart = function () {
         }
 
         addToCartUrl = getAddToCartUrl();
-        var quantity = 1;
 
         var form = {
             pid: pid,
@@ -1434,7 +1433,7 @@ movadoBase.addToCart = function () {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: quantity,
+                quantity: 1,
                 giftPid: giftPid ? giftPid : ''
             };
         }

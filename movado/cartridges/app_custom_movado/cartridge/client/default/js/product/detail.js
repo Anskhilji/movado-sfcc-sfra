@@ -99,12 +99,10 @@ module.exports = {
                 $('button.add-to-cart').attr('disabled', false);
                 // Custom End
                 var applePayButton = $('.apple-pay-pdp', response.$productContainer);
-                debugger
                 if (applePayButton.length !== 0) {
                     applePayButton.attr('sku', response.product.id);
                 } else {
                     if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
-                        debugger
                         $('.cart-and-ipay').append('<isapplepay class="apple-pay-pdp btn"' +
                             'sku=' + response.product.id + '></isapplepay>');
                     }
