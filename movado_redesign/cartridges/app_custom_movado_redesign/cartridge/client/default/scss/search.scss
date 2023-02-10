@@ -1575,7 +1575,7 @@
             border-bottom: rem(1) solid $white-grey;
         
             @include media-breakpoint-down(lg) {
-              z-index: 1019;
+                z-index: 1019;
             }
 
             @include media-breakpoint-down(sm) {
@@ -2227,3 +2227,4 @@
   }
   }
 }
+// Custom:MSS-2073 end desktop 
