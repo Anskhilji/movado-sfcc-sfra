@@ -794,7 +794,6 @@ function editOrEnterMultiShipInfo(element, mode) {
 
 function checkoutFieldValidationIcon() {
     $('.mx-field-wrapper input.input-wrapper-checkout,.mx-field-wrapper select.custom-select-box').each(function () {
-        var a = $(this)[0].id;
         if ($(this)[0].id == 'billingCountry') {
             var selectedOption = $(this).siblings('.field-label-wrapper');
             $(this).removeClass('is-valid');
