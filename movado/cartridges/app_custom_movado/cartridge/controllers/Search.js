@@ -17,14 +17,12 @@ var URLUtils = require('dw/web/URLUtils');
 
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var URLUtils = require('dw/web/URLUtils');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
-    var Site = require('dw/system/Site');
     var viewData = res.getViewData();
 
     var productSearch;
