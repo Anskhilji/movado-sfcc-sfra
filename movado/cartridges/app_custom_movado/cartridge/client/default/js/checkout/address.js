@@ -222,7 +222,7 @@ function paymentFieldValidationIcon(el) {
                     $(this).addClass('is-valid');
                     $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
                 }
-            } if ($(this)[0].id == 'shippingCountry') {
+            } else if ($(this)[0].id == 'shippingCountry') {
                 var selectedOption = $(this).siblings('.field-label-wrapper');
                 if (el === true) {
                     selectedOption.removeClass('input-has-value');
@@ -237,19 +237,6 @@ function paymentFieldValidationIcon(el) {
                 }
             } else if ($(this)[0].id == 'shippingState') {
                 var selectedOption = $(this).siblings('.field-label-wrapper');
-                $(this).removeClass('is-valid');
-                if (selectedOption.hasClass('input-has-value')) {
-                    $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
-                    $(this).addClass('is-valid');
-                    $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
-                }
-            } else if ($(this)[0].id == 'shippingCompanyName') {
-                var selectedOption = $(this).siblings('.field-label-wrapper');
-                if (el === true) {
-                    selectedOption.removeClass('input-has-value');
-                } else {
-                    selectedOption.addClass('input-has-value');
-                }
                 $(this).removeClass('is-valid');
                 if (selectedOption.hasClass('input-has-value')) {
                     $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
