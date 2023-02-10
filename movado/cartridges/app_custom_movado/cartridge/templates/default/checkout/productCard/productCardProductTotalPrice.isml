@@ -53,6 +53,11 @@
             <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount" price-value="${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPriceValue ? lineItem.priceTotal.saleFormattedPriceValue : 0}">${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}</div>
         </isif>
     <iselse/>
+        <isif condition="${enableCartQuantitySelector}">
+            <div class="cart-quantity-btn line-item-quantity">
+                <isinclude template="checkout/productCard/productCardQuantitySelector" />
+            </div>
+        </isif>
         <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount" price-value="${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPriceValue ? lineItem.priceTotal.saleFormattedPriceValue : 0}">${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}</div>
     </isif>
 </isif>

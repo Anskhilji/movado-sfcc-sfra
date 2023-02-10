@@ -6,7 +6,6 @@
         <div class="quantity-btn">
             <isset name="enablePDPQuantitySelector" value="${!empty(dw.system.Site.current.preferences.custom.enablePDPQuantitySelector) ? dw.system.Site.current.preferences.custom.enablePDPQuantitySelector : false}" scope="page" />
             <isif condition="${enablePDPQuantitySelector}">
-                <iscomment> <h1>MCSPDPQuantityOuter</h1> </iscomment>
                 <div class="quantity-selector-pdp attribute quantity">
                     <isinclude template="product/components/productQuantitySelector" />
                 </div>

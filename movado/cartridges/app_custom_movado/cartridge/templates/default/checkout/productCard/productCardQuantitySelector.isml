@@ -1,5 +1,4 @@
 <iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
-<iscomment> CardFromMCSInner </iscomment>
 <isif condition="${lineItem.quantityOptions.minOrderQuantity > 0 && lineItem.quantityOptions.maxOrderQuantity > 0}">
     <div class="quantity-form">
         <label class="line-item-pricing-info quantity-label" for="quantity">${Resource.msg('field.selectquantityselector', 'cart', null)}</label>
@@ -24,5 +23,4 @@
         <div class="arrow-down"></div>
     </div>
 </isif>
-
 <iscomment> Custom End </iscomment>

@@ -178,10 +178,6 @@
                         <iscomment> Custom End: </iscomment>
                         <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
                             <div class="d-block">
-                            <iscomment> <h1>MCSPDP</h1>
-                            <div class="quantity-selector-pdp attribute quantity col-4">
-                                <isinclude template="product/components/productQuantitySelector" />
-                            </div> </iscomment>
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>

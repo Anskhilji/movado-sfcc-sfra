@@ -1072,9 +1072,6 @@ function getOptions($productContainer, clydeContractSku) {
                 selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
                 .data('value-id');
             }
-            // if ($elOption == 'clydeWarranty') {
-            //     selectedValueId: clydeContractSku
-            // }
             return {
                 optionId: $(this).data('option-id'),
                 selectedValueId: selectedValueId
@@ -1234,7 +1231,7 @@ module.exports = {
             var setPids;
             var giftPid;
             var productQuantity = null;
-            if ($('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+            if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
                 productQuantity = $('.quantity-selector > .quantity').val();
                 if (productQuantity == "") {
                     productQuantity = null;
@@ -1277,7 +1274,7 @@ module.exports = {
 
             addToCartUrl = getAddToCartUrl();
             var quantity = 1;
-            if (productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
+            if (window.Resources.IS_PDP_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
                 quantity = productQuantity;
             }
 
@@ -1325,12 +1322,6 @@ module.exports = {
 
             if (!$('.bundle-item').length) {
                 form.options = getOptions($productContainer);
-                // var no = form.clydeContractSku;
-                // if (form.clydeContractSku) {
-                //     form.options = getOptions($productContainer, String(form.clydeContractSku));
-                // } else {
-                //     form.options = getOptions($productContainer, 0);
-                // }
             }
             form.currentPage = $('.page[data-action]').data('action') || '';
             $(this).trigger('updateAddToCartFormData', form);

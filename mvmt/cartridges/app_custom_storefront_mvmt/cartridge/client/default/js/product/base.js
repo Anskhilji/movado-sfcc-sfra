@@ -1370,13 +1370,6 @@ movadoBase.addToCart = function () {
         var pidsObj;
         var setPids;
         var giftPid;
-        var productQuantity = null;
-        if (window.Resources.IS_PDP_QUANTITY_SELECTOR && window.Resources.IS_CART_QUANTITY_SELECTOR && $('.quantity-form1').length && $('.quantity-form1').closest('quantity1')) {
-            productQuantity = $('.quantity-form1 > .quantity1').val();
-            if (productQuantity == "") {
-                productQuantity = null;
-            }
-        }
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
 
@@ -1425,9 +1418,6 @@ movadoBase.addToCart = function () {
 
         addToCartUrl = getAddToCartUrl();
         var quantity = 1;
-        if (window.Resources.IS_PDP_QUANTITY_SELECTOR && window.Resources.IS_CART_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
-            quantity = productQuantity;
-        }
 
         var form = {
             pid: pid,

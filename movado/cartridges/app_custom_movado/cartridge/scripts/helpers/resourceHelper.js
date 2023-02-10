@@ -50,6 +50,8 @@ function getResources(pageContext) {
         BOPIS_STORE_AVAILABLE_TEXT: Resource.msg('store.pickup.search.available.text', 'storePickUp', null),
         BOPIS_STORE_CART_ERROR: Resource.msg('store.pickup.cart.error', 'storePickUp', null),
         IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
+        IS_PDP_QUANTITY_SELECTOR: Site.current.preferences.custom.enablePDPQuantitySelector || false,
+        IS_CART_QUANTITY_SELECTOR: Site.current.preferences.custom.enableCartQuantitySelector || false,
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
