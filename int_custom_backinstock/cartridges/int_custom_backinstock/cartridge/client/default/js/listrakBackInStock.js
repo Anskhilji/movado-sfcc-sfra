@@ -156,6 +156,17 @@ $('.form').submit(function(e) {
                 $isValidPhone = $phonePattern.test($phone)
             }
 
+            if ($isValidPhone) {
+                if ($backInStockSmsSubscription.length > 0) {
+                    e.preventDefault();
+                    var $selector;
+                    if ($backInStockContainerMain.length > 0) {
+                        $selector = $('.listrak-back-in-stock-notification-container-main');
+                    }
+                    backInStockNotification.submitBackInStockEmail($selector);
+                }
+            }
+
             if ($phone == '' || $phone == undefined) {
                 $phoneInvalid.text(window.Resources.PHONE_NUMBER_REQUIRED);
                 $phone = '';
