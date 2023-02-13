@@ -28,12 +28,18 @@
                 <div class="col-12 mb-2 p-0">
                     <iscontentasset aid="listrak-back-in-stock-terms" />
                 </div>
-                <div class="col-12 mb-2 p-0">
-                    <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
+                <div class="col-12 mb-2 p-0 test 123">
+                    <isif condition="${sitePref.Listrak_EnableBackInStockEmail && !sitePref.Listrak_EnableBackInStockSms}">
+                        <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
+                    <iselseif condition="${sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}" />
+                        <iscontentasset aid="listrak-back-in-stock-subscription-checkbox-sms" />
+                    <iselse condition="${sitePref.Listrak_EnableBackInStockSms && sitePref.Listrak_EnableBackInStockEmail}"/>
+                        <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
+                        <iscontentasset aid="listrak-back-in-stock-subscription-checkbox-sms" />
+                    </isif>
                 </div>
                 <div class="col p-0">
                     <button class="btn btn-primary text-capitalize" type="submit" name="SubmitAlert">${Resource.msg('listrak.button.text', 'product', null)}</button>
-                </div>
             </div>
         </div>
     </form>
