@@ -3,6 +3,10 @@
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins/breakpoints";
 
+.site-tophat-main-1 {
+    margin-bottom: 0;
+}
+
 header {
     &.new-header {
         &.transparent-header {
