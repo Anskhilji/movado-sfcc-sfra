@@ -56,7 +56,7 @@ function parseOrderStatus(args) {
     for (var fileCount = 0; fileCount < filesToParse.length; fileCount++) {
         try {
             var file = new File(filesToParse[fileCount]);
-			var fileName = file.getFullPath().replace(/^.*[\\\/]/, '');
+            var fileName = file.getFullPath().replace(/^.*[\\\/]/, '');
             Logger.info('parseOrderStatus - Starting FILE ' + file.getFullPath());
             var fileReader = new FileReader(file);
             var xmlReader = new XMLStreamReader(fileReader);
@@ -137,7 +137,7 @@ function parseOrderStatus(args) {
  * @param {Object} SAPOrderStatus single order object from incoming XML file
  * @return {dw.system.Status} Status
  */
-function processStatusOrder(SAPOrderStatus ,fileName) {
+function processStatusOrder(SAPOrderStatus, fileName) {
     // Retrieve SOM Fulfillment Order
      Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
     try {
@@ -222,8 +222,8 @@ function processStatusOrder(SAPOrderStatus ,fileName) {
         return new Status(Status.OK);
     }
     catch (e) {
-         errorMessage  = 'Error occured in this Fulfillment Order: '+ SAPOrderStatus.EcommerceOrderStatusHeader.PONumber +'(' + fileName + ') with Error ' + e.stack + ' Error Message '+ e.message + ',';
-         errorMessageList.push(errorMessage);
+        errorMessage  = 'Error occured in this Fulfillment Order: '+ SAPOrderStatus.EcommerceOrderStatusHeader.PONumber +'(' + fileName + ') with Error ' + e.stack + ' Error Message '+ e.message + ',';
+        errorMessageList.push(errorMessage);
     }
 }
 
