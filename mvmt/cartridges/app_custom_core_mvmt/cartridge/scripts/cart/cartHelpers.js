@@ -121,7 +121,7 @@ cartHelpers.addProductToCart = function addProductToCart(currentBasket, productI
     }
 
     productInCart = cartHelpers.getExistingProductLineItemInCart(product, productId, productLineItems, childProducts, options);
-    
+
     if (productInCart && empty(productInCart.custom.giftParentUUID)) {
         productQuantityInCart = productInCart.quantity.value;
         quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;

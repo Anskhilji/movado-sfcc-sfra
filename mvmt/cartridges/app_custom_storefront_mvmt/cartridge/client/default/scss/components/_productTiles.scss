@@ -79,7 +79,25 @@
       }
   
       .product-badge {
-        display: block;
+        display: block;    
+      }
+    }
+
+    &.minicart-recommendation-rail {
+      .tile-body {
+        .plp-swatches, .color-swatches-search {
+  
+          .slick {
+    
+            &-next {
+              right: rem(-16);
+            }
+    
+            &-prev {
+              left: rem(-18);
+            }
+          }
+        }
       }
     }
   
@@ -327,6 +345,16 @@
       }
     }
   
+    .promotion-badge-recommendation {
+
+      .product-tag-content { 
+
+        .hide-plp {
+          display: none;
+        }
+      }
+    }
+
     .product-tag-content {
       height: rem(18);
       margin-bottom: rem(15);
@@ -861,6 +889,23 @@
                 }
               }
 
+              &.minicart-recommendation-rail {
+                .plp-swatches {
+                  .slick {
+                    
+                    &-arrow {
+                      margin: 0;
+                      padding: 0;
+                      top: rem(2);
+                      @include media-breakpoint-down(sm) {
+                        top: rem(0);
+                        height: rem(0);
+                      }
+                    }
+                  }
+                }
+              }
+
               .plp-swatches-reserved {
                   width: auto;
                   height: rem(26.54);
@@ -870,4 +915,61 @@
         }
       }
     }
+  }
+
+  .cs-carousel-wrapper {
+
+      .custom-promotion-badge {
+          display: none;
+      }
+  }
+
+    .search-inner-content,.mobile-side-search {
+
+      .product-badge {
+        &-main {
+
+          .badge {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .suggested-products-caresoul{
+
+      .image-container {
+  
+          .product-tag-content {
+      
+              .exclusive-badges {
+          
+                  .badge {
+              
+                      &.custom-promotion-badge {
+                          display: none;
+                      }
+                  }
+              }
+          }
+      }
+  }
+
+  .suggested-products-tiles {
+
+      .image-container {
+  
+          .product-tag-content {
+      
+              .exclusive-badges {
+          
+                  .badge {
+              
+                      &.custom-promotion-badge {
+                          display: none;
+                      }
+                  }
+              }
+          }
+      }
   }

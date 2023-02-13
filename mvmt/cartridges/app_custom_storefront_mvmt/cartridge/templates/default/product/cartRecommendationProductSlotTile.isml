@@ -28,13 +28,20 @@
         <isif condition="${pdict.display.isEyewearTile}">
             <isinclude template="product/components/productTileImageEyewear" />
         <iselse>
-            <isinclude template="product/components/productTileImage" />
+            <isinclude template="product/components/old/productTileImage" />
         </isif>
 
         <div class="tile-body">
             <div class="tile-badges">
+                <div class="product-tag-content">
+                    <div class="exclusive-badges">
+                        <isloop items="${product.badges.textBadges}" var="badge">
+                            <span class="badge text-uppercase">${badge.text}</span>
+                        </isloop>
+                    </div>
+                </div>
                 <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
-                    <isif condition="${product.colorVariationsValues.values}">
+                    <isif condition="${product && product.colorVariationsValues && product.colorVariationsValues.values}">
                         <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                             <isif condition="${pdict.display.isEyewearTile}">
                                 <isinclude template="product/components/productTileEyewearSwatch" />

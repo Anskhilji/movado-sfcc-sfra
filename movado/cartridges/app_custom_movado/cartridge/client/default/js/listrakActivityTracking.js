@@ -27,7 +27,10 @@ module.exports = {
         var qvSku = scriptVars.getAttribute('ltk-data-qvsku');
         var category = scriptVars.getAttribute('ltk-data-category');
         var clearUrl = scriptVars.getAttribute('ltk-data-clearurl');
-
+        //Custom Start:[MSS-1450] Get data attributes from isml
+        var ltkCountryCode = scriptVars.getAttribute('ltk-data-countryCode');
+        var ltkProductPrice = scriptVars.getAttribute('ltk-data-price');
+        //Custom End:
         try {
             /* Perform activity/page/product browse logging. */
             var sessionSku = sku;
@@ -39,18 +42,18 @@ module.exports = {
                 var quickViews = sessionQuickViewSkus.split(',');
 
                 for (var i = 0; i < quickViews.length; i++)			{
-                    _ltk.Activity.AddProductBrowse(quickViews[i]);
+                    _ltk.Activity.AddProductBrowse(quickViews[i], { region: ltkCountryCode, localprice: ltkProductPrice });
                 }
             }
 
             /* Add the product browse if we have it. */
             if (sessionSku != null && sessionSku !== 'null' && sessionSku.length > 0)		{
-                _ltk.Activity.AddProductBrowse(sessionSku);
+                _ltk.Activity.AddProductBrowse(sessionSku, { region: ltkCountryCode, localprice: ltkProductPrice });
             }
 
             /* Add the page browse. We should ALWAYS have if this JS fires. */
             var currentPage = window.location.href;
-            _ltk.Activity.AddPageBrowse(currentPage);
+            _ltk.Activity.AddPageBrowse(currentPage, { region: ltkCountryCode });
 
             /* Submit the activity through client side JS to the endpoint. */
             _ltk.Activity.Submit();

@@ -14,5 +14,4 @@ $(document).ready(function () {
             $("#date").append('<option id="day-' + item.id + '" value="' + item.htmlValue + '">' + item.label + '</option>');
         });
     });
-
 });

@@ -78,6 +78,8 @@ require('./fedexAddressValidate');
                 $('.checkout-progressbar li:nth-child(1)').addClass('active');
                 $('.checkout-progressbar li:nth-child(1)').find('.step-no').html('1');
                 $('.checkout-pickup-items').removeClass('d-none');
+                $('.personalize-price').addClass('option-wrapper');
+                $('.personalize-msg').addClass('option-wrapper');
             }
             else if (checkoutStages[currentStage] === 'payment') {
                 $('.checkout-progressbar li:nth-child(2)').addClass('active');
@@ -85,6 +87,9 @@ require('./fedexAddressValidate');
                 $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
                 $('.checkout-form-error').addClass('d-none');
                 $('.checkout-pickup-items').removeClass('d-none');
+                $('.personalize-price').addClass('option-wrapper');
+                $('.personalize-msg').addClass('option-wrapper');
+
                 var customerData = $('.submit-shipping').data('customer');
                 if (!customerData) {
                     if (window.Resources.PICKUP_FROM_STORE) {
@@ -117,6 +122,8 @@ require('./fedexAddressValidate');
                 $('.checkout-progressbar li:nth-child(3)').addClass('completed');
                 $('.checkout-progressbar li:nth-child(2)').addClass('completed');
                 $('.checkout-progressbar li:nth-child(1)').addClass('completed');
+                $('.personalize-price').addClass('option-wrapper');
+                $('.personalize-msg').addClass('option-wrapper');
             }
             $('.checkout-progressbar li.completed').find('.step-no').html(checkedIcon); 
         }
@@ -174,6 +181,7 @@ require('./fedexAddressValidate');
               var stage = checkoutStages[members.currentStage];
               var defer = $.Deferred(); // eslint-disable-line
               //  Handle active and completed step
+
               if (stage === 'shipping') {
             //
             // Clear Previous Errors
@@ -189,7 +197,7 @@ require('./fedexAddressValidate');
                   var form = $(formSelector);
 
                   if (isMultiShip && form.length === 0) {
-                    // in case the multi ship form is already submitted
+                  // in case the multi ship form is already submitted
                       var url = $('#checkout-main').attr('data-checkout-get-url');
                       $.ajax({
                           url: url,
@@ -206,14 +214,14 @@ require('./fedexAddressValidate');
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                     '<span aria-hidden="true">&times;</span>' +
                     '</button>' + errorMsg + '</div>';
-                                $('.shipping-error').append(errorHtml);
-                                $('.fedex-btn-popup-call').attr('data-fedex', 'false');
-
+                                  $('.shipping-error').append(errorHtml);
+                                  $('.fedex-btn-popup-call').attr('data-fedex', 'false');
+                                  
                                   defer.reject();
                               }
                           },
                           error: function () {
-                    // Server error submitting form
+                  // Server error submitting form
                               defer.reject();
                           }
                       });
@@ -235,7 +243,7 @@ require('./fedexAddressValidate');
                           success: function (data) {
                               shippingHelpers.methods.shippingFormResponse(defer, data);
                               if (!data.error) {
-                                $('.fedex-btn-popup-call').attr('data-fedex', 'true');
+                                $('.fedex-btn-popup-call').attr('data-fedex', 'false');
                                 var scrollUtil = require('../utilities/scrollUtil');
                                 scrollUtil.scrollPaymentSection('.payment-form', 65);
 
@@ -249,8 +257,8 @@ require('./fedexAddressValidate');
                               defer.reject(err.responseJSON);
                           }
                       });
-                  return defer;
-                }
+                      return defer;
+                  }
               } else if (stage === 'payment') {
             //
             // Submit the Billing Address Form
@@ -876,4 +884,5 @@ var exports = {
         }
     });
 });
+
 module.exports = exports;

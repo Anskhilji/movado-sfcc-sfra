@@ -7,11 +7,11 @@ var clydeWidget;
 // v1 code to define Clyde
 var elem = document.querySelector('.product-number span');
 var productId = elem ? elem.textContent : null;
-var getPrice;
-var setPrice;
+var salePrice;
+var listPrice;
 var productData;
 if (document.querySelector('.product-number span')) {
-    productId = document.querySelector('.product-number span').innerHTML || '';
+    var productId = document.querySelector('.product-number span').innerHTML || '';
 
 } else {
     var cartValue = document.querySelector('.add-to-cart');
@@ -28,21 +28,23 @@ if (window.ClydeSitePreferences && productId) {
             Clyde.init({
                 key: ClydeSitePreferences.CLYDE_API_KEY,
                 defaultSelector: '#clyde-cta',
-                skipGeoIp: ClydeSitePreferences.CLYDE_SKIP_GEO_IP
+                skipGeoIp: ClydeSitePreferences.CLYDE_WIDGET_SKIP_GEO_LOCATION
             }, function () {
                 var clydeWidgetHandler = Clyde.getSettings();
                 if (clydeWidgetHandler.productPage === true) {
                     // Custom start: Add code for product price with sku:
-                    getPrice = $('.prices .sale-price-mvmt span').hasClass('value');
-                    if (getPrice) {
-                        setPrice = $('.prices .sale-price-mvmt span').attr('content');
-                        if (setPrice) {
-                            productData = { sku: productId, price: setPrice };
+                    salePrice = $('.prices .sale-price-mvmt span').attr('content');
+                    if (salePrice && ClydeSitePreferences.IS_PROMOTIONAL_PRICE) {
+                        productData = { sku: productId, price: salePrice };
+                    } else {
+                        listPrice = $('.prices .price-pdp-mvmt .strike-through span').attr('price-value');
+                        if (listPrice) {
+                            productData = { sku: productId, price: listPrice };
                         } else {
                             productData = { sku: productId, price: '' };
                         }
                     }
-                    // Custom end
+                    // Custom End
                     Clyde.setActiveProduct(productData);
                 }
             });

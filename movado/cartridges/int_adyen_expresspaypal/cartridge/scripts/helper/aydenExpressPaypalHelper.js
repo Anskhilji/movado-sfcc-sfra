@@ -10,6 +10,7 @@ var Site = require('dw/system/Site');
 var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
 var Constants = require('*/cartridge/utils/Constants');
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var fedExAPI = require('*/cartridge/scripts/api/fedExAPI');
 
 /**
@@ -143,6 +144,7 @@ function formsValidation(currentBasket, formData) {
     var billingAddressState = '';
     var billingAddressStateOrProvince = '';
     var validatedFields = {};
+
     firstName = fetchValidatedFields(fetchFromMap(formData, 'shopper.firstName'), checkoutFieldsRegex.firstName);
     lastName = fetchValidatedFields(fetchFromMap(formData, 'shopper.lastName'), checkoutFieldsRegex.lastName);
     address1 = addressValidation(currentBasket, formData);
@@ -243,7 +245,8 @@ function formsValidation(currentBasket, formData) {
         billingAddressState: billingAddressState,
         billingAddressCountry: billingAddressCountry,
         billingAddressStateOrProvince: billingAddressStateOrProvince,
-        paypalerror: false
+        paypalerror: false,
+        emailValue: emailValue
     };
     //FEDEX CALL
     var shippingStreetLines = fetchFromMap(formData, 'deliveryAddress.street');
@@ -252,12 +255,18 @@ function formsValidation(currentBasket, formData) {
     var shippingPostalCode = fetchFromMap(formData, 'deliveryAddress.postalCode');
     var shippingCountryCode = fetchFromMap(formData, 'deliveryAddress.country');
 
-
     for (var prop in validatedFields) {
         if (validatedFields[prop] == true) {
             validatedFields['paypalerror'] = true;
         }
     }
+
+    if (!empty(emailValue)) {
+        var email = emailValue;
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        adyenLogger.info('(AdyenExpressPaypal) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
+    }
+
     
     if (validatedFields.paypalerror == false && Site.current.preferences.custom.isAddressValidationEnable == true) {
         var shippingAddress = {
@@ -293,6 +302,7 @@ function formsValidation(currentBasket, formData) {
         }
 
     }
+
     return validatedFields;
 }
 

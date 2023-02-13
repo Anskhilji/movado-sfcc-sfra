@@ -193,6 +193,19 @@ $arrow-height: 1.25em;
         }
     }
 
+    .main-carousel-movado {
+
+        .slick-active {  
+
+            img {
+
+                &:hover {
+                    cursor: zoom-in;
+                }
+            }
+        }
+    }
+
     .edit-popup {
         display: none;
     }
@@ -822,6 +835,28 @@ $arrow-height: 1.25em;
             &.slick-active {
                 background: $black;
             }
+        }
+    }
+
+    .primary-images{
+
+        .slick-dots {
+            max-width: rem(293);
+            margin: 0 auto;
+            right: 0;
+            
+            li {
+                width: 100%;
+                height: rem(2);
+                background: $border-color;
+            }
+        }
+    }
+
+    .movado-pdp-row {
+        
+        #zoomProduct {
+            z-index: 99999;
         }
     }
 
@@ -2167,5 +2202,29 @@ body {
 .button-floting {
     &.button-product-detail {
         bottom: rem(160);
+    }
+}
+
+.container-fluid {
+
+    &.pdp-v-one {
+
+        .primary-images {
+
+            .cs-carousel-wrapper {
+
+                &.mvd-carousel-wrapper {
+
+                    .carousel-nav {
+                        
+                        .draggable {
+                            @include media-breakpoint-down(sm) {
+                                opacity: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

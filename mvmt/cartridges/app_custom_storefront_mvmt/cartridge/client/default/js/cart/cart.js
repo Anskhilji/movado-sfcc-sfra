@@ -79,7 +79,7 @@ function validateBasket(data) {
  * re-renders the order totals and the number of items in the cart
  * @param {Object} data - AJAX response from the server
  */
-function updateMiniCartTotals(data, $giftProduct, $uuid) {
+function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     if (data.numItems) {
         $('.minicart .minicart-quantity').text(data.numItems);
     }
@@ -169,19 +169,37 @@ function updateMiniCartTotals(data, $giftProduct, $uuid) {
             $fullCart.find('.item-total-' + item.UUID + ' .price .strike-through').remove();
         }
         $fullCart.find('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
-    // Custom End
+        // Custom End
     
         
         if (item.giftPid !== undefined && item.giftPid !== '') {
             data.items.forEach(function (childitem) {
                 if (childitem.id == item.giftPid) {
                     $('.sale-gift-price-mvmt-' + childitem.UUID).empty().append(childitem.priceTotal.price);
+                    var giftLineItemContainer = $('.gift-lineitem-container-' + childitem.UUID + ' .strike-through.list');
+                    giftLineItemContainer.find('.value').attr('content', childitem.priceTotal.nonAdjustedFormattedPrice);
+                    giftLineItemContainer.find('.eswListPrice').text(childitem.priceTotal.nonAdjustedFormattedPrice);
+                    if (childitem.price.list == null) {
+                        giftLineItemContainer.remove();
+                    }
+
                 }
             });
         }
         if ($giftProduct !== undefined && $giftProduct == true && $uuid !== undefined) {
             $('.gift-lineitem-container-'+ $uuid).remove();
         }
+
+        if (item.UUID == $dataParentUUID) {
+            $('.gift-product-chlid-uuid-' + $uuid).text('Add');
+        }
+        if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
+            var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+        }
+        if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+            $('.gift-product-chlid-uuid-' + $uuid).text('Edit');
+        }
+
     });
     // Custom End
 
@@ -193,7 +211,7 @@ function updateMiniCartTotals(data, $giftProduct, $uuid) {
 }
 
 
-function updateCartTotals(data, $giftProduct, $uuid) {
+function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     if (typeof data.totals.deliveryTime != 'undefined' && typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
         $('.delivery-time').removeClass('d-none');
     } else {
@@ -262,6 +280,18 @@ function updateCartTotals(data, $giftProduct, $uuid) {
             if ($giftProduct !== undefined && $giftProduct == true && $uuid !== undefined) {
                 $('.gift-product-remove-'+ $uuid).remove();
             }
+
+            if (item.UUID == $dataParentUUID) {
+                $('.gift-product-chlid-uuid-' + $uuid).text('Add');
+            }
+    
+            if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
+                var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+            }
+            if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                $('.gift-product-chlid-uuid-' + $uuid).text('Edit');
+            }
+
         });
     } else {
         data.items.forEach(function (item) {
@@ -570,17 +600,11 @@ module.exports = function () {
                         var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
                     }
                     if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
-                        $('.gift-box-container-label').addClass('d-none');
-                        $('.gift-box-container-label-edit').removeClass('d-none');
                         $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                        $('.gift-message-btn-' + item.UUID).attr('data-gift-message', $itemLevelGiftMessage);
                         $('.gift-personlize-msg').text($itemLevelGiftMessage);
-                        $('.gift-box-container-link').addClass('d-none');
-                        $('.gift-box-container-link-edit').removeClass('d-none');
                         $('.gift-lineitem-message-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
-                        $('.gift-msg-text').addClass('d-none')
-                        $('.gift-msg-text-edit').removeClass('d-none');
                         $('.gift-message-btn-' + item.UUID).text('Edit');
-                        
                     }
                 });
                 $('#giftBoxModelPopUp').modal('hide');
@@ -652,6 +676,27 @@ module.exports = function () {
         increaseQuantity($quantitySelector, $pid);
     });
 
+    $('body').on('click','.beam-widget-cart', function() {
+        var URL = $('.beam-widget-minicart').val();
+        var chairtyId = $(this).attr('selectednonprofitid');
+    
+        $.ajax({
+            url: URL,
+            method: 'post',
+            data: {
+                chairtyId: chairtyId
+            },
+    
+            success: function (data) {
+                if (data) {
+                }
+            },
+    
+            error: function (err) {
+            }
+        });
+    });
+
     /**
      * This is override click event function on the remove button from mini-cart.
      * It is used to remove the product from the cart and if product is 
@@ -663,6 +708,7 @@ module.exports = function () {
         var $productID = $(this).data('pid');
         var $productName = $(this).data('name');
         var $uuid = $(this).data('uuid');
+        var $dataParentUUID = $(this).data('parent-pid');
         var $gtmProdObj = $(this).data('gtm-cart');
         var $giftProduct = $(this).data('gift');
         var $urlParams = {
@@ -735,7 +781,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $uuid) : updateCartTotals(data.basket, $giftProduct, $uuid);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID) : updateCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -773,6 +819,7 @@ module.exports = function () {
         var $actionUrl = $(this).data('action');
         var $productID = $(this).data('pid');
         var $productName = $(this).data('name');
+        var $dataParentUUID = $(this).data('parent-pid');
         var $uuid = $(this).data('uuid');
         var $gtmProdObj = $(this).data('gtm-cart');
         var $giftProduct = $(this).data('gift');
@@ -847,7 +894,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct) : updateCartTotals(data.basket, $giftProduct, $uuid);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $dataParentUUID) : updateCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -1029,18 +1076,54 @@ module.exports = function () {
 
 
     $('body').on('click', '.gift-box-container-link', function (evt) {
-        evt.preventDefault(); 
+        evt.preventDefault();
+        $('#giftBoxModelPopUp').find('.modal-content').empty();
         var $endPointUrl = $(evt.target).closest('a').attr('href');
+        var $itemLevelGiftMessage = $(this).data('gift-message');
         $.spinner().start();
         $.ajax({
             url: $endPointUrl,
             type: 'get',
             success: function (response) {
-                $('#giftBoxModelPopUp').find('.modal-content').html(response);
+                $('#giftBoxModelPopUp').find('.modal-content').html(response.template);
+                if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                    $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                } else {
+                    $('.gift-box-container-modal .gift-text').text('');
+                }
+
+                var giftBoxContainerModel = $('.gift-box-container-modal-body');
+                function refreshGiftMessage() {
+                    if(response.basketModel.items.length && giftBoxContainerModel) {
+                            response.basketModel.items.forEach(function (item) {
+                            if (item.UUID == response.ProductLineItemUUID) {
+                                $('.gift-box-container-modal .gift-text').text(response.itemLevelGiftMessage);
+                            }
+                        });
+                    } else {
+                        setTimeout(function() {
+                            refreshGiftMessage();
+                        }, 500);
+                    }
+                }
+                
+                refreshGiftMessage();
                 $.spinner().stop();
+            },
+            
+            error: function () {
+                $.spinner().stop();
+            },
+
+            complete: function () {
+                setTimeout(function() {
+                   $('.gift-box-container-modal-body').removeClass('disable-gift-box-model');
+                }, 2000);
             }
         });
     });
+
+
 
     $('body').on('click', '.gift-message-box-input', function () {
         $('.gift-message-box').removeClass('hide-box');

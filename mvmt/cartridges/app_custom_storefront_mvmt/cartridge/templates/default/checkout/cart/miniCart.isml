@@ -4,6 +4,7 @@
 <isset name="orderLevelDiscountTotal" value="${pdict.totals.orderLevelDiscountTotal.value}" scope="page">
 <isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
 <isset name="enableCartRecomendations" value="${dw.system.Site.getCurrent().preferences.custom.enableCartRecomendations}" scope="page"/>
+<isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
 <isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -49,7 +50,7 @@
             </isif>
         </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
-  
+
 
     <div class="product-summary">
         <div class="mini-cart-product">
@@ -73,15 +74,20 @@
                 </div>
             </isloop>
         </div>
-        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.items[0].id)}" scope="page" />
+
         <iscomment>Custom Start: Recomendation Carousel </iscomment>
         <isif condition="${enableCartRecomendations}">
-        <isslot id="cs_cart_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
-            context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+            <div class="recommendation-rail-wrapper">
+                <isslot id="cs_cart_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the product summary on cart"/>
+            </div>
+        </isif>
+        <iscomment> Custom End </iscomment>
+        <iscomment> Custom Start: Beam donation miniCart Widget </iscomment>
+        <isif condition="${dw.system.Site.current.preferences.custom.enableBeam && domesticAllowedCountry}">
+            <isinclude template="beamWidgetMiniCart" />
         </isif>
         <iscomment> Custom End </iscomment>
     </div>
-
     <div class="minicart-footer">
         <iscomment>Custom Start: Adding promo code template </iscomment>
         <isif condition="${itemsLength > 0}">

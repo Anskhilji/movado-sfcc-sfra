@@ -28,8 +28,6 @@ function handleRefinements($results) {
             .find('.' + $(this)[0].className.replace(/ /g, '.'))
             .addClass('active');
     });
-
-    updateDom($results, '.refinements');
 }
 
 /**
@@ -48,6 +46,7 @@ function parseResults(response) {
     [
         '.grid-header',
         '.refine-wrapper',
+        '.refine-wrapper-sidebar',
         '.header-bar',
         '.header.page-title',
         '.product-grid',
@@ -300,35 +299,48 @@ function moveFocusToTop() {
     var y = element.getBoundingClientRect().top + window.pageYOffset - totalHeight;
     window.scrollTo({top: y, behavior: 'smooth'});
 }
+ // Custom:MSS-2073 start
+function closeRefinementFilters() {
+    $('.refinement-box-filter-desktop, .desktop-search-refine-bar-redesing').removeClass('active');
+    $('.header-menu-wrapper').removeClass('header-active');
+    $('.dk-fillter-check').unbind();
+    $('.dk-fillter-m').removeClass('dk-fillter-check');
+    $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
+}
+function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground) {
+    $refinementBox.on('click', function() {
+        $('.refinement-box-filter-desktop').removeClass('active');
+        $(this).addClass('active');
+        $('.modal-background').addClass('d-block');
+        $('.desktop-search-refine-bar-redesing').addClass('active');
+        $('.header-menu-wrapper').addClass('header-active');
+        $('.dk-fillter-m').addClass('dk-fillter-check');
 
-function clickedFilterButton() {
-    $(".movado-refinements-type").click(function(){
-        $(".refinement-bar-redesign").addClass("refinement-open-state");
-        $(".tab-pane.active>.container-fluid").addClass("container-open-state");
-        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
-        $(".filter-btn-ctm").removeClass("d-md-none").addClass("d-md-flex");
-        $('body').addClass('no-overflow-ctm');
+        $dkFilterCheck.on('click', function(e) {
+            if(!$('.modal-background').hasClass('d-block')) {
+                $('.modal-background').addClass('d-block');
+            }
+        });
+
+    });
+
+    $modelBackground.on('click', function(e){
+        closeRefinementFilters();
     });
 }
-
-function filterApplyAddClassFilter() {
-    var $winWidthFilter = $(window).width();
-    var $mediumBreakPointFilter = 992;
-
-    if ($winWidthFilter < $mediumBreakPointFilter) {
-        $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
-        $(".close-refinebar .sort-by").removeClass("d-block").addClass("d-none");
-    }
+function moreFilterBtn($moreFilterBtn) {
+    $moreFilterBtn.click(function(){
+        closeRefinementFilters(); // close refinement filter before opening of sidebar more filter
+        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast').css('z-index', 9999);
+        $('.header-menu-wrapper').addClass('sticky-bar-index');
+        $('body').addClass('no-overflow');
+        $('.search-results.plp-new-design .refinement-bar').removeClass('fadeOutRight').addClass('fast fadeInRight animated d-block');
+        $('.search-results.plp-new-design .custom-select__option').focus();
+        $('.search-results.plp-new-design  .refinement-bar .refine-wrapper-sidebar').removeClass('fillterslideinleft');
+        $('.refine-wrapper-sidebar').addClass('fillterslideinleft');
+    });
 }
-function filterApplyRemoveClassSort() {
-    var $winWidthSort = $(window).width();
-    var $mediumBreakPointSort = 992;
-
-    if ($winWidthSort < $mediumBreakPointSort) {
-        $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-block");
-        $(".close-refinebar .filter-more").removeClass("d-block").addClass("d-none");
-    }
-}
+ // Custom:MSS-2073 end
 
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
@@ -342,6 +354,7 @@ $(window).scroll(function() {
 
     if (scroll > screenWidth) {
         $('.filter-box').addClass('filter-bar-sticky');
+        
     } else {
         $('.filter-box').removeClass('filter-bar-sticky');
     }
@@ -374,7 +387,7 @@ module.exports = {
         $('.container, .container-fluid').on('change', '[name=sort-order]', function (e) {
             setTimeout( function () {
                 if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
-                    $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort by:</span> ');
+                    $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
                 }
             }, 20);
             var url = this.value;
@@ -406,7 +419,6 @@ module.exports = {
                     updatePageURLForSortRule(url);
                     // edit
                     $.spinner().stop();
-                    filterApplyRemoveClassSort()
                 },
                 error: function () {
                     $.spinner().stop();
@@ -531,10 +543,11 @@ module.exports = {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
             'click',
-            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
+            '.refinements li a, .refinements-sidebar li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+                var $selectedFiltersNav = e.target;
                 //push data into datalayer for filters into gtm
                 var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
                 dataLayer.push({
@@ -548,6 +561,7 @@ module.exports = {
                 var urlparams = getUrlParamObj(document.location.href);
                 var filtersURL = e.currentTarget.href;
                 var currentSelectedSortId = '';
+                var resetFilterBtn = $(this).data('reset-filter');
                 if (urlparams.hasOwnProperty('srule') == true) {
                     if (urlparams.srule) {
                         currentSelectedSortId = urlparams.srule;
@@ -569,43 +583,100 @@ module.exports = {
                     	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
-                        // edit start
                         updatePageURLForFacets(filtersURL);
+                        var $selectedFiltersNav = $('.selected-filters-nav');
+                        var $selectedFilterVal = '';
+                        if (resetFilterBtn == true) {
+                            $('.close-refinebar').trigger('click');
+                        }
+                        $selectedFiltersNav.each(function() {
+                            var $isChildEl = $(this).find('.filter-value');
+                            if ($isChildEl.length > 0) {
+                                $isChildEl.each (function () {
+                                    $selectedFilterVal = $(this).find('a').text().trim();
+                                    var $filterSideBar = $('.refine-wrapper-sidebar .selected-refinement');
+    
+                                    if ($filterSideBar.length > 0) {
+                                        $filterSideBar.each(function () {
+                                            var $selectedRefinementList = $(this).find('.card-body .values');
+                                            
+                                            if ($selectedRefinementList.length > 0) {
+                                                var $isChildren = $selectedRefinementList.find('li');
+    
+                                                if ($isChildren.length > 0) {
+                                                    $isChildren.each(function() {
+    
+                                                        var $isSelectionTabVal = $(this).find('.selection-tab').text().trim();
+    
+                                                        if ($isSelectionTabVal == $selectedFilterVal) {
+                                                            $(this).find('.selection-tab').addClass('selected');
+                                                            $selectedFilterVal = '';
+                                                        }
+                                                        
+                                                    });
+                                                }
+    
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                        $('.close-refinebar .filter-more').removeClass('d-none').addClass('d-block');
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
                         setTimeout( function () {
                             if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
-                                $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort by:</span> ');
+                                $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
                             }
                         }, 20);
                         moveFocusToTop();
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-                        $('.refinement-bar-redesign').removeClass('refinement-open-state');
-                        $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
-                        $('.modal-background').removeClass('d-block');
+                        // Custom:MSS-2073 start
+                        var $refinementBox = $('.refinement-box-filter-desktop');
+                        var $dkFilterCheck = $('.dk-fillter-check');
+                        var $modelBackground = $('.modal-background');
+                        var $moreFilterBtn = $('.more-filter-btn');
+                        refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground);
+                        moreFilterBtn($moreFilterBtn);
+                        $('.desktop-search-refine-bar-redesing').removeClass('active');
+                        // Custom:MSS-2073 end
+                        if (!$('.refinement-bar-redesign, .refinement-bar').hasClass('d-block')) { // do not close sidebar filter on selection, .refinement-bar is for concord
+                            $('.modal-background').removeClass('d-block');
+                            $('.refinement-bar-redesign').removeClass('d-block');
+                        }
                         $("body").removeClass("no-overflow-ctm");
-                        clickedFilterButton();
-                        filterApplyAddClassFilter();
                         var $bannerCount = $('.banner-count .result-count');
-                        var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
+                        var $sideBarCount = $('.show-bottom-btn .result-count');
+                        var $productSearchResult = $('.grid-header .result-count .category-name.mobile-category-name').data('result-counts');
+                        var $productSearchItems = $('.grid-header .result-count .category-name').data('result-counts');
                         var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
                         var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
+                        var filterBarLayout = $('.filter-bar-overlay');
 
                         if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
                             $bannerSearchResultCountAppend.html($bannerSearchResultCount);
                         } else if ($productSearchResult && $productSearchResult !== undefined) {
-                            var $html = '<span>(' + $productSearchResult + ')</span>';
+                            var $html = '<span>' + $productSearchItems + '</span>';
                             $bannerCount.html($html);
+                            if($sideBarCount && $sideBarCount.length){
+                                var $html = '<span>' + $productSearchResult + '</span>';
+                                $sideBarCount.html($html);
+                            }
                         } else {
                             var $searchResultCountBanner = $('.search-result-count');
                             if ($searchResultCountBanner.length > 0) {
                                 var $html = '<span class="make-bold">' + 0 + '</span> Results for';
                                 $bannerSearchResultCountAppend.html($html);
                             } else {
-                                var $html = '<span>(' + 0 + ' items)</span>';
-                                $bannerCount.html($html);
+                                var $html = '<span>' + 0 + ' items</span>';
+                            $bannerCount.html($html);
+                                if($sideBarCount && $sideBarCount.length){
+                                    var $html = '<span>' + $productSearchResult + '</span>';
+                                    $sideBarCount.html($html);
+                                }
                             }
                         }
                         
@@ -632,64 +703,39 @@ module.exports = {
         });
     },
 
-    // Custom start: For Mobile Filters
-    // Current filter active desktop
-    selectedFilterActiveDesktop: function () {
-        $('.refine-wrapper').on('click', '.movado-refinements-container', function (e) {
-            var $winWidth = $(window).width();
-            var $mediumBreakPoint = 320;
-
-            if ($winWidth >= $mediumBreakPoint) {
-                var $clicked = e.target.closest('.refinement-btn');
-                if (!$clicked) return;
-                if ($clicked) {
-                    if($($clicked).parent().hasClass('active')){
-                        $('.refinement').removeClass('active');
-                        $('.refinement-bar-redesign').removeClass('refinement-open-state');
-                        $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
-                        $('.modal-background').removeClass('d-block');
-                        $('body').removeClass('no-overflow-ctm');
-                    }else{
-                        $('.refinement').removeClass('active');
-                        $($clicked).parent().addClass('active');
-                    }
-                }
-            }
-        });
-    },
-    
+                
     // Current filter active mobile
     selectedFilterActiveMobile: function () {
-        $('.refine-wrapper').on('click', '.sort-order-mobile-menu', function (e) {
+        $('.refine-wrapper-sidebar').on('click', '.sort-order-mobile-menu', function (e) {
             var $winWidth = $(window).width();
             var $mediumBreakPoint = 992;
 
             if ($winWidth < $mediumBreakPoint) {
-                var $clicked = e.target.closest('.custom-select__option');
-                var $filterAll = $('.custom-select__option');
+                var clicked = e.target.closest('.custom-select__option');
+                var filterAll = document.querySelectorAll('.custom-select__option');
                 
-                if (!$clicked) return;
-                if ($clicked) {
-                    $filterAll.each(function (e) {
-                        var $isContain = $(this).hasClass('active');
-                        if ($isContain) {
-                            $(this).removeClass('active');
+                if (!clicked) return;
+                if (clicked) {
+                    filterAll.forEach(function (e) {
+                        var isContain = e.classList.contains('active');
+                        if (isContain) {
+                            e.classList.remove('active');
                         }
                     });
-                    $clicked.classList.add('active');
+                    clicked.classList.add('active');
                 }
             }
         });
     },
 
-   // start: append value to plp sort by from select option
+    // start: append value to plp sort by from select option
     selectedFiltervalueAppendToPlpSortBy: function () {
-        $('.sort-order-mobile-menu').on('click', '.custom-select__dropdown', function (e) {
+        $('.sort-order-mobile-menu, .refinement-bar-redesign').on('click', '.custom-select__dropdown', function (e) {
             var $mobileFilterBtn = $('.mobile-fliter-sort-button');
             var $selectedValue = e.target.innerText;
             var $html = 'Sort by: ' + $selectedValue;
             $mobileFilterBtn.html($html);
+            $('.close-refinebar').trigger('click');
         });
     },
-    // Custom end: For Mobile Filters
 };

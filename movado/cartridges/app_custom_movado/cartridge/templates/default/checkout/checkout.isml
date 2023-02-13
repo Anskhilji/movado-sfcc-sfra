@@ -110,6 +110,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <isinclude template="checkout/fedExAdressModal" />
                 </div>
 

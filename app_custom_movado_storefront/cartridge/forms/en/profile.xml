@@ -12,6 +12,11 @@
             regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
             parse-error="error.message.invalid" />
 
+            <field 
+            formid="grecaptchatoken"
+			type="string"
+            />
+
         <field 
             formid="lastname" 
             label="label.input.lastname.profile" 
@@ -138,6 +143,11 @@
             formid="addtoemaillist" 
             label="checkbox.emailsignup.profile.desc"  
             type="boolean" binding="profile.custom.addtoemaillist"/>
+
+        <field 
+            formid="grecaptchatoken"
+            type="string"
+        />
     </group>
 
     <group formid="login">

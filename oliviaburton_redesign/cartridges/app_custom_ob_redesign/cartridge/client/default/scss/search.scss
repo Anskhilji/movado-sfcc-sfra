@@ -7,6 +7,10 @@
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles";
 
+.filter-and-count-margin {
+    margin-top: rem(20);
+}
+
 .plp-old {
     .refinement {
         margin-bottom: rem(8);
@@ -1986,6 +1990,9 @@
     }
 }
 
+.filter-and-count {
+    visibility: hidden
+}
 
 .no-overflow {
     overflow: hidden;
@@ -1998,8 +2005,13 @@
 .listrak-persistent-popup {
     display: none !important;
   }
-  .button-floting {
+  
+.button-floting {
     &.button-search-result {
       bottom: rem(41);
     }
-  }
+}
+
+.filter-count-visible { 
+    visibility: visible;
+}

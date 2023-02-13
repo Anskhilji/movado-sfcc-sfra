@@ -3,7 +3,7 @@
         <div class="custom-control custom-checkbox ${session.privacy.pickupStoreID ? '' : 'disabled'}">
             <input type="checkbox" class="custom-control-input form-check cart-store-pickup" id="enableStorePickup" data-url="${URLUtils.url('Cart-SetPickupFromStore')}"
             ${session.privacy.pickupFromStore ? 'Checked' : ''}
-            ${session.privacy.pickupStoreID ? '' : 'disabled'}>
+            ${session.privacy.pickupStoreID ? '' : 'disabled'}/>
             <label class="custom-control-label checkbox-label pickup-checkbox ${session.privacy.pickupStoreID ? '' : 'disabled'}" for="enableStorePickup">
                 ${Resource.msg('store.pickup.cart.avalibility.checkbox', 'storePickUp', null);}
             </label>

@@ -174,23 +174,18 @@
         max-width: 100%;
         padding: rem(0);
         border-top: none;
-
         .slider-container {
             padding: rem(0) rem(15);
             max-width: rem(350);
             margin: auto;
         }
-
         .cs-carousel-wrapper {
-
             .slick-list {
                 padding: rem(0) !important;
                 margin: rem(0);
             }
-
             .product-slider-aside {
                 padding: rem(0);
-
                 .carousel-title {
                     color: $black;
                     font-family: $font-medium;
@@ -202,18 +197,15 @@
                     margin-bottom: rem(20);
                 }
             }
-
             .product-tile-redesign {
                 padding: rem(0);
                 max-width: rem(124);
                 margin: auto;
-
                 &:hover {
                     .tile-content {
                         top: rem(0);
                     }
                 }
-
                 .tile-body {
                     .pdp-link {
                         a {
@@ -227,7 +219,6 @@
                             margin-bottom: rem(5);
                         }
                     }
-
                     .price {
                         color: black;
                         font-family: $font-medium;

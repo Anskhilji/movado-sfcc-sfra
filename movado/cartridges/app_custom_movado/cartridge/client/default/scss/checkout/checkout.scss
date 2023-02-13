@@ -1434,6 +1434,16 @@ header {
     height: 100%;
 }
 
+#google-pay-container {
+
+    .gpay-button-fill-new-style {
+        
+        .gpay-button {
+            border-radius: rem(0.125);
+        }
+    }
+}
+
 :focus {
     outline: none;
     box-shadow: none;
@@ -1575,8 +1585,9 @@ header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: rem(30);
             padding: rem(15) rem(70) rem(0) rem(71);
-            
+
             @include media-breakpoint-down(sm) {
                 padding: rem(15) rem(30) rem(0) rem(30);
             }
@@ -1641,6 +1652,7 @@ header {
                     text-align: center;
                     padding: rem(8.512) rem(20);
 
+
                     &.btn-bg-white {
                         background-color: $white;
                         color: $light-black3;
@@ -1652,6 +1664,8 @@ header {
                 .sub-link {
                     float: right;
                     color: $cerulean;
+                    font-size: rem(12);
+                    font-weight: 500;
                     font-size: rem(14);
                     font-weight: 600;
                     letter-spacing: rem(0.89);

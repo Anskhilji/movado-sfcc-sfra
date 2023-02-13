@@ -531,6 +531,7 @@ module.exports = {
                         moveFocusToTop();
                         swatches.showSwatchImages();
 
+                        $('.filter-and-count').addClass('filter-count-visible');
                         $('.sort-dropdown-list, .sort-dropdown-toggle').removeClass('active');
                         $('.sort-dropdown-menu').hide();
                     },
@@ -583,6 +584,7 @@ module.exports = {
                         // edit start
                         updatePageURLForFacets(filtersURL);
                         // edit end
+                        $('.filter-and-count').addClass('filter-count-visible');
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
@@ -774,3 +776,7 @@ module.exports = {
     }
     // Custom End: Listrak persistent popup
 };
+
+$(window).on('load', function(e) {
+    $('.filter-and-count').css('visibility','visible');
+});

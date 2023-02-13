@@ -41,8 +41,9 @@
                             </div>
                         </div>
                         <ul class="nav popup-tabs">
-                            <li><a data-toggle="tab" class="debossing-tabs active" data-id="horizontal-text" href="#horizontal-text">${Resource.msg('button.text.horizontal', 'product', null)}</a></li>
-                            <li><a data-toggle="tab" class="debossing-tabs" data-id="vertical-text" href="#vertical-text">${Resource.msg('button.text.vertical', 'product', null)}</a></li>
+                            <li><a data-toggle="tab" class="debossing-tabs horizontal active" data-id="horizontal-text" href="#horizontal-text" data-personalize="Horizontal">${Resource.msg('button.text.horizontal', 'product', null)}</a></li>
+                            <li><a data-toggle="tab" class="debossing-tabs vertical" data-id="vertical-text" href="#vertical-text" data-personalize="Vertical">${Resource.msg('button.text.vertical', 'product', null)}</a></li>
+                            <input type="hidden" class="personalize" name="personalize" value="" />
                         </ul>
                         <isif condition="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url)}">
                             <div class="watch-image mx-auto">

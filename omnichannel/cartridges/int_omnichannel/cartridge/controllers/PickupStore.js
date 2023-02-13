@@ -9,6 +9,7 @@ var OmniChannelLog = require('dw/system/Logger').getLogger('omniChannel');
 var BasketMgr = require('dw/order/BasketMgr');
 var StoreMgr = require('dw/catalog/StoreMgr');
 var StringUtils = require('dw/util/StringUtils');
+var ContentMgr = require('dw/content/ContentMgr');
 
 server.get('GetStoresList', function (req, res, next) {
     var radius = req.querystring.radius;
@@ -102,6 +103,8 @@ server.get('GetPreferredStore', function (req, res, next) {
     var inventory = 0;
     var productInventoryInStock = 0;
     var productInventoryInCurrentStore;
+    var bopisContentAsset = ContentMgr.getContent('bopis-pdp-tool-tip');
+    var bopisInfoText = bopisContentAsset && bopisContentAsset.custom && bopisContentAsset.custom.body ? bopisContentAsset.custom.body.markup : '';
 
     if (session.privacy.pickupStoreID) {
         preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
@@ -135,7 +138,8 @@ server.get('GetPreferredStore', function (req, res, next) {
         phone: phone,
         stateCode: stateCode,
         inventory: productInventoryInCurrentStore,
-        inventoryInStock: productInventoryInStock
+        inventoryInStock: productInventoryInStock,
+        bopisInfoText: bopisInfoText
     }
 
     template = 'product/components/pdpStorePickUpRedesign';

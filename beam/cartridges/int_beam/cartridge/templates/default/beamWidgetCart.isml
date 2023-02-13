@@ -1,0 +1,20 @@
+ <isset value="${dw.system.Site.current.preferences.custom}" name="sitePref" scope="page" />
+ <isif condition="${sitePref.enableBeam}">
+    <isif condition="${sitePref.enableBeamCart}">
+        <isscript>
+            var assets = require('*/cartridge/scripts/assets');
+            assets.addJs('/js/beamOrder.js');
+        </isscript>
+        <div class="mini-cart-fixed">
+            <beam-${sitePref.beamWidgetType.value}
+            apiKey="${sitePref.beamApiKey}"
+            chainId="${sitePref.beamChainId}"
+            storeId="${sitePref.beamStoreId}"
+            baseUrl="${sitePref.beamBaseURL}"
+            "${sitePref.beamDebugMode ? 'debug' : ''}"
+            class="beam-widget-cart">
+            </beam-${sitePref.beamWidgetType.value}>
+        </div>
+    </isif>
+    <input type="hidden" class="beam-widget-minicart" value="${URLUtils.url('Beam-Cart')}">
+</isif>

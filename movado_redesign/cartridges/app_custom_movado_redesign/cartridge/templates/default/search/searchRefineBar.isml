@@ -1,14 +1,14 @@
 <iscomment> Custom: HTML structure changed</iscomment>
-<div class="filter-header d-md-none">
-    <div class="header-bar clearfix">
+<div class="filter-header">
+    <div class="header-bar clearfix d-flex">
         <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">
-        <span class="d-none filter-more">${Resource.msg('label.filterMore', 'search', null)}</span>
-        <span class="d-none sort-by">${Resource.msg('label.sortby', 'search', null)}</span>
+        <span class="d-none d-md-block filter-more">${Resource.msg('label.filterMore', 'search', null)}</span>
+        <span class="d-none d-md-none sort-by">${Resource.msg('label.sortby', 'search', null)}</span>
         </button>
         <isif condition="${pdict.productSearch.productIds.length > 0}">
-            <div class="pull-right d-none">
+            <div class="pull-right w-100 text-right reset-button-mt">
                 <div class="secondary-bar p-0">
-                    <a class="reset" href="${pdict.productSearch.resetLink}">
+                    <a class="reset w-auto d-inline-block" data-reset-filter="true" href="${pdict.productSearch.resetLink}">
                         ${Resource.msg('link.reset.new', 'search', null)}
                     </a>
                 </div>
@@ -17,28 +17,21 @@
     </div>
 </div>
 
-<div class="refine-wrapper d-md-flex align-items-start justify-content-between">
+<div class="refine-wrapper-sidebar">
     <div class="sort-order-menu-box order-md-1">
         <isif condition="${pdict.productSearch.productIds.length > 0}">
-            <div class="mb-3 sort-col sort-open-state-modal position-relative sort-order-mobile-menu">
+            <div class="mb-3 sort-col sort-open-state-modal sort-col-margin position-relative sort-order-mobile-menu d-none">
                 <isinclude template="search/sortOrderMenu" />
             </div>
         </isif>
     </div>  
-    <div class="refinements movado-refinements-container">
-        <div class="filter-btn-ctm d-none d-md-none" id="nav-questions">
-             <img src="${URLUtils.staticURL('/images/icon-park_setting-config.svg')}" alt=""> 
-             <span>${Resource.msg('label.sort-and-filter-more', 'search', null)}</span>
-        </div>
+    <div class="refinements-sidebar movado-refinements-container">
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
-            <div class="card selected-refinement refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+            <div class="card selected-refinement collapsible-sm refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
                 <button class="card-header refinement-btn movado-refinements-type text-left" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading" >
                     ${refinement.displayName}
                 </button>
                 <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
-                    <div class="innter-filter-heading d-none d-md-block">
-                        ${refinement.displayName}
-                    </div>
                     <isif condition="${refinement.isCategoryRefinement}">
                         <isset name="categories" value="${refinement.values}" scope="page" />
                         <isinclude template="search/refinements/categories" />
@@ -57,9 +50,9 @@
             </div>
         </isloop>
     </div>
-    <div class="show-bottom-btn d-md-none">
-       <div class="result-count">
-         <isinclude template="search/resultsCount" />
-       </div>
+</div>
+ <div class="show-bottom-btn">
+    <div class="result-count">
+        <isinclude template="search/resultsCount" />
     </div>
 </div>

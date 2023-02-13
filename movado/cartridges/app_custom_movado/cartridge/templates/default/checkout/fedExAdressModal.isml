@@ -10,16 +10,13 @@
             <div class="modal-content fedex-popup-content">
                 <div class="modal-header fedex-popup-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close fedex-continue-btn user-recommend">
                         <img src="${URLUtils.staticURL('/images/cross-icon.svg')}" alt="" />
                     </button>
                 </div>
                 <div class="modal-body fedex-popup-body text-center fedex-address fedex-recommended-address"
                     data-fedex-address=''>
-                    <h3 class="fedex-popup-body-heading">${Resource.msg('popup.label.heading', 'checkout', null)}</h3>
-                    <p class="fedex-popup-body-label">${Resource.msg('popup.label.content', 'checkout', null)} <span class="fedex-popup-body-label-sub d-block-mobile-label">${Resource.msg('popup.label.content.sub', 'checkout', null)}</span></p>
-                    <p class="fedex-popup-body-label-sub d-block-desktop-label">${Resource.msg('popup.label.content.sub', 'checkout', null)}</p>
-
+                    <iscontentasset aid="checkout-address-validation"/>
                     <!-- 2nd & 5th for no recommendations -->
                     <div class="fedex-popup-body-container">
                         <div class="fedex-popup-body-container-box-one recommended-address-wrapper">
