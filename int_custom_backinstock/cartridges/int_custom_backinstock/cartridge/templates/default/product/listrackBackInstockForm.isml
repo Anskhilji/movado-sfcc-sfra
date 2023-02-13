@@ -28,7 +28,7 @@
                 <div class="col-12 mb-2 p-0">
                     <iscontentasset aid="listrak-back-in-stock-terms" />
                 </div>
-                <div class="col-12 mb-2 p-0 test 123">
+                <div class="col-12 mb-2 p-0">
                     <isif condition="${sitePref.Listrak_EnableBackInStockEmail && !sitePref.Listrak_EnableBackInStockSms}">
                         <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
                     <iselseif condition="${sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}" />
