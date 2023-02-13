@@ -89,10 +89,12 @@ var submitBackInStockEmail = function ($selector) {
         success: function (response) {
             if (response.result) {
                 processResponse($selector, response.result);
-                if (response.result.smsApiResponse == false || response.result.smsApiResponse.success == false) {
-                    $('.listrak-sms-api-response-msg').removeClass('d-none');
-                } else {
-                    $('.listrak-sms-api-response-msg').addClass('d-none');
+                if (Resources.LISTRAK_ENABLE_BACK_IN_STOCK_SMS && form.smsSubscription) {
+                    if (response.result.smsApiResponse == false || response.result.smsApiResponse.success == false) {
+                        $('.listrak-sms-api-response-msg').removeClass('d-none');
+                    } else {
+                        $('.listrak-sms-api-response-msg').addClass('d-none');
+                    }
                 }
             } else {
                 $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
