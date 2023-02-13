@@ -13,5 +13,6 @@
     <isslot id="cs-category-landing-social" description="Category Landing Page social" context="global"/>
     <div class="content-slots-container strap-slot-container">
         <isslot id="cs-category-landing-cs1" description="Category Landing Page content Slot 1." context="category" context-object="${categoryObject}"/>
+        <isslot id="shop-all-bottom-slot" description="Shop all bottom slot" context="category" context-object="${categoryObject}"/>
     </div>
 </isdecorate>
