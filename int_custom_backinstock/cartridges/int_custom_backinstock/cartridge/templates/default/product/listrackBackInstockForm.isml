@@ -33,7 +33,7 @@
                         <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
                     <iselseif condition="${sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}" />
                         <iscontentasset aid="listrak-back-in-stock-subscription-checkbox-sms" />
-                    <iselse condition="${sitePref.Listrak_EnableBackInStockSms && sitePref.Listrak_EnableBackInStockEmail}"/>
+                    <iselseif condition="${sitePref.Listrak_EnableBackInStockSms && sitePref.Listrak_EnableBackInStockEmail}"/>
                         <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
                         <iscontentasset aid="listrak-back-in-stock-subscription-checkbox-sms" />
                     </isif>
