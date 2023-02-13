@@ -112,8 +112,8 @@ server.post(
                     var productLineItemsIterator = currentBasket.productLineItems.iterator();
                     while (productLineItemsIterator.hasNext()) {
                         var productLineItem = productLineItemsIterator.next();
-                        productIds.push(productLineItem.productID);
-                        items.push({id:productLineItem.product.ID});
+                            productIds.push(productLineItem.productID);
+                            items.push({id:productLineItem.product.ID});
                         productLineItem.custom.BOPIS = storeFormPickUP;
                         if (storeFormPickUP) {
                             productLineItem.setProductInventoryListID(session.privacy.pickupStoreID);

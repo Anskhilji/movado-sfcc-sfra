@@ -113,7 +113,7 @@ module.exports = function () {
                     if (data.deleteUuid === uuid) {
                         var deleteWarranty = $('.clyde-uuid-' + data.deleteUuid);
                         deleteWarranty.remove();
-                        $('.add-clyde-badge-' + data.deleteUuid).removeClass('d-none');
+                        $('.add-clyde-badge-' + data.deleteUuid).removeClass('custom-clyde-box');
                         updateCartTotals(data.basket);
                     }
                 }
