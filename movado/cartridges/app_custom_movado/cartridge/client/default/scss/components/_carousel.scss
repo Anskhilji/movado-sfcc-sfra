@@ -275,7 +275,7 @@
                     min-width: rem(125);
                     min-height: rem(125);
 
-                    @media only screen and (max-width: $custom-sm) {
+                    @media only screen and (max-width: $medium-screen-width800) {
                         padding-bottom: rem(0); 
                     }
                 }
@@ -383,7 +383,7 @@
                         padding: rem(10);
                     }
 
-                    @media only screen and (max-width: $custom-sm) { 
+                    @media only screen and (max-width: $medium-screen-width800) { 
                         position: relative;
                         height: auto;
                     }
