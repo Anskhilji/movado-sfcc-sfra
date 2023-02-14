@@ -121,7 +121,7 @@
                         img {
                             display: block !important;
 
-                            @include media-breakpoint-up(lg) {
+                            @include media-breakpoint-up(xxl) {
                                 width: rem(646);
                                 height: rem(646);
                             }
