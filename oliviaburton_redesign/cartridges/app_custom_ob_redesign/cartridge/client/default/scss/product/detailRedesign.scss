@@ -2158,6 +2158,8 @@
     &.recommendation-carousel-pdp {
         width: 100%;
         margin: auto;
+        overflow-x: hidden;
+
         .cs-carousel {
             padding-bottom: rem(0);
             .slick-track {
@@ -2481,4 +2483,8 @@
     &.button-product-detail {
         bottom: rem(160);
     }
+}
+
+.promotions {
+    text-align: left;
 }

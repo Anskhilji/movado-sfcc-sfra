@@ -15,6 +15,7 @@ exports.SHIPPING_METHODS_UPGRADES_PRECEDENCE = Site.getCurrent().preferences.cus
 
 exports.SERVICE_ID = {
     FB_CONVERSION: 'fb.conversion.event.api',
+    GOOGLE_RECAPTCH: 'google.recaptcha.site.verify.api'
 }
 
 exports.RAKUTEN_COOKIE_NAME='rmStoreGateway';
@@ -26,3 +27,8 @@ exports.PROMOTION_START_END_DATE_SEPARATOR = '/';
 
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
+
+exports.FEDEX_SERVICE_ID = {
+    FEDEX_AUTHENTICATION: 'fedex.auth.api',
+    FEDEX_ADDRESS_VALIDATION: 'fedex.validate.address.api'
+}

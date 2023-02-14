@@ -127,7 +127,7 @@ function loadAmazonButton() {
             if(applePayLength == 1){
                 $('.shipping-paypal-btn img').css('height', '19px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "28.5px" });
-                $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px","vertical-align":"middle"});
+                $(".gpay-button-fill-new-style > .gpay-button.white, .gpay-button-fill-new-style > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px","vertical-align":"middle"});
             }
             $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
         } else if(colSize == 4){
@@ -138,7 +138,7 @@ function loadAmazonButton() {
                     $('.shipping-paypal-btn img').css('height', '19px');
             }
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px"});
-            $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"8px 15% 8px","vertical-align":"middle"});
+            $(".gpay-button-fill-new-style > .gpay-button.white, .gpay-button-fill-new-style > .gpay-button.black").css({"padding":"8px 15% 8px","vertical-align":"middle"});
         } else if (colSize == 6 && $(window).width() <= 742) {
             $('.shipping-paypal-btn img').css('height', '18px');
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
@@ -827,17 +827,12 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var primaryImageUrls = response.product.images;
-    if (response.isNewDesign) {
-        $('.quadrant-pdp-wrapper').remove();
+    $('.quadrant-pdp-wrapper').remove();
+    $('.show-mobile-pdp').remove();
+    $('.zoom-modal-inner').remove();
+    $('.pdp-quadrant').prepend(response.productImages);
+    if ($(window).width() > 768) {
         $('.show-mobile-pdp').remove();
-        $('.zoom-modal-inner').remove();
-        $('.pdp-quadrant').prepend(response.productImages);
-        if ($(window).width() > 768) {
-            $('.show-mobile-pdp').remove();
-        }
-    } else {
-        $('.image-carousel-pdp-old').remove();
-        $('.image-carousel-pdp').prepend(response.productImages);
     }
 
     // pdp Video for variations
@@ -929,13 +924,24 @@ function handleVariantResponse(response, $productContainer) {
    if (response.product.available) {
         var badges = response.badges;
 
+        // Update promotion badge on pdp after change variations
+        if (response.product.promotions && response.product.promotions.length > 0) {
+            var promotionBages = response.product.promotions;
+
+            promotionBages.forEach(function (badge) {
+                if (badge.promotionBadge == true && badge.promotionMsg !== '') {
+                    $exclusiveBadges.prepend('<span class="badge custom-promotion-badge badge-bg text-uppercase hide-plp">' + badge. promotionMsg + '</span>');
+                }
+            });
+        }
+
         if (badges.textBadges && badges.textBadges.length > 0) {
             badges.textBadges.forEach(function (badge) {
                 $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
             });
         }
 
-    // Update image Badges
+        // Update image Badges
         if (badges.imageBadges && badges.imageBadges.length > 0) {
             badges.imageBadges.forEach(function (imageBadge, idx) {
                 if (idx === 0) {
@@ -1182,6 +1188,14 @@ function handleVariantResponse(response, $productContainer) {
         if (window.Resources.GOOGLE_PAY_ENABLED) {
             $('.google-pay-container').show();
         }
+        var currentCountry = response.product.currentCountry.toLowerCase();
+        if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
+            var applePayButton = $('.apple-pay-pdp', $productContainer);
+            if (applePayButton.length !== 0) {
+                applePayButton.attr('sku', response.product.id);
+                applePayButton.removeClass('d-none');
+            }
+        }
     } else {
         $addToCartSelector.addClass('out-of-stock-btn');
         $addToCartSelector.prop('disabled', true);
@@ -1192,6 +1206,7 @@ function handleVariantResponse(response, $productContainer) {
         if (window.Resources.GOOGLE_PAY_ENABLED) {
             $('.google-pay-container').hide();
         }
+        $('.apple-pay-pdp').addClass('d-none');
     }
     $('body').on('product:afterAttributeSelect', function (e, response) {
         setTimeout(function(){
@@ -1236,6 +1251,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
+                var listrakTracking = require('movado/listrakActivityTracking.js');
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1327,7 +1344,7 @@ movadoBase.selectAttribute = function () {
 }
 
 movadoBase.colorAttribute = function () {
-    $(document).off('click', '[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
+    $(document).off('click', '.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
         e.preventDefault();
     
         if ($(this).attr('disabled') || $(this).hasClass('active')) {

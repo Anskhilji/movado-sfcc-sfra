@@ -6,6 +6,7 @@ var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+var Transaction = require('dw/system/Transaction');
 
 var page = module.superModule;
 server.extend(page);
@@ -18,6 +19,7 @@ server.append(
     function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
         var Site = require('dw/system/Site');
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
 
@@ -32,6 +34,10 @@ server.append(
                 return next();
             }    
         }
+        var runningABTest = productCustomHelper.getRunningABTestSegments();
+        res.setViewData({
+            runningABTest: runningABTest
+        });
         // Custom End
 
         if (currentBasket && !req.currentCustomer.profile) {
@@ -57,11 +63,15 @@ server.append(
 	function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
         var Locale = require('dw/util/Locale');
+        var Money = require('dw/value/Money');
         var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
+
+        var Constants = require('*/cartridge/scripts/util/Constants');
         var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
-        var Money = require('dw/value/Money');
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         
+        var currentCountry = productCustomHelper.getCurrentCountry();
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
         var currentCustomer = req.currentCustomer.raw;
@@ -76,6 +86,9 @@ server.append(
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
         }
 
         if (!currentBasket) {
@@ -134,7 +147,20 @@ server.append(
                 defaultShipment: true,
             }
         );
-        
+
+    var productLineItem;
+    var orderLineItems = currentBasket.getAllProductLineItems();
+    var orderLineItemsIterator = orderLineItems.iterator();
+    
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        Transaction.wrap(function () {
+            if (productLineItem instanceof dw.order.ProductLineItem &&
+                !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+            }
+        });
+    }
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             order: orderModel,
@@ -150,6 +176,15 @@ server.append(
 });
 
 server.get('Declined', function (req, res, next) {
+    var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+    var Transaction = require('dw/system/Transaction');
+
+    Transaction.wrap(function () {
+        var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+        if (currentSessionPaymentParams) {
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        }
+    });
 
     res.render('checkout/declinedOrder');
     next();

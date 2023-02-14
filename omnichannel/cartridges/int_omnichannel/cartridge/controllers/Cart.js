@@ -4,13 +4,16 @@ var server = require('server');
 
 var Logger = require('dw/system/Logger').getLogger('OmniChannel');
 var Transaction = require('dw/system/Transaction');
+var ShippingMgr = require('dw/order/ShippingMgr');
 var BasketMgr = require('dw/order/BasketMgr');
+var StoreMgr = require('dw/catalog/StoreMgr');
+
+var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
-var StoreMgr = require('dw/catalog/StoreMgr');
-var ShippingMgr = require('dw/order/ShippingMgr');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
-var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -24,11 +27,15 @@ server.append(
             var productIds = [];
             var apiResponse;
             var lineItemsInventory;
+            var currentCountry = productCustomHelper.getCurrentCountry();
 
             if (session.privacy.pickupFromStore) {
                 session.custom.applePayCheckout = false;
             } else {
                 session.custom.StorePickUp = false;
+                if (currentCountry == Constants.US_COUNTRY_CODE) {
+                    session.custom.isEswShippingMethod = false;
+                }
             }
             
             try {
@@ -58,7 +65,7 @@ server.append(
                 Logger.error('Error Occurred in Cart.Show During updating of pickInStore in CurrentBasket and LineItems and call OmniChannel Inventory API, Error: {0}', error.toString());
             }
 
-            if (apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
+            if (apiResponse && apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
                 lineItemsInventory = apiResponse.response[0].inventory[0].records;
             }
             
@@ -86,12 +93,16 @@ server.post(
         var items = [];
         var apiResponse;
         var lineItemsInventory;
+        var currentCountry = productCustomHelper.getCurrentCountry();
         viewData.storeFormPickUP = storeFormPickUP;
         viewData.isAllItemsAvailable = isAllItemsAvailable;
         if (session.privacy.pickupFromStore) {
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
         }
         try {
             currentBasket = BasketMgr.getCurrentBasket();

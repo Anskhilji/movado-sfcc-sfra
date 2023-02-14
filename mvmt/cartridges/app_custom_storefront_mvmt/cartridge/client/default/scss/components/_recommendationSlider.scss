@@ -102,7 +102,7 @@
                 }
                 @include media-breakpoint-up(md-down) {
                     position: absolute;
-                    z-index: 7;
+                    z-index: 2;
                     top: 35%;
                 }
                 @include media-breakpoint-up(md) {
@@ -167,6 +167,69 @@
 
         .tile-body {
             padding-top: 0;
+        }
+    }
+
+    &.recommendation-slider {
+        max-width: 100%;
+        padding: rem(0);
+        border-top: none;
+        .slider-container {
+            padding: rem(0) rem(15);
+            max-width: rem(350);
+            margin: auto;
+        }
+        .cs-carousel-wrapper {
+            .slick-list {
+                padding: rem(0) !important;
+                margin: rem(0);
+            }
+            .product-slider-aside {
+                padding: rem(0);
+                .carousel-title {
+                    color: $black;
+                    font-family: $font-medium;
+                    font-size: rem(12);
+                    font-weight: 500;
+                    letter-spacing: rem(1.5);
+                    line-height: rem(16);
+                    text-align: center;
+                    margin-bottom: rem(20);
+                }
+            }
+            .product-tile-redesign {
+                padding: rem(0);
+                max-width: rem(124);
+                margin: auto;
+                &:hover {
+                    .tile-content {
+                        top: rem(0);
+                    }
+                }
+                .tile-body {
+                    .pdp-link {
+                        a {
+                            color: $light-gray2;
+                            letter-spacing: 0;
+                            text-align: center;
+                            font-family: $font-medium;
+                            font-size: rem(11);
+                            font-weight: 500;
+                            display: block;
+                            margin-bottom: rem(5);
+                        }
+                    }
+                    .price {
+                        color: black;
+                        font-family: $font-medium;
+                        font-size: rem(10);
+                        font-weight: 300;
+                        letter-spacing: rem(0.83);
+                        line-height: rem(13);
+                        text-align: center;
+                    }
+                }
+            }
         }
     }
 }

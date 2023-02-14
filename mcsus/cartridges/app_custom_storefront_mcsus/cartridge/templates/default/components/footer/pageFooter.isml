@@ -20,7 +20,11 @@
                           <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
                         </div>
                     </div>
-                    <div class="col-lg-5 email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</div>
+                    <div class="col-lg-5 email-description">
+                    <iscomment> Custom Start:  Email footer description </iscomment>
+                        <iscontentasset aid="email-signup-footer-description" />
+                    <iscomment> Custom End </iscomment>
+                    </div>
                 </div>
             </form>
         </div>

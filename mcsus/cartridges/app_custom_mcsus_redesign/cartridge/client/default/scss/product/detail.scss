@@ -1425,7 +1425,6 @@
 
                                         .google-pay-container {
                                             width: 100%;
-                                            height: rem(50);
                                             border-radius: rem(3);
                                             background-color: $black;
                                             display: flex;
@@ -1440,9 +1439,7 @@
                                                 }
                                             }
 
-                                            .gpay-button-fill {
-                                                padding: rem(5px) rem(0);
-
+                                            .gpay-button-fill-new-style {
                                                 button {
                                                     height: rem(40);
                                                 }
@@ -2014,6 +2011,10 @@
             }
         }
 
+        .pdp-store-pickup-display-inline-block {
+            position: relative;
+        }
+
         .pdp-store-pickup-inventory {
             order: 1;
             display: flex;
@@ -2066,11 +2067,11 @@
                                             background-image: url(../../images/map-pin.svg);
                                             padding: rem(15);
                                             margin-right: rem(5);
-                                            transform: translateX(-2px);
+                                            transform: translate(-2px, 7px);
 
                                             @include media-breakpoint-down(xs) {
                                                 background-image: url(../../images/map-pin-mobile.svg);
-                                                transform: translateX(-8px);
+                                                transform: translate(-8px, 7px);
                                             }
                                         }
                                     }
@@ -2080,6 +2081,36 @@
                     }
                 }
             }
+
+            .InStock-icon-times {
+                transform: translateY(5px);
+            }
+            
+            .unavailable-icon-block {
+                transform: translateY(5px);
+            }
+
+            .info-icon {
+
+                &.info-icon-bopis {
+                    margin-left: rem(8);   
+                    .icon {
+                        background-image: url("../../images/info-icon.svg");
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        width: rem(15);
+                        height: rem(15);
+                        background-color: transparent;
+                    }
+    
+                    .tooltip {
+    
+                        @include media-breakpoint-down(xs) {
+                            display: none;
+                        }
+                    }
+                } 
+            } 
         }
         
         .pick-up-store-available-for-store {
