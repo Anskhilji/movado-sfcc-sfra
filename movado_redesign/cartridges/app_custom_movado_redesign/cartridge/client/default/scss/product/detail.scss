@@ -765,11 +765,9 @@ $arrow-height: 1.25em;
             }
 
             .pdp-link {
-                display: -ms-flexbox;
                 display: flex;
-                -ms-flex-align: center;
                 align-items: center;
-                
+
                 @include media-breakpoint-down(md) {
                     padding-top: rem(5);
                 }
