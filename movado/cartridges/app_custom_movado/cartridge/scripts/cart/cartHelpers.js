@@ -402,7 +402,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     var isCartQuantitySelectorEnabled = Site.current.preferences.custom.enableCartQuantitySelector;
     // var isPDPQuantitySelectorEnabled = true;
 
-    if (isPDPQuantitySelectorEnabled && isCartQuantitySelectorEnabled) {
+    if (isCartQuantitySelectorEnabled) {
         if (!empty(form) && !empty(form.clydeContractSku) && !empty(options)) {
             for (i = 0; i < options.length; i++) {
                 if (options[i].optionId == 'clydeWarranty') {
@@ -530,7 +530,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                 }
             }
         }
-    } else if (isPDPQuantitySelectorEnabled && !isCartQuantitySelectorEnabled) {
+    } else if (isPDPQuantitySelectorEnabled && !isCartQuantitySelectorEnabled && !empty(quantity)) {
         for (var i = 0; i < quantity; i++) {
             if (isClydeEnabled) {
                 var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
