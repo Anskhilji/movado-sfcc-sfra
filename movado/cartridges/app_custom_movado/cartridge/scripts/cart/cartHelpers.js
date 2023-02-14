@@ -400,7 +400,6 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     var isClydeEnabled = Site.getCurrent().preferences.custom.isClydeEnabled;
     var isPDPQuantitySelectorEnabled = Site.current.preferences.custom.enablePDPQuantitySelector;
     var isCartQuantitySelectorEnabled = Site.current.preferences.custom.enableCartQuantitySelector;
-    // var isPDPQuantitySelectorEnabled = true;
 
     if (isCartQuantitySelectorEnabled) {
         if (!empty(form) && !empty(form.clydeContractSku) && !empty(options)) {
