@@ -269,14 +269,14 @@
                 margin-bottom: rem(15);
 
                 .image-container {
-                    padding-bottom: rem(103);
+                    padding-bottom: rem(65);
                     background: $white-smoke;
                     border: none;
                     min-width: rem(125);
                     min-height: rem(125);
 
-                    @include media-breakpoint-down(md) {
-                        padding-bottom: rem(118); 
+                    @media only screen and (max-width: $custom-sm) {
+                        padding-bottom: rem(0); 
                     }
                 }
 
@@ -383,6 +383,11 @@
                         padding: rem(10);
                     }
 
+                    @media only screen and (max-width: $custom-sm) { 
+                        position: relative;
+                        height: auto;
+                    }
+
                     .price {
                         padding: 0;
                         color: $grey8;
@@ -444,6 +449,9 @@
                         color: $grey8;
                         letter-spacing: normal;
                         text-transform: capitalize;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
                         text-overflow: ellipsis;
 
                         @include media-breakpoint-down(sm) {
@@ -528,11 +536,10 @@
                 }
 
                 .pdp-link {
-                    display: -webkit-box;
-                    overflow: hidden;
-                    height: rem(63);
-                    -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 3;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -ms-flex-align: center;
+                    align-items: center;
                 }
             }
         }
