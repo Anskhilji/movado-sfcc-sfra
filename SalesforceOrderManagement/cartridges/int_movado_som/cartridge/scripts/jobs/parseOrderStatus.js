@@ -56,6 +56,7 @@ function parseOrderStatus(args) {
     for (var fileCount = 0; fileCount < filesToParse.length; fileCount++) {
         try {
             var file = new File(filesToParse[fileCount]);
+            var fileName = file.getFullPath().replace(/^.*[\\\/]/, '');
             Logger.info('parseOrderStatus - Starting FILE ' + file.getFullPath());
             var fileReader = new FileReader(file);
             var xmlReader = new XMLStreamReader(fileReader);
@@ -81,7 +82,7 @@ function parseOrderStatus(args) {
                             if (!Array.isArray(nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem)) {
                                 nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem = [nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem];
                             }
-                            var resultOrderStatus = processStatusOrder(nodeStatus.EcommerceOrderStatus);
+                            var resultOrderStatus = processStatusOrder(nodeStatus.EcommerceOrderStatus ,fileName);
                             if (resultOrderStatus.error) {
                                 status.addItem(new StatusItem(Status.ERROR, 'ERROR', resultOrderStatus.message));
                                 isRecordProcessedSuccessfully = false;
@@ -136,7 +137,7 @@ function parseOrderStatus(args) {
  * @param {Object} SAPOrderStatus single order object from incoming XML file
  * @return {dw.system.Status} Status
  */
-function processStatusOrder(SAPOrderStatus) {
+function processStatusOrder(SAPOrderStatus, fileName) {
     // Retrieve SOM Fulfillment Order
      Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
     try {
@@ -221,7 +222,7 @@ function processStatusOrder(SAPOrderStatus) {
         return new Status(Status.OK);
     }
     catch (e) {
-        errorMessage  = 'Error occured in this Fulfillment Order: '+ SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ' with Error ' + e.stack + ' Error Message '+ e.message + ',';
+        errorMessage  = 'Error occured in this Fulfillment Order: '+ SAPOrderStatus.EcommerceOrderStatusHeader.PONumber +'(' + fileName + ') with Error ' + e.stack + ' Error Message '+ e.message + ',';
         errorMessageList.push(errorMessage);
     }
 }
