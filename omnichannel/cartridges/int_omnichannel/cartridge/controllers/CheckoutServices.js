@@ -56,7 +56,7 @@ server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) 
 					itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
 					itemInv = itemInv - currentBasket.productLineItems[index].quantity;
 					loopInventory = itemInventory.filter(function (i) { return i.itemId == pid }).map(function (obj) { return obj.remain });
-					if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
+					if ((loopInventory.length == 0 || loopInventory > 0) && (itemInv == 0 || itemInv > 0)) {
 						if (loopInventory.length == 0) {
 							itemInventory.push({ itemId: pid, remain: itemInv - currentBasket.productLineItems[index].quantity });
 							return;
