@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     </isif>
-                    
+                    <isset name="noReviewMessage" value="${!empty(dw.system.Site.current.preferences.custom.noReviewMessage) ? dw.system.Site.current.preferences.custom.noReviewMessage : ''}" scope="page" />
                     <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif>">
                         <div class="pdp-mobile-accordian mvmv-pdp-accordian review-box-mvmt">
                             <div class="pdp-mobile-accordian-label">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-stras"><isinclude template="product/components/productRating" /></span></div>
@@ -64,7 +64,7 @@
                             <div class="w-100 accordian-review-box review-empty-box">
                                 <h3 class="details-heading text-center">${Resource.msg('label.tab.no-review-redesign', 'product', null)}</h3>
                                 <p class="no-review-sec">
-                                    ${dw.system.Site.current.preferences.custom.noReviewMessage}
+                                    ${noReviewMessage}
                                 </p>
                             </div>
                         </div>

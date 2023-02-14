@@ -419,3 +419,21 @@ setTimeout(function () {
     removeRatings();
 }, 100);
 // Custom End
+
+$(document).ready(function () {
+    var $productWrapper = $('.product-availability .availability-msg-text').text();
+    var $availability = $('.product-availability .availability-msg').text();
+    var $availabilityWrapper = $availability.replace(/\s/g, '');
+    var $cartWrapper = $('.cart-and-ipay');
+    var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
+    if ($productWrapper !== '' || $productWrapper !== undefined || $productWrapper !== null) {
+        if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock') || ($availabilityWrapper === 'SelectStylesforAvailability')) {
+            if ($stickyWrapper) {
+                $stickyWrapper.addClass('d-none');
+            }    
+            if (!($cartWrapper.hasClass('d-none'))) {
+                $cartWrapper.addClass('d-none');
+            }
+        }
+    }
+});

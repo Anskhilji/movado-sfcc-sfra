@@ -227,7 +227,7 @@
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                         </div>
-                        <isif condition="${product.available && !empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
+                        <isif condition="${product.available && !empty(product.isGiftBoxAllowed) && typeof product.giftBoxSKUData != 'undefined' && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-mobile custom-checkbox-pdp pdp-gift-box-container-wrapper">
                                 <label for="gift-allowed-checkout-mob" class="gift-box-wrapper-label custom-control-label-pdp">
                                     <input id="gift-allowed-checkout-mob" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
@@ -263,8 +263,9 @@
                                     <div class="d-block">
                                         <!-- Cart and [Optionally] Apple Pay -->
                                         <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
-                                        <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
-
+                                        <isif condition="${product.available && product.readyToOrder}">
+                                            <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
+                                        </isif>
                                     </div>
                                 </div>
                             </div>
@@ -302,7 +303,6 @@
                         <iscomment> Custom End: </iscomment>
 
                         <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
-
                         <div class="show-cart-button-desktop">
                             <div class="row">
                                 <div class="col-12 prices-add-to-cart-actions">
@@ -324,7 +324,7 @@
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                         </div>
-                        <isif condition="${product.available && !empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
+                        <isif condition="${product.available && !empty(product.isGiftBoxAllowed) && typeof product.giftBoxSKUData != 'undefined' && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-desktop custom-checkbox-pdp">
                                 <label for="gift-allowed-checkout" class="gift-box-wrapper-label custom-control-label-pdp">
                                     <input id="gift-allowed-checkout" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">

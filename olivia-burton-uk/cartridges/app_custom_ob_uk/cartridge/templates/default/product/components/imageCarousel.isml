@@ -1,4 +1,5 @@
 <iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
+<isset name="isImageExist" value="false" scope="page" />
 <div class="primary-images ob-carousel-quickview col-12 col-sm-6">
     <div class="product-badges">
         <isinclude template="product/components/newnessBadge" />
@@ -55,7 +56,7 @@
             </div>
             <div class="modal-body">
                 <div class="pinchZoom zoomedImage">
-                    <img alt="${product.resources.Zoom}" src="${product.images['pdp533'][0].url}" />
+                    <img alt="${product.resources.Zoom}" src="${!empty(product.images) && product.images['pdp533'] && product.images['pdp533'].length > 0 && product.images['pdp533'][0].url ? product.images['pdp533'][0].url : ''}" />
                 </div>
             </div>
         </div>

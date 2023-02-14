@@ -1,0 +1,8 @@
+{
+    "caches": [
+      {
+        "id": "FedExToken",
+        "expireAfterSeconds": 3600
+      }
+    ]
+  }
