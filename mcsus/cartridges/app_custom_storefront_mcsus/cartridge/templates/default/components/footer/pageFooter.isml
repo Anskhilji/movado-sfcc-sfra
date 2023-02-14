@@ -5,7 +5,6 @@
         <div class="container">
             <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
                 <div class="row">
-                    <div class="col-lg-5 email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</div>
                     <div class="col-lg-7">
                         <div class="input-group">
                             <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignups', 'homePage', null)}">
@@ -21,6 +20,7 @@
                           <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
                         </div>
                     </div>
+                    <div class="col-lg-5 email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</div>
                 </div>
             </form>
         </div>
