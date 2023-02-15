@@ -109,8 +109,8 @@
                                         max-width: rem(646);
                                         height: rem(646);
                                     }
-                                    
-                                    @media (max-width:$m-1440) {
+
+                                    @include custom-media-query-max ($large-screen-width-1440) {
                                         max-width: rem(636);
                                         height: rem(636);
                                     }
@@ -125,7 +125,7 @@
                                         height: rem(377);
                                     }
 
-                                    @media(max-width:$m-768) {
+                                    @include custom-media-query-max($medium-screen-width) {
                                         max-width: rem(266);
                                         height: rem(266);
                                     }

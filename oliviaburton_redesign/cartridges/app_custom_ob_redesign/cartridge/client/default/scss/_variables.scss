@@ -127,8 +127,6 @@ $large-screen-width-1440: 1440px;
 $m-425:425px;
 $m-375:375px;
 $m-325:325px;
-$m-768:768px;
-$m-1440:1440px;
 
 @mixin m-425 {
   @media (max-width:$m-425) {
