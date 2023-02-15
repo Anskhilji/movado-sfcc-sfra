@@ -2149,3 +2149,54 @@
     }
 }
 // CSS End: listrak persistent popup
+// mss-1397 video fixed height and width
+.product-detail {
+
+    &.mcs-product-detail-section-redesign {
+
+        .primary-images {
+
+            .cs-carousel-wrapper {
+
+                .cs-carousel {
+
+                    .carousel-tile {
+
+                        &.poster-frame-video {
+                            max-width: rem(603);
+                            height: rem(603);
+
+                            @include media-breakpoint-down(lg) {
+                                max-width: rem(463);
+                                height: rem(463);
+                            }
+
+                            @include media-breakpoint-down(md) {
+                                max-width: rem(414);
+                                height: rem(414);
+                            }
+
+                            @media (max-width:$small-screen-width-down) {
+                                max-width: rem(309);
+                                height: rem(309);
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                max-width: rem(366);
+                                height: rem(366);
+                            }
+
+                            @media (max-width:$extra-small-screen-width-down) {
+                                max-width: rem(316);
+                                height: rem(316);
+                            }
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+    }
+}
