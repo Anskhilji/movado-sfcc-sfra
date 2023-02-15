@@ -2176,7 +2176,7 @@
                                 height: rem(414);
                             }
 
-                            @media (max-width:$small-screen-width-down) {
+                            @include custom-media-query-max($medium-screen-width) {
                                 max-width: rem(309);
                                 height: rem(309);
                             }
@@ -2186,7 +2186,7 @@
                                 height: rem(366);
                             }
 
-                            @media (max-width:$extra-small-screen-width-down) {
+                            @include custom-media-query-max($small-screen-width375) {
                                 max-width: rem(316);
                                 height: rem(316);
                             }

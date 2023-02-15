@@ -33,8 +33,6 @@ $green-2: #30770d;
 
 // Large Screen Down
 $large-screen-width-down: 1400px;
-$small-screen-width-down:768px;
-$extra-small-screen-width-down:375px;
 
 @mixin custom-media-query-down($large-screen-width-down) {
     @media (max-width:#{$large-screen-width-down}) {
