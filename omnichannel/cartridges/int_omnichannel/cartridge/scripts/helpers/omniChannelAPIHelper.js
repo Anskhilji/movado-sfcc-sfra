@@ -109,7 +109,7 @@ function setLineItemInventory(items, lineItemsInventory, viewData) {
                         return lineItem.sku == item.id
                     });
                     var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
-                    itemInv = itemInv - viewData.cartModel.items[index].quantity;
+                    itemInv = itemInv - (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity;
                     var loopInventory = itemInventory.filter(function (i) {
                         return i.itemId == item.id
                     }).map(function (obj) {
@@ -120,14 +120,14 @@ function setLineItemInventory(items, lineItemsInventory, viewData) {
                         if (loopInventory.length == 0) {
                             itemInventory.push({
                                 itemId: item.id,
-                                remain: itemInv - viewData.cartModel.items[index].quantity
+                                remain: itemInv - (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity
                             });
                             return;
                         }
                         itemInventory.filter(function (i) {
                             return i.itemId == item.id
                         }).map(function (obj) {
-                            obj.remain = obj.remain - viewData.cartModel.items[index].quantity
+                            obj.remain = obj.remain - (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity
                         });
                     } else {
                         item.storePickupAvailable = false;
