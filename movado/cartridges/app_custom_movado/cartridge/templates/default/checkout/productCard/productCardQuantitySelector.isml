@@ -1,5 +1,5 @@
 <iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
-<isif condition="${lineItem.quantityOptions.minOrderQuantity > 0 && lineItem.quantityOptions.maxOrderQuantity > 0}">
+<isif condition="${!empty(lineItem) && !empty(lineItem.quantityOptions) && !empty(lineItem.quantityOptions.minOrderQuantity) && !empty(lineItem.quantityOptions.maxOrderQuantity) && lineItem.quantityOptions.minOrderQuantity > 0 && lineItem.quantityOptions.maxOrderQuantity > 0}">
     <div class="quantity-form">
         <label class="line-item-pricing-info quantity-label" for="quantity">${Resource.msg('field.selectquantityselector', 'cart', null)}</label>
         <label class="line-item-pricing-info quantity-label-mbl" for="quantity">${Resource.msg('field.selectquantity.cart', 'cart', null)}</label>
