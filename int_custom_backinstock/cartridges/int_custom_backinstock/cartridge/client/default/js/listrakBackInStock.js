@@ -22,11 +22,17 @@ $('.form').submit(function(e) {
         var $phoneNo = '';
 
         $('.back-in-stock-notification-email').each(function() {
-            $email = $(this).val().trim();
+            if ($(this).val()) {
+                $email = $(this).val().trim();
+            }
         });
-        $('.back-in-stock-notification-phone').each(function() {
-            $phoneNo = $(this).val().trim();
-        });
+        if ($('.back-in-stock-notification-phone').length > 0) {
+            $('.back-in-stock-notification-phone').each(function() {
+                if ($(this).val()) {
+                    $phoneNo = $(this).val().trim();
+                }
+            });
+        }
 
         var $pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
         var smsSubscription = false;
@@ -77,7 +83,9 @@ $('.form').submit(function(e) {
 
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
             $('.back-in-stock-notification-phone').each(function() {
-                $phone = $(this).val().trim();
+                if ($(this).val()) {
+                    $phone = $(this).val().trim();
+                }
             });
             
             var $phonePattern;
@@ -140,7 +148,9 @@ $('.form').submit(function(e) {
     } else {
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
             $('.back-in-stock-notification-phone').each(function() {
-                $phone = $(this).val().trim();
+                if ($(this).val()) {
+                    $phone = $(this).val().trim();
+                }
             });
 
             var $phonePattern;
