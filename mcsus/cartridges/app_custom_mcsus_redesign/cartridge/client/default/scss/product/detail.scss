@@ -737,17 +737,11 @@
                     background-color: $light-brown;
                     border-color: $light-brown;
                     color: $white;
-                    font-weight: 600;
-                    font-size: rem(14);
-                    border-radius: 0;
 
                     @include media-breakpoint-down(xs) {
                         background-color: $light-brown2;
                         border-color: $light-brown2;
                         color: $black;
-                        font-weight: 600;
-                        letter-spacing: rem(1);
-                        line-height: rem(17);
                     }
 
                     &:focus {
@@ -774,7 +768,6 @@
                 .static-style-wrapper {
 
                     .sales {
-                        font-size: rem(14);
 
                         @include media-breakpoint-down(xs) {
                             color: $black;
@@ -1456,10 +1449,7 @@
                                         &.static-style-wrapper {
                                             background-color: $light-brown;
                                             border-color: $light-brown;
-                                            border-radius: 0;
                                             color: $white;
-                                            font-weight: 600;
-                                            font-size: rem(14);
 
                                             &:focus {
                                                 box-shadow: 0 0 0 rem(3.2) rgba($light-brown, 0.5);
@@ -1480,13 +1470,6 @@
                                                     font-size: rem(16);
                                                     letter-spacing: rem(1.14);
                                                     line-height: rem(19);
-                                                }
-                                            }
-
-                                            &.static-style-wrapper {
-
-                                                .sale-price-mvmt {
-                                                    font-size: rem(14);
                                                 }
                                             }
                                         }
