@@ -3,6 +3,8 @@
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site');
 
+var constants = require('*/cartridge/scripts/helpers/constants');
+
  function setTestModeCredentials (service) {
 
     try {
@@ -30,8 +32,8 @@ function toRad(Value) {
  * @param {number} lon2 - longitude of current location
  * @returns {number} distance between current location and store
  */
-function calculateRad(lat1, lon1, lat2, lon2) {
-    var earthRadius = 3958.756; // miles
+function calculateRad(lat1, lon1, lat2, lon2, distanceUnit) {
+    var earthRadius = distanceUnit == constants.DISTANCE_IN_MILES ? constants.EARTH_RADIUS_IN_MILES : constants.EARTH_RADIUS_IN_KM; // miles
     var latRadians = toRad(lat2 - lat1);
     var lonRadians = toRad(lon2 - lon1);
     var lat1 = toRad(lat1);
@@ -41,7 +43,7 @@ function calculateRad(lat1, lon1, lat2, lon2) {
         Math.sin(lonRadians / 2) * Math.sin(lonRadians / 2) * Math.cos(lat1) * Math.cos(lat2);
     var circumference = 2 * Math.atan2(Math.sqrt(area), Math.sqrt(1 - area));
     var radius = Math.round(earthRadius * circumference);
-    return radius;
+    return radius + ' ' + distanceUnit.toUpperCase();
 }
 module.exports = {
     setTestModeCredentials: setTestModeCredentials,
