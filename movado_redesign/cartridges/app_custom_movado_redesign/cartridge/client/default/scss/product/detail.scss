@@ -566,6 +566,16 @@ $arrow-height: 1.25em;
 
             &.text-unset-wrapper {
                 text-transform: initial !important;
+
+                @include media-breakpoint-down(xs) {
+                    display: none;
+                }          
+            }
+        }
+
+        .product-bottom-detail {
+            @include media-breakpoint-down(xs) {
+                display: none;
             }
         }
     }
@@ -1579,6 +1589,7 @@ $arrow-height: 1.25em;
             margin-top: rem(-50);
             @include media-breakpoint-down(xs) {
                 margin-top: rem(-34);
+                display: none;
             }
         }
 
