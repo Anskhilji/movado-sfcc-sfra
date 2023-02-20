@@ -18,7 +18,9 @@ $('.form').submit(function(e) {
     $phoneInvalid.text('');
 
     if ($form.find('.back-in-stock-notification-email').length > 0) {
+        
         $('.back-in-stock-notification-email').each(function() {
+            
             if ($(this).val().length > 0) {
                 $email = $(this).val().trim();
             }

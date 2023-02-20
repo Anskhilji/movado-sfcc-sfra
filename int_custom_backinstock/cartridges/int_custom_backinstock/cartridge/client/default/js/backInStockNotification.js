@@ -90,7 +90,7 @@ $(document).ready(function () {
         var $emailField = ''
 
         $('.back-in-stock-notification-email').each(function() {
-
+            
             if ($(this).val().length > 0) {
                 $emailField = $(this).val().trim();
             }
