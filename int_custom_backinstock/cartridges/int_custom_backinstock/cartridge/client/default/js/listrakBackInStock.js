@@ -17,7 +17,7 @@ $('.form').submit(function(e) {
     $emailRequired.text('');
     $emailInvalid.text('');
     $phoneInvalid.text('');
-    var listrackCode = "+";
+    var $listrackPhoneCode = "+";
 
     if ($form.find('.back-in-stock-notification-email').length > 0) {
         var $phoneNo = '';
@@ -30,7 +30,7 @@ $('.form').submit(function(e) {
         if ($('.back-in-stock-notification-phone').length > 0) {
             $('.back-in-stock-notification-phone').each(function() {
                 if ($(this).val()) {
-                    $phoneNo = listrackCode + $(this).val().trim();
+                    $phoneNo = $(this).val().trim();
                 }
             });
         }
@@ -49,6 +49,7 @@ $('.form').submit(function(e) {
         }
 
         if (smsSubscription) {
+            $phoneNo = $listrackPhoneCode + $phoneNo;
             $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
         } else {
             $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
@@ -85,7 +86,7 @@ $('.form').submit(function(e) {
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
             $('.back-in-stock-notification-phone').each(function() {
                 if ($(this).val()) {
-                    $phone = listrackCode + $(this).val().trim();
+                    $phone = $(this).val().trim();
                 }
             });
             
@@ -93,6 +94,7 @@ $('.form').submit(function(e) {
             var $isValidPhone;
 
             if (smsSubscription) {
+                $phone = $listrackPhoneCode + $phone;
                 $phonePattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
             } else {
                 $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
@@ -150,7 +152,7 @@ $('.form').submit(function(e) {
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
             $('.back-in-stock-notification-phone').each(function() {
                 if ($(this).val()) {
-                    $phone = listrackCode + $(this).val().trim();
+                    $phone = $(this).val().trim();
                 }
             });
 
@@ -158,6 +160,7 @@ $('.form').submit(function(e) {
             var $isValidPhone;
 
             if (smsSubscription) {
+                $phone = $listrackPhoneCode + $phone;
                 $phonePattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
             } else {
                 $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;

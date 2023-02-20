@@ -37,7 +37,7 @@ var submitBackInStockEmail = function ($selector) {
     var smsSubscription = false;
     var $phoneNoPattern;
     var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
-    var listrackCode = "+";
+    var $listrackPhoneCode = "+";
     
     if ($selector.find('.back-in-stock-notification-email').length > 0) {
         $('.back-in-stock-notification-email').each(function() {
@@ -49,7 +49,7 @@ var submitBackInStockEmail = function ($selector) {
     if ($selector.find('.back-in-stock-notification-phone').length > 0) {
         $('.back-in-stock-notification-phone').each(function() {
             if ($(this).val()) {
-                phoneNo = $(this).val().trim();
+                $phoneNo = $(this).val().trim();
             }
         });
     }
@@ -75,7 +75,7 @@ var submitBackInStockEmail = function ($selector) {
     }
 
     if (form.smsSubscription) {
-        $phoneNo = listrackCode + $phoneNo;
+        $phoneNo = $listrackPhoneCode + $phoneNo;
         $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
     } else {
         $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
