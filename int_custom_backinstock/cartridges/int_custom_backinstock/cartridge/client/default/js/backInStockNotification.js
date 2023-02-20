@@ -40,12 +40,16 @@ var submitBackInStockEmail = function ($selector) {
     
     if ($selector.find('.back-in-stock-notification-email').length > 0) {
         $('.back-in-stock-notification-email').each(function() {
-            emailAddress = $(this).val().trim();
+            if ($(this).val()) {
+                emailAddress = $(this).val().trim();
+            }
         });
     }
     if ($selector.find('.back-in-stock-notification-phone').length > 0) {
         $('.back-in-stock-notification-phone').each(function() {
-            phoneNo = $(this).val().trim();
+            if ($(this).val()) {
+                phoneNo = $(this).val().trim();
+            }
         });
     }
 
@@ -122,9 +126,13 @@ $(document).ready(function () {
 
     $(document).on('keyup , focus, click, input', '.back-in-stock-notification-email', function (event) {
         var $emailField = '';
-        $('.back-in-stock-notification-email').each(function() {
-            $emailField = $(this).val().trim();
-        });
+        if ($('.back-in-stock-notification-email').length > 0) {
+            $('.back-in-stock-notification-email').each(function() {
+                if ($(this).val()) {
+                    $emailField = $(this).val().trim();
+                }
+            });
+        }
         var $backInStockNotificationConfirmButton = $('.back-in-stock-notification-button');
         if ($emailField.length > 0) {
             $backInStockNotificationConfirmButton.each(function () {
