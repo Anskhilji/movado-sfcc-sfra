@@ -27,3 +27,5 @@ exports.COUNTRY_US = 'US';
 exports.STATUS_OK = 'OK';
 exports.DEFAULT_POSTAL_CODE = '90011';
 exports.DISTANCE_IN_MILES = 'mi';
+exports.EARTH_RADIUS_IN_MILES = 3958.756;
+exports.EARTH_RADIUS_IN_KM = 6371;

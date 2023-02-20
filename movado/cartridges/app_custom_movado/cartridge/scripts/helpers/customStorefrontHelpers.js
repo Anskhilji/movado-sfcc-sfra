@@ -33,7 +33,7 @@ function toRad(Value) {
  * @returns {number} distance between current location and store
  */
 function calculateRad(lat1, lon1, lat2, lon2, distanceUnit) {
-    var earthRadius = distanceUnit == constants.DISTANCE_IN_MILES ? 3958.756 : 6371; // miles
+    var earthRadius = distanceUnit == constants.DISTANCE_IN_MILES ? constants.EARTH_RADIUS_IN_MILES : constants.EARTH_RADIUS_IN_KM; // miles
     var latRadians = toRad(lat2 - lat1);
     var lonRadians = toRad(lon2 - lon1);
     var lat1 = toRad(lat1);
