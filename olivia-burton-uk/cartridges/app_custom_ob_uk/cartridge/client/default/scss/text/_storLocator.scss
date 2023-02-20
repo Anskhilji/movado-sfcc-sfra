@@ -26,11 +26,18 @@
 
     .card-button {
       font-family: $font-museo-std;
-      color: $black;
+      color: $white;
       font-size: $font-size-text-heading1;
       letter-spacing: rem(2);
-      background: $pink-hot;
-      border: rem(1) solid $pink-hot;
+      background: $black;
+      border: rem(1) solid $black;
+
+      &:hover,
+      &:focus {
+          background: $white;
+          border: rem(1) solid $black;
+          color: $black;
+      }
     }
 
     label.form-control-label {
@@ -147,7 +154,7 @@
 
 div.store-locator-hero {
   h1.page-title {
-    font-family: $font-adobe;
+    font-family: $font-gills-light;
     font-size: $font-size-title6;
     letter-spacing: rem(1.8);
     color: $white;
