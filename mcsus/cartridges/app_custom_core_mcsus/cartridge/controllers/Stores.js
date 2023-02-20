@@ -2,7 +2,7 @@
 
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
-var constants = require('*/cartridge/scripts/helpers/constants');
+var constants = require('*/cartridge/scripts/helpers/constants')
 var data = require('*/cartridge/controllers/countries.json');
 var HashMap = require('dw/util/HashMap');
 var storeHelpers = require('*/cartridge/scripts/helpers/customStoreHelper');
@@ -27,7 +27,7 @@ server.extend(page);
 server.replace('FindStores', function (req, res, next) {
     var radius = req.querystring.radius;
     var showMap = req.querystring.showMap;
-    var queryCountryCode = req.querystring.countryCode || COUNTRY_US;
+    var queryCountryCode = req.querystring.countryCode || request.geolocation.countryCode || COUNTRY_US;
     var queryAddress = req.querystring.address|| request.geolocation.postalCode || DEFAULT_POSTAL_CODE;
     var stores = null;
     var status = null;
