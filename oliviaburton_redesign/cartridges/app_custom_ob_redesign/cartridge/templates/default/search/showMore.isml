@@ -10,7 +10,7 @@
         <isset name="showing" value=${pdict.productSearch.count} scope="page" />
     </isif>
 
-        <div class="show-more" >
+        <div class="show-more mt-4">
             <div class="text-center">
                 <iscomment> new label added for result count </iscomment>
                 <p id="show-more-update-mobile" class="show-more-update" data-total-size=${pdict.productSearch.count}>

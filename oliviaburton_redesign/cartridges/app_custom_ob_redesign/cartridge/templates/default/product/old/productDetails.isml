@@ -147,7 +147,7 @@
                             </isif>
                             <hr />
                         </div>
-                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                        <isif condition="${product.options && product.options.length > 0}">
                             <isinclude template="product/components/old/options" />
                         </isif>
                         <div class="col-md-10 col-12">
@@ -240,9 +240,6 @@
                             <iselse>
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
-                            <div class="row description">
-                                <isinclude template="product/components/old/productWhyBuyMe" />
-                            </div>
                             <div class="row description description-text">
                                 <isinclude template="product/components/old/description" />
                             </div>

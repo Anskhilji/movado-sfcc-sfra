@@ -13,6 +13,20 @@
 
     .description {
         font-family: $font-HelveticaNeueLT-book;
+
+        .title {
+            &.text-unset-wrapper {
+                @include media-breakpoint-down(xs) {
+                    display: block;
+                }
+            }
+        }
+    
+        .product-bottom-detail {
+            @include media-breakpoint-down(xs) {
+                display: block;
+            }
+        }
     }
 
     .price {

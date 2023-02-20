@@ -17,14 +17,12 @@ var URLUtils = require('dw/web/URLUtils');
 
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var URLUtils = require('dw/web/URLUtils');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
-
     var Site = require('dw/system/Site');
     var viewData = res.getViewData();
 
@@ -40,9 +38,11 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     /**
      * Custom Start: Added logic for OB Redesign.
      */
+
     if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
         resultsTemplate = viewData.resultsTemplate;
     }
+
     /**
      * Custom End:
      */
@@ -128,7 +128,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
     var isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
     var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
-
     var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
@@ -177,7 +176,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 relativeURL: URLUtils.url('Search-Show', 'cgid', productSearch.category.id),
                 isNonWatchesTileEnable: isNonWatchesTileEnable,
                 popupID: listrakPersistentPopup
-
             });
         }
     } else {
@@ -189,10 +187,10 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             reportingURLs: reportingURLs,
             refineurl: refineurl,
             categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
-            isNonWatchesTileEnable: isNonWatchesTileEnable
+            isNonWatchesTileEnable: isNonWatchesTileEnable,
+            popupID: listrakPersistentPopup
         });
     }
-
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var Resource = require('dw/web/Resource');
     if (productSearch.category) {

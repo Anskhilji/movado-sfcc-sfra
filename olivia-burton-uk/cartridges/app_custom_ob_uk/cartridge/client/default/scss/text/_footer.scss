@@ -14,8 +14,8 @@ footer {
         font-size: $font-size-text-heading1;
         font-weight: $font-semi-bold;
         letter-spacing: rem(2);
-        border: rem(1) solid $pink-grey;
-        background-color: $pink-grey;
+        border: rem(1) solid $gray;
+        background-color: $gray;
         color: $white;
       }
     }
@@ -64,7 +64,7 @@ footer {
 .home {
   &-email {
     &-signup {
-      background-color: $pink-grey;
+      background-color: $gray;
 
       .input {
         &-group {

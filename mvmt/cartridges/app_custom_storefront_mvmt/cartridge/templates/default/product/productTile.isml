@@ -25,7 +25,7 @@
             <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
                 <isif condition="${pdict.display.isEyewearTile}">
                     <isinclude template="product/components/productTileEyewearSwatch" />
-                <iselse/>
+                <iselseif condition="${!product.isWatchTile}" />
                     <isinclude template="product/components/productTileSwatch" />
                 </isif>
             </isif>

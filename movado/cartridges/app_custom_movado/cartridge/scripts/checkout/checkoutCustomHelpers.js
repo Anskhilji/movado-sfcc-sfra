@@ -55,6 +55,8 @@ function sendOrderConfirmationEmail(order, locale) {
     var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-confirmation-marketing-pick-in-store');
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
     var isPickupStoreEnabled = !empty(Site.current.preferences.custom.isPickupStoreEnabled) ? Site.current.preferences.custom.isPickupStoreEnabled : false;
+    var domesticShippingLabel = Resource.msg('order.confirmation.email.label.shippingto', 'order', null);
+    var pickupShippingLabel = Resource.msg('order.confirmation.email.label.pickup.shippingto', 'order', null);
 
     var orderConfirmationObj = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
@@ -81,6 +83,8 @@ function sendOrderConfirmationEmail(order, locale) {
         orderConfirmationHeading: Resource.msgf('order.confirmation.email.heading', 'order', null, orderModel.orderNumber),
         salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName ? orderModel.billing.billingAddress.address.lastName : '') ,
         thankYou: Resource.msgf('order.confirmation.email.thankyou', 'order', null),
+        pickUpThankYou: Resource.msgf('order.confirmation.pickup.email.thankyou', 'order', null),
+        pickUpOrderConfirmText: Resource.msgf('order.confirmation.pickup.order.confirm.text.email.thankyou', 'order', null),
         orderNumberHeading: Resource.msgf('order.confirmation.email.no.heading', 'order', null, orderModel.orderNumber),
         orderProcess: Resource.msgf('order.confirmation.email.placed', 'order', null, orderModel.creationDate),
         quantityLabel: Resource.msg('order.confirmation.email.quantity', 'order', null),
@@ -101,10 +105,12 @@ function sendOrderConfirmationEmail(order, locale) {
         paymentPaypal: Resource.msg('order.confirmation.email.payment.paypal', 'order', null),
         applePay: Resource.msg('order.confirmation.email.payment.applepay', 'order', null),
         expLabel: Resource.msg('order.confirmation.email.label.payment.expiry', 'order', null),
-        shipToLabel: Resource.msg('order.confirmation.email.label.shippingto', 'order', null),
+        shipToLabel: order.custom.BOPIS ? pickupShippingLabel : domesticShippingLabel,
         phoneLabel: Resource.msg('order.confirmation.email.label.phone', 'order', null),
         shippingMethodLabel: Resource.msg('order.confirmation.email.label.shippingmethod', 'order', null),
         shippingStatusLabel: Resource.msg('order.confirmation.email.label.shippingstatus', 'order', null),
+        pickUpCustomerLabel: Resource.msg('order.confirmation.email..pick.customer.label', 'order', null),
+        pickUpStoreAddressLabel: Resource.msg('order.confirmation.email..pick.store.address.label', 'order', null),
         billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
         cuurentOrder: order
     };
@@ -357,6 +363,31 @@ function declineOrder(order) {
 
 }
 
+function maskEmail(email) {
+    var prefix = email.substring(0, email.lastIndexOf('@'));
+    var postfix = email.substring(email.lastIndexOf('@'));
+    var maskedEmail = '';
+
+    for (var i = 0; i < prefix.length; i++) {
+        if (i === 0 || i === prefix.length - 1) {
+            maskedEmail = maskedEmail + prefix[i].toString();
+        }
+        else {
+            maskedEmail = maskedEmail + '.';
+        }
+    }
+    maskedEmail = maskedEmail + postfix;
+    return maskedEmail;
+}
+
+function removeGiftMessageLineItem(currentBasket) {
+    var prodLineItems = currentBasket.productLineItems;
+
+    for each (var lineItem in prodLineItems) {
+        lineItem.custom.GiftWrapMessage = '';
+    }
+}
+
 module.exports = {
     sendConfirmationEmail: sendConfirmationEmail,
     sendOrderConfirmationEmail: sendOrderConfirmationEmail,
@@ -365,5 +396,7 @@ module.exports = {
     sendShippingEmail: sendShippingEmail,
     failOrderRisifiedCall: failOrderRisifiedCall,
     isRiskified: isRiskified,
-    declineOrder: declineOrder
+    declineOrder: declineOrder,
+    removeGiftMessageLineItem: removeGiftMessageLineItem,
+    maskEmail: maskEmail
 };

@@ -53,6 +53,14 @@ function parseResponse(callerModule, responseFromRiskified, action) {
         return parsingResponse;
     }
 
+    if (apiResponse == null) {
+        parsingResponse.error = true;
+        parsingResponse.errorCode = Constants.BAD_CALL;
+        parsingResponse.recoveryNeeded = RCUtilities.getRecoverySetting(action);
+        parsingResponse.message = 'Riskified API Service Error';
+        return parsingResponse;
+    }
+
     if ('error' in apiResponse) {
         parsingResponse.error = true;
         parsingResponse.errorCode = Constants.BAD_CALL;

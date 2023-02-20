@@ -29,6 +29,28 @@ module.exports = {
                 $('.debossing-form').removeClass('submitted');
             }
 
+            var standard = $('.debossing-tabs.standard');
+            var script = $('.debossing-tabs.script');
+            var horizontal= $('.debossing-tabs.horizontal');
+            var vertical = $('.debossing-tabs.vertical');
+            var personalize = $('.popup-tabs .personalize');
+
+            if (standard  || script || horizontal || vertical) {
+                if (standard.hasClass('active')) {
+                    var personalization = standard.data('personalize');
+                    personalize.val(personalization);
+                } else if (script.hasClass('active')) {
+                    var personalization = script.data('personalize');
+                    personalize.val(personalization);
+                } else if (horizontal.hasClass('active')) {
+                    var personalization = horizontal.data('personalize');
+                    personalize.val(personalization);
+                } else if (vertical.hasClass('active')) {
+                    var personalization = vertical.data('personalize');
+                    personalize.val(personalization);
+                }
+            }
+    
             setTimeout(function() {
                 var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
                 var debossingtextEdit=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input').val());
@@ -119,6 +141,15 @@ module.exports = {
             slidesToScroll: 1,
             dots: true,
             arrows:true,
+
+            responsive: [{
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  arrows: false
+                }
+              }],
             customPaging: function (slick, index) {
                 var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';

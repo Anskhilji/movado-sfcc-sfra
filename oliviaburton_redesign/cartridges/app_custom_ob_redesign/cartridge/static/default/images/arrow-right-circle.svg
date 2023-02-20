@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="66px" height="66px" viewBox="0 0 66 66" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>0769DD97-3BB6-44F5-A7F0-F5195D3E2EE6</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="50" height="50" rx="25"></rect>
+        <filter x="-27.0%" y="-21.0%" width="154.0%" height="154.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.302875906   0 0 0 0 0.302875906   0 0 0 0 0.302875906  0 0 0 0.29 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Homepage_Soft_Update_Sep22_2022" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="HPD_00" transform="translate(-1349.000000, -2595.000000)">
+            <g id="Rectangle-3-Copy" transform="translate(1385.000000, 2628.000000) rotate(90.000000) translate(-1385.000000, -2628.000000) translate(1360.000000, 2603.000000)">
+                <g id="Rectangle">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#EDECE6" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="arrow_upward_black_24dp-(1)" transform="translate(8.333333, 8.333333)">
+                    <polygon id="Path" points="0 0 33.3333333 0 33.3333333 33.3333333 0 33.3333333"></polygon>
+                    <path d="M18.0555556,26.3888889 L18.0555556,10.875 L24.8333333,17.6527778 C25.375,18.1944444 26.2638889,18.1944444 26.8055556,17.6527778 C27.3472222,17.1111111 27.3472222,16.2361111 26.8055556,15.6944444 L17.6527778,6.54166667 C17.1111111,6 16.2361111,6 15.6944444,6.54166667 L6.52777778,15.6805556 C5.98611111,16.2222222 5.98611111,17.0972222 6.52777778,17.6388889 C7.06944444,18.1805556 7.94444444,18.1805556 8.48611111,17.6388889 L15.2777778,10.875 L15.2777778,26.3888889 C15.2777778,27.1527778 15.9027778,27.7777778 16.6666667,27.7777778 C17.4305556,27.7777778 18.0555556,27.1527778 18.0555556,26.3888889 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
