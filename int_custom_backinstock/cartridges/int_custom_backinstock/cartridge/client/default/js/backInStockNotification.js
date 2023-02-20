@@ -35,8 +35,12 @@ var submitBackInStockEmail = function ($selector) {
     var enabledMarketing = false;
 
     if ($selector.find('.back-in-stock-notification-email').length > 0) {
+
         $('.back-in-stock-notification-email').each(function() {
-            emailAddress = $(this).val().trim();
+
+            if ($(this).val().length > 0) {
+                emailAddress = $(this).val().trim();
+            }
         });
     }
 
@@ -86,7 +90,10 @@ $(document).ready(function () {
         var $emailField = ''
 
         $('.back-in-stock-notification-email').each(function() {
-            $emailField = $(this).val().trim();
+
+            if ($(this).val().length > 0) {
+                $emailField = $(this).val().trim();
+            }
         });
 
         var $backInStockNotificationConfirmButton = $('.back-in-stock-notification-button');
