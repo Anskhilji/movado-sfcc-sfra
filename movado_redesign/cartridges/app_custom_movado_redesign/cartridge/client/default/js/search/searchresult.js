@@ -109,6 +109,21 @@ $(document).ready(function () {
         }
     })
     // Custom:MSS-2073 end
+
+    // Custom:MSS-2150 start
+    $('.navbar-toggler-custom').click(function(){
+        $('.modal-background').addClass('plp-modal');
+        if ($(window).width() < 992) {
+            $('.header-menu-wrapper').css('z-index','1011');
+        }
+    });
+    $('.close-button,.modal-background').click(function(){
+        $('.modal-background').removeClass('plp-modal');
+        if ($(window).width() < 992) {
+            $('.header-menu-wrapper').removeAttr('style');
+        }
+    });
+    // Custom:MSS-2150 end
 });
 
 

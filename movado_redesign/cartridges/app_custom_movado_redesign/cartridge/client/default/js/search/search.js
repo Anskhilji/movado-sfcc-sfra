@@ -351,9 +351,9 @@ $(window).scroll(function() {
     var screenWidth = 130;
     
     //  this var use for mobile scree 
-    if (window.innerWidth <= 767) {
-        screenWidth = 45;
-    }
+    if (window.innerWidth <= 1200) {
+        screenWidth = 60;
+    } 
 
     if (scroll > screenWidth) {
         $('.filter-box').addClass('filter-bar-sticky');
