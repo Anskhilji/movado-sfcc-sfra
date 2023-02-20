@@ -20,7 +20,7 @@
     }
 
     .mobile-search {
-        background: url("../images/round-search-24px.png") center center no-repeat;
+        background: url("../images/Icons_Search.png") center center no-repeat;
         border: none;
         width: rem(20);
         height: rem(20);
@@ -29,7 +29,12 @@
     }
 
     .header-wrapper {
-
+        background-color: $gray-light-1;
+        
+        @include media-breakpoint-down(md) {
+            border-bottom: rem(1) solid $transparent-gray-2;
+        }
+        
         .right {
             display: flex;
             width: 25%;
@@ -70,7 +75,7 @@
                     transform: translateY(-50%);
                     width: rem(15);
                     height: rem(15);
-                    background: url("../images/round-search-24px.svg") center center no-repeat;
+                    background: url("../images/Icons_Search.png") center center no-repeat;
                     background-size: contain;
                 }
             }
@@ -91,6 +96,20 @@
 
             @include media-breakpoint-down(md) {
                 position: relative;
+            }
+        }
+
+        .search-mobile {
+
+            .site-search {
+
+                .fa-search {
+                    transform: translateY(-50%);
+                    width: rem(17);
+                    height: rem(18);
+                    background: url("../images/Icons_Search.png") center center no-repeat;
+                    background-size: contain;
+                }
             }
         }
     }
@@ -157,7 +176,7 @@
 
     .header-menu-wrapper {
         padding: 0;
-        box-shadow: rem(1) rem(2) rem(5) 0 $grey-transparent-7;
+        background-color: $gray-light-1;
     }
 
     .left {
@@ -180,9 +199,10 @@
 }
 
 .header-banner {
-    
+    background-color: $black;
+
     .html-slot-container {
-        color: $black;
+        color: $white;
         font-family: $font-gill-std;
         font-size: rem(14);
         font-weight: 600;
@@ -191,6 +211,10 @@
             font-size: rem(12);
         }
     }
+}
+
+.accessible-link {
+    color: $white;
 }
 
 .checkout-header {
@@ -212,4 +236,18 @@
 
 .cart-country-selector {
     padding-top: rem(20);
+}
+
+.site-search {
+    
+    .fa-search {
+        width: rem(17);
+        height: rem(18);
+        background: url("../images/Icons_Search.png") center center no-repeat;
+        background-size: contain;
+        
+        &::before {
+            content: '';
+        }
+    }
 }

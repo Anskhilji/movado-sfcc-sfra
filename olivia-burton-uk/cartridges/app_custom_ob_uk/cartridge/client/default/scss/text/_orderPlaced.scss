@@ -60,9 +60,9 @@
 
 .order-confirm-create-account {
   button {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
-    color: $black;
+    background: $black;
+    border: rem(1) solid $black;
+    color: $white;
   }
 }
 
@@ -107,7 +107,7 @@
     }
 
     .order-thank-you-msg {
-      font-family: $font-adobe;
+      font-family: $font-gills-light;
       font-style: normal;
       font-size: $font-size-main-heading1;
       letter-spacing: rem(1.5);

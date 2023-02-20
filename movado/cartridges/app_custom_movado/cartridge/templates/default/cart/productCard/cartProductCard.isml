@@ -36,7 +36,7 @@
 
                         <p class="line-item-attributes model-name mb-2">${lineItem.resources.Model} ${lineItem.id}</p>
                         <isloop items="${lineItem.options}" var="option">
-                            <isif condition="${!!option && option.selectedValueId != 0}">
+                            <isif condition="${!!option}">
                                 <isif condition="${option.optionId === 'Embossed' && lineItem.customAttributes.emboss}">
                                 	<p class="line-item-attributes mb-2 personalize-price">${Resource.msg('emboss.displayValue.change', 'cart', null)} (${lineItem.customAttributes.emboss.price}): <span class="personalize-msg">${lineItem.customAttributes.emboss.msgLine1}</span></p>
                                 </isif>
@@ -102,7 +102,7 @@
             <isif condition="${!!option && option.optionId == "clydeWarranty"}" >
                 <isset name="clydeOption" value=${true} scope="page">
                 <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
-                <div class="row pt-2">
+                <div class="row pt-2 clyde-uuid-${lineItem.UUID}">
                     <div class="col-lg-12 d-flex flex-row">
                         <div class="item-image">
                             <img class="product-image" src="${option.imageURL}" alt="${option.displayName}" title="${option.displayName}">
@@ -116,6 +116,7 @@
                                     <p>${option.adjustedPrice}</p>
                                 </isif>
                             </isif>
+                            <isinclude template="components/deleteClydeProductButton" />
                         </div>
                     </div>
                 </div>
