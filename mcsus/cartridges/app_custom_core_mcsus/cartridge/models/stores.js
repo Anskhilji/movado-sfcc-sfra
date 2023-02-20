@@ -14,7 +14,7 @@ function createStoresObject(storesObject, searchKey) {
     return Object.keys(storesObject).map(function (key) {
         var store = storesObject[key];
         var storeModel = new StoreModel(store);
-        storeModel.radius = customStorefrontHelper.calculateRad(searchKey.lat, searchKey.long, storeModel.latitude, storeModel.longitude);
+        storeModel.radius = customStorefrontHelper.calculateRad(searchKey.lat, searchKey.long, storeModel.latitude, storeModel.longitude, searchKey.distanceUnit);
         return storeModel;
     });
 }

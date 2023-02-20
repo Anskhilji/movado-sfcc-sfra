@@ -31,7 +31,7 @@
                             ${store.phone}
                         </a>
                         <div class="store-detail-ml">
-                            ${Resource.msgf('locator.mi', 'search', null, store.radius)}.
+                            ${store.radius}.
                         </div>
                     </div>
                     <isif condition="${store.image && store.image.url}">

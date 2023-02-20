@@ -26,3 +26,4 @@ exports.ZERO_RESULTS = 'ZERO_RESULTS';
 exports.COUNTRY_US = 'US';
 exports.STATUS_OK = 'OK';
 exports.DEFAULT_POSTAL_CODE = '90011';
+exports.DISTANCE_IN_MILES = 'mi';
