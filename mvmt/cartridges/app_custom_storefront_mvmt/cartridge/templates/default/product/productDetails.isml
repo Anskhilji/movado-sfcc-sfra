@@ -330,10 +330,6 @@
                         <div class="description-container p-0">
                             <isinclude template="product/components/descriptionAndDetails" />
                         </div>
-                        
-                        <div class="mvmt-slot-loyalty-information">
-                            <isslot id="cs-pdp-loyalty-information" context="global" description="Loyalty Information" />
-                        </div>
 
                         <isif condition="${isRecommendationsEnabled}" >
                             <div class="linked-product-container">
@@ -417,7 +413,6 @@
 
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
-        <isslot id="pdp-bottom-slot" description="PDP Bottom Slot" context="global"/>
         <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
 
         <iscomment> Custom Start: Adding condition for check enableSeeTheFitPopUp is enable/disable </iscomment>
