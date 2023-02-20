@@ -251,7 +251,7 @@ server.replace(
 
                     var shippingMethods = ShippingMgr.getAllShippingMethods();
                     var shipment = currentBasket.defaultShipment
-                    if (session.privacy.pickupFromStore) {
+                    if (currentBasket.custom.storePickUp) {
                         ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
                     }
                 });

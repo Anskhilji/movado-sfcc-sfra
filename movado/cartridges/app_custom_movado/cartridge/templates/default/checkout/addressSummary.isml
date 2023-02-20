@@ -1,4 +1,6 @@
-<div class="${session.privacy.pickupFromStore ? 'address-summary mb-0' : 'address-summary'}">
+<isset name="currentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
+
+<div class="${currentBasket && currentBasket.custom.storePickUp === true ? 'address-summary mb-0' : 'address-summary'}">
 	<div>
 		<span class="firstName">
 		    <isif condition="${address && address.firstName}">${address.firstName}</isif>
