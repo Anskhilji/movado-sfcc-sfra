@@ -35,6 +35,9 @@
 @font-face {font-family: 'Adobe-Garamond-Pro-Italic';src: url('../webfonts/AdobeGaramondProItalic.ttf') format('truetype');}
  
 //font family
+$font-gill-std-bold: "gill-sans-nova", Arial, sans-serif;
+$font-gill-std-semibold: "gill-sans-nova", Arial, sans-serif;
+$font-gills-light: "gill-sans-nova", Arial, sans-serif;;
 $font-museo-std: "MuseoSlab-500", "Courier New", monospace;
 $font-museo-light: "MuseoSlab-300", "Courier New", monospace;
 $font-gill-std: "GillSansMTStd-Light", Arial, sans-serif;
@@ -74,6 +77,8 @@ $font-light: 300;
 $font-semi-bolder: 600;
 
 //color
+$gray: #EDECE6;
+$gray-light: #F5F1E9;
 $black: #000;
 $black1: #111;
 $black2: #2e2e2e;
@@ -87,10 +92,6 @@ $white-smoke: #f0f0f0;
 $white-smoke-light: #f7f7f7;
 $grey: #868686;
 $grey49: #7d7d7d;
-$pink-grey: #ead7d5;
-$pink-grey1: #FFF3F1;
-$pink-hot: #e9a9c6;
-$pink-grey-light: #E9D7D5;
 $dim-grey: #666;
 $grey1: #575555;
 $grey2: #FAFAFA;
