@@ -133,6 +133,21 @@
                             <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
                         </isif>
                     </div>
+                    <iscomment> email newsletter modal start </iscomment>
+                    <div class="newsletter-modal">
+                        <div class="modal fade" id="signupModalCenter" tabindex="-1" role="dialog" aria-labelledby="signupModalCenter" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <isslot id="cs-pdp-email-signup" description="email signup content Slot." context="global" />
+                                        <isslot id="cs-pdp-coupon-code" description="coupon code content Slot." context="global" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <iscomment> email newsletter modal end </iscomment>
+
                     <hr class="d-block d-sm-none line-mobile mt-0">
                     <div class="row">
                         <!-- Attributes and Quantity -->

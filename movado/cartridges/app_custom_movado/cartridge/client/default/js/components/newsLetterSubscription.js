@@ -25,7 +25,7 @@ function processSubscription(response) {
     }
 }
 
-$('#newsletterSubscribe').submit(function (e) {
+$('#newsletterSubscribe,#emailSignup').submit(function (e) {
     e.preventDefault();
     wrapperContainer.addClass('d-none');
     var endPointUrl = $(e.target).attr('action');
