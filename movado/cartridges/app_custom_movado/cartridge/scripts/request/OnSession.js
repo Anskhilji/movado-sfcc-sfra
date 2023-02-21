@@ -34,10 +34,22 @@ function checkRedirect() {
     return false;
 }
 
+function checkStorePickUpSelected() {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var isStorePickUp = false;
+    if (currentBasket && currentBasket.custom.storePickUp) {
+        isStorePickUp = true;
+    }
+    return isStorePickUp;
+
+}
+
 /**
  * The onSession hook function.
  */
 exports.onSession = function () {
     session.custom.welcomeMat = checkRedirect();
+    session.custom.pickupFromStore = checkStorePickUpSelected();
     return new Status(Status.OK);
 };
