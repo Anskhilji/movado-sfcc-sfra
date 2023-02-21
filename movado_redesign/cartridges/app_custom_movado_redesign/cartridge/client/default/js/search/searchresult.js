@@ -57,19 +57,23 @@ $(document).ready(function () {
     });
 
     // Custom:MSS-2073 start
-    $('.refinement-box-filter-desktop').on('click', function(){
-        $('.refinement-box-filter-desktop').removeClass('active');
-        $(this).addClass('active');
-        $('.modal-background').addClass('d-block');
-        $('.desktop-search-refine-bar-redesing').addClass('active');
-        $('.header-menu-wrapper').addClass('header-active');
-        $('.dk-fillter-m').addClass('dk-fillter-check');
-
-        $('.dk-fillter-check').on('click', function(e){
-            if(!$('.modal-background').hasClass('d-block')) {
-                $('.modal-background').addClass('d-block');
-            }
-         });
+    $('.refinement-btn-clicked').on('click', function() {
+        if ($(this).closest('.refinement-box-filter-desktop').hasClass('active')) {
+            closeRefinementFilters(); 
+        } else {
+            $('.refinement-box-filter-desktop').removeClass('active');
+            $(this).closest('.refinement-box-filter-desktop').addClass('active');
+            $('.modal-background').addClass('d-block');
+            $('.desktop-search-refine-bar-redesing').addClass('active');
+            $('.header-menu-wrapper').addClass('header-active');
+            $('.dk-fillter-m').addClass('dk-fillter-check');
+    
+            $('.dk-fillter-check').on('click', function(e){
+                if(!$('.modal-background').hasClass('d-block')) {
+                    $('.modal-background').addClass('d-block');
+                }
+            });
+        }
     });
 
     $('.modal-background').on('click', function(e){
@@ -105,6 +109,21 @@ $(document).ready(function () {
         }
     })
     // Custom:MSS-2073 end
+
+    // Custom:MSS-2150 start
+    $('.navbar-toggler-custom').click(function(){
+        $('.modal-background').addClass('plp-modal');
+        if ($(window).width() < 992) {
+            $('.header-menu-wrapper').css('z-index','1011');
+        }
+    });
+    $('.close-button,.modal-background').click(function(){
+        $('.modal-background').removeClass('plp-modal');
+        if ($(window).width() < 992) {
+            $('.header-menu-wrapper').removeAttr('style');
+        }
+    });
+    // Custom:MSS-2150 end
 });
 
 

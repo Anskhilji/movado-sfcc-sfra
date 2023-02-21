@@ -141,6 +141,15 @@ module.exports = {
             slidesToScroll: 1,
             dots: true,
             arrows:true,
+
+            responsive: [{
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  arrows: false
+                }
+              }],
             customPaging: function (slick, index) {
                 var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
