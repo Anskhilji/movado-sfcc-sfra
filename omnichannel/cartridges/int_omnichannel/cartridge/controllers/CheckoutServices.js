@@ -32,7 +32,7 @@ server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) 
 			redirectUrl: URLUtils.url('Cart-Show').toString()
 		});
 		return next();
-	} else if (session.privacy.pickupFromStore) {
+	} else if (currentBasket.custom.storePickUp) {
 		try {
 			Transaction.wrap(function () {
 				if (currentBasket) {

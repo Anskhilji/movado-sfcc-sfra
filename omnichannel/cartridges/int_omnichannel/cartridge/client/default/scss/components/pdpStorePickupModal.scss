@@ -241,6 +241,21 @@
 .store-availibilty-hours {
 
   .store-product-available {
+
+    // MSS-2112
+    &.store-product-available-out-of-stock {
+
+      span {
+        color: $alert-text;
+      }
+    }
+
+    &.store-product-available-in-stock {
+
+      span {
+        color: $green;
+      }
+    }
     
     span {
       color: $light-gray-black;

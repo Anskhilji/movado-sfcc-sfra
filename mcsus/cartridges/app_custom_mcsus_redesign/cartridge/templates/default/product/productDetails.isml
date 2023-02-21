@@ -58,9 +58,11 @@
                         <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-center">${product.productName}</h2>
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
                             <iscomment> product rating </iscomment>
+                           <div class="pdp-rating-reviews">
                             <div class="d-block rating-box-redisgn">
                                 <isinclude template="product/components/pidRating" />
                             </div>
+                           </div>
                         </isif>
                     </div>
                       <iscomment> mobile family namd , name and badges end </iscomment>
@@ -98,9 +100,11 @@
                         <iscomment> product rating </iscomment>
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
+                         <div class="pdp-rating-reviews">
                             <div class="d-none d-sm-block rating-box-redisgn">
                                 <isinclude template="product/components/pidRating" />
                             </div>
+                         </div>
                         </isif>
                     </div>
 
@@ -225,12 +229,6 @@
             </div>
             </div>
         </div>
-        <iscomment> product detail redesign section end here </iscomment>
-         <div class="container pdp-bottom-rating">
-            <isinclude template="widget/yotporeviewswidget" />
-        </div>
-        
-
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
        </isif>
