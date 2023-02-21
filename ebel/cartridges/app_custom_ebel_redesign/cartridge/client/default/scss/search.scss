@@ -155,6 +155,10 @@
             @include media-breakpoint-down(md) {
                 top: rem(60); 
             }
+
+            @include media-breakpoint-down(sm) {
+                top: rem(44); 
+            }
         }
     }
 }

@@ -391,7 +391,7 @@ server.append(
         }
         // Custom End
         var session = req.session.raw;
-        if (session.privacy.pickupFromStore) {
+        if (currentBasket.custom.storePickUp) {
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
@@ -660,9 +660,13 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     emptyCartDom = customCartHelpers.getCartAssets();
 
     if (currentBasket.productLineItems.length === 0) {
-        if (session.privacy.pickupFromStore) {
-            delete session.privacy.pickupFromStore;
+
+        if (currentBasket.custom.storePickUp) {
+            Transaction.wrap(function () {
+                currentBasket.custom.storePickUp = false;
+            });
         }
+        
     	var cartAnalyticsTrackingData;
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             cartAnalyticsTrackingData = {

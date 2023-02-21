@@ -1064,19 +1064,27 @@
       border-bottom: rem(1) solid $white-grey;
   
       @include custom-media-query-max($medium-screen-width) {
-        top: rem(61);
+        top: rem(92);
         left: 0;
         right: 0;
         padding: rem(15) rem(10);
-        z-index: 1014;
+        z-index: 1021;
       }
       
       @include media-breakpoint-down(sm) {
         background-color: $white;
         border-bottom: rem(1) solid $white-grey;
-        top: rem(45);
+        top: rem(81);
         padding: rem(10) rem(10);
      }
+
+     &.mobile-filter-box {
+        padding-top: rem(10);
+     }
+    }
+
+    &.mobile-filter-box {
+        padding-top: rem(30);
     }
 
     .result-count {
@@ -1519,6 +1527,12 @@
     &.modal-moblie {
         z-index: 1014;
     }
+
+    &.plp-modal {
+        @include media-breakpoint-down(md) {
+          z-index: 1022;
+        }
+    }
 }
 
 
@@ -1554,12 +1568,16 @@
             position: fixed;
             left: rem(0);
             right: rem(0);
-            top: rem(60);
+            top: rem(97);
             background-color: $white;
-            z-index: 9999;
+            z-index: 1019;
             padding: rem(10) rem(15) rem(0) rem(15);
             border-bottom: rem(1) solid $white-grey;
         
+            @include media-breakpoint-down(lg) {
+                z-index: 1019;
+            }
+
             @include media-breakpoint-down(sm) {
               top: rem(45);
               left: 0;
@@ -2209,4 +2227,4 @@
   }
   }
 }
-  // Custom:MSS-2073 end desktop 
+// Custom:MSS-2073 end desktop 
