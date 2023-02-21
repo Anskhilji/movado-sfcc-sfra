@@ -69,7 +69,7 @@ var submitBackInStockEmail = function ($selector) {
         pid: pid,
         email: emailAddress,
         enabledMarketing: enabledMarketing,
-        phoneNo: $phoneNo,
+        phoneNo: $listrackPhoneCode + $phoneNo,
         smsSubscription: smsSubscription,
         clientSecret: encodeURIComponent(window.Resources.LISTRAK_SMS_API_CLIENT_SECRET)
     }
