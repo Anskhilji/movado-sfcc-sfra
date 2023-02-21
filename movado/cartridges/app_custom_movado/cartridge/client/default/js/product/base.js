@@ -43,12 +43,13 @@ function getQuantitySelector($el) {
         slidesToShow: 1,
         slidesToScroll: 1,
         asNavFor: '.carousel-nav',
-        dots: false,
+        dots: false, 
         arrows:true,
         focusOnSelect: true,
         fade: true,
         prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button' style=''>Previous</button>",
         nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button' style=''>Next</button>", 
+    
         responsive: [
             {
                 breakpoint: 768,
@@ -59,6 +60,7 @@ function getQuantitySelector($el) {
                 }
             },
         ]
+    
     });
 }
 
@@ -74,6 +76,7 @@ function getQuantitySelector($el) {
         arrows:true,
         centerMode: true,
         focusOnSelect: true,
+
         responsive: [
             {
                 breakpoint: 768,
@@ -312,6 +315,11 @@ function processSwatchValues(attr, $productContainer) {
         } else {
             $swatchAnchor.removeAttr('href');
         }
+
+        // Disable if not selectable
+        $attrValue.removeClass('selectable unselectable');
+
+        $attrValue.addClass(attrValue.selectable ? 'selectable' : 'unselectable');
     });
 }
 
@@ -338,6 +346,10 @@ function processNonSwatchValues(attr, $productContainer) {
             .find($attr + ' [data-attr-value="' + attrValue.value + '"]');
         $attrValue.attr('value', attrValue.url)
             .removeAttr('disabled');
+
+        if (!attrValue.selectable) {
+            $attrValue.attr('disabled', true);
+        }
     });
 }
 
@@ -817,22 +829,6 @@ function handleVariantResponse(response, $productContainer) {
         initializeZoomSlickDots();
         initializeZoomModelCarousel();
         $('.main-carousel .slick-active').addClass('slick-center');
-
-    $(document).ready(function () {
-        var $availabilityWrapper = $('.product-availability .availability-msg').text();
-        var $cartWrapper = $('.cart-and-ipay');
-        var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
-
-        if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
-            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock') || ($availabilityWrapper === 'Select Styles for Availability')) {
-                $cartWrapper.addClass('d-none');
-                $stickyWrapper.addClass('d-none');
-            } else {
-                $cartWrapper.removeClass('d-none');
-                $stickyWrapper.removeClass('d-none');
-            }
-        }
-    });
 }
 
 /**
@@ -890,10 +886,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
                 var listrakTracking = require('movado/listrakActivityTracking.js');
                 listrakTracking.listrackProductTracking(data.product.id);
-
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();

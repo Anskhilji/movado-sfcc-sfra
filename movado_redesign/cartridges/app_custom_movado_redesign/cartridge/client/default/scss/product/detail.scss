@@ -566,6 +566,16 @@ $arrow-height: 1.25em;
 
             &.text-unset-wrapper {
                 text-transform: initial !important;
+
+                @include media-breakpoint-down(xs) {
+                    display: none;
+                }          
+            }
+        }
+
+        .product-bottom-detail {
+            @include media-breakpoint-down(xs) {
+                display: none;
             }
         }
     }
@@ -765,6 +775,9 @@ $arrow-height: 1.25em;
             }
 
             .pdp-link {
+                display: flex;
+                align-items: center;
+
                 @include media-breakpoint-down(md) {
                     padding-top: rem(5);
                 }
@@ -816,13 +829,13 @@ $arrow-height: 1.25em;
     }
 
     .slick-dots {
-
+        
         li {
             width: 4%;
             height: rem(2);
             background: $gray-x11;
             margin: 0;
-
+           
             button {
                 height: 100%;
                 width: 100%;
@@ -837,14 +850,14 @@ $arrow-height: 1.25em;
             }
         }
     }
-
+    
     .primary-images{
 
         .slick-dots {
             max-width: rem(293);
             margin: 0 auto;
             right: 0;
-            
+
             li {
                 width: 100%;
                 height: rem(2);
@@ -852,13 +865,7 @@ $arrow-height: 1.25em;
             }
         }
     }
-
-    .movado-pdp-row {
-        
-        #zoomProduct {
-            z-index: 99999;
-        }
-    }
+    
 
     .prices-add-to-cart-actions {
         padding: 0;
@@ -1416,6 +1423,7 @@ $arrow-height: 1.25em;
                 justify-content: center;
                 display: flex;
             }
+    
         }
 
         .carousel-title {
@@ -1581,6 +1589,7 @@ $arrow-height: 1.25em;
             margin-top: rem(-50);
             @include media-breakpoint-down(xs) {
                 margin-top: rem(-34);
+                display: none;
             }
         }
 
@@ -2202,29 +2211,5 @@ body {
 .button-floting {
     &.button-product-detail {
         bottom: rem(160);
-    }
-}
-
-.container-fluid {
-
-    &.pdp-v-one {
-
-        .primary-images {
-
-            .cs-carousel-wrapper {
-
-                &.mvd-carousel-wrapper {
-
-                    .carousel-nav {
-                        
-                        .draggable {
-                            @include media-breakpoint-down(sm) {
-                                opacity: 0;
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }

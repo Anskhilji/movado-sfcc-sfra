@@ -14,7 +14,7 @@
 }
 
 .accessible-link {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   color: $white;
   top: rem(10);
