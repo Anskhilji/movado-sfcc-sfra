@@ -32,11 +32,12 @@ var submitBackInStockEmail = function ($selector) {
     var url = $selector.data('url');
     var pid = $selector.data('pid');
     var emailAddress = ''
-    var phoneNo = ''
+    var $phoneNo = ''
     var enabledMarketing = false;
     var smsSubscription = false;
     var $phoneNoPattern;
     var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
+    var $listrackPhoneCode = "+";
     
     if ($selector.find('.back-in-stock-notification-email').length > 0) {
         $('.back-in-stock-notification-email').each(function() {
@@ -48,7 +49,7 @@ var submitBackInStockEmail = function ($selector) {
     if ($selector.find('.back-in-stock-notification-phone').length > 0) {
         $('.back-in-stock-notification-phone').each(function() {
             if ($(this).val()) {
-                phoneNo = $(this).val().trim();
+                $phoneNo = $(this).val().trim();
             }
         });
     }
@@ -68,22 +69,23 @@ var submitBackInStockEmail = function ($selector) {
         pid: pid,
         email: emailAddress,
         enabledMarketing: enabledMarketing,
-        phoneNo: phoneNo,
+        phoneNo: $phoneNo,
         smsSubscription: smsSubscription,
         clientSecret: encodeURIComponent(window.Resources.LISTRAK_SMS_API_CLIENT_SECRET)
     }
 
     if (form.smsSubscription) {
+        $phoneNo = $listrackPhoneCode + $phoneNo;
         $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
     } else {
         $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
     }
-    var $isValidPhoneNo = $phoneNoPattern.test(form.phoneNo);
+    var $isValidPhoneNo = $phoneNoPattern.test($phoneNo);
 
     if (!$isValidPhoneNo && form.smsSubscription) {
         $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
         $phoneInvalid.removeClass('d-none');
-        phoneNo = '';
+        $phoneNo = '';
     }
 
     $.ajax({

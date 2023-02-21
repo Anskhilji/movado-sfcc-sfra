@@ -17,6 +17,7 @@ $('.form').submit(function(e) {
     $emailRequired.text('');
     $emailInvalid.text('');
     $phoneInvalid.text('');
+    var $listrackPhoneCode = "+";
 
     if ($form.find('.back-in-stock-notification-email').length > 0) {
         var $phoneNo = '';
@@ -48,6 +49,7 @@ $('.form').submit(function(e) {
         }
 
         if (smsSubscription) {
+            $phoneNo = $listrackPhoneCode + $phoneNo;
             $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
         } else {
             $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
@@ -92,6 +94,7 @@ $('.form').submit(function(e) {
             var $isValidPhone;
 
             if (smsSubscription) {
+                $phone = $listrackPhoneCode + $phone;
                 $phonePattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
             } else {
                 $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
@@ -157,6 +160,7 @@ $('.form').submit(function(e) {
             var $isValidPhone;
 
             if (smsSubscription) {
+                $phone = $listrackPhoneCode + $phone;
                 $phonePattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
             } else {
                 $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
