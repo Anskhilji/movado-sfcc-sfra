@@ -396,6 +396,12 @@ function addGooglePayButton() {
     }
 }
 
+function handlePostCartAdd(response) {
+    if (response && response.addCartGtmArray !== undefined) {
+        $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
+    }
+}
+
 /**
  * Provide Google Pay API with a payment amount, currency, and amount status
  *
@@ -405,13 +411,23 @@ function addGooglePayButton() {
 function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod, shippingAddress) {
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
+        var $pdpQuantityValue = null;
+        if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+            $pdpQuantityValue = $('.quantity-selector > .quantity').val();
+            $pdpQuantityValue = $pdpQuantityValue;
+            if ($pdpQuantityValue == "") {
+                $pdpQuantityValue = null;
+            }
+        }
 
         var data = {
             googlePayEntryPoint: $selector.data('entry-point'),
             pid: $selector.data('pid') ? $selector.data('pid') : false,
+            addToCartLocation: $selector.data('atc') ? $selector.data('atc') : '',
             selectedShippingMethod: selectedShippingMethod,
             includeShippingDetails: includeShippingDetails,
-            shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
+            shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress,
+            quantityPDP: $pdpQuantityValue && $pdpQuantityValue > 0 && $pdpQuantityValue != null ? $pdpQuantityValue : 1
         };
 
         if (window.Resources.IS_CLYDE_ENABLED && typeof Clyde !== 'undefined') {
@@ -427,6 +443,7 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
             method: 'POST',
             data: data,
             success: function (data) {
+                handlePostCartAdd(data);
                 resolve(data) // Resolve promise and go to then()
             },
             error: function (err) {

@@ -24,9 +24,13 @@ exports.ALD_DATE_FORMAT='YYYYMMdd_HHMM';
 exports.ONE_TRUST_COOKIE_ENABLED = 'C0004:1';
 exports.OPTANON_CONSENT_COOKIE_NAME = 'OptanonConsent';
 exports.PROMOTION_START_END_DATE_SEPARATOR = '/';
-
+exports.CLYDE_WARRANTY = 'clydeWarranty';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
+
+exports.RISKFIED_ORDER_DECLINED = 'declined';
+exports.ECOM_SALE_PRICE_BOOK = 'sale';
+exports.PRICE_BOOK_DATE_FORMATE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
 exports.FEDEX_SERVICE_ID = {
     FEDEX_AUTHENTICATION: 'fedex.auth.api',

@@ -4,7 +4,6 @@ var productDecorators = require('*/cartridge/models/product/decorators/index');
 var productLineItemDecorators = require('*/cartridge/models/productLineItem/decorators/index');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
-
 /**
  * Decorate product with product line item information from within an order
  * @param {Object} product - Product Model to be decorated
@@ -32,7 +31,7 @@ module.exports = function mgOrderLineItem(product, apiProduct, options) {
     productLineItemDecorators.uuid(product, options.lineItem);
     productLineItemDecorators.shipment(product, options.lineItem);
     productLineItemDecorators.bonusProductLineItem(product, options.lineItem);
-    productLineItemDecorators.priceTotal(product, options.lineItem);
+    productLineItemDecorators.priceTotal(product, options.lineItem, options.quantity);
     productLineItemDecorators.options(product, options.lineItemOptions);
     productLineItemDecorators.bonusProductLineItemUUID(product, options.lineItem);
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
@@ -51,6 +50,5 @@ module.exports = function mgOrderLineItem(product, apiProduct, options) {
             value: isWatchTile
         });
     }
-
     return product;
 };

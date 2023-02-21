@@ -286,8 +286,8 @@ var onLoadProductTile = function () {
         var gtmTrackingData = $(this).data('gtm-facets');
         if (gtmTrackingData !== undefined) {
             dataLayerObj.push({ name: gtmTrackingData.name,
-                familyName: gtmTrackingData.familyName,
-                productColor: gtmTrackingData.productColor,
+                dimension22: gtmTrackingData.dimension22,
+                dimension23: gtmTrackingData.dimension23,
                 id: gtmTrackingData.id,
                 price: gtmTrackingData.price,
                 category: gtmTrackingData.category,
@@ -383,7 +383,7 @@ var showProductImpressionCaraousel = function (e, currency) {
         ecommerce: {
             impressions: {
                 products: productObj
-            } 
+            }
         }
     });
 };
@@ -505,7 +505,8 @@ var updateCheckoutStage = function () {
              var productObj = dataLayerCheckout.splice(0, maxProducts);
              dataLayer.push({ ecommerce: { checkout: {
                  actionField: { step: checkoutStep },
-                 products: productObj }
+                 products: productObj 
+                }
              },
                  event: 'checkout' });
          }

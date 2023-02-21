@@ -79,7 +79,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                             if (colorVariations.values[key]) {
                                 colorVariations.values[key].swatchesURL = URLUtils.url(
                                         'Product-Variation',
-                                        'dwvar_' + product.id + '_color',
+                                        'dwvar_' + product.id + '_colorWatch',
                                         colorVariations.values[key].id,
                                         'pid',
                                         product.id,
@@ -330,7 +330,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: apiProduct.variationModel.defaultVariant.ID ? apiProduct.variationModel.defaultVariant.ID : apiProduct.ID
                 });
-
                 Object.defineProperty(product, 'defaultVariantBadges', {
                     enumerable: true,
                     value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
@@ -338,6 +337,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 Object.defineProperty(product, 'defaultVariantColor', {
                     enumerable: true,
                     value: apiProduct.variationModel.defaultVariant.custom.color || ''
+                });
+
+                Object.defineProperty(product, 'defaultProductBasePrice', {
+                    enumerable: true,
+                    value: apiProduct.variationModel.defaultVariant.custom.productBasePrice || ''
                 });
             }
             
@@ -379,6 +383,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         Object.defineProperty(product, 'isWatchTile', {
             enumerable: true,
             value: isWatchTile
+        });
+    }
+
+    if (!empty(apiProduct)) {
+        Object.defineProperty(product, 'productBasePrice', {
+            enumerable: true,
+            value: apiProduct.custom.productBasePrice ? apiProduct.custom.productBasePrice : ''
         });
     }
 

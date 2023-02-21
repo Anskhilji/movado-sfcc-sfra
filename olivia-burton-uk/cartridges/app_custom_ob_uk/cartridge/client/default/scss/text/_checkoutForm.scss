@@ -87,11 +87,21 @@
     .form-group {
         .form-control {
             &.is-invalid {
-                border: rem(1) solid $invalid-red;
+                border: rem(2.4) solid $invalid-red;
                 background: url("../../images/invalid.svg") center right no-repeat;
                 background-position-x: 97%;
-                @include media-breakpoint-down(sm) {
-                  background: none;
+            }
+
+            &#shippingState,
+            &#shippingCountrydefault,
+            &#billingState,
+            &#billingCountry {
+
+                &.form-control {
+
+                    &.is-invalid {
+                        background-position-x: 90%;
+                    }
                 }
             }
 
@@ -99,7 +109,9 @@
             &#shippingCountrydefault,
             &#billingState,
             &#billingCountry {
+
                 &.form-control {
+
                     &.is-invalid {
                         background-position-x: 90%;
                     }
@@ -114,16 +126,67 @@
             &#billingAddressCity,
             &#billingFirstName,
             &#billingLastName {
+
                 &.form-control {
+
                     &.is-invalid {
                         background-position-x: 93.5%;
+                    }
+                }
+            }
+
+            &#shippingFirstName,
+            &#shippingLastName,
+            &#shippingAddressCity,
+            &#shippingZipCode {
+
+                &.form-control {
+                  
+                    &.is-invalid {
+
+                        @include media-breakpoint-down(xs) {
+                            background-position-x: 97%;
+                        }
+                    }
+                }
+            }
+
+            &#shippingCountry {
+
+                &.form-control {
+
+                    &.is-valid {
+
+                        @include media-breakpoint-down(lg) {
+                            background-position-x: 85% ;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            background-position-x: 90%;
+                        }
+                    }
+                }
+            }
+            
+            &#shippingFirstName,
+            &#shippingLastName,
+            &#shippingAddressCity,
+            &#shippingZipCode {
+
+                &.form-control {
+
+                    &.is-invalid {
+
+                        @include media-breakpoint-down(xs) {
+                            background-position-x: 97%;
+                        }
                     }
                 }
             }
         }
 
         .invalid-feedback {
-          font-size: rem(11);
+          font-size: rem(16);
           font-weight: 500;
           letter-spacing: rem(0.33);
           line-height: rem(24);

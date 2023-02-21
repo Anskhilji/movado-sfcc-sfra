@@ -5,11 +5,11 @@
         <div class="container">
             <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-lg-7">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                            <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignups', 'homePage', null)}">
                             <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('isEmailVerificationEnabled') === true}">
-                                <input type="text" class="form-control email-verification" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                                <input type="text" class="form-control email-verification" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignups', 'homePage', null)}">
                             </isif>
                             <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
                             <span class="input-group-btn">
@@ -20,10 +20,10 @@
                           <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
                         </div>
                     </div>
-                    <div class="col-sm-7 email-description">
-                    <iscomment> Custom Start:  Email footer description </iscomment>
+                    <div class="col-lg-5 email-description">
+                        <iscomment> Custom Start:  Email footer description </iscomment>
                         <iscontentasset aid="email-signup-footer-description" />
-                    <iscomment> Custom End </iscomment>
+                        <iscomment> Custom End </iscomment>
                     </div>
                 </div>
             </form>
@@ -97,3 +97,4 @@
     <iscomment> One trust html script </iscomment>
     <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 </footer>
+<isinclude template="storeLocator/storeLocator" />

@@ -10,6 +10,7 @@ var collections = require('*/cartridge/scripts/util/collections');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
+
 var page = module.superModule;
 server.extend(page);
 
@@ -174,7 +175,7 @@ server.append('AddProduct', function (req, res, next) {
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
-        var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
+        var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage, req.form);
         viewData.addCartGtmArray = addCartGtmArray;
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
@@ -341,11 +342,11 @@ server.append(
         var BasketMgr = require('dw/order/BasketMgr');
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
+
         var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
         var Constants = require('*/cartridge/scripts/util/Constants');
         var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
         var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
-
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
@@ -450,6 +451,12 @@ server.append(
             });
         }
 
+        if (!empty(req.querystring.errormessage)) {
+            res.setViewData({ 
+                couponValidationErrormessage: req.querystring.errormessage
+            });
+        }
+
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
         var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
@@ -528,6 +535,23 @@ server.replace(
     
                 var errorMessageKey = errorCodes[e.errorCode] || errorCodes.default;
                 errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+            }
+        }
+
+        if (currentBasket && currentBasket.couponLineItems.length > 1) {
+            for (var i = 1; i <= currentBasket.couponLineItems.length; i++) {
+                if (!currentBasket.couponLineItems[i].applied && currentBasket.couponLineItems[0].promotion.ID != currentBasket.couponLineItems[i].promotion.ID && currentBasket.couponLineItems[i].statusCode == 'NO_APPLICABLE_PROMOTION') {
+                        var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
+                        var errorCodes = JSON.parse(couponErrorMessages);
+                        var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                        errorMessage = localeErrorCodes['PROMOTION_COUPON_REPLICATED'] || localeErrorCodes.DEFAULT
+                        error = true;
+                        errorMessage = errorMessage;
+                        Transaction.wrap(function () {
+                            currentBasket.removeCouponLineItem(currentBasket.couponLineItems[i]);
+                        });
+                        break;
+                }
             }
         }
 

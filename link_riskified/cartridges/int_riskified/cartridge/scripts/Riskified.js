@@ -25,7 +25,11 @@ var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger'
 var RCUtilities = require('int_riskified/cartridge/scripts/riskified/util/RCUtilities');
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
 var RiskifiedAPI = require('int_riskified/cartridge/scripts/riskifiedhandler');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 var Transaction = require('dw/system/Transaction');
+var Site = require('dw/system/Site');
+var isRiskifiedSyncIntegerationEnabled = !empty(Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled) ? Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled : false;
 
 /**
  * This method saves payment related information during billing step in checkout. It also generates
@@ -37,9 +41,12 @@ var Transaction = require('dw/system/Transaction');
  */
 function handlePayment(paymentMethod) {
     var logLocation = _moduleName + '.handlePayment()';
+    var message;
 
     if (!RCUtilities.isCartridgeEnabled()) {
-        RCLogger.logMessage('riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation);
+        message = 'riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -50,9 +57,12 @@ function handlePayment(paymentMethod) {
 
 function handlePaymentSFRAInfo(cardNumber) {
     var logLocation = _moduleName + '.handlePaymentSFRA()';
+    var message;
 
     if (!RCUtilities.isCartridgeEnabled()) {
-        RCLogger.logMessage('riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation);
+        message = 'riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -129,6 +139,7 @@ function sendCheckoutDenied(order, paymentParams, authErrorParams) {
         currentDate,
         orderParams,
         response;
+    var message;
 
     if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
         return false;
@@ -137,12 +148,16 @@ function sendCheckoutDenied(order, paymentParams, authErrorParams) {
     var OrderModel = require('int_riskified/cartridge/scripts/riskified/export/api/models/OrderModel');
 
     if (!RCUtilities.isCartridgeEnabled()) {
-        RCLogger.logMessage('riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation);
+        message = 'riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
     if (empty(session.custom.checkoutUUID)) {
-        RCLogger.logMessage('checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation);
+        message = 'checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -174,7 +189,9 @@ function sendCheckoutDenied(order, paymentParams, authErrorParams) {
     response = RiskifiedAPI.checkoutDenied(order, orderParams, checkoutDeniedParams);
 
     if (response.error) {
-        RCLogger.logMessage('Error occured while sending checkout denied data with order number ' + order.orderNo + ' to Riskified.\n Error Message: ' + response.message, 'error', logLocation);
+        message = 'Error occured while sending checkout denied data with order number ' + order.orderNo + ' to Riskified.\n Error Message: ' + response.message, 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         if (response.recoveryNeeded) {
             RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
         }
@@ -191,13 +208,14 @@ function sendCheckoutDenied(order, paymentParams, authErrorParams) {
  *
  * @return {Boolean}
  */
-function sendCreateOrder(order) {
+function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
     var logLocation = _moduleName + '.sendCreateOrder()',
         OrderModel,
         orderParams,
         checkoutDeniedParams,
         orderPaymInstrument,
         response;
+    var message;
 
     if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
         return false;
@@ -219,12 +237,32 @@ function sendCreateOrder(order) {
     var riskifiedPaymentParams = JSON.parse(currentSessionPaymentParams.custom.paymentParams);
 
     if (empty(riskifiedPaymentParams) && !hasGiftCert) {
-        RCLogger.logMessage('Payment related information is lost, therefore cannot proceed further', 'error', logLocation);
+        message = 'Payment related information is lost, therefore cannot proceed further', 'error', logLocation;
+        RCLogger.logMessage(message);
+
+        // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails 
+        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        } else if (sendErrorEmail === true) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        }
+        // Custom End
+
         return false;
     }
 
     if (empty(session.custom.checkoutUUID)) {
-        RCLogger.logMessage('checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation);
+        message = 'checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation;
+        RCLogger.logMessage(message);
+
+        // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails
+        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        } else if (sendErrorEmail === true) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        }     
+        // Custom End
+
         return false;
     }
 
@@ -245,8 +283,17 @@ function sendCreateOrder(order) {
     response = RiskifiedAPI.createOrder(order, orderParams);
 
     if (response.error) {
-        RCLogger.logMessage('Error occured while exporting order ' + order.orderNo + ' to Riskified. \n Error Message: ' + response.message, 'error', logLocation);
+        message = 'Error occured while exporting order ' + order.orderNo + ' to Riskified. \n Error Message: ' + response.message, 'error', logLocation;
+        RCLogger.logMessage(message);
 
+        // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails
+        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        } else if (sendErrorEmail === true) {
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        }
+        // Custom End
+        
         if (response.recoveryNeeded) {
             RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
         }
@@ -268,6 +315,7 @@ function sendCancelOrder(order, cancelReason) {
         currentDate,
         cancelDate,
         response;
+    var message;
 
     if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
         return false;
@@ -279,8 +327,10 @@ function sendCancelOrder(order, cancelReason) {
     response = RiskifiedAPI.cancelOrder(order.orderNo, cancelReason, cancelDate);
 
     if (response.error) {
-        RCLogger.logMessage('Error occured while sending Candel Order data for order number ' + order.orderNo + ' to Riskified. ' +
-                            '\n Error Message: ' + response.message, 'error', logLocation);
+        message = 'Error occured while sending Candel Order data for order number ' + order.orderNo + ' to Riskified. ' +
+        '\n Error Message: ' + response.message, 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return response;
     }
     return response;
@@ -296,6 +346,7 @@ function sendDecision(orderNo, decisionDetails) {
     var logLocation = _moduleName + '.sendDecision()',
         currentDate,
         result;
+    var message;
 
     if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
         return false;
@@ -307,8 +358,10 @@ function sendDecision(orderNo, decisionDetails) {
     result = RiskifiedAPI.decisionCall(orderNo, decisionDetails);
 
     if (result.error) {
-        RCLogger.logMessage('Error occured while sending decision data for order number ' + orderNo + ' to Riskified. ' +
-                            '\n Error Message: ' + result.message, 'error', logLocation);
+        message = 'Error occured while sending decision data for order number ' + orderNo + ' to Riskified. ' +
+        '\n Error Message: ' + result.message, 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return result;
     }
     return result;
@@ -325,6 +378,7 @@ function sendFulfillOrder(order, fulfillments) {
         fulfillmentDetails = [],
         response,
         FulfillmentDetailsModel;
+    var message;
 
     if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
         return false;
@@ -339,8 +393,10 @@ function sendFulfillOrder(order, fulfillments) {
     response = RiskifiedAPI.fulfillOrder(order.orderNo, fulfillmentDetails);
 
     if (response.error) {
-        RCLogger.logMessage('Error occured while sending Fulfill Order data for order number ' + order.orderNo + ' to Riskified. ' +
-                            '\n Error Message: ' + response.message, 'error', logLocation);
+        message = 'Error occured while sending Fulfill Order data for order number ' + order.orderNo + ' to Riskified. ' +
+        '\n Error Message: ' + response.message, 'error', logLocation
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
     Transaction.wrap(function() {
@@ -364,6 +420,7 @@ function sendFulfillOrder(order, fulfillments) {
 function sendUpdateOrder(orderNo, orderData) {
     var response,
         logLocation = ' : Riskified~sendFulfillOrder';
+    var message;
 
     if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
         return false;
@@ -373,8 +430,10 @@ function sendUpdateOrder(orderNo, orderData) {
     response = RiskifiedAPI.updateOrder(orderData);
 
     if (response.error) {
-        RCLogger.logMessage('Error occured while sending Update Order data for order number ' + orderNo + ' to Riskified. ' +
-                            '\n Error Message: ' + response.message, 'error', logLocation);
+        message = 'Error occured while sending Update Order data for order number ' + orderNo + ' to Riskified. ' +
+        '\n Error Message: ' + response.message, 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
     return true;
@@ -406,6 +465,7 @@ function getSyncronousDecision(order) {
         OrderModel,
         orderParams,
         response;
+    var message;
 
     if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
         return false;
@@ -423,12 +483,16 @@ function getSyncronousDecision(order) {
     var riskifiedPaymentParams = JSON.parse(currentSessionPaymentParams.custom.paymentParams);
 
     if (empty(riskifiedPaymentParams)) {
-        RCLogger.logMessage('Payment related information is lost, therefore cannot proceed further', 'error', logLocation);
+        message = 'Payment related information is lost, therefore cannot proceed further', 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
     if (empty(session.custom.checkoutUUID)) {
-        RCLogger.logMessage('checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation);
+        message = 'checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -444,12 +508,16 @@ function getSyncronousDecision(order) {
     response = RiskifiedAPI.getSyncDecision(order, orderParams);
 
     if (response.error) {
-        RCLogger.logMessage('Synchronous Decision Error. OrderNo: ' + order.orderNo + '. \n Error Message: ' + response.message, 'error', logLocation);
+        message = 'Synchronous Decision Error. OrderNo: ' + order.orderNo + '. \n Error Message: ' + response.message, 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
     if (response.order.status == 'declined') {
-        RCLogger.logMessage('Order is declined by Riskified. OrderNo: ' + order.orderNo + '. \n Error Message: ' + response.message, 'error', logLocation);
+        message = 'Order is declined by Riskified. OrderNo: ' + order.orderNo + '. \n Error Message: ' + response.message, 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -461,9 +529,12 @@ function decoIsEligible(orderNo) {
         DecoAPI,
         decoResponse;
     var Site = require('dw/system/Site');
+    var message;
 
     if (!Site.getCurrent().getPreferences().custom.DECOEnable) {
-        RCLogger.logMessage('Deco features disabled, enable it to use this call', 'error', logLocation);
+        message = 'Deco features disabled, enable it to use this call', 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -472,6 +543,7 @@ function decoIsEligible(orderNo) {
     try {
         decoResponse = DecoAPI.isEligible(logLocation, orderNo);
     } catch (error) {
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, error.message, logLocation, error, error.lineNumber, error.stack);
         decoResponse = false;
     }
 
@@ -483,9 +555,12 @@ function decoOptIn(orderNo) {
         DecoAPI,
         decoResponse;
     var Site = require('dw/system/Site');
+    var message;
 
     if (!Site.getCurrent().getPreferences().custom.DECOEnable) {
-        RCLogger.logMessage('Deco features disabled, enable it to use this call', 'error', logLocation);
+        message = 'Deco features disabled, enable it to use this call', 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -494,6 +569,7 @@ function decoOptIn(orderNo) {
     try {
         decoResponse = DecoAPI.optIn(logLocation, orderNo);
     } catch (error) {
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, error.message, logLocation, error.fileName, error.lineNumber, error.stack);
         decoResponse = false;
     }
 

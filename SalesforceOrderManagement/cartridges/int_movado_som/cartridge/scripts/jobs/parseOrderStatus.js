@@ -106,7 +106,7 @@ function parseOrderStatus(args) {
 
             if (!isRecordProcessedSuccessfully) {
                 local_fm.MoveFileToErrored(file,errorFolder);
-            }
+            } 
         }
         catch (e) {
             errorMessage  = 'Error encountered ' + e.stack +' '+ 'Error Message '+ e.message + ',';

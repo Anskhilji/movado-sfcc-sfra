@@ -2,18 +2,20 @@
     <isif condition="${discount.type === 'coupon'}">
         <div class="coupon-price-adjustment coupon-uuid-${discount.UUID}" data-uuid="${discount.UUID}">
             <diV class="flex-box-promo-code">
-                <isif condition="${discount.applied}">
-                        <div class="coupon-applied">${Resource.msg('msg.coupon.applied','cart',null)}</div>
+                <isif condition="${!empty(discount.excludeProductLevelMessage)}">
+                    <div class="coupon-not-applied">${discount.excludeProductLevelMessage}</div>
+                <iselse/>
+                    <isif condition="${discount.applied}">
+                        <div class="coupon-applied">${Resource.msg('msg.coupon.applied', 'cart', null)}</div>
                     <iselse/>
-                        <div class="coupon-not-applied">${Resource.msg('msg.coupon.not.applied','cart',null)}</div>
+                        <div class="coupon-not-applied">${Resource.msg('msg.coupon.not.applied', 'cart', null)}</div>
+                    </isif>
                 </isif>
-                <div class="coupon-code"><p class="m-0">${discount.couponCode}</p>
-                    <button type="button" class="float-right remove-coupon clear-icon-btn"
-                            data-code="${discount.couponCode}"
-                            aria-label="Close"
-                            data-toggle="modal"
-                            data-target="#removeCouponModal"
-                            data-uuid="${discount.UUID}">
+            
+                <div class="coupon-code">
+                    <p class="m-0">${discount.couponCode}</p>
+                    <button type="button" class="float-right remove-coupon clear-icon-btn" data-code="${discount.couponCode}"
+                        aria-label="Close" data-toggle="modal" data-target="#removeCouponModal" data-uuid="${discount.UUID}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -30,5 +32,6 @@
                 <span class="promotion-name">${discount.lineItemText}</span>
                 <span class="applied-promotion-discount">${discount.price}</span>
             </div>
+        </iselseif>
     </isif> 
 </isloop>

@@ -1,7 +1,8 @@
 'use strict';
-
+var PromotionMgr = require('dw/campaign/PromotionMgr');
 var collections = require('*/cartridge/scripts/util/collections');
 var base = module.superModule;
+
 /**
  * Provides a current option model by setting selected option values
  *

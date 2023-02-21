@@ -163,6 +163,9 @@ $medium-screen-width: 768px;
 $medium-screen-width800: 800px;
 $large-screen-width: 1400px;
 $large-screen-width-1440: 1440px;
+$custom-sm4: 440px;
+$large-screen-width-1200: 1200px;
+$large-screen-width-1320: 1320px;
  
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {

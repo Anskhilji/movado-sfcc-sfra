@@ -1,20 +1,26 @@
-<div class="quantity-form d-none">
-    <label class="line-item-pricing-info quantity-label" for="quantity">${Resource.msg('field.selectquantity','cart',null)}</label>
-    <select class="form-control quantity custom-select"
-            data-uuid="${lineItem.UUID}"
-            data-pid="${lineItem.id}"
-            data-action="${pdict.actionUrls.updateQuantityUrl}"
-            data-pre-select-qty="${lineItem.quantity}"
-            id="quantity"
-            name="quantity">
-        <isloop begin="${lineItem.quantityOptions.minOrderQuantity}"
-                end="${lineItem.quantityOptions.maxOrderQuantity}"
-                status="status">
-            <isif condition="${lineItem.quantity === status.index}">
-                <option selected>${status.index}</option>
-            <iselse/>
-                <option>${status.index}</option>
-            </isif>
-        </isloop>
-    </select>
-</div>
+<iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
+<isif condition="${!empty(lineItem) && !empty(lineItem.quantityOptions) && !empty(lineItem.quantityOptions.minOrderQuantity) && !empty(lineItem.quantityOptions.maxOrderQuantity) && lineItem.quantityOptions.minOrderQuantity > 0 && lineItem.quantityOptions.maxOrderQuantity > 0}">
+    <div class="quantity-form">
+        <label class="line-item-pricing-info quantity-label" for="quantity">${Resource.msg('field.selectquantityselector', 'cart', null)}</label>
+        <label class="line-item-pricing-info quantity-label-mbl" for="quantity">${Resource.msg('field.selectquantity.cart', 'cart', null)}</label>
+        <select class="form-control quantity custom-select"
+                data-uuid="${lineItem.UUID}"
+                data-pid="${lineItem.id}"
+                data-action="${URLUtils.url('Cart-UpdateQuantity').toString()}"
+                data-pre-select-qty="${lineItem.quantity}"
+                id="quantity"
+                name="quantity">
+            <isloop begin="${lineItem.quantityOptions.minOrderQuantity}"
+                    end="${lineItem.quantityOptions.maxOrderQuantity}"
+                    status="status">
+                <isif condition="${lineItem.quantity === status.index}">
+                    <option selected>${status.index}</option>
+                <iselse/>
+                    <option>${status.index}</option>
+                </isif>
+            </isloop>
+        </select>
+        <div class="arrow-down"></div>
+    </div>
+</isif>
+<iscomment> Custom End </iscomment>
