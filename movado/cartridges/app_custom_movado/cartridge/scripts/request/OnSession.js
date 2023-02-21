@@ -18,13 +18,15 @@ function checkRedirect() {
     var Cookie = require('dw/web/Cookie');
     var Locale = require('dw/util/Locale');
     var cookies = request.getHttpCookies();
-    for (var i = 0; i < cookies.cookieCount; i++) {
-        var cookie = cookies[i];
-        if (cookie.name && cookie.name === WELCOMEMAT) {
-            var welcomeMatCookie = new Cookie(WELCOMEMAT, false);
-            welcomeMatCookie.setMaxAge(0);
-            response.addHttpCookie(welcomeMatCookie);
-            return false;
+    if (cookies.cookieCount > 0) {
+        for (var i = 0; i < cookies.cookieCount; i++) {
+            var cookie = cookies[i];
+            if (cookie.name && cookie.name === WELCOMEMAT) {
+                var welcomeMatCookie = new Cookie(WELCOMEMAT, false);
+                welcomeMatCookie.setMaxAge(0);
+                response.addHttpCookie(welcomeMatCookie);
+                return false;
+            }
         }
     }
     var localeRedirect = Site.current.getCustomPreferenceValue('showWelcomeMat');
@@ -42,7 +44,6 @@ function checkStorePickUpSelected() {
         isStorePickUp = true;
     }
     return isStorePickUp;
-
 }
 
 /**
