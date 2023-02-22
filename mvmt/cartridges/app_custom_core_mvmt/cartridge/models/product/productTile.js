@@ -51,9 +51,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             attributes: '*',
             endPoint: 'Variation'
         });
-if(product.id == '0320434'){
-    product;
-}
+
         if (product.variationsAttributes) {
             Object.keys(product.variationsAttributes).forEach(function (key) {
                 if (product.variationsAttributes[key].id !== ATTRIBUTE_NAME && product.variationsAttributes[key].id !== COLOR_WATCH) {
@@ -132,7 +130,7 @@ if(product.id == '0320434'){
                     } else {
                         Object.keys(colorVariations.values).forEach(function (key) {
                             Object.keys(apiProduct.variationModel.variants).forEach(function (apiProductKey) {
-                                if(apiProduct.variationModel.variants[apiProductKey].custom.color == colorVariations.values[key].id){
+                                if(apiProduct.variationModel.variants[apiProductKey].custom.color || apiProduct.variationModel.variants[apiProductKey].custom.productName  == colorVariations.values[key].id){
                                     productId = apiProduct.variationModel.variants[apiProductKey].ID;
                                     return;
                                   }

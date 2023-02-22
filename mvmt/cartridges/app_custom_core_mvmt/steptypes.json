@@ -1,0 +1,19 @@
+{
+    "step-types": {
+        "script-module-step": [
+            {
+                "@type-id":"custom.exportVariantSwatches",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Create swatches against each variant",
+                "module": "app_custom_core_mvmt/cartridge/scripts/jobs/products/importVariantProductSwatches.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": []
+                }
+            }
+        ]
+    }
+}

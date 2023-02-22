@@ -154,7 +154,7 @@ function getProductType(product) {
  *                                     target product variation group
  * @return {dw.catalog.ProductVarationModel} Normalized variation model
  */
-function getVariationModel(product, productVariables, ptype) {
+function getVariationModel(product, productVariables) {
     var variationModel = product.variationModel;
     if (!variationModel.master && !variationModel.selectedVariant) {
         variationModel = null;
@@ -166,7 +166,7 @@ function getVariationModel(product, productVariables, ptype) {
                     function (item) { return item.ID === attr; });
                 var dwAttrValue = collections.find(variationModel.getAllValues(dwAttr),
                     function (item) { return item.value === productVariables[attr].value; });
-                if (dwAttr && dwAttrValue && ptype != 'variant') {
+                if (dwAttr && dwAttrValue) {
                     variationModel.setSelectedAttributeValue(dwAttr.ID, dwAttrValue.ID);
                 }
             }
@@ -212,7 +212,7 @@ function normalizeSelectedAttributes(apiProduct, params) {
  */
 function getConfig(apiProduct, params) {
     var variables = normalizeSelectedAttributes(apiProduct, params);
-    var variationModel = getVariationModel(apiProduct, variables,  getProductType(apiProduct));
+    var variationModel = getVariationModel(apiProduct, variables);
     if (variationModel) {
         apiProduct = variationModel.selectedVariant || apiProduct; // eslint-disable-line
     }
