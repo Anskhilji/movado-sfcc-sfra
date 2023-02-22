@@ -25,7 +25,7 @@ function processSubscription(response) {
     }
 }
 
-$('#newsletterSubscribe,#emailSignup').submit(function (e) {
+$('#newsletterSubscribe').submit(function (e) {
     e.preventDefault();
     wrapperContainer.addClass('d-none');
     var endPointUrl = $(e.target).attr('action');
@@ -54,3 +54,95 @@ $('#newsletterSubscribe,#emailSignup').submit(function (e) {
         $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
     }
 });
+
+// Custom Start: MCS PDP - Email Subscription
+var $emailSignupStatus = $('.emailsignup-status');
+
+function processSubscriptionPdp(response) {
+    $.spinner().stop();
+    if ((typeof (response) === 'object')) {
+        $emailSignupStatus.removeClass('d-none');
+        $('.emailsignup-status div').text(response.message);
+        if (!response.error) {
+            if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS) {
+                $('.email-signup-modal').addClass('d-none');
+                $('.coupon-modal').removeClass('d-none');
+            } else {
+                $('.emailsignup-status div').attr('class', 'error');
+            }
+            $('#add-to-email-list').prop('checked', response.customerFound);
+            if (response.emailObj) {
+                $('body').trigger('emailSubscribe:success', response.emailObj);
+            }
+            if(response.isanalyticsTrackingEnabled && response.userTracking) {
+                setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
+                window.dispatchEvent(setAnalyticsTrackingByAJAX);
+            }
+        } else {
+            $('.submission-status div').attr('class', 'error');
+        }
+    }
+}
+
+// copy coupon code on click
+$('.copy-coupon-code').on('click', function() {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    var $copiedText = $("#copied-text");
+    $temp.val($copiedText.text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+    $('#textCopied').removeClass('d-none');
+});
+
+// close email signup modal after clicked on close icon and continue to shoping button
+$('#continue-shopping, .close.close-icon').on('click', function () {
+    $('.email-signup-modal').removeClass('d-none');
+    $('.coupon-modal').addClass('d-none');
+    $('.emailsignup-input').val('');
+    $emailSignupStatus.html('<div></div>');
+    $emailSignupStatus.addClass('d-none');
+});
+
+// close email signup modal after clicked modal backdrop
+$('#signupModalCenter').on('hide.bs.modal', function () {
+    $('.email-signup-modal').removeClass('d-none');
+    $('.coupon-modal').addClass('d-none');
+    $('.emailsignup-input').val('');
+    $emailSignupStatus.html('<div></div>');
+    $emailSignupStatus.addClass('d-none');
+  });
+
+// Email Signup modal form submissoin
+$('#newsletterSubscribePdp').submit(function (e) {
+    e.preventDefault();
+    $emailSignupStatus.addClass('d-none');
+    var $actionUrl = $(e.target).attr('action');
+    var $emailInputValue = $(e.target).find('.emailsignup-input').val();
+
+    var $emailVerification = $(e.target).find('.email-verification').val();
+    if (typeof $emailVerification !== 'undefined'  && ($emailVerification !== '' || $emailVerification.length > 0)) {
+        return;
+    }
+
+    if ($emailInputValue !== '') {
+        var $pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
+            if(!$pattern.test($emailInputValue)) {
+                $emailSignupStatus.removeClass('d-none');
+                $('.emailsignup-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
+            } else {
+                $.spinner().start();
+                $.ajax({
+                    url: $actionUrl,
+                    method: 'POST',
+                    data: { email: $emailInputValue },
+                    success: processSubscriptionPdp,
+                    error: function () { $.spinner().stop(); }
+                });
+            }
+    } else {
+        $emailSignupStatus.removeClass('d-none');
+        $('.emailsignup-status div').text($emailSignupStatus.data('errormsg')).attr('class', 'error');
+    }
+});
+// Custom End
