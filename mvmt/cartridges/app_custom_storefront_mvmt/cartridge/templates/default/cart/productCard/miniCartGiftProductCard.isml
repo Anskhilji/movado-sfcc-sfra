@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="items" value="${pdict.items}" scope="page"/>
 <isloop items="${items}" var="lineItem" status="loopStatus">
     <isif condition="${!empty(lineItem)} ">
@@ -8,8 +9,10 @@
                         <isinclude template="checkout/productCard/miniCartBonusProductCard" />
                     </div>
                 </div>
+            <iselseif condition="${!empty(lineItem.giftParentUUID)}"/>
+                <isnext />
             <iselse/>
-                <div class="card uuid-${lineItem.UUID}">
+                <div class="card ${JSON.stringify(lineItem)} ${lineItem.giftPid} uuid-${lineItem.UUID}">
                     <div class="card-body">
                         <isinclude template="checkout/productCard/miniCartProductCard" />
                     </div>

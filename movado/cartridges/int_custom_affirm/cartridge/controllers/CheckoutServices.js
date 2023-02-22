@@ -4,6 +4,7 @@ var server = require('server');
 server.extend(module.superModule);
 var RiskifiedService = require('int_riskified');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 
 server.append('SubmitPayment',
 		server.middleware.https,
@@ -71,12 +72,19 @@ server.append('SubmitPayment',
             }
         }
     });
+
+	var email = viewData.email.value;
+    if (!empty(email)) {
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        checkoutLogger.info('(CheckoutServices) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+    }
     next();
 });
 
 
 server.replace('PlaceOrder', server.middleware.https, function (req, res, next) {
 	  var BasketMgr = require('dw/order/BasketMgr');
+	  var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 	  var Resource = require('dw/web/Resource');
 	  var Transaction = require('dw/system/Transaction');
 	  var URLUtils = require('dw/web/URLUtils');
@@ -132,6 +140,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 				shippingAddress.setAddress2(session.privacy.storeAddress2 || '');
 				shippingAddress.setPostalCode(session.privacy.extendedZipCode || '');
 				shippingAddress.setStateCode(session.privacy.stateCode || '');
+				COCustomHelpers.removeGiftMessageLineItem(currentBasket);
 		    });
 		}
 
@@ -340,9 +349,22 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    orderToken: order.orderToken,
 	    continueUrl: URLUtils.url('Order-Confirm').toString()
 	  });
+
+	  var email = order.customerEmail;
+	  if (!empty(email)) {
+		  var maskedEmail = COCustomHelpers.maskEmail(email);
+		  checkoutLogger.info('(CheckoutServices) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+	  }
+	  
 	  res.setViewData({orderNo: placeOrderResult.order.orderNo, trackingCode: currentBasket.custom.smartGiftTrackingCode});
 	  // remove session params
-	  session.custom.paymentParams = '';
+
+      Transaction.wrap(function () {
+          var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+		  if (currentSessionPaymentParams) {
+			  CustomObjectMgr.remove(currentSessionPaymentParams);
+		  }
+      });
 	  session.custom.cardIIN = '';
 	  session.custom.checkoutUUID = '';
 

@@ -125,6 +125,7 @@
     "googlePay": "./int_google_pay",
     "custom_backinstock": "./int_custom_backinstock",
     "omnichannel": "./omnichannel",
+    "beam": "./beam",
     "link_clyde": "./link_clyde"
   },
   "jsAliases": {
@@ -155,7 +156,8 @@
     "adyen": "./link_adyen/cartridges/int_adyen_SFRA/cartridge/client/default/js",
     "bootstrap": "./node_modules/bootstrap",
     "lodash": "./node_modules/lodash",
-    "jquery": "./node_modules/jquery"
+    "jquery": "./node_modules/jquery",
+    "beam": "./beam/cartridges/int_beam/cartridge/client/default/js"
 	
   },
   "scssAliases": {

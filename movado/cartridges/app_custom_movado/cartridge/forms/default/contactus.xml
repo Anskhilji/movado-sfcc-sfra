@@ -45,5 +45,10 @@
     	   parse-error="error.message.invalid"
            />
 
+    <field 
+        formid="grecaptchatoken"
+        type="string"
+    />
+
     <action formid="send" valid-form="true"/>
 </form>

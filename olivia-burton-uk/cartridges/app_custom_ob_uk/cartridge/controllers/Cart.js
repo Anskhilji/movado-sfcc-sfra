@@ -19,10 +19,11 @@ server.append('AddProduct', function (req, res, next) {
         var orientation = req.form.orientation;
         var font = req.form.font;
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
-        if (embossedMessage || engravedMessage) {
-            customProductOptionsHelper.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage, orientation, font);
+        var personalizationType = req.form.personalizationType;
+        
+        if (embossedMessage || engravedMessage || personalizationType) {
+            customProductOptionsHelper.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage, orientation, font, personalizationType);
         }
-
     }
     next();
 });
