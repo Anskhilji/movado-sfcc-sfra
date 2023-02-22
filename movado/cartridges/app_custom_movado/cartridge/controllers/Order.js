@@ -353,6 +353,10 @@ server.append('Confirm', function (req, res, next) {
         couponCode: discountCode,
         orderLineItemArray: orderLineItemArray
     };
+
+    if (session.custom.pickupFromStore) {
+        session.custom.pickupFromStore = false;
+    }
     
     res.setViewData({
         orderConfirmationObj: JSON.stringify(orderConfirmationObj)
