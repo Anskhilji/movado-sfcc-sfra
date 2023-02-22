@@ -311,6 +311,32 @@ server.post('AddGiftMessage',
     next();
 });
 
+server.post('RemoveGiftMessage',
+		server.middleware.https,
+		function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var CartModel = require('*/cartridge/models/cart');
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var cartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+    var result = { error: false };
+    var prodUUID = req.form.productUUID;
+    var giftMessage = req.form.giftMessage;
+    var isValidString = customCartHelpers.validGiftMsgStringXSS(giftMessage);
+
+
+    if (currentBasket && prodUUID && isValidString) {
+        cartHelpers.removeGiftMessaging(currentBasket, prodUUID, giftMessage);
+    } else {
+        result = { error: true };
+    }
+    var basketModel = new CartModel(currentBasket);
+    res.json({
+        basketModel: basketModel,
+        result: result
+    });
+    next();
+});
+
 server.prepend(
     'Show',
     server.middleware.https,

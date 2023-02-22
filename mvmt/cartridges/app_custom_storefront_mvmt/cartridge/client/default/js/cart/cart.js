@@ -564,57 +564,6 @@ module.exports = function () {
     // Check if Is gift message is checked on cart load then show text area otherwise hide it.
     handleAddGiftCheckbox();
 
-    $('body').on('click', '.add-gift-message', function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        var endPointURL = $this.attr('href');
-        var giftMessage = $('.gift-text').val();
-        var prodUUID = $this.data('product-uuid');
-
-        $('.gift-message-blank').hide();
-        $('.gift-message-error').hide();
-        if (!giftMessage) {
-            $('.gift-message-blank').show();
-            return false;
-        }
-
-        $.spinner().start();
-
-        $.ajax({
-            url: endPointURL,
-            method: 'POST',
-            data: {
-                giftMessage: giftMessage,
-                productUUID: prodUUID
-            },
-            success: function (data) {
-                $.spinner().stop();
-                if (data.result.error) {
-                    $('.gift-message-error').show();
-                    return false;
-                }
-                $('.gift-message-error').hide();
-                $this.find('.apply-button').addClass('d-none');
-                data.basketModel.items.forEach(function (item) {
-                    if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
-                        var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
-                    }
-                    if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
-                        $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
-                        $('.gift-message-btn-' + item.UUID).attr('data-gift-message', $itemLevelGiftMessage);
-                        $('.gift-personlize-msg').text($itemLevelGiftMessage);
-                        $('.gift-lineitem-message-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
-                        $('.gift-message-btn-' + item.UUID).text('Edit');
-                    }
-                });
-                $('#giftBoxModelPopUp').modal('hide');
-            },
-            error: function (data) {
-                $.spinner().stop();
-            }
-        });
-    });
-
     $('body').on('click', '.gift-check', function () {
         $(this).closest('.product-gift-wrap').find('.gift-message-wrapper, .character-limit').toggle(this.checked);
         if (!this.checked) {
@@ -1098,6 +1047,10 @@ module.exports = function () {
                             response.basketModel.items.forEach(function (item) {
                             if (item.UUID == response.ProductLineItemUUID) {
                                 $('.gift-box-container-modal .gift-text').text(response.itemLevelGiftMessage);
+                                if (response.itemLevelGiftMessage !== '' && response.itemLevelGiftMessage !== undefined) {
+                                    $('.gift-message-box').removeClass('hide-box');
+                                    $('.add-gift-message').removeAttr('disabled');
+                                }
                             }
                         });
                     } else {
@@ -1131,7 +1084,6 @@ module.exports = function () {
         $('.gift-message-error').hide();
         $('.add-gift-message').removeClass('d-none');
         $('.add-gift-message').removeAttr('disabled');
-        $('.add-gift-box').addClass('d-none');
         $('.gift-box-none-button').removeClass('active');
         $('.add-gift-box-input').removeClass('active');
         $('.gift-message-box-input').addClass('active');
@@ -1139,22 +1091,12 @@ module.exports = function () {
 
     $('body').on('click', '.add-gift-box-input', function () {
         $('.gift-message-box').addClass('hide-box');
-        $('.add-gift-message').addClass('d-none');
-        $('.add-gift-box').removeClass('d-none');
         $('.add-gift-box').removeAttr('disabled');
         $('.gift-box-none-button').removeClass('active');
         $('.add-gift-box-input').addClass('active');
         $('.gift-message-box-input').removeClass('active');
     });
 
-    $('body').on('click', '.gift-box-none-button', function () {
-        $('.add-gift-message').attr('disabled', 'disabled');
-        $('.gift-message-box').addClass('hide-box');
-        $('.add-gift-box').attr('disabled', 'disabled');
-        $('.gift-box-none-button').addClass('active');
-        $('.add-gift-box-input').removeClass('active');
-        $('.gift-message-box-input').removeClass('active');
-    });
 
     base.selectAttribute();
     base.colorAttribute();

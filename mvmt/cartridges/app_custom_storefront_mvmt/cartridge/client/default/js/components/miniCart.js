@@ -436,6 +436,7 @@ module.exports = function () {
     });
 
     $('body').off('click', '.minicart-gift-allowed-checkbox').on('click', '.minicart-gift-allowed-checkbox', function(e) {
+      if ($('.gift-box-product').is(":checked")) {
         e.preventDefault();
         $.spinner().start();
         var $this = $(this);
@@ -508,7 +509,100 @@ module.exports = function () {
                     }
                 });
             }
+       
     });
+
+    $('body').on('click', '.add-gift-message', function (e) {
+        if ($('.gift-box-message').is(":checked")) {
+            e.preventDefault();
+            var $this = $(this);
+            var endPointURL = $this.data('gift-message-url');
+            var giftMessage = $('.gift-text').val();
+            var prodUUID = $this.data('product-uuid');
+    
+            $('.gift-message-blank').hide();
+            $('.gift-message-error').hide();
+            if (!giftMessage) {
+                $('.gift-message-blank').show();
+                return false;
+            }
+    
+            $.spinner().start();
+    
+            $.ajax({
+                url: endPointURL,
+                method: 'POST',
+                data: {
+                    giftMessage: giftMessage,
+                    productUUID: prodUUID
+                },
+                success: function (data) {
+                    $.spinner().stop();
+                    if (data.result.error) {
+                        $('.gift-message-error').show();
+                        return false;
+                    }
+                    $('.gift-message-error').hide();
+                    $this.find('.apply-button').addClass('d-none');
+                    data.basketModel.items.forEach(function (item) {
+                        if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
+                            var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+                        }
+                        if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                            $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                            $('.gift-message-btn-' + item.UUID).attr('data-gift-message', $itemLevelGiftMessage);
+                            $('.gift-personlize-msg').text($itemLevelGiftMessage);
+                            $('.gift-lineitem-message-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
+                            $('.gift-message-btn-' + item.UUID).text('Edit');
+                        }
+                    });
+                    $('#giftBoxModelPopUp').modal('hide');
+                },
+                error: function (data) {
+                    $.spinner().stop();
+                }
+            });
+
+        }  
+    });
+
+    $('body').on('click', '.gift-message-box-input', function (e) {
+        var giftBoxText = $('.gift-box-message').is(":checked");
+        var giftMessage = $('.gift-text ').val();
+
+        if (!giftBoxText && !giftMessage == '') {
+            e.preventDefault();
+            var endPoint = $('.minicart-gift-allowed-checkbox').data('remove-giftmessage-url');
+            var productUUID = $('.minicart-gift-allowed-checkbox').data('product-uuid');
+        }
+        $.spinner().start();
+
+        $.ajax({
+            url: endPoint,
+            method: 'POST',
+            data: {
+                giftMessage: giftMessage,
+                productUUID: productUUID
+            },
+            success: function (data) {
+                $.spinner().stop();
+                data.basketModel.items.forEach(function (item) {
+                    $('.gift-box-container-modal .gift-text').text('');
+                    $('.gift-message-btn-' + item.UUID).attr('data-gift-message', '');
+                    $('.gift-personlize-msg').text('');
+                    $('.gift-lineitem-message-' + item.UUID).text('');
+                    $('.gift-message-btn-' + item.UUID).text('Add');
+                    $('.gift-box-message').prop("checked", false);
+                    $('.gift-message-box').addClass('hide-box');
+                });    
+            },
+            error: function (data) {
+                $.spinner().stop();
+            }
+        });
+    });
+
+    
 
      $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
          var $url = $('.minicart').data('action-url');

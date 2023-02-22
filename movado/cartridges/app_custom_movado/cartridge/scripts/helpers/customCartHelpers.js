@@ -97,6 +97,25 @@ function updateGiftMessaging(currentBasket, prodUUID, giftMsg){
 }
 
 
+/**
+ * Code to remove gift messaging  on cart in product line items
+ * @param  {dw.order.Basket} currentBasket
+ * @param  {String} prodUUID
+ * @param  {String} giftMsg
+ */
+ function removeGiftMessaging (currentBasket, prodUUID, giftMsg) {
+    var Transaction = require('dw/system/Transaction');
+    var prodLineItems = currentBasket.productLineItems;
+
+    Transaction.wrap(function() {
+        for each (var lineItem in prodLineItems) {
+            if (lineItem.UUID === prodUUID) {
+                lineItem.custom.GiftWrapMessage = '';
+            }
+        }
+    });
+}
+
 
 /**
  * return the title texts to be added if cart is empty
@@ -395,5 +414,6 @@ module.exports = {
     getGiftTransactionATC: getGiftTransactionATC,
     getCountrySwitch: getCountrySwitch,
     removeClydeWarranty: removeClydeWarranty,
-    removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem
+    removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem,
+    removeGiftMessaging: removeGiftMessaging
 };
