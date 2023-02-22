@@ -414,6 +414,19 @@ $stored-payment-spacing: rem(16);
       width: rem(75);
       vertical-align: inherit;
     }
+
+    .payment-options {
+
+        .nav-item {
+
+            .nav-link {
+
+                &.credit-card-selection {
+                    width: auto;
+                }
+            }
+        }   
+    }
   }
 }
 
