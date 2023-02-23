@@ -14,20 +14,21 @@ function triggerEmailSubscription(response) {
 }
 
 var wrapperContainer = $('.submission-status');
+var $innerWrapperContainer = $('.submission-status div');
 function processSubscription(response) {
     $.spinner().stop();
     if ((typeof (response) === 'object')) {
         wrapperContainer.removeClass('d-none');
-        $('.submission-status div').text(response.message);
+        $innerWrapperContainer.text(response.message);
         if (!response.error) {
             if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS) {
-                $('.submission-status div').attr('class', 'success');
+                $innerWrapperContainer.attr('class', 'success');
             } else {
-                $('.submission-status div').attr('class', 'error');
+                $innerWrapperContainer.attr('class', 'error');
             }
             triggerEmailSubscription(response);
         } else {
-            $('.submission-status div').attr('class', 'error');
+            $innerWrapperContainer.attr('class', 'error');
         }
     }
 }
@@ -45,7 +46,7 @@ $('#newsletterSubscribe').submit(function (e) {
         var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
             if(!pattern.test(inputValue)) {
                 wrapperContainer.removeClass('d-none');
-                $('.submission-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
+                $innerWrapperContainer.text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
             } else {
                 $.spinner().start();
                 $.ajax({
@@ -58,28 +59,29 @@ $('#newsletterSubscribe').submit(function (e) {
             }
     } else {
         wrapperContainer.removeClass('d-none');
-        $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
+        $innerWrapperContainer.text(wrapperContainer.data('errormsg')).attr('class', 'error');
     }
 });
 
 // Custom Start: MCS PDP - Email Subscription
 var $emailSignupStatus = $('.emailsignup-status');
+var $emailSignupStatusInner = $('.emailsignup-status div');
 
 function processSubscriptionPDP(response) {
     $.spinner().stop();
     if ((typeof (response) === 'object')) {
         $emailSignupStatus.removeClass('d-none');
-        $('.emailsignup-status div').text(response.message);
+        $emailSignupStatusInner.text(response.message);
         if (!response.error) {
             if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS) {
                 $('.email-signup-modal').addClass('d-none');
                 $('.coupon-modal').removeClass('d-none');
             } else {
-                $('.emailsignup-status div').attr('class', 'error');
+                $emailSignupStatusInner.attr('class', 'error');
             }
             triggerEmailSubscription(response);
         } else {
-            $('.emailsignup-status div').attr('class', 'error');
+            $emailSignupStatusInner.attr('class', 'error');
         }
     }
 }
@@ -131,7 +133,7 @@ $('#newsletterSubscribePDP').submit(function (e) {
         var $pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
             if(!$pattern.test($emailInputValue)) {
                 $emailSignupStatus.removeClass('d-none');
-                $('.emailsignup-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
+                $emailSignupStatusInner.text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
             } else {
                 $.spinner().start();
                 $.ajax({
@@ -144,7 +146,7 @@ $('#newsletterSubscribePDP').submit(function (e) {
             }
     } else {
         $emailSignupStatus.removeClass('d-none');
-        $('.emailsignup-status div').text($emailSignupStatus.data('errormsg')).attr('class', 'error');
+        $emailSignupStatusInner.text($emailSignupStatus.data('errormsg')).attr('class', 'error');
     }
 });
 // Custom End
