@@ -509,7 +509,7 @@ module.exports = function () {
                     }
                 });
             }
-       
+        }
     });
 
     $('body').on('click', '.add-gift-message', function (e) {
