@@ -22,13 +22,13 @@
     </isif>
     <div class="tile-body">
         <div class="swatches-container">
-            <iscomment> <isif condition="${pdict.display.swatches !== false  &&  product.productType == 'master'}"> </iscomment>
+            <isif condition="${pdict.display.swatches !== false}">
                 <isif condition="${pdict.display.isEyewearTile}">
                     <isinclude template="product/components/productTileEyewearSwatch" />
                 <iselse/>
                     <isinclude template="product/components/productTileSwatch" />
                 </isif>
-            <iscomment> </isif> </iscomment>
+            </isif>
         </div>
 
         <isif condition="${pdict.display.showAddToCart}">

@@ -10,7 +10,7 @@
                                     <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}"
                                         class="change-variation square-swatch">
                                         <span>
-                                            <img class='swatch swatch-circle ${(product.selectedSwatch.id == swatch.id) ? "is-active" : ""}'
+                                            <img class='swatch swatch-circle ${product.productType == 'variant' ? swatch.selected == true ? "is-active" : "" : product.selectedSwatch.id == swatch.id ? "is-active" : ""}'
                                                 data-index="${loopState.count - 1}"
                                                 style="background-image: url(${swatch.largeImage.url})"
                                                 src="${swatch.largeImage.url}" alt="${swatch.largeImage.alt}" />
@@ -43,7 +43,7 @@
                                     <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}"
                                         class="change-variation square-swatch">
                                         <span>
-                                            <img class='swatch swatch-circle ${(product.selectedSwatch.id == swatch.id) ? "is-active" : ""}'
+                                            <img class='swatch swatch-circle ${product.productType == 'variant' ? swatch.selected == true ? "is-active" : "" : product.selectedSwatch.id == swatch.id ? "is-active" : ""}'
                                                 data-index="${loopState.count - 1}"
                                                 style="background-image: url(${swatch.largeImage.url})"
                                                 src="${swatch.largeImage.url}" alt="${swatch.largeImage.alt}" />
