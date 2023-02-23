@@ -139,7 +139,7 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
-                                        <isslot id="cs-pdp-email-signup" description="email signup content Slot." context="global" />
+                                        <isslot id="cs-pdp-email-signup-thank-you" description="email signup content Slot." context="global" />
                                         <isslot id="cs-pdp-coupon-code" description="coupon code content Slot." context="global" />
                                     </div>
                                 </div>
