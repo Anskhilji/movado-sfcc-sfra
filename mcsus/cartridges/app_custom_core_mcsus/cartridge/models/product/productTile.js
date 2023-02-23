@@ -43,7 +43,7 @@ function getProductSearchHit(apiProduct) {
  *
  * @returns {Object} - Decorated product model
  */
-module.exports = function productTile(product, apiProduct, productType, params, factory) {
+module.exports = function productTile(product, apiProduct, productType, params, productSetStockAvailabilityModel, factory) {
     var productSearchHit = getProductSearchHit(apiProduct);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);

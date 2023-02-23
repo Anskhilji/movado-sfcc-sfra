@@ -140,6 +140,7 @@
                         <div class="col-md-10 col-12 setitem-description  pdp-short-detail pdp-short-detail-main">
                             <isinclude template="/product/components/description" />
                         </div>
+                        <isinclude template="/product/components/productNumber" />
                         <!-- Product Availability -->
                         <div class="col-md-10 col-12 mb-3">
                             <isinclude template="product/components/productSet/productAvailability" />
