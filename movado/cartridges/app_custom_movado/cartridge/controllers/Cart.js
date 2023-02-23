@@ -322,8 +322,6 @@ server.post('RemoveGiftMessage',
     var prodUUID = req.form.productUUID;
     var giftMessage = req.form.giftMessage;
     var isValidString = customCartHelpers.validGiftMsgStringXSS(giftMessage);
-
-
     if (currentBasket && prodUUID && isValidString) {
         cartHelpers.removeGiftMessaging(currentBasket, prodUUID, giftMessage);
     } else {
