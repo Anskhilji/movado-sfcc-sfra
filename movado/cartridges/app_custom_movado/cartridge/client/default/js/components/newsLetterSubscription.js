@@ -1,4 +1,17 @@
 'use strict';
+function analyticsTrackingEnabled(response) {
+    $('#add-to-email-list').prop('checked', response.customerFound);
+
+    if (response.emailObj) {
+        $('body').trigger('emailSubscribe:success', response.emailObj);
+    }
+    
+    if(response.isanalyticsTrackingEnabled && response.userTracking) {
+        setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
+        window.dispatchEvent(setAnalyticsTrackingByAJAX);
+    }
+}
+
 var wrapperContainer = $('.submission-status');
 function processSubscription(response) {
     $.spinner().stop();
@@ -11,14 +24,7 @@ function processSubscription(response) {
             } else {
                 $('.submission-status div').attr('class', 'error');
             }
-            $('#add-to-email-list').prop('checked', response.customerFound);
-            if (response.emailObj) {
-                $('body').trigger('emailSubscribe:success', response.emailObj);
-            }
-            if(response.isanalyticsTrackingEnabled && response.userTracking) {
-                setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
-                window.dispatchEvent(setAnalyticsTrackingByAJAX);
-            }
+            analyticsTrackingEnabled(response);
         } else {
             $('.submission-status div').attr('class', 'error');
         }
@@ -70,33 +76,28 @@ function processSubscriptionPdp(response) {
             } else {
                 $('.emailsignup-status div').attr('class', 'error');
             }
-            $('#add-to-email-list').prop('checked', response.customerFound);
-            if (response.emailObj) {
-                $('body').trigger('emailSubscribe:success', response.emailObj);
-            }
-            if(response.isanalyticsTrackingEnabled && response.userTracking) {
-                setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
-                window.dispatchEvent(setAnalyticsTrackingByAJAX);
-            }
+            analyticsTrackingEnabled(response);
         } else {
-            $('.submission-status div').attr('class', 'error');
+            $('.emailsignup-status div').attr('class', 'error');
         }
     }
 }
 
 // copy coupon code on click
-$('.copy-coupon-code').on('click', function() {
-    var $temp = $("<input>");
-    $("body").append($temp);
-    var $copiedText = $("#copied-text");
-    $temp.val($copiedText.text()).select();
-    document.execCommand("copy");
-    $temp.remove();
-    $('#textCopied').removeClass('d-none');
+$('#couponCode').on('click', function() {
+    var element = $("#copiedText");
+    var elementText = element.text();
+
+    navigator.clipboard.writeText(elementText);
+    $(this).addClass('active');
+
+    setTimeout(() => {
+        $(this).removeClass('active');
+    }, 3000);
 });
 
 // close email signup modal after clicked on close icon and continue to shoping button
-$('#continue-shopping, .close.close-icon').on('click', function () {
+$('#continueShopping, .close.close-icon').on('click', function () {
     $('.email-signup-modal').removeClass('d-none');
     $('.coupon-modal').addClass('d-none');
     $('.emailsignup-input').val('');
