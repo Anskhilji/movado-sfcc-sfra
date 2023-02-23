@@ -78,6 +78,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     if (colorVariations.id === ATTRIBUTE_NAME) {
                         Object.keys(colorVariations.values).forEach(function (key) {
                             Object.keys(apiProduct.variationModel.variants).forEach(function (apiProductKey) {
+                                var  c = apiProduct.variationModel.variants[apiProductKey].custom;
+                                var d = colorVariations.values[key].id;
                                 if(apiProduct.variationModel.variants[apiProductKey].custom.color == colorVariations.values[key].id){
                                     productId = apiProduct.variationModel.variants[apiProductKey].ID;
                                     return;
@@ -130,7 +132,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     } else {
                         Object.keys(colorVariations.values).forEach(function (key) {
                             Object.keys(apiProduct.variationModel.variants).forEach(function (apiProductKey) {
-                                if(apiProduct.variationModel.variants[apiProductKey].custom.color || apiProduct.variationModel.variants[apiProductKey].custom.productName  == colorVariations.values[key].id){
+                                var productColor = apiProduct.variationModel.variants[apiProductKey].custom.productName ? apiProduct.variationModel.variants[apiProductKey].custom.productName : apiProduct.variationModel.variants[apiProductKey].custom.color;
+                                if(productColor  == colorVariations.values[key].id){
                                     productId = apiProduct.variationModel.variants[apiProductKey].ID;
                                     return;
                                   }
