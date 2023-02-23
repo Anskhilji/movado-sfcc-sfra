@@ -1,5 +1,6 @@
 'use strict';
 function analyticsTrackingEnabled(response) {
+
     $('#add-to-email-list').prop('checked', response.customerFound);
 
     if (response.emailObj) {
@@ -64,7 +65,7 @@ $('#newsletterSubscribe').submit(function (e) {
 // Custom Start: MCS PDP - Email Subscription
 var $emailSignupStatus = $('.emailsignup-status');
 
-function processSubscriptionPdp(response) {
+function processSubscriptionPDP(response) {
     $.spinner().stop();
     if ((typeof (response) === 'object')) {
         $emailSignupStatus.removeClass('d-none');
@@ -85,7 +86,7 @@ function processSubscriptionPdp(response) {
 
 // copy coupon code on click
 $('#couponCode').on('click', function() {
-    var element = $("#copiedText");
+    var element = $('#copiedText');
     var elementText = element.text();
 
     navigator.clipboard.writeText(elementText);
@@ -115,7 +116,7 @@ $('#signupModalCenter').on('hide.bs.modal', function () {
   });
 
 // Email Signup modal form submissoin
-$('#newsletterSubscribePdp').submit(function (e) {
+$('#newsletterSubscribePDP').submit(function (e) {
     e.preventDefault();
     $emailSignupStatus.addClass('d-none');
     var $actionUrl = $(e.target).attr('action');
@@ -137,7 +138,7 @@ $('#newsletterSubscribePdp').submit(function (e) {
                     url: $actionUrl,
                     method: 'POST',
                     data: { email: $emailInputValue },
-                    success: processSubscriptionPdp,
+                    success: processSubscriptionPDP,
                     error: function () { $.spinner().stop(); }
                 });
             }
