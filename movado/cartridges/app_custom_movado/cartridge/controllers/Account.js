@@ -154,9 +154,9 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 
     if (isGoogleRecaptchaEnabled) {
         var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
-        var googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value;
+        var googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value; 
         if (empty(googleRecaptchaToken)) {
-            res.json({
+            res.json({ 
                 success: false,
                 errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
             });
@@ -164,7 +164,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
         }
 
         var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
-        if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score <= googleRecaptchaScore))) {
+        if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
             res.json({
                 success: false,
                 errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
@@ -851,20 +851,26 @@ server.post('EswCouponValidation', function (req, res, next) {
     var couponValidationErrormessage = eswCouponErrorContent && eswCouponErrorContent.custom && eswCouponErrorContent.custom.body ? eswCouponErrorContent.custom.body : '';
     
     if (!empty(EswGuestemail)) {
-        for(var i = 0; i < couponLineItems.length; i++) {
+        
+        for (var i = 0; i < couponLineItems.length; i++) {
             var couponLineItem = couponLineItems[i];
             var couponCodeValue = couponLineItem.couponCode;
+
             if (!empty(couponCodeValue)) {
                 var couponCode = CouponMgr.getCouponByCode(couponCodeValue);
+                var couponRedemptionLimitPerCustomer = couponCode.redemptionLimitPerCustomer;
                 var getRedemptions = CouponMgr.getRedemptions(couponCode.ID, couponCodeValue);
-    
+                
                 collections.forEach(getRedemptions, function (item) {
                     var redemptionEmail = item.customerEmail;
+                    
                     if (redemptionEmail == EswGuestemail) {
-                        filterRedemptions = true;
-                        return;
+                        if (couponRedemptionLimitPerCustomer !== null && couponRedemptionLimitPerCustomer == getRedemptions.length) {
+                            filterRedemptions = true;
+                            return;
+                        }
                     }
-                });
+                });   
             }
         }
     
