@@ -2157,3 +2157,17 @@
     }
 }
 // CSS End: listrak persistent popup
+
+
+.pdp-short-detail {
+    color: $black3;
+    font-family: $font-gills-light;
+    font-size: rem(15);
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: rem(25);
+
+    &.pdp-short-detail-main  {
+        margin-bottom: rem(30);
+    }
+}

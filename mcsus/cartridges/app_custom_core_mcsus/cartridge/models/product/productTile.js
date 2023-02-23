@@ -43,7 +43,7 @@ function getProductSearchHit(apiProduct) {
  *
  * @returns {Object} - Decorated product model
  */
-module.exports = function productTile(product, apiProduct, productType, params) {
+module.exports = function productTile(product, apiProduct, productType, params, factory) {
     var productSearchHit = getProductSearchHit(apiProduct);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
@@ -53,6 +53,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var options = productHelper.getConfig(apiProduct, { pid: product.id });
     // added this line of code to make prices strike through on plp
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
+    decorators.setIndividualProducts(product, apiProduct, factory);
 
     if (!params.base || params.base == true) {
         decorators.base(product, apiProduct, productType);
