@@ -1,5 +1,5 @@
 'use strict';
-function analyticsTrackingEnabled(response) {
+function triggerEmailSubscription(response) {
 
     $('#add-to-email-list').prop('checked', response.customerFound);
 
@@ -25,7 +25,7 @@ function processSubscription(response) {
             } else {
                 $('.submission-status div').attr('class', 'error');
             }
-            analyticsTrackingEnabled(response);
+            triggerEmailSubscription(response);
         } else {
             $('.submission-status div').attr('class', 'error');
         }
@@ -77,7 +77,7 @@ function processSubscriptionPDP(response) {
             } else {
                 $('.emailsignup-status div').attr('class', 'error');
             }
-            analyticsTrackingEnabled(response);
+            triggerEmailSubscription(response);
         } else {
             $('.emailsignup-status div').attr('class', 'error');
         }
