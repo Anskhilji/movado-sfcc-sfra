@@ -860,17 +860,18 @@ server.post('EswCouponValidation', function (req, res, next) {
                 var couponCode = CouponMgr.getCouponByCode(couponCodeValue);
                 var couponRedemptionLimitPerCustomer = couponCode.redemptionLimitPerCustomer;
                 var getRedemptions = CouponMgr.getRedemptions(couponCode.ID, couponCodeValue);
-                
-                collections.forEach(getRedemptions, function (item) {
+
+                if (couponRedemptionLimitPerCustomer !== null) {
+
+                    collections.forEach(getRedemptions, function (item) {
                     var redemptionEmail = item.customerEmail;
-                    
+
                     if (redemptionEmail == EswGuestemail) {
-                        if (couponRedemptionLimitPerCustomer !== null && couponRedemptionLimitPerCustomer == getRedemptions.length) {
                             filterRedemptions = true;
                             return;
                         }
-                    }
-                });   
+                    });   
+                }
             }
         }
     
