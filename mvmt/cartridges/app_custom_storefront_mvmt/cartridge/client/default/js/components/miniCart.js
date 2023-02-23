@@ -436,7 +436,7 @@ module.exports = function () {
     });
 
     $('body').off('click', '.minicart-gift-allowed-checkbox').on('click', '.minicart-gift-allowed-checkbox', function(e) {
-      if ($('.gift-box-product').is(":checked")) {
+      if ($('.gift-box-product').is(':checked')) {
         e.preventDefault();
         $.spinner().start();
         var $this = $(this);
@@ -513,12 +513,12 @@ module.exports = function () {
     });
 
     $('body').on('click', '.add-gift-message', function (e) {
-        if ($('.gift-box-message').is(":checked")) {
+        if ($('.gift-box-message').is(':checked')) {
             e.preventDefault();
             var $this = $(this);
             var endPointURL = $this.data('gift-message-url');
             var giftMessage = $('.gift-text').val();
-            var prodUUID = $this.data('product-uuid');
+            var productUUID = $this.data('product-uuid');
     
             $('.gift-message-blank').hide();
             $('.gift-message-error').hide();
@@ -534,7 +534,7 @@ module.exports = function () {
                 method: 'POST',
                 data: {
                     giftMessage: giftMessage,
-                    productUUID: prodUUID
+                    productUUID: productUUID
                 },
                 success: function (data) {
                     $.spinner().stop();
@@ -545,10 +545,10 @@ module.exports = function () {
                     $('.gift-message-error').hide();
                     $this.find('.apply-button').addClass('d-none');
                     data.basketModel.items.forEach(function (item) {
-                        if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
+                        if (item.customAttributes && item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
                             var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
                         }
-                        if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                        if ($itemLevelGiftMessage) {
                             $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
                             $('.gift-message-btn-' + item.UUID).attr('data-gift-message', $itemLevelGiftMessage);
                             $('.gift-personlize-msg').text($itemLevelGiftMessage);
@@ -567,7 +567,7 @@ module.exports = function () {
     });
 
     $('body').on('click', '.gift-message-box-input', function (e) {
-        var giftBoxText = $('.gift-box-message').is(":checked");
+        var giftBoxText = $('.gift-box-message').is(':checked');
         var giftMessage = $('.gift-text ').val();
 
         if (!giftBoxText && !giftMessage == '') {
@@ -592,7 +592,7 @@ module.exports = function () {
                     $('.gift-personlize-msg').text('');
                     $('.gift-lineitem-message-' + item.UUID).text('');
                     $('.gift-message-btn-' + item.UUID).text('Add');
-                    $('.gift-box-message').prop("checked", false);
+                    $('.gift-box-message').prop('checked', false);
                     $('.gift-message-box').addClass('hide-box');
                 });    
             },

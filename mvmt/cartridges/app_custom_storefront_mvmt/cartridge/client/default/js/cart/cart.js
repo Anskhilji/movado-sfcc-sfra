@@ -1047,7 +1047,7 @@ module.exports = function () {
                             response.basketModel.items.forEach(function (item) {
                             if (item.UUID == response.ProductLineItemUUID) {
                                 $('.gift-box-container-modal .gift-text').text(response.itemLevelGiftMessage);
-                                if (response.itemLevelGiftMessage !== '' && response.itemLevelGiftMessage !== undefined) {
+                                if (response.itemLevelGiftMessage) {
                                     $('.gift-message-box').removeClass('hide-box');
                                     $('.add-gift-message').removeAttr('disabled');
                                 }

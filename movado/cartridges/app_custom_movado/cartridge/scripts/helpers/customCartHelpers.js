@@ -105,6 +105,7 @@ function updateGiftMessaging(currentBasket, prodUUID, giftMsg){
  */
  function removeGiftMessaging (currentBasket, prodUUID, giftMsg) {
     var Transaction = require('dw/system/Transaction');
+    
     var prodLineItems = currentBasket.productLineItems;
 
     Transaction.wrap(function() {
