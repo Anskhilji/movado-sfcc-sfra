@@ -316,7 +316,7 @@ server.post('RemoveGiftMessage',
 	function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
 
-     var cartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+    var cartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
     var CartModel = require('*/cartridge/models/cart');
             
     var currentBasket = BasketMgr.getCurrentBasket();
