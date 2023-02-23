@@ -313,30 +313,30 @@ server.post('AddGiftMessage',
 
 server.post('RemoveGiftMessage',
 	server.middleware.https,
-		function (req, res, next) {
-           var BasketMgr = require('dw/order/BasketMgr');
+	function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
 
-            var cartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
-            var CartModel = require('*/cartridge/models/cart');
+     var cartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+    var CartModel = require('*/cartridge/models/cart');
             
-            var currentBasket = BasketMgr.getCurrentBasket();
-            var giftMessage = req.form.giftMessage;
-            var prodUUID = req.form.productUUID;
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var giftMessage = req.form.giftMessage;
+    var prodUUID = req.form.productUUID;
             
-            var result = { error: false };
+    var result = { error: false };
     
    
-            if (currentBasket && prodUUID) {
-                cartHelpers.removeGiftMessaging(currentBasket, prodUUID, giftMessage);
-            } else {
-                result = { error: true };
-            }
-            var basketModel = new CartModel(currentBasket);
-            res.json({
-                basketModel: basketModel,
-                result: result
-            });
-            next();
+    if (currentBasket && prodUUID) {
+        cartHelpers.removeGiftMessaging(currentBasket, prodUUID, giftMessage);
+    } else {
+        result = { error: true };
+    }
+    var basketModel = new CartModel(currentBasket);
+    res.json({
+        basketModel: basketModel,
+        result: result
+    });
+    next();
 });
 
 server.prepend(
