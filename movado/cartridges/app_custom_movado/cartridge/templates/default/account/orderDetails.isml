@@ -3,6 +3,7 @@
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/account/orderTrack.css');
         assets.addCss('/css/account/profile.css');
+        assets.addJs('/js/account/orderTrack.js');f
     </isscript>
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
