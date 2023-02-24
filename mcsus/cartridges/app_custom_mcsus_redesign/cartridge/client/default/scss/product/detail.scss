@@ -2406,3 +2406,13 @@
     }
 }
 // CSS End: listrak persistent popup
+.main-variation-attribute-mcs {
+
+    .attribute {
+
+        &.pdp-select-variations {
+            margin-bottom: rem(25);
+            margin-top: rem(5);
+        }
+    }
+}
