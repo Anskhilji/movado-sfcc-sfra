@@ -1634,15 +1634,6 @@
         }
     }
 
-
-
-
-
-
-
-
-
-
     .swatch-circle {
         position: relative;
         width: rem(37);
@@ -1653,8 +1644,8 @@
         cursor: pointer;
         margin: 0 rem(10) rem(14) 0;
         color: $black;
-        background-color: #f7f8f9;
-        border: rem(1) solid #f7f8f9;
+        background-color: $white-gray;
+        border: rem(1) solid $white-gray;
         font-size: rem(12);
         font-weight: 500;
         letter-spacing: rem(1.2);
@@ -1692,10 +1683,9 @@
         }
     }
 
-
     .pdp-select-variations {
 
-        background-color: #f7f8f9;
+        background-color: $white-gray;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -1745,7 +1735,7 @@
                 width: 100%;
                 background-color: $white;
                 border: none;
-                // color: $transparent-gray;
+                color: $transparent-gray;
                 font-size: rem(11);
                 font-family: $font-medium;
                 font-weight: 500;
@@ -1838,7 +1828,7 @@
 
             &.active {
                 border-color: $black;
-                // background: $white-gray;
+                background: $white-gray;
                 background-size: cover;
             }
 

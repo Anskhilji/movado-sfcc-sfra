@@ -7,27 +7,6 @@ if(Resources.IS_CLYDE_ENABLED) {
 }
 
 /**
- * Retrieves the relevant pid value
- * @param {jquery} $el - DOM container for a given add to cart button
- * @return {string} - value to be used when adding product to cart
- */
-function getPidValue($el) {
-    var pid;
-
-    if ($('#quickViewModal').hasClass('show') && !$('.product-set').length) {
-        pid = $($el).closest('.modal-content').find('.product-quickview').data('pid');
-    } else if ($('.product-set-detail').length || $('.product-set').length) {
-        pid = $($el).closest('.product-detail').find('.product-id').text();
-    } else if($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt tile
-        pid = $($el).data('pid');
-    } else {
-        pid = $('.product-detail:not(".bundle-item")').data('pid');
-    }
-
-    return pid;
-}
-
-/**
  * Retrieve contextual quantity selector
  * @param {jquery} $el - DOM container for the relevant quantity
  * @return {jquery} - quantity selector DOM container
@@ -41,7 +20,7 @@ function getQuantitySelector($el) {
 /**
  *  CovertsPDP Primary Images to Slider
  */
- function initializePDPMainSlider() {
+function initializePDPMainSlider() {
     $('.primary-images .main-carousel').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -69,7 +48,7 @@ function getQuantitySelector($el) {
 /**
  *  CovertsPDP Primary Images to indicators
  */
- function initializeSlickDots() {
+function initializeSlickDots() {
     $('.carousel-nav-redesign').slick({
     // $('.carousel-nav').slick({
         slidesToShow: 5,
@@ -127,8 +106,8 @@ $(document).ready(function() {
     // Custom Start: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
     $(window).on("resize", function () {
         var winWidth = $(window).width();
-         initializeCarousel(winWidth, true);
-         initializePDPMainSlider();
+        initializeCarousel(winWidth, true);
+        initializePDPMainSlider();
     });
 
     $(window).on("click", function () {
@@ -165,7 +144,7 @@ function initializeCarousel(winWidth, isResize) {
 /**
  *  CovertsPDP Zoom Model Primary Images to Indicators
  */
- function initializeZoomSlickDots() {
+function initializeZoomSlickDots() {
     $('.zoom-carousel').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -259,7 +238,7 @@ $(window).on('load resize scroll', function(e) {
             if (event.target == event.currentTarget) {
                 var productTile=this.closest('.search-results.plp-new-design .product .product-tile');
                 var thatHeight = $(productTile).height();
-    
+
                 myTimeout = setTimeout(function () {
                 $(productTile).addClass('hovered-tile');
                 $(productTile).find('.tile-btns').addClass('delay-point-five fadeIn fast animated');
@@ -311,19 +290,6 @@ if ($(window).width() >= 769) {
             $('.main-container-inner img')({'height': productTitle});
         }).resize();
     });
-}
-
-/**
- * Retrieves the value associated with the Quantity pull-down menu
- * @param {jquery} $el - DOM container for the relevant quantity
- * @return {string} - value found in the quantity input
- */
-function getQuantitySelected($el) {
-    if ($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt tile
-        return 1;
-    } else {
-        return getQuantitySelector($el).val();
-    }
 }
 
 /**
@@ -511,25 +477,6 @@ function updateOptions(options, $productContainer) {
     });
 }
 
-/**
- * remove Embossing and Engraving option
- *
- * @param {jQuery} $productContainer - DOM element for current product
- */
-function removeOption($productOptionContainer) {
-    if ($productOptionContainer.is("form")) {
-        $productOptionContainer.removeClass('submitted');
-    } else {
-        $productOptionContainer.find('input[type="text"], textarea').val("");
-        $productOptionContainer.find("form").removeClass('submitted');
-    }
-
-    $productOptionContainer.find("button").removeClass('submitted');
-    $productOptionContainer.find('input[type="text"], textarea').removeAttr("readonly");
-    $productOptionContainer.find('input[type="radio"]:eq(0)').prop('checked', true).change();
-    $productOptionContainer.closest('form').validate().resetForm();
-}
-
 function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, $productContainer) {
     var optionForm;
     if (embossedMessageError) {
@@ -558,43 +505,43 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
 /**
  * MCS redesign sticky functionality on pdp
  */
- $(document).ready(function () {
-     var $addToCartBtn = $('.prices-add-to-cart-redesign .cta-add-to-cart');
-     if ($addToCartBtn.length > 0) {
-         var $divOffsetTop = $addToCartBtn.offset().top;
-         if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
-             if ($(window).scrollTop() > $divOffsetTop) {
-                 $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
-                 $('.bottom-sticky-card').addClass('scroll-hidden');
-             } else {
-                 $('.top-sticky-card').addClass('scroll-hidden');
-                 $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-             }
-         }
-         $(window).scroll(function () {
-             if ($(window).width() > 543) {
-                 var $scrollDistance = $(window).scrollTop();
-                 var $addToCatViewPort = $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen();
+$(document).ready(function () {
+    var $addToCartBtn = $('.prices-add-to-cart-redesign .cta-add-to-cart');
+    if ($addToCartBtn.length > 0) {
+        var $divOffsetTop = $addToCartBtn.offset().top;
+        if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
+            if ($(window).scrollTop() > $divOffsetTop) {
+                $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+                $('.bottom-sticky-card').addClass('scroll-hidden');
+            } else {
+                $('.top-sticky-card').addClass('scroll-hidden');
+                $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+            }
+        }
+        $(window).scroll(function () {
+            if ($(window).width() > 543) {
+                var $scrollDistance = $(window).scrollTop();
+                var $addToCatViewPort = $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen();
 
-                 if ($addToCatViewPort) { // check if  button is on screen
-                     $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden'); // both bottom and top will hidde
-                 } else {
-                     if ($scrollDistance > $divOffsetTop) { // top sticky will be active
-                         $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
-                         $('.bottom-sticky-card').addClass('scroll-hidden');
-                     } else { // bottom sticky will be active
-                         $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-                         $('.top-sticky-card').addClass('scroll-hidden');
-                     }
-                 }
-             } else { // mobile case
-                 $('.top-sticky-card').addClass('scroll-hidden') //top scroll button  will forever hide in mobile case
-                 $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-             }
-         });
-     }
+                if ($addToCatViewPort) { // check if  button is on screen
+                    $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden'); // both bottom and top will hidde
+                } else {
+                    if ($scrollDistance > $divOffsetTop) { // top sticky will be active
+                        $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+                        $('.bottom-sticky-card').addClass('scroll-hidden');
+                    } else { // bottom sticky will be active
+                        $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+                        $('.top-sticky-card').addClass('scroll-hidden');
+                    }
+                }
+            } else { // mobile case
+                $('.top-sticky-card').addClass('scroll-hidden') //top scroll button  will forever hide in mobile case
+                $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+            }
+        });
+    }
 
- });
+});
 
 $.fn.isOnScreen = function () {
     var $win = $(window);
@@ -793,7 +740,7 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var $primaryImageUrls = response.product.images;
-    $primaryImageUrls.pdp533.forEach(function (imageUrl, idx) {
+    $primaryImageUrls.pdp700.forEach(function (imageUrl, idx) {
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
             .attr('src', imageUrl.url);
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
@@ -987,168 +934,6 @@ function attributeSelect(selectedValueUrl, $productContainer) {
 }
 
 /**
- * Retrieves url to use when adding a product to the cart
- *
- * @return {string} - The provided URL to use when adding a product to the cart
- */
-function getAddToCartUrl() {
-    return $('.add-to-cart-url').val();
-}
-
-/**
- * Parses the html for a modal window
- * @param {string} html - representing the body and footer of the modal window
- *
- * @return {Object} - Object with properties body and footer.
- */
-function parseHtml(html) {
-    var $html = $('<div>').append($.parseHTML(html));
-
-    var body = $html.find('.bonus-product-wrapper');
-    var footer = $html.find('.modal-footer').children();
-
-    return { body: body, footer: footer };
-}
-
-/**
- * Retrieves url to use when adding a product to the cart
- *
- * @param {Object} data - data object used to fill in dynamic portions of the html
- */
-function chooseBonusProducts(data) {
-    $('.modal-body').spinner().start();
-
-    if ($('#chooseBonusProductModal').length !== 0) {
-        $('#chooseBonusProductModal').remove();
-    }
-    var bonusUrl;
-    if (data.bonusChoiceRuleBased) {
-        bonusUrl = data.showProductsUrlRuleBased;
-    } else {
-        bonusUrl = data.showProductsUrlListBased;
-    }
-
-    var htmlString = '<!-- Modal -->'
-        + '<div class="modal fade" id="chooseBonusProductModal" role="dialog">'
-        + '<div class="modal-dialog choose-bonus-product-dialog" '
-        + 'data-total-qty="' + data.maxBonusItems + '"'
-        + 'data-UUID="' + data.uuid + '"'
-        + 'data-pliUUID="' + data.pliUUID + '"'
-        + 'data-addToCartUrl="' + data.addToCartUrl + '"'
-        + 'data-pageStart="0"'
-        + 'data-pageSize="' + data.pageSize + '"'
-        + 'data-moreURL="' + data.showProductsUrlRuleBased + '"'
-        + 'data-bonusChoiceRuleBased="' + data.bonusChoiceRuleBased + '">'
-        + '<!-- Modal content-->'
-        + '<div class="modal-content">'
-        + '<div class="modal-header">'
-        + '<span class="">' + data.labels.selectprods + '</span>'
-        +'<button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">'
-        +'<span class="text-uppercase close-icon">Close</span>'
-        +'</button>'
-        + '</div>'
-        + '<div class="modal-body"></div>'
-        + '<div class="modal-footer"></div>'
-        + '</div>'
-        + '</div>'
-        + '</div>';
-    $('body').append(htmlString);
-    $('.modal-body').spinner().start();
-
-    $.ajax({
-        url: bonusUrl,
-        method: 'GET',
-        dataType: 'html',
-        success: function (html) {
-            var parsedHtml = parseHtml(html);
-            $('#chooseBonusProductModal .modal-body').empty();
-            $('#chooseBonusProductModal .modal-body').html(parsedHtml.body);
-            $('#chooseBonusProductModal .modal-footer').html(parsedHtml.footer);
-            $('#chooseBonusProductModal').modal('show');
-            $.spinner().stop();
-        },
-        error: function () {
-            $.spinner().stop();
-        }
-    });
-}
-
-
-
-/**
- * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
- * @param {string} response - ajax response from clicking the add to cart button
- */
-function handlePostCartAdd(response) {
-    $('.minicart').trigger('count:update', response);
-    var messageType = response.error ? 'text-danger' : 'text-success';
-    // show add to cart modal
-    $('#addToCartModal .modal-body').html(response.message);
-    $('#addToCartModal .modal-body p').addClass(messageType);
-    if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
-        if(response.cartAnalyticsTrackingData !== undefined) {
-            setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
-            window.dispatchEvent(setAnalyticsTrackingByAJAX);
-        }
-        if(response.addCartGtmArray !== undefined){
-        	 $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
-        }	
-    }
-    if (response.newBonusDiscountLineItem
-        && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
-        chooseBonusProducts(response.newBonusDiscountLineItem);
-    } else {
-        $('#addToCartModal').modal('show');
-        $('.slick-slider').slick('refresh');
-    }
-}
-
-/**
- * Retrieves the bundle product item ID's for the Controller to replace bundle master product
- * items with their selected variants
- *
- * @return {string[]} - List of selected bundle product item ID's
- */
-function getChildProducts() {
-    var childProducts = [];
-    $('.bundle-item').each(function () {
-        childProducts.push({
-            pid: $(this).find('.product-id').text(),
-            quantity: parseInt($(this).find('label.quantity').data('quantity'), 10)
-        });
-    });
-
-    return childProducts.length ? JSON.stringify(childProducts) : [];
-}
-
-/**
- * Retrieve product options
- *
- * @param {jQuery} $productContainer - DOM element for current product
- * @return {string} - Product options and their selected values
- */
-function getOptions($productContainer) {
-    var options = $productContainer
-        .find('.product-option')
-        .map(function () {
-            var $elOption = $(this).find('.options-select, input[type="radio"]:checked');
-            var urlValue = $elOption.val();
-            var selectedValueId;
-            if ($elOption.is("input")) {
-                selectedValueId = $elOption.data('value-id');
-            } else {
-                selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
-                .data('value-id');
-            }
-            return {
-                optionId: $(this).data('option-id'),
-                selectedValueId: selectedValueId
-            };
-        }).toArray();
-
-    return JSON.stringify(options);
-}
-/**
  * Retrieve product options
  *
  * @param {jQuery} $productContainer - DOM element for current product
@@ -1192,384 +977,39 @@ function validateOptions($el) {
     }
 }
 
-var updateCartPage = function(data) {
-  $('.cart-section-wrapper').html(data.cartPageHtml);
-  if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.ready(function() {
-            affirm.ui.refresh();
-        });
-   } 
-};
+movadoBase.colorAttribute = function () {
+    $(document).off('click', '.main-variation-attribute-mcs[data-attr="color"] a, [data-attr="colorWatch"] a').on('click', '.main-variation-attribute-mcs[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
+        e.preventDefault();
 
-// module.exports = {
-    // attributeSelect: attributeSelect,
-    // methods: {
-    //     editBonusProducts: function (data) {
-    //         chooseBonusProducts(data);
-    //     }
-    // },
-    movadoBase.colorAttribute = function () {
-        $(document).off('click', '.main-variation-attribute-mcs[data-attr="color"] a, [data-attr="colorWatch"] a').on('click', '.main-variation-attribute-mcs[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
-            e.preventDefault();
+        if ($(this).attr('disabled') || $(this).hasClass('active')) {
+            return;
+        } else {
+            $('.product-size-options.color-variation.active').removeClass('active');
+            $(this).addClass('active');
+        }
+        var $productContainer = $(this).closest('.set-item');
+        if (!$productContainer.length) {
+            $productContainer = $(this).closest('.product-detail');
+        }
 
-            if ($(this).attr('disabled') || $(this).hasClass('active')) {
-                return;
-            } else {
-                $('.product-size-options.color-variation.active').removeClass('active');
-                $(this).addClass('active');
-            }
-            var $productContainer = $(this).closest('.set-item');
-            if (!$productContainer.length) {
-                $productContainer = $(this).closest('.product-detail');
-            }
+        attributeSelect(e.currentTarget.href, $productContainer);
+    });
+},
 
-            attributeSelect(e.currentTarget.href, $productContainer);
-        });
-    },
+movadoBase.selectAttribute = function () {
+    var selector = '.set-item select[class*="selects-non-"], .product-detail select[class*="selects-non-"], .options-select, .product-option input[type="radio"]';
+    $(document).off('change', selector);
+    $(document).on('change', selector, function (e) {
+        e.preventDefault();
 
-    movadoBase.selectAttribute = function () {
-        var selector = '.set-item select[class*="selects-non-"], .product-detail select[class*="selects-non-"], .options-select, .product-option input[type="radio"]';
-        $(document).off('change', selector);
-        $(document).on('change', selector, function (e) {
-            e.preventDefault();
+        var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 
-            var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
-
-            var $productContainer = $(this).closest('.set-item');
-            if (!$productContainer.length) {
-                $productContainer = $(this).closest('.product-detail');
-            }
-            attributeSelect(value, $productContainer);
-        });
-    },
-
-    // setOptionsAttribute: function() {
-    //     $(document).off('click', '.togglePersonalizationOpt');
-    //     $(document).off('submit', 'form[name="embossing"], form[name="engraving"]');
-    //     $(document).on('click', '.togglePersonalizationOpt', function (e) {
-    //         var target = e.currentTarget || e.target;
-    //         var optionContainer = $(target).parent();
-    //         optionContainer.toggleClass('active');
-    //         $(optionContainer).find('.attribute-text').toggle();
-    //         if (!optionContainer.hasClass('active')) {
-    //             removeOption($(optionContainer).closest(".product-detail"));
-    //         }
-    //     });
-
-    //     $(document).on('click', 'form[name="embossing"] button, form[name="engraving"] button', function (e) {
-    //         e.preventDefault();
-    //         var $this = $(this).closest("form");
-    //         validateOptions($this);
-    //         var isOptionsValid = $this.valid();
-
-
-    //         if (isOptionsValid) {
-
-    //             if($this.hasClass('submitted')) {
-    //                 removeOption($this);
-    //             } else {
-    //                 $this.addClass('submitted');
-    //                 $(this).addClass('submitted');
-    //                 $this.find('input[type="text"], textarea').attr("readonly", true);
-    //                 $this.find('input[type="radio"]').eq(1).prop('checked', true).change();
-    //             }
-    //         }
-
-    //     });
-    // },
-
-    // availability: function () {
-    //     $(document).on('change', '.quantity-select', function (e) {
-    //         e.preventDefault();
-
-    //         var $productContainer = $(this).closest('.product-detail');
-    //         if (!$productContainer.length) {
-    //             $productContainer = $(this).closest('.modal-content').find('.product-quickview');
-    //         }
-
-    //         if ($('.bundle-items', $productContainer).length === 0) {
-    //             attributeSelect($(e.currentTarget).find('option:selected').data('url'),
-    //                 $productContainer);
-    //         }
-    //     });
-    // },
-
-    // addToCart: function () {
-    //     $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
-    //         var addToCartUrl;
-    //         var pid;
-    //         var pidsObj;
-    //         var setPids;
-    //         var giftPid;
-
-    //         $('body').trigger('product:beforeAddToCart', this);
-
-    //         if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
-    //             setPids = [];
-
-    //             $('.product-detail').each(function () {
-    //                 if (!$(this).hasClass('product-set-detail')) {
-    //                     setPids.push({
-    //                         pid: $(this).find('.product-id').text(),
-    //                         qty: $(this).find('.quantity-select').val(),
-    //                         options: getOptions($(this))
-    //                     });
-    //                 }
-    //             });
-    //             pidsObj = JSON.stringify(setPids);
-    //         }
-
-    //         if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
-    //             pid = $(this).data('pid');
-    //             if ($('.gift-allowed-checkbox').is(":checked")) {
-    //                 giftPid = $('.gift-allowed-checkbox').val();
-    //             }
-    //         } else {
-    //         	pid = getPidValue($(this));
-    //             if ($('.gift-allowed-checkbox').is(":checked")) {
-    //                 giftPid = $('.gift-allowed-checkbox').val();
-    //             }
-    //         }
-
-    //         var $productContainer = $(this).closest('.product-detail');
-    //         if (!$productContainer.length) {
-    //             $productContainer = $(this).closest('.quick-view-dialog').find('.product-detail');
-    //         }
-
-    //         addToCartUrl = getAddToCartUrl();
-
-    //         var form = {
-    //             pid: pid,
-    //             pidsObj: pidsObj,
-    //             childProducts: getChildProducts(),
-    //             quantity: getQuantitySelected($(this)),
-    //             giftPid: giftPid ? giftPid : ''
-    //         };
-
-    //         /**
-    //          * Custom Start: Add to cart form for MVMT
-    //          */
-    //         if ($('.pdp-mvmt')) {
-    //             form = {
-    //                 pid: pid,
-    //                 pidsObj: pidsObj,
-    //                 childProducts: getChildProducts(),
-    //                 quantity: 1,
-    //                 giftPid: giftPid ? giftPid : ''
-    //             };
-    //         }
-    //         /**
-    //          *  Custom End
-    //          */
-
-    //         /**
-    //          * Custom Start: Clyde Integration
-    //          */
-    //         if (window.Resources && window.Resources.IS_CLYDE_ENABLED) {
-    //             form = clydeWidget.getSelectedClydeContract(form);
-    //         }
-    //         /**
-    //          * Custom end:
-    //          */
-    //         $productContainer.find('input[type="text"], textarea').filter('[required]')
-    //         .each(function() {
-    //             if($(this).val() && $(this).closest("form.submitted").length) {
-    //                 Object.assign(form, {
-    //                     [$(this).data('name')]: $(this).val()
-    //                 });
-    //             }
-    //         });
-
-    //         if (!$('.bundle-item').length) {
-    //             form.options = getOptions($productContainer);
-    //         }
-    //         form.currentPage = $('.page[data-action]').data('action') || '';
-    //         $(this).trigger('updateAddToCartFormData', form);
-    //         if (addToCartUrl) {
-    //             $.ajax({
-    //                 url: addToCartUrl,
-    //                 method: 'POST',
-    //                 data: form,
-    //                 success: function (data) {
-    //                     updateCartPage(data);
-    //                     handlePostCartAdd(data);
-    //                     $('body').trigger('product:afterAddToCart', data);
-    //                     $.spinner().stop();
-    //                     //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
-    //                     if (window.Resources.LISTRAK_ENABLED) {
-    //                         var ltkSendSCA = require('listrak_custom/ltkSendSCA');
-    //                         ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
-    //                     }
-    //                     //Custom End
-    //                     $(window).resize(); // This is used to fix zoom feature after add to cart
-    //                 },
-    //                 error: function () {
-    //                     $.spinner().stop();
-    //                 }
-    //             });
-    //         }
-    //     });
-    // },
-    // selectBonusProduct: function () {
-    //     $(document).on('click', '.select-bonus-product', function () {
-    //         var $choiceOfBonusProduct = $(this).parents('.choice-of-bonus-product');
-    //         var pid = $(this).data('pid');
-    //         var maxPids = $('.choose-bonus-product-dialog').data('total-qty');
-    //         var submittedQty = parseInt($(this).parents('.choice-of-bonus-product').find('.bonus-quantity-select').val(), 10);
-    //         if(isNaN(submittedQty)) {
-    //         	submittedQty = 1;
-    //         }
-    //         var totalQty = 0;
-    //         $.each($('#chooseBonusProductModal .selected-bonus-products .selected-pid'), function () {
-    //             totalQty += $(this).data('qty');
-    //         });
-    //         totalQty += submittedQty;
-    //         var optionID = $(this).parents('.choice-of-bonus-product').find('.product-option').data('option-id');
-    //         var valueId = $(this).parents('.choice-of-bonus-product').find('.options-select option:selected').data('valueId');
-    //         if (totalQty <= maxPids) {
-    //             var selectedBonusProductHtml = ''
-    //             + '<div class="selected-pid row" '
-    //             + 'data-pid="' + pid + '"'
-    //             + 'data-qty="' + submittedQty + '"'
-    //             + 'data-optionID="' + (optionID || '') + '"'
-    //             + 'data-option-selected-value="' + (valueId || '') + '"'
-    //             + '>'
-    //             + '<div class="col-sm-11 col-9 bonus-product-name" >'
-    //             + $choiceOfBonusProduct.find('.product-name').html()
-    //             + '</div>'
-    //             + '<div class="col-1"><i class="fa fa-times" aria-hidden="true"></i></div>'
-    //             + '</div>'
-    //             ;
-    //             $('#chooseBonusProductModal .selected-bonus-products').append(selectedBonusProductHtml);
-    //             $('.pre-cart-products').html(totalQty);
-    //             $('.selected-bonus-products .bonus-summary').removeClass('alert-danger');
-    //         } else {
-    //             $('.selected-bonus-products .bonus-summary').addClass('alert-danger');
-    //         }
-    //     });
-    // },
-    // removeBonusProduct: function () {
-    //     $(document).on('click', '.selected-pid', function () {
-    //         $(this).remove();
-    //         var $selected = $('#chooseBonusProductModal .selected-bonus-products .selected-pid');
-    //         var count = 0;
-    //         if ($selected.length) {
-    //             $selected.each(function () {
-    //                 count += parseInt($(this).data('qty'), 10);
-    //             });
-    //         }
-
-    //         $('.pre-cart-products').html(count);
-    //         $('.selected-bonus-products .bonus-summary').removeClass('alert-danger');
-    //     });
-    // },
-    // enableBonusProductSelection: function () {
-    //     $('body').on('bonusproduct:updateSelectButton', function (e, response) {
-    //         $('button.select-bonus-product', response.$productContainer).attr('disabled',
-    //             (!response.product.readyToOrder || !response.product.available));
-    //         var pid = response.product.id;
-    //         $('button.select-bonus-product').data('pid', pid);
-    //     });
-    // },
-    // showMoreBonusProducts: function () {
-    //     $(document).on('click', '.show-more-bonus-products', function () {
-    //         var url = $(this).data('url');
-    //         $('.modal-content').spinner().start();
-    //         $.ajax({
-    //             url: url,
-    //             method: 'GET',
-    //             success: function (html) {
-    //                 var parsedHtml = parseHtml(html);
-    //                 $('.modal-body').append(parsedHtml.body);
-    //                 $('.show-more-bonus-products:first').remove();
-    //                 $('.modal-content').spinner().stop();
-    //             },
-    //             error: function () {
-    //                 $('.modal-content').spinner().stop();
-    //             }
-    //         });
-    //     });
-    // },
-    // addBonusProductsToCart: function () {
-    //     $(document).on('click', '.add-bonus-products', function () {
-    //         var $readyToOrderBonusProducts = $('.choose-bonus-product-dialog .selected-pid');
-    //         var queryString = '?pids=';
-    //         var url = $('.choose-bonus-product-dialog').data('addtocarturl');
-    //         var pidsObject = {
-    //             bonusProducts: []
-    //         };
-
-    //         $.each($readyToOrderBonusProducts, function () {
-    //             var qtyOption =
-    //                 parseInt($(this)
-    //                     .data('qty'), 10);
-
-    //             var option = null;
-    //             if (qtyOption > 0) {
-    //                 if ($(this).data('optionid') && $(this).data('option-selected-value')) {
-    //                     option = {};
-    //                     option.optionId = $(this).data('optionid');
-    //                     option.productId = $(this).data('pid');
-    //                     option.selectedValueId = $(this).data('option-selected-value');
-    //                 }
-    //                 pidsObject.bonusProducts.push({
-    //                     pid: $(this).data('pid'),
-    //                     qty: qtyOption,
-    //                     options: [option]
-    //                 });
-    //                 pidsObject.totalQty = parseInt($('.pre-cart-products').html(), 10);
-    //             }
-    //         });
-    //         queryString += JSON.stringify(pidsObject);
-    //         queryString = queryString + '&uuid=' + $('.choose-bonus-product-dialog').data('uuid');
-    //         queryString = queryString + '&pliuuid=' + $('.choose-bonus-product-dialog').data('pliuuid');
-    //         $.spinner().start();
-    //         $.ajax({
-    //             url: url + queryString,
-    //             method: 'POST',
-    //             success: function (data) {
-    //                 $.spinner().stop();
-    //                 if (data.error) {
-    //                     $('.error-choice-of-bonus-products')
-    //                     .html(data.errorMessage);
-    //                 } else {
-    //                     $('.configure-bonus-product-attributes').html(data);
-    //                     $('.bonus-products-step2').removeClass('hidden-xl-down');
-    //                     $('#chooseBonusProductModal').modal('hide');
-
-    //                     if ($('.add-to-cart-messages').length === 0) {
-    //                         $('body').append(
-    //                         '<div class="add-to-cart-messages"></div>'
-    //                      );
-    //                     }
-    //                     $('.minicart-quantity').html(data.totalQty);
-    //                     setTimeout(function () {
-    //                         $('.add-to-basket-alert').remove();
-    //                         if ($('.cart-page').length) {
-    //                             location.reload();
-    //                         }
-    //                     }, 3000);
-    //                 }
-    //             },
-    //             error: function () {
-    //                 $.spinner().stop();
-    //             }
-    //         });
-    //     });
-    // },
-    // showAddToCartModalAfterBonusProductModal: function () {
-    // 	$(document).on('hidden.bs.modal','#chooseBonusProductModal', function () {
-    //         if($.trim($('#addToCartModal .modal-body').html())) {
-    //         	$('#addToCartModal').modal('show');
-    //         	$('.slick-slider').slick('refresh');
-    //         }
-    // 	});
-    // },
-
-    // getPidValue: getPidValue,
-    // getQuantitySelected: getQuantitySelected
-// };
-
-
+        var $productContainer = $(this).closest('.set-item');
+        if (!$productContainer.length) {
+            $productContainer = $(this).closest('.product-detail');
+        }
+        attributeSelect(value, $productContainer);
+    });
+}
 
 module.exports = movadoBase;
