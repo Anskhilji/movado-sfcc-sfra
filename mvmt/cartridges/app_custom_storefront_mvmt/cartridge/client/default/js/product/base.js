@@ -980,13 +980,13 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Attach Slider and Zoom
-    // setTimeout(function () {
-    //     pdpSwatchCarousel();
-    // }, 500);
-    // gallerySlider();
-    // setTimeout(function () {
-    //     initializePDPMainSlider();
-    // }, 500);
+    setTimeout(function () {
+        pdpSwatchCarousel();
+    }, 500);
+    gallerySlider();
+    setTimeout(function () {
+        initializePDPMainSlider();
+    }, 500);
     
     // Updating primary image in spec & detail section
 
