@@ -11,7 +11,7 @@ var salePrice;
 var listPrice;
 var productData;
 if (document.querySelector('.product-number span')) {
-    productId = document.querySelector('.product-number span').innerHTML || '';
+    var productId = document.querySelector('.product-number span').innerHTML || '';
 
 } else {
     var cartValue = document.querySelector('.add-to-cart');

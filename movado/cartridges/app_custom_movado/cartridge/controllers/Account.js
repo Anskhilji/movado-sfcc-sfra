@@ -344,7 +344,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                     fields: formErrors.getFormErrors(registrationForm)
                 });
             }
-            if (!empty(authenticatedCustomer) && !empty(authenticatedCustomer.profile.custom.customerCurrentCountry)) {
+            if (!empty(authenticatedCustomer && authenticatedCustomer.profile.custom.customerCurrentCountry)) {
                 // Custom Start: Yotpo Swell Integration 
                 if (isYotpoSwellLoyaltyEnabled && authenticatedCustomer.profile.custom.customerCurrentCountry.equalsIgnoreCase('US')) {
                     var viewData = res.getViewData();

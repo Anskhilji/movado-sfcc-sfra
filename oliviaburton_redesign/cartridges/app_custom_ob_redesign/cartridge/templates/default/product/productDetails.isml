@@ -135,7 +135,6 @@
                                     <isinclude template="product/components/description" />
                                 </div>
                             </isif>
-
                             <iscomment> Custom End </iscomment>
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />

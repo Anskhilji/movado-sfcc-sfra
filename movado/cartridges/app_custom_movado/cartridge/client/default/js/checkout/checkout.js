@@ -180,6 +180,7 @@ require('./fedexAddressValidate');
               var stage = checkoutStages[members.currentStage];
               var defer = $.Deferred(); // eslint-disable-line
               //  Handle active and completed step
+
               if (stage === 'shipping') {
             //
             // Clear Previous Errors
@@ -219,7 +220,7 @@ require('./fedexAddressValidate');
                               }
                           },
                           error: function () {
-                    // Server error submitting form
+                  // Server error submitting form
                               defer.reject();
                           }
                       });
@@ -884,4 +885,5 @@ var exports = {
         }
     });
 });
+
 module.exports = exports;
