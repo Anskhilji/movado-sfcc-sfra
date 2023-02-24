@@ -15,7 +15,7 @@
     <div class="product-badges d-none">
         <isinclude template="product/components/newnessBadge"/>
     </div>
-      <div class="js-carousel main-carousel traditional-main-carousel pdp-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+      <div class="js-carousel main-carousel traditional-main-carousel main-carousel-mcs pdp-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['pdp700']}" var="image" status="loopStatus">
@@ -64,7 +64,7 @@
                       <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['tile126']) && !empty(product.images['tile126'][loopStatus.count-1]) && !empty(product.images['tile126'][loopStatus.count-1].url ) ? product.images.tile126[loopStatus.count-1].url : ''}" />
                       <source media="(max-width: 991px)" srcset="${!empty(product.images) && !empty(product.images['tile126']) && !empty(product.images['tile126'][loopStatus.count-1]) && !empty(product.images['tile126'][loopStatus.count-1].url ) ? product.images.tile126[loopStatus.count-1].url : ''}" />
       <iscomment> Custom End: MSS-1564 Add thumbnails to PDP </iscomment>
-                      <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                      <img class="carousel-indicator-image" src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
               </div>
@@ -90,8 +90,8 @@
                       </div>
                     </isloop>
                 </div>
-                <div class="zoom-carosel-nav">
-                    <div class="zoom-carousel-slider">
+                <div class="zoom-carousel-nav">
+                    <div class="zoom-carousel-slider carousel-nav-variation-redesing">
                         <isloop items="${product.images['tile100']}" var="image" status="loopStatus">
                             <div class="carousel-thumbnail-wrapper">
                                 <div class="carousel-tile">

@@ -2,9 +2,6 @@
 var movadoBase = require('movado/product/base');
 var winWidth = $(window).width();
 var mediumBreakPoint= 767;
-if(Resources.IS_CLYDE_ENABLED) {
-    var clydeWidget = require('link_clyde/getClydeWidget.js');
-}
 
 /**
  * Retrieve contextual quantity selector
@@ -24,9 +21,10 @@ function initializePDPMainSlider() {
     $('.primary-images .main-carousel').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
-        // asNavFor: '.carousel-nav',
         asNavFor: '.carousel-nav-redesign',
         dots: false,
+        centerMode: true,
+        centerPadding: '0px',
         arrows: true,
         focusOnSelect: true,
         fade: true,
@@ -50,7 +48,6 @@ function initializePDPMainSlider() {
  */
 function initializeSlickDots() {
     $('.carousel-nav-redesign').slick({
-    // $('.carousel-nav').slick({
         slidesToShow: 5,
         slidesToScroll: 1,
         asNavFor: '.primary-images .main-carousel',
@@ -102,25 +99,6 @@ function zoom() {
     });
 }
 
-$(document).ready(function() {
-    // Custom Start: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
-    $(window).on("resize", function () {
-        var winWidth = $(window).width();
-        initializeCarousel(winWidth, true);
-        initializePDPMainSlider();
-    });
-
-    $(window).on("click", function () {
-        var winWidth = $(window).width();
-        initializeCarousel(winWidth, true);
-    });
-
-    // $('.carousel-zoom-icon').click(function() {
-    //     initializeCarousel(winWidth);
-    // });
-// Custom End: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
-});
-
 /**
  *  CovertsPDP Zoom Model Primary Images to Carousel
  */
@@ -140,6 +118,36 @@ function initializeCarousel(winWidth, isResize) {
         }
     }
 }
+
+function slickHeight() {
+    var $winWidth = $(window).width();
+    var $mediumBreakPoint= 767;
+    if ($winWidth > $mediumBreakPoint) {
+        var $sliderHeight = $('.zoom-modal .slick-slider').height();
+        $('.zoom-carousel-slider.carousel-nav-variation-redesing').css('height', $sliderHeight - 60);
+    }
+}
+
+$(window).resize(function(){
+    $('.primary-images .main-carousel')[0].slick.refresh();
+    $('.carousel-nav-redesign')[0].slick.refresh();
+  });
+
+$(document).ready(function() {
+    // Custom Start: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
+    $(window).on("resize", function () {
+        var winWidth = $(window).width();
+        initializeCarousel(winWidth, true);
+        initializePDPMainSlider();
+    });
+
+    $(window).on("click", function () {
+        var winWidth = $(window).width();
+        initializeCarousel(winWidth, true);
+    });
+
+// Custom End: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
+});
 
 /**
  *  CovertsPDP Zoom Model Primary Images to Indicators
@@ -166,17 +174,17 @@ function initializeZoomSlickDots() {
     });
 }
 
-$('body').on('click', '.primary-images .main-carousel .slick-next,.primary-images .main-carousel-movado img', function (e) {
+$('body').on('click', '.primary-images .main-carousel .slick-next,.primary-images .main-carousel-mcs img', function (e) {
     e.preventDefault();
     $('.main-carousel .slick-active').addClass('slick-center');
 });
 
-$('body').on('click', '.primary-images .main-carousel .slick-prev,.primary-images .main-carousel-movado img', function (e) {
+$('body').on('click', '.primary-images .main-carousel .slick-prev,.primary-images .main-carousel-mcs img', function (e) {
     e.preventDefault();
     $('.main-carousel .slick-active').addClass('slick-center');
 });
 
-$('body').on('click', '.primary-images .main-carousel-movado img', function (e) {
+$('body').on('click', '.primary-images .main-carousel-mcs img', function (e) {
     e.preventDefault();
     var $winWidth = $(window).width();
     var $mediumBreakPoint= 767;
@@ -200,16 +208,8 @@ $('body').on('click', '.carousel-indicator-image', function (e) {
     $('.main-carousel .slick-active').addClass('slick-center');
 });
 
-function slickHeight() {
-    var $winWidth = $(window).width();
-    var $mediumBreakPoint= 767;
-    if ($winWidth > $mediumBreakPoint) {
-        var $sliderHeight = $('.zoom-modal .slick-slider').height();
-        $('.zoom-carousel-slider.carousel-nav-variation-redesing').css('height', $sliderHeight - 60);
-    }
-}
 
-$( window ).resize(function() {
+$(window).resize(function() {
     slickHeight();
 });
 
@@ -620,7 +620,6 @@ function handleVariantResponse(response, $productContainer) {
 
     //update wishlist icon
     $('.add-to-wish-list').removeClass('added-to-wishlist');
-
     var $exclusiveBadges = $('.exclusive-badges');
     var $imageBadges = $('.primary-images .product-badges');
     $exclusiveBadges.empty();
@@ -647,14 +646,6 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
-
-    // setTimeout(function () {
-    //     pdpSwatchCarousel();
-    // }, 500);
-    // gallerySlider();
-    // setTimeout(function () {
-    //     initializePDPMainSlider();
-    // }, 500);
     /**
     * Custom Start: Add logic to handle back in stock notifiaction content for variations
     */
@@ -734,7 +725,6 @@ function handleVariantResponse(response, $productContainer) {
 
     // unslick Carousel
     $('.primary-images .main-carousel').slick('unslick');
-    // $('.primary-images .carousel-nav-redesign').slick('unslick');
     $('.zoom-carousel').slick('unslick');
     $('.zoom-carousel-slider').slick('unslick');
 
@@ -751,7 +741,7 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images indicators
     var $primaryImageindiCatorsUrls = response.product.images;
-    $primaryImageindiCatorsUrls.tile150.forEach(function (imageUrl, idx) {
+    $primaryImageindiCatorsUrls.tile126.forEach(function (imageUrl, idx) {
         $productContainer.find('.primary-images .carousel-nav-redesign').find('img').eq(idx)
             .attr('src', imageUrl.url);
         $productContainer.find('.primary-images .carousel-nav-redesign').find('picture source:nth-child(1)').eq(idx)
@@ -765,30 +755,36 @@ function handleVariantResponse(response, $productContainer) {
     $ZoomCarousel.empty();
     var $primaryImageZoomUrls = response.product.images;
     $primaryImageZoomUrls.zoom1660.forEach(function (imageUrl) {
-        // $ZoomCarousel.append('<div class="carousel-tile zoomit" data-thumb="' + imageUrl.url + '"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom" src="' + imageUrl.url + '" alt="Coronada Ceramic" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
         $ZoomCarousel.append('<div class="carousel-tile zoomit" data-thumb="' + imageUrl.url + '" style="width: 100%; display: inline-block; position: relative; overflow: hidden;"><img class="normal-zoom" src="' + imageUrl.url + '" alt="Coronada Ceramic" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"><img src="' + imageUrl.url + '" class="zoom-img" style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 1660px; height: 1660px; border: none; max-width: none; max-height: none;"><img src="' + imageUrl.url + '" class="zoom-img" style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 1660px; height: 1660px; border: none; max-width: none; max-height: none;"></div>');
     });
 
     // Update model primary images indicators
     var primaryImageZoomIndicatorsUrls = response.product.images;
     primaryImageZoomIndicatorsUrls.tile150.forEach(function (imageUrl, idx) {
-        $productContainer.find('.zoom-carosel-nav').find('img').eq(idx)
+        $productContainer.find('.zoom-carousel-nav').find('img').eq(idx)
             .attr('src', imageUrl.url);
-        $productContainer.find('.zoom-carosel-nav').find('picture source:nth-child(1)').eq(idx)
+        $productContainer.find('.zoom-carousel-nav').find('picture source:nth-child(1)').eq(idx)
             .attr('srcset', imageUrl.url);
-        $productContainer.find('.zoom-carosel-nav').find('picture source:nth-child(2)').eq(idx)
+        $productContainer.find('.zoom-carousel-nav').find('picture source:nth-child(2)').eq(idx)
             .attr('srcset', imageUrl.url);
     });
 
     // Update sticky images
-    var $stickyContainer = $('.top-sticky-card')
+    var $topStickyContainer = $('.top-sticky-card');
+    var $bottomStickyContainer = $('.bottom-sticky-card');
     var $stickyImageUrls = response.product.images;
     $stickyImageUrls.tile150.forEach(function (imageUrl, idx) {
-        $stickyContainer.find('.sticky-container-redesign .sticky-prod-img').find('img').eq(idx)
+        $topStickyContainer.find('.sticky-container-redesign .sticky-prod-img').find('img').eq(idx)
             .attr('src', imageUrl.url);
-        $stickyContainer.find('.sticky-container-redesign .sticky-prod-img').find('picture source:nth-child(1)').eq(idx)
+        $topStickyContainer.find('.sticky-container-redesign .sticky-prod-img').find('picture source:nth-child(1)').eq(idx)
             .attr('srcset', imageUrl.url);
-        $stickyContainer.find('.sticky-container-redesign .sticky-prod-img').find('picture source:nth-child(2)').eq(idx)
+        $topStickyContainer.find('.sticky-container-redesign .sticky-prod-img').find('picture source:nth-child(2)').eq(idx)
+            .attr('srcset', imageUrl.url);
+        $bottomStickyContainer.find('.sticky-container-redesign .sticky-prod-img').find('img').eq(idx)
+            .attr('src', imageUrl.url);
+        $bottomStickyContainer.find('.sticky-container-redesign .sticky-prod-img').find('picture source:nth-child(1)').eq(idx)
+            .attr('srcset', imageUrl.url);
+        $bottomStickyContainer.find('.sticky-container-redesign .sticky-prod-img').find('picture source:nth-child(2)').eq(idx)
             .attr('srcset', imageUrl.url);
     });
 
@@ -830,8 +826,6 @@ function handleVariantResponse(response, $productContainer) {
 
     // intialize carousel
         initializePDPMainSlider();
-        // initializeSlickDots();
-        // initializeCarousel();
         initializeZoomSlickDots();
         initializeZoomModelCarousel();
         $('.main-carousel .slick-active').addClass('slick-center');
@@ -851,16 +845,6 @@ function handleVariantResponse(response, $productContainer) {
             }
         }
     });
-    // setTimeout(function() {
-    //     // $('.carousel-nav-redesign.slick-slider').slick('refresh');
-    //     $('.carousel-nav-redesign.slick-slider').slick('unslick');
-    //     initializeSlickDots();
-    //     // $('.zoom-carousel-slider.slick-slider').slick('refresh');
-    //     // if (winWidth > mediumBreakPoint) {
-    //         // zoom();
-    //     // }
-    // }, 100);
-    // $('.carousel-nav-redesign .slick-track').css({'width': '507px', 'transform': 'translate3d(0px, 0px, 0px)'});
 }
 
 /**
