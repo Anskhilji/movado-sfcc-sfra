@@ -208,7 +208,6 @@ $('body').on('click', '.carousel-indicator-image', function (e) {
     $('.main-carousel .slick-active').addClass('slick-center');
 });
 
-
 $(window).resize(function() {
     slickHeight();
 });
