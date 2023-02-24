@@ -112,7 +112,7 @@ function sendOrderConfirmationEmail(order, locale) {
         pickUpCustomerLabel: Resource.msg('order.confirmation.email..pick.customer.label', 'order', null),
         pickUpStoreAddressLabel: Resource.msg('order.confirmation.email..pick.store.address.label', 'order', null),
         billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
-        cuurentOrder: order
+        currentOrder: order
     };
 
     var subject = isPickupStoreEnabled && order.custom.BOPIS ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber);

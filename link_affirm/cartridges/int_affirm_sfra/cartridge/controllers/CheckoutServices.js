@@ -109,7 +109,7 @@ server.replace(
             /* Currently phone is hardcoded to credit card form so we will take phone from shipping address */
             var shippingAddress = currentBasket.defaultShipment.shippingAddress;
 
-            if (session.privacy.pickupFromStore) {
+            if (currentBasket.custom.storePickUp) {
                 Transaction.wrap(function () {
                     shippingAddress.setPostalCode(session.privacy.extendedZipCode || '');
                 });

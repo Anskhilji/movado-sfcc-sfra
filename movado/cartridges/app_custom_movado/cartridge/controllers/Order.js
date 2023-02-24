@@ -354,8 +354,8 @@ server.append('Confirm', function (req, res, next) {
         orderLineItemArray: orderLineItemArray
     };
 
-    if(session.privacy.pickupFromStore) {
-        session.privacy.pickupFromStore = false;
+    if (session.custom.pickupFromStore) {
+        session.custom.pickupFromStore = false;
     }
     
     res.setViewData({

@@ -8,6 +8,7 @@ var ArrayList = require('dw/util/ArrayList');
 var SystemObjectMgr = require('dw/object/SystemObjectMgr');
 var collections = require('*/cartridge/scripts/util/collections');
 var URLUtils = require('dw/web/URLUtils');
+var BasketMgr = require('dw/order/BasketMgr');
 
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var baseTrackingUrl = Site.getCurrent().getCustomPreferenceValue('baseTrackingUrl');
@@ -58,6 +59,7 @@ function getTrackingUrlsAndNumbers(lineItems) {
 function getProductLineItemCustomAttributes(item) {
     var customAttributes = {};
     var optionLineItems = item.optionProductLineItems;
+    var currentBasket = BasketMgr.getCurrentBasket();
     var formatMoney = require('dw/util/StringUtils').formatMoney;
 
     if (item.custom.engraveMessageLine1 != undefined) {
@@ -95,7 +97,7 @@ function getProductLineItemCustomAttributes(item) {
         customAttributes.emboss = emboss;
     }
 
-    if (item.custom.GiftWrapMessage != undefined && !session.privacy.pickupFromStore) {
+    if (item.custom.GiftWrapMessage != undefined && currentBasket && currentBasket.custom.storePickUp !== true) {
         customAttributes.itemLevelGiftMessage = { msgLine1: item.custom.GiftWrapMessage };
     }
 
