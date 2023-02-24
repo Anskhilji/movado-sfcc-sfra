@@ -1,10 +1,12 @@
 var processInclude = require('base/util');
 
 $(document).ready(function () {
+    processInclude(require('movado/productDetail'));
     processInclude(require('./product/zoom'));
     processInclude(require('./product/carouselInitializer'));
     processInclude(require('./product/productDetailCustom'));
     processInclude(require('./product/storePickUpDetail'));
+    processInclude(require('./product/detail'));
 });
 
 // added active class & scroll down on reviews widget
