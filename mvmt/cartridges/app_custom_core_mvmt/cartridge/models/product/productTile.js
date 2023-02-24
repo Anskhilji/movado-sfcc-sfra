@@ -44,6 +44,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var tileImage300X300;
     var defaultVariantLifeStyleImage300X300;
     var productId;
+    var productVariants;
 
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -51,6 +52,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             attributes: '*',
             endPoint: 'Variation'
         });
+
+        if (apiProduct.variationModel && apiProduct.variationModel.variants && apiProduct.variationModel.variants.length > 0) {
+            productVariants = apiProduct.variationModel.variants.toArray();
+        }
 
         if (product.variationsAttributes) {
             Object.keys(product.variationsAttributes).forEach(function (key) {
@@ -77,11 +82,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 if (!empty(colorVariations) && !empty(colorVariations.values)) {
                     if (colorVariations.id === ATTRIBUTE_NAME) {
                         Object.keys(colorVariations.values).forEach(function (key) {
-                            Object.keys(apiProduct.variationModel.variants).forEach(function (apiProductKey) {
-                                if(apiProduct.variationModel.variants[apiProductKey].custom.color == colorVariations.values[key].id){
-                                    productId = apiProduct.variationModel.variants[apiProductKey].ID;
+                            productVariants.filter(function (variant) {
+                                if (variant.custom.color == colorVariations.values[key].id) {
+                                    productId = variant.ID;
                                     return;
-                                  }
+                                }
                             });
                             if (colorVariations.values[key]) {
                                 colorVariations.values[key].swatchesURL = URLUtils.url(
@@ -129,12 +134,12 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                         });
                     } else {
                         Object.keys(colorVariations.values).forEach(function (key) {
-                            Object.keys(apiProduct.variationModel.variants).forEach(function (apiProductKey) {
-                                var productColor = apiProduct.variationModel.variants[apiProductKey].custom.productName ? apiProduct.variationModel.variants[apiProductKey].custom.productName : apiProduct.variationModel.variants[apiProductKey].custom.color;
-                                if(productColor  == colorVariations.values[key].id){
-                                    productId = apiProduct.variationModel.variants[apiProductKey].ID;
+                            productVariants.filter(function (variant) {
+                                var productColor = variant.custom.productName ? variant.custom.productName : apiProduct.variationModel.variants[apiProductKey].custom.color;
+                                if (productColor == colorVariations.values[key].id) {
+                                    productId = variant.ID;
                                     return;
-                                  }
+                                }
                             });
                             if (colorVariations.values[key]) {
                                 colorVariations.values[key].swatchesURL = URLUtils.url(
