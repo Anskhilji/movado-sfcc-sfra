@@ -1725,8 +1725,16 @@
                     vertical-align: bottom;
                 }
 
-                &.colorWatch{
+                &.color {
+                    color: $grey8;
+                    font-weight: 300;
                     margin-bottom: rem(10);
+                }
+
+                &.colorWatch {
+                    margin-bottom: rem(10);
+                    color: $grey8;
+                    font-weight: 300;
                 }
             }
 
@@ -1776,6 +1784,21 @@
             padding-top: rem(16);
             justify-content: flex-start;
 
+            &.swatches-redesign {
+                padding-top: 0;
+
+                .product-size-options {
+                    width: rem(50);
+                    height: rem(50);
+                    margin: 0 rem(8) rem(8) rem(0);
+
+                    @include media-breakpoint-down(xs) {
+                        width: rem(50);
+                        height: rem(50);
+                    }
+                }
+            }
+
             @include media-breakpoint-up(md-down) {
                 justify-content: flex-start;
             }
@@ -1800,6 +1823,7 @@
                 @include media-breakpoint-down(xs) {
                     width: rem(50);
                     height: rem(50);
+                    margin: 0 rem(8) rem(8) rem(0);
                 }
 
                 &.active {

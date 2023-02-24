@@ -15,7 +15,7 @@ Template Notes:
         ${attr.displayName}
     </label>
 
-    <div class="product-size-select-list ${attr.id == 'colorWatch' ? 'pdp-swatchs-redesign' : ''}">
+    <div class="product-size-select-list swatches-redesign ${attr.id == 'colorWatch' ? 'pdp-swatchs-redesign' : ''}">
         <isif condition="${attr.swatchable}">
             <!-- Circular Swatch Image Attribute Values -->
             <isloop items="${attr.values}" var="attrValue">
