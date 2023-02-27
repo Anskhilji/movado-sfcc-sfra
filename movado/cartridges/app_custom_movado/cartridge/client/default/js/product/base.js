@@ -1483,5 +1483,8 @@ module.exports = {
     },
 
     getPidValue: getPidValue,
-    getQuantitySelected: getQuantitySelected
+    getQuantitySelected: getQuantitySelected,
+    updateOptions: updateOptions,
+    updateQuantities: updateQuantities,
+    handleOptionsMessageErrors: handleOptionsMessageErrors
 };

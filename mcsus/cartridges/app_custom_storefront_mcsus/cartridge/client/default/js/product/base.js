@@ -4,17 +4,6 @@ var winWidth = $(window).width();
 var mediumBreakPoint= 767;
 
 /**
- * Retrieve contextual quantity selector
- * @param {jquery} $el - DOM container for the relevant quantity
- * @return {jquery} - quantity selector DOM container
- */
-function getQuantitySelector($el) {
-    return $el && $('.set-items').length
-        ? $($el).closest('.product-detail').find('.quantity-select')
-        : $('.quantity-select');
-}
-
-/**
  *  CovertsPDP Primary Images to Slider
  */
 function initializePDPMainSlider() {
@@ -460,48 +449,6 @@ function getAttributesHtml(attributes) {
  */
 
 /**
- * Updates DOM using post-option selection Ajax response
- *
- * @param {OptionSelectionResponse} options - Ajax response options from selecting a product option
- * @param {jQuery} $productContainer - DOM element for current product
- */
-function updateOptions(options, $productContainer) {
-    options.forEach(function (option) {
-        var $optionEl = $productContainer.find('.product-option[data-option-id*="' + option.id
-            + '"]');
-        option.values.forEach(function (value) {
-            var valueEl = $optionEl.find('option[data-value-id*="' + value.id + '"], input[data-value-id*="' + value.id + '"]');
-            valueEl.is('input[type="radio"]') ? valueEl.data('value-url', value.url) : valueEl.val(value.url);
-        });
-    });
-}
-
-function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, $productContainer) {
-    var optionForm;
-    if (embossedMessageError) {
-        optionForm = $productContainer.find('form[name="embossing"]');
-        optionForm.removeClass('submitted');
-        optionForm.find("button").removeClass('submitted');
-        optionForm.find('input[type="text"], textarea').removeAttr("readonly");
-        optionForm.find('input[type="radio"]').eq(0).prop('checked', true);
-        validateOptions(optionForm).showErrors({
-            "option-message": embossedMessageError
-        });
-    }
-
-    if (engravedMessageError) {
-        optionForm = $productContainer.find('form[name="engraving"]');
-        optionForm.removeClass('submitted');
-        optionForm.find("button").removeClass('submitted');
-        optionForm.find('input[type="text"], textarea').removeAttr("readonly");
-        optionForm.find('input[type="radio"]').eq(0).prop('checked', true);
-        validateOptions(optionForm).showErrors({
-            "option-message": engravedMessageError
-        });
-    }
-}
-
-/**
  * MCS redesign sticky functionality on pdp
  */
 $(document).ready(function () {
@@ -644,26 +591,6 @@ function handleVariantResponse(response, $productContainer) {
             });
         }
     }
-
-    /**
-    * Custom Start: Add logic to handle back in stock notifiaction content for variations
-    */
-    var $backInStockContanier = $('.back-in-stock-notification-container');
-    if ($backInStockContanier.length > 0) {
-        var $ctaAddToCart = $('.cta-add-to-cart');
-        $backInStockContanier.data('pid', response.product.id);
-        if (response.product.isBackInStockEnabled) {
-            $backInStockContanier.removeClass('d-none');
-            $ctaAddToCart.addClass('d-none');
-        } else {
-            $backInStockContanier.addClass('d-none');
-            $ctaAddToCart.removeClass('d-none');
-        }
-    }
-
-    /**
-    * Custom End:
-    */
 
     // Update variation id to google pay
     if (window.Resources.GOOGLE_PAY_ENABLED) {
@@ -856,22 +783,6 @@ function handleVariantResponse(response, $productContainer) {
  */
 
 /**
- * Updates the quantity DOM elements post Ajax call
- * @param {UpdatedQuantity[]} quantities -
- * @param {jQuery} $productContainer - DOM container for a given product
- */
-function updateQuantities(quantities, $productContainer) {
-    if (!($productContainer.parent('.bonus-product-item').length > 0)) {
-        var optionsHtml = quantities.map(function (quantity) {
-            var selected = quantity.selected ? ' selected ' : '';
-            return '<option value="' + quantity.value + '"  data-url="' + quantity.url + '"' +
-                selected + '>' + quantity.value + '</option>';
-        }).join('');
-        getQuantitySelector($productContainer).empty().html(optionsHtml);
-    }
-}
-
-/**
  * updates the product view when a product attribute is selected or deselected or when
  *         changing quantity
  * @param {string} selectedValueUrl - the Url for the selected variation value
@@ -898,9 +809,9 @@ function attributeSelect(selectedValueUrl, $productContainer) {
             method: 'GET',
             success: function (data) {
                 handleVariantResponse(data, $productContainer);
-                updateOptions(data.product.options, $productContainer);
-                updateQuantities(data.product.quantities, $productContainer);
-                handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
+                movadoBase.updateOptions(data.product.options, $productContainer);
+                movadoBase.updateQuantities(data.product.quantities, $productContainer);
+                movadoBase.handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
 
                 var listrakTracking = require('movado/listrakActivityTracking.js');
                 listrakTracking.listrackProductTracking(data.product.id);
