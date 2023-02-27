@@ -1,4 +1,5 @@
 <iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
+<isset name="isImageExist" value="false" scope="page" />
 <div class="primary-images ob-carousel-quickview ob-carousel-new-quickview col-12 col-sm-6">
     <isscript>
             var primaryImageCarouselConfig = {
@@ -25,15 +26,15 @@
     <div class="cs-carousel-wrapper">
         <div class="js-carousel cs-carousel main-ob-carousel">
             <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
-            <isloop items="${product.images['zoom1300X1660']}" var="image" status="loopStatus">
+            <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
                 <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(product.images) && !empty(product.images.tile156[loopStatus.count - 1]) && product.images.tile156[loopStatus.count - 1].url ? product.images.tile156[loopStatus.count - 1].url : ''}">
                     <picture>
-                        <source media="(min-width: 992px)" srcset="${product.images.zoom1300X1660[loopStatus.count - 1].url}" />
-                        <source media="(min-width: 544px)" srcset="${product.images.zoom1300X1660[loopStatus.count - 1].url}" />
-                        <source media="(min-width: 320px)" srcset="${product.images.zoom691X830[loopStatus.count - 1].url}" />
-                        <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1300X1660[loopStatus.count - 1]) && !empty(product.images.zoom1300X1660[loopStatus.count - 1].url) ? product.images.zoom1300X1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" itemprop="image"
+                        <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
+                        <source media="(min-width: 544px)" srcset="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
+                        <source media="(min-width: 320px)" srcset="${!empty(product.images) && !empty(product.images.zoom691X830[loopStatus.count - 1]) && !empty(product.images.zoom691X830[loopStatus.count - 1].url) ? product.images.zoom691X830[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
+                        <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" itemprop="image"
                             data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom691X830[loopStatus.count - 1]) && !empty(product.images.zoom691X830[loopStatus.count - 1].url) ? product.images.zoom691X830[loopStatus.count - 1].url : ''}"
-                            data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1300X1660[loopStatus.count - 1]) && !empty(product.images.zoom1300X1660[loopStatus.count - 1].url) ? product.images.zoom1300X1660[loopStatus.count - 1].url : ''}" />
+                            data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
                     </picture>
                     <isset name="isImageExist" value="true" scope="page" />
                     <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL)}">
@@ -62,7 +63,7 @@
             </div>
             <div class="modal-body">
                 <div class="pinchZoom zoomedImage">
-                    <img alt="${product.resources.Zoom}" src="${product.images['pdp533'][0].url}" />
+                    <img alt="${product.resources.Zoom}" src="${!empty(product.images) && product.images['pdp533'] && product.images['pdp533'].length > 0 && product.images['pdp533'][0].url ? product.images['pdp533'][0].url : ''}" />
                 </div>
             </div>
         </div>

@@ -308,20 +308,23 @@ function closeRefinementFilters() {
     $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
 }
 function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground) {
-    $refinementBox.on('click', function() {
-        $('.refinement-box-filter-desktop').removeClass('active');
-        $(this).addClass('active');
-        $('.modal-background').addClass('d-block');
-        $('.desktop-search-refine-bar-redesing').addClass('active');
-        $('.header-menu-wrapper').addClass('header-active');
-        $('.dk-fillter-m').addClass('dk-fillter-check');
-
-        $dkFilterCheck.on('click', function(e) {
-            if(!$('.modal-background').hasClass('d-block')) {
-                $('.modal-background').addClass('d-block');
-            }
-        });
-
+    $refinementBox.on('click', function () {
+        if ($(this).closest('.refinement-box-filter-desktop').hasClass('active')) {
+            closeRefinementFilters();
+        } else {
+            $('.refinement-box-filter-desktop').removeClass('active');
+            $(this).closest('.refinement-box-filter-desktop').addClass('active');
+            $('.modal-background').addClass('d-block');
+            $('.desktop-search-refine-bar-redesing').addClass('active');
+            $('.header-menu-wrapper').addClass('header-active');
+            $('.dk-fillter-m').addClass('dk-fillter-check');
+    
+            $dkFilterCheck.on('click', function(e) {
+                if(!$('.modal-background').hasClass('d-block')) {
+                    $('.modal-background').addClass('d-block');
+                }
+            });
+        }
     });
 
     $modelBackground.on('click', function(e){
@@ -331,7 +334,8 @@ function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackgr
 function moreFilterBtn($moreFilterBtn) {
     $moreFilterBtn.click(function(){
         closeRefinementFilters(); // close refinement filter before opening of sidebar more filter
-        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast')
+        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast').css('z-index', 9999);
+        $('.header-menu-wrapper').addClass('sticky-bar-index');
         $('body').addClass('no-overflow');
         $('.search-results.plp-new-design .refinement-bar').removeClass('fadeOutRight').addClass('fast fadeInRight animated d-block');
         $('.search-results.plp-new-design .custom-select__option').focus();
@@ -347,12 +351,13 @@ $(window).scroll(function() {
     var screenWidth = 130;
     
     //  this var use for mobile scree 
-    if (window.innerWidth <= 767) {
-        screenWidth = 45;
-    }
+    if (window.innerWidth <= 1200) {
+        screenWidth = 60;
+    } 
 
     if (scroll > screenWidth) {
         $('.filter-box').addClass('filter-bar-sticky');
+        
     } else {
         $('.filter-box').removeClass('filter-bar-sticky');
     }
@@ -559,6 +564,7 @@ module.exports = {
                 var urlparams = getUrlParamObj(document.location.href);
                 var filtersURL = e.currentTarget.href;
                 var currentSelectedSortId = '';
+                var resetFilterBtn = $(this).data('reset-filter');
                 if (urlparams.hasOwnProperty('srule') == true) {
                     if (urlparams.srule) {
                         currentSelectedSortId = urlparams.srule;
@@ -583,6 +589,9 @@ module.exports = {
                         updatePageURLForFacets(filtersURL);
                         var $selectedFiltersNav = $('.selected-filters-nav');
                         var $selectedFilterVal = '';
+                        if (resetFilterBtn == true) {
+                            $('.close-refinebar').trigger('click');
+                        }
                         $selectedFiltersNav.each(function() {
                             var $isChildEl = $(this).find('.filter-value');
                             if ($isChildEl.length > 0) {
@@ -616,6 +625,7 @@ module.exports = {
                                 });
                             }
                         });
+                        $('.close-refinebar .filter-more').removeClass('d-none').addClass('d-block');
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
@@ -628,7 +638,7 @@ module.exports = {
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                         // Custom:MSS-2073 start
-                        var $refinementBox = $('.refinement-box-filter-desktop');
+                        var $refinementBox = $('.refinement-btn-clicked');
                         var $dkFilterCheck = $('.dk-fillter-check');
                         var $modelBackground = $('.modal-background');
                         var $moreFilterBtn = $('.more-filter-btn');
@@ -636,29 +646,26 @@ module.exports = {
                         moreFilterBtn($moreFilterBtn);
                         $('.desktop-search-refine-bar-redesing').removeClass('active');
                         // Custom:MSS-2073 end
-                        if (!$('.refinement-bar-redesign').hasClass('d-block')) { // do not close sidebar filter on selection
+                        if (!$('.refinement-bar-redesign, .refinement-bar').hasClass('d-block')) { // do not close sidebar filter on selection, .refinement-bar is for concord
                             $('.modal-background').removeClass('d-block');
                             $('.refinement-bar-redesign').removeClass('d-block');
                         }
                         $("body").removeClass("no-overflow-ctm");
                         var $bannerCount = $('.banner-count .result-count');
                         var $sideBarCount = $('.show-bottom-btn .result-count');
-                        var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
+                        var $productSearchResult = $('.grid-header .result-count .category-name.mobile-category-name').data('result-counts');
+                        var $productSearchItems = $('.grid-header .result-count .category-name').data('result-counts');
                         var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
                         var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
                         var filterBarLayout = $('.filter-bar-overlay');
 
-                        if (filterBarLayout.length > 0) {
-                            $('.modal-background').addClass('d-block');
-                        }
-
                         if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
                             $bannerSearchResultCountAppend.html($bannerSearchResultCount);
                         } else if ($productSearchResult && $productSearchResult !== undefined) {
-                            var $html = '<span>(' + $productSearchResult + ')</span>';
+                            var $html = '<span>' + $productSearchItems + '</span>';
                             $bannerCount.html($html);
                             if($sideBarCount && $sideBarCount.length){
-                                var $html = '<span>(' + $productSearchResult + ')</span>';
+                                var $html = '<span>' + $productSearchResult + '</span>';
                                 $sideBarCount.html($html);
                             }
                         } else {
@@ -667,10 +674,10 @@ module.exports = {
                                 var $html = '<span class="make-bold">' + 0 + '</span> Results for';
                                 $bannerSearchResultCountAppend.html($html);
                             } else {
-                                var $html = '<span>(' + 0 + ' items)</span>';
-                                $bannerCount.html($html);
+                                var $html = '<span>' + 0 + ' items</span>';
+                            $bannerCount.html($html);
                                 if($sideBarCount && $sideBarCount.length){
-                                    var $html = '<span>(' + $productSearchResult + ')</span>';
+                                    var $html = '<span>' + $productSearchResult + '</span>';
                                     $sideBarCount.html($html);
                                 }
                             }
@@ -696,6 +703,31 @@ module.exports = {
         $('.container').on('click', '.show-more-content button', function () {
             getContent($(this), $('#content-search-results .result-count'));
             $('.show-more-content').remove();
+        });
+    },
+
+                
+    // Current filter active mobile
+    selectedFilterActiveMobile: function () {
+        $('.refine-wrapper-sidebar').on('click', '.sort-order-mobile-menu', function (e) {
+            var $winWidth = $(window).width();
+            var $mediumBreakPoint = 992;
+
+            if ($winWidth < $mediumBreakPoint) {
+                var clicked = e.target.closest('.custom-select__option');
+                var filterAll = document.querySelectorAll('.custom-select__option');
+                
+                if (!clicked) return;
+                if (clicked) {
+                    filterAll.forEach(function (e) {
+                        var isContain = e.classList.contains('active');
+                        if (isContain) {
+                            e.classList.remove('active');
+                        }
+                    });
+                    clicked.classList.add('active');
+                }
+            }
         });
     },
 

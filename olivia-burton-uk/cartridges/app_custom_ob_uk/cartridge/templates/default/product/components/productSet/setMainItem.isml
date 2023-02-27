@@ -162,7 +162,7 @@
                                 <isinclude template="product/components/productSet/productAvailability" />
                             </div>
 
-                            <iscomment> Custom Start: [MSS-1954] Added A/B Test for ATC Button Variation </iscomment>
+                           <iscomment> Custom Start: [MSS-1954] Added A/B Test for ATC Button Variation </iscomment>
                             <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','Control')}" >
                                 <div class="add-to-cart-observer">
                                     <!-- Cart  -->
@@ -216,7 +216,7 @@
                                 </div>
                             </isif>
                             <iscomment> Custom End </iscomment>
-
+                            
                             <!--addToWishListButton -->
                             <div class="d-none">
                                 <isinclude template="wishlist/components/addToWishListButton" />

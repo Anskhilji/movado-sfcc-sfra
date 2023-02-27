@@ -46,20 +46,19 @@
               letter-spacing: rem(1.75);
               line-height: rem(20);
               color: $grey4;
-           }
+          }
           .personalize-msg {
               color: $grey4;
           }
           .out-of-stock {
               color:  $danger;
           }
-
-            .option-wrapper {
-                font-size: rem(12);
-                font-weight: 500;
-                letter-spacing: rem(0.7);
-                color: $grey18;
-            }
+          .option-wrapper {
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            color: $grey18;
+        }
       }
   }
 

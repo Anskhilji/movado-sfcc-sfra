@@ -110,7 +110,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
         if (shippedQuantity > foLineItem.Quantity) {
             Logger.error(Status.ERROR, 'ERROR', 'processStatusCapture - Shipped Quantity greater than the Ordered Quantity ' +  ' Shipped Quantity: ' + shippedQuantity + ' Ordered Quantity: ' + foLineItem.Quantity);
         }
-
+        
         // Add to Tracking group if a tracking number exists
         if (typeof orderStatusItem.TrackingNumber === 'object') {
             orderStatusItem.TrackingNumber = '';

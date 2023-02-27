@@ -50,6 +50,5 @@ module.exports = function mgOrderLineItem(product, apiProduct, options) {
             value: isWatchTile
         });
     }
-    
     return product;
 };

@@ -36,7 +36,7 @@ server.replace(
             return next();
         }
 
-        if (session.privacy.pickupFromStore) {
+        if (currentBasket.custom.storePickUp) {
             Transaction.wrap(function () {
                 COCustomHelpers.removeGiftMessageLineItem(currentBasket);
             });
@@ -116,6 +116,12 @@ server.replace(
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
         if (!empty(currentBasket.custom.smartGiftTrackingCode)) {
             SmartGiftHelper.sendSmartGiftDetails(currentBasket.custom.smartGiftTrackingCode, order.orderNo);
+        }
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(Affirm) -> Success: Step-3: Customer Email is ' + maskedEmail);
         }
         
         var email = order.customerEmail;

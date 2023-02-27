@@ -256,7 +256,10 @@ server.replace('UpdateGrid', cache.applyShortPromotionSensitiveCache, function (
         }
         marketingProductData = JSON.stringify(marketingProductsData);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     productGridTemplate = 'search/productGrid';
 
     res.render(productGridTemplate, {

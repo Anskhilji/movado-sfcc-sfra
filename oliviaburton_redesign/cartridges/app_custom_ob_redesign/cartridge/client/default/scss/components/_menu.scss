@@ -105,9 +105,10 @@
                                 content: '';
                                 position: absolute;
                                 transition: transform .3s ease;
+                                transition: all 0.3s ease;
                                 left: 0;
                                 bottom: 0;
-                                width: 100%;
+                                width: 0;
                                 height: rem(2);
                                 background: $black;
                                 transform:  translateX(-100%);
@@ -117,6 +118,7 @@
 
                                 &:before {
                                     transform:  translateX(0);
+                                    width: 100%;
                                 }
                             }
                         }
@@ -205,6 +207,7 @@
 
                 &.show, &:hover {
                     box-shadow: none;
+                    background-color: inherit;
                 }
 
                 &:hover {
@@ -458,12 +461,93 @@
     .navbar-toggleable-sm {
         overflow: auto;
 
+        .nav-item {
+
+            .nav-link {
+
+                span {
+                    position: relative;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        height: rem(2);
+                        border-radius: rem(20);
+                        bottom: rem(-5);
+                        left: rem(-1);
+                        background-color: $black;
+                        opacity: 0;
+                    }
+                }
+            }
+
+            &.show, &:hover {
+                box-shadow: none;
+                background-color: inherit;
+            }
+
+            &:hover {
+
+                .nav-link {
+
+                    span {
+                        &:before{
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
         .dropdown-menu {
-            background-color: $gray-light2;
-            min-height: 100%;
+            background-color: $gray-light-1;
+            min-height: 100%;           
 
             ul {
-                background-color: $gray-light2;
+                background-color: $gray-light-1;
+            }
+
+            .dropdown {
+
+                &-item {
+                    
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+
+                &-link {
+
+                    position: relative;
+                    display: inline-block;
+
+                    &.dropdown-toggle {
+                        display: block;
+                    }
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        transition: all .3s ease;
+                        left: rem(21);
+                        bottom: rem(7);
+                        width: 0%;
+                        height: rem(2);
+                        background: $black;
+                        transform: translateX(0);
+                        opacity: 0;  
+                    }
+
+                    &:hover {
+
+                        &:before {
+                            left: rem(21);
+                            opacity: 1;
+                            width: calc(100% - 33px);
+                        }
+                    }
+                }
             }
         }
 
@@ -472,7 +556,7 @@
             padding-bottom: rem(60);
 
             @include media-breakpoint-down(md) {
-                background-color: $gray-light2;
+                background-color: $gray-light-1;
             }
         }
 
@@ -498,7 +582,7 @@
             &.main-menu {
                 
                 @include media-breakpoint-down(md) {
-                    background-color: $gray-light2;
+                    background-color: $gray-light-1;
                 }
             }
         }
@@ -514,7 +598,7 @@
             }
 
             .close-menu {
-                background: $gray-light2;
+                background: $gray-light-1;
                 border: none;
                 padding-left: rem(20);
 
@@ -616,7 +700,7 @@
 
 
         .menu-pane {
-            background-color: $gray-light2;
+            background-color: $gray-light-1;
         }
 
         .divider {
@@ -634,7 +718,7 @@
                 width: 100%;
 
                 &:hover {
-                    background-color: $gray-light2;
+                    background-color: $gray-light-1;
                 }
 
                 &.show {
@@ -658,7 +742,7 @@
                     width: 100%;
                     max-width: rem(280);
                     min-width: 40%;
-                    background-color: $gray-light;
+                    background-color: $gray-light-1;
                     bottom: 0;
                 }
 
@@ -731,7 +815,7 @@
             @include media-breakpoint-up(lg) {
                 width: auto;
                 min-width: 100%;
-                background-color: $gray-light2;
+                background-color: $gray-light-1;
             }
     
         }

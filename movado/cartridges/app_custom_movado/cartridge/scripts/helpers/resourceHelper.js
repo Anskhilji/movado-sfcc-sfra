@@ -13,13 +13,22 @@ var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers')
  * @returns {Object} resources : An objects key key-value pairs holding the resources
  */
 function getResources(pageContext) {
+    var ContentMgr = require('dw/content/ContentMgr');
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ArrayList = require('dw/util/ArrayList');
+    var currentBasket = require('dw/order/BasketMgr').getCurrentBasket();
+
     var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
     var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
+    var fedexAddressNoRecommendation =  ContentMgr.getContent('checkout-address-validation-no-recommendation');
+    fedexAddressNoRecommendation = fedexAddressNoRecommendation && fedexAddressNoRecommendation.custom.body ? fedexAddressNoRecommendation.custom.body.source : '';
 
+    var isPickUpFromStore;
+    if (currentBasket) {
+        isPickUpFromStore = currentBasket.custom.storePickUp === true ? true : false;
+    }
     var resources = {
         KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null),
         KLARNA_SLICE_IT_PAYMENT_METHOD_TEXT: Resource.msg('checkout.payment.method.klarna.slice.it.text', 'checkout', null),
@@ -42,9 +51,10 @@ function getResources(pageContext) {
         COUPON_LINE_ITEM_LENGTH: Resource.msg('coupon.applied.counter','cart', null),
         KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
         CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
-        PICKUP_FROM_STORE: session.privacy.pickupFromStore || false,
+        PICKUP_FROM_STORE: isPickUpFromStore || false,
         BOPIS_STORE_FETCHING_ERROR: Resource.msg('store.pickup.search.result.error', 'storePickUp', null),
         BOPIS_STORE_AVAILABLE_TEXT: Resource.msg('store.pickup.search.available.text', 'storePickUp', null),
+        BOPIS_STORE_UNAVAILABLE_TEXT: Resource.msg('storepickup.unavalibilty', 'storePickUp', null),
         BOPIS_STORE_CART_ERROR: Resource.msg('store.pickup.cart.error', 'storePickUp', null),
         IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
@@ -66,9 +76,9 @@ function getResources(pageContext) {
         PHONE_NUMBER_INVALID: Resource.msg('listrak.invalid.phone', 'product', null),
         PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
-        FEDEX_USER_ADDRESS_MESSAGE: Resource.msg('popup.label.content.single-content', 'checkout', null),
-        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
-        INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null)
+        INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
+        FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
+        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null)
     };
     return resources;
 }

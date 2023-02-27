@@ -1,6 +1,7 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <iscontent type="text/html" charset="UTF-8" compact="true" />
 <isset name="itemsLength" value="${pdict.items.length}" scope="page" />
+<isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -121,6 +122,7 @@
                     </div>
                 </isif>
                 <iscomment> include in header  </iscomment>
+<<<<<<< HEAD
 
                 <iscomment> Custom Start: Beam donation Cart Widget </iscomment>
                 <isif condition="${dw.system.Site.current.preferences.custom.enableBeam}">
@@ -128,6 +130,13 @@
                 </isif>
                 <iscomment> Custom End </iscomment>
 
+=======
+                <iscomment> Custom Start: Beam donation Cart Widget </iscomment>
+                <isif condition="${dw.system.Site.current.preferences.custom.enableBeam && domesticAllowedCountry}">
+                    <isinclude template="beamWidgetCart" />
+                </isif>
+                <iscomment> Custom End </iscomment>
+>>>>>>> master
                 <div class="no-gutters row cart-order-outer-box">
                     <div class="cart-order-box">
                         <h1 class="page-title cart-header hidden-md-down">${Resource.msg('title2.cart', 'cart', null)}</h1>

@@ -100,7 +100,7 @@ var updateCartPage = function(data) {
     var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
     var $totalTaxSelector = $miniCartSelector.find('.tax-total'); 
     var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total');
-    var $grandCartTotalSelector = $('.main-cart-block').find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
+    var $grandCartTotalSelector = $('.main-cart-block').find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total');
     var $subTotalSelector = $miniCartSelector.find('.sub-total');
     var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
     var $orderDiscountSelector = $miniCartSelector.find('.order-discount');
@@ -359,6 +359,19 @@ module.exports = function () {
             else if (colSize == 6 && applePayLength == 0){
                 $('.shipping-paypal-btn img').css('height', '30px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px" });
+                function loadGpayWidth() {
+                    if (document.readyState === 'complete') {
+                        var $gpayBtn = $('#google-pay-container-mini-cart .gpay-button');
+                        if ($gpayBtn.length > 0) {
+                            $gpayBtn.css({ "min-width": "0", "min-height": "30px" });
+                        } 
+                    } else {
+                        setTimeout(function () {
+                            loadGpayWidth();
+                        }, 1000);
+                    }
+                };
+                loadGpayWidth();
             }else if (colSize == 6) {
                 $('.shipping-paypal-btn img').css('height', '24px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "24px" });
@@ -437,7 +450,6 @@ module.exports = function () {
             isCartPage: isCartPage,
             parentPid: parentPid
             };
-
             if (url) {
                 $.ajax({
                     url: url,
@@ -458,34 +470,32 @@ module.exports = function () {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                             ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
                         }
-
                         var pid = $this.data('pid');
                         $('.giftbox-mini-' + pid ).hide();
                         $('.giftbox-mini-' + pid).next('label').hide();
 
                         data.cart.items.forEach(function (item) {
-                            
                             if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
                                 var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
                             }
-
                             if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
                                 $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
                                 $('.gift-message-btn-' + item.UUID).attr('data-gift-message', $itemLevelGiftMessage);
                                 $('.gift-personlize-msg').text($itemLevelGiftMessage);
                                 $('.gift-lineitem-message-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
                                 $('.gift-message-btn-' + item.UUID).text('Edit');
-                            } 
-
+                            }
+                            
                             if (item.UUID == parentPid) {
-                                $('.gift-message-btn-' + item.UUID).text('Edit');
+                                $('.gift-message-btn-' + item.UUID).text('Edit')
                             }
 
                             if (item.giftParentUUID !== '') {
                                 $('.gift-message-btn-' + parentPid).addClass('gift-product-chlid-uuid-' + item.UUID);
                             }
-                        });
 
+                        });
+                        
                         $('#giftBoxModelPopUp').modal('hide')
                         $.spinner().stop();
                         //Custom End
@@ -783,8 +793,8 @@ module.exports = function () {
         return false;
     });
 
-    $('body').on('click','.beam-widget-mini-cart', function() {
 
+    $('body').on('click','.beam-widget-mini-cart', function() {
         var URL = $('.beam-widget-minicart').val();
         var chairtyId = $(this).attr('selectednonprofitid');
     
@@ -797,12 +807,10 @@ module.exports = function () {
     
             success: function (data) {
                 if (data) {
-                    console.log(data);
                 }
             },
     
             error: function (err) {
-                console.log(err);
             }
         });
     });
@@ -883,7 +891,6 @@ module.exports = function () {
                     $.spinner().stop();
                     return;
                 }
-
                 var $quantitySelector = $('.quantity-select[data-pid="' + pid + '"]');
                 if ($quantitySelector.length > 0) { 
                     var $quantity = parseInt($quantitySelector.val());
@@ -898,7 +905,6 @@ module.exports = function () {
                 
                 updateCartTotals(response.cart);
                 handlePostCartAdd(response);
-
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
                 if (window.Resources.LISTRAK_ENABLED) {
                     var ltkSendSCA = require('listrak_custom/ltkSendSCA');

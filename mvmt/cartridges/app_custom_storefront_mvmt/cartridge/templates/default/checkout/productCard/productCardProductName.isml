@@ -7,5 +7,5 @@
         </isif>
     <iselse/>
         <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}"><span>${lineItem.productName}</span></a>
-    </isif>
+    </isif> 
 </div>

@@ -635,3 +635,85 @@
     }
 }
 // Custom End: MSS-1859 New Carousel Template - Product & Recommender Type
+// 2089 full width carousel on HP
+.mcs-product-carousel-redesign {
+
+    .mcs-product-carousel-container {
+        max-width: inherit;
+      
+        @include media-breakpoint-up(xl) {
+            padding:0 rem(70);
+        }
+
+        .mcs-product-carousel-row {
+
+            .mcs-product-carousel-column {
+
+                .cs-carousel-wrapper {
+
+                    .cs-carousel {
+
+                        .slick-prev {
+                            left: rem(-50);
+
+                            @include media-breakpoint-down (lg) {
+                                left: rem(5);
+                            }
+                        }
+
+                        .slick-next {
+                            right: rem(-50);
+
+                            @include media-breakpoint-down (lg) {
+                                right: rem(5);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mcs-homepage-wrapper {
+
+    .mcs-product-carousel-redesign {
+
+        .mcs-product-carousel-container {
+            max-width: inherit;
+
+            @include media-breakpoint-up(xl) {
+                padding-left: rem(70);
+                padding-right: rem(70);
+            }
+
+            .mcs-product-carousel-row {
+    
+                .mcs-product-carousel-column {
+    
+                    .cs-carousel-wrapper {
+    
+                        .cs-carousel {
+    
+                            .slick-prev {
+                                left: rem(-50);
+    
+                                @include media-breakpoint-down (lg) {
+                                    left: rem(5);
+                                }
+                            }
+    
+                            .slick-next {
+                                right: rem(-50);
+    
+                                @include media-breakpoint-down (lg) {
+                                    right: rem(5);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

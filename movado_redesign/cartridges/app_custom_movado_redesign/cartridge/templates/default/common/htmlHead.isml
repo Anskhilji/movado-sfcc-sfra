@@ -13,7 +13,6 @@
     <isinclude template="beamIncludes" />
 </isif>
 <iscomment> Custom End </iscomment>
-
 <script>
 	var dataLayer = undefined;
 	var pageDataGTM = undefined;

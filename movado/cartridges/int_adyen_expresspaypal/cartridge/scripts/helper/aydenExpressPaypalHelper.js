@@ -10,8 +10,8 @@ var Site = require('dw/system/Site');
 var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
 var Constants = require('*/cartridge/utils/Constants');
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
-var fedExAPI = require('*/cartridge/scripts/api/fedExAPI');
 var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var fedExAPI = require('*/cartridge/scripts/api/fedExAPI');
 
 /**
  * Splits the string into multiple based on the passed limit.
@@ -253,7 +253,6 @@ function formsValidation(currentBasket, formData) {
     var shippingState = fetchFromMap(formData, 'deliveryAddress.state');
     var shippingPostalCode = fetchFromMap(formData, 'deliveryAddress.postalCode');
     var shippingCountryCode = fetchFromMap(formData, 'deliveryAddress.country');
-
 
     for (var prop in validatedFields) {
         if (validatedFields[prop] == true) {

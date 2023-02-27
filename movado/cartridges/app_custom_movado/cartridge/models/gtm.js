@@ -97,6 +97,8 @@ function gtmModel(req) {
 
     var productObj;
 
+    var productObj;
+
     if (pid != null) {
         var ProductMgr = require('dw/catalog/ProductMgr');
         productObj = ProductMgr.getProduct(formatProductId(pid));

@@ -3,6 +3,7 @@
 var server = require('server');
 
 var BasketMgr = require('dw/order/BasketMgr');
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
@@ -117,7 +118,7 @@ server.post('ProcessPayments',
             return;
         }
 
-        if (session.privacy.pickupFromStore) {
+        if (currentBasket.custom.storePickUp) {
             Transaction.wrap(function () {
                 COCustomHelpers.removeGiftMessageLineItem(currentBasket);
             });
@@ -460,11 +461,24 @@ server.post('ProcessPayments',
             });
         }
 
+        Transaction.wrap(function () {
+            var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+            if(currentSessionPaymentParams) {
+                CustomObjectMgr.remove(currentSessionPaymentParams);
+            }
+        });
+
         res.json({
             error: false,
             redirectUrl: URLUtils.abs('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString()
         });
         
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(GooglePay) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+        }
+
         var email = order.customerEmail;
         if (!empty(email)) {
             var maskedEmail = COCustomHelpers.maskEmail(email);

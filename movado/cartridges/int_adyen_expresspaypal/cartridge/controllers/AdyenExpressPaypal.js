@@ -136,7 +136,7 @@ server.post('RedirectFromExpressPay', server.middleware.https, function (req, re
         if (!empty(email)) {
             var maskedEmail = checkoutCustomHelpers.maskEmail(email);
             adyenLogger.info('(AdyenExpressPaypal) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
-        }
+        } 
     }
 
     return next();

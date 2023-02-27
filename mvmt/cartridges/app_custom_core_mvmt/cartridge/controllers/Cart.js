@@ -46,7 +46,6 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
         itemLevelGiftMessage: req.querystring.itemLevelGiftMessage,
         isCartPage: req.querystring.isCartPage
     };
-
     var product = productFactory.get(params);
     var apiProduct = ProductMgr.getProduct(req.querystring.pid);
     var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
@@ -57,7 +56,6 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var basketModel = new CartModel(currentBasket);
     var itemLevelGiftMessage;
-
     for (var i = 0; i < basketModel.items.length; i++) {
         var lineItem = basketModel.items[i];
         if (lineItem.id == params.pid) {
@@ -65,7 +63,7 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
             var ProductLineItemUUID = lineItem.UUID;
         }
     }
-
+    
     viewData = {
         product: product,
         image: images[0],
@@ -110,7 +108,6 @@ server.replace('ShowAddProductButton', function (req, res, next) {
 });
 
 server.post('AddGiftProduct', function (req, res, next) {
-
     var Transaction = require('dw/system/Transaction');
     var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
     var BasketMgr = require('dw/order/BasketMgr');
@@ -146,7 +143,6 @@ server.post('AddGiftProduct', function (req, res, next) {
                             currentLineItemsIterator.custom.giftParentUUID = req.form.parentPid;
                         }
                     }
-
                     cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
                     basketCalculationHelpers.calculateTotals(currentBasket);
                 }
@@ -165,12 +161,10 @@ server.post('AddGiftProduct', function (req, res, next) {
             }
             giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, template);
         }
-
         var quantityTotal = ProductLineItemsModel.getTotalQuantity(currentBasket.productLineItems);
         var cartModel = new CartModel(currentBasket);
         var SCACart;
         var listrakCountryCode;
-
         if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
             var ltkSendSca = require('*/cartridge/controllers/ltkSendSca');
             var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper');
@@ -180,7 +174,6 @@ server.post('AddGiftProduct', function (req, res, next) {
             SCACart =  ltkCartHelper.ltkLoadBasket(req);
             listrakCountryCode = session.privacy.ltkCountryCode;
         }
-
         res.json({
             quantityTotal: quantityTotal,
             message: result.message,

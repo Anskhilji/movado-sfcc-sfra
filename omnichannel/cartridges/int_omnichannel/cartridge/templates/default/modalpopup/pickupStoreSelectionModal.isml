@@ -25,7 +25,7 @@
                             <div class="img-outer">
                                 <picture>
                                 <img src="${product && product.images['pdp533'].length > 0 ? product.images['pdp533'][0].url : ''}"
-                                    alt="${product && product.images['pdp533'][0].length > 0 ? product.images['pdp533'][0].alt : ''}"
+                                    alt="${product && product.images['pdp533'].length > 0 ? product.images['pdp533'][0].alt : ''}"
                                     itemprop="image" />
                                 <isset name="isImageExist" value="true" scope="page" />
                             </picture>

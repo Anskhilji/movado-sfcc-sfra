@@ -545,4 +545,3 @@ movadoProductCustomHelper.isGiftBoxAllowed = isGiftBoxAllowed;
 movadoProductCustomHelper.getGiftBoxSKU = getGiftBoxSKU;
 
 module.exports = movadoProductCustomHelper;
-

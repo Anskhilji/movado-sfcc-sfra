@@ -2,7 +2,6 @@
   <script>
       $(document).ready(function() {
         window.slickSlider.initCarousel($('.product-slot-slider'));
-
         $('.product-tile-redesign .swatches').slick({
           infinite: true,
           speed: 300,

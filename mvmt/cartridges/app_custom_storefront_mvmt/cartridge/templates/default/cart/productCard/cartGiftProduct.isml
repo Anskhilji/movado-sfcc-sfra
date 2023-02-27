@@ -1,5 +1,5 @@
 <div class="container px-0">
-        <!--- name and remove buttons --->
+    <!--- name and remove buttons --->
     <isset name="lineItem" value="${childlineItem}" scope="page" />
     <div class="row gift-product-row border-top-0 gift-product-remove-${lineItem.UUID} ${bonuslineitemrow} item-info">
         <div class="col-12">

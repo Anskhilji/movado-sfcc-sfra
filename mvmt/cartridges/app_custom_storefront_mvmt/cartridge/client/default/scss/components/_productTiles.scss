@@ -84,9 +84,7 @@
     }
 
     &.minicart-recommendation-rail {
-
       .tile-body {
-
         .plp-swatches, .color-swatches-search {
   
           .slick {
@@ -968,16 +966,13 @@
               }
 
               &.minicart-recommendation-rail {
-
                 .plp-swatches {
-
                   .slick {
                     
                     &-arrow {
                       margin: 0;
                       padding: 0;
                       top: rem(2);
-
                       @include media-breakpoint-down(sm) {
                         top: rem(0);
                         height: rem(0);

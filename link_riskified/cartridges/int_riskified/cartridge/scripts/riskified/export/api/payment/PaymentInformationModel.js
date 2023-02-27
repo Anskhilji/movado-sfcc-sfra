@@ -7,7 +7,9 @@
  */
 
 /* API Includes */
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
+var Transaction = require('dw/system/Transaction');
 var UUIDUtils = require('dw/util/UUIDUtils');
 var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
@@ -56,7 +58,11 @@ function savePaymentAuthorizationDetails(paymentParams, callerModule) {
         if (paymentParams.paymentMethod == 'Card') {
             paymentParams.cardIIN = session.custom.cardIIN;
         }
-        session.custom.paymentParams = paymentParams;
+        var sessionUUID = session.custom.checkoutUUID;
+        Transaction.wrap(function () {
+            var riskifiedPaymentParams = CustomObjectMgr.createCustomObject('RiskifiedPaymentParams', sessionUUID);
+            riskifiedPaymentParams.custom.paymentParams = JSON.stringify(paymentParams);
+        });
     }
 }
 

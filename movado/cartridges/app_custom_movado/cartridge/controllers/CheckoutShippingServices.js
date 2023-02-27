@@ -251,7 +251,7 @@ server.replace(
 
                     var shippingMethods = ShippingMgr.getAllShippingMethods();
                     var shipment = currentBasket.defaultShipment
-                    if (session.privacy.pickupFromStore) {
+                    if (currentBasket.custom.storePickUp) {
                         ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
                     }
                 });
@@ -309,6 +309,13 @@ server.replace(
                     form: server.forms.getForm('shipping')
                 });
             });
+
+            var email = form.shippingAddress.addressFields.email.htmlValue;
+            if (!empty(email)) {
+                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(CheckoutShippingServices) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
+            }
+        }
 
             var email = form.shippingAddress.addressFields.email.htmlValue;
             if (!empty(email)) {

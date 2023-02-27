@@ -18,14 +18,14 @@ var Calendar = require('dw/util/Calendar');
 var StringUtils = require('dw/util/StringUtils');
 
 /* Custom includes */
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var PaymentInformationModel = require('int_riskified/cartridge/scripts/riskified/export/api/payment/PaymentInformationModel');
 var RecoveryModel = require('int_riskified/cartridge/scripts/riskified/export/api/common/RecoveryModel');
 var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('int_riskified/cartridge/scripts/riskified/util/RCUtilities');
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
 var RiskifiedAPI = require('int_riskified/cartridge/scripts/riskifiedhandler');
-var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
+var Transaction = require('dw/system/Transaction');
 
 /**
  * This method saves payment related information during billing step in checkout. It also generates
@@ -229,10 +229,11 @@ function sendCreateOrder(order) {
 
     OrderModel = require('int_riskified/cartridge/scripts/riskified/export/api/models/OrderModel');
 
-    if (empty(session.custom.paymentParams) && !hasGiftCert) {
-        message = 'Payment related information is lost, therefore cannot proceed further', 'error', logLocation;
-        RCLogger.logMessage(message);
-        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+    var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+    var riskifiedPaymentParams = JSON.parse(currentSessionPaymentParams.custom.paymentParams);
+
+    if (empty(riskifiedPaymentParams) && !hasGiftCert) {
+        RCLogger.logMessage('Payment related information is lost, therefore cannot proceed further', 'error', logLocation);
         return false;
     }
 
@@ -243,10 +244,12 @@ function sendCreateOrder(order) {
         return false;
     }
 
+    var sessionUUIDNew = session.custom.checkoutUUID;
+
     orderParams = {
         sessionId     : session.getSessionID(),
         requestIp     : request.getHttpRemoteAddress(),
-        paymentParams : session.custom.paymentParams,
+        paymentParams : riskifiedPaymentParams,
         checkoutId    : session.custom.checkoutUUID
     };
 
@@ -367,9 +370,14 @@ function sendFulfillOrder(order, fulfillments) {
         checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
+    Transaction.wrap(function() {
+        var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+        if(currentSessionPaymentParams) {
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        }
+    });
 
     delete session.custom.checkoutUUID;
-    delete session.custom.paymentParams;
 
     return true;
 }
@@ -442,10 +450,11 @@ function getSyncronousDecision(order) {
 
     OrderModel = require('int_riskified/cartridge/scripts/riskified/export/api/models/OrderModel');
 
-    if (empty(session.custom.paymentParams)) {
-        message = 'Payment related information is lost, therefore cannot proceed further', 'error', logLocation;
-        RCLogger.logMessage(message);
-        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+    var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+    var riskifiedPaymentParams = JSON.parse(currentSessionPaymentParams.custom.paymentParams);
+
+    if (empty(riskifiedPaymentParams)) {
+        RCLogger.logMessage('Payment related information is lost, therefore cannot proceed further', 'error', logLocation);
         return false;
     }
 
@@ -456,10 +465,11 @@ function getSyncronousDecision(order) {
         return false;
     }
 
+
     orderParams = {
         sessionId     : session.getSessionID(),
         requestIp     : request.getHttpRemoteAddress(),
-        paymentParams : session.custom.paymentParams,
+        paymentParams : riskifiedPaymentParams,
         checkoutId    : session.custom.checkoutUUID
     };
 

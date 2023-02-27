@@ -315,6 +315,7 @@ module.exports = {
         // Refinements close button
         $('.container').on('click', '.refinement-bar button.close, .modal-background', function () {
             $('.refinement-bar, .movado-modal').hide();
+            $('.refinement-bar').removeClass('d-block');
             var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
             if (refinementBarPl) {
               refinementBarPl.removeClass('refinement-bar-pl');

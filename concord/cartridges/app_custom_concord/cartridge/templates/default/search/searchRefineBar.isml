@@ -11,18 +11,12 @@
     </div>
 </div>
 
-<!--- Results count and Reset button --->
-<isif condition="${pdict.productSearch.productIds.length > 0}">
-    <div class="reset-container">
-        <div class="secondary-bar">
-            <a class="reset btn btn-outline-primary" href="${pdict.productSearch.resetLink}">
-                ${Resource.msg('link.reset', 'search', null)}
-            </a>
-        </div>
-    </div>
-</isif>
-
 <div class="refine-wrapper">
+    <isif condition="${pdict.productSearch.productIds.length > 0}">
+        <div class="mb-3 sort-col position-relative">
+            <isinclude template="search/sortOrderMenu" />
+        </div>
+    </isif>
     <div class="refinements movado-refinements-container">
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
             <div class="card collapsible-sm refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
@@ -30,18 +24,18 @@
                     ${refinement.displayName}
                 </button>
                 <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
-                    <!--- CATEGORY REFINEMENTS --->
+
                     <isif condition="${refinement.isCategoryRefinement}">
                         <isset name="categories" value="${refinement.values}" scope="page" />
                         <isinclude template="search/refinements/categories" />
                     </isif>
 
-                    <!--- ATTRIBUTE REFINEMENTS --->
+
                     <isif condition="${refinement.isAttributeRefinement || refinement.isPromotionRefinement}">
                         <isinclude template="search/refinements/attributes" />
                     </isif>
 
-                    <!--- PRICE REFINEMENTS --->
+
                     <isif condition="${refinement.isPriceRefinement}">
                         <isinclude template="search/refinements/prices" />
                     </isif>

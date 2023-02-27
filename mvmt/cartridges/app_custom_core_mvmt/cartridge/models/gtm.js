@@ -56,7 +56,7 @@ function gtmModel(req) {
     this.googleAnalyticsParameters = '';
     this.customerIPAddressLocation = '';
     this.rakutenAllowedCountries =  [];
-    this.runningABTests = ''
+    this.runningABTests = '';
 
 
         if (!empty(req.querystring)) {
@@ -145,6 +145,8 @@ function gtmModel(req) {
     
     var userZip = getUserZip(currentCustomer);
         // Custom End
+    
+    var runningABTests = productCustomHelper.getRunningABTestSegments();
 
     var runningABTests = productCustomHelper.getRunningABTestSegments();
 

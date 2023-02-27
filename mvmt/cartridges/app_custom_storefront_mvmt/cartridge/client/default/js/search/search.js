@@ -1692,7 +1692,6 @@ module.exports = {
             $('.filter-and-count').css('visibility','visible');
         }); 
     },
-
     filter: function () {
         // Display refinements bar when Menu icon clicked
         $('.container, .container-fluid').on('click', 'button.filter-results', function () {

@@ -18,13 +18,15 @@ function checkRedirect() {
     var Cookie = require('dw/web/Cookie');
     var Locale = require('dw/util/Locale');
     var cookies = request.getHttpCookies();
-    for (var i = 0; i < cookies.cookieCount; i++) {
-        var cookie = cookies[i];
-        if (cookie.name && cookie.name === WELCOMEMAT) {
-            var welcomeMatCookie = new Cookie(WELCOMEMAT, false);
-            welcomeMatCookie.setMaxAge(0);
-            response.addHttpCookie(welcomeMatCookie);
-            return false;
+    if (cookies.cookieCount > 0) {
+        for (var i = 0; i < cookies.cookieCount; i++) {
+            var cookie = cookies[i];
+            if (cookie.name && cookie.name === WELCOMEMAT) {
+                var welcomeMatCookie = new Cookie(WELCOMEMAT, false);
+                welcomeMatCookie.setMaxAge(0);
+                response.addHttpCookie(welcomeMatCookie);
+                return false;
+            }
         }
     }
     var localeRedirect = Site.current.getCustomPreferenceValue('showWelcomeMat');
@@ -34,10 +36,21 @@ function checkRedirect() {
     return false;
 }
 
+function checkStorePickUpSelected() {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var isStorePickUp = false;
+    if (currentBasket && currentBasket.custom.storePickUp) {
+        isStorePickUp = true;
+    }
+    return isStorePickUp;
+}
+
 /**
  * The onSession hook function.
  */
 exports.onSession = function () {
     session.custom.welcomeMat = checkRedirect();
+    session.custom.pickupFromStore = checkStorePickUpSelected();
     return new Status(Status.OK);
 };

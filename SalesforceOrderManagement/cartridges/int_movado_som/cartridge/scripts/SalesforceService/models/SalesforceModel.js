@@ -262,6 +262,13 @@ var SalesforceModel = ({
             requestData: requestData
         });
     },
+    sendErrorMail: function (req) {
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.ERROREMAIL,
+            requestMethod: 'POST',
+            requestData: req
+        });
+    },
     updateBeamOrders: function (req) {
         return SalesforceModel.createSalesforceRestRequest({
             url: SalesforceFactory.ENDPOINTS.UPDATEBEAMORDER + req.orderID,
@@ -270,14 +277,6 @@ var SalesforceModel = ({
                 beamCharityId__c: req.charityId,
                 beamOrder__c: true,
             }
-        });
-    },
-    sendErrorMail: function (req) {
-
-        return SalesforceModel.createSalesforceRestRequest({
-            url: SalesforceFactory.ENDPOINTS.ERROREMAIL,
-            requestMethod: 'POST',
-            requestData: req
         });
     }
 });

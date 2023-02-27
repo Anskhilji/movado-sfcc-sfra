@@ -13,7 +13,6 @@ function getCurrentOptionModel(optionModel, selectedOptions) {
     var productOptions = optionModel.options;
     var selectedValue;
     var selectedValueId = '';
-
     if (selectedOptions && selectedOptions.length) {
         collections.forEach(productOptions, function (option) {
             // Custom Start: [MSS-1789] To Avoid Selected Value ID Error 

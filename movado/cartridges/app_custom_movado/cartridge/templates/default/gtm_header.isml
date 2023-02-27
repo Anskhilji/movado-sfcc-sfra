@@ -26,7 +26,7 @@
         'customerIPAddressLocation': '${pdict.gtm.customerIPAddressLocation}',
         'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}',
         'runningABTest': '${pdict.gtm.runningABTests}'
-      
+        
         // Custom: Added country dimension on the the base of ESW enabled
         
         <isif condition="${isEswEnabled}" > 

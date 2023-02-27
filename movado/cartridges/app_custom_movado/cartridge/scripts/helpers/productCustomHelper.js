@@ -309,22 +309,12 @@ function getOCIPreOrderParameters(apiProduct) {
     }
 }
 
-/**
- * Function return running AB test segments
- * @returns segmentsArray 
- */
- function getRunningABTestSegments() {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-    var abTestSegment = ABTestMgr.getAssignedTestSegments();
-    return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
-}
 
 /**
  * Method used to check if current product belongs to watches category
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @returns {Boolean} isWatchTile - true if product belongs to watches
  */
-
 function getIsWatchTile(apiProduct) {
     try {
         if (!empty(apiProduct)) {
@@ -336,6 +326,16 @@ function getIsWatchTile(apiProduct) {
         Logger.error('(productCustomHelper.js -> getIsWatchTile) Error occured while checking is it watch tile: ' + e.stack, e.message, apiProduct.ID);
         return false;
     }
+}
+
+/**
+ * Function return running AB test segments
+ * @returns segmentsArray 
+ */
+function getRunningABTestSegments() {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var abTestSegment = ABTestMgr.getAssignedTestSegments();
+    return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
 }
 
 module.exports = {
@@ -351,6 +351,6 @@ module.exports = {
     getProductCategory: getProductCategory,
     isGiftBoxAllowed: isGiftBoxAllowed,
     getGiftBoxSKU: getGiftBoxSKU,
-    getRunningABTestSegments: getRunningABTestSegments,
-    getIsWatchTile: getIsWatchTile
+    getIsWatchTile: getIsWatchTile,
+    getRunningABTestSegments: getRunningABTestSegments
 };

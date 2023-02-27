@@ -28,13 +28,13 @@ if (window.ClydeSitePreferences && productId) {
             Clyde.init({
                 key: ClydeSitePreferences.CLYDE_API_KEY,
                 defaultSelector: '#clyde-cta',
-                skipGeoIp: ClydeSitePreferences.CLYDE_SKIP_GEO_IP
+                skipGeoIp: ClydeSitePreferences.CLYDE_WIDGET_SKIP_GEO_LOCATION
             }, function () {
                 var clydeWidgetHandler = Clyde.getSettings();
                 if (clydeWidgetHandler.productPage === true) {
                     // Custom start: Add code for product price with sku:
                     salePrice = $('.prices .sale-price-mvmt span').attr('content');
-                    if (salePrice) {
+                    if (salePrice && ClydeSitePreferences.IS_PROMOTIONAL_PRICE) {
                         productData = { sku: productId, price: salePrice };
                     } else {
                         listPrice = $('.prices .price-pdp-mvmt .strike-through span').attr('price-value');

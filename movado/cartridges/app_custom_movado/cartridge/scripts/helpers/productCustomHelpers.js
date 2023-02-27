@@ -1054,8 +1054,10 @@ function setProductAvailability(product) {
                         var value = '';
                         if (id == 'ringSize') {
                             var ringSizes = !empty(Site.getCurrent().getCustomPreferenceValue('ringSize')) ? Site.getCurrent().getCustomPreferenceValue("ringSize") : '';
-                            value = ringSizes.filter(function(ringSize){ return ringSize.split(',')[0] === apiProduct.custom[id] });
-                            value = value.length > 0 ? value[0] : null;
+                            if (ringSizes) {
+                                value = ringSizes.filter(function(ringSize){ return ringSize.split(',')[0] === apiProduct.custom[id] });
+                                value = value.length > 0 ? value[0] : null;
+                            }
                         } else {
                             if (isCustom) {
                                 if (type == ARRAY_LIST) {

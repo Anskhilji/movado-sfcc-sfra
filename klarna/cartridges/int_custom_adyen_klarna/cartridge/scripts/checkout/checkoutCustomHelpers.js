@@ -57,7 +57,7 @@ checkoutCustomHelpers.sendOrderConfirmationEmail = function (order, locale) {
         shippingMethodLabel: Resource.msg('order.confirmation.email.label.shippingmethod', 'order', null),
         shippingStatusLabel: Resource.msg('order.confirmation.email.label.shippingstatus', 'order', null),
         billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
-        cuurentOrder: order
+        currentOrder: order
     };
 
     var emailObj = {

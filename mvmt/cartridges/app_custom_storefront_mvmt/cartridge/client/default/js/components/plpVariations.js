@@ -281,7 +281,6 @@ module.exports = function () {
         var isVariationQantityExist = response.product.quantities;
         var $addToCartSelector = $productContainer.find('.cta-add-to-cart button.add-to-cart');
         var $addToCartRecRailSelector = $productContainer.find('.cta-add-to-cart button.recommendation-rail-add-to-cart');
-
         if (response.product.available) {
             if (response.product.available) {
                 var $cartButtonContainer = $productContainer.find('button.add-to-cart');
@@ -358,7 +357,6 @@ module.exports = function () {
         }
         var $availibilityContainer = $productContainer.find('.mvmt-avilability');
         if ($availibilityContainer) {
-
             $availibilityContainer.hide();
             if (!response.product.available) {
                 $availibilityContainer.show();

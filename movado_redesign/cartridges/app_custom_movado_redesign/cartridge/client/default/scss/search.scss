@@ -1064,18 +1064,27 @@
       border-bottom: rem(1) solid $white-grey;
   
       @include custom-media-query-max($medium-screen-width) {
-        top: rem(61);
+        top: rem(92);
         left: 0;
         right: 0;
         padding: rem(15) rem(10);
+        z-index: 1021;
       }
       
       @include media-breakpoint-down(sm) {
         background-color: $white;
         border-bottom: rem(1) solid $white-grey;
-        top: rem(45);
+        top: rem(81);
         padding: rem(10) rem(10);
      }
+
+     &.mobile-filter-box {
+        padding-top: rem(10);
+     }
+    }
+
+    &.mobile-filter-box {
+        padding-top: rem(30);
     }
 
     .result-count {
@@ -1146,6 +1155,11 @@
 
       p {
           margin: 0;
+          display: none;
+
+          &:first-child {
+            display: block;
+          }
       }
 
         span {
@@ -1237,7 +1251,7 @@
 
         .refinement-bar {
             &-redesign {
-                top: rem(78);
+                top: rem(0);
                 width: 100%;
                 box-shadow: 0 rem(5) rem(15) $grey-transparent-2;
                 
@@ -1404,10 +1418,6 @@
                                 right: rem(0);
                                 top: rem(4);
                             }
-
-                            span {
-                                display: none;
-                            }
                         }
                     }
                 }
@@ -1420,22 +1430,24 @@
                     bottom: rem(75);
                     right: 0;
                     left: 0;
-
+                  
                     .result-count {
                       background: $black;
                       height: rem(40);
                       width: 100%;
                       color: $white;
-                      @include font-demi;
+                      font-family: $font-medium;
                       font-size: rem(15);
                       font-weight: 500;
                       letter-spacing: 0;
                       line-height: rem(40);
                       text-align: center;
                       padding: 0;
+                      text-transform: uppercase;
+                      
                         span {
                             color: $white;
-                            @include font-demi;
+                            font-family: $font-medium;
                             font-size: rem(15);
                             font-weight: 500;
                             letter-spacing: 0;
@@ -1445,6 +1457,11 @@
                         p {
                           margin: 0;
                           line-height: unset;
+                          display: none;
+                          
+                          &:first-child {
+                            display: block;
+                          }
                         }
 
                         .category-name {
@@ -1479,6 +1496,11 @@
                 .mobile-fliter-sort-button {
                     transform: translateY(1px);
                     display: inline-block;
+
+                    &::before {
+                      content: "Sort by:";
+                      display: none;
+                    }
                 }
 
                 .filter-content-label {
@@ -1504,6 +1526,12 @@
 .modal-background {
     &.modal-moblie {
         z-index: 1014;
+    }
+
+    &.plp-modal {
+        @include media-breakpoint-down(md) {
+          z-index: 1022;
+        }
     }
 }
 
@@ -1533,23 +1561,29 @@
         
           @include custom-media-query-max($medium-screen-width) {
             border-bottom: rem(0) solid $white-grey;
+            z-index: 1014;
           }
 
           &.filter-bar-sticky {
             position: fixed;
             left: rem(0);
             right: rem(0);
-            top: rem(60);
+            top: rem(97);
             background-color: $white;
-            z-index: 9999;
+            z-index: 1019;
             padding: rem(10) rem(15) rem(0) rem(15);
             border-bottom: rem(1) solid $white-grey;
         
+            @include media-breakpoint-down(lg) {
+                z-index: 1019;
+            }
+
             @include media-breakpoint-down(sm) {
               top: rem(45);
               left: 0;
               right: 0;
               padding: rem(0) rem(10);
+              z-index: 999;
             }
           }
 
@@ -1673,18 +1707,6 @@
               width: rem(110);
               position: relative;
               text-transform: capitalize;
-
-              @include media-breakpoint-down(lg) {
-                justify-content: inherit;
-                margin-right: rem(17);
-                
-              }
-
-              @include media-breakpoint-down(md) {
-                margin-right: rem(0);
-                width: rem(84);
-                
-              }
 
               &:focus {
                 outline: none;
@@ -1825,14 +1847,9 @@
           justify-content: space-between;
           align-items: center;
           cursor: pointer;
-          width: rem(110);
+          min-width: rem(110);
           height: rem(24);
           position: relative;
-
-          @include media-breakpoint-down(lg) {
-           justify-content: inherit;
-            
-          }
 
           &:focus {
             outline: none;
@@ -1979,7 +1996,7 @@
               &::before {
                 content: 'Sort By:';
                 margin-right: rem(2);
-                opacity: 50%;
+                opacity: 0.5;
               }
             }
 
@@ -2011,7 +2028,7 @@
       &-redesign {        
         padding: 0;
         @include custom-media-query-max($medium-screen-width) {
-          height: calc(100% - 78px);
+          height: 100%;
         }
           //  remove outline for buttons
           button {
@@ -2026,7 +2043,10 @@
             padding-top: 0;
             overflow: hidden;
             overflow-y: auto;
-            max-height: calc(100vh - 167px);
+
+            @include custom-media-query-max($medium-screen-width) {
+              max-height: calc(100vh - 167px);
+            }
 
             .card {
                 padding: 0;
@@ -2075,7 +2095,7 @@
                                 line-height: unset;
                                 min-height: rem(30);
                                 color: $black;
-                                font-family: $font-demi;
+                                font-family: $font-medium;
                                 font-size: rem(12);
                                 font-weight: 300;
                                 letter-spacing: 0;
@@ -2096,52 +2116,8 @@
               }
             }
 
-            .sort-open-state-modal {
-                &.sort-order-mobile-menu {
-                  padding: rem(18) rem(10px) rem(0) rem(10px);
-                }
-
-                .custom-select {
-                    position: static;
-                    border: none;
-                    border-radius: 0;
-
-                    .selected-value {
-                      display: none;
-                    }
-
-                    .custom-select__dropdown {
-                        display: flex !important; // need to overide  inline style to use important
-                        flex-wrap: wrap;
-
-                        .custom-select__option {
-                            width: auto;
-                            border: rem(1) solid $grey10-light;
-                            margin: 0 rem(12) rem(15) 0;
-                            border-radius: rem(2);
-                            color: $black;
-                            @include font-medium;
-                            font-size: rem(12);
-                            font-weight: 300;
-                            letter-spacing: 0;
-                            line-height: rem(19);
-                            padding: rem(4.25) rem(26.25);
-                            height: rem(30);
-                            min-height: auto;
-                            outline: none;
-                            &:focus {
-                              outline: none;
-                            }
-
-                            &:hover,
-                            &.active {
-                                border-color: $parrot-green1;
-                                color: $parrot-green1;
-                                background: $gray-green2;
-                            }
-                        }
-                    }
-                }
+            .sort-col-margin {
+                margin: 0 15px;
             }
         }
   
@@ -2182,10 +2158,19 @@
                           position: absolute;
                           right: rem(0);
                           top: rem(4);
-                      }
-  
-                      span {
                           display: none;
+                      }
+
+                      &.close-icon-sort {
+                          &::after { 
+                              display: block;
+                          }
+                      }
+
+                      .filter-more {
+                          background: url("../images/left-arrow.svg") left -4px center no-repeat;
+                          padding-left: rem(15);
+                          background-size: rem(15);
                       }
                   }
               }
@@ -2200,6 +2185,10 @@
               right: 0;
               left: 0;
               display: none;
+
+              @include custom-media-query-max($medium-screen-width) {
+                  display: block;
+              }
   
               .result-count {
                 background: $black;
@@ -2213,6 +2202,8 @@
                 line-height: rem(40);
                 text-align: center;
                 padding: 0;
+                cursor: pointer;
+                
                   span {
                       color: $white;
                       @include font-demi;
@@ -2236,4 +2227,4 @@
   }
   }
 }
-  // Custom:MSS-2073 end desktop 
+// Custom:MSS-2073 end desktop 

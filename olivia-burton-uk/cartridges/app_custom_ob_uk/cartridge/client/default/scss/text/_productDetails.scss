@@ -837,7 +837,8 @@
 				max-width: calc(100% - 0px);
 			}
 			@include media-breakpoint-down(sm) {
-				max-height: rem(336);
+				max-height: rem(450);
+				height: auto;
 			}
 
 			.main-ob-carousel {
@@ -856,7 +857,7 @@
 					align-items: center;
 					justify-content: center;
 					@include media-breakpoint-down(sm) {
-						height: rem(336);
+						height: auto;
 						display: flex !important;
 					}
 
@@ -868,7 +869,7 @@
 							max-height: rem(364);
 						}
 						@include media-breakpoint-down(sm) {
-							max-height: rem(336);
+							max-height: rem(450);
 						}
 					}
 				}
@@ -1010,6 +1011,10 @@
 				@include media-breakpoint-down(md) {
 					bottom: rem(33);
 					left: rem(0);
+				}
+
+				@include media-breakpoint-down(sm) {
+					display: none;
 				}
 
 				&.btn:not(:disabled):not(.disabled):active,
@@ -1440,7 +1445,7 @@
 						height: rem(364);
 					}
 					@include media-breakpoint-down(sm) {
-						height: rem(267);
+						height: rem(450);
 					}
 
 					img {
@@ -1452,7 +1457,7 @@
 							height: rem(364);
 						}
 						@include media-breakpoint-down(sm) {
-							max-height: rem(267);
+							max-height: rem(450);
 						}
 					}
 				}
