@@ -1486,5 +1486,13 @@ module.exports = {
     getQuantitySelected: getQuantitySelected,
     updateOptions: updateOptions,
     updateQuantities: updateQuantities,
-    handleOptionsMessageErrors: handleOptionsMessageErrors
+    handleOptionsMessageErrors: handleOptionsMessageErrors,
+    zoom: zoom,
+    slickHeight: slickHeight,
+    processSwatchValues: processSwatchValues,
+    updateAvailability: updateAvailability,
+    getAttributesHtml: getAttributesHtml,
+    initializeZoomSlickDots: initializeZoomSlickDots,
+    initializeZoomModelCarousel: initializeZoomModelCarousel,
+    getPromotionsHtml: getPromotionsHtml
 };
