@@ -73,17 +73,17 @@ $(document).ready(function() {
 // Custom End: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
 });
 
-$('body').on('click', '.primary-images .main-carousel .slick-next,.primary-images .main-carousel-mcs img', function (e) {
+$('body').on('click', '.primary-images .main-carousel .slick-next,.primary-images .pdp-carousel img', function (e) {
     e.preventDefault();
     $('.main-carousel .slick-active').addClass('slick-center');
 });
 
-$('body').on('click', '.primary-images .main-carousel .slick-prev,.primary-images .main-carousel-mcs img', function (e) {
+$('body').on('click', '.primary-images .main-carousel .slick-prev,.primary-images .pdp-carousel img', function (e) {
     e.preventDefault();
     $('.main-carousel .slick-active').addClass('slick-center');
 });
 
-$('body').on('click', '.primary-images .main-carousel-mcs img', function (e) {
+$('body').on('click', '.primary-images .pdp-carousel img', function (e) {
     e.preventDefault();
     var $winWidth = $(window).width();
     var $mediumBreakPoint= 767;

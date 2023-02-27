@@ -15,7 +15,7 @@
     <div class="product-badges d-none">
         <isinclude template="product/components/newnessBadge"/>
     </div>
-      <div class="js-carousel main-carousel traditional-main-carousel main-carousel-mcs pdp-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+      <div class="js-carousel main-carousel traditional-main-carousel pdp-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['pdp700']}" var="image" status="loopStatus">
