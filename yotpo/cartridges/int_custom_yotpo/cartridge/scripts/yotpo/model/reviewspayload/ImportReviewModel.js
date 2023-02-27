@@ -65,7 +65,7 @@ function sendRequestToYotpo(payloadJSON) {
             throw Constants.IMPORT_REVIEW_SERVICE_ERROR;
         }
     } catch (e) {
-        YotpoLogger.logMessage('Error occured while trying to import payload - ' + e, 'error', logLocation);
+        YotpoLogger.logMessage('Error occured while trying to import payload - ' + e, 'error', logLocation, 'lineNumber', e.lineNumber);
         throw Constants.IMPORT_REVIEW_SERVICE_ERROR;
     }
 

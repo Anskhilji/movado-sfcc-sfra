@@ -56,11 +56,11 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
                             <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                             <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
                                 <div class="product-number-rating clearfix">
-                                    <isif condition="${!empty(dw.system.Site.getCurrent().preferences.custom.enableProductSKU) ? dw.system.Site.getCurrent().preferences.custom.enableProductSKU : false}">
+                                    <isif condition="${!empty(sitePref.enableProductSKU) ? sitePref.enableProductSKU : false}">
                                         <div class="product-number hidden-xs-down sku-text-alignment pull-left">
                                             <isinclude template="product/components/productNumber" />
                                         </div>
@@ -102,7 +102,7 @@
                         <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                         <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
                             <div class="product-number-rating clearfix">
-                                <isif condition="${!empty(dw.system.Site.getCurrent().preferences.custom.enableProductSKU) ? dw.system.Site.getCurrent().preferences.custom.enableProductSKU : false}">
+                                <isif condition="${!empty(sitePref.enableProductSKU) ? sitePref.enableProductSKU : false}">
                                     <div class="product-number sku-text-alignment">
                                         <isinclude template="product/components/productNumber" />
                                     </div>

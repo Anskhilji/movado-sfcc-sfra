@@ -1,6 +1,7 @@
 <div class="product-tile" itemscope itemtype="http://schema.org/Product">
-    <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
+    <!-- dwMarker="product" dwContentID="${product.uuid}" -->
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
     <isloop items="${product.availability.messages}" var="message">
     	<isset name="outOfStock" value="${false}" scope="page"/>
         <isif condition="${message === Resource.msg('label.not.available', 'common', null)}">
@@ -11,7 +12,6 @@
         	<isset name="preOrder" value="${true}" scope="page"/>
         </isif>
     </isloop>
-
     <isinclude template="product/components/productTileImage" />
 
     <div class="tile-body">
@@ -69,7 +69,7 @@
     </div>
     <div class="row m-10">
         <div class="col d-flex align-items-center justify-content-center">
-            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
             <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
             <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
                 <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">

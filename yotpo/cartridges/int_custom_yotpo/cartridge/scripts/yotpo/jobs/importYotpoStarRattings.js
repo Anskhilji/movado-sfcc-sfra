@@ -69,7 +69,7 @@ function execute() {
             }
         }
     } catch (ex) {
-        YotpoLogger.logMessage('Something went wrong while importing reviews and ratings, Exception code is: ' + ex, 'error', logLocation);
+        YotpoLogger.logMessage('Something went wrong while importing reviews and ratings, Exception code is: ' + ex, 'error', logLocation, 'lineNumber', e.lineNumber);
         return new Status(Status.ERROR);
     }
     return new Status(Status.OK);
