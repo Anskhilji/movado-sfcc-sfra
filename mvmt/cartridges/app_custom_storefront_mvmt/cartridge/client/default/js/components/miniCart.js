@@ -574,32 +574,34 @@ module.exports = function () {
             e.preventDefault();
             var endPoint = $('.minicart-gift-allowed-checkbox').data('remove-giftmessage-url');
             var productUUID = $('.minicart-gift-allowed-checkbox').data('product-uuid');
-        }
-        $.spinner().start();
 
-        $.ajax({
-            url: endPoint,
-            method: 'POST',
-            data: {
-                giftMessage: giftMessage,
-                productUUID: productUUID
-            },
-            success: function (data) {
-                $.spinner().stop();
-                data.basketModel.items.forEach(function (item) {
-                    $('.gift-box-container-modal .gift-text').text('');
-                    $('.gift-message-btn-' + item.UUID).attr('data-gift-message', '');
-                    $('.gift-personlize-msg').text('');
-                    $('.gift-lineitem-message-' + item.UUID).text('');
-                    $('.gift-message-btn-' + item.UUID).text('Add');
-                    $('.gift-box-message').prop('checked', false);
-                    $('.gift-message-box').addClass('hide-box');
-                });    
-            },
-            error: function (data) {
-                $.spinner().stop();
-            }
-        });
+            $.spinner().start();
+
+            $.ajax({
+                url: endPoint,
+                method: 'POST',
+                data: {
+                    giftMessage: giftMessage,
+                    productUUID: productUUID
+                },
+                success: function (data) {
+                    $.spinner().stop();
+                    data.basketModel.items.forEach(function (item) {
+                        $('.gift-box-container-modal .gift-text').text('');
+                        $('.gift-message-btn-' + item.UUID).attr('data-gift-message', '');
+                        $('.gift-personlize-msg').text('');
+                        $('.gift-lineitem-message-' + item.UUID).text('');
+                        $('.gift-message-btn-' + item.UUID).text('Add');
+                        $('.gift-box-message').prop('checked', false);
+                        $('.gift-message-box').addClass('hide-box');
+                    });    
+                },
+                error: function (data) {
+                    $.spinner().stop();
+                }
+            });
+        }
+        
     });
 
      $('body').off('click', '.minicart').on('click', '.minicart', function (event) {

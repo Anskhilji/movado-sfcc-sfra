@@ -34,10 +34,6 @@
         <div class="form-group gift-textarea gift-message-box hide-box gift-box-container-modal-body-form-textarea-container">
             <label for="exampleFormControlTextarea1" class="gift-box-container-modal-body-form-textarea-container-label">${Resource.msg('label.minicart.enter.optional.message', 'cart', null)}</label>
             <textarea rows="3" name="giftMessageText" class="form-control gift-text gift-box-container-modal-body-form-textarea-container-text-box" aria-label="Type your complimentary gift message here" col="70" placeholder="Type your complimentary gift message here" data-format-error="" data-required-error="" data-row-max="3" data-row-maxlength="70" maxlength="50">${!empty(pdict.itemLevelGiftMessage) ? pdict.itemLevelGiftMessage : ''}</textarea>
-                <div class="gift-error-wrapper">
-                    <span class="gift-message-blank">${Resource.msg('label.minicart.giftbox.enter.gift-message', 'cart', null)}</span>
-                    <span class="gift-message-error">${Resource.msg('label.minicart.enter.valid.input', 'cart', null)}</span>
-                </div>
         </div>
     </form>
     <div class="text-center">  

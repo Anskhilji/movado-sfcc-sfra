@@ -1641,6 +1641,7 @@
     align-items: flex-start;
     padding: rem(9) 0 rem(9) rem(45);
     padding-left: rem(0);
+    margin: 0 rem(-6);
     &.full-cart-continaer {
         margin-top: rem(27);
     }
@@ -1906,7 +1907,6 @@
 }
 
 .border-gift {
-    border-top: 1px solid $gray14;
     margin-top: rem(20);
     padding-top: rem(20);
 }
