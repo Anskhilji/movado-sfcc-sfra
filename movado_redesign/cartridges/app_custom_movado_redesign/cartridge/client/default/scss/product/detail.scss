@@ -25,6 +25,10 @@ $arrow-height: 1.25em;
     padding-bottom: rem(16);
     margin: 0;
 
+    .gpay-error {
+        background-color: $white;
+    }
+
     .dw-apple-pay-button {
         &.apple-pay-pdp {
             margin-top: rem(5);
@@ -66,6 +70,41 @@ $arrow-height: 1.25em;
         letter-spacing: normal;
         width: 100%;
         text-transform: capitalize;
+        height: auto;
+        margin-bottom: rem(40);
+    }
+
+    .variationAttribute {
+        margin-bottom: rem(40);
+
+        @include media-breakpoint-down(md) {
+            margin-top: rem(0);
+            margin-bottom: rem(5);
+        }
+    }
+
+    .clyde-top-border {
+        height: rem(1);
+        margin-bottom: rem(30); 
+        margin-top: rem(30);
+        border-color: $border-gray;
+
+        @include media-breakpoint-down(md) {
+            margin-bottom: rem(20); 
+            margin-top: rem(20);
+        }
+    }
+
+    .clyde-bottom-border {
+        height: rem(1);
+        margin-bottom: rem(30);
+        margin-top: rem(20);
+        border-color: $border-gray;
+
+        @include media-breakpoint-down (md) {
+            margin-bottom: rem(20);
+            margin-top: rem(-15); 
+        } 
     }
 
     .price {
@@ -75,8 +114,15 @@ $arrow-height: 1.25em;
         letter-spacing: normal;
     }
 
+    .tax-duties {
+        display: inline-block;
+        color: $storm-gray;
+        margin-bottom: rem(15);
+        font-size: rem(14);
+    }
+
     .prices {
-        padding-bottom: rem(10);
+        padding-bottom: rem(20);
     }
 
     .affirm-as-low-as {
@@ -101,11 +147,34 @@ $arrow-height: 1.25em;
         }
     }
 
+    div.availability {
+        margin-top: rem(30);
+
+        @include media-breakpoint-down(md) {
+            margin-top: rem(20);
+        }
+    }
+
+    .clyde-widget {
+        max-width: rem(319);
+
+        @include media-breakpoint-down(md) {
+            max-width: rem(275);
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        #clyde-cta {
+            height: auto;
+        }
+    }
+
     .availability-msg {
         color: $storm-gray;
         @include font-demi;
         font-size: rem(15);
         letter-spacing: normal;
+        line-height: rem(20);
     }
 
     .add-to-cart {
@@ -121,6 +190,19 @@ $arrow-height: 1.25em;
 
         img {
             margin: 0 auto;
+        }
+    }
+
+    .main-carousel-movado {
+
+        .slick-active {  
+
+            img {
+
+                &:hover {
+                    cursor: zoom-in;
+                }
+            }
         }
     }
 
@@ -325,6 +407,13 @@ $arrow-height: 1.25em;
 
     .promotions {
         width: 100%;
+        margin-bottom: rem(30);
+        margin-top: rem(27);
+
+        @include media-breakpoint-down(md) {
+            margin-bottom: rem(20);
+            margin-top: rem(17);
+        }
 
         .callout {
             @include font-demi;
@@ -333,7 +422,7 @@ $arrow-height: 1.25em;
             padding-top: rem(0);
             color: $dark-green;
             letter-spacing: normal;
-            margin-bottom: rem(20);
+            margin-top: rem(3);
             width: 100%;
 
             span {
@@ -474,6 +563,20 @@ $arrow-height: 1.25em;
             font-size: rem(28);
             letter-spacing: normal;
             color: $grey8;
+
+            &.text-unset-wrapper {
+                text-transform: initial !important;
+
+                @include media-breakpoint-down(xs) {
+                    display: none;
+                }          
+            }
+        }
+
+        .product-bottom-detail {
+            @include media-breakpoint-down(xs) {
+                display: none;
+            }
         }
     }
 
@@ -672,6 +775,9 @@ $arrow-height: 1.25em;
             }
 
             .pdp-link {
+                display: flex;
+                align-items: center;
+
                 @include media-breakpoint-down(md) {
                     padding-top: rem(5);
                 }
@@ -723,13 +829,13 @@ $arrow-height: 1.25em;
     }
 
     .slick-dots {
-
+        
         li {
             width: 4%;
             height: rem(2);
             background: $gray-x11;
             margin: 0;
-
+           
             button {
                 height: 100%;
                 width: 100%;
@@ -744,6 +850,22 @@ $arrow-height: 1.25em;
             }
         }
     }
+    
+    .primary-images{
+
+        .slick-dots {
+            max-width: rem(293);
+            margin: 0 auto;
+            right: 0;
+
+            li {
+                width: 100%;
+                height: rem(2);
+                background: $border-color;
+            }
+        }
+    }
+    
 
     .prices-add-to-cart-actions {
         padding: 0;
@@ -1301,6 +1423,7 @@ $arrow-height: 1.25em;
                 justify-content: center;
                 display: flex;
             }
+    
         }
 
         .carousel-title {
@@ -1371,7 +1494,7 @@ $arrow-height: 1.25em;
             background: $white;
             border-radius: rem(35) rem(35) 0 0;
             box-shadow: 0 rem(-2) rem(6) rem(-1) $grey-light;
-            padding-top: rem(30);
+            padding-top: rem(20);
             text-align: center;
 
             .product-name {
@@ -1384,6 +1507,10 @@ $arrow-height: 1.25em;
 
             .exclusive-badges {
                 margin: 0;
+                margin-bottom: rem(5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
 
@@ -1416,7 +1543,12 @@ $arrow-height: 1.25em;
         }
 
         .prices {
-            margin-bottom: rem(10);
+            margin-bottom: rem(-5);
+            margin-top: rem(5);
+
+            @include media-breakpoint-down(xs) {
+                margin: rem(0) auto rem(10);
+            }
         }
 
         .mobile-detail-head {
@@ -1457,6 +1589,7 @@ $arrow-height: 1.25em;
             margin-top: rem(-50);
             @include media-breakpoint-down(xs) {
                 margin-top: rem(-34);
+                display: none;
             }
         }
 
@@ -1617,6 +1750,57 @@ $arrow-height: 1.25em;
             }
         }
 
+    }
+
+    .pdp-movado {
+        &.prices-add-to-cart-actions {
+
+            &.cart-sticky-wrapper-btn {
+                display: none;
+
+                @include media-breakpoint-down(xs) {
+                    position: fixed;
+                    bottom: 0;
+                    background-color: $white;
+                    padding: rem(10);
+                    box-shadow: rem(10) rem(10) rem(6) rem(6) $grey-dark-2;
+
+                    .prices {
+                        padding: rem(0);
+
+                        .price {
+                            font-size: rem(16);
+                            margin: rem(0);
+                            font-weight: 400;
+                        }
+                    }
+
+                    .smart-gift-btn {
+                        display: none;
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                        display: block;
+                    }
+                }
+
+                .apple-pay-pdp {
+                    display: none;
+                }
+
+                &.scroll-hidden {
+                    visibility: hidden;
+                    transition: all 0.6s;
+                    opacity: 0;
+                }
+
+                &.scroll-bottom {
+                    bottom: rem(0);
+                    transform: translateY(0);
+                    transition: all 0.6s;
+                }
+            }
+        }
     }
 }
 
@@ -2018,5 +2202,14 @@ body {
             top: 0;
             position: relative;
         }
+    }
+}
+
+.listrak-persistent-popup {
+    display: none !important;
+}
+.button-floting {
+    &.button-product-detail {
+        bottom: rem(160);
     }
 }

@@ -1,0 +1,9 @@
+@import "~ebel/staticContent.scss";
+
+.btn-save,.form-control {
+    font-family: $font-HelveticaNeueLT-medium;
+}
+
+.slick-next:before, .slick-prev:before {
+    content: "";
+}

@@ -1,3 +1,5 @@
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
  <div class="container contactus-page">
 	<form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
 
@@ -81,10 +83,17 @@
 
 		<input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
 
-		<div class="row">
-			<div class="col">
-				<button type="submit" name="Send" class="btn btn-save btn-block btn-primary">${Resource.msg('button.send','common',null)}</button>
-			</div>
-		</div>
-	</form>
+		<input type="hidden" class="g-recaptcha-token" name="${pdict.contactUsForm.grecaptchatoken.htmlName}" 
+		    <isprint value="${pdict.contactUsForm.grecaptchatoken.attributes}"/>
+		/>
+
+        <div class="row">
+            <div class="col">
+                <isif condition="${isGoogleRecaptchaEnabled}">
+                    <button class="btn btn-block btn-save btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha' data-action='submit'>${Resource.msg('button.send','common',null)}</button>
+                </isif>
+                <button type="submit" name="Send" class="btn btn-save btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''} form-submit">${Resource.msg('button.send','common',null)}</button>
+            </div>
+        </div>
+    </form>
 </div>

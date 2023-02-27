@@ -1,6 +1,7 @@
 <iscomment> Custom Start: HTML structure change for result show </iscomment>
 
 <isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/search.js');
@@ -26,6 +27,10 @@
                     </isif>
                     <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
             </isif>
+        </div>
+
+        <div class="product-breadcrumb">
+            <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
         </div>
 
         <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
@@ -132,8 +137,9 @@
 
         <button class="scroll-top"></button>
         <isif condition="${pdict.productSearch.productIds.length > 0}">
-            <div class="plp-grid-overlay">
-            </div>
+        <div class="container">
+            <div class="plp-grid-overlay search-refinement-close"></div>
+        </div>
         </isif>
 
         <isif condition="${pdict.productSearch.category}">
@@ -142,16 +148,8 @@
                     description="Category content slot at the bottom of PLP"
                     context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
             </div>
-            <div class="search-bottom-text">
-                <isslot id="cs_plp_bottom_text_slot" context="category"
-                    description="Category text slot at the bottom of the PLP"
-                    context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-            </div>
             <isslot id="cs_plp_collection_bottom_slot" context="category"
                 description="Collection content slot at the bottom of the PLP"
-                context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-            <isslot id="cs_plp_bottom_slot" context="category"
-                description="Recommendation content slot at the bottom of the PLP"
                 context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
             <isslot id="cs_plp_second_bottom_slot" context="category"
                 description="Second Recommendation content slot at the bottom of the PLP"
@@ -172,4 +170,12 @@
                     encoding="off" />
             </div>
         </isif>
+
+    <!-- Start: Listrak persistent popup -->
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+        <span class="listrak-popup-search-result"></span>
+        <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+    </isif>
+    <!-- End: Listrak persistent popup -->
 </isdecorate>

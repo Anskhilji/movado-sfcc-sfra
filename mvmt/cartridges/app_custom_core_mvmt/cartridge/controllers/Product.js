@@ -35,8 +35,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-
+    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
     var collectionContentList;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
@@ -106,6 +105,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
 
+    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -134,25 +134,18 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         smartGiftAddToCartURL: smartGiftAddToCartURL,
-        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
+        popupID: listrakPersistentPopup
     };
 
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
 
-        // Custom Comment Start: A/B testing for MVMT PDP
-        if (product.custom.renderingTemplate) {
-            template = showProductPageHelperResult.template;
-        } else {
-        if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
-            template = 'product/old/productDetails';
-        } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
-            template = 'product/productDetails';
-        } else {
-            template = 'product/old/productDetails';
-        }
+    if (product.custom.renderingTemplate) {
+        template = showProductPageHelperResult.template;
+    } else {
+        template = 'product/productDetails';
     }
-        // Custom Comment End: A/B testing for MVMT PDP
 
     if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var pdpAnalyticsTrackingData;
@@ -162,6 +155,12 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     	};
     	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
+    }
+
+    if (!empty(req.querystring.lastNameError)) {
+        res.setViewData({ 
+            lastNameError: req.querystring.lastNameError
+        });
     }
 
     res.setViewData(viewData);
@@ -234,13 +233,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.prepend('Variation', function (req, res, next) {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-
+    var viewData = res.getViewData();
     var attributeContext;
-    var attributeTemplateLinked;
     var explicitRecommendations = [];
     var recommendedProductTemplate;
     var pid = req.querystring.pid;
+    var params = req.querystring;
     var isStrapAjax = req.querystring.isStrapAjax;
 
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
@@ -257,14 +255,11 @@ server.prepend('Variation', function (req, res, next) {
         strapGuideText: strapGuideText
     };
 
-    if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
-        attributeTemplateLinked = 'product/components/old/recommendedProducts';
-    } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
-        attributeTemplateLinked = 'product/components/recommendedProducts';
-    } else {
-        attributeTemplateLinked = 'product/components/old/recommendedProducts';
-    }
-    
+    var attributeTemplateLinked = 'product/components/recommendedProducts';
+    var pdpImagesTemplate = 'product/components/quadrantPDP';
+    var product = ProductFactory.get(params);
+    var productHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImagesTemplate);
+    viewData.productImages = productHTML;
 
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,

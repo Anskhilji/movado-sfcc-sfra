@@ -38,7 +38,6 @@ $(function() {
     });
 
     $('.pdp-v-one .debossing-form .popup-action-btns .save').on('click', function() {
-        var a = $.trim($('.pdp-v-one .debossing-input.valid').val());
         setTimeout(function() {
             var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
             console.log(debossingtext);
@@ -234,6 +233,18 @@ $(document).ready(function() {
       dots: false,
       centerMode: true,
       focusOnSelect: true,
+      
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            dots:true
+          }
+        },
+    ]
   });
 
   $('.zoom-carousel').slick({
@@ -300,9 +311,78 @@ $(document).ready(function() {
                 }
             }
         });
-        
+
     });
     ratingRedesign();
+
+    // custom end: MSS-1772 pdp sticky ATC
+    if ($(window).width() < 544) {
+        $(window).scroll(function () { // on every scroll
+            var $cartWishListObserver = document.querySelector('.cart-wishlist-observer');
+            var $initialCoords = $cartWishListObserver.getBoundingClientRect(); //return all x,y,Top values
+            if (this.window.scrollY < $initialCoords.top) { //if we scroll up to button
+                $('.cart-sticky-wrapper-btn').removeClass('scroll-bottom').addClass('scroll-hidden');
+            } else {
+                if (!$('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen()) { // if button is not on viewport
+                    $('.cart-sticky-wrapper-btn').removeClass('scroll-hidden').addClass('scroll-bottom');
+                }else{
+                    $('.cart-sticky-wrapper-btn').addClass('scroll-hidden');
+                }
+            }
+        });
+    }
+
+    $.fn.isOnScreen = function () {
+        var $win = $(window);
+        var $viewport = {
+            top: $win.scrollTop(),
+            left: $win.scrollLeft()
+        };
+        $viewport.right = $viewport.left + $win.width();
+        $viewport.bottom = $viewport.top + $win.height();
+        var $bounds = this.offset();
+        $bounds.right = $bounds.left + this.outerWidth();
+        $bounds.bottom = $bounds.top + this.outerHeight();
+        return (!($viewport.right < $bounds.left || $viewport.left > $bounds.right || $viewport.bottom < $bounds.top || $viewport.top > $bounds.bottom));
+    };
+
+    // custom end: MSS-1772 pdp sticky ATC
+    
+    // custom start: remove or add clyde top and bottom border if clyde widgets exist
+
+    var $isClydeSitePrefrence = document.querySelector('.clyde-site-prefrence');
+
+    if ($isClydeSitePrefrence) {
+        var $isClydeEnabled = $isClydeSitePrefrence.dataset.clydeEnable;
+        var $isClydeWidgetEnabled = $isClydeSitePrefrence.dataset.clydeWidget;
+
+        if ($isClydeEnabled == 'true' && $isClydeWidgetEnabled == 'true') {
+            var $clydeWidget = document.querySelector('.clyde-widget');
+
+            function refreshClydeWidgets() {
+                if(document.readyState === 'complete' && $clydeWidget) {
+                    var $clydeTopBorder = document.querySelector('.clyde-top-border');
+                    var $clydeBottomBorder = document.querySelector('.clyde-bottom-border');
+                    var $iframe = document.getElementById('clyde-widget-product-page-frame');
+                    var $isContain = $iframe.classList.contains('clyde-fade-in');
+
+                    if ($isContain) {
+                        $clydeTopBorder.classList.remove('d-none');
+                        $clydeBottomBorder.classList.remove('d-none');
+                    } else {
+                        $clydeTopBorder.classList.add('d-none');
+                        $clydeBottomBorder.classList.add('d-none');
+                    }
+                } else {
+                    setTimeout(refreshClydeWidgets, 500);
+                }
+            }
+            setTimeout(refreshClydeWidgets, 500);
+        }
+    }
+
+    // custom end: remove or add clyde top and bottom border if clyde widgets exist
+
 });
 
 function ratingRedesign() {
@@ -312,3 +392,48 @@ function ratingRedesign() {
         }
     }
 }
+
+// Custom Start: [MSS-2079] Hide Star Ratings and Write a Review Section when 0 Reviews on a Product
+function removeRatings() {
+    var $ratings = $('.ratings');
+    var $wrapper = $('.yotpo-display-wrapper')
+    var $noReviews = $('.yotpo-no-reviews');
+    var $yotpoWrapper = $('.yotpo.bottomLine');
+    var $reviewsSection = $('#yotpo-reviews-top-div');
+    
+    if ($noReviews.length > 0) {
+        $ratings.css('opacity', 0);
+        $wrapper.css('display', 'none');
+        $reviewsSection.css('display', 'none');
+        $noReviews.hide();
+        $yotpoWrapper.hide();
+        $reviewsSection.hide();
+    } else {
+        setTimeout(function () {
+            removeRatings();
+        }, 100);
+    }
+}
+
+setTimeout(function () {
+    removeRatings();
+}, 100);
+// Custom End
+
+$(document).ready(function () {
+    var $productWrapper = $('.product-availability .availability-msg-text').text();
+    var $availability = $('.product-availability .availability-msg').text();
+    var $availabilityWrapper = $availability.replace(/\s/g, '');
+    var $cartWrapper = $('.cart-and-ipay');
+    var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
+    if ($productWrapper !== '' || $productWrapper !== undefined || $productWrapper !== null) {
+        if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock') || ($availabilityWrapper === 'SelectStylesforAvailability')) {
+            if ($stickyWrapper) {
+                $stickyWrapper.addClass('d-none');
+            }    
+            if (!($cartWrapper.hasClass('d-none'))) {
+                $cartWrapper.addClass('d-none');
+            }
+        }
+    }
+});

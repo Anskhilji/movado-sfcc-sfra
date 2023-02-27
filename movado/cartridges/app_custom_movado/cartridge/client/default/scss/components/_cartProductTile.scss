@@ -41,10 +41,11 @@
           }
           .personalize-msg, .personalize-price {
               font-family: $font-book;
-              font-weight: 300;
+              font-weight: 500;
               font-size: rem(14);
-              letter-spacing: rem(1);
+              letter-spacing: rem(1.75);
               line-height: rem(20);
+              color: $grey4;
           }
           .personalize-msg {
               color: $grey4;
@@ -52,6 +53,108 @@
           .out-of-stock {
               color:  $danger;
           }
+          .option-wrapper {
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            color: $grey18;
+        }
       }
   }
+
+    &.product-card-container {
+        margin-bottom: rem(30);
+
+        &:last-child {
+            border-bottom: none !important;
+        }
+
+        .product-line-item-details {
+
+            .item-attributes {
+
+                .item-model {
+                    font-size: rem(12);
+                    font-weight: 500;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(10);
+                    color: $grey18;
+                    text-transform: uppercase;
+                }
+
+                .item-personalization {
+                    font-size: rem(12);
+                    letter-spacing: rem(0.7);
+                    line-height: rem(10);
+                    color: $grey18;
+                }
+
+                .item-options {
+
+                    .line-item-option {
+                        margin-bottom: rem(10);
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(10);
+                        color: $grey18;
+                    }
+                }
+
+                .line-item-availability {
+                    display: none;
+                }
+
+                .item-quantity-wrapper {
+                    font-size: rem(12);
+                    font-weight: 500;
+                    letter-spacing: rem(0.86);
+                    line-height: rem(18);
+                    color: $grey8;
+                    text-transform: uppercase;
+                }
+
+                .price-box-container {
+                    margin-top: rem(0);
+
+                    .line-item-total-price-amount {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.86);
+                        line-height: rem(18);
+                        color: $grey8;
+                    }
+                    
+                    .original-price {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.86);
+                        line-height: rem(10);
+                        color: $grey8;
+                        margin-bottom: rem(10);
+                    }
+
+                    .savings {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.86);
+                        line-height: rem(10);
+                        margin-bottom: rem(10);
+                    }
+                    .total-amount {
+                        font-size: rem(12);
+                        letter-spacing: rem(0.86);
+                        line-height: rem(10);
+                        margin-bottom: rem(10);
+                        color: $grey8;
+                        font-weight: 500;
+                    }
+                }
+                
+                .item-quantity-container-box {
+                    margin-top: rem(10);
+                }
+            }
+        }
+    }
 }

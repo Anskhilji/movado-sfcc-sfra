@@ -46,6 +46,7 @@ function getTotalPrice(lineItem) {
             gettingCurrencyCode = eswShopperCurrencyCode ? eswShopperCurrencyCode : lineItem.lineItemCtnr.currencyCode;
         }
         result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, gettingCurrencyCode) : formatMoney(nonAdjustedPrice);
+        result.nonAdjustedPriceValue = (nonAdjustedPrice.value) ? nonAdjustedPrice.value : nonAdjustedPrice;
         result.nonAdjustedFormattedPrice = (eswModuleEnabled && !empty(result.nonAdjustedPrice)) ? formatMoney(result.nonAdjustedPrice) : null;
     }
     // If not for order history calculations
@@ -83,6 +84,8 @@ function getTotalPrice(lineItem) {
          result.savingPrice = savingsPrice;
      }
     context = { lineItem: { priceTotal: result } };
+    result.saleFormattedPrice = formatMoney(lineItem.adjustedPrice);
+    result.saleFormattedPriceValue = lineItem.adjustedPrice.value;
     result.renderedPrice = renderTemplateHelper.getRenderedHtml(context, template);
     return result;
     // Custom End

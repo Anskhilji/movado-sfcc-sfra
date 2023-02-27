@@ -198,6 +198,9 @@ function createSAPOrderFile(args, impexFilePath, record) {
         } else {
             writeXmlElement(streamWriter, 'AuthExpirationDate', moment().add(10, 'days').format('YYYYMMDD'));
         }
+		if (Object.hasOwnProperty.call(record.poHeader, 'OmniType')) {
+            writeXmlElement(streamWriter, 'OmniType', record.poHeader.OmniType);
+        }
 
         // POS
         if (Object.hasOwnProperty.call(record.poHeader, 'fulfilledStatus')) {
@@ -327,6 +330,9 @@ function createSAPOrderFile(args, impexFilePath, record) {
             }
             if (Object.hasOwnProperty.call(poItem, 'taxAmount')) {
                 writeXmlElement(streamWriter, 'TaxAmount', poItem.taxAmount.toFixed(2), true);
+            }
+            if (Object.hasOwnProperty.call(poItem, 'charityAmount')) {
+                writeXmlElement(streamWriter, 'CharityAmount', poItem.charityAmount.toFixed(2), true);
             }
             writeXmlElement(streamWriter, 'Tax1', poItem.tax1 || 0, true);
             writeXmlElement(streamWriter, 'Tax2', poItem.tax2 || 0, true);

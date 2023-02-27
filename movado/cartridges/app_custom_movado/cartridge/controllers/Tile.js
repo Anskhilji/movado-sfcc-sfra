@@ -12,6 +12,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     
     // The req parameter has a property called querystring. In this use case the querystring could
     // have the following:
@@ -58,6 +59,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
 
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var customURL = productCustomHelper.getPLPCustomURL(product);
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
     var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);
     var productClickGtmObj = productCustomHelpers.getGtmProductClickObj(product, categoryName, productTileParams.position);
@@ -92,7 +94,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     viewData.isPLPProduct = true;
     viewData.readyToOrder = readyToOrder;
     viewData.ecommerceFunctionalityEnabled = !empty(Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled) ? Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled : false;
-
+    viewData.customURL = customURL;
     res.setViewData(viewData);
     Object.keys(req.querystring).forEach(function (key) {
         if (req.querystring[key] === 'true') {

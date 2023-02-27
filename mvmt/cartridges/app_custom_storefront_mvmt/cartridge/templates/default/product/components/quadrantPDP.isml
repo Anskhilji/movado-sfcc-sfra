@@ -1,23 +1,23 @@
 <div class="primary-images quadrant-pdp-wrapper show-desktop-pdp">
     <div class="product-badges">
         <!-- First two conditions are for PLP and the last is applicable on PDP -->
-        <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+        <isif condition="${(pdict.product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (pdict.product.available && pdict.display.plpTile === true && pdict.product.productType !== 'master') || (pdict.product.available && pdict.display.plpTile === false)}">
             <isinclude template="product/components/newnessBadge"/>
         </isif>
     </div>
         <div class="row d-show-mobile-wrapper no-gutters gallery-slider-quadrant">
-        <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
+        <isloop items="${pdict.product.images['zoom1660']}" var="image" status="loopStatus">
             <div class="col-lg-6 col-md-12  col-mx-50-wrapper">
-                <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
+                <div class="carousel-tile" data-thumb="${!empty(pdict.product.images) && !empty(pdict.product.images.tile150[loopStatus.count-1]) ? pdict.product.images.tile150[loopStatus.count-1].url : ''}">
                     <picture>
-                        <source media="(min-width: 992px)"  srcset="${product.images.pdp453[loopStatus.count-1].url}" />
-                        <source media="(max-width: 991px)"  srcset="${product.images.pdp453[loopStatus.count-1].url}" />
-                        <img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='${loopStatus.count - 1}'  src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                        <source media="(min-width: 992px)"  srcset="${!empty(pdict.product.images) && !empty(pdict.product.images.pdp453[loopStatus.count-1]) && !empty(pdict.product.images.pdp453[loopStatus.count-1].url) ? pdict.product.images.pdp453[loopStatus.count-1].url : ''}" />
+                        <source media="(max-width: 991px)"  srcset="${!empty(pdict.product.images) && !empty(pdict.product.images.pdp453[loopStatus.count-1]) && !empty(pdict.product.images.pdp453[loopStatus.count-1].url) ? pdict.product.images.pdp453[loopStatus.count-1].url : ''}" />
+                        <img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='${loopStatus.count - 1}'  src="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom1660[loopStatus.count-1]) && !empty(pdict.product.images.zoom1660[loopStatus.count-1].url) ? pdict.product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom830[loopStatus.count-1]) && !empty(pdict.product.images.zoom830[loopStatus.count-1].url) ? pdict.product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom1660[loopStatus.count-1]) && !empty(pdict.product.images.zoom1660[loopStatus.count-1].url) ? pdict.product.images.zoom1660[loopStatus.count-1].url : ''}" />
                         <isset name="isImageExist" value="true" scope="page" />
                     </picture>
-                    <isif condition="${!empty(product.pdpVideoConfigs) && loopStatus.count == product.pdpVideoConfigs.imageIndex && !empty(product.pdpVideoConfigs.videoURL) }">
+                    <isif condition="${!empty(pdict.product.pdpVideoConfigs) && loopStatus.count == pdict.product.pdpVideoConfigs.imageIndex && !empty(pdict.product.pdpVideoConfigs.videoURL) }">
                     <video id="slide-video" class="slide-video" loop muted autoplay playsinline>
-                        <source src="${product.pdpVideoConfigs.videoURL}" type="video/mp4" />
+                        <source src="${pdict.product.pdpVideoConfigs.videoURL}" type="video/mp4" />
                     </video>
                     </isif>
                 </div>
@@ -36,23 +36,23 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
                 <div class="modal-body">
-                <div class="pinchZoom zoomedImage d-none"><img alt="${product.resources.Zoom}" src="${!empty(product.images['pdp533'][0]) && !empty(product.images['pdp533'][0].url) ? product.images['pdp533'][0].url : ''}"/></div>
+                <div class="pinchZoom zoomedImage d-none"><img alt="${pdict.product.resources.Zoom}" src="${!empty(pdict.product.images['pdp533'][0]) && !empty(pdict.product.images['pdp533'][0].url) ? pdict.product.images['pdp533'][0].url : ''}"/></div>
                     <div class="primary-images">
                         <div class="product-badges">
                             <!-- First two conditions are for PLP and the last is applicable on PDP -->
-                            <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+                            <isif condition="${(pdict.product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (pdict.product.available && pdict.display.plpTile === true && pdict.product.productType !== 'master') || (pdict.product.available && pdict.display.plpTile === false)}">
                                 <isinclude template="product/components/newnessBadge"/>
                             </isif>
                         </div>
                         <div class="cs-carousel-wrapper">
                             <div class=" mvmt-pdp-carousel main-mvmt-carousel">
-                                <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
-                                <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-                                <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
+                                <isset name="pdpVideoConfigs" value="${pdict.product.pdpVideoConfigs}" scope="page" />
+                                <isloop items="${pdict.product.images['zoom1660']}" var="image" status="loopStatus">
+                                <div class="carousel-tile" data-thumb="${!empty(pdict.product.images) && !empty(pdict.product.images.tile150[loopStatus.count-1]) ? pdict.product.images.tile150[loopStatus.count-1].url : ''}">
                                     <picture>
-                                            <source media="(min-width: 992px)"  srcset="${product.images.zoom1660[loopStatus.count-1].url}" />
-                                            <source media="(max-width: 991px)"  srcset="${product.images.zoom1660[loopStatus.count-1].url}" />
-                                            <img data-img-length="${product.images.zoom1660.length}" class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                                            <source media="(min-width: 992px)"  srcset="${pdict.product.images.zoom1660[loopStatus.count-1].url}" />
+                                            <source media="(max-width: 991px)"  srcset="${pdict.product.images.zoom1660[loopStatus.count-1].url}" />
+                                            <img data-img-length="${pdict.product.images.zoom1660.length}" class="normal-zoom" src="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom1660[loopStatus.count-1]) && !empty(pdict.product.images.zoom1660[loopStatus.count-1].url) ? pdict.product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom830[loopStatus.count-1]) && !empty(pdict.product.images.zoom830[loopStatus.count-1].url) ? pdict.product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom1660[loopStatus.count-1]) && !empty(pdict.product.images.zoom1660[loopStatus.count-1].url) ? pdict.product.images.zoom1660[loopStatus.count-1].url : ''}" />
                                             <isset name="isImageExist" value="true" scope="page" />
                                     </picture>
                                 </div>

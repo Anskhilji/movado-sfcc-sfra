@@ -1,6 +1,6 @@
 .product-detail {
 	.product-name {
-		font-family: $font-adobe;
+		font-family: $font-gills-light;
 		font-size: $font-size-main-heading3;
 		font-style: normal;
 		letter-spacing: rem(1);
@@ -52,9 +52,9 @@
 		}
 
 			button.add-to-cart {
-				color: $black;
-				background: $pink-hot;
-				border: rem(1) solid $pink-hot;
+				color: $white;
+				background: $black;
+				border: rem(1) solid $black;
 		
 				@include media-breakpoint-up(custom-md) {
 					width: rem(296);
@@ -62,6 +62,12 @@
 					padding: rem(10) rem(12) rem(10) rem(12);
 				}
 				
+				&:hover,
+				&:focus {
+					background-color: $white;
+					box-shadow: none;
+					color: $black;
+				}
 			}
 
 			.google-pay-container {
@@ -184,7 +190,7 @@
 
 	.more-styles-wrapper {
 		h3 {
-			font-family: $font-adobe;
+			font-family: $font-gills-light;
 			font-size: $font-size-main-heading6;
 			font-style: normal;
 			letter-spacing: rem(1);
@@ -217,7 +223,7 @@
 
 .description-and-detail {
 	button.title {
-		font-family: $font-adobe;
+		font-family: $font-gills-light;
 		font-size: $font-size-main-heading6;
 		font-style: normal;
 		letter-spacing: rem(2);
@@ -250,7 +256,7 @@
 
 .cs-carousel-wrapper {
 	.carousel-title {
-		font-family: $font-adobe;
+		font-family: $font-gills-light;
 		font-size: $font-size-main-heading6;
 		font-style: normal;
 		letter-spacing: rem(2);
@@ -275,9 +281,16 @@
 		font-size: $font-size-text-heading1;
 		letter-spacing: rem(2);
 		font-weight: $font-semi-bold;
-		background: $pink-hot;
-		color: $black;
+		background: $black;
+		color: $white;
 		border: none;
+
+		&:hover,
+		&:focus {
+			background: $white;
+			border: rem(1) solid $black;
+			color: $black;
+		}
 	}
 
 	a.btn-link {
@@ -291,7 +304,7 @@
 
 .product-quickview {
 	.heading-two {
-		font-family: $font-adobe;
+		font-family: $font-gills-light;
 		font-size: $font-size-main-heading3;
 		font-style: normal;
 		letter-spacing: rem(1);
@@ -437,7 +450,7 @@
 			display: inline-block;
 
 			label {
-				font-family: $font-adobe;
+				font-family: $font-gills-light;
 				font-size: rem(20);
 				line-height: rem(25);
 				letter-spacing: rem(1.71);
@@ -474,7 +487,7 @@
 				&:hover {
 					.upsell-text {
 						p {
-							background-color: $pink-hot;
+							background-color: $gray;
 							color: $white;
 							transition: 0.3s ease;
 						}
@@ -567,13 +580,13 @@
 
 				&-added {
 					display: none;
-					background: $pink-hot;
+					background: $gray;
 
 					&-checkmark {
 						display: inline-block;
 						width: rem(11);
 						height: rem(10);
-						background: $pink-hot url("../../images/white-checkmark.svg") center center no-repeat;
+						background: $gray url("../../images/white-checkmark.svg") center center no-repeat;
 						vertical-align: middle;
 						position: relative;
 						top: rem(-1);
@@ -606,7 +619,7 @@
 					}
 
 					.upsell-wrapper-inner {
-						border-color: $pink-hot;
+						border-color: $gray;
 					}
 				}
 			}
@@ -686,6 +699,21 @@
 		}
 	}
 }
+
+.tax-duties {
+    display: inline-block;
+    color: $grey8;
+    margin-top: rem(15);
+    font-size: rem(14);
+    font-weight: 600;
+	
+    @include media-breakpoint-down(sm) {
+        display: block;
+        text-align: center;
+        margin-bottom: rem(15);
+    }
+}
+
 @include media-breakpoint-down(md) {
 	.price-availability {
 		justify-content: center;
@@ -809,7 +837,8 @@
 				max-width: calc(100% - 0px);
 			}
 			@include media-breakpoint-down(sm) {
-				max-height: rem(336);
+				max-height: rem(450);
+				height: auto;
 			}
 
 			.main-ob-carousel {
@@ -828,7 +857,7 @@
 					align-items: center;
 					justify-content: center;
 					@include media-breakpoint-down(sm) {
-						height: rem(336);
+						height: auto;
 						display: flex !important;
 					}
 
@@ -840,7 +869,7 @@
 							max-height: rem(364);
 						}
 						@include media-breakpoint-down(sm) {
-							max-height: rem(336);
+							max-height: rem(450);
 						}
 					}
 				}
@@ -931,7 +960,7 @@
 
 						&.slick-active,&:hover {
 							button {
-								border-color: $pink-grey-light;
+								border-color: $gray;
 							}
 						}
 					}
@@ -982,6 +1011,10 @@
 				@include media-breakpoint-down(md) {
 					bottom: rem(33);
 					left: rem(0);
+				}
+
+				@include media-breakpoint-down(sm) {
+					display: none;
 				}
 
 				&.btn:not(:disabled):not(.disabled):active,
@@ -1036,7 +1069,8 @@
 		font-size: rem(30);
 		line-height: rem(41);
 		color: $black;
-		font-family: $Adobe-Gramond-Pro-Italic;
+		font-family: $font-gill-std-semibold;
+		font-weight: 600;
 		margin-right: 0;
 		width: 100%;
 		margin-bottom: rem(20);
@@ -1099,9 +1133,9 @@
 
 		.price-pdp-mvmt {
 			color: $black3;
-			font-family: $font-gills-light;
+			font-family: $font-gill-std-semibold;
 			font-size: rem(34);
-			font-weight: 300;
+			font-weight: 400;
 			letter-spacing: 0;
 			line-height: rem(41);
 
@@ -1144,7 +1178,7 @@
 		height: rem(44);
 		width: rem(218);
 		border-radius: rem(3);
-		background-color: $pink-grey1;
+		background-color: $gray;
 		line-height: rem(41);
 		padding: rem(0) rem(17);
 		margin-bottom: rem(30);
@@ -1190,7 +1224,8 @@
 			height: rem(45);
 			max-width: rem(330);
 			width: 100%;
-			color: $black1;
+			color: $white;
+			background: $black;
 			font-family: $font-gill-std-medium;
 			font-size: rem(15);
 			font-weight: 600;
@@ -1198,9 +1233,17 @@
 			line-height: rem(45);
 			padding: 0;
 			border-radius: rem(3);
+			border-color: $black;
 			margin: 0;
 			@include media-breakpoint-down(xs) {
 				max-width: 100%;
+			}
+
+			&:hover,
+			&:focus {
+				background-color: $white;
+				box-shadow: none;
+				color: $black;
 			}
 		}
 	}
@@ -1252,10 +1295,10 @@
 		.flex-container-shipping {
 			display: flex;
 			align-items: center;
-			font-family: $font-gill-std-medium;
+			font-family: $font-gill-std-semibold;
 			font-size: rem(15);
 			color: $grey8;
-			font-weight: 600;
+			font-weight: 300;
 			letter-spacing: 0;
 			line-height: rem(20);
 			text-transform: capitalize;
@@ -1323,6 +1366,7 @@
 
 	.set-product-item-thumb {
 		margin-bottom: rem(30);
+		margin-top: rem(15);
 
 		&-img {
 			height: rem(72);
@@ -1401,7 +1445,7 @@
 						height: rem(364);
 					}
 					@include media-breakpoint-down(sm) {
-						height: rem(267);
+						height: rem(450);
 					}
 
 					img {
@@ -1413,7 +1457,7 @@
 							height: rem(364);
 						}
 						@include media-breakpoint-down(sm) {
-							max-height: rem(267);
+							max-height: rem(450);
 						}
 					}
 				}
@@ -1603,5 +1647,3 @@
 		}
 	}
 }
-  
- 

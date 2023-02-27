@@ -43,12 +43,24 @@ function getQuantitySelector($el) {
         slidesToShow: 1,
         slidesToScroll: 1,
         asNavFor: '.carousel-nav',
-        dots: false,
+        dots: false, 
         arrows:true,
         focusOnSelect: true,
         fade: true,
         prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button' style=''>Previous</button>",
         nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button' style=''>Next</button>", 
+    
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false
+                }
+            },
+        ]
+    
     });
 }
 
@@ -64,6 +76,18 @@ function getQuantitySelector($el) {
         arrows:true,
         centerMode: true,
         focusOnSelect: true,
+
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                dots:true
+                }
+            },
+        ]
     });
 }
 
@@ -108,12 +132,12 @@ function getQuantitySelector($el) {
     });
 }
 
-$('body').on('click', '.primary-images .main-carousel .slick-next', function (e) {
+$('body').on('click', '.primary-images .main-carousel .slick-next,.primary-images .main-carousel-movado img', function (e) {
     e.preventDefault();
     $('.main-carousel .slick-active').addClass('slick-center');
 });
 
-$('body').on('click', '.primary-images .main-carousel .slick-prev', function (e) {
+$('body').on('click', '.primary-images .main-carousel .slick-prev,.primary-images .main-carousel-movado img', function (e) {
     e.preventDefault();
     $('.main-carousel .slick-active').addClass('slick-center');
 });
@@ -503,37 +527,41 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  * MCS redesign sticky functionality on pdp
  */
  $(document).ready(function () {
-     var $divOffsetTop = $('.prices-add-to-cart-redesign .cta-add-to-cart').offset().top;
-     if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
-         if ($(window).scrollTop() > $divOffsetTop) {
-             $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
-             $('.bottom-sticky-card').addClass('scroll-hidden');
-         } else {
-             $('.top-sticky-card').addClass('scroll-hidden');
-             $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-         }
-     }
-     $(window).scroll(function () {
-         if ($(window).width() > 543) {
-             var $scrollDistance = $(window).scrollTop();
-             var $addToCatViewPort = $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen();
-
-             if ($addToCatViewPort) { // check if  button is on screen
-                 $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden');// both bottom and top will hidde
+     var $addToCartBtn = $('.prices-add-to-cart-redesign .cta-add-to-cart');
+     if ($addToCartBtn.length > 0) {
+         var $divOffsetTop = $addToCartBtn.offset().top;
+         if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
+             if ($(window).scrollTop() > $divOffsetTop) {
+                 $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+                 $('.bottom-sticky-card').addClass('scroll-hidden');
              } else {
-                 if ($scrollDistance > $divOffsetTop) { // top sticky will be active
-                     $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
-                     $('.bottom-sticky-card').addClass('scroll-hidden');
-                 } else { // bottom sticky will be active
-                     $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-                     $('.top-sticky-card').addClass('scroll-hidden');
-                 }
+                 $('.top-sticky-card').addClass('scroll-hidden');
+                 $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
              }
-         } else { // mobile case
-            $('.top-sticky-card').addClass('scroll-hidden')//top scroll button  will forever hide in mobile case
-             $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
          }
-     });
+         $(window).scroll(function () {
+             if ($(window).width() > 543) {
+                 var $scrollDistance = $(window).scrollTop();
+                 var $addToCatViewPort = $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen();
+
+                 if ($addToCatViewPort) { // check if  button is on screen
+                     $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden'); // both bottom and top will hidde
+                 } else {
+                     if ($scrollDistance > $divOffsetTop) { // top sticky will be active
+                         $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+                         $('.bottom-sticky-card').addClass('scroll-hidden');
+                     } else { // bottom sticky will be active
+                         $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+                         $('.top-sticky-card').addClass('scroll-hidden');
+                     }
+                 }
+             } else { // mobile case
+                 $('.top-sticky-card').addClass('scroll-hidden') //top scroll button  will forever hide in mobile case
+                 $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+             }
+         });
+     }
+
  });
 
 $.fn.isOnScreen = function () {
@@ -575,6 +603,28 @@ function handleVariantResponse(response, $productContainer) {
 
             $productContainer.parent('.bonus-product-item')
                 .data('ready-to-order', response.product.readyToOrder);
+        }
+    }
+
+    if (!(response && response.product && response.product.isGiftBoxAllowed)) {
+        $('.gift-box-wrapper').css('visibility', 'hidden');
+        if($('.product-side-details .gift-allowed-checkbox').is(':checked')) {
+            $('.product-side-details .gift-allowed-checkbox').prop('checked', false);
+        }
+    } else {
+        if ($(window).width() >= 768) {
+            if($('.gift-box-wrapper').attr('style')) {
+                $('.gift-box-wrapper').removeAttr('style');
+            }
+            $('.gift-box-wrapper.d-desktop-show').show();
+        } else {
+            if($('.gift-box-wrapper').attr('style')) {
+                $('.gift-box-wrapper').removeAttr('style');
+            }
+            $('.gift-box-wrapper.d-mobile-show').show();
+        }
+        if($('.product-side-details .gift-allowed-checkbox').is(':checked')) {
+            $('.product-side-details .gift-allowed-checkbox').prop('checked', false);
         }
     }
 
@@ -836,7 +886,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
+                var listrakTracking = require('movado/listrakActivityTracking.js');
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1071,7 +1122,7 @@ module.exports = {
         }
     },
     colorAttribute: function () {
-        $(document).on('click', '[data-attr="color"] a', function (e) {
+        $(document).off('click', '.main-variation-attribute[data-attr="color"] a').on('click', '.main-variation-attribute[data-attr="color"] a', function (e) {
             e.preventDefault();
 
             if ($(this).attr('disabled')) {
@@ -1159,6 +1210,7 @@ module.exports = {
             var pid;
             var pidsObj;
             var setPids;
+            var giftPid;
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -1179,8 +1231,14 @@ module.exports = {
 
             if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
                 pid = $(this).data('pid');
+                if ($('.gift-allowed-checkbox').is(":checked")) {
+                    giftPid = $('.gift-allowed-checkbox').val();
+                }
             } else {
             	pid = getPidValue($(this));
+                if ($('.gift-allowed-checkbox').is(":checked")) {
+                    giftPid = $('.gift-allowed-checkbox').val();
+                }
             }
 
             var $productContainer = $(this).closest('.product-detail');
@@ -1194,7 +1252,8 @@ module.exports = {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this))
+                quantity: getQuantitySelected($(this)),
+                giftPid: giftPid ? giftPid : ''
             };
 
             /**
@@ -1205,7 +1264,8 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1
+                    quantity: 1,
+                    giftPid: giftPid ? giftPid : ''
                 };
             }
             /**

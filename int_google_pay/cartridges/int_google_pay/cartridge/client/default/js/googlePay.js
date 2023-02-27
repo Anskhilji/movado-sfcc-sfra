@@ -4,7 +4,7 @@
  *
  * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#PaymentDataRequest|apiVersion in PaymentDataRequest}
  */
-const baseRequest = {
+ const baseRequest = {
     apiVersion: 2,
     apiVersionMinor: 0
 };
@@ -388,7 +388,7 @@ function addGooglePayButton() {
             googlePayContainer.append(button);
         });
     } else {
-        var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill');
+        var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill-new-style');
         if ($googlePayButton.length === 0) {
             button = paymentsClient.createButton(buttonConfigs);
             document.getElementById('google-pay-container-mini-cart').appendChild(button);

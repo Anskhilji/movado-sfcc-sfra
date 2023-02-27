@@ -8,6 +8,7 @@ var ArrayList = require('dw/util/ArrayList');
 var SystemObjectMgr = require('dw/object/SystemObjectMgr');
 var collections = require('*/cartridge/scripts/util/collections');
 var URLUtils = require('dw/web/URLUtils');
+var BasketMgr = require('dw/order/BasketMgr');
 
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var baseTrackingUrl = Site.getCurrent().getCustomPreferenceValue('baseTrackingUrl');
@@ -58,6 +59,7 @@ function getTrackingUrlsAndNumbers(lineItems) {
 function getProductLineItemCustomAttributes(item) {
     var customAttributes = {};
     var optionLineItems = item.optionProductLineItems;
+    var currentBasket = BasketMgr.getCurrentBasket();
     var formatMoney = require('dw/util/StringUtils').formatMoney;
 
     if (item.custom.engraveMessageLine1 != undefined) {
@@ -95,7 +97,7 @@ function getProductLineItemCustomAttributes(item) {
         customAttributes.emboss = emboss;
     }
 
-    if (item.custom.GiftWrapMessage != undefined) {
+    if (item.custom.GiftWrapMessage != undefined && currentBasket && currentBasket.custom.storePickUp !== true) {
         customAttributes.itemLevelGiftMessage = { msgLine1: item.custom.GiftWrapMessage };
     }
 
@@ -180,6 +182,7 @@ function getCustomerNo(customer) {
 
 function isPreOrder(order) {
     var Transaction = require('dw/system/Transaction');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var isPreOrder = false;
     if (order) {
         var productLineItems = order.getProductLineItems();
@@ -188,7 +191,7 @@ function isPreOrder(order) {
             while (productLineItemsIterator.hasNext()) {
                 var lineItem = productLineItemsIterator.next();
                 if (lineItem instanceof dw.order.ProductLineItem && !lineItem.bonusProductLineItem) {
-	                var apiProduct = dw.catalog.ProductMgr.getProduct(lineItem.getProductID());
+	                var apiProduct = ProductMgr.getProduct(lineItem.getProductID());
 	                var productAvailabilityModel = apiProduct.getAvailabilityModel();
 	                var availabilityModelLevels = productAvailabilityModel.getAvailabilityLevels(lineItem.getQuantity().decimalValue);
 	                if (availabilityModelLevels.preorder.value > 0) {
@@ -196,7 +199,19 @@ function isPreOrder(order) {
                             lineItem.custom.isPreOrderProduct = true;
                         });
 	                    isPreOrder = true;
-	                }
+	                } else {
+                        var apiProduct = ProductMgr.getProduct(lineItem.getProductID());
+                        var productAvailabilityModel = apiProduct.getAvailabilityModel();
+                        var ociCurrentAllocation = productAvailabilityModel.inventoryRecord.allocation.value;
+                        var ociProductATO = productAvailabilityModel.inventoryRecord.ATS.value;
+                        var ociProductFuture = productAvailabilityModel.inventoryRecord.backorderable;
+                        if (ociCurrentAllocation === 0.00 && ociProductATO > 0 && ociProductFuture === true) {
+                            Transaction.wrap(function () {
+                                lineItem.custom.isPreOrderProduct = true;
+                            });
+                            isPreOrder = true;
+                        }
+                    }
                 }
             }
         }

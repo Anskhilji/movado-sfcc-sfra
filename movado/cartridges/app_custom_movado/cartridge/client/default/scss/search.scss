@@ -6,6 +6,10 @@
 @import "utilities/swatch";
 @import "components/categoryTiles";
 
+.filter-and-count {
+    visibility: hidden;
+}
+
 .refinement-bar {
     overflow: auto;
 
@@ -452,3 +456,12 @@
     }
   }
 }
+
+.listrak-persistent-popup {
+    display: none !important;
+  }
+  .button-floting {
+    &.button-search-result {
+      bottom: rem(41);
+    }
+  }

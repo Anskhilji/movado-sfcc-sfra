@@ -60,14 +60,19 @@
                         <isinclude template="product/components/yotpoRatings" />
                     </div>
                 <iselse/>
+                <a href="${pdict.urls.product}#yotpo-reviews-top-div">
                     <isinclude template="product/components/ratings" />
-                </isif>
+                </a>
             </div>
         </div>
 
         <isset name="price" value="${product.price}" scope="page" />
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
+            <isif condition="${product.productType === 'set'}">
+                <isinclude template="product/components/pricing/setPrice" />
+            <iselse/>
+                <isinclude template="product/components/pricing/main" />
+            </isif>
         <iscomment> Custom: End </iscomment>
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />

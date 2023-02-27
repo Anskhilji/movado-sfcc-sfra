@@ -1,4 +1,4 @@
-'use strict';
+var backInStockNotification = require('../js/backInStockNotification');
 
 $('.form').submit(function(e) {
     e.preventDefault();
@@ -12,21 +12,46 @@ $('.form').submit(function(e) {
     var $emailRequired = $('.back-in-stock-notification-error-required');
     var $emailInvalid = $('.back-in-stock-notification-error-invalid');
     var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
+    var $backInStockListrakPreference = $('#backInStockMarketingCloudPreference');
     $emailRequired.text('');
     $emailInvalid.text('');
     $phoneInvalid.text('');
 
     if ($form.find('.back-in-stock-notification-email').length > 0) {
-        $email = $('.back-in-stock-notification-email').val().trim();
+        
+        $('.back-in-stock-notification-email').each(function() {
+            
+            if ($(this).val().length > 0) {
+                $email = $(this).val().trim();
+            }
+        });
+
         var $pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
         var $isValid;
 
         if ($email) {
             $isValid = $pattern.test($email);
+            if ($isValid) {
+                if ($backInStockListrakPreference.length > 0) {
+                    e.preventDefault();
+                    var $selector;
+                    if ($backInStockContainerMain.length > 0) {
+                        $selector = $('.listrak-back-in-stock-notification-container-main');
+                    }
+                    backInStockNotification.submitBackInStockEmail($selector);
+                }
+            }
         }
         
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
-            $phone = $('.back-in-stock-notification-phone').val().trim();
+
+            $('.back-in-stock-notification-phone').each(function() {
+
+                if ($(this).val().length > 0) {
+                    $phone = $(this).val().trim();
+                }
+            });
+
             var $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
             var $isValidPhone;
 
@@ -80,7 +105,14 @@ $('.form').submit(function(e) {
         }
     } else {
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
-            $phone = $('.back-in-stock-notification-phone').val().trim();
+
+            $('.back-in-stock-notification-phone').each(function() {
+
+                if ($(this).val().length > 0) {
+                    $phone = $(this).val().trim();
+                }
+            });
+
             var $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
             var $isValidPhone;
             

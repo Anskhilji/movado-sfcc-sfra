@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>D07AAD87-12B4-421B-BA1D-59812EFC8BBD</title>
+    <g id="PLP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="CLP-Layout-1A1" transform="translate(-1299.000000, -524.000000)">
+            <g id="Stacked-Group-7" transform="translate(36.000000, 512.000000)">
+                <g id="Button/Large/Primary-Copy" transform="translate(1226.000000, 0.000000)">
+                    <g id="Group-2" transform="translate(37.757962, 10.866667)">
+                        <g id="akar-icons:settings-horizontal" transform="translate(0.000000, 1.133333)">
+                            <rect id="ViewBox" x="0" y="0" width="14.522293" height="17"></rect>
+                            <g id="Group" stroke-linecap="round" transform="translate(1.815287, 2.125000)" stroke="#FFFFFF" stroke-opacity="0.885216346" stroke-width="1.25">
+                                <path d="M0,1.41666667 L2.42038217,1.41666667 M10.8917197,1.41666667 L4.84076433,1.41666667 M0,6.375 L7.2611465,6.375 M10.8917197,6.375 L9.68152866,6.375 M0,11.3333333 L1.21019108,11.3333333 M10.8917197,11.3333333 L3.63057325,11.3333333" id="Shape"></path>
+                                <ellipse id="Oval" cx="3.63057325" cy="1.41666667" rx="1.21019108" ry="1.41666667"></ellipse>
+                                <ellipse id="Oval" cx="8.47133758" cy="6.375" rx="1.21019108" ry="1.41666667"></ellipse>
+                                <ellipse id="Oval" cx="2.42038217" cy="11.3333333" rx="1.21019108" ry="1.41666667"></ellipse>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

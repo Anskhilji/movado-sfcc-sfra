@@ -116,14 +116,22 @@ function getCartAssets(){
 }
 
 function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
-	var productGtmArray={};
-	var variant;
-	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
+    var productGtmArray = {};
+    var variant;
+    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+    collections.forEach(lineItemCtnr.productLineItems, function (pli) {
 
         if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
             var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+            var category = pli.product && pli.product.primaryCategory
+            ? pli.product.primaryCategory
+            : '';
+            var categoryHierarchy = searchCustomHelper.getCategoryBreadcrumb(category);
+            var primarySiteSection = escapeQuotes(categoryHierarchy.primaryCategory);
+            var secoundarySiteSection = escapeQuotes(categoryHierarchy.secondaryCategory);
+            secoundarySiteSection = !empty(secoundarySiteSection) ? '|' + secoundarySiteSection : '';
 
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
@@ -135,6 +143,9 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
                         "variant" : variant,
                         "price" : productPrice,
                         "currency" : pli.product.priceModel.price.currencyCode,
+                        "quantity" : pli.quantity && pli.quantity.value ? pli.quantity.value: pli.quantity,
+                        "deparmentIncludedCategoryName": !empty(primarySiteSection) && !empty(secoundarySiteSection) ? primarySiteSection + secoundarySiteSection : '',
+                        "discountPrice": pli.basePrice.value - pli.adjustedGrossPrice.value > 0 ? pli.adjustedGrossPrice.value: '',
                         "list" : Resource.msg('gtm.list.pdp.value','cart',null)
                     };
                 }
@@ -274,6 +285,7 @@ function getcartPageHtml (req) {
   };
   basketModel.paypalButtonImg = getContentAssetContent('ca-paypal-button');
   basketModel.paypalerror = !!req.querystring.paypalerror;
+  basketModel.lastNameError = req.querystring.lastNameError;
 
   return renderTemplateHelper.getRenderedHtml(basketModel, '/cart/cartSection');
 };
@@ -309,6 +321,64 @@ function getCountrySwitch() {
 
 };
 
+function removeNullClydeWarrantyLineItem(currentBasket) {
+    var Constants = require('*/cartridge/utils/Constants');
+    var Transaction = require('dw/system/Transaction');
+    var orderLineItems = currentBasket.allProductLineItems;
+    var orderLineItemsIterator = orderLineItems.iterator();
+    var productLineItem;
+    Transaction.wrap(function () {
+        while (orderLineItemsIterator.hasNext()) {
+            productLineItem = orderLineItemsIterator.next();
+            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                currentBasket.removeProductLineItem(productLineItem);
+            }
+        }
+    });
+};
+
+function removeClydeWarranty(currentItems) {
+    var Constants = require('*/cartridge/utils/Constants');
+    if (currentItems && currentItems.items && currentItems.items.length > 0) {
+        for (var i = 0; i < currentItems.items.length; i++) {
+            if (currentItems.items[i].options.length > 0) {
+                for (var j = 0; j < currentItems.items[i].options.length; j++) {
+                    if (currentItems.items[i].options[j].optionId == Constants.CLYDE_WARRANTY && currentItems.items[i].options[j].selectedValueId == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                        currentItems.items[i].options[j] = currentItems.items[i].options[j].displayName;
+                    }
+                }
+            }
+        }
+    }
+};
+
+function getGiftTransactionATC(currentBasket, giftsParentUUID) {
+    var Transaction = require('dw/system/Transaction');
+    var linesItemsIterator = currentBasket.allProductLineItems.iterator();
+    var currentsLineItemsIterator;
+    while (linesItemsIterator.hasNext()) {
+        currentsLineItemsIterator = linesItemsIterator.next();
+        if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
+            Transaction.wrap(function () {
+                currentsLineItemsIterator.custom.giftPid = "";
+            });
+            break;
+        }
+    }
+};
+
+/**
+ * Function to escape quotes
+ * @param value
+ * @returns escape quote value
+ */
+function escapeQuotes(value) {
+    if (value != null) {
+        return value.replace(/'/g, "\\'");
+    }
+    return value;
+}
+
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
     updateOption: updateOption,
@@ -322,6 +392,8 @@ module.exports = {
     getContentAssetContent: getContentAssetContent,
     getcartPageHtml: getcartPageHtml,
     getCartForAnalyticsTracking: getCartForAnalyticsTracking,
-    getCountrySwitch: getCountrySwitch
+    getGiftTransactionATC: getGiftTransactionATC,
+    getCountrySwitch: getCountrySwitch,
+    removeClydeWarranty: removeClydeWarranty,
+    removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem
 };
-

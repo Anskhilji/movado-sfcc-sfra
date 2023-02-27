@@ -1,0 +1,10 @@
+<isset name="showQuickView" value="${true}" scope="page" />
+<isset name="product" value="${pdict.product}" scope="page" />
+<isset name="isTileHeightDisable" value="${pdict.display.isTileHeightDisable}" scope="page" />
+<div class="product" data-pid="${product.id}">
+    <isif condition="${!empty(pdict.display.isRedesigned) || !empty(isTileHeightDisable)}">
+        <isinclude template="product/productTile" />
+    <iselse/>
+        <isinclude template="product/old/productTile" />
+    </isif>
+</div>

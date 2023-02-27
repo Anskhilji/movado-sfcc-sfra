@@ -1,3 +1,4 @@
+<isset name="product" value="${pdict.product}" scope="page" />
 <div class="sticky-container-redesign w-100 ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none " : ""}">
     <div class="d-flex justify-content-between align-items-center check-scroll sticky-prodct-cart-redesign">
             <div class="d-none d-sm-flex align-items-center">
@@ -23,6 +24,8 @@
                     <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
                     <button class='add-to-cart btn btn-primary mr-0 d-flex align-items-center justify-content-between <isif condition="${product.isProductRestricted}">d-none</isif>' data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""}>
                         <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                            ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                        <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
                             ${Resource.msg('button.preorder.now', 'common', null)} </br>
                         <iselse/>
                             ${Resource.msg('button.addtocart', 'common', null)}

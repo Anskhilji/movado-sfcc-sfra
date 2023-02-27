@@ -32,6 +32,7 @@ function getPagingModel(productHits, count, pageSize, startIndex) {
  */
 function getPaginationUrls(productSearch, httpParams, pageNumber, enableGridSlot) {
     var showMoreEndpoint = 'Search-UpdateGrid';
+
     var pageSize = httpParams.sz || DEFAULT_PAGE_SIZE;
     var hitsCount = productSearch.count;
     var pagingUrls = new HashMap();
@@ -138,6 +139,7 @@ function getPaginationUrls(productSearch, httpParams, pageNumber, enableGridSlot
  * @return {SortingOption} - Sorting option
  */
 function getPaginationSortingOptions(productSearch, sortingOptions, pagingModel) {
+
     return collections.map(sortingOptions, function (option) {
         var baseUrl = productSearch.urlSortingRule(ACTION_ENDPOINT, option.sortingRule);
 
@@ -166,6 +168,7 @@ function getPaginationSortingOptions(productSearch, sortingOptions, pagingModel)
  * @return {SortingOption} - Sorting option
  */
 function getSortingOptions(productSearch, sortingOptions, pagingModel) {
+
     return collections.map(sortingOptions, function (option) {
         var baseUrl = productSearch.urlSortingRule(ACTION_ENDPOINT, option.sortingRule);
 

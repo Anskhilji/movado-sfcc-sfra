@@ -71,21 +71,26 @@
       <isinclude template="components/header/search" />
     </div>
     <isinclude template="analyticsTracking/analyticsTrackingHeader.isml"/>
+
     <script>
         var isklarnaPromoEnabled = false;
     </script>
-    <isset name="siteLocaleCountryCode" value="${dw.util.Locale.getLocale(request.locale).getCountry()}" scope="page" />
-    <isif condition="${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries')) && dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries').indexOf(siteLocaleCountryCode) > -1}">
-        <isset name="KlarnaOnSiteMessaging" value="${JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaMessagingUci'))}" scope="page" />
-        <isif condition="${!empty(KlarnaOnSiteMessaging) && siteLocaleCountryCode in KlarnaOnSiteMessaging && KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}">
-            <script async src="https://eu-library.klarnaservices.com/merchant.js?uci=${KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}&country=${siteLocaleCountryCode}"></script>
-            <script>
-                isklarnaPromoEnabled = true;
-            </script>
-            <script>
-                window.isklarnaPromoEnabled = true;
-            </script>
+    <isset name="klarnaAllowedCountries" value = "${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries')) ? dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries') : false}" scope="page" />
+    <isif condition="${klarnaAllowedCountries}">
+        <isset name="klarnaJsSource" value="${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaJsSource')) ? dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaJsSource') : false }" scope="page" />
+        <isif condition="${klarnaJsSource}">
+            <isprint value="${klarnaJsSource}" encoding="off" />
         </isif>
+        <script>
+            isklarnaPromoEnabled = true;
+        </script>
+        <script>
+            window.isklarnaPromoEnabled = true;
+        </script>
+    </isif>
+    <isset name="klarnaRefreshJs" value="${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaRefreshJs')) ? dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaRefreshJs') : false }" scope="page" />
+    <isif condition="${klarnaRefreshJs}">
+        <isprint value="${klarnaRefreshJs}" encoding="off" />
     </isif>
   </nav>
 </header>

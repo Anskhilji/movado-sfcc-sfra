@@ -11,6 +11,7 @@ var googleAnalyticsHelpers = require('*/cartridge/scripts/helpers/googleAnalytic
 var URLUtils = require('dw/web/URLUtils');
 var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
 var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var ArrayList = require('dw/util/ArrayList');
 
@@ -43,6 +44,7 @@ function gtmModel(req) {
     this.googleAnalyticsParameters = '';
     this.customerIPAddressLocation = '';
     this.rakutenAllowedCountries =  [];
+    this.runningABTests = '';
 
     if (req.querystring != undefined) {
         var queryString = req.querystring.urlQueryString;
@@ -93,9 +95,14 @@ function gtmModel(req) {
     // tenant
     var tenant = getTenant(language); 
 
+    var productObj;
+
     if (pid != null) {
         var ProductMgr = require('dw/catalog/ProductMgr');
         productObj = ProductMgr.getProduct(formatProductId(pid));
+    }
+
+    if (!empty(productObj)) {
         productBreadcrumbs = getProductBreadcrumb(productObj);
         var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
         var secoundarySiteSection = escapeQuotes(productBreadcrumbs.secondaryCategory);
@@ -141,6 +148,8 @@ function gtmModel(req) {
     var customerIPAddressLocation = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
     var isRakutenEnabled = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
     this.rakutenAllowedCountries = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
+
+    var runningABTests = productCustomHelper.getRunningABTestSegments();
    
     this.rakutenAllowedCountries = isRakutenEnabled ? this.rakutenAllowedCountries.toString() : '';
     this.pageUrl = pageUrl != null ? pageUrl : '';
@@ -153,6 +162,7 @@ function gtmModel(req) {
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
     this.customerIPAddressLocation = customerIPAddressLocation || '';
+    this.runningABTests = runningABTests || '';
 }
 
 
@@ -403,11 +413,30 @@ function getBasketParameters() {
         // Custom Start : Added city state zip code with pipe bars
         var cityStateZipCode = (currentBasket.billingAddress) ? currentBasket.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.postalCode: '';
         // Custom End
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
                 var variants = getVariants(cartItem);
                 var productModel = productFactory.get({pid: cartItem.productID});
                 var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+                
+                // Custom Start: Check for Clyde Option
+                if (isClydeEnabled) {
+                    if (cartItem.optionProductLineItems) {
+                        var optionId;
+                        var optionPrice;
+                        var optionProducts;
+                        var productOptions = cartItem.optionProductLineItems;
+                        for (var i = 0; i < productOptions.length; i++) {
+                            optionProducts = {
+                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
+                                price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
+                            }
+                        }
+                    } 
+                } 
+                // Custom End
+
                 cartJSON.push({
                     id: cartItem.productID,
                     name: stringUtils.removeSingleQuotes(cartItem.productName),
@@ -431,7 +460,10 @@ function getBasketParameters() {
                     orderlevelDiscount: totalsModel.orderLevelDiscountTotal.value,
                     // Custom End
                     // Custom Start : Added payment method
-                    paymentMethod: paymentMethod });
+                    paymentMethod: paymentMethod,
+                    optionId: optionProducts ? optionProducts.id : '',
+                    optionPrice: optionProducts ? optionProducts.price : '' 
+                });
             }       // Custom End
         });
     }
@@ -476,6 +508,8 @@ function getCartJSONArray(checkoutObject) {
         cartObj.discount = cartJSON[i].discount;
         // Custom End
         cartObj.paymentMethod = cartJSON[i].paymentMethod;
+        cartObj.optionId = (!empty(cartJSON[i].optionId)) ? cartJSON[i].optionId : '';
+        cartObj.optionPrice = (!empty(cartJSON[i].optionPrice)) ? formatMoney(cartJSON[i].optionPrice) : '';
 
         if (cartArray.length < 10) {
             cartArray.push({
@@ -632,6 +666,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             });
         });
 
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
         var orderJSONArray = [];
         collections.forEach(order.productLineItems, function (productLineItem) {
             var variants = getVariants(productLineItem);
@@ -651,6 +686,26 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             } else {
                 produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
             }
+            
+            // Custom Start: Check for Clyde Option
+            if (isClydeEnabled) {
+                if (productLineItem.optionProductLineItems) {
+                    var optionId;
+                    var optionPrice;
+                    var optionProducts;
+                    var productOptions = productLineItem.optionProductLineItems;
+                    for (var i = 0; i < productOptions.length; i++) {
+                        var optionProducts = {
+                            id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
+                            price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
+                        }
+                    }
+                }
+            }
+            optionId = optionProducts ? optionProducts.id : '';
+            optionPrice = optionProducts ? optionProducts.price :'';
+            // Custom End
+
             produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
             produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
             // Custom Start : Added subtotal
@@ -673,6 +728,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
             produtObj.orderLevelPromotionPrice = orderLevelPromotionPrice;
             // Custom End
+            produtObj.optionId = optionId ? optionId : '';
+            produtObj.optionPrice = optionPrice ? formatMoney(optionPrice) : '';
 
             // Custom Start : Added VAT for OBUK
             if (Site.current.ID === 'OliviaBurtonUK') {

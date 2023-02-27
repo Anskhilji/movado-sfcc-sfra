@@ -106,7 +106,7 @@ function updateCartTotals(data) {
     }
     $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.tax-total').empty().append(data.totals.totalTax);
-    $('.grand-total, .cart-total').empty().append(data.totals.grandTotal);
+    $('.grand-total-sum, .cart-total').empty().append(data.totals.grandTotal);
     $('.sub-total').empty().append(data.totals.subTotal);
     /* Affirm block for refreshing promo message */
     var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
@@ -417,6 +417,21 @@ function displayMessageAndRemoveFromCart(data) {
         $('.cart.cart-page #removeProductModal').modal();
     }, 2000);
 }
+function detectBrowser() {
+    if (navigator.userAgent.includes('Chrome')) {
+        return 'chrome';
+    }
+    if (navigator.userAgent.includes('Firefox')) {
+        return 'firefox';
+    }
+    if (navigator.userAgent.includes('Safari')) {
+        return 'safari';
+    }
+}
+
+$(document).ready(function() {
+    document.body.className = detectBrowser();
+});
 
 module.exports = function () {
     // Check if Is gift message is checked on cart load then show text area otherwise hide it.
@@ -682,6 +697,9 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 $('.coupon-uuid-' + uuid).remove();
+                if (data.couponLineItemsLength !== undefined && data.couponLineItemsLength !== '') {
+                    data.couponLineItemsLength > 0 ? $('.promo-code-applied').text(data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH) : $('.promo-code-applied').text('');
+                }
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
                 $('.promotion-information').parent().empty().append(data.totals.discountsHtml);

@@ -5,6 +5,7 @@ server.extend(module.superModule);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 
 server.replace('UpdateShippingMethodsList', server.middleware.https, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -105,6 +106,8 @@ server.replace(
         var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
         var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
         var emailObj = [];
+        var ShippingMgr = require('dw/order/ShippingMgr');
+        var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 
         var currentBasket = BasketMgr.getCurrentBasket();
         checkoutLogger.debug('(CheckoutShippingServices) -> SubmitShipping: Inside SubmitShipping to submit shipping form');
@@ -159,6 +162,8 @@ server.replace(
             
             // Subscribe to the movado email list: Starts.
             var subscribeToMovado = form.shippingAddress.addressFields.subscribetomovado.value;
+            var geolocation = !empty(req.geolocation.countryCode) ? req.geolocation.countryCode : '';
+            
             if (subscribeToMovado) {
                 var requestParams = {
                     email: form.shippingAddress.addressFields.email.htmlValue,
@@ -174,6 +179,7 @@ server.replace(
                         requestParams.subscribe = ltkConstants.Subscribe.Checkout;
                         requestParams.firstName= form.shippingAddress.addressFields.firstName.value;
                         requestParams.lastName= form.shippingAddress.addressFields.lastName.value;
+                        requestParams.country = !empty(requestParams.country) ? requestParams.country : geolocation;
                         
                         ltkApi.sendSubscriberToListrak(requestParams);
                     } else {
@@ -242,6 +248,12 @@ server.replace(
                     if (!empty(currentBasket.billingAddress)) {
                         currentBasket.billingAddress.setPhone(form.shippingAddress.addressFields.phone.htmlValue || '');
                     }
+
+                    var shippingMethods = ShippingMgr.getAllShippingMethods();
+                    var shipment = currentBasket.defaultShipment
+                    if (currentBasket.custom.storePickUp) {
+                        ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
+                    }
                 });
 
                 var giftResult = COHelpers.setGift(
@@ -297,6 +309,12 @@ server.replace(
                     form: server.forms.getForm('shipping')
                 });
             });
+
+            var email = form.shippingAddress.addressFields.email.htmlValue;
+            if (!empty(email)) {
+                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(CheckoutShippingServices) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
+            }
         }
 
         return next();

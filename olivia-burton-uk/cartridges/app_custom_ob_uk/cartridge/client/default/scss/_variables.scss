@@ -35,6 +35,9 @@
 @font-face {font-family: 'Adobe-Garamond-Pro-Italic';src: url('../webfonts/AdobeGaramondProItalic.ttf') format('truetype');}
  
 //font family
+$font-gill-std-bold: "gill-sans-nova", Arial, sans-serif;
+$font-gill-std-semibold: "gill-sans-nova", Arial, sans-serif;
+$font-gills-light: "gill-sans-nova", Arial, sans-serif;;
 $font-museo-std: "MuseoSlab-500", "Courier New", monospace;
 $font-museo-light: "MuseoSlab-300", "Courier New", monospace;
 $font-gill-std: "GillSansMTStd-Light", Arial, sans-serif;
@@ -74,10 +77,13 @@ $font-light: 300;
 $font-semi-bolder: 600;
 
 //color
+$gray: #EDECE6;
+$gray-light: #F5F1E9;
 $black: #000;
 $black1: #111;
 $black2: #2e2e2e;
 $black3: #333;
+$black4: #1E1E1E;
 $black-opacity-5: rgba(0, 0, 0, 0.5);
 $black-opacity-8: rgba(0, 0, 0, 0.8);
 $black-opacity-6: rgba(0, 0, 0, 0.6);
@@ -86,10 +92,6 @@ $white-smoke: #f0f0f0;
 $white-smoke-light: #f7f7f7;
 $grey: #868686;
 $grey49: #7d7d7d;
-$pink-grey: #ead7d5;
-$pink-grey1: #FFF3F1;
-$pink-hot: #e9a9c6;
-$pink-grey-light: #E9D7D5;
 $dim-grey: #666;
 $grey1: #575555;
 $grey2: #FAFAFA;
@@ -110,9 +112,17 @@ $cod-gray: #121212;
 $gray92: #EBEBEB;
 $sinbad: #9CD1C8;
 $light-black: #191919;
+$alice-blue: #F7F8F9;
+$gossamer: #3aab4a;
+$light-black2:#2C2C2C;
+$parrot-green: #3AAB4A;
+$dark-green: #66984C !default;
+$gray90: #E5E5E5 !default;
+$gull-gray-light: rgba(160, 169, 186, 0.1) !default;
 
 $white-gray: #f7f8f9 !default;
 $light-green: #53c563 !default;
+$light-green3: #429C19;
 $light-gray2: #929292 !default;
 $light-gray4: #e8e8e8 !default;
 $light-gray5: #5c5c5c !default;
@@ -121,6 +131,15 @@ $light-grey-4: rgba(255,255,255,0.2);
 
 
 $transparent-gray: rgba(0, 0, 0, 0.8) !default;
+$transparent-gray-1: rgba(0, 0, 0, 0.2) !default;
 
 //box shadows
 $form-box-shadow: 0 rem(2) rem(2) 0 rgba(0, 0, 0, 0.24);
+
+$large-screen-width-1440: 1440px;
+
+@mixin custom-media-query-1440($large-screen-width-1440) {
+    @media (min-width:#{$large-screen-width-1440}) {
+        @content;
+    }
+}
