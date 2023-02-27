@@ -279,7 +279,6 @@
                             </div>
                         </div>
 
-<<<<<<< HEAD
                         <div class="hidden-sm-down">
                         <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                         <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
@@ -291,9 +290,7 @@
                                 </div>
                             </div>
                         <iselse/>
-=======
                         <div class="hidden-sm-down d-none">
->>>>>>> master
                             <isinclude template="product/components/pidRating" />
                         </div>
 
