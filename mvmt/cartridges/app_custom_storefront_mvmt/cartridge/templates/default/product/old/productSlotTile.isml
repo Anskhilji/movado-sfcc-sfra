@@ -37,7 +37,7 @@
 
                     <isinclude template="product/components/badges" />
                 </div>
-                <isif condition="${pdict.display.swatches !== false  && product.productType == 'master'}">
+                <isif condition="${pdict.display.swatches !== false}">
                     <isif condition="${(!empty(product.colorVariationsValues)) && (!empty(product.colorVariationsValues.values)) ? product.colorVariationsValues.values : ''}">
                         <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? 'plp-swatches-reserved' : '0-opacity'}">
                             <isif condition="${!product.isWatchTile}">

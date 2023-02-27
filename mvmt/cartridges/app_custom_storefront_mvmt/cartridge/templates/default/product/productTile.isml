@@ -22,7 +22,7 @@
     </isif>
     <div class="tile-body">
         <div class="swatches-container">
-            <isif condition="${pdict.display.swatches !== false  &&  product.productType == 'master'}">
+            <isif condition="${pdict.display.swatches !== false}">
                 <isif condition="${pdict.display.isEyewearTile}">
                     <isinclude template="product/components/productTileEyewearSwatch" />
                 <iselseif condition="${!product.isWatchTile}" />
