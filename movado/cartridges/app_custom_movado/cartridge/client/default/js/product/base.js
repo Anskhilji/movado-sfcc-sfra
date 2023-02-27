@@ -1227,7 +1227,7 @@ module.exports = {
                     if (!$(this).hasClass('product-set-detail')) {
                         setPids.push({
                             pid: $(this).find('.product-id').text(),
-                            qty: $(this).find('.quantity-select').val(),
+                            qty: 1,
                             options: getOptions($(this))
                         });
                     }

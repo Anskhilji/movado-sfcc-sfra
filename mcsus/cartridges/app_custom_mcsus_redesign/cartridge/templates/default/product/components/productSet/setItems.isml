@@ -88,6 +88,10 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="d-none">
+                            <isinclude template="/product/components/productNumber" />
+                        </div>
                     </div>
                 </isloop>
             </div>
