@@ -38,7 +38,7 @@ function initializePDPMainSlider() {
 function initializeCarousel(winWidth, isResize) {
     if ($('.primary-images .main-carousel img').parents('.slick-active.slick-center').length > 0) {
         if (!isResize) {
-          $("#zoomProduct").modal("show");
+          $('#zoomProduct').modal('show');
         }
         if ($('.zoom-carousel.slick-slider:visible').length == 0) {
             setTimeout(function() {
@@ -59,13 +59,13 @@ $(window).resize(function(){
 
 $(document).ready(function() {
     // Custom Start: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
-    $(window).on("resize", function () {
+    $(window).on('resize', function () {
         var winWidth = $(window).width();
         initializeCarousel(winWidth, true);
         initializePDPMainSlider();
     });
 
-    $(window).on("click", function () {
+    $(window).on('click', function () {
         var winWidth = $(window).width();
         initializeCarousel(winWidth, true);
     });
@@ -173,18 +173,18 @@ $(window).on('load resize scroll', function(e) {
     }
 });
 
-$(document).on('click','#product-tile-open-btn', function() {
-    $("#product-tile-popup").addClass("show-popup-tile");
+$(document).on('click', '#product-tile-open-btn', function() {
+    $('#product-tile-popup').addClass('show-popup-tile');
 });
 
-$(document).on('click','#close-popup', function() {
-    $("#product-tile-popup").removeClass("show-popup-tile");
+$(document).on('click', '#close-popup', function() {
+    $('#product-tile-popup').removeClass('show-popup-tile');
 });
 
 if ($(window).width() >= 769) {
     $(document).ready(function() {
         $(window).resize(function() {
-        var productTitle = $(".homepagetile-wrapper-box").height() - 10;
+        var productTitle = $('.homepagetile-wrapper-box').height() - 10;
             $('.main-container-inner img')({'height': productTitle});
         }).resize();
     });
@@ -336,28 +336,6 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
-    if (!(response && response.product && response.product.isGiftBoxAllowed)) {
-        $('.gift-box-wrapper').css('visibility', 'hidden');
-        if($('.product-side-details .gift-allowed-checkbox').is(':checked')) {
-            $('.product-side-details .gift-allowed-checkbox').prop('checked', false);
-        }
-    } else {
-        if ($(window).width() >= 768) {
-            if($('.gift-box-wrapper').attr('style')) {
-                $('.gift-box-wrapper').removeAttr('style');
-            }
-            $('.gift-box-wrapper.d-desktop-show').show();
-        } else {
-            if($('.gift-box-wrapper').attr('style')) {
-                $('.gift-box-wrapper').removeAttr('style');
-            }
-            $('.gift-box-wrapper.d-mobile-show').show();
-        }
-        if($('.product-side-details .gift-allowed-checkbox').is(':checked')) {
-            $('.product-side-details .gift-allowed-checkbox').prop('checked', false);
-        }
-    }
-
     //Update Product Title
     if (typeof response.product.productName !== 'undefined' && response.product.productName !== '' && response.product.productName !== null) {
         $productContainer.find('.product-name').text(response.product.productName);
@@ -439,18 +417,6 @@ function handleVariantResponse(response, $productContainer) {
             var $updatedQueryString = response.product.id;
             var $updatedSmartGiftUri = $smartGiftBaseUrl + '/' + $updatedQueryString;
             $('.smart-gift-btn a').attr("href", $updatedSmartGiftUri);
-        }
-    }
-
-    //Update Drop a Hint URL
-    var $dropHintUrl = $('.drop-hint').attr('href');
-    if ($dropHintUrl !== '' && $dropHintUrl !== undefined) {
-        var $dropHintUrlParts = $dropHintUrl.split('=');
-        if ($dropHintUrlParts.length > 0) {
-            var $dropHintBaseUrl = $dropHintUrlParts[0];
-            var $updatedProductId = response.product.id;
-            var $dropHintUpdatedUri = $dropHintBaseUrl + '=' + $updatedProductId;
-            $('.drop-hint').attr("href", $dropHintUpdatedUri);
         }
     }
 
@@ -600,9 +566,9 @@ function attributeSelect(selectedValueUrl, $productContainer) {
 
         $productContainer.find('input[type="text"], textarea').filter('[required]:visible')
         .each(function() {
-            if($(this).val() && $(this).closest("form.submitted").length) {
+            if($(this).val() && $(this).closest('form.submitted').length) {
                 selectedValueUrl.searchParams.append($(this).data('name'), $(this).val());
-                selectedValueUrl.searchParams.append($(this).closest("form").find('input[type="hidden"]').attr("name"), $(this).closest("form").find('input[type="hidden"]').val());
+                selectedValueUrl.searchParams.append($(this).closest('form').find('input[type="hidden"]').attr('name'), $(this).closest('form').find('input[type="hidden"]').val());
             }
         });
 
