@@ -1,0 +1,18 @@
+<div class="yotpo-display-wrapper" aria-hidden="true" style="visibility: hidden;">  
+    <div class="standalone-bottomline" data-source="default"> 
+        <div class="yotpo-bottomline pull-left  star-clickable" tabindex="0">  
+            <span class="yotpo-stars"> 
+                <span class="yotpo-icon yotpo-icon-star rating-star pull-left"></span>
+                <span class="yotpo-icon yotpo-icon-star rating-star pull-left"></span>
+                <span class="yotpo-icon yotpo-icon-star rating-star pull-left"></span>
+                <span class="yotpo-icon yotpo-icon-star rating-star pull-left"></span>
+                <span class="yotpo-icon yotpo-icon-empty-star rating-star pull-left"></span>
+                <span class="sr-only">${yotpoReviews.average_score} ${Resource.msg('product.yotpo.star.rating','product',null)}</span> 
+            </span>
+            <a class="text-m" aria-label="${yotpoReviews.average_score} ${Resource.msg('product.yotpo.star.rating','product',null)}">${yotpoReviews.total} ${Resource.msg('product.yotpo.reviews','product',null)}</a>
+            <div class="yotpo-clr"></div> 
+        </div> 
+        <div class="yotpo-clr"></div> 
+    </div>   
+    <div class="yotpo-clr"></div> 
+</div>

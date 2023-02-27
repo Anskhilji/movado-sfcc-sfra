@@ -58,9 +58,10 @@ function execute() {
             if (!empty(product)) {
                 productID = product.ID;
                 yotpoResponseHTML = ImportReviewModel.importReviewsAndRatings(productID, yotpoReviewsPage, isReview, locale);
-                if (!empty(yotpoResponseHTML)) {
+                var yotpoResponseJSON = JSON.stringify(yotpoResponseHTML);
+                if (!empty(yotpoResponseJSON)) {
                     Transaction.wrap(function () {
-                        product.custom.yotpoStarRattings = yotpoResponseHTML;
+                        product.custom.yotpoStarRattings = yotpoResponseJSON;
                     });
                 }
             } else {
