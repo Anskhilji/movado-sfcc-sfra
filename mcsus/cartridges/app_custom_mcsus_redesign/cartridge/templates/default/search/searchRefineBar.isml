@@ -45,6 +45,7 @@
                     <isif condition="${refinement.isPriceRefinement}">
                         <isinclude template="search/refinements/prices" />
                     </isif>
+                        <isinclude template="search/components/yotpoStarRatingRefinements" />
                 </div>
             </div>
         </isloop>
