@@ -1217,6 +1217,7 @@ module.exports = {
             var pidsObj;
             var setPids;
             var giftPid;
+            var $this = $(this);
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -1234,14 +1235,25 @@ module.exports = {
                 });
                 pidsObj = JSON.stringify(setPids);
             }
-
-            if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
+            
+            if ($this.data('product-set') == true) {
+                setPids = [];
+                $this.find('.product-sets').each(function () {
+                    setPids.push({
+                        pid: $(this).text(),
+                        qty: 1,
+                        options: getOptions($(this))
+                    });
+                });
+                pidsObj = JSON.stringify(setPids);
+                pid = getPidValue($(this));
+            } else if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
                 pid = $(this).data('pid');
                 if ($('.gift-allowed-checkbox').is(":checked")) {
                     giftPid = $('.gift-allowed-checkbox').val();
                 }
             } else {
-            	pid = getPidValue($(this));
+                pid = getPidValue($(this));
                 if ($('.gift-allowed-checkbox').is(":checked")) {
                     giftPid = $('.gift-allowed-checkbox').val();
                 }
