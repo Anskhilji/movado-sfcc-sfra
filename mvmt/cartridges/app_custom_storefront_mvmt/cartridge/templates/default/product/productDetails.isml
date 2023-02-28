@@ -13,7 +13,7 @@
     <isif condition="${isListrakEnable}">
         <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>
     </isif>
-    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
     <isif condition="${sitePref.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
@@ -182,7 +182,15 @@
                         <div class="ratings-mobile pb-2">
                             <div class="col-12 rating-margin mobile-click-review">
                                 <div class="ratings p-0">
-                                    <isinclude template="product/components/productRating" />
+                                    <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                    <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                    <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isinclude template="product/components/yotpoRatings" />
+                                        </div>
+                                    <iselse/>
+                                        <isinclude template="product/components/productRating" />
+                                    </isif>
                                 </div>
                             </div>
                         </div>
@@ -281,19 +289,22 @@
                             </div>
                         </div>
 
-                        <div class="hidden-sm-down d-none">
-                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                            <div class="hidden-sm-down d-none">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
                                 <div class="product-price-rating clearfix">
                                     <div class="ratings">
                                         <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                            <isinclude template="product/components/yotpoRatings" />
                                         </div>
                                     </div>
                                 </div>
-                            <iselse/>
+                            </div>
+                        <iselse/>
+                            <div class="hidden-sm-down d-none">
                                 <isinclude template="product/components/pidRating" />
-                            </isif>
-                        </div>
+                            </div>
+                        </isif>
 
                         <!-- Applicable Promotions -->
                         <div class="promotions d-md-block d-none">

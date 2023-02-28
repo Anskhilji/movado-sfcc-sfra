@@ -60,7 +60,15 @@
                             </div>
                             <!-- Product Rating -->
                             <div class="ratings d-none-mobile-rating">
-                                <isinclude template="product/components/productRating" />
+                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isinclude template="product/components/yotpoRatings" />
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/productRating" />
+                                </isif>
                             </div>
                         </div>
                         <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
@@ -120,7 +128,14 @@
                         <div class="product-section-mobile scroll-wrapper-inner">
                             <!-- Product Rating -->
                             <div class="ratings ratings-mobile d-lg-none d-sm-none">
-                                <isinclude template="product/components/productRating" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isinclude template="product/components/yotpoRatings" />
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/productRating" />
+                                </isif>
                             </div>
                             <iscomment> Custom Start: [MSS-1341 Show/Hide Short Description on PDP]</iscomment>
                             <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />

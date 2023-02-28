@@ -61,7 +61,19 @@
                             <iscomment> product rating </iscomment>
                            <div class="pdp-rating-reviews">
                             <div class="d-block rating-box-redisgn">
-                                <isinclude template="product/components/pidRating" />
+                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                    <div class="product-number-rating">
+                                        <div class="ratings">
+                                            <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                                <isinclude template="product/components/yotpoRatings" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/pidRating" />
+                                </isif>
                             </div>
                            </div>
                         </isif>
@@ -104,10 +116,11 @@
                          <div class="pdp-rating-reviews">
                             <div class="d-none d-sm-block rating-box-redisgn">
                                 <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
                                     <div class="product-number-rating">
                                         <div class="ratings">
                                             <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                                <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                                <isinclude template="product/components/yotpoRatings" />
                                             </div>
                                         </div>
                                     </div>
