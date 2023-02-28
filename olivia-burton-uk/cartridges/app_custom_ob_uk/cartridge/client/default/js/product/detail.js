@@ -206,10 +206,10 @@ function hideYotpoReviews() {
                 $yotpoEmptyStarContainerMobile.addClass('d-none');
             }
         } else {
-            setTimeout(hideYotpoReviews, 1000);
+            setTimeout(hideYotpoReviews, 5000);
         }
     } else {
-        setTimeout(hideYotpoReviews, 1000);
+        setTimeout(hideYotpoReviews, 5000);
     }
 }
 
