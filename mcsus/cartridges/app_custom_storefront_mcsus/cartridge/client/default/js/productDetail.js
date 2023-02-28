@@ -5,6 +5,7 @@ $(document).ready(function () {
     processInclude(require('./product/carouselInitializer'));
     processInclude(require('./product/productDetailCustom'));
     processInclude(require('./product/storePickUpDetail'));
+    processInclude(require('./product/detail'));
 });
 
 // added active class & scroll down on reviews widget
