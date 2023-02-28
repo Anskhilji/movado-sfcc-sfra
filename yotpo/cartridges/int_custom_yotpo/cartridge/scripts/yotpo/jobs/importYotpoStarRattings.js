@@ -10,6 +10,7 @@
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var ProductSearchModel = require('dw/catalog/ProductSearchModel');
 var Site = require('dw/system/Site');
+
 var YotpoLogger = require('int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
 
 /**
@@ -32,10 +33,11 @@ function getProductSearchHitIt() {
  * @returns {Object} Status
  */
 function execute() {
-    var ImportReviewModel = require('*/cartridge/scripts/yotpo/model/reviewspayload/ImportReviewModel');
     var Status = require('dw/system/Status');
     var Transaction = require('dw/system/Transaction');
     var YotpoUtils = require('*/cartridge/scripts/yotpo/utils/YotpoUtils');
+
+    var ImportReviewModel = require('*/cartridge/scripts/yotpo/model/reviewspayload/ImportReviewModel');
 
     var isReview = '';
     var locale = 'default';
@@ -69,7 +71,7 @@ function execute() {
             }
         }
     } catch (ex) {
-        YotpoLogger.logMessage('Something went wrong while importing reviews and ratings, Exception code is: ' + ex, 'error', logLocation, 'lineNumber', e.lineNumber);
+        YotpoLogger.logMessage('Something went wrong while importing reviews and ratings, Exception code is: ' + ex, 'error', logLocation, 'lineNumber', ex.lineNumber);
         return new Status(Status.ERROR);
     }
     return new Status(Status.OK);

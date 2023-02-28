@@ -61,9 +61,10 @@
                         <isinclude template="product/components/yotpoRatings" />
                     </div>
                 <iselse/>
-                <a href="${pdict.urls.product}#yotpo-reviews-top-div">
-                    <isinclude template="product/components/ratings" />
-                </a>
+                    <a href="${pdict.urls.product}#yotpo-reviews-top-div">
+                        <isinclude template="product/components/ratings" />
+                    </a>
+                </isif>
             </div>
         </div>
 

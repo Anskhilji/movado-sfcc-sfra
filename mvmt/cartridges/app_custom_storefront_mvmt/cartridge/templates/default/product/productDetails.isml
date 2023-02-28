@@ -290,9 +290,10 @@
                                 </div>
                             </div>
                         <iselse/>
-                        <div class="hidden-sm-down d-none">
-                            <isinclude template="product/components/pidRating" />
-                        </div>
+                            <div class="hidden-sm-down d-none">
+                                <isinclude template="product/components/pidRating" />
+                            </div>
+                        </isif>
 
                         <!-- Applicable Promotions -->
                         <div class="promotions d-md-block d-none">
