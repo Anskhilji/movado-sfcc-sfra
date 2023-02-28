@@ -1,4 +1,5 @@
-<isif condition="${session.privacy.pickupFromStore}">
+<isset name="currentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
+<isif condition="${currentBasket && currentBasket.custom.storePickUp === true}">
     <div class="col-12 bopis-shipping-method">
         <div class="form-group relative">
             <label for="shippingMethods">${Resource.msg('field.selectshippingmethod','cart',null)}</label>

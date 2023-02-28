@@ -1,4 +1,6 @@
-<isif condition="${session.privacy.pickupFromStore ? session.privacy.pickupFromStore : isBOPISOrder}">
+<isset name="currentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
+
+<isif condition="${currentBasket && currentBasket.custom.storePickUp === true ? true : isBOPISOrder}">
     <p class="summary-section-label shipping-addr-label billing-details-label">${Resource.msg('label.order.your.detail', 'storePickUp', null)}:</p>
 <iselse/>
     <p class="summary-section-label shipping-addr-label">${Resource.msg('label.order.shipping.address', 'confirmation', null)}</p>

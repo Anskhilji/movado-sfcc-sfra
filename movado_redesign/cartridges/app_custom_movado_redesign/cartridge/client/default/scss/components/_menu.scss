@@ -62,6 +62,14 @@
       }
     }
   }
+
+  &.menu-toggleable-left { 
+      @include media-breakpoint-down(md) {
+          &.main-menu {
+              z-index: 1028;
+          }
+      }
+  }
 }
 
 .desktop-menu {
