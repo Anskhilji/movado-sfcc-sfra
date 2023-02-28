@@ -84,3 +84,37 @@
         color: $star;
     }
 }
+
+.plp-filter-list,
+.mvmt-plp {
+
+    .filter-group,
+    .mobile-filter-redesign {
+
+        .mobile-selection-inner,
+        .filter-group-outer {
+            
+            .values {
+                &.ratting-fliter {
+
+                    .elements {
+
+                        .rounded-image {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            i {
+                                &.fa-star {
+                                    font-size: rem(40);
+                                    color: $star-light;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
