@@ -1484,15 +1484,4 @@ module.exports = {
 
     getPidValue: getPidValue,
     getQuantitySelected: getQuantitySelected,
-    updateOptions: updateOptions,
-    updateQuantities: updateQuantities,
-    handleOptionsMessageErrors: handleOptionsMessageErrors,
-    zoom: zoom,
-    slickHeight: slickHeight,
-    processSwatchValues: processSwatchValues,
-    updateAvailability: updateAvailability,
-    getAttributesHtml: getAttributesHtml,
-    initializeZoomSlickDots: initializeZoomSlickDots,
-    initializeZoomModelCarousel: initializeZoomModelCarousel,
-    getPromotionsHtml: getPromotionsHtml
 };

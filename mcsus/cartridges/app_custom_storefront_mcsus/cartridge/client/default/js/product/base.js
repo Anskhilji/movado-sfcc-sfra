@@ -45,7 +45,7 @@ function initializeCarousel(winWidth, isResize) {
                 $('.zoom-carousel.slick-slider').slick('refresh');
                 $('.zoom-carousel-slider.slick-slider').slick('refresh');
                 if (winWidth > mediumBreakPoint) {
-                    movadoBase.zoom();
+                    zoom();
                 }
             }, 300);
         }
@@ -93,9 +93,9 @@ $('body').on('click', '.primary-images .pdp-carousel img', function (e) {
             setTimeout(function() {
                 $('.zoom-carousel.slick-slider').slick('refresh');
                 $('.zoom-carousel-nav .slick-slider').slick('refresh');
-                movadoBase.slickHeight();
+                slickHeight();
                 if ($winWidth > $mediumBreakPoint) {
-                    movadoBase.zoom();
+                    zoom();
                 }
             }, 300);
         }
@@ -108,7 +108,7 @@ $('body').on('click', '.carousel-indicator-image', function (e) {
 });
 
 $(window).resize(function() {
-    movadoBase.slickHeight();
+    slickHeight();
 });
 
 $(window).on('load resize scroll', function(e) {
@@ -230,7 +230,7 @@ function updateAttrs(attrs, $productContainer) {
 
     attrs.forEach(function (attr) {
         if (attrsWithSwatches.indexOf(attr.id) > -1) {
-            movadoBase.processSwatchValues(attr, $productContainer);
+            processSwatchValues(attr, $productContainer);
         } else {
             processNonSwatchValues(attr, $productContainer);
         }
@@ -501,9 +501,9 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Update promotions
-    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions').empty().html(movadoBase.getPromotionsHtml(response.product.promotions));
+    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions').empty().html(getPromotionsHtml(response.product.promotions));
 
-    movadoBase.updateAvailability(response, $productContainer);
+    updateAvailability(response, $productContainer);
 
     if (isChoiceOfBonusProducts) {
         var $selectButton = $productContainer.find('.select-bonus-product');
@@ -519,12 +519,12 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update attributes
     $productContainer.find('.main-attributes').empty()
-        .html(movadoBase.getAttributesHtml(response.product.attributes));
+        .html(getAttributesHtml(response.product.attributes));
 
     // intialize carousel
         initializePDPMainSlider();
-        movadoBase.initializeZoomSlickDots();
-        movadoBase.initializeZoomModelCarousel();
+        initializeZoomSlickDots();
+        initializeZoomModelCarousel();
         $('.main-carousel .slick-active').addClass('slick-center');
 
     $(document).ready(function () {
@@ -580,9 +580,9 @@ function attributeSelect(selectedValueUrl, $productContainer) {
             method: 'GET',
             success: function (data) {
                 handleVariantResponse(data, $productContainer);
-                movadoBase.updateOptions(data.product.options, $productContainer);
-                movadoBase.updateQuantities(data.product.quantities, $productContainer);
-                movadoBase.handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
+                updateOptions(data.product.options, $productContainer);
+                updateQuantities(data.product.quantities, $productContainer);
+                handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
 
                 var listrakTracking = require('movado/listrakActivityTracking.js');
                 listrakTracking.listrackProductTracking(data.product.id);
@@ -633,4 +633,288 @@ movadoBase.selectAttribute = function () {
     });
 }
 
-module.exports = movadoBase;
+//custom start : override functions from base.js of movado
+
+/**
+ * Updates DOM using post-option selection Ajax response
+ *
+ * @param {OptionSelectionResponse} options - Ajax response options from selecting a product option
+ * @param {jQuery} $productContainer - DOM element for current product
+ */
+function updateOptions(options, $productContainer) {
+    options.forEach(function (option) {
+        var $optionEl = $productContainer.find('.product-option[data-option-id*="' + option.id
+            + '"]');
+        option.values.forEach(function (value) {
+            var valueEl = $optionEl.find('option[data-value-id*="' + value.id + '"], input[data-value-id*="' + value.id + '"]');
+            valueEl.is('input[type="radio"]') ? valueEl.data('value-url', value.url) : valueEl.val(value.url);
+        });
+    });
+}
+
+/**
+ * Updates the quantity DOM elements post Ajax call
+ * @param {UpdatedQuantity[]} quantities -
+ * @param {jQuery} $productContainer - DOM container for a given product
+ */
+function updateQuantities(quantities, $productContainer) {
+    if (!($productContainer.parent('.bonus-product-item').length > 0)) {
+        var optionsHtml = quantities.map(function (quantity) {
+            var selected = quantity.selected ? ' selected ' : '';
+            return '<option value="' + quantity.value + '"  data-url="' + quantity.url + '"' +
+                selected + '>' + quantity.value + '</option>';
+        }).join('');
+        getQuantitySelector($productContainer).empty().html(optionsHtml);
+    }
+}
+
+/**
+ * Retrieve contextual quantity selector
+ * @param {jquery} $el - DOM container for the relevant quantity
+ * @return {jquery} - quantity selector DOM container
+ */
+function getQuantitySelector($el) {
+    return $el && $('.set-items').length
+        ? $($el).closest('.product-detail').find('.quantity-select')
+        : $('.quantity-select');
+}
+
+/**
+ * Retrieve product options
+ *
+ * @param {jQuery} $productContainer - DOM element for current product
+ * @return {boolean} - return if all product options are valid
+ */
+function validateOptions($el) {
+
+    var optionForm = $el.is("form") ? $el : $el.find('form[name="embossing"], form[name="engraving"]');
+
+    if (!optionForm.length) return true;
+
+    if (optionForm.find('textarea[required]').length) {
+        return optionForm.validate({
+            rules: {
+                'option-message': {
+                    productOptionMessage: true
+                }
+            },
+            messages: {
+                'option-message': {
+                    required: optionForm.find('textarea[required]').data('required-error'),
+                    maxlength: optionForm.find('textarea[required]').data('format-error'),
+                    productOptionMessage: optionForm.find('textarea[required]').data('format-error')
+                }
+            }
+        });
+    } else {
+        return optionForm.validate({
+            rules: {
+                'option-message': {
+                    required: true
+                }
+            },
+            messages: {
+                'option-message': {
+                    required: optionForm.find('input[required]').data('required-error'),
+                    maxlength: optionForm.find('input[required]').data('format-error')
+                }
+            }
+        });
+    }
+}
+
+function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, $productContainer) {
+    var optionForm;
+    if (embossedMessageError) {
+        optionForm = $productContainer.find('form[name="embossing"]');
+        optionForm.removeClass('submitted');
+        optionForm.find("button").removeClass('submitted');
+        optionForm.find('input[type="text"], textarea').removeAttr("readonly");
+        optionForm.find('input[type="radio"]').eq(0).prop('checked', true);
+        validateOptions(optionForm).showErrors({
+            "option-message": embossedMessageError
+        });
+    }
+
+    if (engravedMessageError) {
+        optionForm = $productContainer.find('form[name="engraving"]');
+        optionForm.removeClass('submitted');
+        optionForm.find("button").removeClass('submitted');
+        optionForm.find('input[type="text"], textarea').removeAttr("readonly");
+        optionForm.find('input[type="radio"]').eq(0).prop('checked', true);
+        validateOptions(optionForm).showErrors({
+            "option-message": engravedMessageError
+        });
+    }
+}
+
+function zoom() {
+    $('.zoomit').zoom({
+        onZoomIn:function(){
+            $('.normal-zoom').addClass('opacity-0');
+            $('.zoom-img').addClass('zoomed-img')
+        },
+
+        onZoomOut:function(){
+            $('.normal-zoom').removeClass('opacity-0');
+            $('.zoom-img').removeClass('zoomed-img')
+        }
+    });
+}   
+
+function slickHeight() {
+    var $winWidth = $(window).width();
+    var $mediumBreakPoint= 767;
+    if ($winWidth > $mediumBreakPoint) {
+        var $sliderHeight = $('.zoom-modal .slick-slider').height();
+        $('.zoom-carousel-slider.carousel-nav-variation-redesing').css('height', $sliderHeight - 60);
+    }
+}
+
+/**
+ * Process the attribute values for an attribute that has image swatches
+ *
+ * @param {Object} attr - Attribute
+ * @param {string} attr.id - Attribute ID
+ * @param {Object[]} attr.values - Array of attribute value objects
+ * @param {string} attr.values.value - Attribute coded value
+ * @param {string} attr.values.url - URL to de/select an attribute value of the product
+ * @param {boolean} attr.values.isSelectable - Flag as to whether an attribute value can be
+ *     selected.  If there is no variant that corresponds to a specific combination of attribute
+ *     values, an attribute may be disabled in the Product Detail Page
+ * @param {jQuery} $productContainer - DOM container for a given product
+ */
+function processSwatchValues(attr, $productContainer) {
+    attr.values.forEach(function (attrValue) {
+        var $attrValue = $productContainer.find('[data-attr="' + attr.id + '"] [data-attr-value="' +
+            attrValue.value + '"]');
+        var $swatchAnchor = $attrValue.parent();
+
+        if (attrValue.selected) {
+            $attrValue.addClass('selected');
+        } else {
+            $attrValue.removeClass('selected');
+        }
+
+        if (attrValue.url) {
+            $swatchAnchor.attr('href', attrValue.url);
+        } else {
+            $swatchAnchor.removeAttr('href');
+        }
+    });
+}
+
+/**
+ * Updates the availability status in the Product Detail Page
+ *
+ * @param {Object} response - Ajax response object after an
+ *                            attribute value has been [de]selected
+ * @param {jQuery} $productContainer - DOM element for a given product
+ */
+function updateAvailability(response, $productContainer) {
+    var availabilityValue = '';
+    var availabilityMessages = response.product.availability.messages;
+    if (!response.product.readyToOrder) {
+        availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
+    } else {
+        availabilityMessages.forEach(function (message) {
+            availabilityValue += '<div>' + message + '</div>';
+        });
+    }
+
+    $($productContainer).trigger('product:updateAvailability', {
+        product: response.product,
+        $productContainer: $productContainer,
+        message: availabilityValue,
+        resources: response.resources
+    });
+}
+
+/**
+ * Generates html for product attributes section
+ *
+ * @param {array} attributes - list of attributes
+ * @return {string} - Compiled HTML
+ */
+function getAttributesHtml(attributes) {
+    if (!attributes) {
+        return '';
+    }
+
+    var html = '';
+
+    attributes.forEach(function (attributeGroup) {
+        if (attributeGroup.ID === 'mainAttributes') {
+            attributeGroup.attributes.forEach(function (attribute) {
+                html += '<div class="attribute-values">' + attribute.label + ': '
+                    + attribute.value + '</div>';
+            });
+        }
+    });
+
+    return html;
+}
+
+/**
+ *  CovertsPDP Zoom Model Primary Images to Indicators
+ */
+function initializeZoomSlickDots() {
+    $('.zoom-carousel').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: false,
+        arrows:true,
+        focusOnSelect: true,
+        asNavFor: '.zoom-carousel-slider',
+        responsive: [
+        {
+            breakpoint: 768,
+            settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            dots:true
+            }
+        },
+    ]
+    });
+}
+
+/**
+ *  CovertsPDP Zoom Model Primary Images to Carousel
+ */
+function initializeZoomModelCarousel() {
+    $('.zoom-carousel-slider').slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        asNavFor: '.zoom-carousel',
+        focusOnSelect: true,
+        infinite: false,
+        vertical: true,
+        verticalSwiping: true,
+        arrows: true
+    });
+}
+
+/**
+ * Generates html for promotions section
+ *
+ * @param {array} promotions - list of promotions
+ * @return {string} - Compiled HTML
+ */
+function getPromotionsHtml(promotions) {
+    if (!promotions) {
+        return '';
+    }
+
+    var html = '';
+
+    promotions.forEach(function (promotion) {
+        html += '<div class="callout promo-msg" title="' + promotion.details + '">' + promotion.calloutMsg +
+            '</div>';
+    });
+
+    return html;
+}
+//custom end : override functions from base.js of movado
+module.exports = movadoBase; 
