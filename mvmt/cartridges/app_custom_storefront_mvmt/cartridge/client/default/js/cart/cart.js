@@ -1090,11 +1090,9 @@ module.exports = function () {
     });
 
     $('body').on('click', '.add-gift-box-input', function () {
-        $('.gift-message-box').addClass('hide-box');
         $('.add-gift-box').removeAttr('disabled');
         $('.gift-box-none-button').removeClass('active');
         $('.add-gift-box-input').addClass('active');
-        $('.gift-message-box-input').removeClass('active');
     });
 
 
