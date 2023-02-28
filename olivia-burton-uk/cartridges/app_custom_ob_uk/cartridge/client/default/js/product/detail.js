@@ -190,22 +190,27 @@ function refreshAffirmUI() {
 };
 
 function hideYotpoReviews() {
-    if (document.readyState === "complete") {
-    var $yotpoEmptyStarContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-empty-star');
-    if ($('.ratings.d-none-mobile-rating').find('.yotpo-stars').length > 0) {
-        var $yotpoIconContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-star');
-        if (($yotpoIconContainer).length > 0) {
-            $yotpoEmptyStarContainer.removeClass('d-none');
-            $yotpoEmptyStarContainer.addClass('d-block');
+    if (document.readyState === 'complete') {
+        var $yotpoEmptyStarContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-empty-star');
+        var $yotpoEmptyStarContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-empty-star');
+        if ($('.ratings.d-none-mobile-rating').find('.yotpo-stars').length > 0) {
+            var $yotpoIconContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-star');
+            var $yotpoIconContainer = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-star');
+            if (($yotpoIconContainer).length > 0) {
+                $yotpoEmptyStarContainer.removeClass('d-none');
+                $yotpoEmptyStarContainer.addClass('d-block');
+                $yotpoEmptyStarContainerMobile.removeClass('d-none');
+                $yotpoEmptyStarContainerMobile.addClass('d-block');
+            } else {
+                $yotpoEmptyStarContainer.addClass('d-none');
+                $yotpoEmptyStarContainerMobile.addClass('d-none');
+            }
         } else {
-            $yotpoEmptyStarContainer.addClass('d-none');
+            setTimeout(hideYotpoReviews, 1000);
         }
     } else {
-        setTimeout(hideYotpoReviews, 500);
+        setTimeout(hideYotpoReviews, 1000);
     }
-} else {
-    setTimeout(hideYotpoReviews, 500);
-}
 }
 
 // Custom start: Listrak persistent popupnpm
