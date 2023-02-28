@@ -42,6 +42,11 @@ module.exports = function setProduct(product, apiProduct, options, factory) {
             value: product.images.posterFrame[0] ? product.images.posterFrame[0] : ''
         });
     }
+    
+    Object.defineProperty(product, 'productSetCalloutMsg', {
+        enumerable: true,
+        value: !empty(apiProduct.custom.productSetCalloutMsg) ? apiProduct.custom.productSetCalloutMsg : ''
+    });
 
     return product;
 };
