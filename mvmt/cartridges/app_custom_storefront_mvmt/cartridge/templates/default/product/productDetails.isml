@@ -279,13 +279,14 @@
                             </div>
                         </div>
 
-                        <div class="hidden-sm-down">
                         <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                        <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
-                            <div class="product-price-rating clearfix">
-                                <div class="ratings">
-                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                        <isinclude template="product/components/yotpoRatings" />
+                            <div class="hidden-sm-down d-none">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                <div class="product-price-rating clearfix">
+                                    <div class="ratings">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isinclude template="product/components/yotpoRatings" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
