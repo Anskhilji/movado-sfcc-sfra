@@ -201,9 +201,6 @@ function hideYotpoReviews() {
                 $yotpoEmptyStarContainer.addClass('d-block');
                 $yotpoEmptyStarContainerMobile.removeClass('d-none');
                 $yotpoEmptyStarContainerMobile.addClass('d-block');
-            } else {
-                $yotpoEmptyStarContainer.addClass('d-none');
-                $yotpoEmptyStarContainerMobile.addClass('d-none');
             }
         } else {
             setTimeout(hideYotpoReviews, 5000);
