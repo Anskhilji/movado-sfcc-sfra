@@ -37,7 +37,7 @@
                         <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                             <isif condition="${pdict.display.isEyewearTile}">
                                 <isinclude template="product/components/productTileEyewearSwatch" />
-                            <iselseif condition="${!product.isWatchTile}" />
+                            <iselse/>
                                 <isinclude template="product/components/productTileSwatch" />
                             </isif>
                         </div>
