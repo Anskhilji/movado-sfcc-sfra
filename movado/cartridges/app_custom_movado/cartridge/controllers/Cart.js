@@ -250,10 +250,6 @@ server.append('AddProduct', function (req, res, next) {
         }
         // Custom End
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
         if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
             basketModel = new CartModel(currentBasket);
             basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;

@@ -152,8 +152,6 @@
         &.filter-bar-sticky {
             top: rem(98);
             z-index: 800;
-<<<<<<< HEAD
-=======
             @include media-breakpoint-down(md) {
                 top: rem(60); 
             }
@@ -161,7 +159,6 @@
             @include media-breakpoint-down(sm) {
                 top: rem(44); 
             }
->>>>>>> master
         }
     }
 }
