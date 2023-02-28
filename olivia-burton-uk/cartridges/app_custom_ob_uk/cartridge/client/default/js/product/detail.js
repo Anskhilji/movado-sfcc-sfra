@@ -147,6 +147,7 @@ module.exports = {
 };
 $(document).ready(function () {
     refreshAffirmUI();
+    hideYotpoReviews();
 
     if ($(window).width() < 544) {
         var $stickyAddToCartObserver = document.querySelector('.add-to-cart-observer');
@@ -187,6 +188,25 @@ function refreshAffirmUI() {
         }
     }
 };
+
+function hideYotpoReviews() {
+    if (document.readyState === "complete") {
+    var $yotpoEmptyStarContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-empty-star');
+    if ($('.ratings.d-none-mobile-rating').find('.yotpo-stars').length > 0) {
+        var $yotpoIconContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-star');
+        if (($yotpoIconContainer).length > 0) {
+            $yotpoEmptyStarContainer.removeClass('d-none');
+            $yotpoEmptyStarContainer.addClass('d-block');
+        } else {
+            $yotpoEmptyStarContainer.addClass('d-none');
+        }
+    } else {
+        setTimeout(hideYotpoReviews, 500);
+    }
+} else {
+    setTimeout(hideYotpoReviews, 500);
+}
+}
 
 // Custom start: Listrak persistent popupnpm
 $(document).on('click','.listrak-popup', function(e) {
