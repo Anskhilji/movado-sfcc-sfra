@@ -471,9 +471,6 @@
                     }
                 }
                 
-                .yotpo-icon-empty-star {
-                    display: none;
-                }
                 .hide-desktop-wrapper {
                     display: none;
                     @include media-breakpoint-down(sm-custom) {
@@ -558,10 +555,6 @@
                     }
                 }
                 .ratings {
-
-                    .yotpo-icon-empty-star {
-                        display: none;
-                    }
 
                     &.d-none-mobile-rating {
                         @include media-breakpoint-down(sm-custom) {
