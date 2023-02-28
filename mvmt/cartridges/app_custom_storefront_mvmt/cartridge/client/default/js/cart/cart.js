@@ -1087,6 +1087,10 @@ module.exports = function () {
         $('.gift-box-none-button').removeClass('active');
         $('.add-gift-box-input').removeClass('active');
         $('.gift-message-box-input').addClass('active');
+
+        if (!$('.gift-box-message').is(':checked')) {
+            $('.add-gift-message').prop('disabled', true);
+        }
     });
 
     $('body').on('click', '.add-gift-box-input', function () {
