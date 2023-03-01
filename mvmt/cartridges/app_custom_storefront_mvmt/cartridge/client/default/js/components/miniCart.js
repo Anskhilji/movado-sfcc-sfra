@@ -602,6 +602,7 @@ module.exports = function () {
 
         var giftBoxText = $('.gift-box-message').is(':checked');
         var giftMessage = $('.gift-text ').val();
+        var giftProduct = $('.add-gift-box').data('value');
 
         if (!giftBoxText && !giftMessage == '') {
             e.preventDefault();
@@ -628,6 +629,11 @@ module.exports = function () {
                             $('.gift-message-btn-' + item.UUID).text('Add');
                             $('.gift-box-message').prop('checked', false);
                             $('.gift-message-box').addClass('hide-box');
+
+                            var giftProductContainer = $('.gift-product-id-' + giftProduct);
+                            if (giftProductContainer.length > 0) {
+                                $('.gift-message-btn-' + item.UUID).text('Edit');
+                            }
                         }
                     });    
                 },
