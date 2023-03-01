@@ -65,11 +65,11 @@ $('#newsletterSubscribe').submit(function (e) {
 
 // Custom Start: MCS PDP - Email Subscription
 var $emailSignupStatus = $('.emailsignup-status');
-var $emailSignupStatusInner = $('.emailsignup-status div');
 
 function processSubscriptionPDP(response) {
     $.spinner().stop();
     if ((typeof (response) === 'object')) {
+        var $emailSignupStatusInner = $('.emailsignup-status div');
         $emailSignupStatus.removeClass('d-none');
         $emailSignupStatusInner.text(response.message);
         if (!response.error) {
@@ -121,6 +121,7 @@ $('#signupModalCenter').on('hide.bs.modal', function () {
 $('#newsletterSubscribePDP').submit(function (e) {
     e.preventDefault();
     $emailSignupStatus.addClass('d-none');
+    var $emailSignupStatusInner = $('.emailsignup-status div');
     var $actionUrl = $(e.target).attr('action');
     var $emailInputValue = $(e.target).find('.emailsignup-input').val();
 
