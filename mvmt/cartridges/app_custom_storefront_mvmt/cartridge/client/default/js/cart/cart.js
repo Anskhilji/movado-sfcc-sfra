@@ -48,14 +48,6 @@ function disableSaveGiftBoxButton() {
     } else {
         $('.add-gift-message').prop('disabled', true);
     }
-
-    // if ($('.gift-box-product').is(':checked') && $('.gift-box-message').is(':checked')) {
-    //     $('.gift-message-box').removeClass('hide-box');
-    // } else if ($('.gift-box-product').is(':checked') && !$('.gift-box-message').is(':checked')) {
-    //     $('.gift-message-box').addClass('hide-box');
-    // } else if (!$('.gift-box-product').is(':checked') && !$('.gift-box-message').is(':checked')) {
-    //     $('.gift-message-box').addClass('hide-box');
-    // }
 }
 
 /**
@@ -1064,6 +1056,8 @@ module.exports = function () {
                             if (item.UUID == response.ProductLineItemUUID) {
                                 $('.gift-box-container-modal .gift-text').text(response.itemLevelGiftMessage);
                                 if (response.itemLevelGiftMessage) {
+                                    $('.gift-message-blank').hide();
+                                    $('.gift-message-error').hide();
                                     $('.gift-message-box').removeClass('hide-box');
                                     $('.add-gift-message').removeAttr('disabled');
                                 }
@@ -1090,20 +1084,6 @@ module.exports = function () {
                 }, 2000);
             }
         });
-    });
-
-
-
-    $('body').on('click', '.gift-message-box-input', function () {
-        $('.gift-message-box').removeClass('hide-box');
-        $('.gift-message-blank').hide();
-        $('.gift-message-error').hide();
-        $('.add-gift-message').removeClass('d-none');
-        $('.add-gift-message').removeAttr('disabled');
-        $('.gift-box-none-button').removeClass('active');
-        $('.add-gift-box-input').removeClass('active');
-        $('.gift-message-box-input').addClass('active');
-        disableSaveGiftBoxButton();
     });
 
     $('body').on('click', '.add-gift-box-input', function () {
