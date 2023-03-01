@@ -40,6 +40,7 @@
     .rating-static[rel="0.7"] label:nth-child(n+9),
     .rating-static[rel="0.8"] label:nth-child(n+9),
     .rating-static[rel="0.9"] label:nth-child(n+9),
+    .rating-static[rel="1.0"] label:nth-child(n+9),
     .rating-static[rel="1"] label:nth-child(n+9),
     .rating-static[rel="1.1"] label:nth-child(n+8),
     .rating-static[rel="1.2"] label:nth-child(n+8),
@@ -51,6 +52,7 @@
     .rating-static[rel="1.8"] label:nth-child(n+7),
     .rating-static[rel="1.9"] label:nth-child(n+7),
     .rating-static[rel="2"] label:nth-child(n+7),
+    .rating-static[rel="2.0"] label:nth-child(n+7),
     .rating-static[rel="2.1"] label:nth-child(n+6),
     .rating-static[rel="2.2"] label:nth-child(n+6),
     .rating-static[rel="2.3"] label:nth-child(n+6),
@@ -61,6 +63,7 @@
     .rating-static[rel="2.8"] label:nth-child(n+5),
     .rating-static[rel="2.9"] label:nth-child(n+5),
     .rating-static[rel="3"] label:nth-child(n+5),
+    .rating-static[rel="3.0"] label:nth-child(n+5),
     .rating-static[rel="3.1"] label:nth-child(n+4),
     .rating-static[rel="3.2"] label:nth-child(n+4),
     .rating-static[rel="3.3"] label:nth-child(n+4),
@@ -71,6 +74,7 @@
     .rating-static[rel="3.8"] label:nth-child(n+3),
     .rating-static[rel="3.9"] label:nth-child(n+3),
     .rating-static[rel="4"] label:nth-child(n+3),
+    .rating-static[rel="4.0"] label:nth-child(n+3),
     .rating-static[rel="4.1"] label:nth-child(n+2),
     .rating-static[rel="4.2"] label:nth-child(n+2),
     .rating-static[rel="4.3"] label:nth-child(n+2),
@@ -80,7 +84,8 @@
     .rating-static[rel="4.7"] label,
     .rating-static[rel="4.8"] label,
     .rating-static[rel="4.9"] label,
-    .rating-static[rel="5"] label {
+    .rating-static[rel="5"] label,
+    .rating-static[rel="5.0"] label {
         color: $star;
     }
 }

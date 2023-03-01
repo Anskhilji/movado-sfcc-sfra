@@ -1,52 +1,12 @@
 <ul class="values row content ratting-fliter">
-    <li>
+    <li class="filter-element" title="${refinementValue.title}">
         <label class="elements filter-elements">
-            <a role="checkbox" href="#" class=" selected swatch-image filter-selected check-filter-selected">
-                <div class="rounded-image selected">
+            <a role="checkbox" href="${refinementValue.url}" class="">
+                <div class="rounded-image ${refinementValue.selected ? 'selected' : ''}">
                     <i class="fa fa-star" aria-hidden="true"></i>
                 </div>
             </a>
-            <span class="">1 Star</span>
-        </label>
-    </li>
-    <li>
-        <label class="elements filter-elements">
-            <a role="checkbox" href="#" class=" selected swatch-image filter-selected check-filter-selected">
-                <div class="rounded-image selected">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </div>
-            </a>
-            <span class="">2 Star</span>
-        </label>
-    </li>
-    <li>
-        <label class="elements filter-elements">
-            <a role="checkbox" href="#" class=" selected swatch-image filter-selected check-filter-selected">
-                <div class="rounded-image selected">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </div>
-            </a>
-            <span class="">3 Star</span>
-        </label>
-    </li>
-    <li>
-        <label class="elements filter-elements">
-            <a role="checkbox" href="#" class=" selected swatch-image filter-selected check-filter-selected">
-                <div class="rounded-image selected">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </div>
-            </a>
-            <span class="">4 Star</span>
-        </label>
-    </li>
-    <li>
-        <label class="elements filter-elements">
-            <a role="checkbox" href="#" class=" selected swatch-image filter-selected check-filter-selected">
-                <div class="rounded-image selected">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </div>
-            </a>
-            <span class="">5 Star</span>
+            <span class="">${refinementValue.displayValue} Star</span>
         </label>
     </li>
 </ul>

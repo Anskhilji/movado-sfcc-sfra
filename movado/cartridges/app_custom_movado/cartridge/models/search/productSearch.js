@@ -30,6 +30,18 @@ function getResetLink(search, httpParams) {
         : URLUtils.url(ACTION_ENDPOINT, 'q', httpParams.q);
 }
 
+function getYotpoMaximumDisplayValue(values) {
+    for (var i in values) {
+        var displayValue = values[i].displayValue;
+        var displayValueArray = displayValue.replace(/[A-Za-z]/g, '').split(' ').filter(function (x) {
+            return Boolean(x);
+        }).map(Number);
+        // var  displayMaxValue = Math.max(displayValueArray);
+        values[i].displayValue = Math.max.apply(null, displayValueArray);
+    }
+    return values;
+}
+
 /**
  * Retrieves search refinements
  *
@@ -43,6 +55,9 @@ function getRefinements(productSearch, refinements, refinementDefinitions) {
     return collections.map(refinementDefinitions, function (definition) {
         var refinementValues = refinements.getAllRefinementValues(definition);
         var values = searchRefinementsFactory.get(productSearch, definition, refinementValues);
+        if(definition.attributeID == 'yotpoRating'){
+            values = getYotpoMaximumDisplayValue(values)
+        }
         return {
             displayName: definition.displayName,
             isCategoryRefinement: definition.categoryRefinement,

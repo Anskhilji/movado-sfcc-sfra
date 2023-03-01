@@ -1,81 +1,9 @@
 <iscomment> Custom: span and icon removed, class added with condition</iscomment>
 <ul class="values content row m-0">
     <li class="col-6" title="${refinementValue.title}">
-        <a href="#" class="selection-tab <isif condition=" ${refinementValue.selected && refinementValue.selectable}">selected</isif>">
+        <a href="${refinementValue.url}" class="selection-tab <isif condition=" ${refinementValue.selected && refinementValue.selectable}">selected</isif>">
             <div class="star-rating-area">
-                <div class="rating-static clearfix" rel="1">
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                </div>
-            </div>
-        </a>
-    </li>
-    <li class="col-6" title="${refinementValue.title}">
-        <a href="#" class="selection-tab <isif condition=" ${refinementValue.selected && refinementValue.selectable}">selected</isif>">
-            <div class="star-rating-area">
-                <div class="rating-static clearfix" rel="2">
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                </div>
-            </div>
-        </a>
-    </li>
-    <li class="col-6" title="${refinementValue.title}">
-        <a href="#" class="selection-tab <isif condition=" ${refinementValue.selected && refinementValue.selectable}">selected</isif>">
-            <div class="star-rating-area">
-                <div class="rating-static clearfix" rel="3">
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                </div>
-            </div>
-        </a>
-    </li>
-    <li class="col-6" title="${refinementValue.title}">
-        <a href="#" class="selection-tab <isif condition=" ${refinementValue.selected && refinementValue.selectable}">selected</isif>">
-            <div class="star-rating-area">
-                <div class="rating-static clearfix" rel="4">
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                </div>
-            </div>
-        </a>
-    </li>
-        <li class="col-6" title="${refinementValue.title}">
-        <a href="#" class="selection-tab <isif condition=" ${refinementValue.selected && refinementValue.selectable}">selected</isif>">
-            <div class="star-rating-area">
-                <div class="rating-static clearfix" rel="5">
+                <div class="rating-static clearfix" rel="${refinementValue.displayValue}">
                     <label class="full"></label>
                     <label class="half"></label>
                     <label class="full"></label>

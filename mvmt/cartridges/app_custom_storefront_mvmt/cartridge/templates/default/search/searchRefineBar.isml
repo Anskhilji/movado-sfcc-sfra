@@ -105,7 +105,7 @@
                                         </isif>
 
                                         <!--- Ratting REFINEMENTS --->
-                                        <isinclude template="common/yotpoStarRatingRefinements" />  
+                                        <iscomment> <isinclude template="common/yotpoStarRatingRefinements" />   </iscomment>
 
                                     </div>
                                 </div>
@@ -287,7 +287,7 @@
                                         </isif>
 
                                          <!--- Ratting REFINEMENTS --->
-                                        <isinclude template="common/yotpoStarRatingRefinements" />                                        
+                                        <iscomment> <isinclude template="common/yotpoStarRatingRefinements" />                                         </iscomment>
                                         <span class="close-icon search-refinement-close"></span>
                                     </div>
                                 </div>
