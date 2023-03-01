@@ -62,7 +62,7 @@ function getResources(pageContext) {
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
-        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
+        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled || false,
         RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
         GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
         GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
