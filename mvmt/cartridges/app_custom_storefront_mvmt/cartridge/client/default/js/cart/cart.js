@@ -42,6 +42,14 @@ function appendToUrl($url, params) {
     return $newUrl;
 }
 
+function disableSaveGiftBoxButton() {
+    if ($('.gift-box-product').is(':checked') || $('.gift-box-message').is(':checked')) {
+        $('.add-gift-message').prop('disabled', false);
+    } else {
+        $('.add-gift-message').prop('disabled', true);
+    }
+}
+
 /**
  * Checks whether the basket is valid. if invalid displays error message and disables
  * checkout button
@@ -1048,6 +1056,8 @@ module.exports = function () {
                             if (item.UUID == response.ProductLineItemUUID) {
                                 $('.gift-box-container-modal .gift-text').text(response.itemLevelGiftMessage);
                                 if (response.itemLevelGiftMessage) {
+                                    $('.gift-message-blank').hide();
+                                    $('.gift-message-error').hide();
                                     $('.gift-message-box').removeClass('hide-box');
                                     $('.add-gift-message').removeAttr('disabled');
                                 }
@@ -1076,27 +1086,11 @@ module.exports = function () {
         });
     });
 
-
-
-    $('body').on('click', '.gift-message-box-input', function () {
-        $('.gift-message-box').removeClass('hide-box');
-        $('.gift-message-blank').hide();
-        $('.gift-message-error').hide();
-        $('.add-gift-message').removeClass('d-none');
-        $('.add-gift-message').removeAttr('disabled');
-        $('.gift-box-none-button').removeClass('active');
-        $('.add-gift-box-input').removeClass('active');
-        $('.gift-message-box-input').addClass('active');
-
-        if (!$('.gift-box-message').is(':checked')) {
-            $('.add-gift-message').prop('disabled', true);
-        }
-    });
-
     $('body').on('click', '.add-gift-box-input', function () {
         $('.add-gift-box').removeAttr('disabled');
         $('.gift-box-none-button').removeClass('active');
         $('.add-gift-box-input').addClass('active');
+        disableSaveGiftBoxButton();
     });
 
 

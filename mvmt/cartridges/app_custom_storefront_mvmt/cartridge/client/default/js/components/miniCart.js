@@ -381,6 +381,14 @@ module.exports = function () {
         }, 100)
     }
 
+    function disableSaveGiftBoxButton() {
+        if ($('.gift-box-product').is(':checked') || $('.gift-box-message').is(':checked')) {
+            $('.add-gift-message').prop('disabled', false);
+        } else {
+            $('.add-gift-message').prop('disabled', true);
+        }
+    }
+
     $('body').off('click', '.product-card-wrapper .gift-allowed-checkbox').on('click', '.product-card-wrapper .gift-allowed-checkbox', function(e) {
         e.preventDefault();
         $.spinner().start();
@@ -436,6 +444,17 @@ module.exports = function () {
 
     $('body').off('click', '.minicart-gift-allowed-checkbox').on('click', '.minicart-gift-allowed-checkbox', function(e) {
       if ($('.gift-box-product').is(':checked')) {
+
+        if ($('.gift-box-message').is(':checked')) {
+            var giftMessage = $('.gift-text').val();
+            $('.gift-message-blank').hide();
+            $('.gift-message-error').hide();
+            if (!giftMessage) {
+                $('.gift-message-blank').show();
+                return false;
+            }
+        }
+
         e.preventDefault();
         $.spinner().start();
         var $this = $(this);
@@ -508,11 +527,13 @@ module.exports = function () {
                     }
                 });
             }
-        }
+      }
     });
 
     $('body').on('click', '.add-gift-message', function (e) {
+
         if ($('.gift-box-message').is(':checked')) {
+
             e.preventDefault();
             var $this = $(this);
             var endPointURL = $this.data('gift-message-url');
@@ -566,6 +587,18 @@ module.exports = function () {
     });
 
     $('body').on('click', '.gift-message-box-input', function (e) {
+
+        var $addgiftmessage = $('.add-gift-message');
+        $('.gift-message-box').removeClass('hide-box');
+        $('.gift-message-blank').hide();
+        $('.gift-message-error').hide();
+        $addgiftmessage.removeClass('d-none');
+        $addgiftmessage.removeAttr('disabled');
+        $('.gift-box-none-button').removeClass('active');
+        $('.add-gift-box-input').removeClass('active');
+        $('.gift-message-box-input').addClass('active');
+        disableSaveGiftBoxButton();
+
         var giftBoxText = $('.gift-box-message').is(':checked');
         var giftMessage = $('.gift-text ').val();
 
@@ -586,19 +619,28 @@ module.exports = function () {
                 success: function (data) {
                     $.spinner().stop();
                     data.basketModel.items.forEach(function (item) {
-                        $('.gift-box-container-modal .gift-text').text('');
-                        $('.gift-message-btn-' + item.UUID).attr('data-gift-message', '');
-                        $('.gift-personlize-msg').text('');
-                        $('.gift-lineitem-message-' + item.UUID).text('');
-                        $('.gift-message-btn-' + item.UUID).text('Add');
-                        $('.gift-box-message').prop('checked', false);
-                        $('.gift-message-box').addClass('hide-box');
+                        if (productUUID == item.UUID) {
+                            $('.gift-box-container-modal .gift-text').val('');
+                            $('.gift-message-btn-' + item.UUID).attr('data-gift-message', '');
+                            $('.gift-personlize-msg').text('');
+                            $('.gift-lineitem-message-' + item.UUID).text('');
+                            $('.gift-message-btn-' + item.UUID).text('Add');
+                            $('.gift-box-message').prop('checked', false);
+                            $('.gift-message-box').addClass('hide-box');
+                        }
                     });    
                 },
                 error: function (data) {
                     $.spinner().stop();
                 }
             });
+        }
+        else if (!giftBoxText && giftMessage == '') {
+            $('.gift-box-message').prop('checked', false);
+            $('.gift-message-box').addClass('hide-box');
+        } else {
+            $addgiftmessage.attr('disabled', false);
+            $('.gift-message-box').removeClass('hide-box');
         }
         
     });
