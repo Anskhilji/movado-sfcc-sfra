@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12 padd-0">
-        <div class="set-items set-product-set" itemtype="http://schema.org/SomeProducts" itemid="#product">
+        <div class="set-items product-set-section" itemtype="http://schema.org/SomeProducts" itemid="#product">
             <div class="pdp-accordion-ob" id="accordion-product-sets">
                 <isloop items="${product.individualProducts}" var="productItem" status="loopState">
                     <isset name="product" value="${productItem}" scope="page" />
@@ -97,7 +97,7 @@
                                             </div>
                     
                                             <div class="row">
-                                                <div class="col-md-10 col-12">
+                                                <div class="col-md-12 col-12">
                                                     <iscomment> accordion start here </iscomment>
                                                     <isinclude template="product/components/accordion" />
                                                     <iscomment> accordion end here </iscomment>

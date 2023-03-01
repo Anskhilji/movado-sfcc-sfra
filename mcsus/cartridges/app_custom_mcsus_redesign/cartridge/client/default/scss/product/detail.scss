@@ -15,10 +15,11 @@
         font-family: $font-medium;
         font-size: rem(16);
         font-weight: 500;
-    
+
         @include media-breakpoint-down(xs) {
             font-size: rem(14);
         }
+
         @include media-breakpoint-up(sm) {
             margin-top: rem(30);
         }
@@ -26,12 +27,12 @@
 
     .promotions {
         font-weight: 500;
-    
+
         .callout {
             font-family: $font-medium;
             font-weight: 500;
             font-size: rem(16);
-    
+
             @include media-breakpoint-down(sm) {
                 font-size: rem(14);
             }
@@ -49,20 +50,20 @@
 
 
 @include media-breakpoint-up(md) {
-	.description-and-detail {
-		.title {
-			font-size: rem(26);
-			font-weight: 300;
-		}
+    .description-and-detail {
+        .title {
+            font-size: rem(26);
+            font-weight: 300;
+        }
     }
 }
 
 @include media-breakpoint-up(lg) {
-	.description-and-detail {
-		.title {
-			font-size: rem(32);
-		}
-	}
+    .description-and-detail {
+        .title {
+            font-size: rem(32);
+        }
+    }
 }
 
 .smartgift-btn {
@@ -72,9 +73,11 @@
 .dw-apple-pay-button.apple-pay-pdp,
 .dw-apple-pay-button.apple-pay-pdp:hover {
     min-width: 30%;
+
     @include media-breakpoint-down(lg) {
         font-size: rem(16);
     }
+
     &:after {
         font-size: rem(6);
     }
@@ -92,6 +95,7 @@
     .add-to-cart {
         font-family: $font-medium;
         font-weight: 500;
+
         @include media-breakpoint-down(xs) {
             width: 100%;
             margin: rem(0) auto rem(10);
@@ -104,6 +108,7 @@
     height: rem(45);
     font-size: rem(16);
     font-family: $font-medium;
+
     @include media-breakpoint-down(xs) {
         font-size: rem(14);
     }
@@ -112,12 +117,14 @@
 .pinch-zoom-container {
     display: none;
 }
+
 .slick-slide {
 
     img {
         margin: 0 auto;
     }
 }
+
 .edit-popup {
     display: none;
 }
@@ -134,7 +141,7 @@
         left: rem(-33);
         font-size: rem(16.58);
     }
-    
+
     .cs-carousel-wrapper {
         margin-bottom: rem(10);
         width: 100%;
@@ -143,6 +150,7 @@
         @include custom-media-query1($small-screen-width , $small-screen-width4) {
             height: auto;
         }
+
         @include media-breakpoint-down(xs) {
             margin-bottom: rem(-13.41);
         }
@@ -163,44 +171,49 @@
             height: rem(40);
             outline: none;
             top: 50%;
-            
+
             @include media-breakpoint-down(lg) {
                 top: 47.5%;
-                
+
                 &.slick-prev {
                     left: rem(12);
                 }
+
                 &.slick-next {
                     right: rem(12);
                 }
             }
+
             @include media-breakpoint-down(md) {
                 top: 46.5%;
             }
+
             @include media-breakpoint-down(sm) {
                 background-size: cover;
                 background-position: center;
                 width: rem(30);
                 height: rem(30);
             }
+
             @include custom-media-query1($small-screen-width , $small-screen-width4) {
                 top: 44.6%;
             }
         }
 
-        .carousel-nav{
+        .carousel-nav {
             .slick-slide {
                 margin-right: rem(6);
-    
+
                 @include media-breakpoint-down(xs) {
                     margin-right: rem(18);
                 }
+
                 &:last-child {
                     margin-right: rem(0);
                 }
             }
         }
-        
+
         .cs-carousel {
             padding: rem(0) rem(5);
             margin-bottom: rem(24);
@@ -222,6 +235,7 @@
 
                 display: inherit !important;
             }
+
             img {
 
                 @include media-breakpoint-up(sm) {
@@ -230,7 +244,7 @@
             }
         }
     }
-    
+
     .traditional-main-carousel {
         .slick-slide {
 
@@ -286,23 +300,25 @@
         top: 50%;
         transform: translateY(-50%);
     }
-   
+
     .slick-arrow.slick-next {
         background-image: url("../../images/chevron_right_black_24dp.svg");
         right: 25.5%;
+
         @include media-breakpoint-up(custom-md) {
             justify-content: space-between;
             overflow: hidden;
             transform: translate(140%, -50%);
             display: flex;
         }
+
         @include media-breakpoint-up(lg) {
             justify-content: space-between;
             overflow: hidden;
             transform: translate(152%, -50%);
             display: flex;
         }
-        
+
         @include media-breakpoint-up(xl) {
             justify-content: space-between;
             overflow: hidden;
@@ -314,25 +330,28 @@
     .slick-arrow.slick-prev {
         background-image: url("../../images/chevron_left_black_24dp.svg");
         left: 26%;
+
         @include media-breakpoint-up(custom-md) {
             justify-content: space-between;
             overflow: hidden;
             transform: translate(-150%, -50%);
             display: flex;
         }
+
         @include media-breakpoint-up(lg) {
             justify-content: space-between;
             overflow: hidden;
             transform: translate(-166%, -50%);
             display: flex;
         }
+
         @include media-breakpoint-up(xl) {
             justify-content: space-between;
             overflow: hidden;
             transform: translate(10%, -50%);
             display: flex;
         }
-    }  
+    }
 
     .slick-arrow {
         background-color: transparent;
@@ -344,6 +363,7 @@
         z-index: 9;
     }
 }
+
 .zoom-modal {
     .close {
         background: url("../../images/zoom-close.png") center center no-repeat;
@@ -364,13 +384,14 @@
         max-width: 65%;
         padding-top: rem(0);
     }
+
     @include media-breakpoint-down(xs) {
         max-width: 100%;
     }
 }
 
 .zoom-img {
-   cursor: zoom-in;
+    cursor: zoom-in;
 
     &.zoomed-img {
         cursor: zoom-out;
@@ -397,6 +418,7 @@
         width: rem(100);
         height: rem(100);
     }
+
     .slick-slide {
         img {
             border: rem(1) solid transparent;
@@ -414,19 +436,21 @@
         margin-top: rem(-24.87);
         margin-bottom: rem(45);
     }
+
     .slick-slide {
         width: rem(102) !important;
         height: rem(102);
-        
+
         @include media-breakpoint-down(xs) {
             width: rem(53) !important;
             height: rem(53);
         }
+
         .carousel-tile {
             border: rem(1) solid transparent;
             border-radius: rem(3);
             background-color: $white-smoke4;
-            
+
             img {
                 width: 100%;
                 border-radius: rem(3);
@@ -450,8 +474,8 @@
 
 .zoom-modal {
 
-    .modal-dialog{
-        .zoom-carousel-slider {   
+    .modal-dialog {
+        .zoom-carousel-slider {
             position: absolute;
             left: rem(30);
             top: 50%;
@@ -460,7 +484,7 @@
             width: rem(102);
             float: left;
             z-index: 9;
-            
+
             .slick-list {
                 height: auto !important;
             }
@@ -472,7 +496,7 @@
                 margin-top: 0 !important;
                 left: 0 !important;
                 z-index: 9;
-                
+
                 .slick-list {
 
                     .slick-track {
@@ -485,12 +509,15 @@
                     }
                 }
             }
+
             @include media-breakpoint-up(custom-md) {
                 left: rem(19);
             }
+
             @include media-breakpoint-up(lg) {
                 left: rem(30);
             }
+
             @include media-breakpoint-down(md) {
                 position: absolute;
                 top: 96vh;
@@ -498,12 +525,13 @@
                 margin-top: 0 !important;
                 left: 0 !important;
                 z-index: 9;
-                
+
                 .slick-list {
 
                     &.draggable {
-                       padding : 0 0 !important;
+                        padding: 0 0 !important;
                     }
+
                     .slick-track {
                         height: auto !important;
                         width: 100% !important;
@@ -514,6 +542,7 @@
                     }
                 }
             }
+
             @include media-breakpoint-down(sm) {
                 position: absolute;
                 top: 96vh;
@@ -521,7 +550,7 @@
                 margin-top: 0 !important;
                 left: 0 !important;
                 z-index: 9;
-                
+
                 .slick-list {
 
                     .slick-track {
@@ -537,28 +566,32 @@
 
             .slick-slide {
 
-            @include custom-media-query1($small-screen-width , $small-screen-width4) {
-                margin-right: rem(11);
-                width: rem(52) !important;
-                
-                &:last-child {
-                    margin-right: rem(0);
+                @include custom-media-query1($small-screen-width , $small-screen-width4) {
+                    margin-right: rem(11);
+                    width: rem(52) !important;
+
+                    &:last-child {
+                        margin-right: rem(0);
+                    }
+
+                    .carousel-thumbnail-wrapper {
+                        width: rem(53) !important;
+                    }
                 }
-                .carousel-thumbnail-wrapper {
-                    width: rem(53) !important;
+
+                @include media-breakpoint-down(md) {
+                    margin-right: rem(11);
+                    width: rem(60) !important;
+
+                    &:last-child {
+                        margin-right: rem(0);
+                    }
+
+                    .carousel-thumbnail-wrapper {
+                        width: rem(53) !important;
+                    }
                 }
-            }
-            @include media-breakpoint-down(md) {
-                margin-right: rem(11);
-                width: rem(60) !important;
-                
-                &:last-child {
-                    margin-right: rem(0);
-                }
-                .carousel-thumbnail-wrapper{
-                    width: rem(53) !important;
-                }
-            }
+
                 .carousel-tile {
                     border: rem(1) solid transparent;
                     border-radius: rem(3);
@@ -576,15 +609,15 @@
                         }
                     }
                 }
-        
+
                 &.slick-current {
-        
+
                     .carousel-tile {
                         border: rem(1) solid $black;
                     }
                 }
             }
-           
+
         }
     }
 }
@@ -606,6 +639,7 @@
         top: rem(125);
         transform: translateY(0);
         transition: all 0.4s;
+
         @include media-breakpoint-down(md) {
             top: rem(74);
         }
@@ -636,7 +670,7 @@
         z-index: 1;
     }
 
-    button{
+    button {
         @include media-breakpoint-down(xs) {
             font-size: rem(14);
         }
@@ -645,12 +679,15 @@
 
 .sticky-container-redesign {
     padding: rem(0) rem(32);
+
     @include media-breakpoint-down(sm) {
         padding: rem(0) rem(20);
     }
 }
-.sticky-prodct-cart-redesign {  
+
+.sticky-prodct-cart-redesign {
     padding: rem(7) rem(0);
+
     @include media-breakpoint-down(sm) {
         padding: rem(15) rem(0);
     }
@@ -701,6 +738,7 @@
 
     .cart-and-ipay {
         padding: 0;
+
         @include media-breakpoint-down(xs) {
             width: 100%;
         }
@@ -734,6 +772,7 @@
                     padding-right: rem(16);
                     font-size: rem(14);
                 }
+
                 .price-pdp-mvmt {
 
                     del {
@@ -749,6 +788,7 @@
         }
     }
 }
+
 // check-scroll sticky-prodct-cart-redesign ends
 
 
@@ -762,6 +802,7 @@
                         margin-bottom: rem(70);
                         max-width: rem(1440);
                         padding: rem(0) rem(32);
+
                         @include media-breakpoint-down(xs) {
                             padding: rem(0) rem(14);
                         }
@@ -786,16 +827,18 @@
                                 .breadcrumb {
                                     margin-bottom: rem(18);
                                     padding: rem(0);
+
                                     @include media-breakpoint-down(sm) {
-                                        padding: rem(0) rem(15); 
+                                        padding: rem(0) rem(15);
                                     }
+
                                     @include media-breakpoint-down(xs) {
-                                        padding: rem(0) rem(5); 
+                                        padding: rem(0) rem(5);
                                         margin-bottom: rem(0);
                                     }
 
                                     .breadcrumb-item {
-                                    
+
                                         a {
                                             color: $light-grey5;
                                             font-family: $font-regular;
@@ -803,20 +846,23 @@
                                             letter-spacing: rem(0);
                                             line-height: rem(30);
                                             font-weight: 400;
+
                                             @include media-breakpoint-down(xs) {
                                                 font-size: rem(9);
                                                 line-height: rem(15);
                                             }
                                         }
 
-                                        & + .breadcrumb-item {
+                                        &+.breadcrumb-item {
                                             padding-left: rem(10);
+
                                             @include media-breakpoint-down(xs) {
-                                                padding-left: rem(5); 
+                                                padding-left: rem(5);
                                             }
 
                                             &::before {
                                                 padding-right: rem(3);
+
                                                 @include media-breakpoint-down(xs) {
                                                     font-size: rem(9);
                                                     line-height: rem(15);
@@ -841,7 +887,7 @@
                             @include custom-media-query($large-screen-width) {
                                 top: rem(0);
                             }
-                            
+
                             @include custom-media-query-down($large-screen-width-down) {
                                 top: rem(-185);
                             }
@@ -870,25 +916,25 @@
                                 max-width: rem(615);
                                 margin: 0 auto;
 
-                                @include media-breakpoint-down(xs) { 
+                                @include media-breakpoint-down(xs) {
                                     margin-bottom: rem(0);
                                 }
 
                                 .cs-carousel {
                                     margin-bottom: rem(53);
 
-                                    @include media-breakpoint-down(xs) { 
+                                    @include media-breakpoint-down(xs) {
                                         margin-bottom: rem(9);
                                     }
 
                                     .slick-arrow.slick-next {
                                         background-image: url("../../images/chevron-angle-right.svg");
                                     }
-                            
+
                                     .slick-arrow.slick-prev {
                                         background-image: url("../../images/chevron-angle-left.svg");
                                     }
-                                    
+
                                     .slick-arrow {
                                         background-size: contain;
                                         width: rem(10);
@@ -959,6 +1005,7 @@
                         .carousel-nav-redesign {
                             max-width: rem(505);
                             margin: 0 auto;
+
                             @include media-breakpoint-down(lg) {
                                 max-width: rem(482);
                             }
@@ -966,33 +1013,37 @@
                             @include media-breakpoint-down(md) {
                                 max-width: rem(330);
                             }
+
                             @include media-breakpoint-down(sm) {
                                 max-width: rem(186);
                             }
-                            
+
                             .slick-slide {
                                 width: rem(129) !important;
                                 height: rem(129);
                                 margin: rem(0) rem(20);
-                                border: rem(1.5) solid transparent;  
+                                border: rem(1.5) solid transparent;
                                 cursor: pointer;
                                 background-color: $light-grey6;
+
                                 @include media-breakpoint-down(lg) {
                                     width: rem(120) !important;
                                     height: rem(120);
                                 }
-                                
+
                                 @include media-breakpoint-down(md) {
                                     width: rem(70) !important;
                                     height: rem(70);
                                 }
+
                                 @include media-breakpoint-down(sm) {
                                     width: rem(52) !important;
                                     height: rem(52);
                                     margin: rem(0) rem(5);
                                 }
 
-                                &.slick-center,&.slick-current {
+                                &.slick-center,
+                                &.slick-current {
                                     border-color: $black;
                                 }
                             }
@@ -1005,6 +1056,7 @@
                                 bottom: rem(-32);
                                 left: 0;
                                 right: 0;
+
                                 @include media-breakpoint-down(xs) {
                                     bottom: rem(-10);
                                     max-width: rem(200);
@@ -1014,6 +1066,7 @@
                                     width: 100%;
                                     height: rem(4);
                                     margin: rem(0);
+
                                     @include media-breakpoint-down(xs) {
                                         height: rem(2);
                                     }
@@ -1021,11 +1074,14 @@
                                     button {
                                         width: 100%;
                                         height: rem(4);
+
                                         @include media-breakpoint-down(xs) {
                                             height: rem(2);
                                         }
+
                                         border-radius: rem(0);
-                                        &::before{
+
+                                        &::before {
                                             display: none;
                                         }
                                     }
@@ -1061,6 +1117,7 @@
                                 @include media-breakpoint-down(xs) {
                                     .product-family-name-redesign {
                                         margin-bottom: rem(5);
+
                                         a {
                                             font-size: rem(18);
                                             letter-spacing: rem(0.9);
@@ -1089,26 +1146,26 @@
                                         margin-right: auto;
                                         margin-bottom: rem(0);
 
-                                    .yotpo {
+                                        .yotpo {
 
-                                        .standalone-bottomline {
+                                            .standalone-bottomline {
 
-                                            .star-clickable {
-                                                text-align: center;
-                                                float: none;
-                                                justify-content: center;
-
-                                                .text-m {
+                                                .star-clickable {
                                                     text-align: center;
                                                     float: none;
-                                                    margin-right: rem(0);
-                                                    font-size: rem(12);
-                                                    letter-spacing: rem(0);
-                                                    line-height: rem(8);
+                                                    justify-content: center;
+
+                                                    .text-m {
+                                                        text-align: center;
+                                                        float: none;
+                                                        margin-right: rem(0);
+                                                        font-size: rem(12);
+                                                        letter-spacing: rem(0);
+                                                        line-height: rem(8);
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
                                     }
                                 }
                             }
@@ -1130,6 +1187,7 @@
 
                             .exclusive-badges {
                                 margin-bottom: rem(0);
+
                                 @include media-breakpoint-down(xs) {
                                     margin-top: rem(0);
                                     display: flex;
@@ -1153,6 +1211,7 @@
                                     padding: 0rem rem(22);
                                     border-radius: rem(3);
                                     margin-bottom: rem(25);
+
                                     @include media-breakpoint-down(xs) {
                                         margin-bottom: rem(0);
                                     }
@@ -1184,7 +1243,7 @@
                                     background-color: $black;
                                     bottom: rem(3);
                                 }
-                                
+
                                 &:hover {
                                     text-decoration: none;
                                 }
@@ -1207,6 +1266,7 @@
                             margin-top: rem(0);
                             height: rem(25);
                             margin-bottom: rem(25);
+
                             @include media-breakpoint-down(sm) {
                                 width: auto;
                             }
@@ -1226,6 +1286,7 @@
                                             letter-spacing: 0;
                                             line-height: rem(25);
                                             margin-left: rem(7);
+
                                             @include media-breakpoint-down(xs) {
                                                 margin-left: rem(10);
                                             }
@@ -1240,13 +1301,14 @@
                             margin-bottom: rem(10);
 
                             @include media-breakpoint-down(xs) {
-                                margin-bottom: rem(25);      
+                                margin-bottom: rem(25);
                             }
                         }
 
                         .prices-redesign {
                             padding-bottom: rem(0);
                             margin-bottom: rem(10);
+
                             @include media-breakpoint-down(xs) {
                                 padding-top: rem(0);
                             }
@@ -1262,7 +1324,7 @@
 
                                     del {
                                         order: 1;
-                                        
+
                                         .strike-through {
                                             color: $light-gray3;
                                             font-family: $font-regular;
@@ -1292,6 +1354,7 @@
                         // promotions
                         .promotions-redesign {
                             text-align: left;
+
                             @include media-breakpoint-down(xs) {
                                 width: auto;
                             }
@@ -1299,31 +1362,32 @@
 
                             .callout {
                                 font-family: $futura-medium;
+
                                 @include media-breakpoint-down(xs) {
-                                    margin-left:auto;
-                                    margin-right:auto;
+                                    margin-left: auto;
+                                    margin-right: auto;
                                 }
 
                                 &:nth-child(2) {
-                                        padding: rem(0) rem(14);
-                                        box-sizing: border-box;
-                                        width: auto;
-                                        height: rem(27);
-                                        line-height: rem(27);
-                                        border: rem(1) solid $black;
-                                        border-radius: rem(3);
-                                        background-color: $grey-light4;
-                                        color: $black;
-                                        font-family: $futura-medium;
-                                        font-style: italic;
-                                        font-weight: 600;
-                                        font-size: rem(13);
-                                        letter-spacing: 0;
-                                        text-align: center;
-                                        display: inline-block;
-                                        margin-bottom: rem(10);
-                                        margin-right: rem(0);
-                                        margin-left: rem(0);
+                                    padding: rem(0) rem(14);
+                                    box-sizing: border-box;
+                                    width: auto;
+                                    height: rem(27);
+                                    line-height: rem(27);
+                                    border: rem(1) solid $black;
+                                    border-radius: rem(3);
+                                    background-color: $grey-light4;
+                                    color: $black;
+                                    font-family: $futura-medium;
+                                    font-style: italic;
+                                    font-weight: 600;
+                                    font-size: rem(13);
+                                    letter-spacing: 0;
+                                    text-align: center;
+                                    display: inline-block;
+                                    margin-bottom: rem(10);
+                                    margin-right: rem(0);
+                                    margin-left: rem(0);
                                 }
                             }
                         }
@@ -1366,6 +1430,7 @@
 
                             .cart-and-ipay {
                                 margin-bottom: rem(0);
+
                                 @include media-breakpoint-down(xs) {
                                     padding-bottom: rem(0);
                                 }
@@ -1373,6 +1438,7 @@
                                 .cta-add-to-cart {
                                     width: 100%;
                                     margin-bottom: rem(30);
+
                                     @include media-breakpoint-down(xs) {
                                         margin-bottom: rem(10);
                                     }
@@ -1392,8 +1458,9 @@
                                         line-height: rem(19);
                                         padding: rem(6) rem(18);
                                         margin-bottom: rem(10);
+
                                         @include media-breakpoint-up(sm) {
-                                            margin-bottom: rem(10); 
+                                            margin-bottom: rem(10);
                                         }
 
                                         .addtocart-innter-price {
@@ -1418,8 +1485,9 @@
                                     // google pay`
                                     .googlepay-btn {
                                         width: 100%;
+
                                         @include media-breakpoint-up(sm) {
-                                            margin-bottom: rem(0); 
+                                            margin-bottom: rem(0);
                                         }
 
                                         .google-pay-container {
@@ -1430,6 +1498,7 @@
                                             align-items: center;
                                             justify-content: center;
                                             transition: all 0s;
+
                                             &:hover {
                                                 background-color: $granite-gray1;
 
@@ -1443,7 +1512,7 @@
                                                     height: rem(40);
                                                 }
                                             }
-                                            
+
                                             .gpay-button {
                                                 &:focus {
                                                     outline: none;
@@ -1472,6 +1541,7 @@
                         // gift-box-redesign
                         .gift-box-redesign {
                             margin-bottom: rem(30);
+
                             @include media-breakpoint-down(xs) {
                                 padding: rem(0) rem(15);
                                 margin-bottom: rem(25);
@@ -1498,7 +1568,7 @@
                         .accordion-pdp-redesign {
                             width: 100%;
 
-                            .accordion-redesign {     
+                            .accordion-redesign {
 
                                 &:last-child {
                                     border-bottom: rem(1) solid $light-gray4;
@@ -1532,15 +1602,15 @@
 
                                         .ratings {
                                             margin-bottom: rem(0);
-                                        }   
+                                        }
                                     }
-                                    
+
                                     .plus-minus {
                                         position: absolute;
                                         top: rem(16);
                                         right: rem(0);
 
-                                        &::before{
+                                        &::before {
                                             content: url('../../images/minus.png');
                                             display: inline-block;
                                             position: absolute;
@@ -1550,7 +1620,7 @@
                                             top: rem(0);
                                         }
 
-                                        &::after{
+                                        &::after {
                                             content: url('../../images/minus.png');
                                             display: inline-block;
                                             position: absolute;
@@ -1562,7 +1632,7 @@
 
                                         .plus-minus {
 
-                                            &::before{
+                                            &::before {
                                                 transform: rotate(90deg);
                                                 top: rem(4);
                                                 right: rem(-4);
@@ -1570,11 +1640,12 @@
                                         }
                                     }
                                 }
-                                
+
                                 &-detail {
                                     margin-bottom: rem(19);
-        
-                                    .content,p{
+
+                                    .content,
+                                    p {
                                         color: $grey-transparent-6;
                                         font-family: $font-regular;
                                         font-weight: 400;
@@ -1586,13 +1657,15 @@
                                     .description-and-detail-redesign {
                                         margin-top: rem(0);
                                         margin-bottom: rem(0);
-                                        
+
                                         .attribute {
                                             align-items: center;
                                             margin-bottom: 0;
+
                                             &:not(:last-of-type) {
                                                 margin-bottom: rem(30);
                                             }
+
                                             &-badge {
                                                 width: rem(40);
                                                 height: rem(40);
@@ -1607,7 +1680,8 @@
                                                 margin-left: rem(0);
                                                 margin-top: rem(0);
 
-                                                .attribute-name,.attribute-value {
+                                                .attribute-name,
+                                                .attribute-value {
                                                     color: $grey4;
                                                     font-family: $font-regular;
                                                     font-weight: 400;
@@ -1623,7 +1697,7 @@
                                                 }
                                             }
                                         }
-                                        
+
                                         .yotpo {
 
                                             .yotpo-label {
@@ -1649,7 +1723,7 @@
     position: absolute;
     padding: rem(22);
     background-color: $white;
-    color:$dark-black;
+    color: $dark-black;
     font-size: rem(12);
     width: 100%;
     animation: fade-in 0.01s linear forwards;
@@ -1667,7 +1741,7 @@
     }
 
     @include media-breakpoint-up(xl) {
-       max-width: 68%;
+        max-width: 68%;
     }
 
     @include media-breakpoint-down(xs) {
@@ -1726,7 +1800,7 @@
         margin-top: rem(-21);
         font-family: $font-std-medium;
     }
-    
+
     &-smartgift-heading {
         p {
             font-family: $font-book-std;
@@ -1741,7 +1815,7 @@
     @include media-breakpoint-up(xs) {
         margin-top: rem(-20);
     }
-    
+
     @include media-breakpoint-down(xs) {
         width: 100%;
         margin-bottom: rem(15);
@@ -1755,31 +1829,33 @@
         justify-content: flex-start;
 
         .smartgift {
-            
+
             @include media-breakpoint-up(sm) {
-    
+
                 &-btn-redesign {
                     width: 100%;
                 }
             }
 
             @include media-breakpoint-up(lg) {
-        
+
                 &-btn-redesign {
                     max-width: 100%;
                 }
             }
 
             @include media-breakpoint-up(xl) {
-        
+
                 &-btn-redesign {
                     max-width: 100%;
                 }
             }
         }
-        
-        .content-asset {display: inline-block;}
-    
+
+        .content-asset {
+            display: inline-block;
+        }
+
         .smartgift {
 
             &-btn-redesign {
@@ -1791,13 +1867,13 @@
                 border-color: $black;
                 border-radius: 0;
                 display: inline-block;
-        
+
                 @include media-breakpoint-down(xs) {
                     width: 100%;
                     margin-left: rem(15);
                 }
             }
-    
+
             &-btn-popup {
                 width: rem(39);
                 font-family: $font-medium;
@@ -1807,8 +1883,9 @@
                 letter-spacing: normal;
                 border-color: $black;
                 border-radius: 0;
-                
-                &::after, &::before {
+
+                &::after,
+                &::before {
                     border-left: solid transparent rem(6.8);
                     border-right: solid transparent rem(6.8);
                     content: " ";
@@ -1829,7 +1906,7 @@
                     @include media-breakpoint-up(lg) {
                         right: rem(84);
                     }
-                    
+
                     @include media-breakpoint-up(xl) {
                         right: rem(185);
                         top: rem(-6);
@@ -1844,7 +1921,7 @@
                         right: rem(30);
                     }
                 }
-        
+
                 &::before {
                     border-bottom: solid $gull-gray-light rem(10);
                     right: rem(13);
@@ -1864,6 +1941,7 @@
                         right: rem(185);
                         top: rem(-6);
                     }
+
                     @include media-breakpoint-down(sm) {
                         right: rem(11);
                         top: rem(-6);
@@ -1874,9 +1952,11 @@
                         right: rem(30);
                     }
                 }
-                
+
                 &.active {
-                    &::after, &::before {
+
+                    &::after,
+                    &::before {
                         display: block;
                     }
                 }
@@ -1898,7 +1978,7 @@
     max-width: 80%;
 
     @include media-breakpoint-down(sm) {
-        max-width: 100%;  
+        max-width: 100%;
     }
 
     .cart-and-ipay {
@@ -1912,7 +1992,7 @@
             @include media-breakpoint-down(lg) {
                 display: block;
             }
-            
+
             .add-to-cart {
                 width: 100%;
                 max-width: 50%;
@@ -1925,7 +2005,7 @@
                 }
 
                 @include media-breakpoint-down(lg) {
-                    max-width: 100%;  
+                    max-width: 100%;
                     margin-right: rem(0);
                     width: 100%;
                 }
@@ -1933,10 +2013,10 @@
 
             .btn.btn-border-none {
                 width: 100%;
-                max-width: 50%; 
+                max-width: 50%;
 
                 @include media-breakpoint-down(lg) {
-                    max-width: 100%;  
+                    max-width: 100%;
                 }
 
                 .gpay-card-info-container {
@@ -1954,13 +2034,13 @@
                     min-width: 50%;
 
                     @include media-breakpoint-down(lg) {
-                        max-width: 100%;  
+                        max-width: 100%;
                         min-width: 100%;
                     }
                 }
             }
 
-            .dw-apple-pay-button + .btn.btn-border-none {
+            .dw-apple-pay-button+.btn.btn-border-none {
                 display: none;
             }
         }
@@ -1971,7 +2051,7 @@
     max-width: 80%;
 
     @include media-breakpoint-down(sm) {
-        max-width: 100%;  
+        max-width: 100%;
     }
 
     &-new-design {
@@ -1986,13 +2066,15 @@
             left: auto;
         }
     }
+
     .smart-main {
 
         .smart-gift-btn {
 
             .smartgift-btn-popup {
 
-                &::after,&::before {
+                &::after,
+                &::before {
                     right: rem(13);
                 }
             }
@@ -2004,7 +2086,7 @@
 .pickup-store {
     padding: 0 rem(15);
     width: 100%;
-    
+
     .pdp-store-pickup-wraper {
         padding: 0;
         background-color: transparent;
@@ -2015,7 +2097,7 @@
 
         .col-sm-6 {
             @include media-breakpoint-down(xs) {
-                padding: 0 rem(15); 
+                padding: 0 rem(15);
             }
         }
 
@@ -2029,9 +2111,9 @@
             justify-content: flex-end;
             align-items: center;
             padding: 0 rem(0) rem(0) rem(15);
-            
+
             @include media-breakpoint-down(xs) {
-                justify-content: flex-start; 
+                justify-content: flex-start;
                 margin-top: rem(15);
                 padding: 0 rem(15);
             }
@@ -2063,14 +2145,14 @@
         }
 
         .pdp-store-pickup-address {
-            
+
             .pdp {
                 &-store {
                     &-pickup {
-                        &-display{
-                            &-inline{
+                        &-display {
+                            &-inline {
                                 &-block {
-                                    &-store{
+                                    &-store {
                                         &-icon {
                                             background-image: url(../../images/map-pin.svg);
                                             padding: rem(15);
@@ -2093,7 +2175,7 @@
             .InStock-icon-times {
                 transform: translateY(5px);
             }
-            
+
             .unavailable-icon-block {
                 transform: translateY(5px);
             }
@@ -2101,7 +2183,8 @@
             .info-icon {
 
                 &.info-icon-bopis {
-                    margin-left: rem(8);   
+                    margin-left: rem(8);
+
                     .icon {
                         background-image: url("../../images/info-icon.svg");
                         background-repeat: no-repeat;
@@ -2110,17 +2193,17 @@
                         height: rem(15);
                         background-color: transparent;
                     }
-    
+
                     .tooltip {
-    
+
                         @include media-breakpoint-down(xs) {
                             display: none;
                         }
                     }
-                } 
-            } 
+                }
+            }
         }
-        
+
         .pick-up-store-available-for-store {
             opacity: 0.5;
             color: $black;
@@ -2154,17 +2237,20 @@
         }
     }
 }
+
 // CSS End: isPick up store pdp redesign
 
 // CSS Start: listrak persistent popup
 .listrak-persistent-popup {
     display: none !important;
 }
+
 .button-floting {
     &.button-product-detail {
         bottom: rem(160);
     }
 }
+
 // CSS End: listrak persistent popup
 
 
@@ -2176,7 +2262,7 @@
     letter-spacing: 0;
     line-height: rem(25);
 
-    &.pdp-short-detail-main  {
+    &.pdp-short-detail-main {
         margin-bottom: rem(30);
     }
 }
@@ -2202,7 +2288,7 @@
         }
     }
 
-    &.product-detail{
+    &.product-detail {
 
         &.mcs-product-detail-section-redesign {
 
@@ -2215,12 +2301,12 @@
                     max-width: 100%;
                 }
             }
-    
+
             .prices {
-    
+
                 &.prices-redesign {
                     margin-bottom: rem(20);
-    
+
                     .price {
                         display: flex;
                         align-items: center;
@@ -2232,7 +2318,7 @@
                             letter-spacing: 0;
                             line-height: rem(41);
                         }
-    
+
                         .strike-through {
                             color: $grey8;
                             font-size: rem(22);
@@ -2327,26 +2413,31 @@
                             max-width: rem(330);
                             justify-content: center;
                             line-height: rem(21);
-            
-                            .sale-price-mvmt,.addtocart-innter-price {
+
+                            .sale-price-mvmt,
+                            .addtocart-innter-price {
                                 display: none;
                             }
                         }
                     }
                 }
-            } 
+            }
         }
     }
 }
 
 // accordion
 
-.set-product-set {
+.product-set-section {
+    max-width: rem(1400);
+    margin: 0 auto;
 
     .product-detail {
 
         &.mcs-product-detail-section-redesign {
             margin-top: rem(55);
+            max-width: rem(1260);
+            padding: 0 rem(15);
 
             .product-detail-right-box {
                 max-width: rem(554);
@@ -2359,10 +2450,18 @@
             }
 
             .primary-images {
+                max-width: rem(647.81);
+                width: 100%;
 
                 .cs-carousel-wrapper {
 
                     .cs-carousel {
+
+                        .carousel-tile {
+                            max-height: rem(499);
+                            max-width: rem(499);
+                            width: 100%;
+                        }
 
                         .slick-arrow {
                             height: rem(75.89);
@@ -2370,10 +2469,12 @@
 
                             &.slick-next {
                                 background-image: url("../../images/RightArrow.svg");
+                                right: 0;
                             }
 
                             &.slick-prev {
-                                background-image: url("../../images/LeftArrow.svg")
+                                background-image: url("../../images/LeftArrow.svg");
+                                left: 0;
                             }
                         }
                     }
@@ -2390,7 +2491,7 @@
                     letter-spacing: 0;
                     line-height: rem(20);
                     padding: rem(21) 0;
-                    
+
                     .plus-minus {
                         top: rem(20);
 
@@ -2405,7 +2506,7 @@
                         }
                     }
 
-                    
+
                 }
             }
 
@@ -2480,7 +2581,7 @@
             @include media-breakpoint-down(sm) {
                 margin-bottom: rem(30);
             }
-    
+
             .product-detail-set-item {
                 padding-top: rem(43);
 
@@ -2491,10 +2592,10 @@
                 }
             }
         }
-    
+
         &-header {
             min-height: rem(50);
-            background-color: rgba(134,134,134,0.1);
+            background-color: rgba(134, 134, 134, 0.1);
             padding: rem(4) rem(14) rem(4) rem(14);
             cursor: pointer;
 
@@ -2502,6 +2603,7 @@
                 padding: rem(4) rem(20) rem(4) rem(20);
             }
         }
+
         // heading
         &-heading {
             color: $black;
@@ -2513,9 +2615,9 @@
             @include media-breakpoint-down(sm) {
                 font-size: rem(15);
             }
-    
+
             &.collapsed {
-    
+
                 .plus-minus-icon {
 
                     &::after {
@@ -2524,10 +2626,10 @@
                     }
                 }
             }
-    
+
             .plus-minus-icon {
                 margin-left: rem(10);
-    
+
                 &::before {
                     content: "";
                     display: block;
@@ -2536,6 +2638,7 @@
                     border-radius: rem(1);
                     background-color: $grey-dark1;
                 }
+
                 &::after {
                     content: "";
                     display: block;
