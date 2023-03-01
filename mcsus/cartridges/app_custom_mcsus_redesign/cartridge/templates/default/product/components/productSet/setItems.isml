@@ -63,7 +63,7 @@
                                                     </isif>
                                                 </h2>
                                                 <!-- Product Name -->
-                                                <h2 class="product-name prdouct-name-gtm d-none d-sm-block">${product.productName}</h2>
+                                                <h2 class="product-name prdouct-name-gtm d-sm-block">${product.productName}</h2>
                     
                                                 <iscomment> product rating </iscomment>
                                                 <iscomment>
@@ -80,7 +80,7 @@
                                             <div class="w-100 price-promotions-box">
                                                 <!-- Applicable Promotions -->
                                                 <div
-                                                    class="promotions promotions-redesign mt-sm-3 mt-lg-0 d-flex align-align-items-center justify-content-center justify-content-sm-start flex-wrap">
+                                                    class="promotions promotions-redesign mt-sm-3 mt-lg-0 d-flex align-align-items-center justify-content-sm-start flex-wrap">
                                                     <!-- Prices -->
                                                     <div class="prices prices-redesign">
                                                         <isset name="price" value="${product.price}" scope="page" />
