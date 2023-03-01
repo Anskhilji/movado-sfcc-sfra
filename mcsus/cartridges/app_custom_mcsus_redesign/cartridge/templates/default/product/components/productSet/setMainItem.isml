@@ -57,12 +57,9 @@
                             <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
                         </isif>
                     </div>
-                    <hr class="d-block d-sm-none line-mobile mt-0">
-
-
-                                            <!-- Bundle Save 25% Offer -->
-                        <isset name="promoCalloutMsg" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).promoCalloutMsg}" scope="page" />
-                        <isif condition="${!empty(promoCalloutMsg)}">
+                    <!-- Bundle Save 25% Offer -->
+                    <isset name="promoCalloutMsg" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).promoCalloutMsg}" scope="page" />
+                    <isif condition="${!empty(promoCalloutMsg)}">
                         <div class="bundle-offer-box d-inline-flex align-items-center">
                                 <span class="tag-iocn d-inline-flex">
                                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -84,29 +81,29 @@
                                 </span>
                             <span class="bundle-text">${promoCalloutMsg}</span>
                         </div>
-                        </isif>
+                    </isif>
 
-                            <isloop items="${product.individualProducts}" var="productItem" status="loopState">
-                                <div class="set-product-item-thumb d-flex align-items-center">
-                                    <isset name="individualProducts" value="${productItem}" scope="page" />
-                                    <div class="set-product-item-thumb-img d-flex align-items-center justify-content-center">
-                                        <isif condition="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.tile150[0]) && !empty(individualProducts.images.tile150[0].url)}">
-                                            <picture>
-                                                <img class="tile-image gtm-product" src="${individualProducts.images.tile150[0].url}" alt="${individualProducts.images.tile150[0].alt}"/>
-                                                <source media="(min-width: 992px)" srcset="${individualProducts.images.tile150[0].url}" />
-                                                <source media="(min-width: 544px)" srcset="${individualProducts.images.tile150[0].url}" />
-                                                <source media="(min-width: 320px)" srcset="${individualProducts.images.tile150[0].url}" />
-                                            </picture>
-                                        </isif>
-                                    </div>
-                                    <div class="set-product-item-thumb-title">
-                                        ${individualProducts.productName}
-                                    </div>
-                                    <isif condition="${individualProducts.variationAttributes && individualProducts.variationAttributes.length > 0}">
-                                        <isinclude template="product/components/productSet/variationAttributes" />
-                                    </isif>
-                                </div>
-                            </isloop>
+                    <isloop items="${product.individualProducts}" var="productItem" status="loopState">
+                        <div class="set-product-item-thumb d-flex align-items-center">
+                            <isset name="individualProducts" value="${productItem}" scope="page" />
+                            <div class="set-product-item-thumb-img d-flex align-items-center justify-content-center">
+                                <isif condition="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.tile150[0]) && !empty(individualProducts.images.tile150[0].url)}">
+                                    <picture>
+                                        <img class="tile-image gtm-product" src="${individualProducts.images.tile150[0].url}" alt="${individualProducts.images.tile150[0].alt}"/>
+                                        <source media="(min-width: 992px)" srcset="${individualProducts.images.tile150[0].url}" />
+                                        <source media="(min-width: 544px)" srcset="${individualProducts.images.tile150[0].url}" />
+                                        <source media="(min-width: 320px)" srcset="${individualProducts.images.tile150[0].url}" />
+                                    </picture>
+                                </isif>
+                            </div>
+                            <div class="set-product-item-thumb-title">
+                                ${individualProducts.productName}
+                            </div>
+                            <isif condition="${individualProducts.variationAttributes && individualProducts.variationAttributes.length > 0}">
+                                <isinclude template="product/components/productSet/variationAttributes" />
+                            </isif>
+                        </div>
+                    </isloop>
 
                     <div class="row">
                         <!-- Attributes and Quantity -->

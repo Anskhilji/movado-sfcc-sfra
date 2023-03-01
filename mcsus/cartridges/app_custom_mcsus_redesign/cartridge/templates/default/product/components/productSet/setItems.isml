@@ -25,23 +25,6 @@
                                     </div>
                                 </isif>
                     
-                                <div class="row d-sm-none">
-                                    <div class="col-12">
-                                        <iscomment> mobile family namd , name and badges start </iscomment>
-                                        <div class="product-detail-right-box mobile-detail-redsign d-block d-sm-none">
-                                            <isif condition="${product.brand}">
-                                                <h2 class="product-family-name-redesign text-center">
-                                                    <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
-                                                </h2>
-                                            </isif>
-                                            <!-- Product Name -->
-                                            <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-center">
-                                                ${product.productName}</h2>
-                                        </div>
-                                        <iscomment> mobile family namd , name and badges end </iscomment>
-                                    </div>
-                                </div>
-                    
                                 <div class="row">
                                     <iscomment> product detail redesign section start here </iscomment>
                                     <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
@@ -49,7 +32,7 @@
                                         <isinclude template="product/components/productSet/setProductImageCarousel" />
                     
                                         <div class="product-detail-right-box">
-                                            <div class="d-none d-sm-block">
+                                            <div class="d-sm-block">
                                                 <iscomment> product family name </iscomment>
                                                 <h2 class="product-family-name-redesign">
                                                     <isif condition="${product.brand}">
@@ -57,7 +40,7 @@
                                                     </isif>
                                                 </h2>
                                                 <!-- Product Name -->
-                                                <h2 class="product-name prdouct-name-gtm d-sm-block">${product.productName}</h2>
+                                                <h2 class="product-name prdouct-name-gtm d-sm-block text-left">${product.productName}</h2>
                     
                                                 <iscomment> product rating </iscomment>
                                                 <iscomment>

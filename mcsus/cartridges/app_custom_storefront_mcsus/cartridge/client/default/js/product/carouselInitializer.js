@@ -55,6 +55,20 @@ $(document).ready(function() {
         infinite: true,
         responsive: [
             {
+                breakpoint: 1191,
+                settings: {
+                    dots: false,
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 991,
+                settings: {
+                    dots: false,
+                    slidesToShow: 2,
+                }
+            },
+            {
                 breakpoint: 544,
                 settings: {
                     dots: false,

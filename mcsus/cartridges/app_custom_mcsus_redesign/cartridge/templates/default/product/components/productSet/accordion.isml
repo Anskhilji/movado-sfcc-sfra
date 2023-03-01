@@ -2,7 +2,7 @@
     <div class="accordion-pdp-redesign" id="accordionPdpMcs">
         <div class="accordion-redesign">
             <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="${'#specification' + product.id}" aria-expanded="true" aria-controls="Specification">
-                <span>${Resource.msg('accordion.heading.specification','products',null)}</span><span class="plus-minus"></span>
+                <span>${Resource.msg('accordion.heading.attributes','products',null)}</span><span class="plus-minus"></span>
             </div>
 
             <div id="specification${product.id}" class="collapse" aria-labelledby="headingOne">

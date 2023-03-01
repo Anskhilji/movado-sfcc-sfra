@@ -16,6 +16,10 @@
 
     .padd-0 {
         padding: 0 rem(20);
+
+        @include media-breakpoint-down(sm) {
+            padding: 0;
+        }
     }
 
     .availability-msg {
@@ -36,6 +40,10 @@
 
         &.mcs-product-detail-section-redesign {
 
+            @include media-breakpoint-down(xs) {
+                margin-bottom: rem(20);
+            }
+
             .estimated-text {
                 display: none;
             }
@@ -43,6 +51,14 @@
             // prodcut detail left side image section
             .primary-images {
                 max-width: rem(700);
+
+                @include media-breakpoint-down(lg) {
+                    max-width: 50%;
+                }
+
+                @include media-breakpoint-down(md) {
+                    max-width: rem(345);
+                }
 
                 .cs-carousel-wrapper {
                     max-width: 100%;
@@ -68,13 +84,13 @@
                 max-width: rem(520);
                 margin: 0 auto;
 
-                // @include media-breakpoint-down(lg) {
-                //     max-width: rem(482);
-                // }
+                @include media-breakpoint-down(lg) {
+                    max-width: rem(378);
+                }
 
-                // @include media-breakpoint-down(md) {
-                //     max-width: rem(330);
-                // }
+                @include media-breakpoint-down(md) {
+                    max-width: rem(256);
+                }
 
                 @include media-breakpoint-down(xs) {
                     max-width: rem(336);
@@ -168,6 +184,7 @@
                         font-size: rem(28);
                         line-height: rem(35);
                         margin-bottom: rem(30);
+                        text-align: left;
                     }
                 }
 
@@ -177,6 +194,7 @@
                     background-color: $light-green;
                     padding: rem(10) rem(20);
                     margin-bottom: rem(30);
+
                     @include media-breakpoint-down(sm) {
                         width: 100%;
                     }
@@ -272,10 +290,15 @@
     .product-detail {
         margin-bottom: rem(173);
 
+
         &.mcs-product-detail-section-redesign {
             margin: rem(55) rem(0) rem(91);
             max-width: rem(1260);
             padding: 0 rem(15);
+
+            @include media-breakpoint-down(xs) {
+                margin: rem(46) rem(0) rem(35);
+            }
 
             .product-detail-right-box {
                 max-width: rem(554);
@@ -291,6 +314,10 @@
                 max-width: rem(647.81);
                 width: 100%;
 
+                @include media-breakpoint-down(md) {
+                    max-width: rem(345);
+                }
+
                 .cs-carousel-wrapper {
 
                     .cs-carousel {
@@ -304,6 +331,11 @@
                         .slick-arrow {
                             height: rem(75.89);
                             width: rem(75.91);
+
+                            @include media-breakpoint-down(xs) {
+                                height: rem(39);
+                                width: rem(39);
+                            }
 
                             &.slick-next {
                                 background-image: url("../../images/RightArrow.svg");
@@ -356,6 +388,12 @@
                 letter-spacing: 0;
                 line-height: rem(41);
                 margin-bottom: rem(18);
+
+                @include media-breakpoint-down(xs) {
+                    font-size: rem(24);
+                    font-weight: 300;
+                    line-height: rem(41);
+                }
             }
 
             .description-redesign {
@@ -366,6 +404,10 @@
                 letter-spacing: 0;
                 line-height: rem(25);
                 margin: rem(18) rem(0) rem(30);
+
+                @include media-breakpoint-down(xs) {
+                    margin: rem(23) rem(0) rem(30);
+                }
             }
 
             .rating-box-redisgn {
@@ -375,12 +417,18 @@
 
                     .ratings {
                         margin-bottom: rem(18);
+                        @include media-breakpoint-down(xs) {
+                            margin-bottom: rem(22);
+                        }
                     }
                 }
             }
 
             .product-family-name-redesign {
                 margin-bottom: rem(18);
+                @include media-breakpoint-down(xs) {
+                    margin-top: rem(41);
+                }
 
                 a {
                     color: $grey8;
@@ -396,8 +444,17 @@
                 }
             }
 
-            .prices-redesign {
+            .price-promotions-box {
+                @include media-breakpoint-down(xs) {
+                    margin-bottom: rem(17);
+                } 
+            }
 
+            .prices-redesign {
+                @include media-breakpoint-down(xs) {
+                    margin-bottom: 0;
+                }
+ 
                 .price {
 
                     .price-pdp-mvmt {
@@ -434,7 +491,11 @@
     .primary-images {
 
         .slick-dots {
-            bottom: rem(-62)
+            bottom: rem(-62);
+            @include media-breakpoint-down(xs) {
+                bottom: rem(-47);
+            }
+            
         }
     }
 
@@ -517,7 +578,5 @@
                 }
             }
         }
-
-
     }
 }
