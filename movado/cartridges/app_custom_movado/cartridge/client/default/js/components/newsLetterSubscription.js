@@ -73,7 +73,7 @@ function processSubscriptionPDP(response) {
         $emailSignupStatus.removeClass('d-none');
         $emailSignupStatusInner.text(response.message);
         if (!response.error) {
-            if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS) {
+            if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS || response.message == Resources.EMAIL_SUBSCRIPTION_THANK_YOU) {
                 $('.email-signup-modal').addClass('d-none');
                 $('.coupon-modal').removeClass('d-none');
             } else {
