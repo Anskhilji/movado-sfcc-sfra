@@ -447,8 +447,8 @@ server.post(
                         return orderObject.num == orderNumberParam
                     });
                 }
-                var orderStaus = {
-                    omsOrderStaus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
+                var orderStatus = {
+                    omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
                 }
                 /**
                  * Custom: End
@@ -469,7 +469,7 @@ server.post(
                     order: orderModel,
                     exitLinkText: exitLinkText,
                     exitLinkUrl: exitLinkUrl,
-                    orderStaus: orderStaus
+                    orderStatus: orderStatus
                 });
             } else {
                 res.render('/account/login', {
