@@ -171,6 +171,14 @@ $( document ).ready(function() {
     }
 });
 
+// added active class & scroll down on reviews widget
+$('.ratings > .yotpoBottomLine').on('click',function () {
+    var $mainWidget = $('.main-widget > .yotpo-display-wrapper');
+    $('html, body').animate({
+        scrollTop: $($mainWidget).offset().top
+    }, 10);
+});
+
 // Custom start: Listrak persistent popup
 $(document).on('click','.listrak-popup', function(e) {
     e.preventDefault();
