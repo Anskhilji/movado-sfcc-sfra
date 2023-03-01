@@ -18,6 +18,8 @@ var decorators = require('*/cartridge/models/product/decorators/index');
  * @returns {Object} - Set product
  */
 module.exports = function setProduct(product, apiProduct, options, factory) {
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var detailAndSpecAttributes = productCustomHelpers.getPdpDetailAndSpecsAttributes(apiProduct);
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.options);
     if (options.variationModel) {
@@ -35,6 +37,20 @@ module.exports = function setProduct(product, apiProduct, options, factory) {
     decorators.setIndividualProducts(product, apiProduct, factory);
     decorators.setReadyToOrder(product);
     decorators.raw(product, apiProduct);
+
+    if (!empty(detailAndSpecAttributes)) {
+        Object.defineProperty(product, 'pdpDetailedAttributes', {
+            enumerable: true,
+            value: detailAndSpecAttributes.pdpDetailAttributes
+        });
+    }
+
+    if (!empty(detailAndSpecAttributes)) {
+        Object.defineProperty(product, 'pdpSpecsAttributes', {
+            enumerable: true,
+            value: detailAndSpecAttributes.pdpSpecAttributes
+        });
+    }
 
     return product;
 };
