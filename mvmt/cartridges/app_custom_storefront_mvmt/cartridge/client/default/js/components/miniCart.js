@@ -587,13 +587,15 @@ module.exports = function () {
                 success: function (data) {
                     $.spinner().stop();
                     data.basketModel.items.forEach(function (item) {
-                        $('.gift-box-container-modal .gift-text').text('');
-                        $('.gift-message-btn-' + item.UUID).attr('data-gift-message', '');
-                        $('.gift-personlize-msg').text('');
-                        $('.gift-lineitem-message-' + item.UUID).text('');
-                        $('.gift-message-btn-' + item.UUID).text('Add');
-                        $('.gift-box-message').prop('checked', false);
-                        $('.gift-message-box').addClass('hide-box');
+                        if (productUUID == item.UUID) {
+                            $('.gift-box-container-modal .gift-text').text('');
+                            $('.gift-message-btn-' + item.UUID).attr('data-gift-message', '');
+                            $('.gift-personlize-msg').text('');
+                            $('.gift-lineitem-message-' + item.UUID).text('');
+                            $('.gift-message-btn-' + item.UUID).text('Add');
+                            $('.gift-box-message').prop('checked', false);
+                            $('.gift-message-box').addClass('hide-box');
+                        }
                     });    
                 },
                 error: function (data) {
@@ -601,6 +603,15 @@ module.exports = function () {
                 }
             });
         }
+        // else if (!giftBoxText && giftMessage == '') {
+        //     $('.gift-box-message').prop('checked', false);
+        //     $('.gift-message-box').addClass('hide-box');
+        // }
+        //  else {
+        //     $('.gift-box-message').prop('checked', true);
+        //     var giftMessage = $('.gift-text ').val('');
+        //     $('.gift-message-box').removeClass('hide-box');
+        // }
         
     });
 

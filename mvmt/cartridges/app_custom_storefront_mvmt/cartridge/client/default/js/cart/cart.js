@@ -42,6 +42,22 @@ function appendToUrl($url, params) {
     return $newUrl;
 }
 
+function disableSaveGiftBoxButton() {
+    if ($('.gift-box-product').is(':checked') || $('.gift-box-message').is(':checked')) {
+        $('.add-gift-message').prop('disabled', false);
+    } else {
+        $('.add-gift-message').prop('disabled', true);
+    }
+
+    // if ($('.gift-box-product').is(':checked') && $('.gift-box-message').is(':checked')) {
+    //     $('.gift-message-box').removeClass('hide-box');
+    // } else if ($('.gift-box-product').is(':checked') && !$('.gift-box-message').is(':checked')) {
+    //     $('.gift-message-box').addClass('hide-box');
+    // } else if (!$('.gift-box-product').is(':checked') && !$('.gift-box-message').is(':checked')) {
+    //     $('.gift-message-box').addClass('hide-box');
+    // }
+}
+
 /**
  * Checks whether the basket is valid. if invalid displays error message and disables
  * checkout button
@@ -1087,16 +1103,14 @@ module.exports = function () {
         $('.gift-box-none-button').removeClass('active');
         $('.add-gift-box-input').removeClass('active');
         $('.gift-message-box-input').addClass('active');
-
-        if (!$('.gift-box-message').is(':checked')) {
-            $('.add-gift-message').prop('disabled', true);
-        }
+        disableSaveGiftBoxButton();
     });
 
     $('body').on('click', '.add-gift-box-input', function () {
         $('.add-gift-box').removeAttr('disabled');
         $('.gift-box-none-button').removeClass('active');
         $('.add-gift-box-input').addClass('active');
+        disableSaveGiftBoxButton();
     });
 
 
