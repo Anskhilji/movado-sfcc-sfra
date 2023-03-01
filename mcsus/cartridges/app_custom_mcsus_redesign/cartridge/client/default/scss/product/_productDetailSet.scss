@@ -104,16 +104,6 @@
                     cursor: pointer;
                     background-color: $light-grey6;
 
-                    // @include media-breakpoint-down(lg) {
-                    //     width: rem(120) !important;
-                    //     height: rem(120);
-                    // }
-
-                    // @include media-breakpoint-down(md) {
-                    //     width: rem(70) !important;
-                    //     height: rem(70);
-                    // }
-
                     @include media-breakpoint-down(xs) {
                         width: rem(55) !important;
                         height: rem(55);
@@ -289,8 +279,6 @@
 
     .product-detail {
         margin-bottom: rem(173);
-
-
         &.mcs-product-detail-section-redesign {
             margin: rem(55) rem(0) rem(91);
             max-width: rem(1260);
@@ -417,6 +405,7 @@
 
                     .ratings {
                         margin-bottom: rem(18);
+
                         @include media-breakpoint-down(xs) {
                             margin-bottom: rem(22);
                         }
@@ -426,6 +415,7 @@
 
             .product-family-name-redesign {
                 margin-bottom: rem(18);
+
                 @include media-breakpoint-down(xs) {
                     margin-top: rem(41);
                 }
@@ -447,14 +437,14 @@
             .price-promotions-box {
                 @include media-breakpoint-down(xs) {
                     margin-bottom: rem(17);
-                } 
+                }
             }
 
             .prices-redesign {
                 @include media-breakpoint-down(xs) {
                     margin-bottom: 0;
                 }
- 
+
                 .price {
 
                     .price-pdp-mvmt {
@@ -481,6 +471,7 @@
             }
 
             .accordion-pdp-redesign {
+
                 .accordion-redesign-heading {
                     border-color: $light-gray9;
                 }
@@ -492,17 +483,17 @@
 
         .slick-dots {
             bottom: rem(-62);
+
             @include media-breakpoint-down(xs) {
                 bottom: rem(-47);
             }
-            
         }
     }
 
     .pdp-accordion-ob {
 
         .accordion-ob-box {
-            margin-bottom: rem(40);
+            margin-bottom: rem(32);
 
             @include media-breakpoint-down(sm) {
                 margin-bottom: rem(30);
