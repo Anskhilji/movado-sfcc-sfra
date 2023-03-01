@@ -589,11 +589,12 @@ module.exports = function () {
 
     $('body').on('click', '.gift-message-box-input', function (e) {
 
+        var $addgiftmessage = $('.add-gift-message');
         $('.gift-message-box').removeClass('hide-box');
         $('.gift-message-blank').hide();
         $('.gift-message-error').hide();
-        $('.add-gift-message').removeClass('d-none');
-        $('.add-gift-message').removeAttr('disabled');
+        $addgiftmessage.removeClass('d-none');
+        $addgiftmessage.removeAttr('disabled');
         $('.gift-box-none-button').removeClass('active');
         $('.add-gift-box-input').removeClass('active');
         $('.gift-message-box-input').addClass('active');
@@ -639,7 +640,7 @@ module.exports = function () {
             $('.gift-box-message').prop('checked', false);
             $('.gift-message-box').addClass('hide-box');
         } else {
-            $('.add-gift-message').attr('disabled', false);
+            $addgiftmessage.attr('disabled', false);
             $('.gift-message-box').removeClass('hide-box');
         }
         
