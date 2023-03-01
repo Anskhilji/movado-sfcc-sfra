@@ -83,7 +83,7 @@
                                         </g>
                                         </svg>
                                     </span>
-                                <span class="bundle-text">${product.productSetCalloutMsg}</span>
+                                <span class="bundle-text"><isprint value="${product.productSetCalloutMsg}" encoding="off" /></span>
                             </div>
                         </isif>
                         <isif condition="${!empty(promoCalloutMsg)}">
