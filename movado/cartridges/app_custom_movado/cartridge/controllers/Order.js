@@ -377,9 +377,11 @@ server.post(
     csrfProtection.validateRequest,
     csrfProtection.generateToken,
     function (req, res, next) {
-        var OrderMgr = require('dw/order/OrderMgr');
-        var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
+        var OrderMgr = require('dw/order/OrderMgr');
+
+        var OrderModel = require('*/cartridge/models/order');
+        var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
 
         var order;
         var validForm = true;
@@ -432,7 +434,6 @@ server.post(
                  * Custom Start: MSS-2166 Add SOM Logic
                  */
                 var emailAddress = req.form.trackOrderEmail;
-                var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
 
                 var orders = SalesforceModel.getOrdersByCustomerEmail({
                     emailAddress: emailAddress,
