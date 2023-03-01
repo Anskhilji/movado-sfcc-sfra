@@ -6,7 +6,6 @@
       "slidesToScroll": 1,
       "dots": true,
       "centerMode": true,
-      asNavFor: '.carousel-nav-redesign'
     }
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>

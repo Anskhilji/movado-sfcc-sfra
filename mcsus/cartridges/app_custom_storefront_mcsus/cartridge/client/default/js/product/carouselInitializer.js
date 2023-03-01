@@ -44,6 +44,24 @@ $(document).ready(function() {
             },
         ]
     });
+    
+    $('.carousel-nav-set-product').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '.primary-images .main-carousel',
+        dots: false,
+        arrows:false,
+        focusOnSelect: true,
+        infinite: true,
+        responsive: [
+            {
+                breakpoint: 544,
+                settings: {
+                    dots: false,
+                }
+            },
+        ]
+    });
 
     $('.zoom-carousel').slick({
         slidesToShow: 1,
