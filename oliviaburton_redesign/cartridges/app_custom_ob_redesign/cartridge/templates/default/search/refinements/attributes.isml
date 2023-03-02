@@ -9,7 +9,7 @@
     <iselseif condition="${refinementValue.type === 'radio'}"/>
         <isinclude template="search/refinements/attributes/radio"/>
     <iselseif condition="${refinementValue.id == 'yotpoRating'}" />
-        <isinclude template="/common/yotpoStarRatingRefinements" />
+        <isinclude template="search/refinements/attributes/yotpoStarRatingRefinements" />
     <iselse/>
         <isinclude template="search/refinements/attributes/boolean"/>
     </isif>
