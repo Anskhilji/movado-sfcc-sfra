@@ -49,8 +49,8 @@ function checkAllLineItem() {
 }
 
 function updateQuantityForBopis(data, $pickupFromStore) {
-    var $lineItemsInventory = data.lineItemsInventory;
-    var $cartItems = data.cartModel.items;
+    var $lineItemsInventory = data && data.lineItemsInventory ? data.lineItemsInventory : '';
+    var $cartItems = data && data.cartModel && data.cartModel.items ? data.cartModel.items : '';
     var $maxQuantityLimit = 10;
     var $lineItemID;
     var $lineItemQty;
