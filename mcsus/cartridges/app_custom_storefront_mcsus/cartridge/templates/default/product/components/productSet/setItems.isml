@@ -41,17 +41,6 @@
                                                 </h2>
                                                 <!-- Product Name -->
                                                 <h2 class="product-name prdouct-name-gtm d-sm-block text-left">${product.productName}</h2>
-                    
-                                                <iscomment> product rating </iscomment>
-                                                <iscomment>
-                                                    <p> <span>Model:</span> <span>
-                                                            <isprint value="${product.id}" encoding="on" /></span> </p>
-                                                </iscomment>
-                                                <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
-                                                    <div class="d-none d-sm-block rating-box-redisgn">
-                                                        <isinclude template="product/components/pidRating" />
-                                                    </div>
-                                                </isif>
                                             </div>
                     
                                             <div class="w-100 price-promotions-box">

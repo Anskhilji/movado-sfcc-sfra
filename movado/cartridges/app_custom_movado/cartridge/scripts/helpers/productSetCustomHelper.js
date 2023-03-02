@@ -194,7 +194,7 @@ function getPromoDate(promotion, startDate, endDate, firstDateValidator) {
  * @returns {Date} end date.
  */
 function getSalePriceEffectiveDate(startDate, endDate) {
-var commonUtils = require('*/cartridge/scripts/utils/commonUtils');
+    var commonUtils = require('*/cartridge/scripts/utils/commonUtils');
     var Constants = require('*/cartridge/scripts/utils/Constants');
     var Calendar = require('dw/util/Calendar');
     var campaignStartingDate = '';
