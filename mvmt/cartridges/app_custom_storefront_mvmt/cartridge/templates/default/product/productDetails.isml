@@ -197,7 +197,7 @@
                         
                         <div class="hidden-sm-down rating-box-container">
                             <div class="pb-2">
-                                <div class="col-12 rating-margin mobile-click-review">
+                                <div class="rating-margin mobile-click-review">
                                     <div class="ratings p-0">
                                         <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
                                         <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
