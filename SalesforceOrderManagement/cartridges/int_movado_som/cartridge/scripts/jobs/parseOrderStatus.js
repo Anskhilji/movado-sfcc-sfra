@@ -139,14 +139,14 @@ function parseOrderStatus(args) {
  */
 function processStatusOrder(SAPOrderStatus, fileName) {
     // Retrieve SOM Fulfillment Order
-     Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
+    Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
     try {
 		var CancelStatus = "Cancelled";
 		var FufilledStatus = "Fulfilled";
-        var checkTransactionStatus= '';
-        if(SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'CAPTURE' || 
-        SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'VOID') {
-        checkTransactionStatus = 'AND+Status+NOT+IN(\'' + FufilledStatus + '\',\'' + CancelStatus + '\')';
+        var checkTransactionStatus = '';
+
+        if(SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'CAPTURE' || SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'VOID') {
+            checkTransactionStatus = 'AND+Status+NOT+IN(\'' + FufilledStatus + '\',\'' + CancelStatus + '\')';
         }
         else if(SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'REFUND') {
             checkTransactionStatus = 'AND+Status!=\'' + CancelStatus + '\'' ;
