@@ -37,7 +37,7 @@ function getYotpoMaximumDisplayValue(values) {
             return Boolean(x);
         }).map(Number);
         // var  displayMaxValue = Math.max(displayValueArray);
-        values[i].displayValue = Math.max.apply(null, displayValueArray);
+        values[i].value = Math.max.apply(null, displayValueArray);
     }
     return values;
 }

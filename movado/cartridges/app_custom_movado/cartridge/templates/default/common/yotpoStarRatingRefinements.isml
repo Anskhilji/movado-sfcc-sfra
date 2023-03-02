@@ -1,21 +1,18 @@
-<iscomment> Custom: span and icon removed, class added with condition</iscomment>
-<ul class="values content row m-0">
-    <li class="col-6" title="${refinementValue.title}">
-        <a href="${refinementValue.url}" class="selection-tab <isif condition=" ${refinementValue.selected && refinementValue.selectable}">selected</isif>">
-            <div class="star-rating-area">
-                <div class="rating-static clearfix" rel="${refinementValue.displayValue}">
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                    <label class="full"></label>
-                    <label class="half"></label>
-                </div>
+<li class="col-6" title="${refinementValue.title}">
+    <a href="${refinementValue.url}" class="selection-tab <isif condition=" ${refinementValue.selected && refinementValue.selectable}">selected</isif>">
+        <div class="star-rating-area">
+            <div class="rating-static clearfix" rel="${refinementValue.value}">
+                <label class="full"></label>
+                <label class="half"></label>
+                <label class="full"></label>
+                <label class="half"></label>
+                <label class="full"></label>
+                <label class="half"></label>
+                <label class="full"></label>
+                <label class="half"></label>
+                <label class="full"></label>
+                <label class="half"></label>
             </div>
-        </a>
-    </li>
-</ul>
+        </div>
+    </a>
+</li>
