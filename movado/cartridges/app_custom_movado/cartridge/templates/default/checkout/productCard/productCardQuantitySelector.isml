@@ -3,7 +3,7 @@
     <div class="quantity-form">
         <label class="line-item-pricing-info quantity-label" for="quantity">${Resource.msg('field.selectquantityselector', 'cart', null)}</label>
         <label class="line-item-pricing-info quantity-label-mbl" for="quantity">${Resource.msg('field.selectquantity.cart', 'cart', null)}</label>
-        <select class="form-control quantity custom-select"
+        <select class="form-control quantity${lineItem.id} custom-select"
                 data-uuid="${lineItem.UUID}"
                 data-pid="${lineItem.id}"
                 data-action="${URLUtils.url('Cart-UpdateQuantity').toString()}"

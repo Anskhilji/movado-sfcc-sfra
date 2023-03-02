@@ -2225,32 +2225,3 @@
         }
     }
 }
-.sticky-quantity-btn {
-
-    .quantity-selector {
-        margin-bottom: 0;
-    }
-
-    .quantity-selector-pdp {
-        width: 33.8%;
-
-        @include media-breakpoint-down(xs   ) {
-            width: 35%;
-        }
-    }
-}
-
-.sticky-prodct-cart-redesign {
-    .cart-and-ipay {
-
-        .cta-add-to-cart {
-
-            .sticky-quantity-btn {
-
-                .add-to-cart {
-                    margin-bottom: 0;
-                }
-            }
-        }
-    }
-}

@@ -18,17 +18,26 @@ function checkAllLineItem() {
         method: 'POST',
         success: function (response) {
             if ($pickupFromStore) {
-                var $isAllItemsAvailable = response.viewData.isAllItemsAvailable ? true : false;
+                var $isAllItemsAvailable = response.viewData.isAllItemsAvailable ? true : false;                
                 $('.remove-product').attr({'data-store-pickup-available': $isAllItemsAvailable})
                 updateStorePickupProductAvailability(response.viewData);
                 handleAvailabilityOnStore(response.viewData);
                 if (response.viewData !== '' && response.viewData !== undefined) {
                     updateBOPISShippingMethods(response.viewData, $pickupFromStore);
                 }
+
+                if (response.viewData !== '' && response.viewData !== undefined) {
+                    updateQuantityForBopis(response.viewData, $pickupFromStore);
+                }           
             } else {
                 updateStorePickupProductAvailability(response.viewData);
+                
                 if (response.viewData !== '' && response.viewData !== undefined) {
                     updateBOPISShippingMethods(response.viewData, $pickupFromStore);
+                }
+
+                if (response.viewData !== '' && response.viewData !== undefined) {
+                    updateQuantityForBopis(response.viewData, $pickupFromStore);
                 }
             }
             $.spinner().stop();
@@ -37,6 +46,76 @@ function checkAllLineItem() {
             $.spinner().stop();
         }
     });
+}
+
+function updateQuantityForBopis(data, $pickupFromStore) {
+    var $lineItemsInventory = data.lineItemsInventory;
+    var $cartItems = data.cartModel.items;
+    var $maxQuantityLimit = 10;
+    var $lineItemID;
+    var $lineItemQty;
+    var $html = '';
+
+    if ($pickupFromStore) {
+        if ($lineItemsInventory !== undefined && $lineItemsInventory !== '') {
+            $cartItems.forEach(function (cartItem) {
+                $lineItemID = cartItem.id;
+                $lineItemQty = cartItem.quantity;
+                var $quantity = $('.quantity-form .quantity'+$lineItemID);
+                $html = '';
+            
+                $lineItemsInventory.forEach(function (lineItemInventory) {
+                    if (lineItemInventory.sku === $lineItemID) { 
+                        var $lineItemATO = lineItemInventory.ato;
+
+                        if ($lineItemATO > 0) {
+                            for (var i = 1; i <= $lineItemATO; i++) {
+                                var $currentATO = i;
+                                $quantity.empty();
+
+                                if ($currentATO === $lineItemQty) {
+                                    var selected = 'selected';
+                                    $html += '<option '+ selected +' >' + ($currentATO) + '</option>';
+                                    $quantity.empty().append($html);
+                                } else {
+                                    $html += '<option>' + ($currentATO) + '</option>';
+                                    $quantity.empty().append($html);
+                                }
+                                
+                                if ($currentATO == $maxQuantityLimit) {
+                                    break;
+                                }
+                            }
+                        } else {
+                            $quantity.attr('disabled', 'disabled');
+                        }   
+                    }
+                });
+            });
+        }
+    } else {
+        $cartItems.forEach(function (cartItem) {
+            var $lineItemID = cartItem.id;
+            var $lineItemQty = cartItem.quantity;
+            var $quantity = $('.quantity-form .quantity'+$lineItemID);
+            var $html = '';
+    
+            for (var i = 1; i <= $maxQuantityLimit; i++) {
+                var $currentATO = i;
+                $quantity.empty();
+
+                if ($currentATO === $lineItemQty) {
+                    var selected = 'selected';
+                    $html += '<option '+ selected +' >' + ($currentATO) + '</option>';
+                    $quantity.empty().append($html);
+                } else {
+                    $html += '<option>' + ($currentATO) + '</option>';
+                    $quantity.empty().append($html);
+                }
+            }
+            $quantity.removeAttr('disabled', 'disabled'); 
+        });
+    }
 }
 
 function updateBOPISShippingMethods(data, $pickupFromStore) {
