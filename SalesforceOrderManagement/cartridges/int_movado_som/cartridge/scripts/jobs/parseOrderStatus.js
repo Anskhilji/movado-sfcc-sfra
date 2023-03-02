@@ -141,6 +141,16 @@ function processStatusOrder(SAPOrderStatus, fileName) {
     // Retrieve SOM Fulfillment Order
      Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
     try {
+		var CancelStatus = "Cancelled";
+		var FufilledStatus = "Fulfilled";
+        var checkTransactionStatus= '';
+        if(SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'CAPTURE' || 
+        SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'VOID') {
+        checkTransactionStatus = 'AND+Status+NOT+IN(\'' + FufilledStatus + '\',\'' + CancelStatus + '\')';
+        }
+        else if(SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'REFUND') {
+            checkTransactionStatus = 'AND+Status!=\'' + CancelStatus + '\'' ;
+        }
         var fulfillmentOrder = SalesforceModel.createSalesforceRestRequest({
             method: 'GET',
             url: '/services/data/v52.0/query/?q=' +
@@ -153,7 +163,8 @@ function processStatusOrder(SAPOrderStatus, fileName) {
                 'OrderItemSummary.WarrantyParentOrderItemSummary__r.Id,' +
                 'OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity+' +
                 'FROM+FulfillmentOrderLineItems)+' +
-                'FROM+FulfillmentOrder+WHERE+FulfillmentOrderNumber=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'',
+                'FROM+FulfillmentOrder+WHERE+FulfillmentOrderNumber=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'' +
+				''+ checkTransactionStatus +' ',
             referenceId: 'SalesforceOrderStatus'
         });
 
