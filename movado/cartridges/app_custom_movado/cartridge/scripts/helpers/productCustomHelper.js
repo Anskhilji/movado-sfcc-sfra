@@ -193,8 +193,6 @@ function getYotpoReviewsCustomAttribute(apiProduct) {
     }
 
     return yotpoReviews;
-
-    // && !empty(apiProduct.custom.yotpoStarRattings)
 }
 
 //Custom Start: Get Category of Product
