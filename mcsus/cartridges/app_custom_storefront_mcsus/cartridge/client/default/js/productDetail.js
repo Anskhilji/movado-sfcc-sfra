@@ -20,14 +20,14 @@ $('.ratings > .yotpoBottomLine').on('click', function () {
 var yotpoReview = '#yotpo-reviews-top-div'
 if(location.hash && location.hash == yotpoReview) {
     $('.reviews-accordion').removeClass('collapsed');
-    $('#reviews').addClass('show');
+    $('.accordion-reviews').addClass('show');
 }
 
 // click
 $('.rating-box-redisgn').on('click', function() {
     $('.reviews-accordion').removeClass('collapsed');
-    $('#reviews').addClass('show');
-    $(document).scrollTop('#reviews');
+    $('.accordion-reviews').addClass('show');
+    $(document).scrollTop('.accordion-reviews');
 });
 
 $('.accordion-redesign .reviews-accordion .ratings').on('click', function () {
