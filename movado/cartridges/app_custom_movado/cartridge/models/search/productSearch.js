@@ -36,7 +36,6 @@ function getYotpoMaximumDisplayValue(values) {
         var displayValueArray = displayValue.replace(/[A-Za-z]/g, '').split(' ').filter(function (x) {
             return Boolean(x);
         }).map(Number);
-        // var  displayMaxValue = Math.max(displayValueArray);
         values[i].value = Math.max.apply(null, displayValueArray);
     }
     return values;

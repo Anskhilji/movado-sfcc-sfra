@@ -103,10 +103,6 @@
                                         <isif condition="${refinement.isPriceRefinement}">
                                             <isinclude template="search/refinements/prices" />
                                         </isif>
-
-                                        <!--- Ratting REFINEMENTS --->
-                                        <iscomment> <isinclude template="common/yotpoStarRatingRefinements" />   </iscomment>
-
                                     </div>
                                 </div>
                             </div>
@@ -285,9 +281,6 @@
                                         <isif condition="${refinement.isPriceRefinement}">
                                             <isinclude template="search/refinements/prices" />
                                         </isif>
-
-                                         <!--- Ratting REFINEMENTS --->
-                                        <iscomment> <isinclude template="common/yotpoStarRatingRefinements" />                                         </iscomment>
                                         <span class="close-icon search-refinement-close"></span>
                                     </div>
                                 </div>
