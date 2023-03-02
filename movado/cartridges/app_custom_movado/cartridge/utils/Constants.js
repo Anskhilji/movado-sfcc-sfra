@@ -15,3 +15,4 @@ exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 
 exports.ECOM_SALE_PRICE_BOOK = 'sale';
+exports.YOTPO_REFINEMENT_ID = 'yotpoRating';

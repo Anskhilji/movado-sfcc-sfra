@@ -10,9 +10,10 @@
         <isinclude template="search/refinements/attributes/size"/>
     <iselseif condition="${refinementValue.type === 'radio'}"/>
         <isinclude template="search/refinements/attributes/radio"/>
-    
+    <iselseif condition="${refinementValue.id == 'yotpoRating'}" />
+        <isinclude template="search/refinements/attributes/yotpoStarRatingRefinements" />
     <iselse/>
-     <isinclude template="search/refinements/attributes/boolean"/>
+        <isinclude template="search/refinements/attributes/boolean" />
     </isif>
     <isif condition="${loopStatus.last}">
       </ul>
