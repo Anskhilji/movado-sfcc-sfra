@@ -177,10 +177,24 @@ function getCurrentCountry() {
 
 function getYotpoReviewsCustomAttribute(apiProduct) {
     var yotpoReviews = '';
-    if (!empty(apiProduct) && !empty(apiProduct.custom.yotpoStarRattings)) {
-        yotpoReviews = apiProduct.custom.yotpoStarRattings;
+
+    if (!empty(apiProduct)) {
+        var masterProduct = apiProduct.getVariationModel().getMaster();
+
+        if (!empty(masterProduct)) {
+            if (!empty(masterProduct.custom.yotpoStarRattings)) {
+                yotpoReviews = masterProduct.custom.yotpoStarRattings;
+            }
+        } else {
+            if (!empty(apiProduct.custom.yotpoStarRattings)) {
+                yotpoReviews = apiProduct.custom.yotpoStarRattings;
+            }
+        }
     }
+
     return yotpoReviews;
+
+    // && !empty(apiProduct.custom.yotpoStarRattings)
 }
 
 //Custom Start: Get Category of Product
