@@ -61,7 +61,7 @@ function updateQuantityForBopis(data, $pickupFromStore) {
             $cartItems.forEach(function (cartItem) {
                 $lineItemID = cartItem.id;
                 $lineItemQty = cartItem.quantity;
-                var $quantity = $('.quantity-form .quantity'+$lineItemID);
+                var $quantity = $('.quantity-form .select-quantity'+$lineItemID);
                 $html = '';
             
                 $lineItemsInventory.forEach(function (lineItemInventory) {
@@ -97,7 +97,7 @@ function updateQuantityForBopis(data, $pickupFromStore) {
         $cartItems.forEach(function (cartItem) {
             var $lineItemID = cartItem.id;
             var $lineItemQty = cartItem.quantity;
-            var $quantity = $('.quantity-form .quantity'+$lineItemID);
+            var $quantity = $('.quantity-form .select-quantity'+$lineItemID);
             var $html = '';
     
             for (var i = 1; i <= $maxQuantityLimit; i++) {
