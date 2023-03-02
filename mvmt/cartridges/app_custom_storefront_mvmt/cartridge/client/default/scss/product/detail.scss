@@ -665,8 +665,11 @@
     }
 
     .ratings-mobile {
+
         @include media-breakpoint-down(sm) {
             display: block;
+            margin-top: rem(10);
+            padding-bottom: 0 !important; //using important to overwrite inline css
         }
     }
     .rating-box-container {
@@ -676,6 +679,7 @@
 
         @include media-breakpoint-up(md-down) {
             display: block;
+            padding-bottom: rem(7);
         }
     }
 
@@ -686,6 +690,8 @@
     .ratings-mobile {
 
         .rating-margin {
+            padding: 0;
+
             @include media-breakpoint-down(sm) {
                 padding: 0 rem(10);
             }
