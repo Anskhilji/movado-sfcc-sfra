@@ -147,6 +147,7 @@ server.post(
 
             if (apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
                 lineItemsInventory = apiResponse.response[0].inventory[0].records;
+                viewData.lineItemsInventory = lineItemsInventory;
             }
 
             omniChannelAPIHelper.setLineItemInventory(items, lineItemsInventory, viewData);

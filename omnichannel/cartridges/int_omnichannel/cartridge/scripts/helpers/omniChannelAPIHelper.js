@@ -109,13 +109,13 @@ function setLineItemInventory(items, lineItemsInventory, viewData) {
                         return lineItem.sku == item.id
                     });
                     var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
-                    itemInv = itemInv - (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity;
+                    var lineItemInv = itemInv > 0 ? itemInv - (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity : 0;
                     var loopInventory = itemInventory.filter(function (i) {
                         return i.itemId == item.id
                     }).map(function (obj) {
                         return obj.remain
                     });
-                    if ((loopInventory.length == 0 || loopInventory > 0) && (itemInv == 0 || itemInv > 0)) {
+                    if ((loopInventory.length == 0 || loopInventory > 0) && (lineItemInv == 0 || lineItemInv > 0) && itemInv > 0) {
                         item.storePickupAvailable = true;
                         if (loopInventory.length == 0) {
                             itemInventory.push({
