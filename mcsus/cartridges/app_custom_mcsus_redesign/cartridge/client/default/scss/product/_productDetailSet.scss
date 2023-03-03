@@ -14,6 +14,13 @@
 // MSS-2165
 .product-set-detail {
 
+    .product-breadcrumb-redesign {
+
+        @include media-breakpoint-down(xs) {
+            display: none;
+        }
+    }
+
     .padd-0 {
         padding: 0 rem(20);
 
@@ -27,12 +34,15 @@
 
         li {
             color: $grey-dark;
-            font-family: $font-demi;
             font-size: rem(15);
             font-weight: 500;
             letter-spacing: 0;
             line-height: rem(20);
             text-transform: capitalize !important; //i'm using important to overwrite inline css
+
+            @include media-breakpoint-down(xs) {
+                text-align: left;
+            }
         }
     }
 
@@ -40,8 +50,16 @@
 
         &.mcs-product-detail-section-redesign {
 
+            .price-promotions-box  {
+
+                @include media-breakpoint-down(xs) {
+                    margin-bottom: rem(20);    
+                }
+            }
+
             @include media-breakpoint-down(xs) {
                 margin-bottom: rem(20);
+                margin-top: rem(31);
             }
 
             .estimated-text {
@@ -103,6 +121,7 @@
                     border: rem(1.5) solid transparent;
                     cursor: pointer;
                     background-color: $light-grey6;
+                    border-radius: rem(3);
 
                     @include media-breakpoint-down(xs) {
                         width: rem(55) !important;
@@ -136,6 +155,10 @@
                     &.prices-redesign {
                         margin-bottom: rem(10);
 
+                        @include media-breakpoint-down(xs) {
+                            margin-bottom: rem(5);
+                        }
+
                         .price {
                             display: flex;
                             align-items: center;
@@ -163,7 +186,6 @@
 
                 .product-name {
                     color: $grey8;
-                    font-family: $font-demi;
                     font-size: rem(34);
                     font-weight: 500;
                     letter-spacing: 0;
@@ -191,7 +213,6 @@
 
                     .bundle-text {
                         color: $apple;
-                        font-family: $font-gill-std-semibold;
                         font-size: rem(14);
                         font-weight: 600;
                         letter-spacing: 0;
@@ -202,7 +223,6 @@
 
                 .affirm-as-low-as {
                     color: $grey8;
-                    font-family: $font-demi;
                     font-size: rem(16);
                     font-weight: 500;
                     letter-spacing: 0;
@@ -227,7 +247,7 @@
                     .set-product-item-thumb-title {
                         opacity: 0.5;
                         color: $black;
-                        font-family: $font-demi;
+                        
                         font-size: rem(12);
                         font-weight: 500;
                         letter-spacing: 0;
@@ -239,12 +259,12 @@
                 .pdp-short-detail-main {
                     opacity: 0.8;
                     color: $black;
-                    font-family: $font-demi;
                     font-size: rem(15);
                     font-weight: 300;
                     letter-spacing: rem(0.5);
                     line-height: rem(25);
                     margin-bottom: rem(35);
+                    font-family: $font-medium;
                 }
 
                 .prices-add-to-cart-redesign {
@@ -257,6 +277,12 @@
                                 max-width: rem(330);
                                 justify-content: center;
                                 line-height: rem(21);
+                                letter-spacing: 0;
+
+                                @include media-breakpoint-down(xs) {
+                                    max-width: rem(336);
+                                    height: rem(45);
+                                }
 
                                 .sale-price-mvmt,
                                 .addtocart-innter-price {
@@ -308,6 +334,13 @@
 
                 .cs-carousel-wrapper {
 
+                    .slick-dots {
+
+                        li {
+                            margin: 0 rem(1);
+                        }
+                    }
+
                     .cs-carousel {
 
                         .carousel-tile {
@@ -341,26 +374,51 @@
 
             .accordion-pdp-redesign {
 
+                .accordion-redesign {
+                    border-bottom: rem(1) solid $light-gray9;
+
+                    &:first-child {
+                        border-top: rem(1) solid $light-gray9;
+                    }
+
+                    @include media-breakpoint-down(xs) {
+
+                        &:last-child {
+                            border: 0;
+                        }
+                    }
+                }
+
                 .accordion-redesign-heading {
                     color: $light-gray8;
-                    font-family: $font-demi;
                     font-size: rem(15);
                     font-weight: 900;
                     letter-spacing: 0;
                     line-height: rem(20);
                     padding: rem(21) 0;
+                    border: none;
 
                     .plus-minus {
                         top: rem(20);
+                        transform: rotate(180deg);
+                        transition: .4s ease all;
 
                         &::after {
                             content: "";
                             content: url('../../images/Chevron_down.svg');
+                            position: unset;
 
                         }
 
                         &::before {
                             display: none;
+                        }
+                    }
+
+                    &.collapsed {
+                        
+                        .plus-minus {
+                            transform: rotate(0deg);
                         }
                     }
 
@@ -370,7 +428,6 @@
 
             .product-name {
                 color: $black;
-                font-family: $font-demi;
                 font-size: rem(32);
                 font-weight: 500;
                 letter-spacing: 0;
@@ -381,17 +438,18 @@
                     font-size: rem(24);
                     font-weight: 300;
                     line-height: rem(41);
+                    margin-bottom: rem(10);
                 }
             }
 
             .description-redesign {
                 color: $grey-light10;
-                font-family: $font-demi;
                 font-size: rem(15);
                 font-weight: 300;
                 letter-spacing: 0;
                 line-height: rem(25);
                 margin: rem(18) rem(0) rem(30);
+                opacity: 0.8;
 
                 @include media-breakpoint-down(xs) {
                     margin: rem(23) rem(0) rem(30);
@@ -422,7 +480,6 @@
 
                 a {
                     color: $grey8;
-                    font-family: $font-demi;
                     font-size: rem(20);
                     font-weight: 300;
                     letter-spacing: 0;
@@ -436,7 +493,7 @@
 
             .price-promotions-box {
                 @include media-breakpoint-down(xs) {
-                    margin-bottom: rem(17);
+                    margin-bottom: rem(7);
                 }
             }
 
@@ -524,7 +581,6 @@
         // heading
         &-heading {
             color: $black;
-            font-family: $font-demi;
             font-size: rem(18);
             letter-spacing: 0;
             line-height: rem(41);
