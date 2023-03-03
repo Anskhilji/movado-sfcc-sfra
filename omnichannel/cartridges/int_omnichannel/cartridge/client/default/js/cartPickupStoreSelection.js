@@ -22,21 +22,21 @@ function checkAllLineItem() {
                 $('.remove-product').attr({'data-store-pickup-available': $isAllItemsAvailable})
                 updateStorePickupProductAvailability(response.viewData);
                 handleAvailabilityOnStore(response.viewData);
-                if (response.viewData !== '' && response.viewData !== undefined) {
+                if (response && response.viewData) {
                     updateBOPISShippingMethods(response.viewData, $pickupFromStore);
                 }
 
-                if (response.viewData !== '' && response.viewData !== undefined) {
+                if (response && response.viewData) {
                     updateQuantityForBopis(response.viewData, $pickupFromStore);
                 }           
             } else {
                 updateStorePickupProductAvailability(response.viewData);
                 
-                if (response.viewData !== '' && response.viewData !== undefined) {
+                if (response && response.viewData) {
                     updateBOPISShippingMethods(response.viewData, $pickupFromStore);
                 }
 
-                if (response.viewData !== '' && response.viewData !== undefined) {
+                if (response && response.viewData) {
                     updateQuantityForBopis(response.viewData, $pickupFromStore);
                 }
             }
@@ -57,7 +57,7 @@ function updateQuantityForBopis(data, $pickupFromStore) {
     var $html = '';
 
     if ($pickupFromStore) {
-        if ($lineItemsInventory !== undefined && $lineItemsInventory !== '') {
+        if ($lineItemsInventory) {
             $cartItems.forEach(function (cartItem) {
                 $lineItemID = cartItem.id;
                 $lineItemQty = cartItem.quantity;
