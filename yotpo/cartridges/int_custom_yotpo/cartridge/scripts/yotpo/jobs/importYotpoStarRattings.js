@@ -64,6 +64,7 @@ function execute() {
                 if (!empty(yotpoResponseJSON)) {
                     Transaction.wrap(function () {
                         product.custom.yotpoStarRattings = yotpoResponseJSON;
+                        product.custom.yotpoRating = yotpoResponseHTML.average_score;
                     });
                 }
             } else {
