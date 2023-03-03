@@ -30,7 +30,7 @@ function getResetLink(search, httpParams) {
         : URLUtils.url(ACTION_ENDPOINT, 'q', httpParams.q);
 }
 
-function getYotpoMaximumDisplayValue(values) {
+function getYotpoMaximumScore(values) {
     for (var i in values) {
         var displayValue = values[i].displayValue;
         var displayValueArray = displayValue.replace(/[A-Za-z]/g, '').split(' ').filter(function (x) {
@@ -55,7 +55,7 @@ function getRefinements(productSearch, refinements, refinementDefinitions) {
         var refinementValues = refinements.getAllRefinementValues(definition);
         var values = searchRefinementsFactory.get(productSearch, definition, refinementValues);
         if (definition.attributeID == Constants.YOTPO_REFINEMENT_ID) {
-            values = getYotpoMaximumDisplayValue(values)
+            values = getYotpoMaximumScore(values)
         }
         return {
             displayName: definition.displayName,

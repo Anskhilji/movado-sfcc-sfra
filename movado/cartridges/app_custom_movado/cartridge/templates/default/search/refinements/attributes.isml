@@ -1,6 +1,6 @@
 <isloop items="${refinement.values}" var="refinementValue" status="loopStatus">
   <isif condition="${loopStatus.first}">
-    <ul class="values content filter-refinement-container ${refinementValue.id == 'yotpoRating' ? 'ratting-fliter' : ''}" data-filter-id="${refinementValue.id}" <isif condition="${refinementValue.type === 'radio'}" >role="radiogroup"</isif> >
+    <ul class="values content filter-refinement-container ${refinementValue.id == 'yotpoAverageScore' ? 'ratting-fliter' : ''}" data-filter-id="${refinementValue.id}" <isif condition="${refinementValue.type === 'radio'}" >role="radiogroup"</isif> >
   </isif>
     <isif condition="${refinementValue.type === 'color'}">
         <isinclude template="search/refinements/attributes/color"/>
@@ -8,7 +8,7 @@
         <isinclude template="search/refinements/attributes/size"/>
     <iselseif condition="${refinementValue.type === 'radio'}"/>
         <isinclude template="search/refinements/attributes/radio"/>
-    <iselseif condition="${refinementValue.id == 'yotpoRating'}" />
+    <iselseif condition="${refinementValue.id == 'yotpoAverageScore'}" />
         <isinclude template="search/refinements/attributes/yotpoStarRatingRefinements" />
     <iselse/>
         <isinclude template="search/refinements/attributes/boolean"/>
