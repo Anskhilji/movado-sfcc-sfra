@@ -1,5 +1,6 @@
 <iscomment>Updated carousel configuration</iscomment>
-<div class="primary-images">
+<isset name="product" value="${pdict.product}" scope="page" />
+<div class="primary-images pdp-images-removal">
   <isscript>
     var primaryImageCarouselConfig = {
       "slidesToShow": 1,
@@ -90,8 +91,8 @@
                       </div>
                     </isloop>
                 </div>
-                <div class="zoom-carousel-nav">
-                    <div class="zoom-carousel-slider carousel-nav-variation-redesing">
+                <iscomment> <div class="zoom-carousel-nav"> </iscomment>
+                    <div class="zoom-carousel-slider">
                         <isloop items="${product.images['tile100']}" var="image" status="loopStatus">
                             <div class="carousel-thumbnail-wrapper">
                                 <div class="carousel-tile">
@@ -105,7 +106,7 @@
                             </div>
                         </isloop>
                     </div>
-                </div>
+                <iscomment> </div> </iscomment>
             </div>
         </div>
     </div>

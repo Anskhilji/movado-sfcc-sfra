@@ -72,7 +72,7 @@
                 </div>
             </div>
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/old/imageCarouselPdp" />
+                <isinclude template="product/components/old/imageCarousel" />
 
                 <div class="col-12 col-sm-6">
 

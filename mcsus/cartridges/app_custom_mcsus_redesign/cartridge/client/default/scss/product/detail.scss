@@ -1051,7 +1051,7 @@
                                 max-width: 100%;
                                 margin-left: rem(0);
                                 margin-top: rem(39);
-                                padding: rem(0) rem(3);
+                                padding: rem(0) rem(10);
                             }
 
                             // mobile design
@@ -1666,11 +1666,11 @@
                     content: "";
                     position: absolute;
                     background: $black;
-                    left: rem(18);
-                    top: rem(1);
+                    left: rem(22);
+                    top: 47%;
                     width: rem(2);
-                    height: rem(36);
-                    transform: rotate(45deg);
+                    height: rem(50);
+                    transform: translate(-50%, -50%) rotate(45deg);
                 }
 
                 &:after {
@@ -2379,6 +2379,11 @@
         &.pdp-select-variations {
             margin-bottom: rem(25);
             margin-top: rem(5);
+            position: relative;
+
+            .fa-angle-down {
+                top: 53%;
+            }
         }
     }
 }

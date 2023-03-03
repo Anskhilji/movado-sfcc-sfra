@@ -103,7 +103,7 @@ module.exports = {
                     applePayButton.attr('sku', response.product.id);
                 } else {
                     if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
-                        $('.cart-and-ipay').append('<isapplepay class="apple-pay-pdp btn"' +
+                        $('.cart-and-ipay .cta-add-to-cart').append('<isapplepay class="apple-pay-pdp btn"' +
                             'sku=' + response.product.id + '></isapplepay>');
                     }
                 }

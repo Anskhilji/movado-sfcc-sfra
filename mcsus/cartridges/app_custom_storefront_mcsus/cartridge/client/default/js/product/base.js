@@ -67,7 +67,7 @@ function initializeZoomSlickDots() {
         slidesToShow: 1,
         slidesToScroll: 1,
         dots: false,
-        arrows:true,
+        arrows: true,
         focusOnSelect: true,
         asNavFor: '.zoom-carousel-slider',
         responsive: [
@@ -84,13 +84,27 @@ function initializeZoomSlickDots() {
     });
 }
 
-function slickHeight() {
-    var $winWidth = $(window).width();
-    var $mediumBreakPoint = 767;
-    if ($winWidth > $mediumBreakPoint) {
-        var $sliderHeight = $('.zoom-modal .slick-slider').height();
-        $('.zoom-carousel-slider.carousel-nav-variation-redesing').css('height', $sliderHeight - 60);
-    }
+/**
+ *  CovertsPDP Primary Images to indicators
+ */
+ function initializeSlickDots() {
+    $('.carousel-nav-redesign').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.primary-images .main-carousel',
+        dots: true,
+        arrows: false,
+        focusOnSelect: true,
+        infinite: false,
+        responsive: [
+            {
+                breakpoint: 544,
+                settings: {
+                dots: true
+                }
+            },
+        ]
+    });
 }
 
 function zoom() {
@@ -137,8 +151,11 @@ $(document).ready(function() {
     $(window).on('resize', function () {
         var winWidth = $(window).width();
         initializeCarousel(winWidth, true);
-        initializePDPMainSlider();
     });
+
+    $('.carousel-zoom-icon').click(function() {
+            initializeCarousel(winWidth);
+        });
 
     $(window).on('click', function () {
         var winWidth = $(window).width();
@@ -167,8 +184,7 @@ $('body').on('click', '.primary-images .pdp-carousel img', function (e) {
         if ($('.zoom-carousel.slick-slider:visible').length == 0) {
             setTimeout(function() {
                 $('.zoom-carousel.slick-slider').slick('refresh');
-                $('.zoom-carousel-nav .slick-slider').slick('refresh');
-                slickHeight();
+                $('.zoom-carousel-slider.slick-slider').slick('refresh');
                 if ($winWidth > $mediumBreakPoint) {
                     zoom();
                 }
@@ -180,10 +196,6 @@ $('body').on('click', '.primary-images .pdp-carousel img', function (e) {
 $('body').on('click', '.carousel-indicator-image', function (e) {
     e.preventDefault();
     $('.main-carousel .slick-active').addClass('slick-center');
-});
-
-$(window).resize(function() {
-    slickHeight();
 });
 
 $(window).on('load resize scroll', function(e) {
@@ -255,15 +267,6 @@ $(document).on('click', '#product-tile-open-btn', function() {
 $(document).on('click', '#close-popup', function() {
     $('#product-tile-popup').removeClass('show-popup-tile');
 });
-
-if ($(window).width() >= 769) {
-    $(document).ready(function() {
-        $(window).resize(function() {
-        var productTitle = $('.homepagetile-wrapper-box').height() - 10;
-            $('.main-container-inner img')({'height': productTitle});
-        }).resize();
-    });
-}
 
 /**
  * Process the attribute values for an attribute that has image swatches
@@ -385,7 +388,7 @@ function getPromotionsHtml(promotions) {
     var html = '';
 
     promotions.forEach(function (promotion) {
-        html += '<div class="callout promo-msg" title="' + promotion.details + '">' + promotion.calloutMsg +
+        html += '<div class="callout" title="' + promotion.details + '">' + promotion.calloutMsg +
             '</div>';
     });
 
@@ -697,49 +700,14 @@ function handleVariantResponse(response, $productContainer) {
 
     // unslick Carousel
     $('.primary-images .main-carousel').slick('unslick');
+    $('.primary-images .carousel-nav-redesign').slick('unslick');
     $('.zoom-carousel').slick('unslick');
     $('.zoom-carousel-slider').slick('unslick');
 
-    // Update primary images
-    var $primaryImageUrls = response.product.images;
-    $primaryImageUrls.pdp700.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
-
-    // Update primary images indicators
-    var $primaryImageindiCatorsUrls = response.product.images;
-    $primaryImageindiCatorsUrls.tile126.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images .carousel-nav-redesign').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images .carousel-nav-redesign').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.primary-images .carousel-nav-redesign').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
-
-    // Update model primary images
-    var $ZoomCarousel = $('.zoom-carousel');
-    $ZoomCarousel.empty();
-    var $primaryImageZoomUrls = response.product.images;
-    $primaryImageZoomUrls.zoom1660.forEach(function (imageUrl) {
-        $ZoomCarousel.append('<div class="carousel-tile zoomit" data-thumb="' + imageUrl.url + '" style="width: 100%; display: inline-block; position: relative; overflow: hidden;"><img class="normal-zoom" src="' + imageUrl.url + '" alt="Coronada Ceramic" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"><img src="' + imageUrl.url + '" class="zoom-img" style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 1660px; height: 1660px; border: none; max-width: none; max-height: none;"><img src="' + imageUrl.url + '" class="zoom-img" style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 1660px; height: 1660px; border: none; max-width: none; max-height: none;"></div>');
-    });
-
-    // Update model primary images indicators
-    var primaryImageZoomIndicatorsUrls = response.product.images;
-    primaryImageZoomIndicatorsUrls.tile150.forEach(function (imageUrl, idx) {
-        $productContainer.find('.zoom-carousel-nav').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.zoom-carousel-nav').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.zoom-carousel-nav').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
+    var primaryImageUrls = response.product.images;
+    $('.pdp-images-removal').remove();
+    $('.zoom-modal').remove();
+    $('.pdp-images-addition').prepend(response.productImages);
 
     // Update sticky images
     var $topStickyContainer = $('.top-sticky-card');
@@ -775,7 +743,8 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Update promotions
-    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions').empty().html(getPromotionsHtml(response.product.promotions));
+    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions .callout').remove();
+    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions').append(getPromotionsHtml(response.product.promotions));
 
     updateAvailability(response, $productContainer);
 
@@ -797,6 +766,7 @@ function handleVariantResponse(response, $productContainer) {
 
     // intialize carousel
         initializePDPMainSlider();
+        initializeSlickDots();
         initializeZoomSlickDots();
         initializeZoomModelCarousel();
         $('.main-carousel .slick-active').addClass('slick-center');
@@ -805,14 +775,23 @@ function handleVariantResponse(response, $productContainer) {
         var $availabilityWrapper = $('.product-availability .availability-msg').text();
         var $cartWrapper = $('.cart-and-ipay');
         var $stickyWrapper = $('.sticky-prodct-cart-redesign .cart-and-ipay');
+        var $stickyApplePay = $('.sticky-prodct-cart-redesign .apple-pay-pdp');
+        var $smartGiftPDP = $('.prices-add-to-cart-redesign .smart-gift-box-new-mcs');
+        var $addToCartSection = $('.prices-add-to-cart-redesign');
 
         if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
             if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock') || ($availabilityWrapper === 'Select Styles for Availability')) {
                 $cartWrapper.addClass('d-none');
                 $stickyWrapper.addClass('d-none');
+                $stickyApplePay.addClass('d-none');
+                $smartGiftPDP.addClass('d-none');
+                $addToCartSection.addClass('d-none');
             } else {
                 $cartWrapper.removeClass('d-none');
                 $stickyWrapper.removeClass('d-none');
+                $stickyApplePay.addClass('d-none');
+                $smartGiftPDP.removeClass('d-none');
+                $addToCartSection.removeClass('d-none');
             }
         }
     });
