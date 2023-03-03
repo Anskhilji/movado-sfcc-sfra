@@ -74,10 +74,10 @@ function initializeZoomSlickDots() {
         {
             breakpoint: 768,
             settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-            dots:true
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                dots:true
             }
         },
     ]
@@ -100,7 +100,7 @@ function initializeZoomSlickDots() {
             {
                 breakpoint: 544,
                 settings: {
-                dots: true
+                    dots: true
                 }
             },
         ]
@@ -141,21 +141,21 @@ function initializeCarousel(winWidth, isResize) {
     }
 }
 
-$(window).resize(function(){
+$(window).resize(function () {
     $('.primary-images .main-carousel')[0].slick.refresh();
     $('.carousel-nav-redesign')[0].slick.refresh();
-  });
+});
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Custom Start: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
     $(window).on('resize', function () {
         var winWidth = $(window).width();
         initializeCarousel(winWidth, true);
     });
 
-    $('.carousel-zoom-icon').click(function() {
-            initializeCarousel(winWidth);
-        });
+    $('.carousel-zoom-icon').click(function () {
+        initializeCarousel(winWidth);
+    });
 
     $(window).on('click', function () {
         var winWidth = $(window).width();

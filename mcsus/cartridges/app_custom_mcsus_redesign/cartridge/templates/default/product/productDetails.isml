@@ -175,7 +175,7 @@
                             </div>
                         </isif>
                         <iscomment> Custom End: </iscomment>
-                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign HamzaOuterATC ${!product.available ? "d-none" : ""}">
+                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available ? "d-none" : ""}">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
