@@ -55,21 +55,21 @@ $(document).ready(function() {
         infinite: true,
         responsive: [
             {
-                breakpoint: 1191,
+                breakpoint: 1200,
                 settings: {
                     dots: false,
                     slidesToShow: 3,
                 }
             },
             {
-                breakpoint: 991,
+                breakpoint: 992,
                 settings: {
                     dots: false,
                     slidesToShow: 2,
                 }
             },
             {
-                breakpoint: 544,
+                breakpoint: 545,
                 settings: {
                     dots: false,
                 }
