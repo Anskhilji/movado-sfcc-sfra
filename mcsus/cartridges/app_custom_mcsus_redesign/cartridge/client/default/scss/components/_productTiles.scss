@@ -231,6 +231,21 @@
                         width: 100%;
                     }
 
+                    &.product-set-price {
+                        
+                        .sale-price-mvmt {
+                            font-size: rem(20);
+                            color: $light-black1;
+                            font-weight: 600;
+                            line-height: rem(14);
+                        }
+
+                        .strike-through {
+                            color: $light-gray3;
+                            font-weight: 400;
+                        }
+                    }
+
                     .tiered {
                         font-size: rem(14);
                         

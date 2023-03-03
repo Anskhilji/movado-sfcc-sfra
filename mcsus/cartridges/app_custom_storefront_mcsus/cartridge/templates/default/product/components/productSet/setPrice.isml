@@ -1,4 +1,4 @@
-<div class="price price-pdp-mvmt">
+<div class="price price-pdp-mvmt product-set-price">
     <isset name="salePrice" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).formattedSalePrice}" scope="page" />
     <isset name="basePrice" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetBasePrice(product.id).formattedBasePrice}" scope="page" />
     <isif condition="${salePrice !== 'N/A' && salePrice !== 0}">

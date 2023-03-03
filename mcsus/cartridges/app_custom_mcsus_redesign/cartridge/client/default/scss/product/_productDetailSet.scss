@@ -14,13 +14,6 @@
 // MSS-2165
 .product-set-detail {
 
-    .product-breadcrumb-redesign {
-
-        @include media-breakpoint-down(xs) {
-            display: none;
-        }
-    }
-
     .padd-0 {
         padding: 0 rem(20);
 
@@ -347,6 +340,10 @@
                             max-height: rem(499);
                             max-width: rem(499);
                             width: 100%;
+                            
+                            img {
+                                cursor: default;
+                            }
                         }
 
                         .slick-arrow {
