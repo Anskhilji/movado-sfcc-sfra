@@ -1,36 +1,4 @@
-.star-rating-area {
-    display: flex;
-
-    .rating-static {
-        clear: both;
-        float: none;
-        margin: 0 auto;
-        text-align: center;
-        display: inline-block;
-
-        label {
-            color: $light-silver2;
-            margin-bottom: 0;
-            position: relative;
-            float: right;
-
-            &:before {
-                margin: rem(0) rem(2);
-                font-size: rem(17);
-                font-family: FontAwesome;
-                display: inline-block;
-                content: "\f005";
-            }
-
-            &.half {
-                &:before {
-                    content: "\f089";
-                    position: absolute;
-                }
-            }
-        }
-    }
-
+@mixin starsValue($colorValue) {
     .rating-static[rel="0.1"] label:last-child,
     .rating-static[rel="0.2"] label:last-child,
     .rating-static[rel="0.3"] label:last-child,
@@ -86,8 +54,43 @@
     .rating-static[rel="4.9"] label,
     .rating-static[rel="5"] label,
     .rating-static[rel="5.0"] label {
-        color: $star;
+        color: $colorValue;
     }
+}
+.star-rating-area {
+    display: flex;
+
+    .rating-static {
+        clear: both;
+        float: none;
+        margin: 0 auto;
+        text-align: center;
+        display: inline-block;
+
+        label {
+            color: $light-silver2;
+            margin-bottom: 0;
+            position: relative;
+            float: right;
+
+            &:before {
+                margin: rem(0) rem(2);
+                font-size: rem(17);
+                font-family: FontAwesome;
+                display: inline-block;
+                content: "\f005";
+            }
+
+            &.half {
+                &:before {
+                    content: "\f089";
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    @include starsValue($star);
 }
 
 .plp-filter-list,
