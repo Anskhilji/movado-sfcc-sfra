@@ -273,7 +273,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                         productAttributes.salePriceEffectiveDate = productSetSalePrice.salePriceEffectiveDate;
                     }
 
-                    if (Site.current.ID === 'OliviaBurtonUK') {
+                    if (!empty(feedColumns['price_FR'] && !empty(feedColumns['salePrice_FR']) && !empty(feedColumns['sale_price_effective_date_FR']))) {
                         var productSetBasePrice_FR = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_EUR, true);
                         productAttributes.price_FR = productSetBasePrice_FR.basePrice.toFixed(2) + ' ' + productSetBasePrice_FR.currencyCode;
                         var productSetSalePrice_FR = productSetCustomHelper.getProductSetSalePrice(product.ID, Constants.CURRENCY_EUR, true);
