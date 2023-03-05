@@ -111,8 +111,8 @@ module.exports = {
     // Custom Start: [MSS-1341 To Show/Hide More Short Description on PDP]
     showMoreDescription: function () {
         var showChar = 176;  // Characters that are shown by default
-        var moretext = ' show more';
-        var lesstext = ' show less';
+        var moretext = ' Show More';
+        var lesstext = ' Show Less';
         $('.short-description p').each(function() {
             var content = $(this).html();
             if(content.length > showChar) {

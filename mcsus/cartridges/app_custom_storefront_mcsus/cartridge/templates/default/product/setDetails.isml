@@ -31,6 +31,8 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isset name="productSetID" value="${pdict.product.id}" scope="page" />
+    <isset name="productStock" value="${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0)}" scope="page" />
+    
     <isobject object="${product.raw}" view="detail">
 
         <isinclude template="/product/components/productSet/setMainItem" />
@@ -59,13 +61,19 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
+
+
         <!-- sticky ATC -->
-        <div class="top-sticky-card scroll-hidden">
-            <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', pdict.product.id, 'isProductSet', true)}"/>
+
+        <div class="atcc-btn ${productStock ? "d-none" : ""}">
+            <div class="top-sticky-card scroll-hidden">
+                <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', pdict.product.id, 'isProductSet', true)}"/>
+            </div>
+            <div class="bottom-sticky-card scroll-hidden">
+                <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', pdict.product.id, 'isProductSet', true)}"/>
+            </div>
         </div>
-        <div class="bottom-sticky-card scroll-hidden">
-            <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', pdict.product.id, 'isProductSet', true)}"/>
-        </div>
+
             <!-- Start: Listrak persistent popup -->
     <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
         <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
