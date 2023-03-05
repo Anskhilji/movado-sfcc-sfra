@@ -14,7 +14,7 @@
     <div class="product-badges d-none">
         <isinclude template="product/components/newnessBadge"/>
     </div>
-      <div class="js-carousel main-carousel traditional-main-carousel pdp-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+      <div class="js-carousel main-carousel traditional-main-carousel pdp-carousel-set cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['pdp700']}" var="image" status="loopStatus">
@@ -28,7 +28,7 @@
                       <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />
                       <source media="(max-width: 991px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />
                       <iscomment> Custom End: MSS-1564 Add thumbnails to PDP </iscomment>
-                      <img src="${image.url}" alt="${image.alt}" itemprop="image" class="js-zoom-image  carousel-zoom-icon" aria-label="${product.resources.Zoom}" data-toggle="modal" />
+                      <img src="${image.url}" alt="${image.alt}" itemprop="image" aria-label="${product.resources.Zoom}"/>
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
                   <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
