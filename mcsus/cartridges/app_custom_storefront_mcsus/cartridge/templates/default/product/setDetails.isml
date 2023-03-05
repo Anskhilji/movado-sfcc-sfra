@@ -31,7 +31,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isset name="productSetID" value="${pdict.product.id}" scope="page" />
-    <isset name="ProductStock" value="${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0)}" scope="page" />
+    <isset name="productStock" value="${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0)}" scope="page" />
     
     <isobject object="${product.raw}" view="detail">
 
@@ -65,7 +65,7 @@
 
         <!-- sticky ATC -->
 
-        <div class="Atc-Btn ${ProductStock ? "d-none" : ""}">
+        <div class="Atc-Btn ${productStock ? "d-none" : ""}">
             <div class="top-sticky-card scroll-hidden">
                 <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', pdict.product.id, 'isProductSet', true)}"/>
             </div>

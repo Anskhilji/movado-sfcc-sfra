@@ -172,7 +172,7 @@
                         </div>
 
                         <iscomment> Custom End: </iscomment>
-                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${ProductStock ? "d-none" : ""}">
+                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${productStock ? "d-none" : ""}">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', pdict.product.id, 'isProductSet', true)}"/>
