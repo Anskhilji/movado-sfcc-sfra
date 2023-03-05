@@ -40,7 +40,11 @@
                                                     </isif>
                                                 </h2>
                                                 <!-- Product Name -->
-                                                <h2 class="product-name prdouct-name-gtm d-sm-block text-left">${product.productName}</h2>
+                                                <h2 class="product-name prdouct-name-gtm d-sm-block text-left">
+                                                    <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
+                                                        ${product.productName}
+                                                    </a>
+                                                </h2>
                                             </div>
                     
                                             <div class="w-100 price-promotions-box">
@@ -69,8 +73,8 @@
                                                 </div>
                                             </isif>
 
-                                            <div class="description-redesign">
-                                                <isinclude template="product/components/description" />
+                                            <div class="description-redesign setitem-description  pdp-short-detail pdp-short-detail-main">
+                                               <isinclude template="/product/components/description" />
                                             </div>
                     
                                            <iscomment> accordion start here </iscomment>

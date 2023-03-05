@@ -22,7 +22,7 @@
             <div class="cart-and-ipay mb-0">
                 <div class="cta-add-to-cart">
                     <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
-                    <button class='add-to-cart btn btn-primary mr-0 d-flex align-items-center justify-content-between <isif condition="${product.isProductRestricted}">d-none</isif>' data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""}>
+                    <button class='add-to-cart add-to-cart-global btn btn-primary mr-0 d-flex align-items-center justify-content-between <isif condition="${product.isProductRestricted}">d-none</isif>' data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""}>
                         <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                             ${Resource.msg('button.preorder.now', 'common', null)} </br>
                         <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
