@@ -264,7 +264,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
                     var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
                     var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
-                    var productAvilibiltyModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
+                    var productAvailabilityModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
 
                     productAttributes.price = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                     productAttributes.decimalPrice = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
@@ -276,15 +276,15 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     if (Site.current.ID === 'OliviaBurtonUK') {
                         var productSetBasePrice_FR = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_EUR, true);
                         productAttributes.price_FR = productSetBasePrice_FR.basePrice.toFixed(2) + ' ' + productSetBasePrice_FR.currencyCode;
-                        var productSetSalePrice_FR = pgetProductSetAvailabilityroductSetCustomHelper.getProductSetSalePrice(product.ID, Constants.CURRENCY_EUR, true);
+                        var productSetSalePrice_FR = productSetCustomHelper.getProductSetSalePrice(product.ID, Constants.CURRENCY_EUR, true);
                         if (productSetSalePrice_FR.salePrice > 0 && productSetBasePrice.basePrice != productSetSalePrice.salePrice) {
                             productAttributes.salePrice_FR = productSetSalePrice_FR.salePrice.toFixed(2) + ' ' + productSetSalePrice_FR.currencyCode;
                             productAttributes.sale_price_effective_date_FR = productSetSalePrice.salePriceEffectiveDate;
                         }
-                        productAttributes.availability_FR = getProductSetAvailability(product, Constants.COUNTRY_FR, productAvilibiltyModel);
+                        productAttributes.availability_FR = getProductSetAvailability(product, Constants.COUNTRY_FR, productAvailabilityModel);
                     }
 
-                    productAttributes.availability = productAvilibiltyModel.availabilityStatus;
+                    productAttributes.availability = productAvailabilityModel.availabilityStatus;
                 }
 
                 writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
