@@ -59,7 +59,6 @@
                     </div>
                     <!-- Bundle Save 25% Offer -->
                     <isset name="promoCalloutMsg" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).promoCalloutMsg}" scope="page" />
-                    <h1>${product.productSetCalloutMsg}</h1>
                     <isif condition="${!empty(product.productSetCalloutMsg)}">
                         <div class="d-flex">
                             <div class="bundle-offer-box d-inline-flex align-items-center">
