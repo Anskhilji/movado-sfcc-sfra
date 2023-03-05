@@ -65,7 +65,7 @@
 
         <!-- sticky ATC -->
 
-        <div class="Atc-Btn ${productStock ? "d-none" : ""}">
+        <div class="atcc-btn ${productStock ? "d-none" : ""}">
             <div class="top-sticky-card scroll-hidden">
                 <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', pdict.product.id, 'isProductSet', true)}"/>
             </div>
