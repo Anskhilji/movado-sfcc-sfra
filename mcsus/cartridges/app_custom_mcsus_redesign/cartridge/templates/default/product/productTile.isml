@@ -23,9 +23,9 @@
             </div>
         </div>
         <div class="product-family-name-plp text-left">
-            <isif condition="${product.brand}">
+            <isif condition="${product.brand ? product.brand : product.productSetBrand}">
                 <h2 class="product-family-name-plp-redesign">
-                    <a href="${pdict.urls.product}">${product.brand}</a>
+                    <a href="${pdict.urls.product}">${product.brand ? product.brand : product.productSetBrand}</a>
                 </h2>
             </isif>
         </div>

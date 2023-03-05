@@ -28,6 +28,7 @@
         </isif>
     </isif>
     <isset name="product" value="${pdict.product}" scope="page" />
+    <isset name="productId" value="${pdict.product.id}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isset name="productSetID" value="${pdict.product.id}" scope="page" />
@@ -46,7 +47,7 @@
             <isinclude template="product/components/youMayLikeRecommendation" />
        </isif>
 
-       <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(product.id)}" scope="page" />
+       <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(productId)}" scope="page" />
        <isinclude template="product/components/contentAssets" />
 
        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"

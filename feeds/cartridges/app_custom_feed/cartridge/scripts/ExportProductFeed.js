@@ -264,22 +264,27 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
                     var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
                     var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
+                    var productAvilibiltyModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
+
                     productAttributes.price = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                     productAttributes.decimalPrice = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                     if (productSetSalePrice.salePrice > 0 && productSetBasePrice.basePrice != productSetSalePrice.salePrice) {
                         productAttributes.salePrice = productSetSalePrice.salePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                         productAttributes.salePriceEffectiveDate = productSetSalePrice.salePriceEffectiveDate;
                     }
-                    var productSetBasePrice_FR = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_EUR, true);
-                    productAttributes.price_FR = productSetBasePrice_FR.basePrice.toFixed(2) + ' ' + productSetBasePrice_FR.currencyCode;
-                    var productSetSalePrice_FR = productSetCustomHelper.getProductSetSalePrice(product.ID, Constants.CURRENCY_EUR, true);
-                    if (productSetSalePrice_FR.salePrice > 0 && productSetBasePrice.basePrice != productSetSalePrice.salePrice) {
-                        productAttributes.salePrice_FR = productSetSalePrice_FR.salePrice.toFixed(2) + ' ' + productSetSalePrice_FR.currencyCode;
-                        productAttributes.sale_price_effective_date_FR = productSetSalePrice.salePriceEffectiveDate;
+
+                    if (Site.current.ID === 'OliviaBurtonUK') {
+                        var productSetBasePrice_FR = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_EUR, true);
+                        productAttributes.price_FR = productSetBasePrice_FR.basePrice.toFixed(2) + ' ' + productSetBasePrice_FR.currencyCode;
+                        var productSetSalePrice_FR = pgetProductSetAvailabilityroductSetCustomHelper.getProductSetSalePrice(product.ID, Constants.CURRENCY_EUR, true);
+                        if (productSetSalePrice_FR.salePrice > 0 && productSetBasePrice.basePrice != productSetSalePrice.salePrice) {
+                            productAttributes.salePrice_FR = productSetSalePrice_FR.salePrice.toFixed(2) + ' ' + productSetSalePrice_FR.currencyCode;
+                            productAttributes.sale_price_effective_date_FR = productSetSalePrice.salePriceEffectiveDate;
+                        }
+                        productAttributes.availability_FR = getProductSetAvailability(product, Constants.COUNTRY_FR, productAvilibiltyModel);
                     }
-                    var productAvilibiltyModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
+
                     productAttributes.availability = productAvilibiltyModel.availabilityStatus;
-                    productAttributes.availability_FR = getProductSetAvailability(product, Constants.COUNTRY_FR, productAvilibiltyModel);
                 }
 
                 writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
@@ -302,6 +307,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
             }
 
         });
+    
     } catch (e) {
         Logger.error('Error occurred while generating csv file for product feed. Error: {0} \n Message: {1} \n', e.stack, e.message);
     }
