@@ -13,6 +13,7 @@
 
 // MSS-2165
 .product-set-detail {
+
     .padd-0 {
         padding: 0 rem(20);
 
@@ -21,8 +22,32 @@
         }
     }
 
-    .availability-msg {
+    .callout-message-shipping {
+        display: flex;
+        align-items: center;
         margin-bottom: rem(4);
+
+        .shipping-callout {
+            color: $grey-dark;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: 0;
+            line-height: rem(20);
+            margin-left: rem(20);
+            position: relative;
+
+            &::before {
+                content: "";
+                position: absolute;
+                height: rem(13);
+                border: rem(1) solid $grey-dark;
+                left: rem(-10);
+                top: rem(4);
+            }
+        }
+    }
+
+    .availability-msg {
 
         li {
             color: $grey-dark;
@@ -292,7 +317,7 @@
                     font-weight: 300;
                     letter-spacing: rem(0.5);
                     line-height: rem(25);
-                    margin-bottom: rem(35);
+                    margin-bottom: rem(30);
                     font-family: $font-medium;
                 }
 
@@ -495,6 +520,14 @@
                     font-weight: 300;
                     line-height: rem(41);
                     margin-bottom: rem(10);
+                }
+
+                a {
+                    color: $black;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
                 }
             }
 

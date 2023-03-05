@@ -4,7 +4,7 @@
             ${Resource.msg('label.availability', 'common', null)}:
         </label>
     </div> </iscomment>
-    <div class="col-12">
+    <div class="col-12 callout-message-shipping">
         <ul class="list-unstyled availability-msg">
             <li class="text-uppercase">
                 <isif condition="${!product.readyToOrder}">
