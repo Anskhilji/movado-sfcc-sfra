@@ -152,7 +152,7 @@ function updateCartTotals(data) {
         if ($selectedQuantity) {
                 
             if ($selectedQuantityID === $quantitySelectID) {
-                $quantitySelect.attr('disabled', 'disabled');
+                $quantitySelect.attr('disabled', true);
             }
         }
 
