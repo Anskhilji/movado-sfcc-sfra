@@ -82,15 +82,9 @@ function validateBasket(data) {
             $('.minicart .popover').empty().removeClass('show');
         }
 
-        if ($checkoutBtn.hasClass('disabled')) {
-            $checkoutBtn.addClass('disabled');
-        } else {
-            $checkoutBtn.removeClass('disabled');
-        }
+        $checkoutBtn.addClass('disabled');
     } else {
-        if ($checkoutBtn.hasClass('disabled')) {
-            $checkoutBtn.addClass('disabled');
-        } else {
+        if (!$checkoutBtn.hasClass('disabled')) {
             $checkoutBtn.removeClass('disabled');
         }
     }
