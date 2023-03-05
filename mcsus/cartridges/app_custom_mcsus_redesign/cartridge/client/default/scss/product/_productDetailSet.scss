@@ -385,8 +385,7 @@
                     .cs-carousel {
 
                         @include media-breakpoint-down(xs) {
-                            margin: 0 rem(-15);
-                            padding: 0;
+                            padding: 0 rem(3);
                         }
 
                         .carousel-tile {
