@@ -91,6 +91,10 @@
                     .cs-carousel {
                         padding: 0;
 
+                        @include media-breakpoint-down(xs) {
+                            margin: 0 rem(-15);
+                        }
+
                         .carousel-tile {
                             max-width: 100%;
                             width: 100%;
@@ -128,6 +132,7 @@
 
                 @include media-breakpoint-down(xs) {
                     max-width: rem(336);
+                    padding-left: rem(4);
                 }
 
                 .slick-slide {
@@ -306,6 +311,7 @@
                                 @include media-breakpoint-down(xs) {
                                     max-width: rem(336);
                                     height: rem(45);
+                                    margin-left: 0;
                                 }
 
                                 .sale-price-mvmt,
@@ -329,6 +335,7 @@
 
     .product-detail {
         margin-bottom: rem(173);
+
         &.mcs-product-detail-section-redesign {
             margin: rem(55) rem(0) rem(91);
             max-width: rem(1260);
@@ -361,6 +368,7 @@
                 @include media-breakpoint-down(md) {
                     max-width: rem(345);
                 }
+
                 @include media-breakpoint-down(xs) {
                     max-width: 100%;
                 }
@@ -375,6 +383,11 @@
                     }
 
                     .cs-carousel {
+
+                        @include media-breakpoint-down(xs) {
+                            margin: 0 rem(-15);
+                            padding: 0;
+                        }
 
                         .carousel-tile {
                             max-height: rem(499);
