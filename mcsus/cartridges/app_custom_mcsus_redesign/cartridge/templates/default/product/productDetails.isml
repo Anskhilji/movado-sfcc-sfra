@@ -112,7 +112,7 @@
                             <div class="prices prices-redesign">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-                                    <isif condition="${product.productType === 'set'}">
+                                    <isif condition="${product.productType === Resource.msg('product.set', 'product', null)}">
                                         <isinclude template="product/components/pricing/setPrice" />
                                     <iselse/>
                                         <isinclude template="product/components/pricing/main" />
