@@ -91,9 +91,9 @@
                     </div>
                 </div>
             <iscomment> product detail redesign section start here </iscomment>
-            <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
+            <div class="col-12 d-flex justify-content-between flex-column flex-sm-row pdp-images-addition">
                     <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarouselPdp" />
+                <isinclude template="product/components/imageCarousel" />
 
                 <div class="product-detail-right-box">
                     <div class="d-none d-sm-block">
@@ -136,18 +136,18 @@
 
                         <!-- Applicable Promotions -->
                         <div class="promotions promotions-redesign mt-sm-3 mt-lg-0 d-flex align-align-items-center justify-content-center justify-content-sm-start flex-wrap">
+                            <!-- Prices -->
+                            <div class="prices prices-redesign">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
+                                    <isif condition="${product.productType === Resource.msg('product.set', 'product', null)}">
+                                        <isinclude template="product/components/pricing/setPrice" />
+                                    <iselse/>
+                                        <isinclude template="product/components/pricing/main" />
+                                    </isif>
+                                <iscomment> Custom: End </iscomment>
+                            </div>
                             <isinclude template="product/components/promotions" />
-                        </div>
-                        <!-- Prices -->
-                        <div class="prices prices-redesign">
-                            <isset name="price" value="${product.price}" scope="page" />
-                            <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-                                <isif condition="${product.productType === 'set'}">
-                                    <isinclude template="product/components/pricing/setPrice" />
-                                <iselse/>
-                                    <isinclude template="product/components/pricing/main" />
-                                </isif>
-                            <iscomment> Custom: End </iscomment>
                         </div>
                     </div>
 
@@ -218,16 +218,14 @@
                             </div>
                         </isif>
                         <iscomment> Custom End: </iscomment>
-                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
+                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available ? "d-none" : ""}">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
                             <div class="smart-gift-box-new smart-gift-box-new-mcs smart-gift-box-new-mcs-new-design">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
-                                    </isif>    
+                                    <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
                                 </isif> 
                             </div>
                         </div>
