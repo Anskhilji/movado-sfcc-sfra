@@ -30,11 +30,6 @@
 
                 <div class="product-detail-right-box">
                     <div class=" d-sm-block">
-                        <h2 class="product-family-name-redesign">
-                            <isif condition="${product.productSetBrand}">
-                                <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.productSetBrand}</a>
-                            </isif>
-                        </h2>
                         <!-- Product Name -->
                         <h2 class="product-name prdouct-name-gtm  d-sm-block">${product.productName}</h2>
                     </div>
