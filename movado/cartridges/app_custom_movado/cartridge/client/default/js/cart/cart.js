@@ -60,6 +60,7 @@ $( document ).ready(function() {
  * @param {Object} data - AJAX response from the server
  */
 function validateBasket(data) {
+    var $checkoutBtn = $('.checkout-btn');
     if (data.valid.error) {
         if (data.valid.message) {
             var errorHtml = '<div class="alert card alert-dismissible valid-cart-error ' +
@@ -81,9 +82,17 @@ function validateBasket(data) {
             $('.minicart .popover').empty().removeClass('show');
         }
 
-        $('.checkout-btn').addClass('disabled');
+        if ($checkoutBtn.hasClass('disabled')) {
+            $checkoutBtn.addClass('disabled');
+        } else {
+            $checkoutBtn.removeClass('disabled');
+        }
     } else {
-        $('.checkout-btn').removeClass('disabled');
+        if ($checkoutBtn.hasClass('disabled')) {
+            $checkoutBtn.addClass('disabled');
+        } else {
+            $checkoutBtn.removeClass('disabled');
+        }
     }
 }
 
@@ -133,6 +142,20 @@ function updateCartTotals(data) {
     data.items.forEach(function (item) {
         $('.item-' + item.UUID).empty().append(item.renderedPromotions);
         $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
+        
+        var $currentItemID = item.id;
+        var $selectedQuantity = $('.pickup-store-inventory-status .available.unavailable-text.unavailable-msg'+$currentItemID);
+        var $selectedQuantityID = $selectedQuantity.data('pid');
+        var $quantitySelect = $('.quantity-form .select-quantity'+$currentItemID);
+        var $quantitySelectID = $quantitySelect.data('pid');
+
+        if ($selectedQuantity) {
+                
+            if ($selectedQuantityID === $quantitySelectID) {
+                $quantitySelect.attr('disabled', 'disabled');
+            }
+        }
+
         if (item.options.length > 0) {
             item.options.forEach(function (option) {
                 if (option && option.optionId == Resources.CLYDE_WARRANTY && option.price != '' && option.adjustedPrice != '' && option.price == option.adjustedPrice) {
