@@ -1806,7 +1806,7 @@
                             height: rem(67);
                         }
 
-                        @include media-breakpoint-down(xs) {
+                        @include media-breakpoint-down(sm) {
 
                             &::before {
                                 top: rem(-10);
@@ -1855,7 +1855,7 @@
         }
     }
 
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
         
         .swatch-circle {
 
