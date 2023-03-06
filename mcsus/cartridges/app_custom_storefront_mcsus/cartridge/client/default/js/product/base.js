@@ -704,10 +704,11 @@ function handleVariantResponse(response, $productContainer) {
     $('.zoom-carousel').slick('unslick');
     $('.zoom-carousel-slider').slick('unslick');
 
+    // update pdp primary and thumbnail images
     var primaryImageUrls = response.product.images;
     $('.pdp-images-removal').remove();
     $('.zoom-modal').remove();
-    $('.pdp-images-addition').prepend(response.productImages);
+    $('.pdp-images-addition').prepend(response.productsImages);
 
     // Update sticky images
     var $topStickyContainer = $('.top-sticky-card');

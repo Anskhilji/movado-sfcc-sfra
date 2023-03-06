@@ -248,10 +248,10 @@ server.replace('Variation', function (req, res, next) {
         OptionsValidationError = true
     }
 
-    var pdpImagesTemplate = 'product/components/imageCarousel';
-    var productHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImagesTemplate);
-    if (!empty(productHTML)) {
-        viewData.productImages = productHTML;
+    var pdpImageTemplate = 'product/components/imageCarousel';
+    var productsHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImageTemplate);
+    if (!empty(productsHTML)) {
+        viewData.productsImages = productsHTML;
     }
 
     res.json({
