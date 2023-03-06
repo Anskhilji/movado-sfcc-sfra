@@ -289,12 +289,6 @@ server.replace('UpdateQuantity', function (req, res, next) {
                     (quantityToUpdate >= minOrderQuantity);
             });
         } else {
-            // lineItemsInventory.filter(function (itemInventory) {
-            //     if (itemInventory.sku == matchingLineItem.product.ID) {
-            //         productQuantity = itemInventory.ato;
-            //         return;
-            //     }
-            // });
             availableToSell = currentBasket.custom.BOPIS ? productQuantity : matchingLineItem.product.availabilityModel.inventoryRecord.ATS.value;
             qtyAlreadyInCart = cartHelper.getQtyAlreadyInCart(
                 productId,

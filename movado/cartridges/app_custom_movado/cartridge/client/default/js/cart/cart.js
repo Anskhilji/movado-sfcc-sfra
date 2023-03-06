@@ -100,7 +100,15 @@ function updateCartTotals(data) {
     } else {
         $('.delivery-time').addClass('d-none');
     }
-    
+    var $pickupFromStore = $('.cart-store-pickup').prop('checked');
+    if ($pickupFromStore) {
+        var productIds = [];
+        $('.quantity.custom-select').each(function () {
+            if ($(this).prop("disabled")) {
+                productIds.push($(this).data('pid'));
+            }
+        });
+    }
     $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.number-of-items').empty().append(data.resources.numberOfItems);
     $('.shipping-cost').empty().append(data.totals.totalShippingCost);
@@ -136,18 +144,9 @@ function updateCartTotals(data) {
     data.items.forEach(function (item) {
         $('.item-' + item.UUID).empty().append(item.renderedPromotions);
         $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
-        
-        var $currentItemID = item.id;
-        var $selectedQuantity = $('.pickup-store-inventory-status .available.unavailable-text.unavailable-msg'+$currentItemID);
-        var $selectedQuantityID = $selectedQuantity.data('pid');
-        var $quantitySelect = $('.quantity-form .select-quantity'+$currentItemID);
-        var $quantitySelectID = $quantitySelect.data('pid');
 
-        if ($selectedQuantity) {
-                
-            if ($selectedQuantityID === $quantitySelectID) {
-                $quantitySelect.attr('disabled', true);
-            }
+        if (productIds.indexOf(parseInt(item.id)) > -1) {
+            $('select[data-pid="' + item.id + '"]').attr('disabled', true);
         }
 
         if (item.options.length > 0) {
