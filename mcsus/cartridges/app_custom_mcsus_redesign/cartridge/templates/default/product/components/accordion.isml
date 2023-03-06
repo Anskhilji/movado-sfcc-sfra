@@ -49,7 +49,6 @@
 
                 <div id="reviews${product.id}" class="collapse accordion-reviews" aria-labelledby="headingOne">
                     <div class="accordion-redesign-detail">
-                    <h1>sfsdf</h1>
                             <iscomment> Yotpo reviews widget will appear here, if these needs to be relocated
                             then appropriate template should be overridden.  </iscomment>
                             <isinclude template="widget/yotporeviewswidget" />
