@@ -145,7 +145,7 @@ function updateCartTotals(data) {
         $('.item-' + item.UUID).empty().append(item.renderedPromotions);
         $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
 
-        if (productIds.indexOf(parseInt(item.id)) > -1) {
+        if ($pickupFromStore && productIds.indexOf(parseInt(item.id)) > -1) {
             $('select[data-pid="' + item.id + '"]').attr('disabled', true);
         }
 

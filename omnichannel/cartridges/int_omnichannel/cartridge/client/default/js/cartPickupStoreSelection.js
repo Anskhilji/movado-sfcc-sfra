@@ -28,10 +28,10 @@ function checkAllLineItem() {
 
                 if (response && response.viewData) {
                     updateQuantityForBopis(response.viewData, $pickupFromStore);
-                }           
+                }
             } else {
                 updateStorePickupProductAvailability(response.viewData);
-                
+
                 if (response && response.viewData) {
                     updateBOPISShippingMethods(response.viewData, $pickupFromStore);
                 }

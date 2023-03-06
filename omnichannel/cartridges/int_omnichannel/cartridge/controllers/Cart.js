@@ -39,7 +39,7 @@ server.append(
                     session.custom.isEswShippingMethod = false;
                 }
             }
-            
+
             try {
                 currentBasket = BasketMgr.getCurrentBasket();
                 Transaction.wrap(function () {
@@ -70,7 +70,7 @@ server.append(
             if (apiResponse && apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
                 lineItemsInventory = apiResponse.response[0].inventory[0].records;
             }
-            
+
             var items = viewData.items;
             //Custom:Start  Update lineItems array if its available for pickup store
             omniChannelAPIHelper.setLineItemInventory(items, lineItemsInventory, viewData);
@@ -155,7 +155,7 @@ server.post(
                                 Transaction.wrap(function () {
                                     item.setQuantityValue(1);
                                 });
-                            } 
+                            }
                             return;
                         }
                     });
@@ -169,8 +169,7 @@ server.post(
                 viewData.cartModel = cartModel;
             });
 
-            omniChannelAPIHelper.setLineItemInventory(items, lineItemsInventory, viewData);
-            viewData.lineItemsInventory = lineItemsInventory;
+            omniChannelAPIHelper.setLineItemInventory(items, viewData.lineItemsInventory, viewData);
         } catch (error) {
             Logger.error('Error Occurred in Cart.SetPickupFromStore During updating of pickInStore in CurrentBasket and LineItems and call OmniChannel Inventory API, Error: {0}', error.toString());
         }
