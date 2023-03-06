@@ -708,7 +708,7 @@ function handleVariantResponse(response, $productContainer) {
     var primaryImageUrls = response.product.images;
     $('.pdp-images-removal').remove();
     $('.zoom-modal').remove();
-    $('.pdp-images-addition').prepend(response.productsImages);
+    $('.pdp-images-addition').prepend(response.pdpCarouselImages);
 
     // Update sticky images
     var $topStickyContainer = $('.top-sticky-card');

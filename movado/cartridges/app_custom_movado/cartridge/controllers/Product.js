@@ -251,7 +251,7 @@ server.replace('Variation', function (req, res, next) {
     var pdpImageTemplate = 'product/components/imageCarousel';
     var productsHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImageTemplate);
     if (!empty(productsHTML)) {
-        viewData.productsImages = productsHTML;
+        viewData.pdpCarouselImages = productsHTML;
     }
 
     res.json({
