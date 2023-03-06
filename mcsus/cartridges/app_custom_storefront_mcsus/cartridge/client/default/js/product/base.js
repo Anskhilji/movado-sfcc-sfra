@@ -92,7 +92,7 @@ function initializeZoomSlickDots() {
         slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: '.primary-images .main-carousel',
-        dots: true,
+        dots: false,
         arrows: false,
         focusOnSelect: true,
         infinite: false,
@@ -100,7 +100,7 @@ function initializeZoomSlickDots() {
             {
                 breakpoint: 544,
                 settings: {
-                    dots: true
+                    dots: false
                 }
             },
         ]
