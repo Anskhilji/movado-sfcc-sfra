@@ -1801,9 +1801,16 @@
                     span {
 
                         &:before {
-                            left: rem(22);
-                            top: rem(-10);
-                            height: rem(66);
+                            left: rem(23);
+                            top: rem(23);
+                            height: rem(67);
+                        }
+
+                        @include media-breakpoint-down(xs) {
+
+                            &::before {
+                                top: rem(-10);
+                            }
                         }
                     }
                 }
@@ -1848,6 +1855,26 @@
         }
     }
 
+    @include media-breakpoint-down(xs) {
+        
+        .swatch-circle {
+
+
+            &.disabled {
+
+                span {
+
+                    &:before {
+                        content: "";
+                        left: rem(23);
+                        top: rem(0);
+                        height: rem(50);
+                    }
+                }
+
+            }
+        }
+    }
 }
 
 .custom-tooltipsmart {
