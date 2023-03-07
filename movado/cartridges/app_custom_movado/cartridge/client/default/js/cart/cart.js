@@ -1,6 +1,5 @@
 'use strict';
 
-const { parseString } = require('xml2js');
 var base = require('../product/base');
 
 require('../utilities/spaceBelowBodyOnFixedButton');
