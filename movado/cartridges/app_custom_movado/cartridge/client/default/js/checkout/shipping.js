@@ -794,6 +794,11 @@ function showMoreBtn() {
         if ($content.length > $showChar) {
             var $characterToShow = $content.substr(0, $showChar);
             var $characterToHide = $content.substr($showChar, $content.length - $showChar);
+            
+            if ($content && $content.length > 195) {
+                $characterToHide = $characterToHide.substr(0, 155) + "...";
+            }
+
             var $html = $characterToShow + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + $characterToHide + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +$moretext+ '</a>';
             $(this).html($html);
         }
