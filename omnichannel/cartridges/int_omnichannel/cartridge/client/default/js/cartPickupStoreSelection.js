@@ -3,7 +3,11 @@ $(function () {
     checkAllLineItem();
 });
 
-$(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', function (event) {
+$(document).on('click', '.cart-delete-confirmation-btn, .cart-store-pickup', function (event) {
+    checkAllLineItem();
+});
+
+$(document).on('change', '.line-item-quantity .quantity', function (event) {
     checkAllLineItem();
 });
 
@@ -17,28 +21,18 @@ function checkAllLineItem() {
         },
         method: 'POST',
         success: function (response) {
+            updateCartTotals(response.viewData.cartModel);
             if ($pickupFromStore) {
-                var $isAllItemsAvailable = response.viewData.isAllItemsAvailable ? true : false;                
-                $('.remove-product').attr({'data-store-pickup-available': $isAllItemsAvailable})
+                var $isAllItemsAvailable = response.viewData.isAllItemsAvailable ? true : false;
+                $('.remove-product').attr({
+                    'data-store-pickup-available': $isAllItemsAvailable
+                })
+            }
+            if (response && response.viewData) {
                 updateStorePickupProductAvailability(response.viewData);
                 handleAvailabilityOnStore(response.viewData);
-                if (response && response.viewData) {
-                    updateBOPISShippingMethods(response.viewData, $pickupFromStore);
-                }
-
-                if (response && response.viewData) {
-                    updateQuantityForBopis(response.viewData, $pickupFromStore);
-                }
-            } else {
-                updateStorePickupProductAvailability(response.viewData);
-
-                if (response && response.viewData) {
-                    updateBOPISShippingMethods(response.viewData, $pickupFromStore);
-                }
-
-                if (response && response.viewData) {
-                    updateQuantityForBopis(response.viewData, $pickupFromStore);
-                }
+                updateBOPISShippingMethods(response.viewData, $pickupFromStore);
+                updateQuantityForBopis(response.viewData, $pickupFromStore);
             }
             $.spinner().stop();
         },
@@ -93,28 +87,6 @@ function updateQuantityForBopis(data, $pickupFromStore) {
                 });
             });
         }
-    } else {
-        $cartItems.forEach(function (cartItem) {
-            var $lineItemID = cartItem.id;
-            var $lineItemQty = cartItem.quantity;
-            var $quantity = $('.quantity-form .select-quantity'+$lineItemID);
-            var $html = '';
-    
-            for (var i = 1; i <= $maxQuantityLimit; i++) {
-                var $currentATO = i;
-                $quantity.empty();
-
-                if ($currentATO === $lineItemQty) {
-                    var selected = 'selected';
-                    $html += '<option '+ selected +' >' + ($currentATO) + '</option>';
-                    $quantity.empty().append($html);
-                } else {
-                    $html += '<option>' + ($currentATO) + '</option>';
-                    $quantity.empty().append($html);
-                }
-            }
-            $quantity.removeAttr('disabled', 'disabled'); 
-        });
     }
 }
 
@@ -145,7 +117,7 @@ function updateBOPISShippingMethods(data, $pickupFromStore) {
     if (grandTotal !== undefined && grandTotal !== '') {
         $('.grand-total-sum').empty().append(grandTotal);
     }
-    
+
     var discountHMTL = data && data.cartModel && data.cartModel.totals && data.cartModel.totals.discountsHtml ? data.cartModel.totals.discountsHtml : '';
     $('.coupons-and-promos').empty().append(discountHMTL);
 
@@ -156,7 +128,7 @@ function updateBOPISShippingMethods(data, $pickupFromStore) {
     } else {
         $('.order-discount').addClass('hide-order-discount');
     }
- 
+
     if ($pickupFromStore) {
         $('#shippingMethods').attr('disabled', 'disabled');
     } else {
@@ -186,6 +158,64 @@ function handleAvailabilityOnStore(data) {
     }
 }
 
+/**
+ * re-renders the order totals and the number of items in the cart
+ * @param {Object} data - AJAX response from the server
+ */
+function updateCartTotals(data) {
+    if (typeof data.totals.deliveryTime != 'undefined' &&  typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
+        $('.delivery-time').removeClass('d-none');
+    } else {
+        $('.delivery-time').addClass('d-none');
+    }
+
+    $('.delivery-date').empty().append(data.totals.deliveryDate);
+    $('.number-of-items').empty().append(data.resources.numberOfItems);
+    $('.shipping-cost').empty().append(data.totals.totalShippingCost);
+    $('.tax-total').empty().append(data.totals.totalTax);
+    $('.grand-total-sum, .cart-total').empty().append(data.totals.grandTotal);
+    $('.sub-total').empty().append(data.totals.subTotal);
+    /* Affirm block for refreshing promo message */
+    var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
+    $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
+    if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+        affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
+    }
+    $('.minicart-quantity').empty().append(data.numItems);
+
+    if (data.totals.orderLevelDiscountTotal.value > 0) {
+        $('.order-discount').removeClass('hide-order-discount');
+        $('.order-discount-total').empty()
+            .append('- ' + data.totals.orderLevelDiscountTotal.formatted);
+    } else {
+        $('.order-discount').addClass('hide-order-discount');
+    }
+
+    if (data.totals.shippingLevelDiscountTotal.value > 0) {
+        $('.shipping-discount').removeClass('hide-shipping-discount');
+        $('.shipping-discount-total').empty().append('- ' +
+            data.totals.shippingLevelDiscountTotal.formatted);
+    } else {
+        $('.shipping-discount').addClass('hide-shipping-discount');
+    }
+
+    data.items.forEach(function (item) {
+        $('.item-' + item.UUID).empty().append(item.renderedPromotions);
+        $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
+        if (item.options.length > 0) {
+            item.options.forEach(function (option) {
+                if (option && option.optionId == Resources.CLYDE_WARRANTY && option.price != '' && option.adjustedPrice != '' && option.price == option.adjustedPrice) {
+                    $('.clyde-uuid-' + item.UUID + ' .clyde-option-price').text(option.price);
+                } else if (option && option.optionId == Resources.CLYDE_WARRANTY && option.adjustedPrice != '') {
+                    $('.clyde-uuid-' + item.UUID + ' .adjusted-clyde-price').text(option.adjustedPrice);
+                }
+            });
+        }
+    });
+}
+
 function updateStorePickupProductAvailability(data) {
     var $allItems = false;
     $('.remove-product').each(function(){
@@ -210,6 +240,7 @@ function updateStorePickupProductAvailability(data) {
         $('#shippingMethods').attr('disabled', 'disabled');
         $('.pickup-store-error').addClass('d-none');
         $('.product-gift-wrap').addClass('d-none');
+        $('.checkout-btn').removeClass('disabled');
         setTimeout(function () {
             $('.gpay-button').addClass('d-none');
             $('.apple-pay-cart').addClass('d-none');

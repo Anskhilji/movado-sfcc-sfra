@@ -1,5 +1,6 @@
 'use strict';
 
+const { parseString } = require('xml2js');
 var base = require('../product/base');
 
 require('../utilities/spaceBelowBodyOnFixedButton');
@@ -105,7 +106,8 @@ function updateCartTotals(data) {
         var productIds = [];
         $('.quantity.custom-select').each(function () {
             if ($(this).prop("disabled")) {
-                productIds.push($(this).data('pid'));
+                var pid = $(this).data('pid');
+                productIds.push(parseInt(pid));
             }
         });
     }
