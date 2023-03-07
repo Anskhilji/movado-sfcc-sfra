@@ -144,7 +144,7 @@ server.post(
                 viewData.lineItemsInventory = lineItemsInventory;
             }
 
-            //omni channel inventory
+            //Custom Start: omni channel inventory
             if (currentBasket.custom.BOPIS) {
                 var productLineItemsArray = currentBasket.productLineItems.toArray();
                 productLineItemsArray.filter(function (item) {
@@ -165,13 +165,13 @@ server.post(
             //calculate basket
             Transaction.wrap(function () {
                 basketCalculationHelpers.calculateTotals(currentBasket);
-                var cartModel = new CartModel(currentBasket);
-                viewData.cartModel = cartModel;
             });
+            var cartModel = new CartModel(currentBasket);
+            viewData.cartModel = cartModel;
 
             omniChannelAPIHelper.setLineItemInventory(items, viewData.lineItemsInventory, viewData);
         } catch (error) {
-            Logger.error('Error Occurred in Cart.SetPickupFromStore During updating of pickInStore in CurrentBasket and LineItems and call OmniChannel Inventory API, Error: {0}', error.toString());
+            Logger.error('Error Occurred in Cart.SetPickupFromStore During updating of pickInStore in CurrentBasket and LineItems and call OmniChannel Inventory API, Error: {0} in {1} : {2}', error.toString(), error.fileName, error.lineNumber);
         }
         res.json({
             viewData: viewData
@@ -214,13 +214,13 @@ server.replace('UpdateQuantity', function (req, res, next) {
     var CartModel = require('*/cartridge/models/cart');
     var collections = require('*/cartridge/scripts/util/collections');
     var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
-    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+
     var productIds = [];
     var storeArray = [];
     var productQuantity = 0;
 
     var currentBasket = BasketMgr.getCurrentBasket();
-    //omni channel inventory
+    //custom start: omni channel inventory
     if (currentBasket.custom.BOPIS) {
         var productLineItemsArray = currentBasket.productLineItems.toArray();
         productLineItemsArray.filter(function (item) {
@@ -243,6 +243,7 @@ server.replace('UpdateQuantity', function (req, res, next) {
             }
         });
     }
+    //custom end: bopis logic
 
     if (!currentBasket) {
         res.setStatusCode(500);

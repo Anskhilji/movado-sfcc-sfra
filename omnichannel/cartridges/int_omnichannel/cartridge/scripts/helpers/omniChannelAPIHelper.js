@@ -110,7 +110,7 @@ function setLineItemInventory(items, lineItemsInventory, viewData) {
                     });
                     var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
                     var productLineItemQuantity = (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity;
-                    var lineItemInv = itemInv > 0 ? itemInv -  productLineItemQuantity: 0;
+                    var lineItemInv = itemInv > 0 ? itemInv -  productLineItemQuantity : 0;
                     var loopInventory = itemInventory.filter(function (i) {
                         return i.itemId == item.id
                     }).map(function (obj) {
