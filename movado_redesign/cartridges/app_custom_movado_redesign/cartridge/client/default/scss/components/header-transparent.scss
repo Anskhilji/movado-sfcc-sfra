@@ -2,6 +2,14 @@
 @import "variables";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins/breakpoints";
+@import "~movado/mixins";
+
+.header-placeholder-sec {
+    height: rem(97);
+    display: block;
+    position: sticky;
+    top: 0;
+}
 
 .site-tophat-main-1 {
     margin-bottom: 0;

@@ -1,3 +1,4 @@
+<div class="header-placeholder-sec"></div>
 <iscomment> Custom: HTML Structure change</iscomment>
 <div class="site-tophat-main-1">
     <isslot id="header-banner-m" description="Slot above the site header" context="global" />
