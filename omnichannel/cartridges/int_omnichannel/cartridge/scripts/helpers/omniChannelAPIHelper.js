@@ -109,7 +109,8 @@ function setLineItemInventory(items, lineItemsInventory, viewData) {
                         return lineItem.sku == item.id
                     });
                     var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
-                    var lineItemInv = itemInv > 0 ? itemInv - (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity : 0;
+                    var productLineItemQuantity = (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity;
+                    var lineItemInv = itemInv > 0 ? itemInv -  productLineItemQuantity : 0;
                     var loopInventory = itemInventory.filter(function (i) {
                         return i.itemId == item.id
                     }).map(function (obj) {
@@ -120,14 +121,15 @@ function setLineItemInventory(items, lineItemsInventory, viewData) {
                         if (loopInventory.length == 0) {
                             itemInventory.push({
                                 itemId: item.id,
-                                remain: itemInv - (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity
+                                remain: itemInv - productLineItemQuantity
                             });
                             return;
                         }
                         itemInventory.filter(function (i) {
                             return i.itemId == item.id
                         }).map(function (obj) {
-                            obj.remain = obj.remain - (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity
+                            productLineItemInventory = (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity;
+                            obj.remain = obj.remain - productLineItemInventory
                         });
                     } else {
                         item.storePickupAvailable = false;
