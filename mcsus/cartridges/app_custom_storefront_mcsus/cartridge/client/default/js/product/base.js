@@ -730,12 +730,12 @@ function handleVariantResponse(response, $productContainer) {
     });
 
     // Updating promo messages
-    if (response.product.promotions) {
+    if (response && response.product && response.product.promotions) {
         var $promotions = $('.promotions');
         var $promotionsCallOut = $('.promotions .callout');
         $promotionsCallOut.remove();
-        var productPromotions = response.product.promotions;
-        productPromotions.forEach(function(promotion) {
+        var $productPromotions = response.product.promotions;
+        $productPromotions.forEach(function(promotion) {
             $promotions.append('<div class="callout" title="' + promotion.details + '">' + promotion.calloutMsg + '</div>');
         });
     }
