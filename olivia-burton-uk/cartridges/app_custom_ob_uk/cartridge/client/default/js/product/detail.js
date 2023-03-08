@@ -209,7 +209,6 @@ function hideYotpoReviews() {
     }
 }
 
-
 // Custom start: Listrak persistent popupnpm
 $(document).on('click','.listrak-popup', function(e) {
     e.preventDefault();
