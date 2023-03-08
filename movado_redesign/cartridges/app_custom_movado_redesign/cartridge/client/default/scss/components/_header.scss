@@ -262,6 +262,7 @@ header.new-header {
 
   .sticky-header-placeholder {
     height: auto;
+    
     &.header-transparent-active {
         display: none;
     }
@@ -771,8 +772,9 @@ header.new-header {
 
     .sticky-header-placeholder {
       height: auto;
+
       &.header-transparent-active {
-        display: none;
+          display: none;
       }
     }
 

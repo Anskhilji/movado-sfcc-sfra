@@ -16,9 +16,6 @@ function updateStickyHeaderHeight() {
         var $headerBannerHeight = $('.header-banner.slide-up').length > 0 ? $('.header-banner').height() : 0;
         var $headerWrapperHeight = $('.tophat-sticky .header-wrapper').length > 0 ? $('.header-wrapper').height() : 0;   
         var $totalHeight = $headerBannerHeight + $headerWrapperHeight;
-        console.log($headerBannerHeight + 'height 1');
-        console.log($headerWrapperHeight + 'height 2');
-        console.log($totalHeight + 'height 3');
         $('.header-placeholder-sec').css('height', $totalHeight + 'px');
         $('.sticky-header-placeholder.header-transparent-active').css('height', $headerBannerHeight + 'px');
 }
