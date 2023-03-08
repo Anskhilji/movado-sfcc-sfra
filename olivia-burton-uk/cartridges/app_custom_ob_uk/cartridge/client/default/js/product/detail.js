@@ -190,23 +190,25 @@ function refreshAffirmUI() {
 };
 
 function hideYotpoReviews() {
-    if (document.readyState === 'complete') {
-        var $yotpoEmptyStarContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-empty-star');
-        var $yotpoEmptyStarContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-empty-star');
-        if ($('.ratings.d-none-mobile-rating').find('.yotpo-stars').length > 0) {
-            var $yotpoIconContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-star');
-            var $yotpoIconContainer = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-star');
-            if (($yotpoIconContainer).length > 0) {
-                $yotpoEmptyStarContainer.removeClass('d-none');
-                $yotpoEmptyStarContainer.addClass('d-block');
-                $yotpoEmptyStarContainerMobile.removeClass('d-none');
-                $yotpoEmptyStarContainerMobile.addClass('d-block');
-            }
-        } else {
-            setTimeout(hideYotpoReviews, 5000);
+    var $yotpoEmptyStarContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-empty-star');
+    var $yotpoEmptyStarContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-empty-star');
+    var $yotpoEmptyReviewContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars-rating');
+    var $yotpoEmptyReviewContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars-rating');
+    if ($('.ratings.d-none-mobile-rating').find('.yotpo-stars').length > 0) {
+        var $yotpoIconContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-star');
+        var $yotpoIconContainer = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-star');
+        if (($yotpoIconContainer).length > 0) {
+            $yotpoEmptyStarContainer.removeClass('d-none');
+            $yotpoEmptyStarContainer.addClass('d-block');
+            $yotpoEmptyStarContainerMobile.removeClass('d-none');
+            $yotpoEmptyStarContainerMobile.addClass('d-block');
+            $yotpoEmptyReviewContainer.removeClass('d-none');
+            $yotpoEmptyReviewContainer.addClass('d-block');
+            $yotpoEmptyReviewContainerMobile.removeClass('d-none');
+            $yotpoEmptyReviewContainerMobile.addClass('d-block');
         }
     } else {
-        setTimeout(hideYotpoReviews, 5000);
+        setTimeout(hideYotpoReviews, 1000);
     }
 }
 
