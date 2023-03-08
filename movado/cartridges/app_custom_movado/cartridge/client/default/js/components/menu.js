@@ -16,8 +16,8 @@ function updateStickyHeaderHeight() {
         var $headerBannerHeight = $('.header-banner.slide-up').length > 0 ? $('.header-banner').height() : 0;
         var $headerWrapperHeight = $('.tophat-sticky .header-wrapper').length > 0 ? $('.header-wrapper').height() : 0;   
         var $totalHeight = $headerBannerHeight + $headerWrapperHeight;
-        $('.header-placeholder-sec').css('height', $totalHeight + 'px');
-        $('.sticky-header-placeholder.header-transparent-active').css('height', $headerBannerHeight + 'px');
+        $('.header-placeholder-sec').height($totalHeight);
+        $('.sticky-header-placeholder.header-transparent-active').height($headerBannerHeight);
 }
 
 // Custom:MSS-2150 Call the updateStickyHeaderHeight function both when the document is ready and when the screen is resized
