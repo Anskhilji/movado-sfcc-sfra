@@ -416,6 +416,11 @@
                 .yotpo-icon-empty-star {
                     display: none;
                 }
+
+                .yotpo-stars-rating {
+                    display: none;
+                }
+                
                 .hide-desktop-wrapper {
                     display: none;
                     @include media-breakpoint-down(sm-custom) {
@@ -502,6 +507,10 @@
                 .ratings {
 
                     .yotpo-icon-empty-star {
+                        display: none;
+                    }
+
+                    .yotpo-stars-rating {
                         display: none;
                     }
 
