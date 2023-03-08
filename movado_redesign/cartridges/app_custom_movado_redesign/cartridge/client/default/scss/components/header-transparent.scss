@@ -9,6 +9,9 @@
     display: block;
     position: sticky;
     top: 0;
+    &.header-transparent-active {
+        display: none;
+    }
 }
 
 .site-tophat-main-1 {
@@ -21,6 +24,9 @@ header {
 
             .sticky-header-placeholder {
                 display: none;
+                &.header-transparent-active {
+                    display: block;
+                }
             }
 
             // Custom:MSS-2083  this style only works when the header transparent

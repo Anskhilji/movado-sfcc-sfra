@@ -262,6 +262,9 @@ header.new-header {
 
   .sticky-header-placeholder {
     height: auto;
+    &.header-transparent-active {
+        display: none;
+    }
   }
 
   .user {
@@ -768,6 +771,9 @@ header.new-header {
 
     .sticky-header-placeholder {
       height: auto;
+      &.header-transparent-active {
+        display: none;
+      }
     }
 
     .header-menu-wrapper {

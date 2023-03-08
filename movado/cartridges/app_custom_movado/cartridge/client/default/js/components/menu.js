@@ -20,6 +20,7 @@ function updateStickyHeaderHeight() {
         console.log($headerWrapperHeight + 'height 2');
         console.log($totalHeight + 'height 3');
         $('.header-placeholder-sec').css('height', $totalHeight + 'px');
+        $('.sticky-header-placeholder.header-transparent-active').css('height', $headerBannerHeight + 'px');
 }
 
 // Custom:MSS-2150 Call the updateStickyHeaderHeight function both when the document is ready and when the screen is resized

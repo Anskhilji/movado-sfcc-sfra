@@ -1,4 +1,4 @@
-<div class="header-placeholder-sec"></div>
+<div class="header-placeholder-sec ${!empty(dw.system.Site.current.preferences.custom.isHeaderTransparent) ? (dw.system.Site.current.preferences.custom.isHeaderTransparent == true ? 'header-transparent-active' : '') : ''}"></div>
 <iscomment> Custom: HTML Structure change</iscomment>
 <div class="site-tophat-main-1">
     <isslot id="header-banner-m" description="Slot above the site header" context="global" />
@@ -13,7 +13,7 @@
     <iscomment> Custom End </iscomment>
     <nav>
         <div class="sticky-header-wrapper">
-            <div class="sticky-header-placeholder"></div>
+            <div class="sticky-header-placeholder ${!empty(dw.system.Site.current.preferences.custom.isHeaderTransparent) ? (dw.system.Site.current.preferences.custom.isHeaderTransparent == true ? 'header-transparent-active' : '') : ''}"></div>
             <div class="header-menu-wrapper non-sticky">
                 <div class="header-wrapper">
                     <div class="container-fluid px-0">
