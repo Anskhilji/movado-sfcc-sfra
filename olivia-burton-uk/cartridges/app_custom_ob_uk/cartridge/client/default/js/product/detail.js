@@ -189,28 +189,30 @@ function refreshAffirmUI() {
     }
 };
 
-function hideYotpoReviews() {
-    var $yotpoEmptyStarContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-empty-star');
-    var $yotpoEmptyStarContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-empty-star');
-    var $yotpoEmptyReviewContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars-rating');
-    var $yotpoEmptyReviewContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars-rating');
-    if ($('.ratings.d-none-mobile-rating').find('.yotpo-stars').length > 0) {
-        var $yotpoIconContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-star');
-        var $yotpoIconContainer = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-star');
-        if (($yotpoIconContainer).length > 0) {
-            $yotpoEmptyStarContainer.removeClass('d-none');
-            $yotpoEmptyStarContainer.addClass('d-block');
-            $yotpoEmptyStarContainerMobile.removeClass('d-none');
-            $yotpoEmptyStarContainerMobile.addClass('d-block');
-            $yotpoEmptyReviewContainer.removeClass('d-none');
-            $yotpoEmptyReviewContainer.addClass('d-block');
-            $yotpoEmptyReviewContainerMobile.removeClass('d-none');
-            $yotpoEmptyReviewContainerMobile.addClass('d-block');
-        }
+// Custom Start: [MSS-2079] Hide Star Ratings and Write a Review Section when 0 Reviews on a Product
+function removeRatings() {
+    var $ratings = $('.ratings');
+    var $wrapper = $('.yotpo-display-wrapper')
+    var $noReviews = $('.yotpo-no-reviews');
+    var $yotpoWrapper = $('.yotpo.bottomLine');
+    var $reviewsSection = $('#yotpo-reviews-top-div');
+    
+    if ($noReviews.length > 0) {
+        $ratings.css('opacity', 0);
+        $wrapper.css('display', 'none');
+        $reviewsSection.css('display', 'none');
+        $noReviews.hide();
+        $yotpoWrapper.hide();
+        $reviewsSection.hide();
     } else {
-        setTimeout(hideYotpoReviews, 1000);
+        setTimeout(function () {
+            removeRatings();
+        }, 100);
     }
 }
+setTimeout(function () {
+    removeRatings();
+}, 100);
 
 // Custom start: Listrak persistent popupnpm
 $(document).on('click','.listrak-popup', function(e) {
