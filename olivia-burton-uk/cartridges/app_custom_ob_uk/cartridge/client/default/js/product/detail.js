@@ -190,15 +190,16 @@ function refreshAffirmUI() {
 };
 
 function hideYotpoReviews() {
-    var $yotpoEmptyStarContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-empty-star');
+    var $yotpoMobileContainer = $('.ratings.d-none-mobile-rating');
+    var $yotpoEmptyStarContainer = $yotpoMobileContainer.find('.yotpo-stars > .yotpo-icon-empty-star');
     var $yotpoEmptyStarContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-empty-star');
     var $yotpoEmptyReviewContainer = $('.yotpo-stars-rating');
 
-    if ($('.ratings.d-none-mobile-rating').find('.yotpo-stars').length > 0) {
-        var $yotpoIconContainer = $('.ratings.d-none-mobile-rating').find('.yotpo-stars > .yotpo-icon-star');
-        var $yotpoIconContainer = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-star');
+    if ($yotpoMobileContainer.find('.yotpo-stars').length > 0) {
+        var $yotpoIconContainer = $yotpoMobileContainer.find('.yotpo-stars > .yotpo-icon-star');
+        var $yotpoIconContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-star');
 
-        if (($yotpoIconContainer).length > 0) {
+        if ($yotpoIconContainer.length > 0 || $yotpoIconContainerMobile.length > 0) {
             $yotpoEmptyStarContainer.removeClass('d-none').addClass('d-block');
             $yotpoEmptyStarContainerMobile.removeClass('d-none').addClass('d-block');
             $yotpoEmptyReviewContainer.removeClass('d-none').addClass('d-block');
