@@ -81,14 +81,15 @@ function listrakBackInStockFormSubmission() {
         }
 
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
+            var $phonePattern;
+            var $isValidPhone;
+
             $('.back-in-stock-notification-phone').each(function() {
-                if ($(this).val()) {
+
+                if ($(this).val().length > 0) {
                     $phone = $(this).val().trim();
                 }
             });
-            
-            var $phonePattern;
-            var $isValidPhone;
 
             if (smsSubscription) {
                 $phone = $listrackPhoneCode + $phone;
@@ -147,8 +148,10 @@ function listrakBackInStockFormSubmission() {
         }
     } else {
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
+
             $('.back-in-stock-notification-phone').each(function() {
-                if ($(this).val()) {
+
+                if ($(this).val().length > 0) {
                     $phone = $(this).val().trim();
                 }
             });

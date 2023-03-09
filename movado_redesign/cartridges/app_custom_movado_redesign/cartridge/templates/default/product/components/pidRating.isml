@@ -7,5 +7,7 @@
     <div class="ratings pull-left">
         <isinclude template="product/components/productRating" />
     </div>
-    <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
+    <isif condition="${!empty(dw.system.Site.current.preferences.custom.enabledDropHint) ? dw.system.Site.current.preferences.custom.enabledDropHint : false}">
+        <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
+    </isif>
 </div>

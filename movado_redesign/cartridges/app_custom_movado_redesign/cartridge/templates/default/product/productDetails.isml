@@ -167,7 +167,7 @@
                             </isif>
                             <iscomment> Custom End: </iscomment>
 
-	                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
 
@@ -242,10 +242,6 @@
 
         <div class="container-fluid pdp-mobile pdp-v-one my-md-5 collection-you-may-like">
             <isslot id="pdp-collection-you-may-like" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
-        </div>
-
-        <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
-            <isslot id="pdp-recently-viewed-products" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
         </div>
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->

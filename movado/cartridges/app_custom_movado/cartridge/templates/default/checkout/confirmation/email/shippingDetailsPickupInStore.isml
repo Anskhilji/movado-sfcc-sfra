@@ -4,12 +4,12 @@
         <td style="color:#000001;vertical-align:top;" >
             <table class="order-details" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;font-weight:500;" >
                 <tr><td class="h1 uppercase pad-40-top" style="font-size:20px;text-transform:uppercase;padding-top:85px;padding-bottom:30px;color:#000001;vertical-align:top;font-weight:500;" >${pdict.shipToLabel}</td></tr>
-                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${address.firstName} ${address.lastName}</td></tr>
+                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${pdict.pickUpCustomerLabel} ${address.firstName} ${address.lastName}</td></tr>
                 <isif condition="${address.companyName}" >
                     <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${address.companyName}</td></tr>
                 </isif>
                 <isif condition="${address.address1}">
-                    <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${address.address1}</td></tr>
+                    <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${pdict.pickUpStoreAddressLabel} ${address.address1}</td></tr>
                 </isif>							
                 <isif condition="${address.address2}">
                     <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${address.address2}</td></tr>
@@ -24,7 +24,6 @@
                     <span class="zip">${address.postalCode}&nbsp;</span>
                     <span class="country">${address.countryCode.displayValue}</span>
                 </td></tr>
-                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${pdict.phoneLabel}${address.phone}</td></tr>
                 <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >
                     ${pdict.shippingMethodLabel}${shipping.selectedShippingMethod.displayName}
                 </td></tr>

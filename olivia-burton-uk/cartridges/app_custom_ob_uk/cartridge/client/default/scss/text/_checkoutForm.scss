@@ -3,8 +3,8 @@
   .submit-payment,
   .place-order,
   .order-confirmation-continue-shopping {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
+    background: $gray;
+    border: rem(1) solid $gray;
     color: $black;
   }
 
@@ -377,6 +377,13 @@
                                                 text-transform: uppercase;
                                                 margin-bottom: rem(10) !important;
                                               }
+                                          }
+
+                                          .option-wrapper {
+                                            font-size: rem(12);
+                                            font-weight: 500;
+                                            letter-spacing: rem(0.7);
+                                            color: $grey18;
                                           }
                             
                                           .item-quantity-container-box {
