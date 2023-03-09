@@ -212,6 +212,7 @@ $('.form').submit(function(e) {
     var $backInStockSmsSubscription = $('#backInStockSMSSubscription');
 
     if ($backInStockSmsSubscription.length > 0 && $listarkSMSRemainder.length > 0) {
+
         if ($listarkSMSRemainder.hasClass('d-none') && ($('.back-in-stock-notification-phone').val()).length > 0 && !$backInStockSmsSubscription.is(':checked')) {
             $listarkSMSRemainder.removeClass('d-none');
         } else {
