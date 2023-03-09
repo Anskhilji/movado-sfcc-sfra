@@ -1,6 +1,6 @@
 var backInStockNotification = require('../js/backInStockNotification');
 
-function listrakMainHandling() {
+function listrakBackInStockFormSubmission() {
     var $backInStockContainerMain = $('.listrak-back-in-stock-notification-container-main');
     var $form = $('.back-in-stock-notification-form');
     var $pid = $('#productSKU').val();
@@ -209,17 +209,15 @@ function listrakMainHandling() {
 $('.form').submit(function(e) {
     e.preventDefault();
     var $listarkSMSRemainder = $('.listrak-sms-remainder-msg');
-    var $backInStockSelector = $('.listrak-back-in-stock-notification-container-main');
+    var $backInStockSmsSubscription = $('#backInStockSMSSubscription');
 
-    if (window.Resources.LISTRAK_ENABLE_BACK_IN_STOCK_SMS) {
-        if ($backInStockSelector.find('#backInStockSMSSubscription').length > 0) {
-            if ($listarkSMSRemainder.hasClass('d-none') && ($('.back-in-stock-notification-phone').val()).length > 0 && !$backInStockSelector.find('#backInStockSMSSubscription').is(':checked')) {
-                $listarkSMSRemainder.removeClass('d-none');
-            } else {
-                listrakMainHandling();
-            }
+    if ($backInStockSmsSubscription.length > 0 && $listarkSMSRemainder.length > 0) {
+        if ($listarkSMSRemainder.hasClass('d-none') && ($('.back-in-stock-notification-phone').val()).length > 0 && !$backInStockSmsSubscription.is(':checked')) {
+            $listarkSMSRemainder.removeClass('d-none');
+        } else {
+            listrakBackInStockFormSubmission();
         }
     } else {
-        listrakMainHandling();
+        listrakBackInStockFormSubmission();
     }
 });
