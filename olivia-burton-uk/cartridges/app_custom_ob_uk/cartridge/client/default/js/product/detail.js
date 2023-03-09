@@ -204,6 +204,10 @@ function hideYotpoReviews() {
                 $yotpoEmptyStarContainer.removeClass('d-none').addClass('d-block');
                 $yotpoEmptyStarContainerMobile.removeClass('d-none').addClass('d-block');
                 $yotpoEmptyReviewContainer.removeClass('d-none').addClass('d-block');
+            } else {
+                $yotpoEmptyStarContainer.removeClass('d-block').addClass('d-none');
+                $yotpoEmptyStarContainerMobile.removeClass('d-block').addClass('d-none');
+                $yotpoEmptyReviewContainer.removeClass('d-block').addClass('d-none');
             }
         } else {
             setTimeout(hideYotpoReviews, 2000);
