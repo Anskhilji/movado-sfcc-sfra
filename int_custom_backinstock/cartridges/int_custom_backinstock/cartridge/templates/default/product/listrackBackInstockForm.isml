@@ -25,7 +25,7 @@
                         <input class="back-in-stock-notification-phone" id="lbisEmail" type="text" name="lbisPhone" placeholder="${Resource.msg('listrak.form.phone.placeholder', 'product', null)}">
                         <p class="back-in-stock-notification-invalid-phone error-msg back-in-stock-notification-error"></p>
                         <isif condition="${!empty(backInStockSmsMessage)}">
-                            <p class="listrak-sms-remainder-msg d-none">${backInStockSmsMessage}</p>
+                            <p class="listrak-sms-remainder-msg d-none error-msg">${backInStockSmsMessage}</p>
                         </isif>
                     </div>
                 </isif>
