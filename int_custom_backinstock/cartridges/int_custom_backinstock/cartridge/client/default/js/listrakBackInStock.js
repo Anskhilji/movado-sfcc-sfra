@@ -208,13 +208,13 @@ function listrakBackInStockFormSubmission() {
 
 $('.form').submit(function(e) {
     e.preventDefault();
-    var $listarkSMSRemainder = $('.listrak-sms-remainder-msg');
+    var $listarkSMSReminder = $('.listrak-sms-reminder-msg');
     var $backInStockSmsSubscription = $('#backInStockSMSSubscription');
 
-    if ($backInStockSmsSubscription.length > 0 && $listarkSMSRemainder.length > 0) {
+    if ($backInStockSmsSubscription.length > 0 && $listarkSMSReminder.length > 0) {
 
-        if ($listarkSMSRemainder.hasClass('d-none') && ($('.back-in-stock-notification-phone').val()).length > 0 && !$backInStockSmsSubscription.is(':checked')) {
-            $listarkSMSRemainder.removeClass('d-none');
+        if ($listarkSMSReminder.hasClass('d-none') && ($('.back-in-stock-notification-phone').val()).length > 0 && !$backInStockSmsSubscription.is(':checked')) {
+            $listarkSMSReminder.removeClass('d-none');
         } else {
             listrakBackInStockFormSubmission();
         }
