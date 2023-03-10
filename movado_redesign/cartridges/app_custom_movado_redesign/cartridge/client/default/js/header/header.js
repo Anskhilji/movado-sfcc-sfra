@@ -7,7 +7,40 @@ $(document).ready(function() {
     if (!$(".minicart").is(":visible")) {
         $('header.new-header .user .popover').addClass('popover-cart-icon-hidden');
     }
+
+    // Custom:MSS-2083 Header tranparent
+    var $divOffsetTop = $('.banner-view-port').offset().top;
+
+    if (!$('.banner-view-port').isOnScreen()) { // if on load banner is not in viewPort show 
+        if ($(window).scrollTop() > $divOffsetTop) {
+            $('.home-header-transparent').removeClass('transparent-header');
+        }
+    }
+
+     $(window).scroll(function () {
+        var $headerViewPort = $('.banner-view-port').isOnScreen();
+        if ($headerViewPort) { // check if  banner is on screen
+            $('.home-header-transparent').addClass('transparent-header');// both bottom and top will hidde
+        } else {
+            $('.home-header-transparent').removeClass('transparent-header');
+        }
+    });
 });
+
+$.fn.isOnScreen = function () {
+    var $win = $(window);
+    var $viewport = {
+        top: $win.scrollTop(),
+        left: $win.scrollLeft()
+    };
+    $viewport.right = $viewport.left + $win.width();
+    $viewport.bottom = $viewport.top + $win.height();
+    var $bounds = this.offset();
+    $bounds.right = $bounds.left + this.outerWidth();
+    $bounds.bottom = $bounds.top + this.outerHeight();
+    return (!($viewport.right < $bounds.left || $viewport.left > $bounds.right || $viewport.bottom < $bounds.top || $viewport.top > $bounds.bottom));
+};
+
 $('.minicart .popover').keyup(function(event) {
     if (event.key === 'Escape') {
         $('.minicart .popover').removeClass('show');
@@ -24,6 +57,8 @@ $(".search-icon").click(function(e){
     $(".modal-background").addClass("show-overlay").fadeIn();
     $(".desktop-search input").focus();
     e.preventDefault();
+    // Custom:MSS-2083 add class when open search
+    $(".home-header-transparent").addClass("solid-header");    
 });
 
 function remove_grayout (){
@@ -43,6 +78,11 @@ function remove_grayout (){
     setTimeout(function(){
         $(".mobile-menu").removeClass("animated");
     },200);
+    
+    // Custom:MSS-2083 
+    setTimeout(function(){
+        $(".home-header-transparent").removeClass("solid-header"); 
+    },400);
 }
 $(".search-close").click(function(){
     remove_grayout();

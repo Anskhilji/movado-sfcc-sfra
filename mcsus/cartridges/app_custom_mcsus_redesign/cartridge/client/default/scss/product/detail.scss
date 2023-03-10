@@ -641,6 +641,12 @@
             font-size: rem(14);
         }
     }
+
+    &.sticky-test-wrapper {
+        @include media-breakpoint-down(xs) {
+            background-color: $light-brown-1;
+        }
+    }
 }
 
 .sticky-container-redesign {
@@ -734,6 +740,27 @@
                     padding-right: rem(16);
                     font-size: rem(14);
                 }
+
+                &.static-style-wrapper {
+                    background-color: $light-brown;
+                    border-color: $light-brown;
+                    color: $white;
+
+                    @include media-breakpoint-down(xs) {
+                        background-color: $light-brown2;
+                        border-color: $light-brown2;
+                        color: $black;
+                    }
+
+                    &:focus {
+                        box-shadow: 0 0 0 rem(3.2) rgba($light-brown, 0.5);
+
+                        @include media-breakpoint-down(xs) {
+                            box-shadow: 0 0 0 rem(3.2) rgba($light-brown2, 0.5);
+                        }
+                    }
+                }
+
                 .price-pdp-mvmt {
 
                     del {
@@ -743,6 +770,16 @@
                     .sales {
                         color: $white;
                         font-family: $font-regular;
+                    }
+                }
+
+                .static-style-wrapper {
+
+                    .sales {
+
+                        @include media-breakpoint-down(xs) {
+                            color: $black;
+                        }
                     }
                 }
             }
@@ -1139,8 +1176,9 @@
                                 }
 
                                 .badge {
-                                    background-color: $grey-light4;
-                                    color: $black;
+                                    background-color: transparent;
+                                    border: rem(1) solid $beige4;
+                                    color: $beige4;
                                     font-family: $futura-medium;
                                     font-weight: 600;
                                     font-style: italic;
@@ -1312,7 +1350,7 @@
                                         line-height: rem(27);
                                         border: rem(1) solid $black;
                                         border-radius: rem(3);
-                                        background-color: $grey-light4;
+                                        background-color: $beige4;
                                         color: $black;
                                         font-family: $futura-medium;
                                         font-style: italic;
@@ -1394,6 +1432,16 @@
                                         margin-bottom: rem(10);
                                         @include media-breakpoint-up(sm) {
                                             margin-bottom: rem(10); 
+                                        }
+
+                                        &.static-style-wrapper {
+                                            background-color: $light-brown;
+                                            border-color: $light-brown;
+                                            color: $white;
+
+                                            &:focus {
+                                                box-shadow: 0 0 0 rem(3.2) rgba($light-brown, 0.5);
+                                            }
                                         }
 
                                         .addtocart-innter-price {
@@ -1517,10 +1565,19 @@
                                     cursor: pointer;
                                     position: relative;
 
+                                    .rating-text-accordion {
+
+                                        @include media-breakpoint-down(xs) {
+                                            transform: translateY(2px);
+                                        }
+                                    }
+
                                     // product-number-rating 
                                     .product-number-rating {
                                         margin-left: rem(12);
                                         display: inline-block;
+                                        pointer-events: none;
+
                                         .ratings {
                                             margin-bottom: rem(0);
                                         }   
@@ -2010,6 +2067,10 @@
             }
         }
 
+        .pdp-store-pickup-display-inline-block {
+            position: relative;
+        }
+
         .pdp-store-pickup-inventory {
             order: 1;
             display: flex;
@@ -2062,11 +2123,11 @@
                                             background-image: url(../../images/map-pin.svg);
                                             padding: rem(15);
                                             margin-right: rem(5);
-                                            transform: translateX(-2px);
+                                            transform: translate(-2px, 7px);
 
                                             @include media-breakpoint-down(xs) {
                                                 background-image: url(../../images/map-pin-mobile.svg);
-                                                transform: translateX(-8px);
+                                                transform: translate(-8px, 7px);
                                             }
                                         }
                                     }
@@ -2076,6 +2137,36 @@
                     }
                 }
             }
+
+            .InStock-icon-times {
+                transform: translateY(5px);
+            }
+            
+            .unavailable-icon-block {
+                transform: translateY(5px);
+            }
+
+            .info-icon {
+
+                &.info-icon-bopis {
+                    margin-left: rem(8);   
+                    .icon {
+                        background-image: url("../../images/info-icon.svg");
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        width: rem(15);
+                        height: rem(15);
+                        background-color: transparent;
+                    }
+    
+                    .tooltip {
+    
+                        @include media-breakpoint-down(xs) {
+                            display: none;
+                        }
+                    }
+                } 
+            } 
         }
         
         .pick-up-store-available-for-store {

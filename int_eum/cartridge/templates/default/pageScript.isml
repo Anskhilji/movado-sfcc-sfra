@@ -1,8 +1,9 @@
 <isif condition="${pdict.userPageName !== null}">
 	<isset name="isOneTrustCookieEnabled" value="${!empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false}" scope="page"/>
+	<isset name="gpcValue" value="${request.getHttpHeaders().get('sec-gpc')}" scope="page" />
 	<isset name="Constants" value="${require('*/cartridge/scripts/helpers/utils/Constants')}" scope="page" />
 	<iscomment> Changed type and add class if one trust cookie is enabled </iscomment>
-	<script charset='UTF-8' type="${isOneTrustCookieEnabled ? 'text/plain' : 'text/javascript'}" class="${isOneTrustCookieEnabled ? Constants.ONETRUST_PERFORMANCE_COOKIES_CLASS : ''}">
+	<script charset='UTF-8' type="${isOneTrustCookieEnabled && gpcValue  ? 'text/plain' : 'text/javascript'}" class="${isOneTrustCookieEnabled ? Constants.ONETRUST_PERFORMANCE_COOKIES_CLASS : ''}">
 	    (function(config) {
 	        (function (info) {
 	            info.PageView = function(context) {

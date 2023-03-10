@@ -311,6 +311,33 @@ server.post('AddGiftMessage',
     next();
 });
 
+server.post('RemoveGiftMessage',
+server.middleware.https,
+function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+
+    var cartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+    var CartModel = require('*/cartridge/models/cart');
+            
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var giftMessage = req.form.giftMessage;
+    var prodUUID = req.form.productUUID;
+                
+    var result = { error: false };
+        
+    if (currentBasket && prodUUID) {
+        cartHelpers.removeGiftMessaging(currentBasket, prodUUID, giftMessage);
+    } else {
+        result = { error: true };
+    }
+    var basketModel = new CartModel(currentBasket);
+    res.json({
+        basketModel: basketModel,
+        result: result
+    });
+    next();
+});
+
 server.prepend(
     'Show',
     server.middleware.https,
@@ -391,7 +418,7 @@ server.append(
         }
         // Custom End
         var session = req.session.raw;
-        if (session.privacy.pickupFromStore) {
+        if (currentBasket.custom.storePickUp) {
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
@@ -660,9 +687,13 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     emptyCartDom = customCartHelpers.getCartAssets();
 
     if (currentBasket.productLineItems.length === 0) {
-        if (session.privacy.pickupFromStore) {
-            delete session.privacy.pickupFromStore;
+
+        if (currentBasket.custom.storePickUp) {
+            Transaction.wrap(function () {
+                currentBasket.custom.storePickUp = false;
+            });
         }
+        
     	var cartAnalyticsTrackingData;
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             cartAnalyticsTrackingData = {
@@ -739,6 +770,46 @@ server.append(
     res.setViewData({
         couponLineItems: BasketMgr.currentBasket.couponLineItems,
         couponLineItemsLength : BasketMgr.currentBasket.couponLineItems.length,
+    });
+    next();
+});
+
+server.post('RemoveClydeProduct', function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var CartModel = require('*/cartridge/models/cart');
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var productLineItem = null;
+    var basketModel = null;
+    var optionProductLineItem = null;
+    var lineItems = currentBasket.productLineItems.iterator();
+    var productUUID = req.querystring.uuid;
+    while (lineItems.hasNext()) {
+        var item = lineItems.next();
+        if (item.UUID === productUUID) {
+            productLineItem = item;
+            break;
+        }
+    }
+    if (productLineItem) {
+        var optionLineItems = productLineItem.optionProductLineItems.iterator();
+        var Transaction = require('dw/system/Transaction');
+        Transaction.wrap(function () {
+            while (optionLineItems.hasNext()) {
+                var optionLineItem = optionLineItems.next();
+                if (optionLineItem) {
+                    optionProductLineItem = optionLineItem;
+                    currentBasket.removeProductLineItem(optionProductLineItem);
+                    basketCalculationHelpers.calculateTotals(currentBasket);
+                    break;
+                }
+            }
+        });
+        basketModel = new CartModel(currentBasket);
+    } res.json({
+        success: optionProductLineItem || false,
+        deleteUuid: productUUID,
+        basket: basketModel
     });
     next();
 });
