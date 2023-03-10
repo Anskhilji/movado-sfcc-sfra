@@ -210,10 +210,10 @@ function hideYotpoReviews() {
                 $yotpoEmptyReviewContainer.removeClass('d-block').addClass('d-none');
             }
         } else {
-            setTimeout(hideYotpoReviews, 2000);
+            setTimeout(hideYotpoReviews, 5000);
         }
     } else {
-        setTimeout(hideYotpoReviews, 2000);
+        setTimeout(hideYotpoReviews, 5000);
     }
 }
 
