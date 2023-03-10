@@ -700,9 +700,10 @@ $(window).on('load resize scroll', function() {
     var $viewportBottom = $viewportTop + $(window).height();
     var $filterTop = $('.search-banner').offset().top;
     var $filterBottom = $filterTop + $('.search-banner').outerHeight();
+    
     if ($filterTop >= $viewportTop && $filterBottom <= $viewportBottom) {
       $('.search-filter-bar').removeClass('sticky-search-filter-bar');
     } else {
       $('.search-filter-bar').addClass('sticky-search-filter-bar');
     }
-  });
+});
