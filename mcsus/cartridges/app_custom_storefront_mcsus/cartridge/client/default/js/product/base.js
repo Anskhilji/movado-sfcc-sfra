@@ -729,6 +729,17 @@ function handleVariantResponse(response, $productContainer) {
             .attr('srcset', imageUrl.url);
     });
 
+    // Updating promo messages
+    if (response && response.product && response.product.promotions) {
+        var $promotions = $('.promotions');
+        var $promotionsCallOut = $('.promotions .callout');
+        $promotionsCallOut.remove();
+        var $productPromotions = response.product.promotions;
+        $productPromotions.forEach(function(promotion) {
+            $promotions.append('<div class="callout" title="' + promotion.details + '">' + promotion.calloutMsg + '</div>');
+        });
+    }
+
     // Update pricing
     if (!isChoiceOfBonusProducts) {
         var $priceSelector = $('.prices .price', $productContainer).length ? $('.prices .price', $productContainer) : $('.prices .price');
