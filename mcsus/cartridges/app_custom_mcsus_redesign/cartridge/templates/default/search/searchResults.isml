@@ -76,10 +76,10 @@
 							</div>
 							<div class="col-6 col-sm-6 text-right order-sm-3 filter-col">
 								<button type="button" class="btn btn-primary filter-results">
-								<picture>
-									<source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}">
-									<img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid">
-								</picture>
+									<picture>
+										<source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}">
+										<img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid">
+									</picture>
 									<span class="d-none d-sm-inline-block">${Resource.msg('button.filters', 'search', null)}</span>
 									<span class="d-inline-block d-sm-none">${Resource.msg('button.filterby', 'search', null)}</span>
 								</button>
