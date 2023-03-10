@@ -6,6 +6,10 @@
 
     .filter-bar {
 
+        ul {
+            padding-top: rem(15);
+        }
+
         .filter-value {
 
             a {
@@ -142,6 +146,21 @@
             }
         }
     }
+
+    .filter-box {
+
+        &.filter-bar-sticky {
+            top: rem(98);
+            z-index: 800;
+            @include media-breakpoint-down(md) {
+                top: rem(60); 
+            }
+
+            @include media-breakpoint-down(sm) {
+                top: rem(44); 
+            }
+        }
+    }
 }
 
 .plp-discover.plp-new-design {
@@ -173,4 +192,14 @@
     &.button-search-result {
         bottom: rem(41);
     }
+}
+
+.grid-header {
+    min-width: rem(202.22);
+    min-height: rem(20);
+}
+
+.filter-btn-main {
+    min-width: rem(64.05);
+    min-height: rem(19);
 }

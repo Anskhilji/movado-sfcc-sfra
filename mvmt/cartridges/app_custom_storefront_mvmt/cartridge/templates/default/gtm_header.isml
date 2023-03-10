@@ -29,7 +29,8 @@
         'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
         'departmentCategoryName': '',
         'customerIPAddressLocation': '${pdict.gtm.customerIPAddressLocation}',
-        'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}'
+        'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}',
+        'runningABTest': '${pdict.gtm.runningABTests}'
     };
     
     if (pageDataGTM != undefined && pageDataGTM) {

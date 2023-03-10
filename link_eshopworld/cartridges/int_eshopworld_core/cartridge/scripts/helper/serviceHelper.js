@@ -7,7 +7,7 @@ var Site = require('dw/system/Site').getCurrent();
 
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var BasketMgr = require('dw/order/BasketMgr');
-
+var URLUtils = require('dw/web/URLUtils');
 /**
  * forEach method for dw.util.Collection subclass instances
  * @param {dw.util.Collection} collection - Collection subclass instance to map over
@@ -51,6 +51,7 @@ function preparePreOrderV2() {
             'DeliveryOptions': getShippingRates()
         };
     }
+    delete session.custom.isEswShippingMethod;
     return requestObj;
 }
 
@@ -76,6 +77,41 @@ function getRetailerPromoCodes() {
 }
 
 /**
+ * Apply discount base based on order percentage so that each line item will get equal percentage discount
+ * @param {dw.order.Basket} basket - Basket Object
+ * @returns {object} - Array of discounted PIDs
+ */
+ function getProductPricePercentageShare(basket) {
+    var productLineItems = basket.productLineItems;
+    // Get all applied percentage order level discounts sum
+    var totalAppliedOrderLevelDiscount = 0;
+    if (!empty(basket) && !empty(basket.getPriceAdjustments())) {
+        basket.getPriceAdjustments().toArray().forEach(function (adjustment) {
+            if (adjustment.promotion.promotionClass === dw.order.PriceAdjustmentLimitTypes.TYPE_ORDER
+                && adjustment.appliedDiscount.type === dw.campaign.Discount.TYPE_PERCENTAGE) {
+                totalAppliedOrderLevelDiscount += adjustment.appliedDiscount.percentage;
+            }
+        });
+        // Just an exception in case of multiple order promotions exceeded 99%
+        totalAppliedOrderLevelDiscount = (totalAppliedOrderLevelDiscount > 99) ? 99 : totalAppliedOrderLevelDiscount;
+    }
+    // Calculate discounted price of each line item
+    var pricePercentageShare = new dw.util.ArrayList([]);
+    if (totalAppliedOrderLevelDiscount > 0) {
+        for (var lineItemNumber in productLineItems) {
+            var item = productLineItems[lineItemNumber];
+            var itemPrice = eswHelper.getUnitPriceCost(item).value;
+            var discountedTotalPrice = (itemPrice - (itemPrice * (totalAppliedOrderLevelDiscount / 100))).toFixed(2);
+            pricePercentageShare.add({
+                productID: item.productID,
+                discountedTotalPrice: Number(discountedTotalPrice)
+            });
+        }
+    }
+    return pricePercentageShare;
+}
+
+/**
  * function to get cart items for version 2
  * @returns {Object} - cart items
  */
@@ -94,6 +130,7 @@ function getCartItemsV2() {
             totalQuantity += item.quantity.value;
         }
     });
+    var productPriceSharePerentage = getProductPricePercentageShare(currentBasket);
     for (var lineItemNumber in currentBasket.productLineItems) {
         // Custom Start: Adding custom image variable for dynamic image code
         var ImageModel = require('*/cartridge/models/product/productImages');
@@ -123,17 +160,46 @@ function getCartItemsV2() {
             price = 0;
         } else {
             //Apply order level promotions
-            if (currentBasket.productLineItems.length == lineItemNumber + 1) {
-                price -= remainingDiscount / item.quantity.value;
+            if (productPriceSharePerentage.size() === 0) {
+                if (currentBasket.productLineItems.length == lineItemNumber + 1) {
+                    price -= remainingDiscount / item.quantity.value;
+                } else {
+                    price -= totalDiscount / totalQuantity;
+                }
+                discountAmount = beforeDiscount - price;
+                remainingDiscount -= (priceAfterProductPromos - price) * item.quantity.value;
             } else {
-                price -= totalDiscount / totalQuantity;
+                var collections = require('*/cartridge/scripts/util/collections');
+                var discountedPriceFromArr = collections.find(productPriceSharePerentage, function(productPrice){
+                    return productPrice.productID === item.productID;
+                });
+                price = discountedPriceFromArr.discountedTotalPrice;
+                discountAmount = beforeDiscount - price;
             }
             price = price.toFixed(2);
+            discountAmount = discountAmount.toFixed(2);
         }
         // Custom Start: Adding custom dynamic image code
         var tile = !empty(Site.getCustomPreferenceValue('preOrderImageType')) ? Site.getCustomPreferenceValue('preOrderImageType') : 'tile256';
         ImageModel = new ImageModel(item.product, { types: [tile], quantity: 'single' });
-        imageUrl = empty(ImageModel[tile][0].url) ? '' : ImageModel[tile][0].url.toString();
+        var siteId = Site.current.ID ;
+        var siteLogo = '';
+
+        if (empty(ImageModel[tile][0])) {
+            if (siteId === 'MovadoUS') {
+                siteLogo = URLUtils.staticURL('/images/movado-logo.svg').toString();
+            } else if (siteId === 'MVMTUS' || siteId === 'MVMTEU') {
+                siteLogo = URLUtils.staticURL('/images/mvmt-logo.svg').toString();
+            } else if (siteId === 'OliviaBurtonUS' || siteId === 'OliviaBurtonUK') {
+                siteLogo = URLUtils.staticURL('/images/olivia-burton-logo.svg').toString();
+            } else if (siteId === 'EbelUS') {
+                siteLogo = URLUtils.staticURL('/images/ebel-logo.jpg').toString();
+            } else if (siteId === 'ConcordUS') {
+                siteLogo = URLUtils.staticURL('/images/concord-logo.png').toString();
+            }
+        }
+
+        imageUrl = !empty(ImageModel[tile]) && !empty(ImageModel[tile][0]) ? ImageModel[tile][0].url.toString() : siteLogo;
         //Custom End
         discountAmount = (beforeDiscount - price).toFixed(2);
         remainingDiscount -= (priceAfterProductPromos - price) * item.quantity.value;
@@ -396,6 +462,7 @@ function getContactDetails() {
  * Function to get shipping rates
  */
 function getShippingRates() {
+    session.custom.isEswShippingMethod = true;
     var cart = BasketMgr.getCurrentOrNewBasket(),
         isOverrideCountry = JSON.parse(eswHelper.getOverrideShipping()).filter(function (item) {
             return item.countryCode == eswHelper.getAvailableCountry();

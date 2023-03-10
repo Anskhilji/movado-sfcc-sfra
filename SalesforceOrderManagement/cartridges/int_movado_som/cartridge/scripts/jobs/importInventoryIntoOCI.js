@@ -151,20 +151,27 @@ function importInventoryIntoOCI(args) {
             }
 
             recordNodes.forEach(function (recordNode) {
-                var uniqueRecordId = StringUtils.format(
-                    '{0}_{1}_{2}_{3}',
-                    LocalMISC.generateUUID(),
-                    headerNode.header['@list-id'],
-                    recordNode.record['@product-id'],
-                    new Date().toISOString().replace(/[^0-9]/g, '')
-                );
-
                 // Setting the quantity to 0 if its negative
                 var onHandQuantity = parseInt(recordNode.record.allocation, 10);
                 if (onHandQuantity < 0) {
                     onHandQuantity = 0;
                 }
-                
+				
+                var uniqueRecordId = StringUtils.format(
+                    '{0}_{1}_{2}_{3}_{4}',
+                    LocalMISC.generateUUID(),
+                    headerNode.header['@list-id'],
+                    recordNode.record['@product-id'],
+                    new Date().toISOString().replace(/[^0-9]/g, ''),
+					onHandQuantity
+                );
+
+                var externalRefId = StringUtils.format(
+                    "{0}_{1}",
+                    recordNode.record['@product-id'],
+                    new Date().toISOString().replace(/[^0-9]/g, "")
+                )
+
                 var futureExpectedDate = recordNode.record.futureexpectedtimestamp;
                 var ociFutureStock = null;
                 if(futureExpectedDate != null) {
@@ -182,6 +189,7 @@ function importInventoryIntoOCI(args) {
                     recordNode.record['@product-id'].toUpperCase(), // sku - Stock Keeping Unit
                     headerNode.header['@list-id'], // location - Inventory Location External Reference Id
                     uniqueRecordId, // id - UniqueId to identify OCI transaction
+                    externalRefId, // externalRefId - UniqueId with SKU and timestamp
                     new Date().toISOString(), // effectiveDate - Inventory Effective Date
                     onHandQuantity // onHand - Stock Level OnHand
                 );
@@ -193,6 +201,14 @@ function importInventoryIntoOCI(args) {
                         processOCIInventoryUpdate(ociPayload);
                     } catch (batchEx) {
                         isFileProcessedSuccessfully = false;
+						LocalMISC.logMessage(
+							task,
+							'Exception while processing the file ' +
+								file.getName() +
+								': [' +
+								batchEx +
+								']'
+						);
                     }
                     ociPayload = new OCIPayloads.OCIPayload();
                     iRecordsCounter = 0;
@@ -213,6 +229,14 @@ function importInventoryIntoOCI(args) {
                     processOCIInventoryUpdate(ociPayload);
                 } catch (batchEx) {
                     isFileProcessedSuccessfully = false;
+					LocalMISC.logMessage(
+						task,
+						'Exception while processing the file ' +
+							file.getName() +
+							': [' +
+							batchEx +
+							']'
+					);
                 }
             }
 

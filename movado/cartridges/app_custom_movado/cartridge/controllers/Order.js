@@ -32,6 +32,7 @@ server.replace(
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
         var userIPAddress = request.httpRemoteAddress || '';
+        var currencyCode = order.getCurrencyCode();
 
         if (!order
             || !token
@@ -73,6 +74,19 @@ server.replace(
             } else {
                 abTestParticipationSegments = abTestParticipationSegments + ', ' + abTestSegment.ABTest.ID + '-' + abTestSegment.ID;
             }
+        }
+        var productLineItem;
+        var orderLineItems = order.getAllProductLineItems();
+        var orderLineItemsIterator = orderLineItems.iterator();
+
+        while (orderLineItemsIterator.hasNext()) {
+            productLineItem = orderLineItemsIterator.next();
+            Transaction.wrap(function () {
+                if (productLineItem instanceof dw.order.ProductLineItem &&
+                    !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                    productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                }
+            });
         }
 
         // Custom Start: Save values in order custom attributes
@@ -124,7 +138,8 @@ server.replace(
                 passwordForm: passwordForm,
                 reportingURLs: reportingURLs,
                 yotpoConversionTrackingData: yotpoConversionTrackingData,
-                orderObj: order
+                orderObj: order,
+                currencyCode: currencyCode
             });
         } else {
             res.render('checkout/confirmation/confirmation', {
@@ -132,7 +147,8 @@ server.replace(
                 returningCustomer: true,
                 reportingURLs: reportingURLs,
                 yotpoConversionTrackingData: yotpoConversionTrackingData,
-                orderObj: order
+                orderObj: order,
+                currencyCode: currencyCode
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
@@ -338,8 +354,8 @@ server.append('Confirm', function (req, res, next) {
         orderLineItemArray: orderLineItemArray
     };
 
-    if(session.privacy.pickupFromStore) {
-        session.privacy.pickupFromStore = false;
+    if (session.custom.pickupFromStore) {
+        session.custom.pickupFromStore = false;
     }
     
     res.setViewData({

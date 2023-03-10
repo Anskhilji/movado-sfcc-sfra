@@ -17,35 +17,37 @@
     </isscript>
 </isif>
 <isif condition="${lineItem.priceTotal.savingPrice > 0}">
-    <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> mb-2 original-price"> 
-        ${Resource.msg('cart.label.price','cart',null)} 
+    <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> mb-2 original-price" price-value="${lineItem && lineItem.priceTotal && lineItem.priceTotal.nonAdjustedPriceValue ? lineItem.priceTotal.nonAdjustedPriceValue : 0}">
+        ${Resource.msg('cart.label.price','cart',null)}
         <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>
-                ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.nonAdjustedPrice}
+            ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.nonAdjustedPrice}
         </isif>
     </div>
-    <div class="savings mb-2">${Resource.msg('cart.label.savings','cart',null)} ${lineItem.priceTotal.formattedSavingPrice}</div>
-    <div class="mb-2 total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
-        <span class="line-item-total-price-amount item-total-${lineItem.UUID}">
+    <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>
+        <div class="savings mb-2">${Resource.msg('cart.label.savings','cart',null)} ${lineItem && lineItem.priceTotal && lineItem.priceTotal.formattedSavingPrice ? lineItem.priceTotal.formattedSavingPrice : 0}</div>
+    </isif>  
+    <div class="mb-2 total-amount">${Resource.msg('cart.label.itemTotal','cart',null)}
+        <span class="line-item-total-price-amount item-total-${lineItem.UUID}" price-value="${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPriceValue ? lineItem.priceTotal.saleFormattedPriceValue : 0}">
             <isif condition="${isEswEnabled}" >
                 <isif condition="${!empty(matchingLineItem)}">
                     ${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}
-                <iselse>
-                    ${lineItem.priceTotal.price}
+                <iselse/>
+                     ${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}
                 </isif>
-            <iselse>
-                ${lineItem.priceTotal.price}
+            <iselse/>
+                ${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}
             </isif>
         </span>
     </div>
-<iselse>
+<iselse/>
     <isif condition="${isEswEnabled}" >
         <isif condition="${!empty(matchingLineItem)}">
-            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
-        <iselse>
-            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${lineItem.priceTotal.price}</div>
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount" price-value="${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPriceValue ? lineItem.priceTotal.saleFormattedPriceValue : 0}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
+        <iselse/>
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount" price-value="${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPriceValue ? lineItem.priceTotal.saleFormattedPriceValue : 0}">${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}</div>
         </isif>
-    <iselse>
-        <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${lineItem.priceTotal.price}</div>
+    <iselse/>
+        <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount" price-value="${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPriceValue ? lineItem.priceTotal.saleFormattedPriceValue : 0}">${lineItem && lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}</div>
     </isif>
 </isif>
 <iscomment> Custom End </iscomment>

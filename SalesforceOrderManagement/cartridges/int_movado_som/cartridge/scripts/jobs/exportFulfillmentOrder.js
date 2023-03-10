@@ -331,6 +331,9 @@ function createSAPOrderFile(args, impexFilePath, record) {
             if (Object.hasOwnProperty.call(poItem, 'taxAmount')) {
                 writeXmlElement(streamWriter, 'TaxAmount', poItem.taxAmount.toFixed(2), true);
             }
+            if (Object.hasOwnProperty.call(poItem, 'charityAmount')) {
+                writeXmlElement(streamWriter, 'CharityAmount', poItem.charityAmount.toFixed(2), true);
+            }
             writeXmlElement(streamWriter, 'Tax1', poItem.tax1 || 0, true);
             writeXmlElement(streamWriter, 'Tax2', poItem.tax2 || 0, true);
             writeXmlElement(streamWriter, 'Tax3', poItem.tax3 || 0, true);

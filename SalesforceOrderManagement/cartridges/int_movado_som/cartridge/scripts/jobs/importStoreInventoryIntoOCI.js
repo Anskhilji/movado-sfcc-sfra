@@ -54,13 +54,13 @@ function importStoreInventoryIntoOCI(args) {
         return new Status(
             Status.OK,
             Resource.msg(
-                "oms.movado.jobs.status.Ok",
-                "oms_movado_jobs",
+                "oms.fenwick.jobs.status.Ok",
+                "oms_fenwick_jobs",
                 null
             ),
             Resource.msg(
-                "oms.movado.jobs.error.step.disabled",
-                "oms_movado_jobs",
+                "oms.fenwick.jobs.error.step.disabled",
+                "oms_fenwick_jobs",
                 null
             )
         );
@@ -71,13 +71,13 @@ function importStoreInventoryIntoOCI(args) {
         return new Status(
             Status.ERROR,
             Resource.msg(
-                "oms.movado.jobs.status.Error",
-                "oms_movado_jobs",
+                "oms.fenwick.jobs.status.Error",
+                "oms_fenwick_jobs",
                 null
             ),
             Resource.msg(
-                "oms.movado.jobs.error.pickupfilepattern.missing",
-                "oms_movado_jobs",
+                "oms.fenwick.jobs.error.pickupfilepattern.missing",
+                "oms_fenwick_jobs",
                 null
             )
         );
@@ -136,19 +136,26 @@ function importStoreInventoryIntoOCI(args) {
             var line = ModelReader.nextLineObject();
             // Processing in batches of 100 records
             while (!!line) {
-                var uniqueRecordId = StringUtils.format(
-                    "{0}_{1}_{2}_{3}",
-                    local_misc.generateUUID(),
-                    line.store_no,
-                    line.item_cd,
-                    new Date().toISOString().replace(/[^0-9]/g, "")
-                );
-
                 // Setting the quantity to 0 if its negative
                 var onHandQuantity = parseInt(line.quantity, 10);
                 if (onHandQuantity < 0) {
                     onHandQuantity = 0;
                 }
+
+                var uniqueRecordId = StringUtils.format(
+                    "{0}_{1}_{2}_{3}_{4}",
+                    local_misc.generateUUID(),
+                    line.store_no,
+                    line.item_cd,
+                    new Date().toISOString().replace(/[^0-9]/g, ""),
+					onHandQuantity
+                );
+
+                var externalRefId = StringUtils.format(
+                    "{0}_{1}",
+                    line.item_cd,
+                    new Date().toISOString().replace(/[^0-9]/g, "")
+                )
 
                 var feDate = line.future_expected_timestamp;
                 var ociFutureStock = null;
@@ -167,6 +174,7 @@ function importStoreInventoryIntoOCI(args) {
                     line.item_cd.toUpperCase(), // sku - Stock Keeping Unit
                     line.store_no, // location - Inventory Location External Reference Id
                     uniqueRecordId, // id - UniqueId to identify OCI transaction
+                    externalRefId, // externalRefId - UniqueId with SKU and timestamp
                     new Date().toISOString(), // effectiveDate - Inventory Effective Date
                     onHandQuantity, // onHand - Stock Level OnHand
                     safetyStockCount // safetyStockCount - Global SafetyStock Value
@@ -179,6 +187,14 @@ function importStoreInventoryIntoOCI(args) {
                         processOCIInventoryUpdate(ociPayload);
                     } catch (batchEx) {
                         isFileProcessedSuccessfully = false;
+						local_misc.logMessage(
+							task,
+							"Exception while processing the file " +
+								file.getName() +
+								": [" +
+								batchEx +
+								"]"
+						);
                     }
                     // Re-initializing OCIPayload for a new batch of inventory records
                     ociPayload = new OCIPayloads.OCIPayload();
@@ -203,6 +219,14 @@ function importStoreInventoryIntoOCI(args) {
                     processOCIInventoryUpdate(ociPayload);
                 } catch (batchEx) {
                     isFileProcessedSuccessfully = false;
+					local_misc.logMessage(
+						task,
+						"Exception while processing the file " +
+							file.getName() +
+							": [" +
+							batchEx +
+							"]"
+					);
                 }
             }
 
