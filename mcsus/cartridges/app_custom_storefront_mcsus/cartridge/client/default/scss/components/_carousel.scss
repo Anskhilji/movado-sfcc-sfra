@@ -90,3 +90,57 @@
         }
     }
 }
+
+// carousel progress bar styling :start
+.carousel {
+    &-progress {
+        &-bar {
+            .cs-carousel {
+
+                .slick {
+                    &-dots {
+                        max-width: rem(300);
+                        margin: 0 auto;
+                        text-align: center;
+                        position: relative;
+
+                        @include media-breakpoint-down(xs) {
+                            max-width: rem(227);
+                        }
+
+                        li {
+                            width: 100%;
+                            height: rem(4);
+                            margin: 0;
+
+                            @include media-breakpoint-down(xs) {
+                                height: rem(2);
+                            }                                    
+
+                            button {
+                                width: 100%;
+                                border-radius: 0;
+                                height: rem(4);
+
+                                @include media-breakpoint-down(xs) {
+                                    height: rem(2);
+                                }
+
+                                &::before {
+                                    content: "";
+                                }
+                            }
+
+                            &.slick-active {
+                                @include media-breakpoint-down(xs) {
+                                    opacity: 0.46;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+// carousel progress bar styling :end
