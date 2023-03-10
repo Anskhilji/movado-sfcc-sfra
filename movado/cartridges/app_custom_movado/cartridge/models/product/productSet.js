@@ -36,5 +36,10 @@ module.exports = function setProduct(product, apiProduct, options, factory) {
     decorators.setReadyToOrder(product);
     decorators.raw(product, apiProduct);
 
+    Object.defineProperty(product, 'productSetCalloutMsg', {
+        enumerable: true,
+        value: !empty(apiProduct.custom.productSetCalloutMsg) ? apiProduct.custom.productSetCalloutMsg : ''
+    });
+
     return product;
 };
