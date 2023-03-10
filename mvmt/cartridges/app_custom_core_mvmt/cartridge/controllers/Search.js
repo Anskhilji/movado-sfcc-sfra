@@ -6,13 +6,17 @@ server.extend(page);
 
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
+var ProductSearchModel = require('dw/catalog/ProductSearchModel');
 var URLUtils = require('dw/web/URLUtils');
+var Site = require('dw/system/Site');
 
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
+var ProductSearch = require('*/cartridge/models/search/productSearch');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
-
+var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
 
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 
@@ -55,15 +59,10 @@ server.append(
 );
 
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var URLUtils = require('dw/web/URLUtils');
-    var ProductSearch = require('*/cartridge/models/search/productSearch');
     var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
-    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
-    var Site = require('dw/system/Site');
+    
     var viewData = res.getViewData();
 
     var productSearch;
@@ -280,14 +279,9 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
 }, pageMetaData.computedPageMetaData);
 
 server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, res, next) {
-    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-    var ProductSearch = require('*/cartridge/models/search/productSearch');
     var ProductMgr = require('dw/catalog/ProductMgr');
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var productGridTemplate = '/search/productGrid';
-    var Site = require('dw/system/Site');
     var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
     var marketingProductsData = [];
