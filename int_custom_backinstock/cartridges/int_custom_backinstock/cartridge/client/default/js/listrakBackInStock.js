@@ -215,7 +215,15 @@ $('.form').submit(function(e) {
     var $backInStockMobile = $('.back-in-Stock-mobile');
     var $listarkSMSReminder = $('.listrak-sms-reminder-msg');
     var $backInStockSmsSubscription = $('.back-in-stock-sms-subscription');
+    var $backinStockselector = $('.listrak-back-in-stock-notification-container-main');
     var $screenSize = $(window).width();
+    var $phoneNo = '';
+    var $smsSubscription = false;
+    var $phoneNoPattern;
+    var $isValidPhoneNo;
+    var $listrackPhoneCode = "+";
+    var $isBackInStockSmsSubscription;
+    var $isBackInStockSmsSubscriptionChecked;
 
     var $emailRequired = $('.back-in-stock-notification-error-required');
     var $emailInvalid = $('.back-in-stock-notification-error-invalid');
@@ -224,38 +232,70 @@ $('.form').submit(function(e) {
     $emailInvalid.text('');
     $phoneInvalid.text('');
 
-    if ($screenSize > 768) {
+    if ($backinStockselector.find('.back-in-stock-notification-phone').length > 0 && $backinStockselector.find('.back-in-stock-sms-subscription').length > 0) {
 
-        if ($backInStockDesktop) {
-
-            if ($backInStockDesktop.find($backInStockSmsSubscription).length > 0 && $backInStockDesktop.find($listarkSMSReminder).length > 0) {
-                var $isBackInStockSmsSubscription = $backInStockDesktop.find($backInStockSmsSubscription);
-                var $isBackInStockSmsSubscriptionChecked = $isBackInStockSmsSubscription.is(':checked');
-                if ($backInStockDesktop.find($listarkSMSReminder).hasClass('d-none') && ($backInStockDesktop.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSmsSubscriptionChecked) {
-                    $backInStockDesktop.find($listarkSMSReminder).removeClass('d-none');
-                } else {
-                    listrakBackInStockFormSubmission();
-                }
-            } else {
-                listrakBackInStockFormSubmission();
+        $('.back-in-stock-notification-phone').each(function () {
+            if ($(this).val().length > 0) {
+                $phoneNo = $(this).val().trim();
             }
+        });
+
+        $('.back-in-stock-sms-subscription').each(function () {
+            if ($(this).is(':checked')) {
+                $smsSubscription = true;
+            }
+        })
+
+        if ($smsSubscription) {
+            $phoneNo = $listrackPhoneCode + $phoneNo;
+            $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
+        } else {
+            $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
         }
-
-    } else {
-        if ($backInStockMobile) {
-
-            if ($backInStockMobile.find($backInStockSmsSubscription).length > 0 && $backInStockMobile.find($listarkSMSReminder).length > 0) {
-                var $isBackInStockSmsSubscription = $backInStockMobile.find($backInStockSmsSubscription);
-                var $isBackInStockSmsSubscriptionChecked = $isBackInStockSmsSubscription.is(':checked');
-                if ($backInStockMobile.find($listarkSMSReminder).hasClass('d-none') && ($backInStockMobile.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSmsSubscriptionChecked) {
-                    $backInStockMobile.find($listarkSMSReminder).removeClass('d-none');
-                } else {
-                    listrakBackInStockFormSubmission();
-                }
-            } else {
-                listrakBackInStockFormSubmission();
-            }
+        if ($phoneNo) {
+            $isValidPhoneNo = $phoneNoPattern.test($phoneNo);
+        }
+        if (!$isValidPhoneNo) {
+            $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
         }
     }
 
+    if ($isValidPhoneNo) {
+        if ($screenSize > 768) {
+
+            if ($backInStockDesktop) {
+                if ($backInStockDesktop.find('.back-in-stock-notification-phone').length > 0 && $backInStockDesktop.find('.back-in-stock-notification-phone').val().length > 0) {
+                    if ($backInStockDesktop.find($backInStockSmsSubscription).length > 0 && $backInStockDesktop.find($listarkSMSReminder).length > 0) {
+                        $isBackInStockSmsSubscription = $backInStockDesktop.find($backInStockSmsSubscription);
+                        $isBackInStockSmsSubscriptionChecked = $isBackInStockSmsSubscription.is(':checked');
+                        if ($backInStockDesktop.find($listarkSMSReminder).hasClass('d-none') && ($backInStockDesktop.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSmsSubscriptionChecked) {
+                            $backInStockDesktop.find($listarkSMSReminder).removeClass('d-none');
+                        } else {
+                            listrakBackInStockFormSubmission();
+                        }
+                    } else {
+                        listrakBackInStockFormSubmission();
+                    }
+                }
+            }
+
+        } else {
+            if ($backInStockMobile) {
+
+                if ($backInStockMobile.find($backInStockSmsSubscription).length > 0 && $backInStockMobile.find($listarkSMSReminder).length > 0) {
+                    $isBackInStockSmsSubscription = $backInStockMobile.find($backInStockSmsSubscription);
+                    $isBackInStockSmsSubscriptionChecked = $isBackInStockSmsSubscription.is(':checked');
+                    if ($backInStockMobile.find($listarkSMSReminder).hasClass('d-none') && ($backInStockMobile.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSmsSubscriptionChecked) {
+                        $backInStockMobile.find($listarkSMSReminder).removeClass('d-none');
+                    } else {
+                        listrakBackInStockFormSubmission();
+                    }
+                } else {
+                    listrakBackInStockFormSubmission();
+                }
+            }
+        }
+    } else {
+        listrakBackInStockFormSubmission();
+    }
 });
