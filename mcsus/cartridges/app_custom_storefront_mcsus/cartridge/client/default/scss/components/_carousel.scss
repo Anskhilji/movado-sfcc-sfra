@@ -93,11 +93,15 @@
 
 // carousel progress bar styling :start
 .carousel {
+
     &-progress {
+
         &-bar {
+
             .cs-carousel {
 
                 .slick {
+
                     &-dots {
                         max-width: rem(300);
                         margin: 0 auto;
@@ -132,6 +136,7 @@
                             }
 
                             &.slick-active {
+                                
                                 @include media-breakpoint-down(xs) {
                                     opacity: 0.46;
                                 }
