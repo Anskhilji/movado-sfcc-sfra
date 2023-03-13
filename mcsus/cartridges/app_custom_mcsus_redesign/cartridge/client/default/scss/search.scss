@@ -487,3 +487,28 @@
         bottom: rem(41);
     }
 }
+.search-results-plp-redesign {
+
+    .search-results-container {
+
+        .product-counter-wrapper {
+
+            .searech-results-wrapper {
+
+                .tab-pane {
+
+                    .grid-header {
+
+                        .sort-col {
+                            display: none;
+                        }
+
+                        .filter-col {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
