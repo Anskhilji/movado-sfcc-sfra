@@ -27,17 +27,17 @@
         </div>
     </isif>
     
-    <isif condition="${pdict.productDetailAttribute2}"> 
-        <div class="bottom-block product-detail-attribute-2 product-placeholder-block">
-            <isprint value="${pdict.productDetailAttribute2}" encoding="off" />
-        </div>
-    <iselse>
-        <isif condition="${!pdict.isHideSwissmovement}">
+    <isif condition="${!pdict.isHideSwissmovement}"> 
+       <isif condition="${pdict.productDetailAttribute2}"> 
+            <div class="bottom-block product-detail-attribute-2 product-placeholder-block">
+                <isprint value="${pdict.productDetailAttribute2}" encoding="off" />
+            </div>
+        <iselse>
             <div class="bottom-block swiss-movement-block">
                 <p>${Resource.msg('label.product.detail.swiss', 'product', 'null')}</p>
             </div>
         </isif>
-
+        
     </isif>
     
     <isif condition="${pdict.productDetailAttribute3}">

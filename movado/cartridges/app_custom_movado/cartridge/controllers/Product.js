@@ -125,7 +125,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
         var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
         var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
-        var isHideSwissmovement = !empty(product.custom.isHideSwissmovement) ? product.custom.isHideSwissmovement : null;
+        var isHideSwissmovement = !empty(product.custom.isHideSwissmovement) ? product.custom.isHideSwissmovement : false;
     }
 
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
