@@ -30,7 +30,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var explicitRecommendations = [];
-    var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
     var isEmbossEnabled;
     var isEngraveEnabled;
@@ -103,7 +102,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         productDetailAttribute3: productDetailAttribute3,
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
         loggedIn: req.currentCustomer.raw.authenticated,
-        moreStyleGtmArray: moreStyleGtmArray,
         klarnaProductPrice: klarnaProductPrice,
         productPrice: productPrice,
         eswModuleEnabled: eswModuleEnabled,
