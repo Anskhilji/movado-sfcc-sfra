@@ -1,10 +1,11 @@
 <isdecorate template="common/layout/page">
+<isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
 
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addCss('/css/search.css');
     </isscript>
-    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+    <isif condition="${sitePref.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.landing', 'eum', null))}"/>
     </isif>
     <isif condition=${false}>
