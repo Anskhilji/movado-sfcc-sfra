@@ -696,7 +696,7 @@ module.exports = {
 
 // MSS-2176 
 $(window).on('load resize scroll', function() {
-    var $searchBanner = $(".search-banner");
+    var $searchBanner = $('.search-banner');
     if (!$searchBanner.length) {
         return; // Exit the function if the element is not found
     }
