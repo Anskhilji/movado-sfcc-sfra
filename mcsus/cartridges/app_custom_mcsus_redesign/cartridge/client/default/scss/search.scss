@@ -67,6 +67,50 @@
 
                 .tab-pane {
                     margin: rem(50) rem(0) rem(54) rem(0);
+                    top: 0;
+                    position: relative;
+
+                    .search-filter-bar {
+
+                        &.sticky-search-filter-bar {
+                            position: fixed;
+                            top: rem(125);
+                            z-index: 6;
+                            padding: rem(15) rem(15);
+                            background-color: $white;
+                            width: 100%;
+                            box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
+                            margin-left: rem(-47);
+
+                            @include media-breakpoint-down(lg) {
+                                margin-left: rem(-30);
+                            }
+
+                            .filter-col {
+                                padding: 0;
+                            }
+
+                            @include media-breakpoint-down(md) {
+                                margin: 0;
+                                width: 100%;
+                                margin-left: rem(-30);
+                                top: rem(75);
+                                z-index: 1;
+                                border-top: rem(1) solid $border-color;
+                            }
+                        }
+
+                        .sort-col {
+
+                            &::before {
+                                display: none;
+                            }
+
+                            @include media-breakpoint-down(lg) {
+                                padding-left: 0;
+                            }
+                        }
+                    }
 
                     @include media-breakpoint-down(xs) {
                         border-top: rem(0.5) solid $border-color;
