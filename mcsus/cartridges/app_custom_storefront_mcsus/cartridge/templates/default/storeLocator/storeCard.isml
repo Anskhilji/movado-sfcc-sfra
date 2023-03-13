@@ -2,10 +2,14 @@
     <div class="section-sticky-add">
         <div class="miles-selected">
             <button class="d-flex align-items-center justify-content-between">
-                <span class="selected-radius">${Resource.msgf('locator.withInMiles', 'search', null, param.radius)}</span>
-                <div class="ftr-close">
-                    <img src="${URLUtils.staticURL('/images/close-black-icon.svg')}" alt="clsoe" />
-                </div>
+                <isif condition="${param.radius > 15}">
+                    <span class="selected-radius">${Resource.msgf('locator.withInMiles', 'search', null, param.radius)}</span>
+                    <div class="ftr-close">
+                        <img src="${URLUtils.staticURL('/images/close-black-icon.svg')}" alt="clsoe" />
+                    </div>
+                <iselse/>
+                    <span class="selected-radius mr-2">${Resource.msgf('locator.withInMiles', 'search', null, param.radius)}</span>
+                </isif>
             </button>
         </div>
     </div>

@@ -14,6 +14,12 @@
             </div>
             <ul class="radius-box">
                 <li>
+                    <label class="container-radius">${Resource.msg('locator.15Miles', 'search', null)}
+                        <input type="radio" value="15" name="radio">
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+                <li>
                     <label class="container-radius">${Resource.msg('locator.50Miles', 'search', null)}
                         <input type="radio" value="50" name="radio">
                         <span class="checkmark"></span>
