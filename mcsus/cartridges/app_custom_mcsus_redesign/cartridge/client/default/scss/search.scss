@@ -97,6 +97,9 @@
                                 top: rem(75);
                                 z-index: 1;
                                 border-top: rem(1) solid $border-color;
+                            }
+
+                            @include media-breakpoint-down(sm) {
                                 padding: rem(15) rem(15);
                             }
                         }
