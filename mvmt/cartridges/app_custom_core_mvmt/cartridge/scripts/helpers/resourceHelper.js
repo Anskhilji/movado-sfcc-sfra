@@ -81,7 +81,10 @@ function getResources(pageContext) {
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
         INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
         FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
-        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null)
+        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
+        INFO_PRODUCT_AVAILABILITY_PREORDER: Resource.msg('info.product.availability.preorder', 'common', null),
+        INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
+        BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null)
     };
     return resources;
 }
