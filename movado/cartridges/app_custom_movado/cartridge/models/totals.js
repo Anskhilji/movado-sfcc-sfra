@@ -68,7 +68,6 @@ function createDiscountObject(collection, discounts) {
 function getDiscounts(lineItemContainer) {
     var discounts = {};
     var priceAdjustments;
-    var excludeProductLevelMessage;
 
     collections.forEach(lineItemContainer.couponLineItems, function (couponLineItem) {
         priceAdjustments = collections.map(
@@ -77,12 +76,6 @@ function getDiscounts(lineItemContainer) {
                     callOutMsg: priceAdjustment.promotion.calloutMsg
                 };
             });
-            if (!couponLineItem.applied && couponLineItem.promotion.custom.excludeProductLevelPromotion == true && couponLineItem.statusCode == 'NO_APPLICABLE_PROMOTION') {
-                var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
-                var errorCodes = JSON.parse(couponErrorMessages);
-                var localeErrorCodes = errorCodes[Site.current.defaultLocale] || errorCodes['default'];
-                excludeProductLevelMessage = localeErrorCodes[couponLineItem.statusCode] || localeErrorCodes.DEFAULT;
-            }
         discounts[couponLineItem.UUID] = {
             type: 'coupon',
             UUID: couponLineItem.UUID,
@@ -90,7 +83,6 @@ function getDiscounts(lineItemContainer) {
             applied: couponLineItem.applied,
             valid: couponLineItem.valid,
             relationship: priceAdjustments,
-            excludeProductLevelMessage: excludeProductLevelMessage
         };
     });
 
