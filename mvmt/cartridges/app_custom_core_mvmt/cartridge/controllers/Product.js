@@ -29,7 +29,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
 
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
     var explicitRecommendations = [];
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
@@ -103,12 +102,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         productDetailAttribute2: productDetailAttribute2,
         productDetailAttribute3: productDetailAttribute3,
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
-        hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
         loggedIn: req.currentCustomer.raw.authenticated,
         moreStyleGtmArray: moreStyleGtmArray,
         klarnaProductPrice: klarnaProductPrice,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
-        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         productPrice: productPrice,
         eswModuleEnabled: eswModuleEnabled,
         explicitRecommendations: explicitRecommendations,
@@ -117,7 +113,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         collectionName: collectionName,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
-        smartGiftAddToCartURL: smartGiftAddToCartURL,
         plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
         popupID: listrakPersistentPopup
     };
