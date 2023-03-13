@@ -76,7 +76,7 @@
                             position: fixed;
                             top: rem(125);
                             z-index: 6;
-                            padding: rem(15) rem(15);
+                            padding: rem(15) rem(31);
                             background-color: $white;
                             width: 100%;
                             box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
@@ -97,6 +97,10 @@
                                 top: rem(75);
                                 z-index: 1;
                                 border-top: rem(1) solid $border-color;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                padding: rem(15) rem(15);
                             }
                         }
 
@@ -487,5 +491,31 @@
 .button-floting {
     &.button-search-result {
         bottom: rem(41);
+    }
+}
+
+.search-results-plp-redesign {
+
+    .search-results-container {
+
+        .product-counter-wrapper {
+
+            .searech-results-wrapper {
+
+                .tab-pane {
+
+                    .grid-header {
+
+                        .sort-col {
+                            display: none;
+                        }
+
+                        .filter-col {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
