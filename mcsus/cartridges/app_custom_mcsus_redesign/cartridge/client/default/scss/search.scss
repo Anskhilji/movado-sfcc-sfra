@@ -76,7 +76,7 @@
                             position: fixed;
                             top: rem(125);
                             z-index: 6;
-                            padding: rem(15) rem(15);
+                            padding: rem(15) rem(31);
                             background-color: $white;
                             width: 100%;
                             box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
@@ -487,6 +487,7 @@
         bottom: rem(41);
     }
 }
+
 .search-results-plp-redesign {
 
     .search-results-container {
