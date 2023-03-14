@@ -160,17 +160,9 @@ function processPayloadResponse(payloadResponse, yotpoConfiguration, isReview) {
  * @returns {Object} responseJSON
  */
 function importReviewsAndRatings(productID, yotpoReviewsPage, isReview, localeID) {
-    var Site = require('dw/system/Site');
     var Constants = require('*/cartridge/scripts/yotpo/utils/Constants');
     var CommonModel = require('*/cartridge/scripts/yotpo/model/common/CommonModel');
-    var YotpoLogger = require('*/cartridge/scripts/yotpo/utils/YotpoLogger');
 
-    var logLocation = 'ImportReviewModel~importReviewsAndRatings';
-    var importReviewsRealtime = Site.getCurrent().preferences.custom.importReviewsRealtime;
-    if (!importReviewsRealtime) {
-        YotpoLogger.logMessage('Importing reviews in realtime is disabled, cannot proceed further.', 'debug', logLocation);
-        throw Constants.IMPORT_REVIEWS_REALTIME_DISABLED_ERROR;
-    }
     var reviewPage = yotpoReviewsPage;
     if (empty(reviewPage)) {
         reviewPage = Constants.YOTPO_REVIEWS_PAGE_DEFAULT;
