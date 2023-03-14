@@ -451,23 +451,6 @@
 
         @include media-breakpoint-up(sm) {
             padding: 0;
-            font-size: rem(18);
-            color: $light-black1;
-        }
-
-        @include media-breakpoint-up(sm) {
-            
-            .make-bold {
-                color: $black1;
-            }
-        }
-
-        .total-product-count {
-
-            @include media-breakpoint-up(sm) {
-                font-size: rem(18);
-                margin-top: rem(20);
-            }
         }
     }
 }
