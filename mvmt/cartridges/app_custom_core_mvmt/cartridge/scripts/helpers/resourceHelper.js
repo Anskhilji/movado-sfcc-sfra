@@ -85,7 +85,10 @@ function getResources(pageContext) {
         ESW_COUPON_VALIDATION_EMAIL_REQUIRE: Resource.msg('esw.guest.email.required', 'account', null),
         INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
         LISTRAK_SMS_API_CLIENT_SECRET: !empty(Site.current.preferences.custom.Listrak_SMS_ClientSecret) ? Site.current.preferences.custom.Listrak_SMS_ClientSecret : '',
-        LISTRAK_ENABLE_BACK_IN_STOCK_SMS: !empty(Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? Site.current.preferences.custom.Listrak_EnableBackInStockSms : false
+        LISTRAK_ENABLE_BACK_IN_STOCK_SMS: !empty(Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? Site.current.preferences.custom.Listrak_EnableBackInStockSms : false,
+        INFO_PRODUCT_AVAILABILITY_PREORDER: Resource.msg('info.product.availability.preorder', 'common', null),
+        INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
+        BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null)
     };
     return resources;
 }
