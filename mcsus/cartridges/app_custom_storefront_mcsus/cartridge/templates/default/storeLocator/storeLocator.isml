@@ -4,7 +4,7 @@
     <div class="side-header">
     <div class="store-sidebar-header d-flex align-items-center justify-content-between">
             <div class="store-sidebar-header-title remove-cursor">
-                ${Resource.msg('locator.sideBarTitle', 'search', null)}
+                ${Resource.msg('locator.side.bar.title', 'search', null)}
             </div>
             <div class="store-sidebar-header-close">
                 <img src="${URLUtils.staticURL('/images/close-x.svg')}" alt="Close" />
@@ -14,7 +14,7 @@
         <div class="store-sidebar-search-filter d-flex align-items-center justify-content-between">
             <div class="search-box d-flex align-items-center">
                 <input class="search-input" type="text" name=""
-                    placeholder="${Resource.msg('locator.searchPlaceholder', 'search', null)}">
+                    placeholder="${Resource.msg('locator.search.placeholder', 'search', null)}">
                 <div class="button-search" data-action = "${URLUtils.url('Stores-FindStores')}">
                     <img src="${URLUtils.staticURL('/images/seach-icon.svg')}" alt="serach" />
                 </div>

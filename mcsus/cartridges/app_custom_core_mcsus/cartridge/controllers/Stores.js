@@ -62,10 +62,8 @@ server.replace('FindStores', function (req, res, next) {
                 var template = new Template(path);
                 var map = new HashMap();
                 map.put('stores', stores.stores);
-                if (stores && stores.radius && stores.radius >= 50) {
-                    map.put('radius', stores.radius);
-                }
-                    var html = template.render(map).text;
+                map.put('radius', stores.radius);
+                var html = template.render(map).text;
                 res.json({
                     html: html,
                     selectedRadius: stores.radius

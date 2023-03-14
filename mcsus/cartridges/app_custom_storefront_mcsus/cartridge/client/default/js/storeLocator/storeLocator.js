@@ -25,6 +25,10 @@ function appendToUrl(url, params) {
 function getFilterValues() {
     var searchValue = $('.search-input').val().trim();
     var radius = $('input[name="radio"]:checked').val();
+    if (!radius && sessionStorage.getItem('radius') === null) {
+        $('input[name="radio"][value=15]').prop('checked', true);
+    }
+
     if (searchValue) {
         sessionStorage.setItem("address", searchValue);
     } else {
