@@ -130,7 +130,7 @@ $(document).ready(function () {
         var $emailField = '';
         if ($('.back-in-stock-notification-email').length > 0) {
             $('.back-in-stock-notification-email').each(function() {
-                if ($(this).val()) {
+                if ($(this).val().length > 0) {
                     $emailField = $(this).val().trim();
                 }
             });
