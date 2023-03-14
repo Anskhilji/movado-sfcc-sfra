@@ -214,7 +214,7 @@ $('.form').submit(function(e) {
     var $backInStockDesktop = $('.back-in-Stock-desktop');
     var $backInStockMobile = $('.back-in-Stock-mobile');
     var $listarkSMSReminder = $('.listrak-sms-reminder-msg');
-    var $backInStockSmsSubscription = $('.back-in-stock-sms-subscription');
+    var $backInStockSMSSubscription = $('.back-in-stock-sms-subscription');
     var $backinStockselector = $('.listrak-back-in-stock-notification-container-main');
     var $screenSize = $(window).width();
     var $phoneNo = '';
@@ -222,8 +222,8 @@ $('.form').submit(function(e) {
     var $phoneNoPattern;
     var $isValidPhoneNo;
     var $listrackPhoneCode = "+";
-    var $isBackInStockSmsSubscription;
-    var $isBackInStockSmsSubscriptionChecked;
+    var $isBackInStockSMSSubscription;
+    var $isBackInStockSMSSubscriptionChecked;
 
     var $emailRequired = $('.back-in-stock-notification-error-required');
     var $emailInvalid = $('.back-in-stock-notification-error-invalid');
@@ -265,10 +265,10 @@ $('.form').submit(function(e) {
 
             if ($backInStockDesktop) {
                 if ($backInStockDesktop.find('.back-in-stock-notification-phone').length > 0 && $backInStockDesktop.find('.back-in-stock-notification-phone').val().length > 0) {
-                    if ($backInStockDesktop.find($backInStockSmsSubscription).length > 0 && $backInStockDesktop.find($listarkSMSReminder).length > 0) {
-                        $isBackInStockSmsSubscription = $backInStockDesktop.find($backInStockSmsSubscription);
-                        $isBackInStockSmsSubscriptionChecked = $isBackInStockSmsSubscription.is(':checked');
-                        if ($backInStockDesktop.find($listarkSMSReminder).hasClass('d-none') && ($backInStockDesktop.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSmsSubscriptionChecked) {
+                    if ($backInStockDesktop.find($backInStockSMSSubscription).length > 0 && $backInStockDesktop.find($listarkSMSReminder).length > 0) {
+                        $isBackInStockSMSSubscription = $backInStockDesktop.find($backInStockSMSSubscription);
+                        $isBackInStockSMSSubscriptionChecked = $isBackInStockSMSSubscription.is(':checked');
+                        if ($backInStockDesktop.find($listarkSMSReminder).hasClass('d-none') && ($backInStockDesktop.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSMSSubscriptionChecked) {
                             $backInStockDesktop.find($listarkSMSReminder).removeClass('d-none');
                         } else {
                             listrakBackInStockFormSubmission();
@@ -282,10 +282,10 @@ $('.form').submit(function(e) {
         } else {
             if ($backInStockMobile) {
 
-                if ($backInStockMobile.find($backInStockSmsSubscription).length > 0 && $backInStockMobile.find($listarkSMSReminder).length > 0) {
-                    $isBackInStockSmsSubscription = $backInStockMobile.find($backInStockSmsSubscription);
-                    $isBackInStockSmsSubscriptionChecked = $isBackInStockSmsSubscription.is(':checked');
-                    if ($backInStockMobile.find($listarkSMSReminder).hasClass('d-none') && ($backInStockMobile.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSmsSubscriptionChecked) {
+                if ($backInStockMobile.find($backInStockSMSSubscription).length > 0 && $backInStockMobile.find($listarkSMSReminder).length > 0) {
+                    $isBackInStockSMSSubscription = $backInStockMobile.find($backInStockSMSSubscription);
+                    $isBackInStockSMSSubscriptionChecked = $isBackInStockSMSSubscription.is(':checked');
+                    if ($backInStockMobile.find($listarkSMSReminder).hasClass('d-none') && ($backInStockMobile.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSMSSubscriptionChecked) {
                         $backInStockMobile.find($listarkSMSReminder).removeClass('d-none');
                     } else {
                         listrakBackInStockFormSubmission();
@@ -299,3 +299,22 @@ $('.form').submit(function(e) {
         listrakBackInStockFormSubmission();
     }
 });
+
+$('.back-in-stock-notification-phone').on('keyup', function () {
+    var $backInStockMobile = $('.back-in-Stock-mobile');
+    var $backInStockDesktop = $('.back-in-Stock-desktop');
+
+    if ($backInStockMobile.find('.back-in-stock-notification-phone').val().length > 0) {
+        $backInStockMobile.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', false);
+    } else {
+        $backInStockMobile.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', true);
+        $backInStockMobile.find('.back-in-stock-sms-subscription').prop('checked', false);
+    }
+
+    if ($backInStockDesktop.find('.back-in-stock-notification-phone').val().length > 0) {
+        $backInStockDesktop.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', false);
+    } else {
+        $backInStockDesktop.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', true);
+        $backInStockDesktop.find('.back-in-stock-sms-subscription').prop('checked', false);
+    }
+})
