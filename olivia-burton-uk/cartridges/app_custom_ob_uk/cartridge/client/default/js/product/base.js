@@ -379,6 +379,7 @@ function handleVariantResponse(response, $productContainer) {
         .html(getAttributesHtml(response.product.attributes));
     
     // ATC button text upadate when the product is pre-order/back-order
+    var $addToCartSelector = $('button.add-to-cart');
     if (response.product.availability && response.product.availability.inStockDate !== null && response.product.availability.messages.length > 0 && response.product.availability.messages[0] === window.Resources.INFO_PRODUCT_AVAILABILITY_PREORDER || response.product.availability.messages[0] === window.Resources.INFO_PRODUCT_AVAILABILITY_BACK_ORDER) {
         $addToCartSelector.each(function (index, button) {
             $(button).contents().first().replaceWith($addToCartSelector.textContent = window.Resources.BUTTON_PREORDER_NOW);
