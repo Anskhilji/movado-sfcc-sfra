@@ -338,6 +338,13 @@ $negative-spacer: -0.625rem;
 
     .add-gift-message {
         margin-bottom: rem(10);
+        background-color: $black;
+        color: $white;
+      
+      &:hover {
+        background-color: $black;
+        color: $white;
+    }
     }
 
     .gift-image-ribbon-box {
