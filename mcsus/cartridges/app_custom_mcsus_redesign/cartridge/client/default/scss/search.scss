@@ -443,14 +443,3 @@
         bottom: rem(41);
     }
 }
-
-// MSS-2193
-.search-results-plp-redesign {
-
-    .result-count {
-
-        @include media-breakpoint-up(sm) {
-            padding: 0;
-        }
-    }
-}
