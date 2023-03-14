@@ -9,30 +9,30 @@
 
         <div class="radius-sidebar-list">
             <div class="heading-ml w-100 d-flex align-items-center justify-content-between">
-                <span>${Resource.msg('locator.radiusFilter', 'search', null)}</span>
+                <span>${Resource.msg('locator.radius.filter', 'search', null)}</span>
                 <img src="${URLUtils.staticURL('/images/akar-icons_plus.svg')}" class="angle-left-icon">
             </div>
             <ul class="radius-box">
                 <li>
-                    <label class="container-radius">${Resource.msg('locator.15Miles', 'search', null)}
+                    <label class="container-radius">${Resource.msg('locator.fifteen.miles', 'search', null)}
                         <input type="radio" value="15" name="radio">
                         <span class="checkmark"></span>
                     </label>
                 </li>
                 <li>
-                    <label class="container-radius">${Resource.msg('locator.50Miles', 'search', null)}
+                    <label class="container-radius">${Resource.msg('locator.fifty.miles', 'search', null)}
                         <input type="radio" value="50" name="radio">
                         <span class="checkmark"></span>
                     </label>
                 </li>
                 <li>
-                    <label class="container-radius">${Resource.msg('locator.100Miles', 'search', null)}
+                    <label class="container-radius">${Resource.msg('locator.hundred.miles', 'search', null)}
                         <input type="radio" name="radio" value="100">
                         <span class="checkmark"></span>
                     </label>
                 </li>
                 <li>
-                    <label class="container-radius">${Resource.msg('locator.100MilesPlus', 'search', null)}
+                    <label class="container-radius">${Resource.msg('locator.hundred.miles.plus', 'search', null)}
                         <input type="radio" name="radio" value="300">
                         <span class="checkmark"></span>
                     </label>
@@ -43,7 +43,7 @@
     </div>
 
     <div class="miles-action-btn d-flex justif-content-between">
-        <button type="button" class="miles-action-btn-clear">${Resource.msg('locator.radiusClear', 'search', null)}</button>
-        <button type="button" class="miles-action-btn-apply" data-action = "${URLUtils.url('Stores-FindStores')}">${Resource.msg('locator.radiusApplyFilters', 'search', null)}</button>
+        <button type="button" class="miles-action-btn-clear">${Resource.msg('locator.radius.clear', 'search', null)}</button>
+        <button type="button" class="miles-action-btn-apply" data-action = "${URLUtils.url('Stores-FindStores')}">${Resource.msg('locator.radius.apply.filters', 'search', null)}</button>
     </div>
 </div>
