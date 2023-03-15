@@ -67,6 +67,7 @@
 						</isif>
 						<isinclude template="search/resultsCount" />
 					</div>
+					
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<div class="col-6 col-sm-6 order-sm-1 sort-filters-button sort-col">
 							<isinclude template="search/sortOrderMenu" />
