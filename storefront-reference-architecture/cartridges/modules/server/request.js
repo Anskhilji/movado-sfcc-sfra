@@ -365,6 +365,7 @@ function Request(request, customer, session) {
                         session.privacy.countryCode = countryCode;
                     }
                 }
+
             } catch (e) {
                 Logger.error('(request.js -> Request) Error occured while getting the country object from getCustomCountryByCountryCode method : ' + e);
                 setCurrency(request, session);

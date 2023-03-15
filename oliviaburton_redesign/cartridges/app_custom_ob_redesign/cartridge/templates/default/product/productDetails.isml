@@ -214,7 +214,6 @@
                             </isif>
                             <iscomment> Custom End </iscomment>
 
-
                             <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                             <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
                             <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && typeof product.giftBoxSKUData != 'undefined' && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled && product.available}">

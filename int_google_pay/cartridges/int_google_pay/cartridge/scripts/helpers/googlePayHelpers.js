@@ -17,7 +17,6 @@ var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 
-
 /**
  * Checks if google pay is enabled
  * @returns {Boolean}
@@ -104,7 +103,6 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     return false;
 
 }
-
 
 function removeAllProductLineItemsFromBasket(currentBasket) {
     Transaction.wrap(function () {
@@ -301,9 +299,9 @@ function getTransactionInfo(req) {
         totalPriceLabel: Resource.msg('total.price.label', 'googlePay', null)
     }
     var displayItems = [];
-    var quantity = 1;
     var productId = req.form.pid;
     var form = req.form;
+    var quantity = req.form && req.form.quantityPDP && req.form.quantityPDP > 0 && req.form.quantityPDP != null ? Number(req.form.quantityPDP) : 1;
     var childProducts = [];
     var options = [];
     form.options = [];

@@ -51,7 +51,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
-
+    
     if (!productSearchHit) {
         return null;
     }
@@ -119,5 +119,6 @@ module.exports = function productTile(product, apiProduct, productType, params, 
             value: ociPreOrderParameters
         });
     }
+
     return product;
 };

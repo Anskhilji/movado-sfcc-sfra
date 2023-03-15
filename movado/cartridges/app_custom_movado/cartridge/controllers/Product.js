@@ -52,8 +52,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
 
     var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
-
-
+    
     var collectionContentList;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
@@ -125,6 +124,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
         var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
         var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
+        var isHideSwissmovement = !empty(product.custom.isHideSwissmovement) ? product.custom.isHideSwissmovement : false;
     }
 
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
@@ -137,6 +137,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
         isGiftWrapEnabled: isGiftWrapEnabled,
+        isHideSwissmovement: isHideSwissmovement,
         productDetailAttribute1: productDetailAttribute1,
         productDetailAttribute2: productDetailAttribute2,
         productDetailAttribute3: productDetailAttribute3,
@@ -199,6 +200,7 @@ server.replace('Variation', function (req, res, next) {
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 
     var badges;
+    var viewData = res.getViewData();
     var params = req.querystring;
 
     var paramsUpdated = productCustomHelpers.updateOptionsAndMessage(req, params);
@@ -245,6 +247,12 @@ server.replace('Variation', function (req, res, next) {
     var OptionsValidationError;
     if (params.validationErrorEmbossed || params.validationErrorEngraved) {
         OptionsValidationError = true
+    }
+
+    var pdpImageTemplate = 'product/components/imageCarousel';
+    var productsHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImageTemplate);
+    if (!empty(productsHTML)) {
+        viewData.pdpCarouselImages = productsHTML;
     }
 
     res.json({
@@ -376,6 +384,7 @@ server.get('ShowCartButton', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var addCartGtmArray = productCustomHelpers.getGtmObjForPdp(productMgr.getProduct(showProductPageHelperResult.product.id));
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
     res.setViewData(smartGift);
@@ -386,7 +395,8 @@ server.get('ShowCartButton', function (req, res, next) {
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
         ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
-        smartGiftAddToCartURL : smartGiftAddToCartURL
+        smartGiftAddToCartURL : smartGiftAddToCartURL,
+        addCartGtmArray: addCartGtmArray
     });
     next();
 });

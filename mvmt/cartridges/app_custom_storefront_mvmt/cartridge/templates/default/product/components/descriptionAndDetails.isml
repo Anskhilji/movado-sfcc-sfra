@@ -64,7 +64,7 @@
                             <div class="w-100 accordian-review-box review-empty-box">
                                 <h3 class="details-heading text-center">${Resource.msg('label.tab.no-review-redesign', 'product', null)}</h3>
                                 <p class="no-review-sec">
-                                    ${noReviewMessage}
+                                    ${!empty(dw.system.Site.current.preferences.custom.noReviewMessage) ? dw.system.Site.current.preferences.custom.noReviewMessage : '' }
                                 </p>
                             </div>
                         </div>

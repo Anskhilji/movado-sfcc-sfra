@@ -11,6 +11,9 @@
 - Line No: Start from 98 to 101
 - Line No: Start from 134 to 138
 - Line No: Start from 557 to 559
+- Line No: Start from 557 to 559
+- Line No: 662
+- Line No: Start from 701 to 704
 
 ## countries.json
 - Line No: Start from 1557 to 5155
@@ -45,3 +48,13 @@
 
 ## GenerateLocalizePricing.js
 - Line No: Start from 51 to 65
+
+## Checkout.js
+- Line No: 41
+- Line No: 67
+
+## preOrderRequestHelper.js
+- Line No: 19
+- Line No: 47
+- Line No: 56
+- Line No: 58

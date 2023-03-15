@@ -26,6 +26,19 @@
 
     #zoomProduct {
         overflow: auto !important;
+
+        .carousel-thumbnail-wrapper {
+
+            .carousel-tile {
+
+                .carsousel-zoom-thumbnail {
+                    
+                    @include media-breakpoint-down(xs) {
+                        height: 100%;
+                    }
+                }
+            }
+        }
     }
     @import "../product/imageCarousel";
 

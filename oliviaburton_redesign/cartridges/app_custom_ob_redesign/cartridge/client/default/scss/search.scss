@@ -6,6 +6,7 @@
 @import "bootstrap/scss/mixins/breakpoints";
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles";
+@import "~movado/components/yotpoStarsRattingRefinements";
 
 .filter-and-count-margin {
     margin-top: rem(20);
@@ -2001,6 +2002,7 @@
 .pagination-wrapper {
     margin-top: rem(30);
 }
+
 .filter-and-count {
     visibility: hidden
 }
@@ -2034,7 +2036,6 @@
             max-width: rem(1140);
         }
   }
-
 
 .filter-count-visible { 
     visibility: visible;

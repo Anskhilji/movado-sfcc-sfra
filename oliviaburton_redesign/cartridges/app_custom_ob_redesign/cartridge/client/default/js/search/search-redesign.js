@@ -530,7 +530,6 @@ module.exports = {
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
-
                         $('.filter-and-count').addClass('filter-count-visible');
                         $('.sort-dropdown-list, .sort-dropdown-toggle').removeClass('active');
                         $('.sort-dropdown-menu').hide();
@@ -774,6 +773,7 @@ module.exports = {
             }
         };
     }
+    // Custom End: Listrak persistent popup
 };
 
 $(window).on('load', function(e) {

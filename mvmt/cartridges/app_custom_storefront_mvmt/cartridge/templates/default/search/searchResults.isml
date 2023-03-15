@@ -165,7 +165,7 @@
         <isslot id="cs_plp_second_bottom_slot" context="category" description="Second Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         <isslot id="shop-all-bottom-slot" description="Shop all bottom slot" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         <isslot id="cs_plp_marketing_bottom_slot" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-        </isif>
+    </isif>
     <iscomment> Start: Create category slots for strapsd design </iscomment>
     <isif condition=${false}>
         <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" /> 

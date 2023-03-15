@@ -237,10 +237,10 @@ function updateShippingMethods(shipping) {
                     // set or hide arrival time
                     var arrivalTime;
                     if (shippingMethod.deliveryDate) {
-                        arrivalTime = '(' + shippingMethod.deliveryDate + ')';
+                        arrivalTime = shippingMethod.deliveryDate;
                     } else {
                         if (shippingMethod.description) {
-                            arrivalTime = '(' + shippingMethod.description + ')';
+                            arrivalTime = shippingMethod.description;
                         }
                     }
 
@@ -261,6 +261,7 @@ function updateShippingMethods(shipping) {
                 });
             }
         });
+        showMoreBtn();
     }
 
     $('body').trigger('shipping:updateShippingMethods', { shipping: shipping });
@@ -272,39 +273,33 @@ function updateShippingMethods(shipping) {
  */
 
 function updateShippingMethodList($shippingForm) {
-    // delay for autocomplete!
-    setTimeout(function () {
-
-        var $shippingMethodList = $shippingForm.find('.shipping-method-list');
-        var url = $shippingMethodList.data('actionUrl');
-        if (url) {
-            var urlParams = addressHelpers.methods.getAddressFieldsFromUI($shippingForm);
-            var shipmentUUID = $shippingForm.find('[name=shipmentUUID]').val();
-            urlParams.shipmentUUID = shipmentUUID;
-
-            $shippingMethodList.spinner().start();
-            $.ajax({
-                url: url,
-                type: 'post',
-                dataType: 'json',
-                data: urlParams,
-                success: function (data) {
-                    if (data.error) {
-                        window.location.href = data.redirectUrl;
-                    } else {
-                        $('body').trigger('checkout:updateCheckoutView',
-                            {
-                                order: data.order,
-                                customer: data.customer,
-                                options: { keepOpen: true }
-                            });
-
-                        $shippingMethodList.spinner().stop();
-                    }
+    var $shippingMethodList = $shippingForm.find('.shipping-method-list');
+    var url = $shippingMethodList.data('actionUrl');
+    if (url) {
+        var urlParams = addressHelpers.methods.getAddressFieldsFromUI($shippingForm);
+        var shipmentUUID = $shippingForm.find('[name=shipmentUUID]').val();
+        urlParams.shipmentUUID = shipmentUUID;
+        $shippingMethodList.spinner().start();
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            data: urlParams,
+            success: function (data) {
+                if (data.error) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    $('body').trigger('checkout:updateCheckoutView',
+                        {
+                            order: data.order,
+                            customer: data.customer,
+                            options: { keepOpen: true }
+                        });
+                    $shippingMethodList.spinner().stop();
                 }
-            });
-        }
-    }, 300);
+            }
+        });
+    }
 }
 
 /**
@@ -584,13 +579,14 @@ function shippingFormResponse(defer, data) {
                         if ($('.data-checkout-stage').data('customer-type') === 'registered') {
                             $('.shipping-address .saveShippingAddress').trigger('click');
                         }
-
+                        checkoutFieldValidationIcon();
                         $('.btn-show-details').click();
                     }
                 }
 
                 $('.checkout-form-error').removeClass('d-none')
             });
+            checkoutFieldValidationIcon();
             defer.reject(data);
         }
 
@@ -627,9 +623,10 @@ function shippingFormResponse(defer, data) {
         if (data.customer && data.customer.profile && data.customer.profile.email) {
             $('#email').val(data.customer.profile.email);
         }
-
+        checkoutFieldValidationIcon();
         defer.resolve(data);
     }
+
 }
 /**
  * Clear out all the shipping form values and select the new address in the drop down
@@ -790,6 +787,70 @@ function editOrEnterMultiShipInfo(element, mode) {
     root.data('saved-state', JSON.stringify(savedState));
 }
 
+function checkoutFieldValidationIcon() {
+    $('.mx-field-wrapper input.input-wrapper-checkout,.mx-field-wrapper select.custom-select-box').each(function () {
+        if ($(this)[0].id == 'billingCountry') {
+            var selectedOption = $(this).siblings('.field-label-wrapper');
+            $(this).removeClass('is-valid');
+            if (selectedOption.hasClass('input-has-value')) {
+                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                $(this).addClass('is-valid');
+                $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+            }
+        } else if ($(this)[0].id == 'billingState') {
+            var selectedOption = $(this).siblings('.field-label-wrapper');
+            $(this).removeClass('is-valid');
+            if (selectedOption.hasClass('input-has-value')) {
+                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                $(this).addClass('is-valid');
+                $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+            }
+        } else if (!$(this).hasClass('is-invalid') && $(this).val().length > 0) {
+            $(this).addClass('is-valid');
+            $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('d-none');
+        }
+    });
+}
+
+function showMoreBtn() {
+    var $showChar = 40;  // Characters that are shown by default
+    var $moretext = 'show more';
+    var $lesstext = 'show less';
+    $('.custom-radio-check .arrival-time').each(function() {
+        var $content = $(this).html();
+        if ($content.length > $showChar) {
+            var $characterToShow = $content.substr(0, $showChar);
+            var $characterToHide = $content.substr($showChar, $content.length - $showChar);
+            
+            if ($content && $content.length > 195) {
+                $characterToHide = $characterToHide.substr(0, 155) + "...";
+            }
+
+            var $html = $characterToShow + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + $characterToHide + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +$moretext+ '</a>';
+            $(this).html($html);
+        }
+    });
+    $('.morelink-wrapper').each(function() {
+        $(this).on('click',function() {
+            if ($(this).hasClass('less')) {
+                $(this).removeClass('less');
+                $(this).html($moretext);
+                $(this).css('margin-left','5px');
+                $(this).siblings('.morecontent-wrapper').css('display','none');
+            } else {
+                $(this).addClass('less');
+                $(this).html($lesstext);
+                $(this).css('margin-left','5px');
+                $(this).siblings('.morecontent-wrapper').css('display','inline');
+            }
+            return false;
+        });
+    });
+}
+
 module.exports = {
     methods: {
         updateShippingAddressSelector: updateShippingAddressSelector,
@@ -808,7 +869,9 @@ module.exports = {
         editMultiShipAddress: editMultiShipAddress,
         editOrEnterMultiShipInfo: editOrEnterMultiShipInfo,
         createErrorNotification: createErrorNotification,
-        viewMultishipAddress: viewMultishipAddress
+        viewMultishipAddress: viewMultishipAddress,
+        checkoutFieldValidationIcon: checkoutFieldValidationIcon,
+        showMoreBtn: showMoreBtn
     },
 
     selectShippingMethod: function () {
@@ -883,6 +946,37 @@ module.exports = {
     selectSingleShipping: function () {
         $('body').on('shipping:selectSingleShipping', function () {
             $('.single-shipping .shipping-address').removeClass('d-none');
+        });
+    },
+
+    showMoreBtn: function() {
+        var $showChar = 40;  // Characters that are shown by default
+        var $moretext = 'show more';
+        var $lesstext = 'show less';
+        $('.custom-radio-check .arrival-time').each(function() {
+            var $content = $(this).html();
+            if ($content.length > $showChar) {
+                var $characterToShow = $content.substr(0, $showChar);
+                var $characterToHide = $content.substr($showChar, $content.length - $showChar);
+                var $html = $characterToShow + '<span style="display:none" class="morecontent-wrapper"><span style="font-size: 12px">' + $characterToHide + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 5px;">' +$moretext+ '</a>';
+                $(this).html($html);
+            }
+        });
+        $('.morelink-wrapper').each(function() {
+            $(this).on('click',function() {
+                if ($(this).hasClass('less')) {
+                    $(this).removeClass('less');
+                    $(this).html($moretext);
+                    $(this).css('margin-left','5px');
+                    $(this).siblings('.morecontent-wrapper').css('display','none');
+                } else {
+                    $(this).addClass('less');
+                    $(this).html($lesstext);
+                    $(this).css('margin-left', '5px');
+                    $(this).siblings('.morecontent-wrapper').css('display', 'inline');
+                }
+                return false;
+            });
         });
     },
 
@@ -1037,13 +1131,13 @@ module.exports = {
     },
 
     updateShippingList: function () {
-        $(window).on('load',function() {
+        $(document).ready(function () {
             updateShippingMethodList($('.shipping-method-list').parents('form'));
         });
         $('select[name$="shippingAddress_addressFields_states_stateCode"]')
             .on('change', function (e) {
                 updateShippingMethodList($(e.currentTarget.form));
-            });
+        });
     },
 
     updateDataAddressMode: function () {

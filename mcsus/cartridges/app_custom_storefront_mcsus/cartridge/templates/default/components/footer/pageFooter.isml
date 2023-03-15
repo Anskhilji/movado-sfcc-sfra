@@ -21,9 +21,9 @@
                         </div>
                     </div>
                     <div class="col-lg-5 email-description">
-                    <iscomment> Custom Start:  Email footer description </iscomment>
+                        <iscomment> Custom Start:  Email footer description </iscomment>
                         <iscontentasset aid="email-signup-footer-description" />
-                    <iscomment> Custom End </iscomment>
+                        <iscomment> Custom End </iscomment>
                     </div>
                 </div>
             </form>
@@ -97,3 +97,4 @@
     <iscomment> One trust html script </iscomment>
     <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 </footer>
+<isinclude template="storeLocator/storeLocator" />
