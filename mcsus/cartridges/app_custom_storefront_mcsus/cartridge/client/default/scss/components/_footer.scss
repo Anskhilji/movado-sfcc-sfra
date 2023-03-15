@@ -4,6 +4,58 @@
 
 footer {
 
+    .home-email-signup {
+
+        .email-description {
+            font-size: rem(12);
+        }
+
+        .input-group {
+          display: flex;
+
+          @include media-breakpoint-down(sm) {
+            flex-direction: column;
+            margin-top: rem(10);
+            width: 100% !important; // here is coming some inline css therfore i need to overwrite this
+          }
+
+          .form-control {
+            border: none;
+            padding-right: rem(140);
+            
+            &:focus {
+                box-shadow: none;
+                z-index: 0;
+            }
+
+            @include media-breakpoint-down(sm) {
+                width: 100%;
+            }
+          }
+
+          .input-group-btn {
+            display: flex;
+            align-items: center;
+            background: transparent;
+            border: none;
+            position: absolute;
+            right: rem(-1);
+
+            .btn-primary {
+                width: 100%;
+                border: 0;
+                height: rem(36);
+                margin-top: 0;
+                font-size: rem(16);
+                font-weight: 600;
+
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+          }
+        }
+      }
 
     .store {
 
