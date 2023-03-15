@@ -171,10 +171,10 @@ server.append(
                         return orderObject.num == orderNumberParam
                     });
                 }
-                var orderStaus = {
-                    omsOrderStaus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
+                var orderStatus = {
+                    omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
                 }  
-                res.setViewData(orderStaus);
+                res.setViewData(orderStatus);
             } 
         });
 
