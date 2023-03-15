@@ -209,6 +209,25 @@ function listrakBackInStockFormSubmission() {
     }
 }
 
+function listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder) {
+    var $isBackInStockSMSSubscription;
+    var $isBackInStockSMSSubscriptionChecked;
+
+    if ($backInStockDesktop.find('.back-in-stock-notification-phone').length > 0 && $backInStockDesktop.find('.back-in-stock-notification-phone').val().length > 0) {
+        if ($backInStockDesktop.find($backInStockSMSSubscription).length > 0 && $backInStockDesktop.find($listarkSMSReminder).length > 0) {
+            $isBackInStockSMSSubscription = $backInStockDesktop.find($backInStockSMSSubscription);
+            $isBackInStockSMSSubscriptionChecked = $isBackInStockSMSSubscription.is(':checked');
+            if ($backInStockDesktop.find($listarkSMSReminder).hasClass('d-none') && ($backInStockDesktop.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSMSSubscriptionChecked) {
+                $backInStockDesktop.find($listarkSMSReminder).removeClass('d-none');
+            } else {
+                listrakBackInStockFormSubmission();
+            }
+        } else {
+            listrakBackInStockFormSubmission();
+        }
+    }
+}
+
 $('.form').submit(function(e) {
     e.preventDefault();
     var $backInStockDesktop = $('.back-in-Stock-desktop');
@@ -261,27 +280,13 @@ $('.form').submit(function(e) {
     }
 
     if ($isValidPhoneNo) {
-        if ($screenSize > 768) {
+        if ($backInStockMobile.length > 0) {
+            if ($screenSize > 768) {
 
-            if ($backInStockDesktop) {
-                if ($backInStockDesktop.find('.back-in-stock-notification-phone').length > 0 && $backInStockDesktop.find('.back-in-stock-notification-phone').val().length > 0) {
-                    if ($backInStockDesktop.find($backInStockSMSSubscription).length > 0 && $backInStockDesktop.find($listarkSMSReminder).length > 0) {
-                        $isBackInStockSMSSubscription = $backInStockDesktop.find($backInStockSMSSubscription);
-                        $isBackInStockSMSSubscriptionChecked = $isBackInStockSMSSubscription.is(':checked');
-                        if ($backInStockDesktop.find($listarkSMSReminder).hasClass('d-none') && ($backInStockDesktop.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSMSSubscriptionChecked) {
-                            $backInStockDesktop.find($listarkSMSReminder).removeClass('d-none');
-                        } else {
-                            listrakBackInStockFormSubmission();
-                        }
-                    } else {
-                        listrakBackInStockFormSubmission();
-                    }
+                if ($backInStockDesktop.length > 0) {
+                    listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder);
                 }
-            }
-
-        } else {
-            if ($backInStockMobile) {
-
+            } else {
                 if ($backInStockMobile.find($backInStockSMSSubscription).length > 0 && $backInStockMobile.find($listarkSMSReminder).length > 0) {
                     $isBackInStockSMSSubscription = $backInStockMobile.find($backInStockSMSSubscription);
                     $isBackInStockSMSSubscriptionChecked = $isBackInStockSMSSubscription.is(':checked');
@@ -294,6 +299,10 @@ $('.form').submit(function(e) {
                     listrakBackInStockFormSubmission();
                 }
             }
+        } else {
+            if ($backInStockDesktop.length > 0) {
+                listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder);
+            }
         }
     } else {
         listrakBackInStockFormSubmission();
@@ -304,17 +313,21 @@ $('.back-in-stock-notification-phone').on('keyup', function () {
     var $backInStockMobile = $('.back-in-Stock-mobile');
     var $backInStockDesktop = $('.back-in-Stock-desktop');
 
-    if ($backInStockMobile.find('.back-in-stock-notification-phone').val().length > 0) {
-        $backInStockMobile.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', false);
-    } else {
-        $backInStockMobile.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', true);
-        $backInStockMobile.find('.back-in-stock-sms-subscription').prop('checked', false);
+    if ($backInStockMobile.length > 0) {
+        if ($backInStockMobile.find('.back-in-stock-notification-phone').val().length > 0) {
+            $backInStockMobile.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', false);
+        } else {
+            $backInStockMobile.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', true);
+            $backInStockMobile.find('.back-in-stock-sms-subscription').prop('checked', false);
+        }
     }
 
-    if ($backInStockDesktop.find('.back-in-stock-notification-phone').val().length > 0) {
-        $backInStockDesktop.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', false);
-    } else {
-        $backInStockDesktop.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', true);
-        $backInStockDesktop.find('.back-in-stock-sms-subscription').prop('checked', false);
+    if ($backInStockDesktop.length > 0) {
+        if ($backInStockDesktop.find('.back-in-stock-notification-phone').val().length > 0) {
+            $backInStockDesktop.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', false);
+        } else {
+            $backInStockDesktop.find('.back-in-stock-sms-subscription, .back-in-stock-notification-sms-subscription-container').attr('disabled', true);
+            $backInStockDesktop.find('.back-in-stock-sms-subscription').prop('checked', false);
+        }
     }
 })
