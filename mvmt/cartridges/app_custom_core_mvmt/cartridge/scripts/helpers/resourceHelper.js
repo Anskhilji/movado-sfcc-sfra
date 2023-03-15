@@ -22,8 +22,6 @@ function getResources(pageContext) {
     var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
     var fedexAddressNoRecommendation =  ContentMgr.getContent('checkout-address-validation-no-recommendation');
     fedexAddressNoRecommendation = fedexAddressNoRecommendation && fedexAddressNoRecommendation.custom.body ? fedexAddressNoRecommendation.custom.body.source : '';
-    var giftMessageCartError = ContentMgr.getContent('ca-gift-message-cart-error');
-    giftMessageCartError = giftMessageCartError && giftMessageCartError.custom.body ? giftMessageCartError.custom.body.source : '';
 
     var resources = {
         MINI_CART_HEADER_MESSAGE: Resource.msg('title.your.shopping.cart','cart',null),
@@ -83,8 +81,7 @@ function getResources(pageContext) {
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
         INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
         FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
-        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
-        GIFT_MESSAGE_CART_ERROR: giftMessageCartError
+        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null)
     };
     return resources;
 }
