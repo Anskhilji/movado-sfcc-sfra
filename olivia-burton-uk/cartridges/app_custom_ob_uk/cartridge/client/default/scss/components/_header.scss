@@ -4,7 +4,7 @@
 
     .logo-checkout-text {
       color: $black;
-      font-family: $font-museo-std;
+      font-family: $font-gill-std-medium;
       font-size: $font-size-text4;
       letter-spacing: rem(0.34);
       font-weight: $font-semi-bold;
@@ -57,7 +57,7 @@ header {
 
   .left {
     button {
-      font-family: $font-museo-std;
+      font-family: $font-gill-std-medium;
       font-weight: $font-semi-bold;
 
       i,
@@ -78,7 +78,7 @@ header {
     }
 
     .user {
-      font-family: $font-museo-std;
+      font-family: $font-gill-std-medium;
       font-weight: $font-semi-bold;
       font-size: $font-size-text-heading1;
       letter-spacing: rem(1.4);
@@ -153,7 +153,7 @@ header.checkout-header {
     .left {
       .user a,
       select {
-        font-family: $font-museo-std;
+        font-family: $font-gill-std-medium;
         font-size: $font-size-text-heading1;
         letter-spacing: rem(1.4);
         font-weight: $font-semi-bold;
