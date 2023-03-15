@@ -22,6 +22,7 @@ exports.PRODUCT_REGEX_FOR_YOTPO_DATA = '([\/])';
 exports.MAIN_WIDGET_METHOD = 'main_widget';
 exports.BOTTOM_LINE_METHOD = 'bottomline';
 exports.BOTTOM_LINE_FORMAT = 'html';
+exports.BOTTOM_LINE_JSON_FORMAT = 'json';
 exports.REGEX_FOR_IMPORT_REVIEW = '([\/])';
 exports.START_INDEX_FOR_IMPORT_REVIEW = 0;
 exports.YOTPO_REVIEWS_PAGE_DEFAULT = 1;

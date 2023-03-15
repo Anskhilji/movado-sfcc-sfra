@@ -315,11 +315,6 @@ function processSwatchValues(attr, $productContainer) {
         } else {
             $swatchAnchor.removeAttr('href');
         }
-
-        // Disable if not selectable
-        $attrValue.removeClass('selectable unselectable');
-
-        $attrValue.addClass(attrValue.selectable ? 'selectable' : 'unselectable');
     });
 }
 
@@ -346,10 +341,6 @@ function processNonSwatchValues(attr, $productContainer) {
             .find($attr + ' [data-attr-value="' + attrValue.value + '"]');
         $attrValue.attr('value', attrValue.url)
             .removeAttr('disabled');
-
-        if (!attrValue.selectable) {
-            $attrValue.attr('disabled', true);
-        }
     });
 }
 
@@ -528,6 +519,8 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  */
  $(document).ready(function () {
      var $addToCartBtn = $('.prices-add-to-cart-redesign .cta-add-to-cart');
+     var $addToCartWrapper = $('.add-to-cart');
+
      if ($addToCartBtn.length > 0) {
          var $divOffsetTop = $addToCartBtn.offset().top;
          if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
@@ -539,6 +532,11 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
                  $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
              }
          }
+
+        if ($addToCartWrapper.hasClass('static-style-wrapper')) {
+            $('.bottom-sticky-card').addClass('sticky-test-wrapper');
+        }
+
          $(window).scroll(function () {
              if ($(window).width() > 543) {
                  var $scrollDistance = $(window).scrollTop();
@@ -829,6 +827,22 @@ function handleVariantResponse(response, $productContainer) {
         initializeZoomSlickDots();
         initializeZoomModelCarousel();
         $('.main-carousel .slick-active').addClass('slick-center');
+
+    $(document).ready(function () {
+        var $availabilityWrapper = $('.product-availability .availability-msg').text();
+        var $cartWrapper = $('.cart-and-ipay');
+        var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
+
+        if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
+            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock') || ($availabilityWrapper === 'Select Styles for Availability')) {
+                $cartWrapper.addClass('d-none');
+                $stickyWrapper.addClass('d-none');
+            } else {
+                $cartWrapper.removeClass('d-none');
+                $stickyWrapper.removeClass('d-none');
+            }
+        }
+    }); 
 }
 
 /**
