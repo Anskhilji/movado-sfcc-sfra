@@ -7,18 +7,17 @@ server.extend(page);
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-var URLUtils = require('dw/web/URLUtils');
 var Site = require('dw/system/Site');
+var URLUtils = require('dw/web/URLUtils');
 
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
+var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var ProductSearch = require('*/cartridge/models/search/productSearch');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
 var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
-
-var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 
 var marketingProductsData = [];
 
