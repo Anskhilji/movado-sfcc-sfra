@@ -72,7 +72,11 @@ function categoryToObject(category) {
     }
     
     if (!empty(category.custom.hexColor)) {
-        result.hexColor = category.custom.hexColor.absURL;
+        result.hexColor = category.custom.hexColor;
+    }
+
+    if(!empty(category.custom.swatchImage)) {
+        result.swatchImage = category.custom.swatchImage.absURL;
     }
 
     if (!empty(category.custom.showColorSwatchForSubcategories)) {
