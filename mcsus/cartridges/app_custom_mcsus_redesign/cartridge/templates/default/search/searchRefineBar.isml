@@ -21,7 +21,9 @@
         </div>
     </div>
 </isif>
-
+             <a class="btn btn-primary fillter-btn" href="#" data-filter="true">
+                apply filter
+            </a>
 <div class="refine-wrapper">
     <div class="refinements movado-refinements-container">
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
