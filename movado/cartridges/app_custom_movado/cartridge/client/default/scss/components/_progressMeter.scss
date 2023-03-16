@@ -1,0 +1,71 @@
+.progress-meter {
+    font-family: $font-medium;
+    margin-bottom: rem(20);
+
+    &-free-shipping {
+        color: $grey8;
+        font-size: rem(14);
+        letter-spacing: 0;
+        line-height: rem(16);
+        text-align: center;
+        font-weight: 400;
+        margin-bottom: rem(10);
+
+        @include media-breakpoint-down(sm) {
+            font-size: rem(12);
+        }
+
+        span {
+            font-weight: 700;
+        }
+    }
+
+    &-box {
+        margin: 0 auto;
+        height: rem(7);
+        max-width: rem(335);
+        width: 100%;
+        border-radius: rem(2);
+        background-color: $light-gray-progress;
+
+        &-bar {
+            height: rem(7);
+            border-radius: rem(2);
+
+            &.bar-green {
+                background-color: $green-progress;
+            }
+
+            &.bar-grey {
+                background-color: $gray-progress;
+            }
+        }
+    }
+}
+
+.got-free-shipping {
+    margin-bottom: rem(15);
+
+    @include media-breakpoint-down(sm) {
+        margin-bottom: rem(10);
+    }
+
+    img {
+        margin-right: rem(10);
+    }
+
+    p {
+        color: $grey8;
+        font-family: "Proxima Nova";
+        font-size: rem(14);
+        font-weight: bold;
+        letter-spacing: 0;
+        line-height: rem(16);
+        text-align: center;
+        margin: 0;
+
+        @include media-breakpoint-down(sm) {
+            font-size: rem(12);
+        }
+    }
+}
