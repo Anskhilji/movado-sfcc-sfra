@@ -8,7 +8,7 @@
                     <isloop items="${categoryItem.subCategories}" var="category">
                         <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                             <a href="${category.url}" role="button" class="circle">
-                                <img src="${category.categoryImageURL}" class="img-fluid" alt="${category.name}">
+                                <img src="${category.swatchImage}" class="img-fluid" alt="${category.name}">
                             </a>
                         </li>
                     </isloop>
