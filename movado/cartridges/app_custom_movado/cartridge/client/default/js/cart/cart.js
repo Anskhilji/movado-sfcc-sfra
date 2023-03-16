@@ -997,7 +997,7 @@ module.exports = function () {
         });
     });
 
-    $('body').on('click', '.checkout-btn, .paypal-btn', function (e) {
+    $('body').on('click', '.checkout-btn, .paypal-btn, .apple-pay-cart', function (e) {
         var $applyButtton = $('.add-gift-message');
         var $errorMsg = Resources.GIFT_MESSAGE_CART_ERROR;
         var $giftMessageArray = [];
