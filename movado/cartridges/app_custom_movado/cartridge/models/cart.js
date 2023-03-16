@@ -2,6 +2,7 @@
 
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
+var PromotionMgr = require('dw/campaign/PromotionMgr');
 
 var Cart = module.superModule;
 
@@ -136,6 +137,63 @@ function getCustomAssets(){
   return assets;
 }
 
+/**
+ * Generates an object of approaching discounts
+ * @param {dw.order.Basket} basket - Current users's basket
+ * @param {dw.campaign.DiscountPlan} discountPlan - set of applicable discounts
+ * @returns {Object} an object of approaching discounts
+ */
+function getApproachingDiscounts(basket, discountPlan) {
+    var approachingOrderDiscounts;
+    var approachingShippingDiscounts;
+    var orderDiscountObject;
+    var shippingDiscountObject;
+    var discountObject;
+
+    if (basket && basket.productLineItems) {
+        // TODO: Account for giftCertificateLineItems once gift certificates are implemented
+        approachingOrderDiscounts = discountPlan.getApproachingOrderDiscounts();
+        approachingShippingDiscounts =
+            discountPlan.getApproachingShippingDiscounts(basket.defaultShipment);
+
+        orderDiscountObject =
+            collections.map(approachingOrderDiscounts, function (approachingOrderDiscount) {
+                return {
+                    discountMsg: Resource.msgf(
+                        'msg.approachingpromo',
+                        'cart',
+                        null,
+                        formatMoney(
+                            approachingOrderDiscount.getDistanceFromConditionThreshold()
+                        ),
+                        approachingOrderDiscount.getDiscount()
+                            .getPromotion().getCalloutMsg()
+                    ),
+                    promotionTotal: formatMoney(approachingOrderDiscount.getDistanceFromConditionThreshold())
+                };
+            });
+
+        shippingDiscountObject =
+            collections.map(approachingShippingDiscounts, function (approachingShippingDiscount) {
+                return {
+                    discountMsg: Resource.msgf(
+                        'msg.approachingpromo',
+                        'cart',
+                        null,
+                        formatMoney(
+                            approachingShippingDiscount.getDistanceFromConditionThreshold()
+                        ),
+                        approachingShippingDiscount.getDiscount()
+                            .getPromotion().getCalloutMsg()
+                    )
+                };
+            });
+
+        discountObject = orderDiscountObject.concat(shippingDiscountObject);
+    }
+    return discountObject;
+}
+
 function getSwellRedemption(priceAdjustments) {
     var result = {
         swellRedemptionID : '',
@@ -175,7 +233,29 @@ function CartModel(basket) {
     }
     
     cartModel = new Cart(basket);
-    
+
+    if (cartModel && cartModel.approachingDiscounts && cartModel.approachingDiscounts[0] && cartModel.approachingDiscounts[0].isEnablepromoProgressBar  && typeof cartModel.approachingDiscounts[0].promotionTotal !== undefined) {
+        var approachingDiscountsTotal = cartModel.approachingDiscounts[0].promotionTotal;
+        var conditionThreshold = cartModel.approachingDiscounts[0].conditionThreshold;
+        var conditionThresholdCurrencyValue = conditionThreshold.substring(1);
+        var approachingDiscountCurrencyValue = approachingDiscountsTotal.substring(1);
+        var progressBarPromoMsg = cartModel.approachingDiscounts[0].progressBarPromoMsg;
+
+        var pPos = conditionThresholdCurrencyValue;
+        var grandTotal = cartModel.totals.grandTotal; 
+        var pEarned = grandTotal.substring(1);
+        var perc="";
+        if(isNaN(pPos) || isNaN(pEarned)){
+            perc=" ";
+        } else {
+            perc = ((pEarned/pPos) * 100).toFixed(3);
+        }
+    }
+
+
+
+
+
     cartObject = extend(cartModel,{
       lineItemOptions: lineItemOptionModel,
       giftMessaging: giftMessaging,
@@ -187,7 +267,14 @@ function CartModel(basket) {
       },
       assets: assets,
       swellRedemption: getSwellRedemption(!empty(basket) ? basket.getPriceAdjustments() : null),
-      giftOptions: getGiftOptions(basket)
+      giftOptions: getGiftOptions(basket),
+      approachingDiscountCurrencyValue: approachingDiscountCurrencyValue ? approachingDiscountCurrencyValue : '',
+      approachingDiscountsTotal: approachingDiscountsTotal ? approachingDiscountsTotal : '',
+      conditionThreshold: conditionThreshold ? conditionThreshold : '',
+      conditionThresholdCurrencyValue: conditionThresholdCurrencyValue ? conditionThresholdCurrencyValue : '',
+      perc: perc,
+      progressBarPromoMsg: progressBarPromoMsg
+
     });
     return cartObject;
 }

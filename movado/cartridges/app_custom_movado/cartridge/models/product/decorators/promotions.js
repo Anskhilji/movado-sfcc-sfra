@@ -16,7 +16,9 @@ module.exports = function (object, promotions) {
                 image: promotion.image,
                 plpCalloutMsg: !empty(promotion.custom.calloutMessagePLP) ? promotion.custom.calloutMessagePLP.markup : '',
                 promotionBadge: promotion.custom.promotionBadge,
-                promotionMsg: !empty(promotion.custom.promotionMessage) ? promotion.custom.promotionMessage : ''
+                promotionMsg: !empty(promotion.custom.promotionMessage) ? promotion.custom.promotionMessage : '',
+                progressBarPromoMsg: !empty(promotion.custom.progressBarPromoMsg) ? promotion.custom.progressBarPromoMsg : '',
+                isEnablepromoProgressBar: !empty(promotion.custom.isEnablepromoProgressBar) ? promotion.custom.isEnablepromoProgressBar : ''
             };
         })
     });
