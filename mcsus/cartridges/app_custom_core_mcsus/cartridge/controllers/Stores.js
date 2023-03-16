@@ -31,6 +31,10 @@ server.replace('FindStores', function (req, res, next) {
     var queryAddress = req.querystring.address|| request.geolocation.postalCode || DEFAULT_POSTAL_CODE;
     var stores = null;
     var status = null;
+    var path = '/storeLocator/storeCard.isml';
+    var template = new Template(path);
+    var map = new HashMap();
+    var html = null;
 
     if (queryAddress) {
         queryAddress = queryAddress.replace(' ', '+');
@@ -58,9 +62,6 @@ server.replace('FindStores', function (req, res, next) {
                     showMap,
                     null,
                     status);
-                var path = '/storeLocator/storeCard.isml';
-                var template = new Template(path);
-                var map = new HashMap();
                 map.put('stores', stores.stores);
                 map.put('radius', stores.radius);
                 var html = template.render(map).text;
@@ -72,14 +73,32 @@ server.replace('FindStores', function (req, res, next) {
         } else if (googleServiceResultObj && (googleServiceResultObj.status !== STATUS_OK || googleServiceResultObj.object.status === ZERO_RESULTS)) {
             status = googleServiceResultObj.object.status;
             stores = storeHelpers.getStores(radius, null, null, null, null, showMap, null, googleServiceResultObj.object.status);
-            res.json(stores);
+            map.put('stores', stores.stores && stores.stores.length > 0 ? stores.stores : null);
+            map.put('radius', stores.radius);
+            html = template.render(map).text;
+            res.json({
+                html: html,
+                selectedRadius: stores.radius
+            });
         } else {
             stores = storeHelpers.getStores(radius, null, null, req.geolocation, null, showMap, null, status);
-            res.json(stores);
+            map.put('stores', stores.stores);
+            map.put('radius', stores.radius);
+            html = template.render(map).text;
+            res.json({
+                html: html,
+                selectedRadius: stores.radius
+            });
         }
     } else {
         stores = storeHelpers.getStores(radius, req.querystring.lat, req.querystring.long, req.geolocation, null, showMap, null, status);
-        res.json(stores);
+        map.put('stores', stores.stores);
+        map.put('radius', stores.radius);
+        html = template.render(map).text;
+        res.json({
+            html: html,
+            selectedRadius: stores.radius
+        });
     }
     next();
 });
