@@ -2,11 +2,14 @@
 
 var server = require('server');
 
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+var Site = require('dw/system/Site');
+var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
+
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
-var Transaction = require('dw/system/Transaction');
 
 var page = module.superModule;
 server.extend(page);
@@ -18,7 +21,7 @@ server.append(
     csrfProtection.generateToken,
     function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
-        var Site = require('dw/system/Site');
+        
         var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
@@ -65,7 +68,6 @@ server.append(
         var Locale = require('dw/util/Locale');
         var Money = require('dw/value/Money');
         var OrderModel = require('*/cartridge/models/order');
-        var Site = require('dw/system/Site');
 
         var Constants = require('*/cartridge/scripts/util/Constants');
         var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
@@ -176,9 +178,7 @@ server.append(
 });
 
 server.get('Declined', function (req, res, next) {
-    var CustomObjectMgr = require('dw/object/CustomObjectMgr');
-    var Transaction = require('dw/system/Transaction');
-
+    
     Transaction.wrap(function () {
         var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
         if (currentSessionPaymentParams) {
@@ -187,6 +187,210 @@ server.get('Declined', function (req, res, next) {
     });
 
     res.render('checkout/declinedOrder');
+    next();
+});
+
+// Riskified shoperRecovery order declined
+server.get('RiskDeclined', function (req, res, next) {
+    var OrderMgr = require('dw/order/OrderMgr');
+    var Resource = require('dw/web/Resource');
+
+    var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+
+    var orderNo = req.querystring.orderNo;
+    var orderToken = req.querystring.orderToken;
+
+    if (orderNo && orderToken) {
+        var order = OrderMgr.getOrder(orderNo, orderToken);
+
+        if (order) {
+            var riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, {});
+
+            if (!riskifiedOrderDeclined.error) {
+              res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+              next();
+            }
+        }
+    }
+
+});
+
+// Riskified shoperRecovery order approved
+server.get('RiskApproved', function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var OrderMgr = require('dw/order/OrderMgr');
+    var Order = require('dw/order/Order');
+    var Resource = require('dw/web/Resource');
+    var Status = require('dw/system/Status');
+
+    var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
+    var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+    var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+    var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+    var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+
+    var orderNo = req.querystring.orderNo;
+    var orderToken = req.querystring.orderToken;
+
+    var currentBasket = BasketMgr.getCurrentBasket();
+
+    if (orderNo && orderToken) {
+        var order = OrderMgr.getOrder(orderNo, orderToken);
+
+        if (order) {
+            // Riskified order approved response from decide API
+            var placeOrderStatus = OrderMgr.placeOrder(order); 
+            
+            if (placeOrderStatus === Status.ERROR) {
+                checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
+                throw new Error();
+            }
+            order.setExportStatus(Order.EXPORT_STATUS_READY);
+            RiskifiedOrderDescion.orderApproved(order);
+
+            //set custom attirbute in session to avoid order confirmation page reload
+            session.custom.orderJustPlaced = true;
+            //set order number in session to get order back after redirection
+            session.custom.orderNo = order.orderNo;
+
+            if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
+                session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
+            }
+
+            var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
+            if (fraudDetectionStatus.status === 'fail') {
+                checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Fraud detected and order is failed and going to the error page and order number is: ' + order.orderNo);
+                // MSS-1169 Passed true as param to fix deprecated method usage
+                Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
+        
+                // fraud detection failed
+                req.session.privacyCache.set('fraudDetectionStatus', true);
+        
+                res.json({
+                    error: true,
+                    cartError: true,
+                    redirectUrl: URLUtils.url('Error-ErrorCode', 'err', fraudDetectionStatus.errorCode).toString(),
+                    errorMessage: Resource.msg('error.technical', 'checkout', null)
+                });
+                return next();
+            }
+
+            // Listrack Integeration
+            // if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+            //     var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
+            //     session.privacy.SendOrder = true;
+            //     session.privacy.OrderNumber = order.orderNo;
+            //     ltkSendOrder.SendPost();
+            // }
+
+            /**~    
+             * Custom Start: Clyde Integration
+            */
+            if (Site.current.preferences.custom.isClydeEnabled) {
+                var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+                var Constants = require('*/cartridge/utils/Constants');
+
+                var orderLineItems = order.getAllProductLineItems();
+                var orderLineItemsIterator = orderLineItems.iterator();
+                var productLineItem;
+
+                Transaction.wrap(function () {
+                    while (orderLineItemsIterator.hasNext()) {
+                        productLineItem = orderLineItemsIterator.next();
+                        if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                            order.removeProductLineItem(productLineItem);
+                        }
+                    }
+                    order.custom.isContainClydeContract = false;
+                    order.custom.clydeContractProductMapping = '';
+                });
+                addClydeContract.createOrderCustomAttr(order);
+            }
+            /**
+             * Custom: End
+            */
+
+            if (!Site.getCurrent().preferences.custom.isClydeEnabled) {
+                var Constants = require('*/cartridge/utils/Constants');
+                
+                var orderLineItems = order.getAllProductLineItems();
+                var orderLineItemsIterator = orderLineItems.iterator();
+                var productLineItem;
+                Transaction.wrap(function () {
+                    while (orderLineItemsIterator.hasNext()) {
+                        productLineItem = orderLineItemsIterator.next();
+                        if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                            order.removeProductLineItem(productLineItem);
+                        }
+                    }
+                });
+            }
+            
+            var paymentInstrument = order.paymentInstrument;
+            // Swell Loyalty Call
+            if (!COCustomHelpers.isRiskified(paymentInstrument)) {
+                Transaction.wrap(function () {
+                    order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
+                    if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+                        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+                        SwellExporter.exportOrder({
+                            orderNo: orderNumber,
+                            orderState: 'created'
+                        });
+                    }
+                });
+            }
+
+            adyenHelpers.clearForms();
+
+            if (!empty(session.custom.trackingCode)) {
+                smartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, orderNumber);
+            }
+    
+            // Salesforce Order Management attributes.  Note: The Order Ingestion process that pushes orders from SFCC to SOM doesn't support all objects for custom attributes.  Uses order ingestion functionality as of April 2020.  As it's imporoved, you may want to eliminate some of this:
+            if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+                var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+                var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+                somLog.debug('Processing Order ' + order.orderNo);
+                try {
+                    Transaction.wrap(function () {
+                        populateOrderJSON.populateByOrder(order);
+                    });
+                    
+                } catch (exSOM) {
+                    somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+                }
+            }
+            COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
+
+            var email = order.customerEmail;
+            if (!empty(email)) {
+                var maskedEmail = COCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(CheckoutServices) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+            }
+
+            res.setViewData({orderNo: order.orderNo, trackingCode: currentBasket.custom.smartGiftTrackingCode});
+
+            Transaction.wrap(function () {
+                var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+                if (currentSessionPaymentParams) {
+                    CustomObjectMgr.remove(currentSessionPaymentParams);
+                }
+            });
+            session.custom.cardIIN = '';
+            session.custom.checkoutUUID = '';
+
+            // remove personalization details from session once order is authorized and placed
+            session.custom.appleProductId = '';
+            session.custom.appleEngraveOptionId = '';
+            session.custom.appleEmbossOptionId = '';
+            session.custom.appleEmbossedMessage = '';
+            session.custom.appleEngravedMessage = '';
+
+            res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
+
+        }
+    }
     next();
 });
 

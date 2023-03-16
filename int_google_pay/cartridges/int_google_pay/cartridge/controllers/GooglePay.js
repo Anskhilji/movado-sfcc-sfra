@@ -314,15 +314,17 @@ server.post('ProcessPayments',
         } else {
             var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
             if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-                    // Riskified order declined response from decide API
-                    riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-                    if (riskifiedOrderDeclined) {
-                        res.json({
-                            error: false,
-                            redirectUrl: URLUtils.url('Checkout-Declined').toString()
-                        });
-                        return next();
-                    }
+                var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
+                // Riskified order declined response from decide API
+                riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
+                
+                if (!riskifiedOrderDeclined.error) {
+                    res.json({
+                        error: false,
+                        redirectUrl: riskifiedOrderDeclined.returnUrl.toString()
+                    });
+                    return next();
+                }
             } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
                 // Riskified order approved response from decide API
                 RiskifiedOrderDescion.orderApproved(order);

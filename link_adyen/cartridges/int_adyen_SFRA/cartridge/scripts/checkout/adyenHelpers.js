@@ -162,8 +162,33 @@ function placeOrder(order, fraudDetectionStatus) {
     return result;
 }
 
+/**
+ * Clear system session data
+ */
+function clearForms() {
+    // Clears all forms used in the checkout process.
+    session.forms.billing.clearFormElement();
+  
+    clearCustomSessionFields();
+  }
+  
+  /**
+   * Clear custom session data
+   */
+  function clearCustomSessionFields() {
+    // Clears all fields used in the 3d secure payment.
+    session.custom.paymentInstrument = null;
+    session.custom.order = null;
+    session.custom.brandCode = null;
+    session.custom.issuerId = null;
+    session.custom.adyenPaymentMethod = null;
+    session.custom.adyenIssuerName = null;
+    session.custom.amount = null;
+  }
+
 module.exports = {
     handlePayments: handlePayments,
     placeOrder: placeOrder,
-    validatePayment: validatePayment
+    validatePayment: validatePayment,
+    clearForms: clearForms
 };

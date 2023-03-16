@@ -12,18 +12,14 @@
  var PaymentMgr = require('dw/order/PaymentMgr');
  var OrderMgr = require('dw/order/OrderMgr');
  var Site = require('dw/system/Site');
+ var URLUtils = require('dw/web/URLUtils');
 
  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
  var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
-function orderDeclined(order) {
-    var paymentInstrument = order.paymentInstrument;
-    var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
-    var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+ function riskifiedPaymentReversal(order, paymentMethod) {
     var responseObject;
-    session.custom.currencyCode = order.currencyCode;
-
-    checkoutLogger.info('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo);
     // void or reverse the payment if card payment or not paid
     // (Order.PAYMENT_STATUS_NOTPAID) else refund the payment if already
     // captured and send mail to customer
@@ -50,21 +46,79 @@ function orderDeclined(order) {
     try {
         Transaction.wrap(function () {
             //if order status is CREATED
-          if (order.getStatus() == Order.ORDER_STATUS_CREATED){
-              checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
-              OrderMgr.failOrder(order, true);  //Order must be in status CREATED
-              order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-          } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
-              checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
-              OrderMgr.cancelOrder(order);
-              order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-          }
+            if (order.getStatus() == Order.ORDER_STATUS_CREATED){
+                checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
+                OrderMgr.failOrder(order, true);  //Order must be in status CREATED
+                order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+            } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
+                checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
+                OrderMgr.cancelOrder(order);
+                order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+            }
         });
     } catch (ex) {
         checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
     }
-    
-    return true;
+ }
+ 
+function orderDeclined(order, riskifiedOrderStatus) {
+    var paymentInstrument = order.paymentInstrument;
+    var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
+    session.custom.currencyCode = order.currencyCode;
+
+    checkoutLogger.info('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo);
+
+    if (Site.current.preferences.custom.riskifiedShopperRecoveryEnabled && !empty(riskifiedOrderStatus)) {
+
+        var isRiskifiedShopperRecoveryDeclinedStatus = false;
+        
+        var riskifiedShopperRecoveryDeclinedStatus = Site.current.preferences.custom.riskifiedShopperRecoveryDeclinedStatus;
+        riskifiedShopperRecoveryDeclinedStatus.forEach(function(el) {
+            
+            if (el === riskifiedOrderStatus) {
+                isRiskifiedShopperRecoveryDeclinedStatus = true;
+            }
+        });
+
+        if (isRiskifiedShopperRecoveryDeclinedStatus) {
+        var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
+        var service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedSyncRestService');
+       
+        var authCode = service.getConfiguration().getCredential().getPassword();
+        var hmacAuthCode = RCUtilities.calculateRFC2104HMAC(order.orderNo, authCode);
+        var locale = order.customerLocaleID;
+        var riskifiedShoppperRecoveryURL = Site.current.preferences.custom.riskifiedShoppperRecoveryURL;
+
+        try {
+            Transaction.wrap(function () {
+                order.custom.riskifiedShopperRecovery = true;
+            });
+          
+            // Example Url: https://verify.self-veri.com/Shop?id=dev0900008001&sig=5de1ad3aa79316c7588c4c917dc8c588e32c9eef78c73c68cdb4927f0b89c17b&returnUrl=https://bdkz-009.dx.commercecloud.salesforce.com/on/demandware.store/Sites-MovadoUS-Site/en_US/Checkout-RiskApproved?orderNo=dev0900008001&orderToken=2TvfW2lbuA4_B0YA4YL4MlQPP57r97o-ECRx8iAhRGQ&language=en_US
+            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + '?id=' + order.orderNo + '&sig=' + hmacAuthCode + '&returnUrl=' + URLUtils.https('Checkout-RiskApproved', 'orderNo', order.orderNo, 'orderToken', order.orderToken) + '&language=' + locale;
+            // response.redirect(riskifiedShoppperRecoveryEndURL);
+            return {
+                error: false,
+                shopperRecovery: false,
+                returnUrl: riskifiedShoppperRecoveryEndURL
+            }
+
+            } catch (ex) {
+                checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Exception occurred while try to update order status: ' + order.orderNo + ' and exception is: ' + ex);
+            }
+
+        } else {
+            riskifiedPaymentReversal(order, paymentMethod);
+        }
+    } else {
+        riskifiedPaymentReversal(order, paymentMethod);
+    }
+
+    return {
+        error: false,
+        shopperRecovery: true,
+        returnUrl: URLUtils.url('Checkout-Declined')
+    }
 }
 
 function orderApproved(order) {
