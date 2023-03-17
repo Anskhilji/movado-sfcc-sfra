@@ -40,9 +40,12 @@ function createCookieInSession(request) {
  */
 function setCookiesResponse(name, value, path) {
     var Cookie = require('dw/web/Cookie');
+    var rakutenCookieExpirationDate = Site.current.preferences.custom.rakutenCookieExpirationDate;
+    var cookieConfigurableDate = new Date(rakutenCookieExpirationDate);
     var newCookie = new Cookie(name, value);
     newCookie.setPath(path);
-    newCookie.setMaxAge(2592000);
+    var cookieMaxAge = Math.round((cookieConfigurableDate.getTime() - Date.now()) / 1000);
+    newCookie.setMaxAge(cookieMaxAge);
     newCookie.setDomain('.' + request.httpHost);
     response.addHttpCookie(newCookie);
     return newCookie;
