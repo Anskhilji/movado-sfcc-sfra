@@ -76,7 +76,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
         decorators.promotions(product, options.promotions);
     }
     if (!params.availability || params.availability == true) {
-        decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel);
+        decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel, productSetStockAvailabilityModel);
     }
     if (!empty(ociPreOrderParameters)) {
         Object.defineProperty(product, 'ociPreOrderParameters', {
@@ -91,6 +91,6 @@ module.exports = function productTile(product, apiProduct, productType, params, 
             value: productSetBrand
         });
     }
-    
+
     return product;
 };
