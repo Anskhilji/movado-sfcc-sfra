@@ -29,8 +29,12 @@
                 <isinclude template="product/components/productSet/imageCarouselSet" />
 
                 <div class="product-detail-right-box">
-                    <div class=" d-sm-block">
-                        <!-- Product Name -->
+                    <div class="d-sm-block">
+                        <h2 class="product-family-name-redesign">
+                            <isif condition="${product.productSetBrand}">
+                                <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.productSetBrand}</a>
+                            </isif>
+                        </h2>
                         <h2 class="product-name prdouct-name-gtm  d-sm-block">${product.productName}</h2>
                     </div>
 
@@ -165,10 +169,6 @@
                         </div>
                         <div class="d-none">
                             <isinclude template="/product/components/productNumber" />
-                        </div>
-                        <!-- Product Availability -->
-                        <div class="col-md-10 col-12 mb-3">
-                            <isinclude template="product/components/productSet/productAvailability" />
                         </div>
 
                         <iscomment> Custom End: </iscomment>
