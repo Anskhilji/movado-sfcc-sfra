@@ -432,9 +432,9 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
         });
 
         if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
-            var $errorHtml = '<div class="alert card alert-dismissible ' +
+            var $errorHtml = '<div class="alert card alert-dismissible gift-cart-error ' +
             'fade show" role="alert">' +
-            '<button type="button" class="close" style="top: -4px"data-dismiss="alert" aria-label="Close">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
             '<span aria-hidden="true">&times;</span>' +
             '</button>' + $errorMsg + '</div>';
 

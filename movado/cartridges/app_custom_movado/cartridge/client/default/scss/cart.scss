@@ -457,3 +457,17 @@ $negative-spacer: -0.625rem;
             font-weight: 300;
       }
 }
+.cart-error {
+
+    .gift-cart-error {
+
+        .close {
+            top: rem(-4);
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+  
