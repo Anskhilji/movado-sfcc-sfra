@@ -341,6 +341,13 @@ $negative-spacer: -0.625rem;
 
     .add-gift-message {
         margin-bottom: rem(10);
+        background-color: $black;
+        color: $white;
+      
+        &:hover {
+          background-color: $black;
+          color: $white;
+        }
     }
 
     .gift-image-ribbon-box {
@@ -458,3 +465,18 @@ $negative-spacer: -0.625rem;
   position:absolute;
   left: -999em;
 }
+
+.cart-error {
+
+    .gift-cart-error {
+
+        .close {
+            top: rem(-4);
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+  

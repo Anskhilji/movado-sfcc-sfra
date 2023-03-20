@@ -24,6 +24,8 @@ function getResources(pageContext) {
     var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
     var fedexAddressNoRecommendation =  ContentMgr.getContent('checkout-address-validation-no-recommendation');
     fedexAddressNoRecommendation = fedexAddressNoRecommendation && fedexAddressNoRecommendation.custom.body ? fedexAddressNoRecommendation.custom.body.source : '';
+    var giftMessageCartError = ContentMgr.getContent('ca-gift-message-cart-error');
+    giftMessageCartError = giftMessageCartError && giftMessageCartError.custom.body ? giftMessageCartError.custom.body.source : '';
 
     var isPickUpFromStore;
     if (currentBasket) {
@@ -89,7 +91,8 @@ function getResources(pageContext) {
         INFO_PRODUCT_AVAILABILITY_PREORDER: Resource.msg('info.product.availability.preorder', 'common', null),
         INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
         BUTTON_ADD_TO_CART: Resource.msg('button.addtocart', 'common', null),
-        BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null)
+        BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null),
+        GIFT_MESSAGE_CART_ERROR: giftMessageCartError
     };
     return resources;
 }

@@ -477,7 +477,11 @@ function enterGiftMessageHandler($element) {
     var charsRemaining = maxchars - currentLength;
     var currentCard = $this.closest('.product-gift-wrap');
     var addGiftButton = currentCard.find('.add-gift-message');
+    var $applePayButton = $('.apple-pay-cart');
+    $applePayButton.attr('disabled', true);
     currentCard.find('.characters-left').html(charsRemaining);
+    currentCard.find('.gift-message-apply').val(false);
+
     if ($this.val() !== '') {
         addGiftButton.removeAttr('disabled').find('.apply-button').removeClass('d-none');
         addGiftButton.find('.saved-button').addClass('d-none');
@@ -997,6 +1001,21 @@ module.exports = function () {
         var endPointURL = $this.attr('href');
         var giftMessage = $this.parent().find('.gift-text').val();
         var prodUUID = $this.data('product-uuid');
+        $this.find('.gift-message-apply').val(true);
+        var $applePayButton = $('.apple-pay-cart');
+        var $applyButtton = $('.add-gift-message');
+        var $giftMessageArray = [];
+
+        $applyButtton.each(function () {
+            var $giftMessageApply = $(this).find('.gift-message-apply').val();
+            $giftMessageArray.push($giftMessageApply);
+        });
+
+        if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+            $applePayButton.attr('disabled', true);
+        } else {
+            $applePayButton.attr('disabled', false);
+        }
 
         $this.parent().find('.gift-message-blank').hide();
         $this.parent().find('.gift-message-error').hide();
@@ -1032,6 +1051,8 @@ module.exports = function () {
 
     $('body').on('click', '.gift-check', function () {
         $(this).closest('.product-gift-wrap').find('.gift-message-wrapper, .character-limit').toggle(this.checked);
+        var $applePayButton = $('.apple-pay-cart');
+
         if (!this.checked) {
             var parentDiv = $(this).closest('.product-gift-wrap');
             parentDiv.find('.gift-text').val('');
@@ -1039,6 +1060,7 @@ module.exports = function () {
             var endPointURL = giftButton.attr('href');
             var giftMessage = '';
             var prodUUID = giftButton.data('product-uuid');
+            $applePayButton.attr('disabled', false);
             giftButton.parent().find('.gift-message-blank').hide();
             giftButton.parent().find('.gift-message-error').hide();
             $.spinner().start();
@@ -1055,6 +1077,20 @@ module.exports = function () {
 
                     giftButton.prop('disabled', 'disabled').find('.saved-button').removeClass('d-none');
                     giftButton.find('.apply-button').addClass('d-none');
+
+                    var $applyButtton = $('.add-gift-message');
+                    var $giftMessageArray = [];
+
+                    $applyButtton.each(function () {
+                        var $giftMessageApply = $(this).find('.gift-message-apply').val();
+                        $giftMessageArray.push($giftMessageApply);
+                    });
+
+                    if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+                        $applePayButton.attr('disabled', true);
+                    } else {
+                        $applePayButton.attr('disabled', false);
+                    }
                 },
                 error: function (data) { $.spinner().stop(); }
             });
@@ -1098,6 +1134,32 @@ module.exports = function () {
             }
         });
     });
+
+    $('body').on('click', '.checkout-btn, .paypal-btn', function (e) {
+        var $applyButtton = $('.add-gift-message');
+        var $errorMsg = Resources.GIFT_MESSAGE_CART_ERROR;
+        var $giftMessageArray = [];
+
+        $applyButtton.each(function () {
+            var $giftMessageApply = $(this).find('.gift-message-apply').val();
+            $giftMessageArray.push($giftMessageApply);
+        });
+
+        if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+            var $errorHtml = '<div class="alert card alert-dismissible gift-cart-error ' +
+            'fade show" role="alert">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">&times;</span>' +
+            '</button>' + $errorMsg + '</div>';
+
+            if ($errorMsg) {
+                $('.cart-error').empty().append($errorHtml);
+            }
+            e.stopPropagation();
+            e.preventDefault();
+        }
+    });
+
     base.selectAttribute();
     base.setOptionsAttribute();
     base.colorAttribute();
