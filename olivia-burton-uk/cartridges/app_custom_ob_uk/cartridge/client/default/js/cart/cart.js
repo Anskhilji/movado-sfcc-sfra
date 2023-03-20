@@ -100,12 +100,12 @@ function updateCartTotals(data) {
     }
 
 
-    if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.ProgressBarpercentage) {
+    if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
         
         var promoProgressBarHtml = '<div class="progress-meter d-flex flex-column align-items-center">'+
         '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
         '<div class="progress-meter-box">'+
-        '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.ProgressBarpercentage +'%"</div>'+
+        '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
         '</div>'+
         '</div>';
 

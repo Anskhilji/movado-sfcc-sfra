@@ -18,7 +18,7 @@ module.exports = function (object, promotions) {
                 promotionBadge: promotion.custom.promotionBadge,
                 promotionMsg: !empty(promotion.custom.promotionMessage) ? promotion.custom.promotionMessage : '',
                 progressBarPromoMsg: !empty(promotion.custom.progressBarPromoMsg) ? promotion.custom.progressBarPromoMsg : '',
-                isEnablepromoProgressBar: !empty(promotion.custom.isEnablepromoProgressBar) ? promotion.custom.isEnablepromoProgressBar : ''
+                isPromoProgressBarEnable: !empty(promotion.custom.isPromoProgressBarEnable) ? promotion.custom.isPromoProgressBarEnable : ''
             };
         })
     });
