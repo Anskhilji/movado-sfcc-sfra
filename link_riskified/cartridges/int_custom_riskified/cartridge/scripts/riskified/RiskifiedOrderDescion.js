@@ -94,9 +94,11 @@ function orderDeclined(order, riskifiedOrderStatus) {
                 order.custom.riskifiedShopperRecovery = true;
             });
           
-            // Example Url: https://verify.self-veri.com/Shop?id=dev0900008001&sig=5de1ad3aa79316c7588c4c917dc8c588e32c9eef78c73c68cdb4927f0b89c17b&returnUrl=https://bdkz-009.dx.commercecloud.salesforce.com/on/demandware.store/Sites-MovadoUS-Site/en_US/Checkout-RiskApproved?orderNo=dev0900008001&orderToken=2TvfW2lbuA4_B0YA4YL4MlQPP57r97o-ECRx8iAhRGQ&language=en_US
-            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + '?id=' + order.orderNo + '&sig=' + hmacAuthCode + '&returnUrl=' + URLUtils.https('Checkout-RiskApproved', 'orderNo', order.orderNo, 'orderToken', order.orderToken) + '&language=' + locale;
-            // response.redirect(riskifiedShoppperRecoveryEndURL);
+            // Example Url: https://verify.self-veri.com/movado.com?id=dev0900008169&sig=0fb777a9a0fea84b45e782cd2fec4e9fedb0344f7bc1a2f23f8204c350527249&returnUrl=https://bdkz-009.dx.commercecloud.salesforce.com/on/demandware.store/Sites-MovadoUS-Site/en_US/Checkout-RiskApproved?orderNo=dev0900008169&orderToken=nGO8HFQIyIpXniadzTFtn0zWZS4AlKMZWo0RBMfyd9E&language=en_US
+
+            var accountId = Site.current.preferences.custom.merchantDomainAddressOnRiskified;
+            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + accountId + '?id=' + order.orderNo + '&sig=' + hmacAuthCode + '&returnUrl=' + URLUtils.https('Checkout-RiskApproved', 'orderNo', order.orderNo, 'orderToken', order.orderToken) + '&language=' + locale;
+            
             return {
                 error: false,
                 shopperRecovery: false,

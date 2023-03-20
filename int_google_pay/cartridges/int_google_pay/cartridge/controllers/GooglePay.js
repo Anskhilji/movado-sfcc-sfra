@@ -280,6 +280,14 @@ server.post('ProcessPayments',
             return new Status(Status.ERROR);
         }
 
+        // Listrack Integeration
+        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+            var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
+            session.privacy.SendOrder = true;
+            session.privacy.OrderNumber = order.orderNo;
+            ltkSendOrder.SendPost();
+        }
+
         // Making API call for order create
         session.custom.delayRiskifiedStatus = true;
         var orderNumber = order.orderNo;
@@ -317,7 +325,7 @@ server.post('ProcessPayments',
                 var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
                 // Riskified order declined response from decide API
                 riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
-                
+                session.privacy.isGooglePayPayment = true;
                 if (!riskifiedOrderDeclined.error) {
                     res.json({
                         error: false,
@@ -332,6 +340,7 @@ server.post('ProcessPayments',
         }
 
          // Calling fraud detection hook
+         session.privacy.isGooglePayPayment = false;
          var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
          if (fraudDetectionStatus.status === 'fail') {
              checkoutLogger.error('(GooglePay) -> ProcessPayments: Fraud detected and order is failed and going to the error page and order number is: ' + order.orderNo);
@@ -376,14 +385,6 @@ server.post('ProcessPayments',
         Transaction.wrap(function () {
             Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
         });
-
-        // Listrack Integeration
-        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
-            var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
-            session.privacy.SendOrder = true;
-            session.privacy.OrderNumber = order.orderNo;
-            ltkSendOrder.SendPost();
-        }
 
 		/**~    
          * Custom Start: Clyde Integration

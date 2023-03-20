@@ -245,11 +245,14 @@ exports.afterAuthorization = function (order, payment, custom, status) {
                 var riskifiedError = new Status(Status.ERROR);
 
                 if (riskifiedOrderDeclined.shopperRecovery) {
+                    session.privacy.riskifiedShoppperRecovery = false;
                     riskifiedOrderDeclined.returnUrl.append('ID', order.orderNo);
+                } else {
+                    session.privacy.riskifiedShoppperRecovery = true;
                 }
-
-                session.privacy.riskifiedShoppperRecoveryEndURL = riskifiedOrderDeclined.returnUrl;
+                
                 session.privacy.riskifiedDeclined = true;
+                session.privacy.riskifiedShoppperRecoveryEndURL = riskifiedOrderDeclined.returnUrl;
                 return riskifiedError;
             }
         } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
@@ -330,9 +333,15 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     
     if (session.privacy.riskifiedDeclined) {
         var declinedUrl = session.privacy.riskifiedShoppperRecoveryEndURL;
-        delete session.privacy.riskifiedShoppperRecoveryEndURL;
         delete session.privacy.riskifiedDeclined;
-        
+        delete session.privacy.riskifiedShoppperRecoveryEndURL;
+
+        if (session.privacy.riskifiedShoppperRecovery) {
+            delete session.privacy.riskifiedShoppperRecovery;
+
+            return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-ShoperRecovery', 'returnUrl', declinedUrl));
+        }
+        delete session.privacy.riskifiedShoppperRecovery;
         return new ApplePayHookResult(new Status(Status.ERROR), declinedUrl);
     } else {
         return new Status(Status.OK);

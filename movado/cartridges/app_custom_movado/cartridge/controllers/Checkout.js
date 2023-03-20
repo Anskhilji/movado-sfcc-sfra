@@ -190,6 +190,17 @@ server.get('Declined', function (req, res, next) {
     next();
 });
 
+// ApplePay Riskified shoperRecovery order declined 
+server.get('ShoperRecovery', function (req, res, next) {
+        var returnUrl = req.querystring.returnUrl;
+
+        if (!empty(returnUrl)) {
+            res.redirect(returnUrl);
+        }
+        
+    next();
+});
+
 // Riskified shoperRecovery order declined
 server.get('RiskDeclined', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
@@ -274,14 +285,6 @@ server.get('RiskApproved', function (req, res, next) {
                 });
                 return next();
             }
-
-            // Listrack Integeration
-            // if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
-            //     var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
-            //     session.privacy.SendOrder = true;
-            //     session.privacy.OrderNumber = order.orderNo;
-            //     ltkSendOrder.SendPost();
-            // }
 
             /**~    
              * Custom Start: Clyde Integration
