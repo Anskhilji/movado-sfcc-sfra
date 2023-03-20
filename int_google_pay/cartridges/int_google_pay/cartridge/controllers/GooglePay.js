@@ -340,7 +340,6 @@ server.post('ProcessPayments',
         }
 
          // Calling fraud detection hook
-         session.privacy.isGooglePayPayment = false;
          var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
          if (fraudDetectionStatus.status === 'fail') {
              checkoutLogger.error('(GooglePay) -> ProcessPayments: Fraud detected and order is failed and going to the error page and order number is: ' + order.orderNo);

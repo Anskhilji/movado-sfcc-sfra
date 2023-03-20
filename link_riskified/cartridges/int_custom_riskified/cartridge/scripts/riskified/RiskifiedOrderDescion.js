@@ -18,7 +18,7 @@
  var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
  var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
- function riskifiedPaymentReversal(order, paymentMethod) {
+function riskifiedPaymentReversal(order, paymentMethod) {
     var responseObject;
     // void or reverse the payment if card payment or not paid
     // (Order.PAYMENT_STATUS_NOTPAID) else refund the payment if already
@@ -94,11 +94,10 @@ function orderDeclined(order, riskifiedOrderStatus) {
                 order.custom.riskifiedShopperRecovery = true;
             });
           
-            // Example Url: https://verify.self-veri.com/movado.com?id=dev0900008169&sig=0fb777a9a0fea84b45e782cd2fec4e9fedb0344f7bc1a2f23f8204c350527249&returnUrl=https://bdkz-009.dx.commercecloud.salesforce.com/on/demandware.store/Sites-MovadoUS-Site/en_US/Checkout-RiskApproved?orderNo=dev0900008169&orderToken=nGO8HFQIyIpXniadzTFtn0zWZS4AlKMZWo0RBMfyd9E&language=en_US
-
             var accountId = Site.current.preferences.custom.merchantDomainAddressOnRiskified;
+            // Example Url: https://verify.self-veri.com/movado.com?id=dev0900008169&sig=0fb777a9a0fea84b45e782cd2fec4e9fedb0344f7bc1a2f23f8204c350527249&returnUrl=https://bdkz-009.dx.commercecloud.salesforce.com/on/demandware.store/Sites-MovadoUS-Site/en_US/Checkout-RiskApproved?orderNo=dev0900008169&orderToken=nGO8HFQIyIpXniadzTFtn0zWZS4AlKMZWo0RBMfyd9E&language=en_US
             var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + accountId + '?id=' + order.orderNo + '&sig=' + hmacAuthCode + '&returnUrl=' + URLUtils.https('Checkout-RiskApproved', 'orderNo', order.orderNo, 'orderToken', order.orderToken) + '&language=' + locale;
-            
+
             return {
                 error: false,
                 shopperRecovery: false,
