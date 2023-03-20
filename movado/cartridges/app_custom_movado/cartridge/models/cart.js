@@ -272,7 +272,7 @@ function CartModel(basket) {
     var lineItemOptionModel = getItemOptions(basket);
     var assets = getCustomAssets();
     var giftMessaging = getGiftMessagingObject();
-    var isEnablepromoProgressBar;  
+    var isEnablepromoProgressBar = false;  
     
     if((!basket) || (basket && basket.totalTax && basket.totalTax.value ==0 && basket.defaultShipment && basket.defaultShipment.shippingAddress==null)){
        totalTaxVal = '-';
@@ -282,7 +282,7 @@ function CartModel(basket) {
 
     var discountPlan = PromotionMgr.getDiscounts(basket);
     if (discountPlan) {
-        this.approachingDiscounts = getApproachingDiscounts(basket, discountPlan);
+        var progressBarApproachingDiscounts = getApproachingDiscounts(basket, discountPlan);
         var progressBarDiscounts = getOrderDiscounts(basket, discountPlan);
         if (!empty(progressBarDiscounts)) {
             isEnablepromoProgressBar =  progressBarDiscounts[0].isEnablepromoProgressBar ? progressBarDiscounts[0].isEnablepromoProgressBar : false;
@@ -291,13 +291,13 @@ function CartModel(basket) {
     
     cartModel = new Cart(basket);
 
-    if (cartModel && cartModel.approachingDiscounts && cartModel.approachingDiscounts[0] && cartModel.approachingDiscounts[0].isEnablepromoProgressBar  && typeof cartModel.approachingDiscounts[0].promotionTotal !== undefined) {
-        var approachingDiscountsTotal = cartModel.approachingDiscounts[0].promotionTotal;
-        var conditionThreshold = cartModel.approachingDiscounts[0].conditionThreshold;
+    if (cartModel && cartModel.approachingDiscounts && cartModel.approachingDiscounts[0] && progressBarApproachingDiscounts[0].isEnablepromoProgressBar  && typeof progressBarApproachingDiscounts[0].promotionTotal !== undefined) {
+        var approachingDiscountsTotal = progressBarApproachingDiscounts[0].promotionTotal;
+        var conditionThreshold = progressBarApproachingDiscounts[0].conditionThreshold;
         var conditionThresholdCurrencyValue = conditionThreshold.substring(1);
         var approachingDiscountCurrencyValue = approachingDiscountsTotal.substring(1);
-        var progressBarPromoMsg = cartModel.approachingDiscounts[0].progressBarPromoMsg;
-        isEnablepromoProgressBar = cartModel.approachingDiscounts[0].isEnablepromoProgressBar ? cartModel.approachingDiscounts[0].isEnablepromoProgressBar : false;
+        var progressBarPromoMsg = progressBarApproachingDiscounts[0].progressBarPromoMsg;
+        isEnablepromoProgressBar = progressBarApproachingDiscounts[0].isEnablepromoProgressBar ? progressBarApproachingDiscounts[0].isEnablepromoProgressBar : false;
 
         var progressBarPromoTotal = conditionThresholdCurrencyValue;
         var grandTotal = cartModel.totals.grandTotal; 

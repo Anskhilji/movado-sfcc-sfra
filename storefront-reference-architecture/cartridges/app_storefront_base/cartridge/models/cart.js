@@ -43,11 +43,7 @@ function getApproachingDiscounts(basket, discountPlan) {
                         ),
                         approachingOrderDiscount.getDiscount()
                             .getPromotion().getCalloutMsg()
-                    ),
-                    promotionTotal: formatMoney(approachingOrderDiscount.getDistanceFromConditionThreshold()),
-                    conditionThreshold : formatMoney(approachingOrderDiscount.getConditionThreshold()),
-                    isEnablepromoProgressBar: approachingOrderDiscount.getDiscount().getPromotion().custom.isEnablepromoProgressBar,
-                    progressBarPromoMsg: approachingOrderDiscount.getDiscount().getPromotion().custom.progressBarPromoMsg
+                    )
                 };
             });
 
@@ -63,11 +59,7 @@ function getApproachingDiscounts(basket, discountPlan) {
                         ),
                         approachingShippingDiscount.getDiscount()
                             .getPromotion().getCalloutMsg()
-                    ),
-                    promotionTotal: formatMoney(approachingShippingDiscount.getDistanceFromConditionThreshold()),
-                    conditionThreshold : formatMoney(approachingShippingDiscount.getConditionThreshold()),
-                    isEnablepromoProgressBar: approachingShippingDiscount.getDiscount().getPromotion().custom.isEnablepromoProgressBar,
-                    progressBarPromoMsg: approachingShippingDiscount.getDiscount().getPromotion().custom.progressBarPromoMsg
+                    )
                 };
             });
 
