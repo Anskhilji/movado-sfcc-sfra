@@ -101,6 +101,7 @@ function updateCartTotals(data) {
         $('.delivery-time').addClass('d-none');
     }
     var $pickupFromStore = $('.cart-store-pickup').prop('checked');
+    
     if ($pickupFromStore) {
         var $productIds = [];
         $('.quantity.custom-select').each(function () {
@@ -110,6 +111,31 @@ function updateCartTotals(data) {
             }
         });
     }
+
+    if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
+        
+        var promoProgressBarHtml = '<div class="progress-meter d-flex flex-column align-items-center">'+
+        '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
+        '<div class="progress-meter-box">'+
+        '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
+        '</div>'+
+        '</div>';
+
+        var progressMeterMain = $('.progress-meter-container');
+        progressMeterMain.empty();
+        progressMeterMain.append(promoProgressBarHtml);
+    } else {
+        var freeShippingIcon = $('.progress-meter-container').data('shipping-image');
+        var applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
+        '<img src="'+ freeShippingIcon +'" alt="'+ window.Resources.PROMO_FREE_SHIPPING_TEXT +'">'+
+        '<p>'+ window.Resources.PROMO_FREE_SHIPPING_TEXT +'</p>'+
+        '</div>';
+
+        var progressMeterMain = $('.progress-meter-container');
+        progressMeterMain.empty();
+        progressMeterMain.append(applicablePromoMessageHtml);
+    }
+    
     $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.number-of-items').empty().append(data.resources.numberOfItems);
     $('.shipping-cost').empty().append(data.totals.totalShippingCost);
