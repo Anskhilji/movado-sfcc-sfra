@@ -189,6 +189,7 @@ server.replace(
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var Site = require('dw/system/Site');
+
     var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
 
     var viewData = res.getViewData();

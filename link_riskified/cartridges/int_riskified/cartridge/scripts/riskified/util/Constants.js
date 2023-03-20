@@ -34,3 +34,5 @@ exports.BAD_PAYLOAD = 'BAD_PAYLOAD';
 exports.BAD_JSON = 'BAD_JSON';
 exports.BAD_CALL = 'BAD_CALL';
 
+exports.RAKUTEN_SITE_ID = 'atrv';
+

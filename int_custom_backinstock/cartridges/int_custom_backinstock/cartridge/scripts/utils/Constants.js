@@ -10,3 +10,4 @@ exports.OUTLOOK_PRODUCT_URL_PLACEHOLDER = "<OUTLOOK_PRODUCT_URL_PLACEHOLDER>";
 exports.PROMOTION_START_END_DATE_SEPARATOR = '/';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
+exports.RAKUTEN_SITE_ID = 'atrv';

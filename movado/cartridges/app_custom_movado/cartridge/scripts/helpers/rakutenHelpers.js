@@ -130,7 +130,7 @@ function saveRakutenOrderAttributes(order) {
         if (!empty(rakutenCookieValue)) {
             var rakutenCookieValuesArray = rakutenCookieValue.split('|');
             var rakutenCookieSiteID = rakutenCookieValuesArray.filter(function (siteID) {
-                if (siteID.indexOf('atrv') > -1) {
+                if (siteID.indexOf(Constants.RAKUTEN_SITE_ID) > -1) {
                     return siteID;
                 }
             });
