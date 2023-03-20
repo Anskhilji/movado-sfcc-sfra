@@ -2,8 +2,10 @@
 var Calendar = require('dw/util/Calendar');
 var Constants = require('~/cartridge/scripts/util/Constants');
 var encoding = require('dw/crypto/Encoding');
-var Site = require('dw/system/Site');
+var Logger = require('dw/system/Logger');
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
+var Transaction = require('dw/system/Transaction');
 
 var sitePreferences = Site.getCurrent().getPreferences().getCustom();
 
@@ -119,10 +121,38 @@ function getRakutenRequestObject() {
     return rakutenRequest;
 }
 
+function saveRakutenOrderAttributes(order) {
+    try {
+        var rakutenCookieValue = request.getHttpCookies()['rmStoreGateway'] ? decodeURIComponent(request.getHttpCookies()['rmStoreGateway'].value) : '';
+        if (!empty(rakutenCookieValue)) {
+            var rakutenCookieValuesArray = rakutenCookieValue.split('|');
+            var rakutenCookieSiteID = rakutenCookieValuesArray.filter(function (siteID) {
+                if (siteID.indexOf('atrv') > -1) {
+                    return siteID;
+                }
+            });
+            if (!empty(rakutenCookieSiteID)) {
+                rakutenCookieSiteID = rakutenCookieSiteID[0].split(':');
+                var rakutenCookieSiteIDValue = rakutenCookieSiteID[1];
+                if (!empty(rakutenCookieSiteIDValue)) {
+                    var currentDate = new Date().toDateString();
+                    Transaction.wrap(function () {
+                        order.custom.ranSiteID = rakutenCookieSiteIDValue;
+                        order.custom.ranCookieDroppedDate = currentDate;
+                    });
+                }
+            }
+        }
+    } catch (e) {
+        Logger.error('rakutenHelpers.js: Error occured while getting rakutenCookie params and order objects: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+}
+
 module.exports = {
     createCookieInSession: createCookieInSession,
     setCookiesResponse: setCookiesResponse,
     getDateString: getDateString,
     isRakutenAllowedCountry: isRakutenAllowedCountry,
-    getRakutenRequestObject: getRakutenRequestObject
+    getRakutenRequestObject: getRakutenRequestObject,
+    saveRakutenOrderAttributes: saveRakutenOrderAttributes
 }

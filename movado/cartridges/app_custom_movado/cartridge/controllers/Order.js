@@ -189,7 +189,7 @@ server.replace(
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var Site = require('dw/system/Site');
-    var Transaction = require('dw/system/Transaction');
+    var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
     var viewData = res.getViewData();
     var marketingProductsData = [];
     var orderAnalyticsTrackingData;
@@ -374,19 +374,7 @@ server.append('Confirm', function (req, res, next) {
     }
 
     if (Site.current.preferences.custom.isRakutenEnable) {
-        var rakutenCookieValue = request.getHttpCookies()['rmStoreGateway'] ? decodeURIComponent(request.getHttpCookies()['rmStoreGateway'].value) : '';
-        if (!empty(rakutenCookieValue)) {
-            var rakutenCookieSiteID = rakutenCookieValue.split('|');
-            rakutenCookieSiteID = rakutenCookieSiteID[3].split(':');
-            rakutenCookieSiteID = rakutenCookieSiteID[1];
-            if (!empty(rakutenCookieSiteID)) {
-                var currentDate = new Date().toDateString();
-                Transaction.wrap(function () {
-                    order.custom.ranSiteID = rakutenCookieSiteID;
-                    order.custom.ranCookieDroppedDate = currentDate;
-                });
-            }
-        }
+        rakutenCookiesHelper.saveRakutenOrderAttributes(order);
     }
     next();
 });
