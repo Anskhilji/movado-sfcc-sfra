@@ -1,5 +1,6 @@
 'use strict';
 
+var formatMoney = require('dw/util/StringUtils').formatMoney;
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
@@ -155,6 +156,7 @@ function getApproachingDiscounts(basket, discountPlan) {
         approachingOrderDiscounts = discountPlan.getApproachingOrderDiscounts();
         approachingShippingDiscounts =
             discountPlan.getApproachingShippingDiscounts(basket.defaultShipment);
+        
 
         orderDiscountObject =
             collections.map(approachingOrderDiscounts, function (approachingOrderDiscount) {
@@ -169,7 +171,10 @@ function getApproachingDiscounts(basket, discountPlan) {
                         approachingOrderDiscount.getDiscount()
                             .getPromotion().getCalloutMsg()
                     ),
-                    promotionTotal: formatMoney(approachingOrderDiscount.getDistanceFromConditionThreshold())
+                    promotionTotal: formatMoney(approachingOrderDiscount.getDistanceFromConditionThreshold()),
+                    conditionThreshold : formatMoney(approachingOrderDiscount.getConditionThreshold()),
+                    isEnablepromoProgressBar: approachingOrderDiscount.getDiscount().getPromotion().custom.isEnablepromoProgressBar ? approachingOrderDiscount.getDiscount().getPromotion().custom.isEnablepromoProgressBar : false,
+                    progressBarPromoMsg: approachingOrderDiscount.getDiscount().getPromotion().custom.progressBarPromoMsg
                 };
             });
 
@@ -185,11 +190,53 @@ function getApproachingDiscounts(basket, discountPlan) {
                         ),
                         approachingShippingDiscount.getDiscount()
                             .getPromotion().getCalloutMsg()
-                    )
+                    ),
+                    promotionTotal: formatMoney(approachingShippingDiscount.getDistanceFromConditionThreshold()),
+                    conditionThreshold : formatMoney(approachingShippingDiscount.getConditionThreshold()),
+                    isEnablepromoProgressBar: approachingShippingDiscount.getDiscount().getPromotion().custom.isEnablepromoProgressBar ? approachingShippingDiscount.getDiscount().getPromotion().custom.isEnablepromoProgressBar : false,
+                    progressBarPromoMsg: approachingShippingDiscount.getDiscount().getPromotion().custom.progressBarPromoMsg
                 };
             });
 
         discountObject = orderDiscountObject.concat(shippingDiscountObject);
+    }
+    return discountObject;
+}
+
+/**
+ * Generates an object of approaching discounts
+ * @param {dw.order.Basket} basket - Current users's basket
+ * @param {dw.campaign.DiscountPlan} discountPlan - set of applicable discounts
+ * @returns {Object} an object of approaching discounts
+ */
+function getOrderDiscounts(basket, discountPlan) {
+
+    var progressBarOrderDiscountObject;
+    var discountObject;
+    var orderDiscounts;
+    var shippingDiscounts;
+    var shippingDiscountObject;
+
+    if (basket && basket.productLineItems) {
+        orderDiscounts = discountPlan.getOrderDiscounts();
+        shippingDiscounts = discountPlan.getShippingDiscounts(basket.defaultShipment);
+          
+        progressBarOrderDiscountObject = 
+        collections.map(orderDiscounts, function (orderDiscount) {
+            return {
+                isEnablepromoProgressBar: orderDiscount.getPromotion().custom.isEnablepromoProgressBar ? orderDiscount.getPromotion().custom.isEnablepromoProgressBar : false,
+            };
+        });
+
+
+        shippingDiscountObject = 
+        collections.map(shippingDiscounts, function (shippingDiscount) {
+            return {
+                isEnablepromoProgressBar: shippingDiscount.getPromotion().custom.isEnablepromoProgressBar ? shippingDiscount.getPromotion().custom.isEnablepromoProgressBar : false,
+            };
+        });
+
+        discountObject = progressBarOrderDiscountObject.concat(shippingDiscountObject);
     }
     return discountObject;
 }
@@ -224,12 +271,22 @@ function CartModel(basket) {
     var cartObject;
     var lineItemOptionModel = getItemOptions(basket);
     var assets = getCustomAssets();
-    var giftMessaging = getGiftMessagingObject();  
+    var giftMessaging = getGiftMessagingObject();
+    var isEnablepromoProgressBar;  
     
     if((!basket) || (basket && basket.totalTax && basket.totalTax.value ==0 && basket.defaultShipment && basket.defaultShipment.shippingAddress==null)){
        totalTaxVal = '-';
     } else {
       totalTaxVal = basket.totalTax.value;
+    }
+
+    var discountPlan = PromotionMgr.getDiscounts(basket);
+    if (discountPlan) {
+        this.approachingDiscounts = getApproachingDiscounts(basket, discountPlan);
+        var progressBarDiscounts = getOrderDiscounts(basket, discountPlan);
+        if (!empty(progressBarDiscounts)) {
+            isEnablepromoProgressBar =  progressBarDiscounts[0].isEnablepromoProgressBar ? progressBarDiscounts[0].isEnablepromoProgressBar : false;
+        }
     }
     
     cartModel = new Cart(basket);
@@ -240,21 +297,18 @@ function CartModel(basket) {
         var conditionThresholdCurrencyValue = conditionThreshold.substring(1);
         var approachingDiscountCurrencyValue = approachingDiscountsTotal.substring(1);
         var progressBarPromoMsg = cartModel.approachingDiscounts[0].progressBarPromoMsg;
+        isEnablepromoProgressBar = cartModel.approachingDiscounts[0].isEnablepromoProgressBar ? cartModel.approachingDiscounts[0].isEnablepromoProgressBar : false;
 
-        var pPos = conditionThresholdCurrencyValue;
+        var progressBarPromoTotal = conditionThresholdCurrencyValue;
         var grandTotal = cartModel.totals.grandTotal; 
-        var pEarned = grandTotal.substring(1);
-        var perc="";
-        if(isNaN(pPos) || isNaN(pEarned)){
-            perc=" ";
+        var progressBarPromoCurrent = grandTotal.substring(1);
+        var ProgressBarpercentage;
+        if(isNaN(progressBarPromoTotal) || isNaN(progressBarPromoCurrent)){
+            ProgressBarpercentage='';
         } else {
-            perc = ((pEarned/pPos) * 100).toFixed(3);
+            ProgressBarpercentage = ((progressBarPromoCurrent/progressBarPromoTotal) * 100).toFixed(3);
         }
     }
-
-
-
-
 
     cartObject = extend(cartModel,{
       lineItemOptions: lineItemOptionModel,
@@ -272,8 +326,9 @@ function CartModel(basket) {
       approachingDiscountsTotal: approachingDiscountsTotal ? approachingDiscountsTotal : '',
       conditionThreshold: conditionThreshold ? conditionThreshold : '',
       conditionThresholdCurrencyValue: conditionThresholdCurrencyValue ? conditionThresholdCurrencyValue : '',
-      perc: perc,
-      progressBarPromoMsg: progressBarPromoMsg
+      ProgressBarpercentage: ProgressBarpercentage,
+      progressBarPromoMsg: progressBarPromoMsg,
+      isEnablepromoProgressBar: isEnablepromoProgressBar
 
     });
     return cartObject;

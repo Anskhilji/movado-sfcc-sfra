@@ -29,6 +29,9 @@
 
 <div class="container cart-header-wrapper text-center">
     <h1 class="page-title cart-header">${Resource.msg('title.cart', 'cart', null)}</h1>
+
+    <isinclude template="common/progressMeter" sf-toolkit="on" />
+    
     <isif condition="${pdict.items.length !== 0}">
         <div class="estimate-price-wrapper">
             <div class="row estimated-total justify-content-center">

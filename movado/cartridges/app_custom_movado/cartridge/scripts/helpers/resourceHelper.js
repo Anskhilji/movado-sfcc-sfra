@@ -78,7 +78,9 @@ function getResources(pageContext) {
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
         INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
         FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
-        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null)
+        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
+        PROMO_FREE_SHIPPING_IMAGE: URLUtils.httpStatic('/images/circle-check-icon.svg'),
+        PROMO_FREE_SHIPPING_TEXT: Resource.msg('promo.progress.bar.free.shipping', 'cart', null)
     };
     return resources;
 }
