@@ -1,37 +1,34 @@
 <!--- Close button --->
 <div class="filter-header mx-sm-0">
     <div class="header-bar clearfix">
-        <div class="pull-left result-count">
-            <isinclude template="search/resultsCount" />
-        </div>
+        <button class="filter-by-icon close-btn-text">
+            <picture>
+                <source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/ep_filter.svg')}">
+                <img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid close-btn-text">
+            </picture>
+            <span class="d-inline-block close-btn-text">${Resource.msg('button.filterby', 'search', null)}</span>
+        </button>
         <button class="pull-right close">
-            <span>${Resource.msg('button.close', 'search', null)}</span>
+            <span class="close-btn-text">${Resource.msg('button.close', 'search', null)}</span>
             <i class="fa fa-close"></i>
         </button>
     </div>
 </div>
 
-<!--- Results count and Reset button --->
-<isif condition="${pdict.productSearch.productIds.length > 0}">
-    <div class="reset-container">
-        <div class="secondary-bar">
-            <a class="reset btn btn-outline-primary" href="${pdict.productSearch.resetLink}">
-                ${Resource.msg('link.reset', 'search', null)}
-            </a>
-        </div>
-    </div>
-</isif>
-             <a class="btn btn-primary fillter-btn" href="#" data-filter="true">
-                apply filter
-            </a>
+    <iscomment> <a class="btn btn-primary fillter-btn" href="#" data-filter="true">
+        apply filter
+    </a>  </iscomment>
 <div class="refine-wrapper">
     <div class="refinements movado-refinements-container">
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
-            <div class="card collapsible-sm refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
-                <button class="card-header movado-refinements-type text-left border-0" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading">
+            <div
+                class="card collapsible-sm refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+                <button class="card-header movado-refinements-type text-left border-0" role="tab"
+                    data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}"
+                    aria-expanded="false" id="${refinement.displayName}Heading">
                     ${refinement.displayName}
                 </button>
-                <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
+                <div class="card-body" role="tabpanel" aria-labelledby="${refinement.displayName}Heading">
                     <!--- CATEGORY REFINEMENTS --->
                     <isif condition="${refinement.isCategoryRefinement}">
                         <isset name="categories" value="${refinement.values}" scope="page" />
@@ -50,5 +47,24 @@
                 </div>
             </div>
         </isloop>
+    </div>
+</div>
+
+<div class="filter-bottom-sec">
+    <!--- Results count and Reset button --->
+    <isif condition="${pdict.productSearch.productIds.length > 0}">
+        <div class="reset-container">
+            <div class="secondary-bar">
+                <a class="reset btn" href="${pdict.productSearch.resetLink}">
+                    ${Resource.msg('link.reset', 'search', null)}
+                </a>
+            </div>
+        </div>
+    </isif>
+
+    <div class="result-count w-100">
+        <a class="btn btn-primary fillter-btn w-100" href="#" data-filter="true">
+            <isinclude template="search/resultsCount" />
+        </a>
     </div>
 </div>

@@ -318,16 +318,23 @@ $( document ).ready(function() {
 });
 
 $('.filter-container').on(
-    'click','.refinements li a',
+    'click', '.refinements li a',
     function (e) {
         e.preventDefault();
         e.stopPropagation();
 
         // add check class in checkBox to select filter
-        if ($(this).find('.fa-square-o').length > 0) {
+        if ($(this).closest('[data-filter-id="promotion"]').length > 0) { // add check class in radioButton to select filter
+            $('[data-filter-id="promotion"]').removeClass('selected-filter-id').find('.fa-check-square').removeClass('fa-check-square').addClass('fa-square-o'); //remove all pre selected promotion value
+            $('[data-filter-id="promotion"]').find('[data-filter-value]').removeClass('selected-filter');
+            $(this).addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
+            $(this).find('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square');
+        } else if ($(this).find('.fa-square-o').length > 0) {
             $(this).addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
             $(this).find('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square');
         } else if ($(this).find('.fa-circle-o').length > 0) { // add check class in radioButton to select filter
+            $('[data-filter-id="price"]').removeClass('selected-filter-id').find('.fa-check-circle').removeClass('fa-check-circle').addClass('fa-circle-o'); //remove all pre selected price value
+            $('[data-filter-id="price"]').find('[data-filter-value]').removeClass('selected-filter');
             $(this).addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
             $(this).find('.fa-circle-o').removeClass('fa-circle-o').addClass('fa-check-circle');
         } else {
@@ -336,21 +343,19 @@ $('.filter-container').on(
             $(this).find('.fa-check-circle').removeClass('fa-check-circle').addClass('fa-circle-o');
 
         }
-        // add check class in radioButton to select filter
-        // if ($(this).find('.fa-circle-o').length > 0) {
-        //     $(this).addClass('selected-filter');
-        //     $(this).find('.fa-circle-o').removeClass('fa-circle-o').addClass('fa-check-circle');
-        // } else {
-        //     $(this).removeClass('selected-filter');
-        //     $(this).find('.fa-check-circle').removeClass('fa-check-circle').addClass('fa-circle-o');
-
-        // }
-        // var prefValue = $(this).data('filter-value');
-        // var prefName = $(this).data('filter-id');
-        // if (prefName != '' && prefValue != '') {
-            
-        // }
     });
+
+    function closeRefinementBar(params) {
+        $('.refinement-bar, .movado-modal').hide();
+        var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
+        if (refinementBarPl) {
+            refinementBarPl.removeClass('refinement-bar-pl');
+            $('.secondary-bar').removeClass('secondary-bar-mt');
+        }
+        if ($(window).width() > 991) {
+            getTileHeight()
+        }
+    }
 
 module.exports = {
     filter: function () {
@@ -370,16 +375,8 @@ module.exports = {
 
     closeRefinments: function () {
         // Refinements close button
-        $('.filter-container').on('click', '.refinement-bar button.close, .modal-background', function () {
-            $('.refinement-bar, .movado-modal').hide();
-            var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
-            if (refinementBarPl) {
-              refinementBarPl.removeClass('refinement-bar-pl');
-              $('.secondary-bar').removeClass('secondary-bar-mt');
-            }
-            if($(window).width() > 991) {
-                getTileHeight()
-            }
+        $('.filter-container').on('click', '.refinement-bar button.close, .modal-background', function (e) {
+            closeRefinementBar();
         });
     },
 
@@ -563,12 +560,13 @@ module.exports = {
 
     applyFilter: function () {
         // Handle refinement value selection and reset click
-        $('.filter-container').on(
+        $('.filter-container, body').on(
             'click',
-            '.fillter-btn, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
+            '.fillter-btn, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .refinement-bar .close-btn-text, refinement-bar .close-btn-text .fa-close, .modal-background.movado-modal',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+                var target = e.target;
 
                 //push data into datalayer for filters into gtm
                 var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
@@ -581,7 +579,11 @@ module.exports = {
 
                 // Get currently selected sort option to retain sorting rules
                 var urlparams = getUrlParamObj(document.location.href);
-                var filtersURL = e.currentTarget.href;
+                if ($(target).is('.fillter-btn, .close-btn-text, .fa-close, .modal-background.movado-modal')) {
+                    var filtersURL = document.location.href;
+                } else {
+                    var filtersURL = e.currentTarget.href;
+                }
                 var currentSelectedSortId = '';
                 if (urlparams.hasOwnProperty('srule') == true) {
                     if (urlparams.srule) {
@@ -590,50 +592,77 @@ module.exports = {
                         filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
                     }
                 }
-
-                // add custome logic to bulid URL
-                var refinementsAttributesId = [];
-                var refinementsAttributesValues = [];
-                $('.selected-filter-id').each(function () {
-                    var selectedId = $(this).data('filter-id');
-                    refinementsAttributesId.push(selectedId);
-                    var array = [];
-                    $('[data-filter-id="' + selectedId + '"] .selected-filter').each(function () {
-                        var selectedValue = '';
-                        if(selectedId == 'price'){
-                          var pmin =  $(this).data('value-pmin');
-                          var pmax =  $(this).data('value-pmax');
-                          selectedValue = pmin + '-' + pmax;
-                        }else{
-                            selectedValue = $(this).data('filter-value');
+                //custome start:  [MSS-1447] : multi-select filter / URL
+                if ($(target).is('.fillter-btn, .close-btn-text, .fa-close, .modal-background.movado-modal')) {
+                    //add selected class  agains checked filter
+                    $('[data-filter-id]').each(function () {
+                        if ($(this).find('.fa-check-square').length > 0) {
+                            $(this).addClass('selected-filter-id');
+                        } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
+                            $(this).addClass('selected-filter-id');
                         }
-                        array.push(selectedValue);
                     });
-                    refinementsAttributesValues.push(array);
-                });
+                    $('[data-filter-value]').each(function () {
+                        if ($(this).find('.fa-check-square').length > 0) {
+                            $(this).addClass('selected-filter');
+                        } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
+                            $(this).addClass('selected-filter');
+                        }
+                    });
+                    // add custome logic to bulid URL
+                    var refinementsAttributesId = [];
+                    var refinementsAttributesValues = [];
+                    $('.selected-filter-id').each(function () {
+                        var selectedId = $(this).data('filter-id');
+                        refinementsAttributesId.push(selectedId);
+                        var array = [];
+                        $('[data-filter-id="' + selectedId + '"] .selected-filter').each(function () {
+                            var selectedValue = '';
+                            if (selectedId == 'price') {
+                                var pmin = $(this).data('value-pmin');
+                                var pmax = $(this).data('value-pmax');
+                                selectedValue = pmin + '-' + pmax;
+                            } else {
+                                selectedValue = $(this).data('filter-value');
+                            }
+                            array.push(selectedValue);
+                        });
+                        refinementsAttributesValues.push(array);
+                    });
 
-                // generate custome URL
-                var url = '';
-                //?prefn1=familyName&prefv1=Arc%20Automatic%7CBlacktop%20II
-                //q=bold&pmin=1%2C500.00&pmax=2%2C000.00
-                refinementsAttributesId.forEach(function (attr, i) {
-                    var urlSelector = url == '' ? '?' : '&';
-                    var prefNumber = i + 1;
-                    var prefv = '';
-                    if (attr == 'promotion') {
-                        url = urlSelector + 'prefn' + prefNumber + '=' + encodeURIComponent(attr) + '&prefv' + prefNumber + '=' + prefv;
-                    } else if (attr == 'price') {
-                        refinementsAttributesValues = refinementsAttributesValues[i].toString().split('-'); // value of price is in range
-                        url =  (url == '' ? '' : url) + urlSelector + 'pmin=' + refinementsAttributesValues[0] + '&pmax=' + refinementsAttributesValues[1];
-                    } else if (attr == 'yotpo') {
-                        url = urlSelector + 'prefn' + prefNumber + '=' + encodeURIComponent(attr) + '&prefv' + prefNumber + '=' + prefv;
-                    }  else {
-                        prefv = encodeURIComponent(refinementsAttributesValues[i].toString().replaceAll(',', '|'));
-                        url = (url == '' ? '' : url) + urlSelector + 'prefn' + prefNumber + '=' + encodeURIComponent(attr) + '&prefv' + prefNumber + '=' + prefv;
+                    // generate custome URL
+                    var url = '';
+                    var prefNumber = 0;
+                    refinementsAttributesId.forEach(function (attr, i) {
+                        var urlSelector = url == '' ? '?' : '&';
+                        var prefv = '';
+                        if (attr == 'promotion') {
+                            url = (url == '' ? '' : url) + urlSelector + 'pmid=' + refinementsAttributesValues[i];
+                        } else if (attr == 'price') {
+                            prefv = refinementsAttributesValues[i].toString().split('-'); // value of price is in range
+                            url = (url == '' ? '' : url) + urlSelector + 'pmin=' + prefv[0] + '&pmax=' + prefv[1];
+                        } else {
+                            prefNumber++;
+                            prefv = encodeURIComponent(refinementsAttributesValues[i].length > 1 ? refinementsAttributesValues[i].toString().replaceAll(',', '|') : refinementsAttributesValues[i]);
+                            url = (url == '' ? '' : url) + urlSelector + 'prefn' + prefNumber + '=' + encodeURIComponent(attr) + '&prefv' + prefNumber + '=' + prefv;
+                        }
+                    });
+                    var baseUrl = document.location.href;
+                    if (url != '' && baseUrl.indexOf('srule') !== -1) {
+                        var sortingRuleUrl = $('.sorting-rules-filters').find(':selected').data('id');
+                        url = url + '&srule=' + sortingRuleUrl;
                     }
-                });
-
-                filtersURL = 'https://bdkz-012.dx.commercecloud.salesforce.com/s/MCSUS/en/shop-by-brand/shop-movado/' + url;
+                    if (url == '' && baseUrl.indexOf('srule') !== -1) {
+                        var categorySortUrl = $('.sorting-rules-filters').find(':selected').data('id');
+                        url = url + '?srule=' + categorySortUrl;
+                    }
+                    if (baseUrl.indexOf('?') !== -1) {
+                        baseUrl = baseUrl.split('?')[0];
+                    }
+                    filtersURL = baseUrl + url;
+                }
+                //custome end:  [MSS-1447] : multi-select filter / URL
+                
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
@@ -644,7 +673,7 @@ module.exports = {
                     },
                     method: 'GET',
                     success: function (response) {
-                    	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
                         // edit start
@@ -662,11 +691,13 @@ module.exports = {
                     },
                     error: function () {
                         $.spinner().stop();
+                    },
+                    complete: function () {
+                        closeRefinementBar();
                     }
                 });
             });
     },
-
     showContentTab: function () {
         // Display content results from the search
         $('.filter-container').on('click', '.content-search', function () {
