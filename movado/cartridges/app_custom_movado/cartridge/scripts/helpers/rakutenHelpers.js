@@ -42,11 +42,14 @@ function createCookieInSession(request) {
  */
 function setCookiesResponse(name, value, path) {
     var Cookie = require('dw/web/Cookie');
-    var rakutenCookieExpirationDate = Site.current.preferences.custom.rakutenCookieExpirationDate;
-    var cookieConfigurableDate = new Date(rakutenCookieExpirationDate);
+    var cookieMaxAge = 2592000;
+    var rakutenCookieExpirationDate = !empty(Site.current.preferences.custom.rakutenCookieExpirationDate) ? Site.current.preferences.custom.rakutenCookieExpirationDate : false;
+    if (rakutenCookieExpirationDate) {
+        var cookieConfigurableDate = new Date(rakutenCookieExpirationDate);
+        cookieMaxAge = Math.round((cookieConfigurableDate.getTime() - Date.now()) / 1000);
+    }
     var newCookie = new Cookie(name, value);
     newCookie.setPath(path);
-    var cookieMaxAge = Math.round((cookieConfigurableDate.getTime() - Date.now()) / 1000);
     newCookie.setMaxAge(cookieMaxAge);
     newCookie.setDomain('.' + request.httpHost);
     response.addHttpCookie(newCookie);
