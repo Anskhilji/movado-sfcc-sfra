@@ -339,35 +339,6 @@
                     margin-bottom: rem(30);
                     font-family: $font-medium;
                 }
-
-                .prices-add-to-cart-redesign {
-
-                    .cart-and-ipay {
-
-                        .cta-add-to-cart {
-
-                            .add-to-cart {
-                                max-width: rem(330);
-                                justify-content: center;
-                                line-height: rem(21);
-                                letter-spacing: 0;
-
-                                @include media-breakpoint-down(xs) {
-                                    max-width: rem(336);
-                                    height: rem(45);
-                                }
-                                @media (max-width:$small-screen-width375) {
-                                    margin-left: 0;
-                                }
-
-                                .sale-price-mvmt,
-                                .addtocart-innter-price {
-                                    display: none;
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     }

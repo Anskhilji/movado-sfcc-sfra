@@ -48,6 +48,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
+    var productSetBrand = apiProduct.custom.productSetBrand ? apiProduct.custom.productSetBrand : '';
 
     if (!productSearchHit) {
         return null;
@@ -76,7 +77,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
         decorators.promotions(product, options.promotions);
     }
     if (!params.availability || params.availability == true) {
-        decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel);
+        decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel, productSetStockAvailabilityModel);
     }
     if (!empty(yotpoReviewsCustomAttribute)) {
         Object.defineProperty(product, 'yotpoReviewsCustomAttribute', {
@@ -88,6 +89,13 @@ module.exports = function productTile(product, apiProduct, productType, params, 
         Object.defineProperty(product, 'ociPreOrderParameters', {
             enumerable: true,
             value: ociPreOrderParameters
+        });
+    }
+
+    if (!empty(productSetBrand)) {
+        Object.defineProperty(product, 'productSetBrand', {
+            enumerable: true,
+            value: productSetBrand
         });
     }
 
