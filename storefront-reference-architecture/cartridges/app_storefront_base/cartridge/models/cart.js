@@ -62,7 +62,6 @@ function getApproachingDiscounts(basket, discountPlan) {
                     )
                 };
             });
-
         discountObject = orderDiscountObject.concat(shippingDiscountObject);
     }
     return discountObject;
