@@ -898,7 +898,19 @@ module.exports = function () {
         var prodUUID = $this.data('product-uuid');
         $this.find('.gift-message-apply').val(true);
         var $applePayButton = $('.apple-pay-cart');
-        $applePayButton.attr('disabled', false);
+        var $applyButtton = $('.add-gift-message');
+        var $giftMessageArray = [];
+
+        $applyButtton.each(function () {
+            var $giftMessageApply = $(this).find('.gift-message-apply').val();
+            $giftMessageArray.push($giftMessageApply);
+        });
+
+        if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+            $applePayButton.attr('disabled', true);
+        } else {
+            $applePayButton.attr('disabled', false);
+        }
 
         $this.parent().find('.gift-message-blank').hide();
         $this.parent().find('.gift-message-error').hide();
@@ -934,6 +946,8 @@ module.exports = function () {
 
     $('body').on('click', '.gift-check', function () {
         $(this).closest('.product-gift-wrap').find('.gift-message-wrapper, .character-limit').toggle(this.checked);
+        var $applePayButton = $('.apple-pay-cart');
+
         if (!this.checked) {
             var parentDiv = $(this).closest('.product-gift-wrap');
             parentDiv.find('.gift-text').val('');
@@ -941,7 +955,6 @@ module.exports = function () {
             var endPointURL = giftButton.attr('href');
             var giftMessage = '';
             var prodUUID = giftButton.data('product-uuid');
-            var $applePayButton = $('.apple-pay-cart');
             $applePayButton.attr('disabled', false);
             giftButton.parent().find('.gift-message-blank').hide();
             giftButton.parent().find('.gift-message-error').hide();
@@ -959,6 +972,20 @@ module.exports = function () {
 
                     giftButton.prop('disabled', 'disabled').find('.saved-button').removeClass('d-none');
                     giftButton.find('.apply-button').addClass('d-none');
+
+                    var $applyButtton = $('.add-gift-message');
+                    var $giftMessageArray = [];
+
+                    $applyButtton.each(function () {
+                        var $giftMessageApply = $(this).find('.gift-message-apply').val();
+                        $giftMessageArray.push($giftMessageApply);
+                    });
+
+                    if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+                        $applePayButton.attr('disabled', true);
+                    } else {
+                        $applePayButton.attr('disabled', false);
+                    }
                 },
                 error: function (data) { $.spinner().stop(); }
             });
