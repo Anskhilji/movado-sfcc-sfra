@@ -28,3 +28,4 @@ exports.PROMOTION_START_END_DATE_SEPARATOR = '/';
 exports.PRODUCT_TYPE = 'set';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
+exports.RAKUTEN_SITE_ID = 'atrv';

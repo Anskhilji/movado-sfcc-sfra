@@ -16,3 +16,4 @@ exports.ERRORS_TYPE = {
 }
 
 exports.US_COUNTRY_CODE='US';
+exports.RAKUTEN_SITE_ID = 'atrv';

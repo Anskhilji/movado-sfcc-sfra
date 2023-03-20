@@ -21,3 +21,4 @@ exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.COLOR_WATCH = 'colorWatch';
 exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
+exports.RAKUTEN_SITE_ID = 'atrv';

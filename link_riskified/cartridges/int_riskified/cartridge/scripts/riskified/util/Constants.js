@@ -36,4 +36,5 @@ exports.BAD_CALL = 'BAD_CALL';
 
 exports.RISKIFIED = 'Riskified Integration';
 exports.ADYEN = 'Adyen Integration';
+exports.RAKUTEN_SITE_ID = 'atrv';
 

@@ -30,6 +30,7 @@ exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
 
 exports.RISKFIED_ORDER_DECLINED = 'declined';
+exports.RAKUTEN_SITE_ID = 'atrv';
 
 exports.FEDEX_SERVICE_ID = {
     FEDEX_AUTHENTICATION: 'fedex.auth.api',
