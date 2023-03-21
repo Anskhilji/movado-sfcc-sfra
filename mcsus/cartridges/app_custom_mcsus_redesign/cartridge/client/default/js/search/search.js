@@ -345,8 +345,9 @@ $('.filter-container').on(
         }
     });
 
-    function closeRefinementBar(params) {
+    function closeRefinementBar() {
         $('.refinement-bar, .movado-modal').hide();
+        $('.modal-background').removeClass('filter-modal-background');
         var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
         if (refinementBarPl) {
             refinementBarPl.removeClass('refinement-bar-pl');
@@ -362,6 +363,7 @@ module.exports = {
         // Display refinements bar when Menu icon clicked
         $('.filter-container').on('click', 'button.filter-results', function () {
             $('.refinement-bar, .movado-modal').show();
+            $('.modal-background').addClass('filter-modal-background');
             var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
             if (refinementBarPl) {
               refinementBarPl.addClass('refinement-bar-pl');
@@ -375,7 +377,7 @@ module.exports = {
 
     closeRefinments: function () {
         // Refinements close button
-        $('.filter-container').on('click', '.refinement-bar button.close, .modal-background', function (e) {
+        $('.filter-container').on('click', '.refinement-bar button.close, .filter-modal-background', function (e) {
             closeRefinementBar();
         });
     },
@@ -384,6 +386,7 @@ module.exports = {
         // Close refinement bar and hide modal background if user resizes browser
         $(window).resize(function () {
             $('.movado-refinebar, .movado-modal').hide();
+            $('.modal-background').removeClass('filter-modal-background');
         });
     },
 
@@ -562,7 +565,7 @@ module.exports = {
         // Handle refinement value selection and reset click
         $('.filter-container, body').on(
             'click',
-            '.fillter-btn, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .refinement-bar .close-btn-text, refinement-bar .close-btn-text .fa-close, .modal-background.movado-modal',
+            '.fillter-btn, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .refinement-bar .close-btn-text, refinement-bar .close-btn-text .fa-close, .modal-background.filter-modal-background',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -579,7 +582,7 @@ module.exports = {
 
                 // Get currently selected sort option to retain sorting rules
                 var urlparams = getUrlParamObj(document.location.href);
-                if ($(target).is('.fillter-btn, .close-btn-text, .fa-close, .modal-background.movado-modal')) {
+                if ($(target).is('.fillter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
                     var filtersURL = document.location.href;
                 } else {
                     var filtersURL = e.currentTarget.href;
@@ -593,7 +596,7 @@ module.exports = {
                     }
                 }
                 //custome start:  [MSS-1447] : multi-select filter / URL
-                if ($(target).is('.fillter-btn, .close-btn-text, .fa-close, .modal-background.movado-modal')) {
+                if ($(target).is('.fillter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
                     //add selected class  agains checked filter
                     $('[data-filter-id]').each(function () {
                         if ($(this).find('.fa-check-square').length > 0) {

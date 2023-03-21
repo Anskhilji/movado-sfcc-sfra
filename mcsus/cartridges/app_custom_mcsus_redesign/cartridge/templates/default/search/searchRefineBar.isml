@@ -14,10 +14,6 @@
         </button>
     </div>
 </div>
-
-    <iscomment> <a class="btn btn-primary fillter-btn" href="#" data-filter="true">
-        apply filter
-    </a>  </iscomment>
 <div class="refine-wrapper">
     <div class="refinements movado-refinements-container">
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
