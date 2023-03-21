@@ -348,9 +348,9 @@ $('.filter-container').on(
     function closeRefinementBar() {
         $('.refinement-bar, .movado-modal').hide();
         $('.modal-background').removeClass('filter-modal-background');
-        var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
-        if (refinementBarPl) {
-            refinementBarPl.removeClass('refinement-bar-pl');
+        var $refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
+        if ($refinementBarPl) {
+            $refinementBarPl.removeClass('refinement-bar-pl');
             $('.secondary-bar').removeClass('secondary-bar-mt');
         }
         if ($(window).width() > 991) {
@@ -563,6 +563,7 @@ module.exports = {
 
     applyFilter: function () {
         // Handle refinement value selection and reset click
+        // custome : we are using 'body' because to close refinement bar on click [modal-background.filter-modal-background]
         $('.filter-container, body').on(
             'click',
             '.fillter-btn, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .refinement-bar .close-btn-text, refinement-bar .close-btn-text .fa-close, .modal-background.filter-modal-background',
@@ -598,71 +599,79 @@ module.exports = {
                 //custome start:  [MSS-1447] : multi-select filter / URL
                 if ($(target).is('.fillter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
                     //add selected class  agains checked filter
-                    $('[data-filter-id]').each(function () {
-                        if ($(this).find('.fa-check-square').length > 0) {
-                            $(this).addClass('selected-filter-id');
-                        } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
-                            $(this).addClass('selected-filter-id');
-                        }
-                    });
-                    $('[data-filter-value]').each(function () {
-                        if ($(this).find('.fa-check-square').length > 0) {
-                            $(this).addClass('selected-filter');
-                        } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
-                            $(this).addClass('selected-filter');
-                        }
-                    });
-                    // add custome logic to bulid URL
-                    var refinementsAttributesId = [];
-                    var refinementsAttributesValues = [];
-                    $('.selected-filter-id').each(function () {
-                        var selectedId = $(this).data('filter-id');
-                        refinementsAttributesId.push(selectedId);
-                        var array = [];
-                        $('[data-filter-id="' + selectedId + '"] .selected-filter').each(function () {
-                            var selectedValue = '';
-                            if (selectedId == 'price') {
-                                var pmin = $(this).data('value-pmin');
-                                var pmax = $(this).data('value-pmax');
-                                selectedValue = pmin + '-' + pmax;
-                            } else {
-                                selectedValue = $(this).data('filter-value');
+                    if ($('[data-filter-id]').length > 0) {
+                        $('[data-filter-id]').each(function () {
+                            if ($(this).find('.fa-check-square').length > 0) {
+                                $(this).addClass('selected-filter-id');
+                            } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
+                                $(this).addClass('selected-filter-id');
                             }
-                            array.push(selectedValue);
                         });
-                        refinementsAttributesValues.push(array);
-                    });
+                    }
+                    if ($('[data-filter-value]').length > 0) {
+                        $('[data-filter-value]').each(function () {
+                            if ($(this).find('.fa-check-square').length > 0) {
+                                $(this).addClass('selected-filter');
+                            } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
+                                $(this).addClass('selected-filter');
+                            }
+                        });
+                    }
+                    // add custome logic to bulid URL
+                    var $refinementsAttributesId = [];
+                    var $refinementsAttributesValues = [];
+                    if ($('.selected-filter-id').length > 0) {
+                        $('.selected-filter-id').each(function () {
+                            var $selectedId = $(this).data('filter-id');
+                            $refinementsAttributesId.push($selectedId);
+                            var $array = [];
+                            $('[data-filter-id="' + $selectedId + '"] .selected-filter').each(function () {
+                                var $selectedValue = '';
+                                if ($selectedId == 'price') {
+                                    var $pmin = $(this).data('value-pmin');
+                                    var $pmax = $(this).data('value-pmax');
+                                    $selectedValue = $pmin + '-' + $pmax;
+                                } else {
+                                    $selectedValue = $(this).data('filter-value');
+                                }
+                                $array.push($selectedValue);
+                            });
+                            $refinementsAttributesValues.push($array);
+                        });
+                    }
 
                     // generate custome URL
-                    var url = '';
-                    var prefNumber = 0;
-                    refinementsAttributesId.forEach(function (attr, i) {
-                        var urlSelector = url == '' ? '?' : '&';
-                        var prefv = '';
-                        if (attr == 'promotion') {
-                            url = (url == '' ? '' : url) + urlSelector + 'pmid=' + refinementsAttributesValues[i];
-                        } else if (attr == 'price') {
-                            prefv = refinementsAttributesValues[i].toString().split('-'); // value of price is in range
-                            url = (url == '' ? '' : url) + urlSelector + 'pmin=' + prefv[0] + '&pmax=' + prefv[1];
-                        } else {
-                            prefNumber++;
-                            prefv = encodeURIComponent(refinementsAttributesValues[i].length > 1 ? refinementsAttributesValues[i].toString().replaceAll(',', '|') : refinementsAttributesValues[i]);
-                            url = (url == '' ? '' : url) + urlSelector + 'prefn' + prefNumber + '=' + encodeURIComponent(attr) + '&prefv' + prefNumber + '=' + prefv;
-                        }
-                    });
-                    var baseUrl = document.location.href;
-                    if (url != '' && baseUrl.indexOf('srule') !== -1) {
-                        var sortingRuleUrl = $('.sorting-rules-filters').find(':selected').data('id');
-                        url = url + '&srule=' + sortingRuleUrl;
+                    var $url = '';
+                    var $prefNumber = 0;
+                    if ($refinementsAttributesId.length > 0) {
+                        $refinementsAttributesId.forEach(function (attr, i) {
+                            var $urlSelector = $url == '' ? '?' : '&';
+                            var $prefv = '';
+                            if (attr == 'promotion') {
+                                $url = ($url == '' ? '' : $url) + $urlSelector + 'pmid=' + $refinementsAttributesValues[i];
+                            } else if (attr == 'price') {
+                                $prefv = $refinementsAttributesValues[i].toString().split('-'); // value of price is in range
+                                $url = ($url == '' ? '' : $url) + $urlSelector + 'pmin=' + $prefv[0] + '&pmax=' + $prefv[1];
+                            } else {
+                                $prefNumber++;
+                                $prefv = encodeURIComponent($refinementsAttributesValues[i].length > 1 ? $refinementsAttributesValues[i].toString().replaceAll(',', '|') : $refinementsAttributesValues[i]);
+                                $url = ($url == '' ? '' : $url) + $urlSelector + 'prefn' + $prefNumber + '=' + encodeURIComponent(attr) + '&prefv' + $prefNumber + '=' + $prefv;
+                            }
+                        });
                     }
-                    if (url == '' && baseUrl.indexOf('srule') !== -1) {
-                        var categorySortUrl = $('.sorting-rules-filters').find(':selected').data('id');
-                        url = url + '?srule=' + categorySortUrl;
+                    var $baseUrl = document.location.href;
+                    if ($url != '' && $baseUrl.indexOf('srule') !== -1) {
+                        var $sortingRuleUrl = $('.sorting-rules-filters').find(':selected').data('id');
+                        $url = $url + '&srule=' + $sortingRuleUrl;
                     }
-                    if (baseUrl.indexOf('?') !== -1) {
-                        baseUrl = baseUrl.split('?')[0];
+                    if ($url == '' && $baseUrl.indexOf('srule') !== -1) {
+                        var $categorySortUrl = $('.sorting-rules-filters').find(':selected').data('id');
+                        $url = $url + '?srule=' + $categorySortUrl;
                     }
-                    filtersURL = baseUrl + url;
+                    if ($baseUrl.indexOf('?') !== -1) {
+                        $baseUrl = $baseUrl.split('?')[0];
+                    }
+                    filtersURL = $baseUrl + $url;
                 }
                 //custome end:  [MSS-1447] : multi-select filter / URL
                 
