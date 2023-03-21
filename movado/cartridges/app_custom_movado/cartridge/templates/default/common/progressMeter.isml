@@ -9,7 +9,7 @@
             <div class="progress-meter d-flex flex-column align-items-center">
                 <isset name="PromoMsg" value="${pdict.progressBarPromoMsg}" scope="page" />
                 <isset name="progressBarPromoMsg" value="${PromoMsg.replace('price', pdict.approachingDiscountsTotal)}" scope="page" /> 
-                <div class="progress-meter-free-shipping">${progressBarPromoMsg}</div>
+                <div class="progress-meter-free-shipping">${!empty(progressBarPromoMsg) ? progressBarPromoMsg : ''}</div>
                 <div class="progress-meter-box">
                     <iscomment>if the progress meter is active then the class .bar-green will be added and then will be deactivated
                         then

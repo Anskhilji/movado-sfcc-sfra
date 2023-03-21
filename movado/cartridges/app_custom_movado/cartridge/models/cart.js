@@ -300,7 +300,7 @@ function CartModel(basket) {
         var conditionThreshold = progressBarApproachingDiscounts[0].conditionThreshold;
         var conditionThresholdCurrencyValue = conditionThreshold.substring(1);
         var approachingDiscountCurrencyValue = approachingDiscountsTotal.substring(1);
-        var progressBarPromoMsg = progressBarApproachingDiscounts[0].progressBarPromoMsg;
+        var progressBarPromoMsg = progressBarApproachingDiscounts[0].progressBarPromoMsg ? progressBarApproachingDiscounts[0].progressBarPromoMsg : '';
         isPromoProgressBarEnabled = progressBarApproachingDiscounts[0].isPromoProgressBarEnable ? progressBarApproachingDiscounts[0].isPromoProgressBarEnable : false;
 
         var progressBarPromoTotal = conditionThresholdCurrencyValue;
