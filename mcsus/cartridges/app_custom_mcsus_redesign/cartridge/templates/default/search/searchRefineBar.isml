@@ -1,5 +1,5 @@
 <!--- Close button --->
-<div class="filter-header mx-sm-0">
+<div class="filter-header mx-sm-0 sticky-top">
     <div class="header-bar clearfix">
         <button class="filter-by-icon close-btn-text">
             <picture>
@@ -8,9 +8,9 @@
             </picture>
             <span class="d-inline-block close-btn-text">${Resource.msg('button.filterby', 'search', null)}</span>
         </button>
-        <button class="pull-right close">
-            <span class="close-btn-text">${Resource.msg('button.close', 'search', null)}</span>
-            <i class="fa fa-close"></i>
+        <button class="pull-right close mt-2">
+            <span class="close-btn-text d-none">${Resource.msg('button.close', 'search', null)}</span>
+            <img src="${URLUtils.staticURL('/images/clear_black_24dp.svg')}" class="img-fluid close-btn-text">
         </button>
     </div>
 </div>
