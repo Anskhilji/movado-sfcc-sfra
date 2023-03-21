@@ -566,7 +566,7 @@ module.exports = {
         // custome : we are using 'body' because to close refinement bar on click [modal-background.filter-modal-background]
         $('.filter-container, body').on(
             'click',
-            '.fillter-btn, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .refinement-bar .close-btn-text, refinement-bar .close-btn-text .fa-close, .modal-background.filter-modal-background',
+            '.filter-btn, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .refinement-bar .close-btn-text, refinement-bar .close-btn-text .fa-close, .modal-background.filter-modal-background',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -583,7 +583,7 @@ module.exports = {
 
                 // Get currently selected sort option to retain sorting rules
                 var urlparams = getUrlParamObj(document.location.href);
-                if ($(target).is('.fillter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
+                if ($(target).is('.filter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
                     var filtersURL = document.location.href;
                 } else {
                     var filtersURL = e.currentTarget.href;
@@ -597,7 +597,7 @@ module.exports = {
                     }
                 }
                 //custome start:  [MSS-1447] : multi-select filter / URL
-                if ($(target).is('.fillter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
+                if ($(target).is('.filter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
                     //add selected class  agains checked filter
                     if ($('[data-filter-id]').length > 0) {
                         $('[data-filter-id]').each(function () {
