@@ -1,9 +1,11 @@
 'use strict';
 
 var ArrayList = require('dw/util/ArrayList');
+var Constants = require('~/cartridge/scripts/util/Constants');
 var HashMap = require('dw/util/HashMap');
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site').getCurrent();
+var Transaction = require('dw/system/Transaction');
 
 /**
  * This method is used to get the custom countries json from the site preferences.
@@ -263,6 +265,52 @@ function isTaxDutiesAllowedCountry() {
     return disableTaxDuties;
 }
 
+function rakuteenOrderAttributes (order) {
+
+    var isRakuteen = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
+    var israkuteencrossborder = Site.current.preferences.custom.rakutenCrossBorderEnable;
+
+    if (isRakuteen && israkuteencrossborder) {
+        try {
+            var rakutenCookieValue = request.getHttpCookies()['rmStoreGateway'] ? decodeURIComponent(request.getHttpCookies()['rmStoreGateway'].value) : '';
+            if (!empty(rakutenCookieValue)) {
+                var rakutenCookieValuesArray = rakutenCookieValue.split('|');
+                var rakutenCookieSiteID = rakutenCookieValuesArray.filter(function (siteID) {
+                    if (siteID.indexOf(Constants.RAKUTEN_SITE_ID) > -1) {
+                        return siteID;
+                    }
+                });
+                if (!empty(rakutenCookieSiteID)) {
+                    rakutenCookieSiteID = rakutenCookieSiteID[0].split(':');
+                    var rakutenCookieSiteIDValue = rakutenCookieSiteID[1];
+                    if (!empty(rakutenCookieSiteIDValue)) {
+                        var currentDate = new Date().toDateString();
+                        Transaction.wrap(function () {
+                            order.custom.rakutenSiteID  = rakutenCookieSiteIDValue;
+                            order.custom.rakutenCookieDropDate = currentDate;
+                        });
+                    }
+                }
+            }
+        } catch (e) {
+            Logger.error('eswCustomHelper.js: Error occured while getting rakutenCookie params and order objects: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        }
+    }
+
+}
+
+function saveRakutenOrderAttribute (order) {
+    if (order.custom.rakutenSiteID && order.custom.rakutenCookieDropDate) {
+        Transaction.wrap(function () {
+            order.rakutenSiteID  = rakutenCookieSiteIDValue;
+            order.custom.rakutenCookieDropDate = currentDate;
+            order.custom.rakutenSiteID = null;
+            order.custom.rakutenCookieDropDate = null;
+        });
+    }
+}
+
+
 module.exports = {
     getCustomCountries: getCustomCountries,
     getCustomLanguages: getCustomLanguages,
@@ -277,5 +325,7 @@ module.exports = {
     isEswEnableLandingPage: isEswEnableLandingPage,
     isEswEnableLandingpageBar: isEswEnableLandingpageBar,
     isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry,
-    isTaxDutiesAllowedCountry: isTaxDutiesAllowedCountry
+    isTaxDutiesAllowedCountry: isTaxDutiesAllowedCountry,
+    rakuteenOrderAttributes: rakuteenOrderAttributes,
+    saveRakutenOrderAttribute: saveRakutenOrderAttribute
 };

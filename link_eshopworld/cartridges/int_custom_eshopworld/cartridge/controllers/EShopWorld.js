@@ -201,6 +201,14 @@ server.append('NotifyV2', function(req, res, next) {
         }
     });
 
+
+    var isRakuteen = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
+    var israkuteencrossborder = !empty(Site.current.preferences.custom.rakutenCrossBorderEnable) ? Site.current.preferences.custom.rakutenCrossBorderEnable : false;
+    
+    if (isRakuteen && israkuteencrossborder) {
+        eswCustomHelper.saveRakutenOrderAttribute(order);
+    }
+
     // Salesforce Order Management attributes
     if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
         var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');

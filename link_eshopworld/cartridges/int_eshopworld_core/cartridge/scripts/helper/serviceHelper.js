@@ -5,6 +5,7 @@
  **/
 var Site = require('dw/system/Site').getCurrent();
 
+var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var BasketMgr = require('dw/order/BasketMgr');
 var URLUtils = require('dw/web/URLUtils');
@@ -726,6 +727,13 @@ function createOrder() {
         });
         //order = cart.createOrder();
         session.privacy.orderNo = order.orderNo;
+        var isRakuteen = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
+        var israkuteencrossborder = Site.current.preferences.custom.rakutenCrossBorderEnable;
+        
+        if (isRakuteen && israkuteencrossborder) {
+            eswCustomHelper.rakuteenOrderAttributes(order);
+        }
+
         Transaction.wrap(function () {
             order.paymentInstruments[0].paymentTransaction.paymentProcessor = PaymentMgr.getPaymentMethod(order.paymentInstruments[0].getPaymentMethod()).getPaymentProcessor();
         });
