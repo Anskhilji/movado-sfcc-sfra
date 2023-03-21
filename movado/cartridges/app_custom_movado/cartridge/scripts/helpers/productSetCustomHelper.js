@@ -1,9 +1,11 @@
 'use strict';
 
+var Logger = require('dw/system/Logger');
+var ProductMgr = require('dw/catalog/ProductMgr');
+
 function getProductSetBasePrice(productID, currency, isJob) {
     var Currency = require('dw/util/Currency');
     var Money = require('dw/value/Money');
-    var ProductMgr = require('dw/catalog/ProductMgr');
     var Transaction = require('dw/system/Transaction');
 
     var productSet = ProductMgr.getProduct(productID);
@@ -215,7 +217,60 @@ function getSalePriceEffectiveDate(startDate, endDate) {
     return campaignStartingDate + Constants.PROMOTION_START_END_DATE_SEPARATOR + campaignEndingDate;
 }
 
+function getPLPCustomSetURL(productID, product) {
+    var Site = require('dw/system/Site');
+    var URLUtils = require('dw/web/URLUtils');
+
+    var productSet = ProductMgr.getProduct(productID);
+    var productSetProducts = productSet.productSetProducts.iterator();
+    var currentProductSetProduct;
+    var currentProductSetProductBrand;
+    var currentProductSetProductID
+    var customSetURL;
+    var currentSetItemURL;
+    var customSetItemURL = [];
+    var customURLObj = !empty(Site.current.preferences.custom.plpCustomUrl) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
+    var brandID = Site.current.ID;
+    
+    try {
+
+        if (customURLObj && customURLObj[brandID]) {
+            if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
+                customSetURL = !empty(customURLObj[product.productSetBrand] && customURLObj[product.productSetBrand].URL) ? customURLObj[product.productSetBrand].URL : null;
+
+            } else {
+                customSetURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
+            }
+        }
+
+        while (productSetProducts.hasNext()) {
+            currentProductSetProduct = productSetProducts.next();
+            currentProductSetProductBrand = currentProductSetProduct.brand;
+            currentProductSetProductID = currentProductSetProduct.ID;
+            if (customURLObj && customURLObj[brandID]) {
+                if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
+                    currentSetItemURL = !empty(customURLObj[currentProductSetProductBrand] && customURLObj[currentProductSetProductBrand].URL) ? customURLObj[currentProductSetProductBrand].URL : null;
+                    currentSetItemURL = currentSetItemURL +  '|'  + currentProductSetProductID
+                    customSetItemURL.push(currentSetItemURL);
+                } else {
+                    currentSetItemURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
+                    customSetItemURL.push(currentSetItemURL);
+                }
+            }
+        }
+    
+        return {
+            customSetItemURL: customSetItemURL,
+            customSetURL: customSetURL
+        }
+    } catch (e) {
+       Logger.error('(productCustomHelper.js -> getPLPCustomURL) Error occured while getting plp URL of Product Set from custom preferences: ' + e.stack, e.message);
+        return '';
+    }
+}
+
 module.exports = {
     getProductSetBasePrice: getProductSetBasePrice,
-    getProductSetSalePrice: getProductSetSalePrice
+    getProductSetSalePrice: getProductSetSalePrice,
+    getPLPCustomSetURL: getPLPCustomSetURL
 };
