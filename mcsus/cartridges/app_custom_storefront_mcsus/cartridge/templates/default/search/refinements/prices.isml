@@ -1,7 +1,7 @@
 <ul class="values content" data-filter-id="price">
     <isloop items="${refinement.values}" var="refinementValue">
         <li class="col-sm-4 col-md-12" title="${refinementValue.title}">
-            <a data-filter-value== ${refinementValue.displayValue} data-value-pmin="${refinementValue.valueFrom}" data-value-pmax="${refinementValue.valueTo}" href="${refinementValue.url}">
+            <a data-filter-value="${refinementValue.displayValue}" data-value-pmin="${refinementValue.valueFrom}" data-value-pmax="${refinementValue.valueTo}" href="${refinementValue.url}">
                 <isif condition="${refinementValue.selected}">
                     <i class="fa fa-check-circle"></i>
                 <iselse>
