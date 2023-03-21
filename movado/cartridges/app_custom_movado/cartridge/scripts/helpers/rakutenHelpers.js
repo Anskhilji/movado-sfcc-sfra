@@ -138,7 +138,9 @@ function saveRakutenOrderAttributes(order) {
                 rakutenCookieSiteID = rakutenCookieSiteID[0].split(':');
                 var rakutenCookieSiteIDValue = rakutenCookieSiteID[1];
                 if (!empty(rakutenCookieSiteIDValue)) {
-                    var currentDate = new Date().toDateString();
+                    var calendar = Site.current.calendar;
+                    calendar.setTimeZone('GMT');
+                    var currentDate = getDateString(calendar, Constants.RAKUTEN_Order_GMT_DATE);
                     Transaction.wrap(function () {
                         order.custom.ranSiteID = rakutenCookieSiteIDValue;
                         order.custom.ranCookieDroppedDate = currentDate;
