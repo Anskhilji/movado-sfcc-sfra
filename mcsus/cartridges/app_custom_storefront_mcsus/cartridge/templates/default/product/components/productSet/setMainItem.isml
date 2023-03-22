@@ -25,18 +25,25 @@
                 </div>
             <iscomment> product detail redesign section start here </iscomment>
             <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
+                <div class="d-block d-sm-none">
+                    <h2 class="product-family-name-redesign">
+                        <isif condition="${product.productSetBrand}">
+                            <a href="${!empty(pdict.customProductSetURL) ? pdict.customProductSetURL : ''}">${product.productSetBrand}</a>
+                        </isif>
+                    </h2>
+                </div>
                     <!-- Product Images Carousel -->
                 <isinclude template="product/components/productSet/imageCarouselSet" />
 
                 <div class="product-detail-right-box">
-                    <div class="d-sm-block">
+                    <div class="d-none d-sm-block">
                         <h2 class="product-family-name-redesign">
                             <isif condition="${product.productSetBrand}">
-                                <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.productSetBrand}</a>
+                                <a href="${!empty(pdict.customProductSetURL) ? pdict.customProductSetURL : ''}">${product.productSetBrand}</a>
                             </isif>
                         </h2>
-                        <h2 class="product-name prdouct-name-gtm  d-sm-block">${product.productName}</h2>
                     </div>
+                    <h2 class="product-name prdouct-name-gtm  d-sm-block">${product.productName}</h2>
 
                     <div class="w-100 price-promotions-box">
                         <!-- Applicable Promotions -->

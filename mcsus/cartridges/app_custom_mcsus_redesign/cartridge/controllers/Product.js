@@ -57,6 +57,10 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
     var customURL = productCustomHelper.getPLPCustomURL(product);
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+    var customProductSetURL;
+    var customIndividualItemURL;
+    var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
+    var productSetURL = productSetCustomHelper.getPLPCustomSetURL(product.id, product);
 
     var apiProduct = productMgr.getProduct(product.id);
     var params = req.querystring;
@@ -88,7 +92,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
        if (!empty(product.ID)) {
-        var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
         var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
         var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
        }
@@ -179,6 +182,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
        smartGiftAddToCartURL : smartGiftAddToCartURL,
        customURL: customURL,
+       customProductSetURL: productSetURL.customProductSetURL,
+       customIndividualItemURL: productSetURL.customIndividualItemURL,
        popupID: listrakPersistentPopup
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
