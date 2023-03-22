@@ -59,8 +59,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
     var customURL = productCustomHelper.getPLPCustomURL(product);
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
-    var customSetURL;
-    var customSetItemURL;
+    var customProductSetURL;
+    var customIndividualItemURL;
     var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
     var productSetURL = productSetCustomHelper.getPLPCustomSetURL(product.id, product);
 
@@ -166,8 +166,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
        smartGiftAddToCartURL : smartGiftAddToCartURL,
        customURL: customURL,
-       customSetURL: productSetURL.customSetURL,
-       customSetItemURL: productSetURL.customSetItemURL,
+       customProductSetURL: productSetURL.customProductSetURL,
+       customIndividualItemURL: productSetURL.customIndividualItemURL,
        popupID: listrakPersistentPopup
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
