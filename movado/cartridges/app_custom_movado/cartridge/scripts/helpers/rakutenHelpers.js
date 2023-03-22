@@ -66,7 +66,24 @@ function setCookiesResponse(name, value, path) {
 function getDateString(date, dateFormat) {
     var StringUtils = require('dw/util/StringUtils');
     var formattedDate = StringUtils.formatCalendar(date, dateFormat);
-    return .;
+    return formattedDate;
+}
+
+/**
+ * Extract the year, month, day, hours, and minutes from the string
+ *
+ * @param {String} date - current date as string format.
+ * @returns {Date} formattedDate - returned date.
+ */
+function getDateFromString(date) {
+    var year = date.substring(0, 4);
+    var month = parseInt(date.substring(4, 6)) - 1;
+    var day = date.substring(6, 8);
+    var hours = date.substring(9, 11);
+    var minutes = date.substring(11, 13);
+    var formattedDate = new Date(year, month, day, hours, minutes);
+
+    return formattedDate
 }
 
 /**
@@ -134,16 +151,26 @@ function saveRakutenOrderAttributes(order) {
                     return siteID;
                 }
             });
-            if (!empty(rakutenCookieSiteID)) {
+            var rakutenCookieDroppedDate = rakutenCookieValuesArray.filter(function (droppedDate) {
+                if (droppedDate.indexOf(Constants.RAKUTEN_DROPPED_DATE) > -1) {
+                    return droppedDate;
+                }
+            });
+            if (!empty(rakutenCookieSiteID) && !empty(rakutenCookieDroppedDate)) {
                 rakutenCookieSiteID = rakutenCookieSiteID[0].split(':');
                 var rakutenCookieSiteIDValue = rakutenCookieSiteID[1];
-                if (!empty(rakutenCookieSiteIDValue)) {
-                    var calendar = Site.current.calendar;
+
+                rakutenCookieDroppedDate = rakutenCookieDroppedDate[0].split(':');
+                var rakutenCookieDateString = rakutenCookieDroppedDate[1];
+                var rakutenDroppedDate = getDateFromString(rakutenCookieDateString);
+
+                if (!empty(rakutenCookieSiteIDValue) && !empty(rakutenDroppedDate)) {
+                    var calendar = Calendar(rakutenDroppedDate);
                     calendar.setTimeZone('GMT');
-                    var currentDate = getDateString(calendar, Constants.RAKUTEN_Order_GMT_DATE);
+                    var droppedRakutenDate = getDateString(calendar, Constants.RAKUTEN_Order_GMT_DATE);
                     Transaction.wrap(function () {
                         order.custom.ranSiteID = rakutenCookieSiteIDValue;
-                        order.custom.ranCookieDroppedDate = currentDate;
+                        order.custom.ranCookieDroppedDate = droppedRakutenDate;
                     });
                 }
             }

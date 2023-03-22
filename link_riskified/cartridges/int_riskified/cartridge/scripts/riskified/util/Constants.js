@@ -35,5 +35,6 @@ exports.BAD_JSON = 'BAD_JSON';
 exports.BAD_CALL = 'BAD_CALL';
 
 exports.RAKUTEN_SITE_ID = 'atrv';
+exports.RAKUTEN_DROPPED_DATE = 'ald';
 exports.RAKUTEN_Order_GMT_DATE = 'yyyy-MM-dd\'T\'HH:mm:ss\'Z\'';
 
