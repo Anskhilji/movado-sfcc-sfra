@@ -143,6 +143,41 @@
                             }
                         }
                     }
+            
+                    &-prev,
+                    &-next {
+                        top: 50%;
+                        transform: translateY(-50%);
+                        border-radius: 50%;
+                        background-size: rem(25) rem(20);
+                        border: rem(1) solid $silver;
+                        background-color: $white;
+                        box-shadow: rem(0) rem(0) rem(8) $grey-light2;
+            
+                        @include media-breakpoint-up(lg) {
+                            top: 40%;
+                        }
+                    }
+            
+                    &-prev {
+                        background-image: url('../images/chevron-left-arrow.svg');
+                        background-size: auto;
+                        left: rem(-9);
+            
+                        @include media-breakpoint-down (lg) {
+                            left: rem(5);
+                        }
+                    }
+            
+                    &-next {
+                        background-image: url('../images/chevron-right-arrow.svg');
+                        background-size: auto;
+                        right: rem(5);
+            
+                        @include media-breakpoint-down (lg) {
+                            right: rem(20);
+                        }
+                    }
                 }
             }
         }
