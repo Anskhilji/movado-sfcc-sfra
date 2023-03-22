@@ -284,7 +284,8 @@
                     }
                     
                     .header-bar {
-                        padding: rem(15);
+                        padding: rem(14);
+                        background-color: $white;
 
                         .total-product-count {
                             margin-top: 0;
@@ -304,11 +305,35 @@
                                 box-shadow: none;
                             }
                         }
+
+                        .filter-by-icon {
+                            border: none;
+                            font-size: rem(16);
+                            font-weight: 600;
+                            letter-spacing: rem(2.67);
+                            line-height: rem(30);
+                            color: $grey-light11;
+                            outline: none;
+                            font-family: $futura-medium;
+                            text-transform: uppercase;
+                            background: none;
+                            cursor: pointer;
+
+                            img {
+                                height: rem(20);
+                            }
+
+                            &:focus {
+                                outline: none;
+                            }
+                        }
                     }
 
                     .reset-container,
                     .refine-wrapper {
-                        padding: rem(0) rem(10);
+                        padding: rem(0) rem(10) rem(10);
+                        max-height: calc(100vh - 200px);
+                        overflow-y: auto;
 
                         @include media-breakpoint-down(xs) {
                             padding: rem(0);
@@ -386,6 +411,82 @@
                         }
                     }
                 }
+
+                // custom filter sidebar bottom  start
+                .filter-bottom-sec {
+                    margin-top: rem(30);
+                    background-color: $white;
+                    box-shadow: rem(0) rem(0) rem(7) rgba(0, 0, 0, 0.2);
+                    padding: rem(20);
+                    position: fixed;
+                    bottom: 0;
+                    right: 0;
+                    max-width: 25%;
+                    width: 100%;
+                    
+                    @include media-breakpoint-down(lg) {
+                        max-width: 33.33333%;
+                    }
+                
+                    @include media-breakpoint-down(custom-md) {
+                        max-width: 100%;
+                    }
+
+                    .reset-container {
+                        padding: 0;
+
+                        .secondary-bar {
+                            border: none;
+                            margin: 0;
+                            opacity: 0.25;
+                            height: auto;
+                            padding-bottom: rem(20);
+
+                            .reset {
+                                border: none;
+                                text-decoration: underline;
+                                font-size: rem(14);
+                                font-weight: 400;
+                                letter-spacing: rem(1);
+                                line-height: rem(17);
+                                display: block;
+                                margin: 0;
+                                padding: 0;
+                                color: $light-grey10;
+                                text-transform: uppercase;
+                                height: auto;
+                            }
+                        }
+                    }
+
+                    .result-count {
+                        background-color: $black;
+                        height: rem(39);
+                        font-size: rem(14);
+                        font-weight: 400;
+                        color: $white;
+                        cursor: pointer;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        span {
+                            font-size: rem(14);
+                            line-height: rem(17);
+                            color: $white;
+                            margin: 0;
+                            pointer-events: none;
+                        }
+
+                        .filter-btn  {
+                            height: 100%;
+                        }
+                    }
+                }
+
+                // custom filter sidebar bottom  end
             }
         }
 
