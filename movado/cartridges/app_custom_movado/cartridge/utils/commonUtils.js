@@ -29,7 +29,38 @@ function getDate(hours, minutes) {
     return calendar;
 }
 
+/**
+ * This method is used to set the date into given format.
+ *
+ * @param {Date} date - current date.
+ * @param {String} dateFormat - Format which is going to be set.
+ * @returns {Date} formattedDate - returned date in the form of given format.
+ */
+function getDateString(date, dateFormat) {
+    var formattedDate = StringUtils.formatCalendar(date, dateFormat);
+    return formattedDate;
+}
+
+/**
+ * Extract the year, month, day, hours, and minutes from the string
+ *
+ * @param {String} date - current date as string format.
+ * @returns {Date} formattedDate - returned date.
+ */
+function getDateFromString(date) {
+    var year = date.substring(0, 4);
+    var month = parseInt(date.substring(4, 6)) - 1;
+    var day = date.substring(6, 8);
+    var hours = date.substring(9, 11);
+    var minutes = date.substring(11, 13);
+    var formattedDate = new Date(year, month, day, hours, minutes);
+
+    return formattedDate
+}
+
 module.exports = {
     getFormatedDate: getFormatedDate,
-    getDate : getDate
+    getDate: getDate,
+    getDateString: getDateString,
+    getDateFromString: getDateFromString
 };

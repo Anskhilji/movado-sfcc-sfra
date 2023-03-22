@@ -8,6 +8,8 @@ var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site').getCurrent();
 var Transaction = require('dw/system/Transaction');
 
+var CommonUtils = require('*/cartridge/utils/commonUtils');
+
 /**
  * This method is used to get the custom countries json from the site preferences.
  * @returns {ArrayList} languages : Array list of languages
@@ -291,12 +293,12 @@ function saveRakutenOrderAttributes(order) {
     
                     rakutenCookieDroppedDate = rakutenCookieDroppedDate[0].split(':');
                     var rakutenCookieDateString = rakutenCookieDroppedDate[1];
-                    var rakutenDroppedDate = getDateFromString(rakutenCookieDateString);
+                    var rakutenDroppedDate = CommonUtils.getDateFromString(rakutenCookieDateString);
     
                     if (!empty(rakutenCookieSiteIDValue) && !empty(rakutenDroppedDate)) {
                         var calendar = Calendar(rakutenDroppedDate);
                         calendar.setTimeZone('GMT');
-                        var droppedRakutenDate = getDateString(calendar, Constants.RAKUTEN_Order_GMT_DATE);
+                        var droppedRakutenDate = CommonUtils.getDateString(calendar, Constants.RAKUTEN_Order_GMT_DATE);
                         Transaction.wrap(function () {
                             order.custom.ranSiteIDTemp = rakutenCookieSiteIDValue;
                             order.custom.ranCookieDroppedDateTemp = droppedRakutenDate;
@@ -309,36 +311,6 @@ function saveRakutenOrderAttributes(order) {
         }
     }
 
-}
-
-/**
- * This method is used to set the date into given format.
- *
- * @param {Date} date - current date.
- * @param {String} dateFormat - Format which is going to be set.
- * @returns {Date} formattedDate - returned date in the form of given format.
- */
-function getDateString(date, dateFormat) {
-    var StringUtils = require('dw/util/StringUtils');
-    var formattedDate = StringUtils.formatCalendar(date, dateFormat);
-    return formattedDate;
-}
-
-/**
- * Extract the year, month, day, hours, and minutes from the string
- *
- * @param {String} date - current date as string format.
- * @returns {Date} formattedDate - returned date.
- */
- function getDateFromString(date) {
-    var year = date.substring(0, 4);
-    var month = parseInt(date.substring(4, 6)) - 1;
-    var day = date.substring(6, 8);
-    var hours = date.substring(9, 11);
-    var minutes = date.substring(11, 13);
-    var formattedDate = new Date(year, month, day, hours, minutes);
-
-    return formattedDate
 }
 
 module.exports = {
@@ -356,7 +328,5 @@ module.exports = {
     isEswEnableLandingpageBar: isEswEnableLandingpageBar,
     isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry,
     isTaxDutiesAllowedCountry: isTaxDutiesAllowedCountry,
-    saveRakutenOrderAttributes: saveRakutenOrderAttributes,
-    getDateString: getDateString,
-    getDateFromString: getDateFromString
+    saveRakutenOrderAttributes: saveRakutenOrderAttributes
 };
