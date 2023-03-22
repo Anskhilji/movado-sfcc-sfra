@@ -731,7 +731,6 @@ function createOrder() {
         //order = cart.createOrder();
         session.privacy.orderNo = order.orderNo;
 
-        
         if (isRakutenEnable && isRakutenCrossBorderAllowed) {
             eswCustomHelper.saveRakutenOrderAttributes(order);
         }
