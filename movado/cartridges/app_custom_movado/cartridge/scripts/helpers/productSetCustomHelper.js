@@ -226,9 +226,9 @@ function getPLPCustomSetURL(productID, product) {
     var currentProductSetProduct;
     var currentProductSetProductBrand;
     var currentProductSetProductID
-    var customSetURL;
+    var customProductSetURL;
     var currentSetItemURL;
-    var customSetItemURL = [];
+    var customIndividualItemURL = [];
     var customURLObj = !empty(Site.current.preferences.custom.plpCustomUrl) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
     var brandID = Site.current.ID;
     
@@ -236,10 +236,10 @@ function getPLPCustomSetURL(productID, product) {
 
         if (customURLObj && customURLObj[brandID]) {
             if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
-                customSetURL = !empty(customURLObj[product.productSetBrand] && customURLObj[product.productSetBrand].URL) ? customURLObj[product.productSetBrand].URL : null;
+                customProductSetURL = !empty(customURLObj[product.productSetBrand] && customURLObj[product.productSetBrand].URL) ? customURLObj[product.productSetBrand].URL : null;
 
             } else {
-                customSetURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
+                customProductSetURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
             }
         }
 
@@ -251,17 +251,17 @@ function getPLPCustomSetURL(productID, product) {
                 if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
                     currentSetItemURL = !empty(customURLObj[currentProductSetProductBrand] && customURLObj[currentProductSetProductBrand].URL) ? customURLObj[currentProductSetProductBrand].URL : null;
                     currentSetItemURL = currentSetItemURL +  '|'  + currentProductSetProductID
-                    customSetItemURL.push(currentSetItemURL);
+                    customIndividualItemURL.push(currentSetItemURL);
                 } else {
                     currentSetItemURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
-                    customSetItemURL.push(currentSetItemURL);
+                    customIndividualItemURL.push(currentSetItemURL);
                 }
             }
         }
     
         return {
-            customSetItemURL: customSetItemURL,
-            customSetURL: customSetURL
+            customIndividualItemURL: customIndividualItemURL,
+            customProductSetURL: customProductSetURL
         }
     } catch (e) {
        Logger.error('(productCustomHelper.js -> getPLPCustomURL) Error occured while getting plp URL of Product Set from custom preferences: ' + e.stack, e.message);

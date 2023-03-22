@@ -28,7 +28,7 @@
                 <div class="d-block d-sm-none">
                     <h2 class="product-family-name-redesign">
                         <isif condition="${product.productSetBrand}">
-                            <a href="${!empty(pdict.customSetURL) ? pdict.customSetURL : ''}">${product.productSetBrand}</a>
+                            <a href="${!empty(pdict.customProductSetURL) ? pdict.customProductSetURL : ''}">${product.productSetBrand}</a>
                         </isif>
                     </h2>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="d-none d-sm-block">
                         <h2 class="product-family-name-redesign">
                             <isif condition="${product.productSetBrand}">
-                                <a href="${!empty(pdict.customSetURL) ? pdict.customSetURL : ''}">${product.productSetBrand}</a>
+                                <a href="${!empty(pdict.customProductSetURL) ? pdict.customProductSetURL : ''}">${product.productSetBrand}</a>
                             </isif>
                         </h2>
                     </div>
