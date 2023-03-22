@@ -317,31 +317,80 @@ $( document ).ready(function() {
     }
 });
 
+function selectedFilter(selectedAttr) {
+    if (selectedAttr.closest('[data-filter-id="promotion"]').find('.fa-check-square').length > 0) { // add check class in promotion to select filter
+        var promoAttrValue = selectedAttr.data('filter-value');
+        var selectedPromoAttrValue = $('[data-filter-id="promotion"] .selected-filter').data('filter-value');
+        $('[data-filter-id="promotion"]').removeClass('selected-filter-id').find('.fa-check-square').removeClass('fa-check-square').addClass('fa-square-o'); //remove all pre selected promotion value
+        $('[data-filter-id="promotion"]').find('[data-filter-value]').removeClass('selected-filter');
+        if (promoAttrValue != selectedPromoAttrValue) {
+            selectedAttr.addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
+            selectedAttr.find('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square');
+        }
+    } else if (selectedAttr.find('.fa-square-o').length > 0) {
+        selectedAttr.addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
+        selectedAttr.find('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square');
+    } else if (selectedAttr.find('.fa-circle-o').length > 0) { // add check class in radioButton to select filter
+        $('[data-filter-id="price"]').removeClass('selected-filter-id').find('.fa-check-circle').removeClass('fa-check-circle').addClass('fa-circle-o'); //remove all pre selected price value
+        $('[data-filter-id="price"]').find('[data-filter-value]').removeClass('selected-filter');
+        selectedAttr.addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
+        selectedAttr.find('.fa-circle-o').removeClass('fa-circle-o').addClass('fa-check-circle');
+    } else {
+        selectedAttr.removeClass('selected-filter').closest('[data-filter-id]').removeClass('selected-filter-id');
+        selectedAttr.find('.fa-check-square').removeClass('fa-check-square').addClass('fa-square-o');
+        selectedAttr.find('.fa-check-circle').removeClass('fa-check-circle').addClass('fa-circle-o');
+
+    }
+}
+
+
+function selectedFilterTabs() {
+
+    $('[data-filter-id]').each(function () {
+        if ($(this).find('.fa-check-square').length > 0 || $(this).find('.fa-check-circle').length > 0) {
+            $(this).addClass('selected-filter-id');
+        }
+    });
+
+    $('[data-filter-value]').each(function () {
+        if ($(this).find('.fa-check-square').length > 0 || $(this).find('.fa-check-circle').length > 0) {
+            $(this).addClass('selected-filter');
+        }
+    });
+
+    $('.abcdefg').empty();
+    $('.selected-filter-id').each(function () {
+        var selectedAttrId = $(this).data('filter-id');
+        $('[data-filter-id="' + selectedAttrId + '"] .selected-filter').each(function () {
+            var selectedAttrValue = $(this).data('filter-value');
+            var attrValue = selectedAttrValue;
+            if (selectedAttrId == 'promotion') {
+                attrValue = $(this).find('span').text();
+            }
+            var html =
+                '<li data-selected-filter-id="' + selectedAttrId + '" data-selected-filter-value="' + selectedAttrValue + '" class="sidebar-filter-clear">' +
+                attrValue + '</li>';
+            $('.abcdefg').append(html);
+        });
+    });
+}
+
 $('.filter-container').on(
-    'click', '.refinements li a',
+    'click', '.refinements li a, .sidebar-filter-clear',
     function (e) {
         e.preventDefault();
         e.stopPropagation();
+        var target = e.target;
+        // if user remove selected filter from sidebar top
+        if ($(target).is('.sidebar-filter-clear')) {
+            var unSelectedAttributeValue = $(this).data('selected-filter-value');
+            $('[data-selected-filter-value="' + unSelectedAttributeValue + '"]').remove();
+            selectedFilter($('[data-filter-value="' + unSelectedAttributeValue + '"]'));
 
-        // add check class in checkBox to select filter
-        if ($(this).closest('[data-filter-id="promotion"]').length > 0) { // add check class in radioButton to select filter
-            $('[data-filter-id="promotion"]').removeClass('selected-filter-id').find('.fa-check-square').removeClass('fa-check-square').addClass('fa-square-o'); //remove all pre selected promotion value
-            $('[data-filter-id="promotion"]').find('[data-filter-value]').removeClass('selected-filter');
-            $(this).addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
-            $(this).find('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square');
-        } else if ($(this).find('.fa-square-o').length > 0) {
-            $(this).addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
-            $(this).find('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square');
-        } else if ($(this).find('.fa-circle-o').length > 0) { // add check class in radioButton to select filter
-            $('[data-filter-id="price"]').removeClass('selected-filter-id').find('.fa-check-circle').removeClass('fa-check-circle').addClass('fa-circle-o'); //remove all pre selected price value
-            $('[data-filter-id="price"]').find('[data-filter-value]').removeClass('selected-filter');
-            $(this).addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
-            $(this).find('.fa-circle-o').removeClass('fa-circle-o').addClass('fa-check-circle');
         } else {
-            $(this).removeClass('selected-filter').closest('[data-filter-id]').removeClass('selected-filter-id');
-            $(this).find('.fa-check-square').removeClass('fa-check-square').addClass('fa-square-o');
-            $(this).find('.fa-check-circle').removeClass('fa-check-circle').addClass('fa-circle-o');
-
+            // add check class in checkBox to select filter
+            selectedFilter($(this));
+            selectedFilterTabs();
         }
     });
 
@@ -372,6 +421,7 @@ module.exports = {
             if($(window).width() > 991) {
                 getTileHeight()
             }
+            selectedFilterTabs();
         });
     },
 
@@ -388,6 +438,7 @@ module.exports = {
             $('.movado-refinebar, .movado-modal').hide();
             $('.modal-background').removeClass('filter-modal-background');
         });
+        selectedFilterTabs();
     },
 
     sort: function () {
