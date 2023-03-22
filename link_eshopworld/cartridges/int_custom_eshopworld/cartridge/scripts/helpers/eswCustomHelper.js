@@ -1,7 +1,7 @@
 'use strict';
 
 var ArrayList = require('dw/util/ArrayList');
-var Constants = require('~/cartridge/scripts/util/Constants');
+var Constants = require('*/cartridge/scripts/util/Constants');
 var HashMap = require('dw/util/HashMap');
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site').getCurrent();
@@ -265,12 +265,11 @@ function isTaxDutiesAllowedCountry() {
     return disableTaxDuties;
 }
 
-function rakuteenOrderAttributes (order) {
+function saveRakutenOrderAttributes(order) {
+    var isRakutenEnable = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
+    var isRakutenCrossBorderAllowed = !empty(Site.current.preferences.custom.rakutenCrossBorderAllowed) ? Site.current.preferences.custom.rakutenCrossBorderAllowed : false;
 
-    var isRakuteen = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
-    var israkuteencrossborder = Site.current.preferences.custom.rakutenCrossBorderEnable;
-
-    if (isRakuteen && israkuteencrossborder) {
+    if (isRakutenEnable && isRakutenCrossBorderAllowed) {
         try {
             var rakutenCookieValue = request.getHttpCookies()['rmStoreGateway'] ? decodeURIComponent(request.getHttpCookies()['rmStoreGateway'].value) : '';
             if (!empty(rakutenCookieValue)) {
@@ -284,10 +283,12 @@ function rakuteenOrderAttributes (order) {
                     rakutenCookieSiteID = rakutenCookieSiteID[0].split(':');
                     var rakutenCookieSiteIDValue = rakutenCookieSiteID[1];
                     if (!empty(rakutenCookieSiteIDValue)) {
-                        var currentDate = new Date().toDateString();
+                        var calendar = Site.current.calendar;
+                        calendar.setTimeZone('GMT');
+                        var currentDate = getDateString(calendar, Constants.RAKUTEN_Order_GMT_DATE);
                         Transaction.wrap(function () {
-                            order.custom.rakutenSiteID  = rakutenCookieSiteIDValue;
-                            order.custom.rakutenCookieDropDate = currentDate;
+                            order.custom.ranSiteIDTemp = rakutenCookieSiteIDValue;
+                            order.custom.ranCookieDroppedDateTemp = currentDate;
                         });
                     }
                 }
@@ -299,15 +300,17 @@ function rakuteenOrderAttributes (order) {
 
 }
 
-function saveRakutenOrderAttribute (order) {
-    if (order.custom.rakutenSiteID && order.custom.rakutenCookieDropDate) {
-        Transaction.wrap(function () {
-            order.rakutenSiteID  = rakutenCookieSiteIDValue;
-            order.custom.rakutenCookieDropDate = currentDate;
-            order.custom.rakutenSiteID = null;
-            order.custom.rakutenCookieDropDate = null;
-        });
-    }
+/**
+ * This method is used to set the date into given format.
+ *
+ * @param {Date} date - current date.
+ * @param {String} dateFormat - Format which is going to be set.
+ * @returns {Date} formattedDate - returned date in the form of given format.
+ */
+function getDateString(date, dateFormat) {
+    var StringUtils = require('dw/util/StringUtils');
+    var formattedDate = StringUtils.formatCalendar(date, dateFormat);
+    return formattedDate;
 }
 
 
@@ -326,6 +329,6 @@ module.exports = {
     isEswEnableLandingpageBar: isEswEnableLandingpageBar,
     isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry,
     isTaxDutiesAllowedCountry: isTaxDutiesAllowedCountry,
-    rakuteenOrderAttributes: rakuteenOrderAttributes,
-    saveRakutenOrderAttribute: saveRakutenOrderAttribute
+    saveRakutenOrderAttributes: saveRakutenOrderAttributes,
+    getDateString: getDateString
 };

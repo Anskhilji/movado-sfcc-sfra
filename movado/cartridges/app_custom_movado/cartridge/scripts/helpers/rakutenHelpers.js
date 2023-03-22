@@ -66,7 +66,7 @@ function setCookiesResponse(name, value, path) {
 function getDateString(date, dateFormat) {
     var StringUtils = require('dw/util/StringUtils');
     var formattedDate = StringUtils.formatCalendar(date, dateFormat);
-    return formattedDate;
+    return .;
 }
 
 /**
