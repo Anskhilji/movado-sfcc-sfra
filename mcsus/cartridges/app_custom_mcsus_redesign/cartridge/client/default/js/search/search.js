@@ -358,7 +358,7 @@ function selectedFilterTabs() {
         }
     });
 
-    $('.abcdefg').empty();
+    $('.seleced-filter-list').empty();
     $('.selected-filter-id').each(function () {
         var selectedAttrId = $(this).data('filter-id');
         $('[data-filter-id="' + selectedAttrId + '"] .selected-filter').each(function () {
@@ -370,7 +370,7 @@ function selectedFilterTabs() {
             var html =
                 '<li data-selected-filter-id="' + selectedAttrId + '" data-selected-filter-value="' + selectedAttrValue + '" class="sidebar-filter-clear">' +
                 attrValue + '</li>';
-            $('.abcdefg').append(html);
+            $('.seleced-filter-list').append(html);
         });
     });
 }

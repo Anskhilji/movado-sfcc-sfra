@@ -14,10 +14,10 @@
         </button>
     </div>
 </div>
-<div class="abcdefg">
-    
-</div>
+
 <div class="refine-wrapper">
+    <ul class="seleced-filter-list d-flex flex-wrap">
+    </ul>
     <div class="refinements movado-refinements-container">
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
             <div
