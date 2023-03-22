@@ -31,3 +31,5 @@ exports.EARTH_RADIUS_IN_MILES = 3958.756;
 exports.EARTH_RADIUS_IN_KM = 6371;
 exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
 exports.RAKUTEN_SITE_ID = 'atrv';
+exports.RAKUTEN_DROPPED_DATE = 'ald';
+exports.RAKUTEN_Order_GMT_DATE = 'yyyy-MM-dd\'T\'HH:mm:ss\'Z\'';

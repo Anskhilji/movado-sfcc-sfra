@@ -31,6 +31,8 @@ exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
 
 exports.RISKFIED_ORDER_DECLINED = 'declined';
 exports.RAKUTEN_SITE_ID = 'atrv';
+exports.RAKUTEN_DROPPED_DATE = 'ald';
+exports.RAKUTEN_Order_GMT_DATE = 'yyyy-MM-dd\'T\'HH:mm:ss\'Z\'';
 
 exports.FEDEX_SERVICE_ID = {
     FEDEX_AUTHENTICATION: 'fedex.auth.api',

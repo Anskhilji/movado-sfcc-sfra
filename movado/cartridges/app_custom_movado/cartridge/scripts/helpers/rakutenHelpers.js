@@ -7,7 +7,7 @@ var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 
-var sitePreferences = Site.getCurrent().getPreferences().getCustom();
+var CommonUtils = require('*/cartridge/utils/commonUtils');
 
 /**
  * This method is used to create cookie into the session.
@@ -22,7 +22,7 @@ function createCookieInSession(request) {
         var ranSiteID = requestHttpParameterMap.get('ranSiteID').value;
         var calendar = Site.current.calendar;
         calendar.setTimeZone('GMT');
-        var ald = getDateString(calendar, Constants.ALD_DATE_FORMAT);
+        var ald = CommonUtils.getDateString(calendar, Constants.ALD_DATE_FORMAT);
         calendar.add(calendar.DAY_OF_MONTH, 30);
         var auld = Math.round(new Date().getTime() / 1000).toString();
         var rakutenCookieValuesFormat = Resource.msgf('rakuten.cookie', 'rakuten', null, ranMID, ald, auld, ranSiteID);
@@ -54,19 +54,6 @@ function setCookiesResponse(name, value, path) {
     newCookie.setDomain('.' + request.httpHost);
     response.addHttpCookie(newCookie);
     return newCookie;
-}
-
-/**
- * This method is used to set the date into given format.
- *
- * @param {Date} date - current date.
- * @param {String} dateFormat - Format which is going to be set.
- * @returns {Date} formattedDate - returned date in the form of given format.
- */
-function getDateString(date, dateFormat) {
-    var StringUtils = require('dw/util/StringUtils');
-    var formattedDate = StringUtils.formatCalendar(date, dateFormat);
-    return formattedDate;
 }
 
 /**
@@ -134,14 +121,26 @@ function saveRakutenOrderAttributes(order) {
                     return siteID;
                 }
             });
-            if (!empty(rakutenCookieSiteID)) {
+            var rakutenCookieDroppedDate = rakutenCookieValuesArray.filter(function (droppedDate) {
+                if (droppedDate.indexOf(Constants.RAKUTEN_DROPPED_DATE) > -1) {
+                    return droppedDate;
+                }
+            });
+            if (!empty(rakutenCookieSiteID) && !empty(rakutenCookieDroppedDate)) {
                 rakutenCookieSiteID = rakutenCookieSiteID[0].split(':');
                 var rakutenCookieSiteIDValue = rakutenCookieSiteID[1];
-                if (!empty(rakutenCookieSiteIDValue)) {
-                    var currentDate = new Date().toDateString();
+
+                rakutenCookieDroppedDate = rakutenCookieDroppedDate[0].split(':');
+                var rakutenCookieDateString = rakutenCookieDroppedDate[1];
+                var rakutenDroppedDate = CommonUtils.getDateFromString(rakutenCookieDateString);
+
+                if (!empty(rakutenCookieSiteIDValue) && !empty(rakutenDroppedDate)) {
+                    var calendar = Calendar(rakutenDroppedDate);
+                    calendar.setTimeZone('GMT');
+                    var droppedRakutenDate = CommonUtils.getDateString(calendar, Constants.RAKUTEN_Order_GMT_DATE);
                     Transaction.wrap(function () {
                         order.custom.ranSiteID = rakutenCookieSiteIDValue;
-                        order.custom.ranCookieDroppedDate = currentDate;
+                        order.custom.ranCookieDroppedDate = droppedRakutenDate;
                     });
                 }
             }
@@ -154,7 +153,6 @@ function saveRakutenOrderAttributes(order) {
 module.exports = {
     createCookieInSession: createCookieInSession,
     setCookiesResponse: setCookiesResponse,
-    getDateString: getDateString,
     isRakutenAllowedCountry: isRakutenAllowedCountry,
     getRakutenRequestObject: getRakutenRequestObject,
     saveRakutenOrderAttributes: saveRakutenOrderAttributes

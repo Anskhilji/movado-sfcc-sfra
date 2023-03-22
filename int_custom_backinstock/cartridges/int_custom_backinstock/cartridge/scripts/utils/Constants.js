@@ -12,3 +12,5 @@ exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
 exports.RAKUTEN_SITE_ID = 'atrv';
+exports.RAKUTEN_DROPPED_DATE = 'ald';
+exports.RAKUTEN_Order_GMT_DATE = 'yyyy-MM-dd\'T\'HH:mm:ss\'Z\'';

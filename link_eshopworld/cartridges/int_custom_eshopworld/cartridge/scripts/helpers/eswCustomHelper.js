@@ -1,9 +1,14 @@
 'use strict';
 
 var ArrayList = require('dw/util/ArrayList');
+var Constants = require('*/cartridge/scripts/util/Constants');
+var Calendar = require('dw/util/Calendar');
 var HashMap = require('dw/util/HashMap');
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site').getCurrent();
+var Transaction = require('dw/system/Transaction');
+
+var CommonUtils = require('*/cartridge/utils/commonUtils');
 
 /**
  * This method is used to get the custom countries json from the site preferences.
@@ -263,6 +268,51 @@ function isTaxDutiesAllowedCountry() {
     return disableTaxDuties;
 }
 
+function saveRakutenOrderAttributes(order) {
+    var isRakutenEnable = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
+    var isRakutenCrossBorderAllowed = !empty(Site.current.preferences.custom.rakutenCrossBorderAllowed) ? Site.current.preferences.custom.rakutenCrossBorderAllowed : false;
+
+    if (isRakutenEnable && isRakutenCrossBorderAllowed) {
+        try {
+            var rakutenCookieValue = request.getHttpCookies()['rmStoreGateway'] ? decodeURIComponent(request.getHttpCookies()['rmStoreGateway'].value) : '';
+            if (!empty(rakutenCookieValue)) {
+                var rakutenCookieValuesArray = rakutenCookieValue.split('|');
+                var rakutenCookieSiteID = rakutenCookieValuesArray.filter(function (siteID) {
+                    if (siteID.indexOf(Constants.RAKUTEN_SITE_ID) > -1) {
+                        return siteID;
+                    }
+                });
+                var rakutenCookieDroppedDate = rakutenCookieValuesArray.filter(function (droppedDate) {
+                    if (droppedDate.indexOf(Constants.RAKUTEN_DROPPED_DATE) > -1) {
+                        return droppedDate;
+                    }
+                });
+                if (!empty(rakutenCookieSiteID) && !empty(rakutenCookieDroppedDate)) {
+                    rakutenCookieSiteID = rakutenCookieSiteID[0].split(':');
+                    var rakutenCookieSiteIDValue = rakutenCookieSiteID[1];
+    
+                    rakutenCookieDroppedDate = rakutenCookieDroppedDate[0].split(':');
+                    var rakutenCookieDateString = rakutenCookieDroppedDate[1];
+                    var rakutenDroppedDate = CommonUtils.getDateFromString(rakutenCookieDateString);
+    
+                    if (!empty(rakutenCookieSiteIDValue) && !empty(rakutenDroppedDate)) {
+                        var calendar = Calendar(rakutenDroppedDate);
+                        calendar.setTimeZone('GMT');
+                        var droppedRakutenDate = CommonUtils.getDateString(calendar, Constants.RAKUTEN_Order_GMT_DATE);
+                        Transaction.wrap(function () {
+                            order.custom.ranSiteIDTemp = rakutenCookieSiteIDValue;
+                            order.custom.ranCookieDroppedDateTemp = droppedRakutenDate;
+                        });
+                    }
+                }
+            }
+        } catch (e) {
+            Logger.error('eswCustomHelper.js: Error occured while getting rakutenCookie params and order objects: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        }
+    }
+
+}
+
 module.exports = {
     getCustomCountries: getCustomCountries,
     getCustomLanguages: getCustomLanguages,
@@ -277,5 +327,6 @@ module.exports = {
     isEswEnableLandingPage: isEswEnableLandingPage,
     isEswEnableLandingpageBar: isEswEnableLandingpageBar,
     isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry,
-    isTaxDutiesAllowedCountry: isTaxDutiesAllowedCountry
+    isTaxDutiesAllowedCountry: isTaxDutiesAllowedCountry,
+    saveRakutenOrderAttributes: saveRakutenOrderAttributes
 };

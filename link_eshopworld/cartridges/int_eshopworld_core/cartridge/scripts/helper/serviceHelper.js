@@ -5,6 +5,7 @@
  **/
 var Site = require('dw/system/Site').getCurrent();
 
+var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var BasketMgr = require('dw/order/BasketMgr');
 var URLUtils = require('dw/web/URLUtils');
@@ -680,13 +681,16 @@ function getNonGiftCertificateAmount(cart) {
  */
 function createOrder(eswEmail) {
     var cart = BasketMgr.getCurrentOrNewBasket(),
-        Transaction = require('dw/system/Transaction'),
-        logger = require('dw/system/Logger'),
-        PaymentInstrument = require('dw/order/PaymentInstrument'),
-        PaymentMgr = require('dw/order/PaymentMgr'),
-        OrderMgr = require('dw/order/OrderMgr'),
-        order;
-
+    Transaction = require('dw/system/Transaction'),
+    logger = require('dw/system/Logger'),
+    PaymentInstrument = require('dw/order/PaymentInstrument'),
+    PaymentMgr = require('dw/order/PaymentMgr'),
+    OrderMgr = require('dw/order/OrderMgr'),
+    order;
+    
+    var isRakutenEnable = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
+    var isRakutenCrossBorderAllowed = !empty(Site.current.preferences.custom.rakutenCrossBorderAllowed) ? Site.current.preferences.custom.rakutenCrossBorderAllowed : false;
+    
     if (cart.productQuantityTotal <= 0) {
         return {};
     }
@@ -730,6 +734,11 @@ function createOrder(eswEmail) {
         });
         //order = cart.createOrder();
         session.privacy.orderNo = order.orderNo;
+
+        if (isRakutenEnable && isRakutenCrossBorderAllowed) {
+            eswCustomHelper.saveRakutenOrderAttributes(order);
+        }
+
         Transaction.wrap(function () {
             order.paymentInstruments[0].paymentTransaction.paymentProcessor = PaymentMgr.getPaymentMethod(order.paymentInstruments[0].getPaymentMethod()).getPaymentProcessor();
         });
