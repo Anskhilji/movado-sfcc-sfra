@@ -3,7 +3,7 @@
 
 // old design show breadcrumbs
 .breadcrumbs-show {
-    
+
     .breadcrumbs-wrapper-main {
         display: block !important;
     }
@@ -17,6 +17,7 @@
     @include media-breakpoint-up(xl) {
         padding: 0 rem(31);
     }
+
     .breadcrumbs-wrapper-main {
 
         @include media-breakpoint-down(xs) {
@@ -39,7 +40,7 @@
         }
     }
     .search-banner {
-        
+
         img {
             width: 100%;
         }
@@ -56,11 +57,11 @@
 
             .searech-results-wrapper {
                 margin-top: rem(0);
-                
+
                 @include media-breakpoint-down(sm) {
                     padding: 0 rem(15);
                 }
-                
+
                 @include media-breakpoint-down(xs) {
                     padding: 0;
                 }
@@ -249,6 +250,7 @@
                             margin-right: rem(15);
                         }
                     }
+
                     &:focus {
                         outline: none;
                         box-shadow: none;
@@ -282,16 +284,21 @@
                     &.refinement-bar-pl {
                         display: block !important;
                     }
-                    
+
+                    .filter-header {
+                        padding: rem(0) rem(10);
+                    }
+
                     .header-bar {
-                        padding: rem(14);
+                        padding: rem(14) rem(4);
                         background-color: $white;
+                        border: none;
 
                         .total-product-count {
                             margin-top: 0;
                         }
 
-                        .result-count > span {
+                        .result-count>span {
                             font-size: rem(20);
                             font-family: $font-medium;
                             font-weight: 500;
@@ -318,6 +325,7 @@
                             text-transform: uppercase;
                             background: none;
                             cursor: pointer;
+                            display: inline-block;
 
                             img {
                                 height: rem(20);
@@ -343,6 +351,7 @@
 
                 .product-tiles-wrapper {
                     padding: rem(0);
+
                     @include media-breakpoint-up(lg) {
                         padding-right: rem(15);
                     }
@@ -371,7 +380,7 @@
                         border-bottom: rem(1) solid $grey-light8;
                         border-right: rem(1) solid $grey-light8;
                         padding: rem(0) rem(10);
-                        
+
                         @include media-breakpoint-up(lg) {
                             padding: rem(0);
                         }
@@ -381,7 +390,7 @@
                                 border-right: rem(1) solid transparent;
                             }
                         }
-                            
+
 
                         @include media-breakpoint-down(md) {
                             &:nth-child(3n+0) {
@@ -393,13 +402,14 @@
                             &:nth-child(3n+0) {
                                 border-right: rem(1) solid $grey-light8;
                             }
+
                             &:nth-child(even) {
                                 border-right: rem(1) solid transparent;
                             }
                         }
                     }
 
-                    > .container-fluid {
+                    >.container-fluid {
                         @include media-breakpoint-down(xs) {
                             padding: 0;
                         }
@@ -408,6 +418,37 @@
                     .product-grid {
                         @include media-breakpoint-down(xs) {
                             margin: rem(0) rem(0) rem(0) rem(0);
+                        }
+                    }
+                }
+
+                .seleced-filter-list {
+                    margin: 0;
+                    padding: rem(14.84) rem(10);
+                    gap: rem(14.85);
+                    border-top: rem(0.3) solid $black;
+
+                    li {
+                        height: rem(25);
+                        padding: rem(6) rem(15);
+                        color: $grey-light10;
+                        font-family: $font-medium;
+                        font-size: rem(11);
+                        letter-spacing: 0;
+                        line-height: rem(13);
+                        cursor: pointer;
+                        border: rem(0.3) solid $border-color;
+                        border-radius: rem(13);
+                        background-color: $gray5;
+                        list-style: none;
+
+                        &::after {
+                            content: "\00d7";
+                            font-family: FontAwesome;
+                            font-size: rem(12);
+                            margin-left: rem(8);
+                            transform: translateY(1px);
+                            display: inline-block;
                         }
                     }
                 }
@@ -423,11 +464,11 @@
                     right: 0;
                     max-width: 25%;
                     width: 100%;
-                    
+
                     @include media-breakpoint-down(lg) {
                         max-width: 33.33333%;
                     }
-                
+                    
                     @include media-breakpoint-down(custom-md) {
                         max-width: 100%;
                     }
@@ -480,7 +521,7 @@
                             pointer-events: none;
                         }
 
-                        .filter-btn  {
+                        .filter-btn {
                             height: 100%;
                         }
                     }
@@ -500,7 +541,7 @@
 
             .show-more {
                 padding-top: rem(0);
-                
+
                 &.total-product-count {
                     padding-bottom: rem(0);
                     color: $light-black1;
@@ -569,14 +610,14 @@
 
     .result-count {
         float: none;
-        
+
         .total-product-count {
             color: $light-black1;
             font-size: rem(12);
             letter-spacing: rem(0);
             line-height: rem(22);
             font-weight: 400;
-        } 
+        }
     }
 
     button {
@@ -619,4 +660,8 @@
             }
         }
     }
+}
+
+.filter-by-icon {
+    display: none;
 }

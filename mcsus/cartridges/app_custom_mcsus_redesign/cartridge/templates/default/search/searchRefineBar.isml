@@ -14,7 +14,10 @@
         </button>
     </div>
 </div>
+
 <div class="refine-wrapper">
+    <ul class="seleced-filter-list d-flex flex-wrap">
+    </ul>
     <div class="refinements movado-refinements-container">
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
             <div
@@ -60,7 +63,7 @@
 
     <div class="result-count w-100">
         <a class="btn btn-primary filter-btn w-100" href="#" data-filter="true">
-            <isinclude template="search/resultsCount" />
+            <isinclude template="search/resultsCountFilterBar" />
         </a>
     </div>
 </div>
