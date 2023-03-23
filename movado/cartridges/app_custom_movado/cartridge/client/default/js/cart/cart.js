@@ -112,12 +112,16 @@ function updateCartTotals(data) {
         progressMeterMain.append(promoProgressBarHtml);
     } else {
         var freeShippingIcon = $('.progress-meter-container').data('shipping-image');
-        var applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
-        '<img src="'+ freeShippingIcon +'" alt="'+ window.Resources.PROMO_FREE_SHIPPING_TEXT +'">'+
-        '<p>'+ window.Resources.PROMO_FREE_SHIPPING_TEXT +'</p>'+
-        '</div>';
-
+        var progressBarSuccessMsg = data.progressBarSuccessMsg;
         var progressMeterMain = $('.progress-meter-container');
+
+        if (freeShippingIcon.length > 0 && progressBarSuccessMsg) {
+            var applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
+            '<img src="'+ freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
+            '<p>'+ data.progressBarSuccessMsg +'</p>'+
+            '</div>';
+        }
+
         progressMeterMain.empty();
         progressMeterMain.append(applicablePromoMessageHtml);
     }
@@ -520,6 +524,7 @@ module.exports = function () {
                     $('.estimate-price-wrapper').hide();
                     $('.cart-error').empty();
                     $('.cart-store-pickup').prop('checked', false);
+                    $('.progress-meter-container').hide();
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {

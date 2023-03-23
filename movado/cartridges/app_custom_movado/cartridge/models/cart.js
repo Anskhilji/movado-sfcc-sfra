@@ -150,6 +150,8 @@ function getApproachingDiscounts(basket, discountPlan) {
     var approachingShippingDiscounts;
     var orderDiscountObject;
     var shippingDiscountObject;
+    var bonusDiscounts;
+    var bonusDiscountsObject;
     var discountObject;
 
     if (basket && basket.productLineItems) {
@@ -157,6 +159,7 @@ function getApproachingDiscounts(basket, discountPlan) {
         approachingOrderDiscounts = discountPlan.getApproachingOrderDiscounts();
         approachingShippingDiscounts =
             discountPlan.getApproachingShippingDiscounts(basket.defaultShipment);
+        bonusDiscounts = discountPlan.getBonusDiscounts();
         
         // Custom Start: overide from base to include conditionThreshold and promotion custom attributes into getApproachingDiscounts on Order level.
         orderDiscountObject =
@@ -174,8 +177,10 @@ function getApproachingDiscounts(basket, discountPlan) {
                     ),
                     promotionTotal: formatMoney(approachingOrderDiscount.getDistanceFromConditionThreshold()),
                     conditionThreshold : formatMoney(approachingOrderDiscount.getConditionThreshold()),
+                    conditionThresholdValue : approachingOrderDiscount.getConditionThreshold().value,
                     isPromoProgressBarEnable: approachingOrderDiscount.getDiscount().getPromotion().custom.isPromoProgressBarEnable ? approachingOrderDiscount.getDiscount().getPromotion().custom.isPromoProgressBarEnable : false,
-                    progressBarPromoMsg: approachingOrderDiscount.getDiscount().getPromotion().custom.progressBarPromoMsg
+                    progressBarPromoMsg: approachingOrderDiscount.getDiscount().getPromotion().custom.progressBarPromoMsg,
+                    progressBarSuccessMsg : approachingOrderDiscount.getDiscount().getPromotion().custom.progressBarSuccessMsg
                 };
             });
         // Custom End:
@@ -196,13 +201,18 @@ function getApproachingDiscounts(basket, discountPlan) {
                     ),
                     promotionTotal: formatMoney(approachingShippingDiscount.getDistanceFromConditionThreshold()),
                     conditionThreshold : formatMoney(approachingShippingDiscount.getConditionThreshold()),
+                    conditionThresholdValue : approachingShippingDiscount.getConditionThreshold().value,
                     isPromoProgressBarEnable: approachingShippingDiscount.getDiscount().getPromotion().custom.isPromoProgressBarEnable ? approachingShippingDiscount.getDiscount().getPromotion().custom.isPromoProgressBarEnable : false,
-                    progressBarPromoMsg: approachingShippingDiscount.getDiscount().getPromotion().custom.progressBarPromoMsg
+                    progressBarPromoMsg: approachingShippingDiscount.getDiscount().getPromotion().custom.progressBarPromoMsg,
+                    progressBarSuccessMsg : approachingShippingDiscount.getDiscount().getPromotion().custom.progressBarSuccessMsg
                 };
             });
         // Custom End:
 
         discountObject = orderDiscountObject.concat(shippingDiscountObject);
+        if (!empty(bonusDiscountsObject)) {
+            discountObject = orderDiscountObject.concat(bonusDiscountsObject);
+        }
     }
     return discountObject;
 }
@@ -229,6 +239,7 @@ function getOrderDiscounts(basket, discountPlan) {
         collections.map(orderDiscounts, function (orderDiscount) {
             return {
                 isPromoProgressBarEnable: orderDiscount.getPromotion().custom.isPromoProgressBarEnable ? orderDiscount.getPromotion().custom.isPromoProgressBarEnable : false,
+                progressBarSuccessMsg : orderDiscount.getPromotion().custom.progressBarSuccessMsg ? orderDiscount.getPromotion().custom.progressBarSuccessMsg : false
             };
         });
 
@@ -237,10 +248,40 @@ function getOrderDiscounts(basket, discountPlan) {
         collections.map(shippingDiscounts, function (shippingDiscount) {
             return {
                 isPromoProgressBarEnable: shippingDiscount.getPromotion().custom.isPromoProgressBarEnable ? shippingDiscount.getPromotion().custom.isPromoProgressBarEnable : false,
+                progressBarSuccessMsg : shippingDiscount.getPromotion().custom.progressBarSuccessMsg ? shippingDiscount.getPromotion().custom.progressBarSuccessMsg : false
+
             };
         });
 
         discountObject = progressBarOrderDiscountObject.concat(shippingDiscountObject);
+    }
+    return discountObject;
+}
+
+/**
+ * Generates an object of approaching discounts
+ * @param {dw.order.Basket} basket - Current users's basket
+ * @param {dw.campaign.DiscountPlan} discountPlan - set of applicable discounts
+ * @returns {Object} an object of approaching discounts
+ */
+function getBonusDiscounts(basket, discountPlan) {
+
+    var bonusDiscounts;
+    var bonusDiscountsObject;
+    var discountObject;
+
+    if (basket && basket.productLineItems) {
+        bonusDiscounts = discountPlan.getBonusDiscounts();
+          
+        bonusDiscountsObject = 
+        collections.map(bonusDiscounts, function (bonusDiscount) {
+            return {
+                isPromoProgressBarEnable: bonusDiscount.getPromotion().custom.isPromoProgressBarEnable ? bonusDiscount.getPromotion().custom.isPromoProgressBarEnable : false,
+                progressBarSuccessMsg : bonusDiscount.getPromotion().custom.progressBarSuccessMsg
+            };
+        });
+
+        discountObject = bonusDiscountsObject;
     }
     return discountObject;
 }
@@ -276,7 +317,8 @@ function CartModel(basket) {
     var lineItemOptionModel = getItemOptions(basket);
     var assets = getCustomAssets();
     var giftMessaging = getGiftMessagingObject();
-    var isPromoProgressBarEnabled = false;  
+    var isPromoProgressBarEnabled = false;
+    var progressBarSuccessMsg;  
     
     if((!basket) || (basket && basket.totalTax && basket.totalTax.value ==0 && basket.defaultShipment && basket.defaultShipment.shippingAddress==null)){
        totalTaxVal = '-';
@@ -288,8 +330,16 @@ function CartModel(basket) {
     if (discountPlan) {
         var progressBarApproachingDiscounts = getApproachingDiscounts(basket, discountPlan);
         var progressBarDiscounts = getOrderDiscounts(basket, discountPlan);
+        var progressBarBonusDiscounts = getBonusDiscounts(basket, discountPlan);
+
+        if (!empty(progressBarBonusDiscounts)) {
+            isPromoProgressBarEnabled =  progressBarBonusDiscounts[0].isPromoProgressBarEnable ? progressBarBonusDiscounts[0].isPromoProgressBarEnable : false;
+            progressBarSuccessMsg = progressBarBonusDiscounts[0].progressBarSuccessMsg ? progressBarBonusDiscounts[0].progressBarSuccessMsg : '';
+        }
+
         if (!empty(progressBarDiscounts)) {
             isPromoProgressBarEnabled =  progressBarDiscounts[0].isPromoProgressBarEnable ? progressBarDiscounts[0].isPromoProgressBarEnable : false;
+            progressBarSuccessMsg = progressBarDiscounts[0].progressBarSuccessMsg ? progressBarDiscounts[0].progressBarSuccessMsg : '';
         }
     }
     
@@ -298,14 +348,14 @@ function CartModel(basket) {
     if (cartModel && cartModel.approachingDiscounts && cartModel.approachingDiscounts[0] && progressBarApproachingDiscounts[0].isPromoProgressBarEnable  && typeof progressBarApproachingDiscounts[0].promotionTotal !== undefined) {
         var approachingDiscountsTotal = progressBarApproachingDiscounts[0].promotionTotal;
         var conditionThreshold = progressBarApproachingDiscounts[0].conditionThreshold;
-        var conditionThresholdCurrencyValue = conditionThreshold.substring(1);
+        var conditionThresholdCurrencyValue = progressBarApproachingDiscounts[0].conditionThresholdValue;
         var approachingDiscountCurrencyValue = approachingDiscountsTotal.substring(1);
         var progressBarPromoMsg = progressBarApproachingDiscounts[0].progressBarPromoMsg ? progressBarApproachingDiscounts[0].progressBarPromoMsg : '';
+        progressBarSuccessMsg = progressBarApproachingDiscounts[0].progressBarSuccessMsg ? progressBarApproachingDiscounts[0].progressBarSuccessMsg : '';
         isPromoProgressBarEnabled = progressBarApproachingDiscounts[0].isPromoProgressBarEnable ? progressBarApproachingDiscounts[0].isPromoProgressBarEnable : false;
 
         var progressBarPromoTotal = conditionThresholdCurrencyValue;
-        var grandTotal = cartModel.totals.grandTotal; 
-        var progressBarPromoCurrent = grandTotal.substring(1);
+        var progressBarPromoCurrent = cartModel.totals.progressBarGrandTotal.value;
         var progressBarpercentage;
 
         if (isNaN(progressBarPromoTotal) || isNaN(progressBarPromoCurrent)){
@@ -333,7 +383,8 @@ function CartModel(basket) {
       conditionThresholdCurrencyValue: conditionThresholdCurrencyValue ? conditionThresholdCurrencyValue : '',
       progressBarpercentage: progressBarpercentage,
       progressBarPromoMsg: progressBarPromoMsg,
-      isPromoProgressBarEnabled: isPromoProgressBarEnabled
+      isPromoProgressBarEnabled: isPromoProgressBarEnabled,
+      progressBarSuccessMsg: progressBarSuccessMsg
 
     });
     return cartObject;
