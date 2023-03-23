@@ -102,26 +102,30 @@ function updateCartTotals(data) {
 
     if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
         
-        var promoProgressBarHtml = '<div class="progress-meter d-flex flex-column align-items-center">'+
+        var $promoProgressBarHtml = '<div class="progress-meter d-flex flex-column align-items-center">'+
         '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
         '<div class="progress-meter-box">'+
         '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
         '</div>'+
         '</div>';
 
-        var progressMeterMain = $('.progress-meter-container');
-        progressMeterMain.empty();
-        progressMeterMain.append(promoProgressBarHtml);
+        var $progressMeterMain = $('.progress-meter-container');
+        $progressMeterMain.empty();
+        $progressMeterMain.append($promoProgressBarHtml);
     } else {
-        var freeShippingIcon = $('.progress-meter-container').data('shipping-image');
-        var applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
-        '<img src="'+ freeShippingIcon +'" alt="'+ window.Resources.PROMO_FREE_SHIPPING_TEXT +'">'+
-        '<p>'+ window.Resources.PROMO_FREE_SHIPPING_TEXT +'</p>'+
-        '</div>';
+        var $freeShippingIcon = $('.progress-meter-container').data('shipping-image');
+        var $progressBarSuccessMsg = data.progressBarSuccessMsg;
+        var $progressMeterMain = $('.progress-meter-container');
 
-        var progressMeterMain = $('.progress-meter-container');
-        progressMeterMain.empty();
-        progressMeterMain.append(applicablePromoMessageHtml);
+        if ($freeShippingIcon.length > 0 && $progressBarSuccessMsg) {
+            var $applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
+            '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
+            '<p>'+ data.progressBarSuccessMsg +'</p>'+
+            '</div>';
+        }
+
+        $progressMeterMain.empty();
+        $progressMeterMain.append($applicablePromoMessageHtml);
     }
     
     if (typeof data.totals.deliveryTime != 'undefined' &&  typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
@@ -521,6 +525,7 @@ module.exports = function () {
                     $('html').removeClass('veiled');
                     $('.estimate-price-wrapper').hide();
                     $('.cart-error').empty();
+                    $('.progress-meter-container').hide();
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {

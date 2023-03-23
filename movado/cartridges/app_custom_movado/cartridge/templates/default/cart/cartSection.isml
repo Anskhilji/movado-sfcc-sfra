@@ -98,7 +98,6 @@
                         </isif>
                     </div>
                 </isloop>
-                <isinclude template="cart/cartApproachingDiscount" />
             </div>
             <!---totals, and checkout actions--->
             <div class="col-sm-5 col-md-4 totals">

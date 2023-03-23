@@ -92,9 +92,7 @@ function getResources(pageContext) {
         INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
         BUTTON_ADD_TO_CART: Resource.msg('button.addtocart', 'common', null),
         BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null),
-        GIFT_MESSAGE_CART_ERROR: giftMessageCartError,
-        PROMO_FREE_SHIPPING_IMAGE: URLUtils.httpStatic('/images/circle-check-icon.svg'),
-        PROMO_FREE_SHIPPING_TEXT: Resource.msg('promo.progress.bar.free.shipping', 'cart', null)
+        GIFT_MESSAGE_CART_ERROR: giftMessageCartError
     };
     return resources;
 }
