@@ -320,11 +320,11 @@ $( document ).ready(function() {
 
 function selectedFilter(selectedAttr) {
     if (selectedAttr.closest('[data-filter-id="promotion"]').find('.fa-check-square').length > 0) { // add check class in promotion to select filter
-        var promoAttrValue = selectedAttr.data('filter-value');
-        var selectedPromoAttrValue = $('[data-filter-id="promotion"] .selected-filter').data('filter-value');
+        var $promoAttrValue = selectedAttr.data('filter-value');
+        var $selectedPromoAttrValue = $('[data-filter-id="promotion"] .selected-filter').data('filter-value');
         $('[data-filter-id="promotion"]').removeClass('selected-filter-id').find('.fa-check-square').removeClass('fa-check-square').addClass('fa-square-o'); //remove all pre selected promotion value
         $('[data-filter-id="promotion"]').find('[data-filter-value]').removeClass('selected-filter');
-        if (promoAttrValue != selectedPromoAttrValue) {
+        if ($promoAttrValue != $selectedPromoAttrValue) {
             selectedAttr.addClass('selected-filter').closest('[data-filter-id]').addClass('selected-filter-id');
             selectedAttr.find('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square');
         }
@@ -361,29 +361,29 @@ function selectedFilterTabs() {
 
     $('.seleced-filter-list').empty();
     $('.selected-filter-id').each(function () {
-        var selectedAttrId = $(this).data('filter-id');
-        $('[data-filter-id="' + selectedAttrId + '"] .selected-filter').each(function () {
-            var selectedAttrValue = $(this).data('filter-value');
-            var attrValue = selectedAttrValue;
-            if (selectedAttrId == 'promotion') {
-                attrValue = $(this).find('span').text();
+        var $selectedAttrId = $(this).data('filter-id');
+        $('[data-filter-id="' + $selectedAttrId + '"] .selected-filter').each(function () {
+            var $selectedAttrValue = $(this).data('filter-value');
+            var $attrValue = $selectedAttrValue;
+            if ($selectedAttrId == 'promotion') {
+                $attrValue = $(this).find('span').text();
             }
-            var html =
-                '<li data-selected-filter-id="' + selectedAttrId + '" data-selected-filter-value="' + selectedAttrValue + '" class="sidebar-filter-clear">' +
-                attrValue + '</li>';
-            $('.seleced-filter-list').append(html);
+            var $html =
+                '<li data-selected-filter-id="' + $selectedAttrId + '" data-selected-filter-value="' + $selectedAttrValue + '" class="sidebar-filter-clear">' +
+                $attrValue + '</li>';
+            $('.seleced-filter-list').append($html);
         });
     });
     hideSelectedFilterTabs();
 }
 
 function  hideSelectedFilterTabs () {
-    var selectedFilterList  = $('.seleced-filter-list');
-    var selectedList = selectedFilterList.text();
-    if (selectedList == '') {
-        selectedFilterList.removeClass('d-flex').addClass('d-none');
+    var $selectedFilterList  = $('.seleced-filter-list');
+    var $selectedList = $selectedFilterList.text();
+    if ($selectedList == '') {
+        $selectedFilterList.removeClass('d-flex').addClass('d-none');
     } else {
-        selectedFilterList.removeClass('d-none').addClass('d-flex');
+        $selectedFilterList.removeClass('d-none').addClass('d-flex');
     }
 }
 
@@ -395,9 +395,9 @@ $('.filter-container').on(
         var target = e.target;
         // if user remove selected filter from sidebar top
         if ($(target).is('.sidebar-filter-clear')) {
-            var unSelectedAttributeValue = $(this).data('selected-filter-value');
-            $('[data-selected-filter-value="' + unSelectedAttributeValue + '"]').remove();
-            selectedFilter($('[data-filter-value="' + unSelectedAttributeValue + '"]'));
+            var $unSelectedAttributeValue = $(this).data('selected-filter-value');
+            $('[data-selected-filter-value="' + $unSelectedAttributeValue + '"]').remove();
+            selectedFilter($('[data-filter-value="' + $unSelectedAttributeValue + '"]'));
             hideSelectedFilterTabs();
         } else {
             // add check class in checkBox to select filter
