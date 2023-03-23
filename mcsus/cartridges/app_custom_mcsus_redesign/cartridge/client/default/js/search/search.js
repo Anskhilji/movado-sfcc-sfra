@@ -417,8 +417,8 @@ $('.filter-container').on(
         if ($(window).width() > 991) {
             getTileHeight()
         }
-        var plpMobileCounter = '<div class="result-count">' + $('.result-count').html() + '</div>';
-        $('.result-count-show').html(plpMobileCounter);
+        var $plpMobileCounter = '<div class="result-count">' + $('.result-count').html() + '</div>';
+        $('.result-count-show').html($plpMobileCounter);
     }
 
 module.exports = {
@@ -636,9 +636,9 @@ module.exports = {
                 e.preventDefault();
                 e.stopPropagation();
                 var target = e.target;
-                var resetClick = false;
+                var $resetClick = false;
                 if ($(target).is('.reset')) {
-                    resetClick = true;
+                    $resetClick = true;
                 }
                 //push data into datalayer for filters into gtm
                 var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
@@ -774,7 +774,7 @@ module.exports = {
                     },
                     complete: function () {
                         selectedFilterTabs();
-                        if (!resetClick) {
+                        if (!$resetClick) {
                             closeRefinementBar();
                         }
                     }
