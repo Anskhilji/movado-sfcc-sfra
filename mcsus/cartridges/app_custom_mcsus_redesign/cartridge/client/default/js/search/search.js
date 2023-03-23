@@ -46,8 +46,9 @@ function parseResults(response) {
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
-        '.header-bar',
+        '.filter-bottom-sec',
         '.header.page-title',
+        '.header-bar',
         '.product-grid',
         '.show-more',
         '.filter-bar'
@@ -373,6 +374,17 @@ function selectedFilterTabs() {
             $('.seleced-filter-list').append(html);
         });
     });
+    hideSelectedFilterTabs();
+}
+
+function  hideSelectedFilterTabs () {
+    var selectedFilterList  = $('.seleced-filter-list');
+    var selectedList = selectedFilterList.text();
+    if (selectedList == '') {
+        selectedFilterList.removeClass('d-flex').addClass('d-none');
+    } else {
+        selectedFilterList.removeClass('d-none').addClass('d-flex');
+    }
 }
 
 $('.filter-container').on(
@@ -386,7 +398,7 @@ $('.filter-container').on(
             var unSelectedAttributeValue = $(this).data('selected-filter-value');
             $('[data-selected-filter-value="' + unSelectedAttributeValue + '"]').remove();
             selectedFilter($('[data-filter-value="' + unSelectedAttributeValue + '"]'));
-
+            hideSelectedFilterTabs();
         } else {
             // add check class in checkBox to select filter
             selectedFilter($(this));
@@ -405,6 +417,8 @@ $('.filter-container').on(
         if ($(window).width() > 991) {
             getTileHeight()
         }
+        var plpMobileCounter = '<div class="result-count">' + $('.result-count').html() + '</div>';
+        $('.result-count-show').html(plpMobileCounter);
     }
 
 module.exports = {
@@ -622,7 +636,10 @@ module.exports = {
                 e.preventDefault();
                 e.stopPropagation();
                 var target = e.target;
-
+                var resetClick = false;
+                if ($(target).is('.reset')) {
+                    resetClick = true;
+                }
                 //push data into datalayer for filters into gtm
                 var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
                 dataLayer.push({
@@ -756,7 +773,10 @@ module.exports = {
                         $.spinner().stop();
                     },
                     complete: function () {
-                        closeRefinementBar();
+                        selectedFilterTabs();
+                        if (!resetClick) {
+                            closeRefinementBar();
+                        }
                     }
                 });
             });
