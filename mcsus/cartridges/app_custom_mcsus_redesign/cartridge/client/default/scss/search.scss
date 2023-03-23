@@ -381,7 +381,7 @@
                     border-top: rem(0.3) solid $black;
 
                     li {
-                        height: 25px;
+                        height: rem(25);
                         padding: rem(6) rem(15);
                         color: $grey-light10;
                         font-family: $font-medium;
