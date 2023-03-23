@@ -70,12 +70,17 @@
     .slick-arrow {
         font-size: 0;
     }
+}
 
-    .cs-carousel {
+.full-width-max-1300 {
 
-        &.slick-initialized {
-            @include slick-rounded-arrows;
-        }   
+    .cs-carousel-wrapper {
+    
+        .cs-carousel {
+            &.slick-initialized {
+                @include slick-rounded-arrows;
+            }
+        }
     }
 }
 
