@@ -707,9 +707,12 @@ module.exports = {
                             $refinementsAttributesValues.push($array);
                         });
                     }
-
                     // generate custome URL
                     var $url = '';
+                    var $searchUrl = getUrlParamObj(document.location.href);
+                    if ($searchUrl.q) {
+                        $url = '?q=' + encodeURIComponent($searchUrl.q);
+                    }
                     var $prefNumber = 0;
                     if ($refinementsAttributesId.length > 0) {
                         $refinementsAttributesId.forEach(function (attr, i) {
