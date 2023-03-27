@@ -318,6 +318,18 @@ $( document ).ready(function() {
     }
 });
 
+function IsFilterApplicable() {
+    // if user remove selected filter from sidebar top
+    var $isFilterSelected = false;
+    if ($('.filter-bar .filter-value').length > 0 || $('.seleced-filter-list .sidebar-filter-clear').length > 0) {
+        $('.filter-btn').removeClass('disabled');
+        $isFilterSelected = true;
+    } else {
+        $('.filter-btn').addClass('disabled');
+    }
+    return $isFilterSelected;
+}
+
 function selectedFilter(selectedAttr) {
     if (selectedAttr.closest('[data-filter-id="promotion"]').find('.fa-check-square').length > 0) { // add check class in promotion to select filter
         var $promoAttrValue = selectedAttr.data('filter-value');
@@ -385,6 +397,7 @@ function  hideSelectedFilterTabs () {
     } else {
         $selectedFilterList.removeClass('d-none').addClass('d-flex');
     }
+    IsFilterApplicable();
 }
 
 $('.filter-container').on(
@@ -627,162 +640,172 @@ module.exports = {
     },
 
     applyFilter: function () {
-        // Handle refinement value selection and reset click
-        // custome : we are using 'body' because to close refinement bar on click [modal-background.filter-modal-background]
-        $('.filter-container, body').on(
-            'click',
-            '.filter-btn, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .refinement-bar .close-btn-text, refinement-bar .close-btn-text .fa-close, .modal-background.filter-modal-background',
-            function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var target = e.target;
-                var $resetClick = false;
-                if ($(target).is('.reset')) {
-                    $resetClick = true;
-                }
-                //push data into datalayer for filters into gtm
-                var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
-                dataLayer.push({
-                    event: 'Filter Sort',
-                    eventCategory: 'Filter & Sort',
-                    eventAction: $filterType,
-                    eventLabel: $(this).text().trim()
-                });
+            // Handle refinement value selection and reset click
+            // custome : we are using 'body' because to close refinement bar on click [modal-background.filter-modal-background]
+            $('.filter-container, body').on(
+                'click',
+                '.filter-btn, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .refinement-bar .close-btn-text, refinement-bar .close-btn-text .fa-close, .modal-background.filter-modal-background',
+                function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var target = e.target;
+                    var $resetClick = false;
+                    if ($(target).is('.reset')) {
+                        $resetClick = true;
+                    }
+                    //check if any filter is selected IsFilterApplicable()
+                    if (IsFilterApplicable() || $(target).is('.refinement-bar a.reset')) {
 
-                // Get currently selected sort option to retain sorting rules
-                var urlparams = getUrlParamObj(document.location.href);
-                if ($(target).is('.filter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
-                    var filtersURL = document.location.href;
-                } else {
-                    var filtersURL = e.currentTarget.href;
-                }
-                var currentSelectedSortId = '';
-                if (urlparams.hasOwnProperty('srule') == true) {
-                    if (urlparams.srule) {
-                        currentSelectedSortId = urlparams.srule;
-                        filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
-                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
-                    }
-                }
-                //custome start:  [MSS-1447] : multi-select filter / URL
-                if ($(target).is('.filter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
-                    //add selected class  agains checked filter
-                    if ($('[data-filter-id]').length > 0) {
-                        $('[data-filter-id]').each(function () {
-                            if ($(this).find('.fa-check-square').length > 0) {
-                                $(this).addClass('selected-filter-id');
-                            } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
-                                $(this).addClass('selected-filter-id');
-                            }
+                        //push data into datalayer for filters into gtm
+                        var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
+                        dataLayer.push({
+                            event: 'Filter Sort',
+                            eventCategory: 'Filter & Sort',
+                            eventAction: $filterType,
+                            eventLabel: $(this).text().trim()
                         });
-                    }
-                    if ($('[data-filter-value]').length > 0) {
-                        $('[data-filter-value]').each(function () {
-                            if ($(this).find('.fa-check-square').length > 0) {
-                                $(this).addClass('selected-filter');
-                            } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
-                                $(this).addClass('selected-filter');
+
+                        // Get currently selected sort option to retain sorting rules
+                        var urlparams = getUrlParamObj(document.location.href);
+                        if ($(target).is('.filter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
+                            var filtersURL = document.location.href;
+                        } else {
+                            var filtersURL = e.currentTarget.href;
+                        }
+                        var currentSelectedSortId = '';
+                        if (urlparams.hasOwnProperty('srule') == true) {
+                            if (urlparams.srule) {
+                                currentSelectedSortId = urlparams.srule;
+                                filtersURL = removeParam('srule', filtersURL); // Custom: [MSS-1348 Fix for not applying price filters]
+                                filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
                             }
-                        });
-                    }
-                    // add custome logic to bulid URL
-                    var $refinementsAttributesId = [];
-                    var $refinementsAttributesValues = [];
-                    if ($('.selected-filter-id').length > 0) {
-                        $('.selected-filter-id').each(function () {
-                            var $selectedId = $(this).data('filter-id');
-                            $refinementsAttributesId.push($selectedId);
-                            var $array = [];
-                            $('[data-filter-id="' + $selectedId + '"] .selected-filter').each(function () {
-                                var $selectedValue = '';
-                                if ($selectedId == 'price') {
-                                    var $pmin = $(this).data('value-pmin');
-                                    var $pmax = $(this).data('value-pmax');
-                                    $selectedValue = $pmin + '-' + $pmax;
-                                } else {
-                                    $selectedValue = $(this).data('filter-value');
+                        }
+                        //custome start:  [MSS-1447] : multi-select filter / URL
+                        if ($(target).is('.filter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
+                            //add selected class  agains checked filter
+                            if ($('[data-filter-id]').length > 0) {
+                                $('[data-filter-id]').each(function () {
+                                    if ($(this).find('.fa-check-square').length > 0) {
+                                        $(this).addClass('selected-filter-id');
+                                    } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
+                                        $(this).addClass('selected-filter-id');
+                                    }
+                                });
+                            }
+                            if ($('[data-filter-value]').length > 0) {
+                                $('[data-filter-value]').each(function () {
+                                    if ($(this).find('.fa-check-square').length > 0) {
+                                        $(this).addClass('selected-filter');
+                                    } else if ($(this).find('.fa-check-circle').length > 0) { // add check class in radioButton to select filter
+                                        $(this).addClass('selected-filter');
+                                    }
+                                });
+                            }
+                            // add custome logic to bulid URL
+                            var $refinementsAttributesId = [];
+                            var $refinementsAttributesValues = [];
+                            if ($('.selected-filter-id').length > 0) {
+                                $('.selected-filter-id').each(function () {
+                                    var $selectedId = $(this).data('filter-id');
+                                    $refinementsAttributesId.push($selectedId);
+                                    var $array = [];
+                                    $('[data-filter-id="' + $selectedId + '"] .selected-filter').each(function () {
+                                        var $selectedValue = '';
+                                        if ($selectedId == 'price') {
+                                            var $pmin = $(this).data('value-pmin');
+                                            var $pmax = $(this).data('value-pmax');
+                                            $selectedValue = $pmin + '-' + $pmax;
+                                        } else {
+                                            $selectedValue = $(this).data('filter-value');
+                                        }
+                                        $array.push($selectedValue);
+                                    });
+                                    $refinementsAttributesValues.push($array);
+                                });
+                            }
+                            // generate custome URL
+                            var $url = '';
+                            var $searchUrl = getUrlParamObj(document.location.href);
+                            if ($searchUrl.q) {
+                                $url = '?q=' + encodeURIComponent($searchUrl.q);
+                            }
+                            var $prefNumber = 0;
+                            if ($refinementsAttributesId.length > 0) {
+                                $refinementsAttributesId.forEach(function (attr, i) {
+                                    var $urlSelector = $url == '' ? '?' : '&';
+                                    var $prefv = '';
+                                    if (attr == 'promotion') {
+                                        $url = ($url == '' ? '' : $url) + $urlSelector + 'pmid=' + $refinementsAttributesValues[i];
+                                    } else if (attr == 'price') {
+                                        $prefv = $refinementsAttributesValues[i].toString().split('-'); // value of price is in range
+                                        $url = ($url == '' ? '' : $url) + $urlSelector + 'pmin=' + $prefv[0] + '&pmax=' + $prefv[1];
+                                    } else {
+                                        $prefNumber++;
+                                        $prefv = encodeURIComponent($refinementsAttributesValues[i].length > 1 ? $refinementsAttributesValues[i].toString().replaceAll(',', '|') : $refinementsAttributesValues[i]);
+                                        $url = ($url == '' ? '' : $url) + $urlSelector + 'prefn' + $prefNumber + '=' + encodeURIComponent(attr) + '&prefv' + $prefNumber + '=' + $prefv;
+                                    }
+                                });
+                            }
+                            var $baseUrl = document.location.href;
+                            if ($url != '' && $baseUrl.indexOf('srule') !== -1) {
+                                var $sortingRuleUrl = $('.sorting-rules-filters').find(':selected').data('id');
+                                $url = $url + '&srule=' + $sortingRuleUrl;
+                            }
+                            if ($url == '' && $baseUrl.indexOf('srule') !== -1) {
+                                var $categorySortUrl = $('.sorting-rules-filters').find(':selected').data('id');
+                                $url = $url + '?srule=' + $categorySortUrl;
+                            }
+                            if ($baseUrl.indexOf('?') !== -1) {
+                                $baseUrl = $baseUrl.split('?')[0];
+                            }
+                            filtersURL = $baseUrl + $url;
+                        }
+                        //custome end:  [MSS-1447] : multi-select filter / URL
+
+                        $.spinner().start();
+                        $(this).trigger('search:filter', e);
+                        $.ajax({
+                            url: filtersURL,
+                            data: {
+                                page: $('.grid-footer').data('page-number'),
+                                selectedUrl: filtersURL
+                            },
+                            method: 'GET',
+                            success: function (response) {
+                                var gtmFacetArray = $(response).find('.gtm-product').map(function () {
+                                    return $(this).data('gtm-facets');
+                                }).toArray();
+                                $('body').trigger('facet:success', [gtmFacetArray]);
+                                parseResults(response);
+                                // edit start
+                                updatePageURLForFacets(filtersURL);
+                                // edit end
+                                if (window.Resources.IS_YOTPO_ENABLED) {
+                                    refreshYotpoWidgets();
                                 }
-                                $array.push($selectedValue);
-                            });
-                            $refinementsAttributesValues.push($array);
-                        });
-                    }
-                    // generate custome URL
-                    var $url = '';
-                    var $searchUrl = getUrlParamObj(document.location.href);
-                    if ($searchUrl.q) {
-                        $url = '?q=' + encodeURIComponent($searchUrl.q);
-                    }
-                    var $prefNumber = 0;
-                    if ($refinementsAttributesId.length > 0) {
-                        $refinementsAttributesId.forEach(function (attr, i) {
-                            var $urlSelector = $url == '' ? '?' : '&';
-                            var $prefv = '';
-                            if (attr == 'promotion') {
-                                $url = ($url == '' ? '' : $url) + $urlSelector + 'pmid=' + $refinementsAttributesValues[i];
-                            } else if (attr == 'price') {
-                                $prefv = $refinementsAttributesValues[i].toString().split('-'); // value of price is in range
-                                $url = ($url == '' ? '' : $url) + $urlSelector + 'pmin=' + $prefv[0] + '&pmax=' + $prefv[1];
-                            } else {
-                                $prefNumber++;
-                                $prefv = encodeURIComponent($refinementsAttributesValues[i].length > 1 ? $refinementsAttributesValues[i].toString().replaceAll(',', '|') : $refinementsAttributesValues[i]);
-                                $url = ($url == '' ? '' : $url) + $urlSelector + 'prefn' + $prefNumber + '=' + encodeURIComponent(attr) + '&prefv' + $prefNumber + '=' + $prefv;
+                                $.spinner().stop();
+                                moveFocusToTop();
+                                swatches.showSwatchImages();
+                                if ($(window).width() > 991) {
+                                    getTileHeight()
+                                }
+                            },
+                            error: function () {
+                                $.spinner().stop();
+                            },
+                            complete: function () {
+                                selectedFilterTabs();
+                                if (!$resetClick) {
+                                    closeRefinementBar();
+                                }
                             }
                         });
                     }
-                    var $baseUrl = document.location.href;
-                    if ($url != '' && $baseUrl.indexOf('srule') !== -1) {
-                        var $sortingRuleUrl = $('.sorting-rules-filters').find(':selected').data('id');
-                        $url = $url + '&srule=' + $sortingRuleUrl;
-                    }
-                    if ($url == '' && $baseUrl.indexOf('srule') !== -1) {
-                        var $categorySortUrl = $('.sorting-rules-filters').find(':selected').data('id');
-                        $url = $url + '?srule=' + $categorySortUrl;
-                    }
-                    if ($baseUrl.indexOf('?') !== -1) {
-                        $baseUrl = $baseUrl.split('?')[0];
-                    }
-                    filtersURL = $baseUrl + $url;
-                }
-                //custome end:  [MSS-1447] : multi-select filter / URL
-                
-                $.spinner().start();
-                $(this).trigger('search:filter', e);
-                $.ajax({
-                    url: filtersURL,
-                    data: {
-                        page: $('.grid-footer').data('page-number'),
-                        selectedUrl: filtersURL
-                    },
-                    method: 'GET',
-                    success: function (response) {
-                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-                    	$('body').trigger('facet:success', [gtmFacetArray]);
-                        parseResults(response);
-                        // edit start
-                        updatePageURLForFacets(filtersURL);
-                        // edit end
-                        if (window.Resources.IS_YOTPO_ENABLED) {
-                            refreshYotpoWidgets();
-                        }
-                        $.spinner().stop();
-                        moveFocusToTop();
-                        swatches.showSwatchImages();
-                        if($(window).width() > 991) {
-                            getTileHeight()
-                        }
-                    },
-                    error: function () {
-                        $.spinner().stop();
-                    },
-                    complete: function () {
-                        selectedFilterTabs();
-                        if (!$resetClick) {
-                            closeRefinementBar();
-                        }
+                    // if  no filter is selected by user
+                    if ($(target).is('.close-btn-text, .fa-close, .filter-modal-background')) {
+                        closeRefinementBar();
                     }
                 });
-            });
     },
     showContentTab: function () {
         // Display content results from the search
