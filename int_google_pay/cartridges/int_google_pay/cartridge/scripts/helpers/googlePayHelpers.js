@@ -170,6 +170,12 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
     for (let index = 0; index < applicableShippingMethodsOnCart.length; index++) {
         var shippingMethod = applicableShippingMethodsOnCart[index];
         var shippingOption;
+        var shippingMethodDescription = shippingMethod.description;
+
+        if (shippingMethod.description.length > 200) {
+            shippingMethodDescription = shippingMethod.description.substr(0,199);
+        }
+
         if (currentCountry == constants.US_COUNTRY_CODE) {
             var isEswShippingMethod = session.custom.isEswShippingMethod;
             isEswShippingMethod = false;
@@ -179,7 +185,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
                 shippingOption = {
                     id: shippingMethod.ID,
                     label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
-                    description: shippingMethod.description ? shippingMethod.description : '',
+                    description: shippingMethodDescription ? shippingMethodDescription : '',
                 }
                 shippingOptions.push(shippingOption);
             }
@@ -189,7 +195,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
             shippingOption = {
                 id: shippingMethod.ID,
                 label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
-                description: shippingMethod.description ? shippingMethod.description : '',
+                description: shippingMethodDescription ? shippingMethodDescription : '',
             }
             shippingOptions.push(shippingOption);
         }
