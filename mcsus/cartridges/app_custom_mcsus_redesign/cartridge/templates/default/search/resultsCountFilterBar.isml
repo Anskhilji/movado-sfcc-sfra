@@ -6,7 +6,7 @@
     <p>
         <span class="total-product-count" data-total-product-count="${pdict.productSearch.count}">
             <isif condition="${pdict.productSearch.productIds.length > 0}">
-                <isprint value="${Resource.msgf('label.resultsfor', 'search', null, pdict.productSearch.count)}" encoding="off">
+                <isprint value="${Resource.msgf('label.resultsforBar', 'search', null, pdict.productSearch.count)}" encoding="off">
             <iselse>
                 ${Resource.msg('label.noresultsfor', 'search', null)}
             </isif>

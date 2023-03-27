@@ -465,16 +465,36 @@
                         align-items: center;
                         justify-content: center;
 
-                        span {
-                            font-size: rem(14);
-                            line-height: rem(17);
-                            color: $white;
-                            margin: 0;
-                            pointer-events: none;
-                        }
-
                         .filter-btn {
                             height: 100%;
+
+                            span {
+                                font-size: rem(14);
+                                line-height: rem(17);
+                                color: $white;
+                                margin: 0;
+                                pointer-events: none;
+                            }
+    
+                            p {
+                                display: block;
+                                margin: 0;
+                                font-size: unset;
+                                line-height: unset;
+                                pointer-events: none;
+                                
+                                span {
+                                    font-size: rem(14);
+                                    line-height: rem(17);
+                                    color: $white;
+                                    margin: 0;
+                                    pointer-events: none;
+                                }   
+                            }
+                        }
+
+                        p {
+                            display: none;
                         }
                     }
                 }
