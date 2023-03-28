@@ -1207,13 +1207,26 @@ function handleVariantResponse(response, $productContainer) {
         } else {
             if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
                 var $applePayButtonMobile = $('.show-cart-button-mobile .apple-pay-pdp', $productContainer);
-                var $cartButtonMobileContainer = $('.show-cart-button-mobile .prices-add-to-cart-actions .show-cart-button-mobile-container')
-                if ($applePayButtonMobile.length) {
-                    $($applePayButtonMobile).remove();
+                var $applePayButtonMobileAlternatePDP = $('.prices-add-to-cart-actions .apple-pay-pdp', $productContainer);
+                var $cartButtonMobileContainer = $('.show-cart-button-mobile .prices-add-to-cart-actions .show-cart-button-mobile-container');
+                var $cartButtonMobileAlternatePDPContainer = $('.prices-add-to-cart-actions .show-cart-button-mobile-container'); 
+
+                if ($applePayButtonMobile.length > 0) {
+                    $applePayButtonMobile.remove();
                     $cartButtonMobileContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
                     'sku=' + response.product.id + '></isapplepay>');
                 } else {
                     $cartButtonMobileContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
+                    'sku=' + response.product.id + '></isapplepay>');
+                }
+
+                // Handling on alternate PDP
+                if ($cartButtonMobileAlternatePDPContainer.length > 0) {
+                    $applePayButtonMobileAlternatePDP.remove();
+                    $cartButtonMobileAlternatePDPContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
+                    'sku=' + response.product.id + '></isapplepay>');
+                } else {
+                    $cartButtonMobileAlternatePDPContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
                     'sku=' + response.product.id + '></isapplepay>');
                 }
             }
