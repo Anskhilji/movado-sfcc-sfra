@@ -1,20 +1,20 @@
 @import 'variables';
 @import '~movado/login';
 
-.login-form-nav{
+.login-form-nav {
 
-    .hidden-xs-down{
+    .hidden-xs-down {
         font-family: $font-gill-std-medium;
     }
 
-    .privacy-policy{
+    .privacy-policy {
         font-family: $font-gill-std-medium;
     }
 }
 
-.login-page{
+.login-page {
 
-    input[placeholder],label{
+    input[placeholder],label {
         font-family: $font-gill-std-medium;
     }
 }
