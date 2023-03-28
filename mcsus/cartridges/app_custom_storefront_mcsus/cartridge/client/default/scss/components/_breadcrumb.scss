@@ -3,7 +3,7 @@
 .breadcrumb {
     border-bottom: none;
     margin: rem(25) 0 rem(20);
-    padding: rem(9.6) 0 rem(8);
+    padding: rem(9.6) rem(16) rem(8) rem(16);
 
     @include media-breakpoint-down(md) {
         margin: rem(21.6) 0 rem(21.6);
