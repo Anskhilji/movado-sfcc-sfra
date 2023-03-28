@@ -173,7 +173,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
         var shippingMethodDescription = shippingMethod.description;
 
         if (shippingMethod && shippingMethod.description.length > 195) {
-            shippingMethodDescription = shippingMethod.description.substr(0,155) + constants.GOOGLE_PAY_SHIPPING_ELLIPSIS;
+            shippingMethodDescription = shippingMethod.description.substr(0,195) + constants.GOOGLE_PAY_SHIPPING_ELLIPSIS;
         }
 
         if (currentCountry == constants.US_COUNTRY_CODE) {
