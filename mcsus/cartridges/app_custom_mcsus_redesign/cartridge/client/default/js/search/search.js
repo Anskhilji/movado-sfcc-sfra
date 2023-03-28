@@ -666,18 +666,18 @@ module.exports = {
                         });
 
                         // Get currently selected sort option to retain sorting rules
-                        var urlparams = getUrlParamObj(document.location.href);
+                        var $urlparams = getUrlParamObj(document.location.href);
                         if ($(target).is('.filter-btn, .close-btn-text, .fa-close, .filter-modal-background')) {
                             var filtersURL = document.location.href;
                         } else {
                             var filtersURL = e.currentTarget.href;
                         }
-                        var currentSelectedSortId = '';
-                        if (urlparams.hasOwnProperty('srule') == true) {
-                            if (urlparams.srule) {
-                                currentSelectedSortId = urlparams.srule;
+                        var $currentSelectedSortId = '';
+                        if ($urlparams.hasOwnProperty('srule') == true) {
+                            if ($urlparams.srule) {
+                                $currentSelectedSortId = $urlparams.srule;
                                 filtersURL = removeParam('srule', filtersURL); // Custom: [MSS-1348 Fix for not applying price filters]
-                                filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                                filtersURL = replaceUrlParam(filtersURL, 'srule', $currentSelectedSortId);
                             }
                         }
                         //custome start:  [MSS-1447] : multi-select filter / URL
