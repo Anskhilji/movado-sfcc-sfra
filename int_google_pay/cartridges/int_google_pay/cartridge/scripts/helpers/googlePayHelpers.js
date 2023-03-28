@@ -170,10 +170,10 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
     for (let index = 0; index < applicableShippingMethodsOnCart.length; index++) {
         var shippingMethod = applicableShippingMethodsOnCart[index];
         var shippingOption;
-        var shippingMethodDescription = shippingMethod.description;
+        var shippingMethodDescription = !empty(shippingMethod.description) ? shippingMethod.description : '' ;
 
-        if (shippingMethod && shippingMethod.description.length > 195) {
-            shippingMethodDescription = shippingMethod.description.substr(0,195) + constants.GOOGLE_PAY_SHIPPING_ELLIPSIS;
+        if (shippingMethod && shippingMethodDescription > 195) {
+            shippingMethodDescription = shippingMethodDescription.substr(0,195) + constants.GOOGLE_PAY_SHIPPING_ELLIPSIS;
         }
 
         if (currentCountry == constants.US_COUNTRY_CODE) {
