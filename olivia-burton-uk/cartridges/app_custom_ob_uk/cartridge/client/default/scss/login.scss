@@ -1,0 +1,25 @@
+@import "variables";
+@import '~movado/login';
+.login-form-nav{
+
+    .hidden-xs-down{
+        font-family: $font-gill-std-medium;
+    }
+
+    .privacy-policy{
+        font-family: $font-gill-std-medium;
+    }
+}
+
+.login-page{
+
+    input[placeholder],label{
+        font-family: $font-gill-std-medium;
+    }
+}
+
+.track-order-header-description {
+    & a {
+        font-family: $font-gill-std-medium;
+    }
+}
