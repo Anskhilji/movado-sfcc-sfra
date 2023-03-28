@@ -276,9 +276,11 @@ function updateShippingMethodList($shippingForm) {
     setTimeout(function () {
         var $shippingMethodList = $shippingForm.find('.shipping-method-list');
         var url = $shippingMethodList.data('actionUrl');
+
         if (url) {
             var urlParams = addressHelpers.methods.getAddressFieldsFromUI($shippingForm);
             var shipmentUUID = $shippingForm.find('[name=shipmentUUID]').val();
+            
             urlParams.shipmentUUID = shipmentUUID;
             $shippingMethodList.spinner().start();
             $.ajax({
@@ -301,7 +303,8 @@ function updateShippingMethodList($shippingForm) {
                 }
             });
         }
-    });
+    }, 300);
+
 }
 
 /**
