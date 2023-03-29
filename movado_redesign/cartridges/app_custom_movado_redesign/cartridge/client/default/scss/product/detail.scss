@@ -5,6 +5,7 @@
 @import "animate.css/animate";
 @import "../custom-animation";
 @import "../components/_backInStockNotification";
+@import "../components/smartGiftModal";
 
 $arrow-height: 1.25em;
 .dw-apple-pay-button.apple-pay-pdp,
@@ -1837,6 +1838,8 @@ body {
 }
 .smart-gift-btn {
     width: 100%;
+    border: rem(1) solid $black;
+    padding: rem(20);
 
     @include media-breakpoint-down(sm) {
         display: flex;
@@ -2211,5 +2214,19 @@ body {
 .button-floting {
     &.button-product-detail {
         bottom: rem(160);
+    }
+}
+
+.sidebar-widget {
+    
+    &.show-widget {
+
+        .SGBasket-overlay {
+            z-index: 1024 !important;
+        }
+
+        .SGBasket-widget {
+            z-index: 1025 !important;
+        }
     }
 }

@@ -192,9 +192,6 @@ $(function() {
         }
     );
 
-
-
-
 });
 
 
@@ -382,6 +379,48 @@ $(document).ready(function() {
     }
 
     // custom end: remove or add clyde top and bottom border if clyde widgets exist
+
+    $(document).on('click','.smartgift-btn-redesign', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        if (url) {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (response) {
+
+                    if (response.success == true) {
+
+                        SGBasket.addItem({
+                            skuCode: response.smartGift.skuCode,
+                            skuUrl: response.skuUrl,
+                            price: response.smartGift.price,
+                            name: response.smartGift.name,
+                            image: response.image,
+                            quantity: response.smartGift.quantity
+                       });
+                    }
+                },
+                error: function () {
+                    $.spinner().stop();
+                }
+            });
+        }
+    });
+
+    $(document).on('click','.gift-works-popup', function(e) {
+        $('.smartGift-main-box').addClass('active');
+        $('.smartgift-backdrop').addClass('active');
+        $('.header-banner.slide-up,.header-menu-wrapper').css('z-index','1');
+    });
+
+    $(document).on('click','.smartgift-backdrop , .gift-close', function(e) {
+        $('.smartGift-main-box').removeClass('active');
+        $('.smartgift-backdrop').removeClass('active');
+        $('.header-banner.slide-up').css('z-index','45');
+        $('.header-menu-wrapper').css('z-index','1024');
+    });
 
 });
 

@@ -1,0 +1,58 @@
+.smartGift-main-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+
+    &.active {
+        display: flex;
+    }
+    .smartGift-modal-box {
+        background-color: $white;
+        height: rem(500);
+        max-width: rem(800);
+        width: 100%;
+        padding: rem(20) rem(50);
+        position: relative;
+        z-index: 1025;
+
+        .smartGift-header {
+            border-bottom: rem(1) solid $gray-overlay;
+            position: relative;
+            margin-bottom: rem(30);
+            p {
+                text-align: center;
+            }
+            .gift-close {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background-color: none;
+                outline: none;
+                border: none;
+            }
+        }
+    }
+}
+
+.smartgift-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0;
+    z-index: 1024;
+    display: none;
+    &.active {
+        opacity: .5;
+        display: block;
+    }
+}

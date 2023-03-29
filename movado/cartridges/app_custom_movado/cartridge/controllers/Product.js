@@ -391,4 +391,28 @@ server.get('ShowCartButton', function (req, res, next) {
     next();
 });
 
+server.get('ShowSmartGiftCart', function (req, res, next) {
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+
+    var pid = req.querystring.pid;
+
+    if(pid) {
+        var smartGift = smartGiftHelper.getSmartGiftCardBasket(pid);
+
+        if (smartGift) {
+            var skuUrl = smartGift.skuUrl ? smartGift.skuUrl.toString() : '';
+            var image = smartGift.image ? smartGift.image.toString() : '';
+    
+            res.json({
+                success: true,
+                smartGift: smartGift,
+                skuUrl: skuUrl,
+                image: image
+            });
+        }
+    }
+
+    next();
+});
+
 module.exports = server.exports();
