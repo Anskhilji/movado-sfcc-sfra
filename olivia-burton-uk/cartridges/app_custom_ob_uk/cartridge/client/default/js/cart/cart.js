@@ -117,7 +117,7 @@ function updateCartTotals(data) {
         var $progressBarSuccessMsg = data.progressBarSuccessMsg;
         var $progressMeterMain = $('.progress-meter-container');
 
-        if ($freeShippingIcon.length > 0 && $progressBarSuccessMsg) {
+        if ($freeShippingIcon && $freeShippingIcon.length > 0 && $progressBarSuccessMsg) {
             var $applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
             '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
             '<p>'+ data.progressBarSuccessMsg +'</p>'+
