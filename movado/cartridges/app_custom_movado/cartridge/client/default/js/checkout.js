@@ -100,6 +100,114 @@ $(document).ready(function() { // eslint-disable-line
         checkPromoInput(this);
     });
 
+    $('input.shippingFirstName, .shippingLastName, .shippingCompanyName, .shippingAddressCity, .billingFirstName, .billingLastName, .billingAddressCity, .billingCompanyName').on('change keyup', function() {
+        var $value = $(this).val();
+        var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
+        var $isValid = $pattern.test($value);
+        if ($isValid) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+        }
+    });
+
+    $('input.shipping-email, input.billing-email').on('change keyup', function() {
+        var $value = $(this).val();
+        var $pattern = /^(?=[a-zA-Z0-9_-]{1,64}(?!.*?\.\.)+(?!\@)+[a-zA-Z0-9!.#\/$%&'*+-=?^_`{|}~\S+-]{1,64})+[^\\@,;:"[\]()<>\s]{1,64}[^\\@.,;:"[\]\/()<>\s-]+@[^\\@!.,;:#$%&'*+=?^_`{|}()[\]~+<>"\s\-][a-zA-Z0-9\-\.]*[^\\@!,;:#$%&'*+=?^_`{|}()[\]~+<>"\s]*[\.]+(?!.*web|.*'')[a-zA-Z]{1,15}$/i
+        var $isValid = $pattern.test($value);
+        if ($isValid) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+        }
+    });
+
+
+    $('input.shippingAddressOne, input.billingAddressOne, input.shippingAddressTwo, input.billingAddressTwo').on('change keyup', function() {
+        var $value = $(this).val();
+        var $pattern = /^(^((?!(([\\'\\\\\\>\\<])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)/i
+        var $isValid = $pattern.test($value);
+        if ($isValid) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+        }
+    });
+
+    $('input.shippingZipCode, input.billingZipCode').on('change keyup', function() {
+        var country = $('.shippingCountry').val();
+        if (country == 'US') {
+            var $value = $(this).val();
+            var $pattern = /^(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+            }
+        } else if (country == 'GB') {
+            var $value = $(this).val();
+            var $pattern = /^(GIR 0AA)|((([A-Za-z-[QVX]][0-9][0-9]?)|(([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][0-9]?)|(([A-Za-z-[QVX‌]][0-9][A-HJKSTUWa-hjkstuw])|([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][ABEHMNPRVWXYabehmnprvwxy]))))\s?[0-9][A-Za-z-[C‌IKMOV]]{2})/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+            }
+        }
+
+    });
+
+    $('input.shippingPhoneNumber, input.billingPhoneNumber').on('change keyup', function() {
+        var country = $('.shippingCountry').val();
+        if (country == 'US') {
+            var $value = $(this).val();
+            var $pattern = /^(^(?!(?=(000-000-0000|0000000000)))(\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+            }
+        } else if (country == 'GB') {
+            var $value = $(this).val();
+            var $pattern = /^(^(\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*)$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+            }
+        }
+
+    });
+
+    $('shippingState, .billingState').on('change keyup', function() {
+        var $value = $(this).val();
+        if ($value) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+        }
+    });
+
+
     $('.show-details-wrapper').click(function() {
         $('.hidden-menu').slideDown('slow');
         $('.hidden-menu').addClass('pop-up-top-container');
