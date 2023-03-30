@@ -1,7 +1,10 @@
 <iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
 <isset name="isImageExist" value="false" scope="page" />
-<div class="primary-images ob-carousel-quickview ob-carousel-new-quickview col-12 col-sm-6">
+<isset name="isQuickView" value="${false}" scope="page" />
+<isset name="product" value="${pdict.product}" scope="page" />
+<div class="primary-images ob-carousel-quickview ob-carousel-new-quickview col-12 col-sm-6 pdp-images-carousel-removal">
     <isscript>
+
             var primaryImageCarouselConfig = {
             "slidesToShow": 1,
             "slidesToScroll": 1,
@@ -55,7 +58,7 @@
 </div>
 
 <iscomment> Zoom Modal </iscomment>
-<div class="modal fade" id="zoomProduct" role="dialog">
+<div class="modal zoom-modal fade" id="zoomProduct" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
