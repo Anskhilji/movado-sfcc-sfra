@@ -100,43 +100,182 @@ $(document).ready(function() { // eslint-disable-line
         checkPromoInput(this);
     });
 
-    $('input.shippingFirstName, .shippingLastName, .shippingCompanyName, .shippingAddressCity, .billingFirstName, .billingLastName, .billingAddressCity, .billingCompanyName').on('change keyup', function() {
+    $('input.shippingFirstName, input.billingFirstName').on('change keyup', function() {
         var $value = $(this).val();
         var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
         var $isValid = $pattern.test($value);
         if ($isValid) {
             $(this).addClass('is-valid');
             $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_firstName, .dwfrm_billing_addressFields_firstName').find('.invalid-feedback').text('');
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_firstName, .dwfrm_billing_addressFields_firstName').find('.invalid-feedback').text(Resources.CHECKOUT_FIRST_NAME_VALIDATION);
         }
     });
 
-    $('input.shipping-email, input.billing-email').on('change keyup', function() {
+    $('input.creditcard-holdername').on('change keyup', function() {
+        var $value = $(this).val();
+        var $pattern = /^[a-z|A-Z]+(?: [a-z|A-Z]+)*$/i
+        var $isValid = $pattern.test($value);
+        if ($isValid) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+            $('.dwfrm_billing_creditCardFields_cardOwner').find('.invalid-feedback').text('');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_billing_creditCardFields_cardOwner').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_HOLDER_NAME_VALIDATION);
+        }
+    });
+
+    $('input.cardNumber').on('change keyup', function() {
+        var $value = $(this).val();
+        var $pattern = /^(^[^(\\'\\<\\>\\\\)]+$)/i
+        var $isValid = $pattern.test($value);
+        if ($isValid) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+            $('.card-number-wrapper').addClass('card-number-mr');
+            $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text('');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.card-number-wrapper').addClass('card-number-mr');
+            $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_NUMBER_VALIDATION);
+        }
+    });
+
+    $('input.creditcard-securitycode').on('change keyup', function() {
+        var $value = $(this).val();
+        if ($value) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+            $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').text('');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);
+        }
+    });
+
+    $('input.expirationDate').on('change keyup', function() {
+        var $creditCardDate = $(this).val().split('/');
+        var expdateRegex = /^[[2-9]{1}]?([0-9]{1})$/i;
+        var cuurentDate = new Date();
+        const d = new Date();
+        let $currentMonth = d.getMonth() +1;
+        var $currentYear = cuurentDate.getFullYear().toString();
+
+        if (!expdateRegex.test($creditCardDate[1]) || (($currentYear.substring(0,2) + $creditCardDate[1] <= $currentYear) && parseInt($creditCardDate[0]) < $currentMonth)){
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.creditcard-expiration-date').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_EXPIRY_DATE_VALIDATION);
+        } else {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+            $('.creditcard-expiration-date').find('.invalid-feedback').text('');
+        }
+    });
+
+    $('input.billingAddressCity, input.shippingAddressCity').on('change keyup', function() {
+        var $value = $(this).val();
+        var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
+        var $isValid = $pattern.test($value);
+        if ($isValid) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').text('');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').text(Resources.CHECKOUT_CITY_NAME_VALIDATION);
+
+        }
+    });
+
+    $('input.shippingCompanyName, input.billingCompanyName').on('change keyup', function() {
+        var $value = $(this).val();
+        var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
+        var $isValid = $pattern.test($value);
+        if ($isValid) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').text('');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').text(Resources.CHECKOUT_COMPANY_NAME_VALIDATION);
+        }
+    });
+
+    $('input.shippingLastName, input.billingLastName').on('change keyup', function() {
+        var $value = $(this).val();
+        var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
+        var $isValid = $pattern.test($value);
+        if ($isValid) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').text(Resources.CHECKOUT_LAST_NAME_VALIDATION);
+
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').text(Resources.CHECKOUT_LAST_NAME_VALIDATION);
+
+        }
+    });
+
+    $('input.shipping-email').on('change keyup', function() {
         var $value = $(this).val();
         var $pattern = /^(?=[a-zA-Z0-9_-]{1,64}(?!.*?\.\.)+(?!\@)+[a-zA-Z0-9!.#\/$%&'*+-=?^_`{|}~\S+-]{1,64})+[^\\@,;:"[\]()<>\s]{1,64}[^\\@.,;:"[\]\/()<>\s-]+@[^\\@!.,;:#$%&'*+=?^_`{|}()[\]~+<>"\s\-][a-zA-Z0-9\-\.]*[^\\@!,;:#$%&'*+=?^_`{|}()[\]~+<>"\s]*[\.]+(?!.*web|.*'')[a-zA-Z]{1,15}$/i
         var $isValid = $pattern.test($value);
         if ($isValid) {
             $(this).addClass('is-valid');
             $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').text('');
+
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').text(Resources.CHECKOUT_EMAIL_VALIDATION);
+
         }
     });
 
 
-    $('input.shippingAddressOne, input.billingAddressOne, input.shippingAddressTwo, input.billingAddressTwo').on('change keyup', function() {
+    $('input.shippingAddressOne, input.billingAddressOne').on('change keyup', function() {
         var $value = $(this).val();
         var $pattern = /^(^((?!(([\\'\\\\\\>\\<])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)/i
         var $isValid = $pattern.test($value);
         if ($isValid) {
             $(this).addClass('is-valid');
             $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_address1, .dwfrm_billing_addressFields_address1').find('.invalid-feedback').text('');
+
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_address1, .dwfrm_billing_addressFields_address1').find('.invalid-feedback').text(Resources.CHECKOUT_ADDRESS_1_VALIDATION);
+
+        }
+    });
+
+    $('input.shippingAddressTwo, input.billingAddressTwo').on('change keyup', function() {
+        var $value = $(this).val();
+        var $pattern = /^(^((?!(([\\'\\\\\\>\\<])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)/i
+        var $isValid = $pattern.test($value);
+        if ($isValid) {
+            $(this).addClass('is-valid');
+            $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').text('');
+
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').text(Resources.CHECKOUT_ADDRESS_2_VALIDATION);
+
         }
     });
 
@@ -149,9 +288,13 @@ $(document).ready(function() { // eslint-disable-line
             if ($isValid) {
                 $(this).addClass('is-valid');
                 $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text('');
+
             } else {
                 $(this).removeClass('is-valid');
                 $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
+
             }
         } else if (country == 'GB') {
             var $value = $(this).val();
@@ -160,15 +303,19 @@ $(document).ready(function() { // eslint-disable-line
             if ($isValid) {
                 $(this).addClass('is-valid');
                 $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text('');
+
             } else {
                 $(this).removeClass('is-valid');
                 $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
+
             }
         }
 
     });
 
-    $('input.shippingPhoneNumber, input.billingPhoneNumber').on('change keyup', function() {
+    $('input.shippingPhoneNumber').on('change keyup', function() {
         var country = $('.shippingCountry').val();
         if (country == 'US') {
             var $value = $(this).val();
@@ -177,9 +324,13 @@ $(document).ready(function() { // eslint-disable-line
             if ($isValid) {
                 $(this).addClass('is-valid');
                 $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
+
             } else {
                 $(this).removeClass('is-valid');
                 $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
+
             }
         } else if (country == 'GB') {
             var $value = $(this).val();
@@ -188,22 +339,28 @@ $(document).ready(function() { // eslint-disable-line
             if ($isValid) {
                 $(this).addClass('is-valid');
                 $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
+
             } else {
                 $(this).removeClass('is-valid');
                 $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
+
             }
         }
 
     });
 
-    $('shippingState, .billingState').on('change keyup', function() {
+    $('select.shippingState, select.billingState').on('change keyup', function() {
         var $value = $(this).val();
         if ($value) {
             $(this).addClass('is-valid');
             $(this).removeClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_states_stateCode, .dwfrm_billing_addressFields_states_stateCode').find('.invalid-feedback').text('');
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_states_stateCode, .dwfrm_billing_addressFields_states_stateCode').find('.invalid-feedback').text(Resources.CHECKOUT_STATE_VALIDATION);
         }
     });
 

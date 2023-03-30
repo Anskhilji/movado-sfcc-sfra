@@ -44,7 +44,7 @@
 
 <div class="row credit-card-form-container">
 	<div class="col-md-6 col-sm-12 field-left mx-field-wrapper">
-		<div class="form-group required relative">			
+		<div class="form-group required relative creditcard-expiration-date">			
 			<input inputmode="numeric" type="text" class="form-control expirationDate input-wrapper-checkout"
 				id="expirationDate">				
 			</input>
