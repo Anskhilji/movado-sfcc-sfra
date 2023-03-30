@@ -27,11 +27,6 @@
             </isif>
             <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
         </isif>
-        <div class="banner-count d-none ${pdict.productSearch.productIds.length > 0 ? 'd-md-block' : 'd-md-none position-static'}">
-            <div class="result-count">
-                <isinclude template="search/resultsCount" />
-            </div>
-        </div>
     </div>
     <div class="container-fluid plp-new-design search-results">
         <isif condition="${!pdict.productSearch.isCategorySearch}">
