@@ -1247,6 +1247,7 @@ module.exports = {
             var pidsObj;
             var setPids;
             var giftPid;
+            var $this = $(this);
             var productQuantity = null;
             if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
                 productQuantity = $('.quantity-selector > .quantity').val();
@@ -1264,21 +1265,32 @@ module.exports = {
                     if (!$(this).hasClass('product-set-detail')) {
                         setPids.push({
                             pid: $(this).find('.product-id').text(),
-                            qty: $(this).find('.quantity-select').val(),
+                            qty: 1,
                             options: getOptions($(this))
                         });
                     }
                 });
                 pidsObj = JSON.stringify(setPids);
             }
-
-            if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
+            
+            if ($this.data('product-set') == true) {
+                setPids = [];
+                $this.find('.product-sets').each(function () {
+                    setPids.push({
+                        pid: $(this).text(),
+                        qty: 1,
+                        options: getOptions($(this))
+                    });
+                });
+                pidsObj = JSON.stringify(setPids);
+                pid = getPidValue($(this));
+            } else if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
                 pid = $(this).data('pid');
                 if ($('.gift-allowed-checkbox').is(":checked")) {
                     giftPid = $('.gift-allowed-checkbox').val();
                 }
             } else {
-            	pid = getPidValue($(this));
+                pid = getPidValue($(this));
                 if ($('.gift-allowed-checkbox').is(":checked")) {
                     giftPid = $('.gift-allowed-checkbox').val();
                 }

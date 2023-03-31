@@ -6,7 +6,8 @@
       "slidesToScroll": 1,
       "dots": false,
       "centerMode": true,
-      asNavFor: '.carousel-nav-redesign'
+      "arrows":false,
+      asNavFor: '.carousel-nav-set-product'
     }
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>
@@ -56,7 +57,7 @@
       1 chnage clasee for nav slider 
       2 chnage image tile size
       </iscomment>
-      <div class="carousel-nav-redesign" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+      <div class="carousel-nav-set-product" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
       <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['tile126']}" var="image" status="loopStatus">
               <div class="carousel-tile">
