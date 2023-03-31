@@ -675,6 +675,12 @@
             font-size: rem(14);
         }
     }
+
+    &.sticky-test-wrapper {
+        @include media-breakpoint-down(xs) {
+            background-color: $light-brown-1;
+        }
+    }
 }
 
 .sticky-container-redesign {
@@ -725,7 +731,7 @@
                     max-width: rem(500);
 
                     @include media-breakpoint-down(md) {
-                        max-width: rem(250);
+                        max-width: rem(200);
                     }
 
                     @include media-breakpoint-down(sm) {
@@ -773,6 +779,26 @@
                     font-size: rem(14);
                 }
 
+                &.static-style-wrapper {
+                    background-color: $light-brown;
+                    border-color: $light-brown;
+                    color: $white;
+
+                    @include media-breakpoint-down(xs) {
+                        background-color: $light-brown2;
+                        border-color: $light-brown2;
+                        color: $black;
+                    }
+
+                    &:focus {
+                        box-shadow: 0 0 0 rem(3.2) rgba($light-brown, 0.5);
+
+                        @include media-breakpoint-down(xs) {
+                            box-shadow: 0 0 0 rem(3.2) rgba($light-brown2, 0.5);
+                        }
+                    }
+                }
+
                 .price-pdp-mvmt {
 
                     del {
@@ -782,6 +808,16 @@
                     .sales {
                         color: $white;
                         font-family: $font-regular;
+                    }
+                }
+
+                .static-style-wrapper {
+
+                    .sales {
+
+                        @include media-breakpoint-down(xs) {
+                            color: $black;
+                        }
                     }
                 }
             }
@@ -1197,8 +1233,9 @@
                                 }
 
                                 .badge {
-                                    background-color: $grey-light4;
-                                    color: $black;
+                                    background-color: transparent;
+                                    border: rem(1) solid $beige4;
+                                    color: $beige4;
                                     font-family: $futura-medium;
                                     font-weight: 600;
                                     font-style: italic;
@@ -1461,6 +1498,16 @@
 
                                         @include media-breakpoint-up(sm) {
                                             margin-bottom: rem(10);
+                                        }
+
+                                        &.static-style-wrapper {
+                                            background-color: $light-brown;
+                                            border-color: $light-brown;
+                                            color: $white;
+
+                                            &:focus {
+                                                box-shadow: 0 0 0 rem(3.2) rgba($light-brown, 0.5);
+                                            }
                                         }
 
                                         .addtocart-innter-price {
@@ -2255,3 +2302,72 @@
 
 // product detail set scss 
 @import 'productDetailSet';
+
+// MSS-1854 add-to cart button 
+.quantity-btn {
+    display: flex;
+    align-items: center;
+
+    .add-to-cart {
+        margin-right: 0;
+    }
+
+    .quantity-selector-pdp {
+        padding-right: rem(10);
+        width: 25%;
+
+        @include media-breakpoint-down(lg) {
+            width: 35%;
+        }
+    }
+
+    .quantity-selector {
+        height: rem(50);
+        border: rem(3) solid $black;
+        border-radius: rem(3);
+        margin-bottom: rem(10);
+        background-color: $light-grey6;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            right: rem(15);
+            transform: rotate(45deg);
+            top: rem(10);
+            z-index: 10;
+            width: rem(15);
+            height: rem(15);
+            border-bottom: rem(1) solid $light-grey9;
+            border-right: rem(1) solid $light-grey9;
+            pointer-events: none;
+        }
+
+        @include media-breakpoint-down(xs) {
+            &::after {
+                right: rem(10);
+                width: rem(10);
+                height: rem(10);
+                top: rem(14);
+            }
+        }
+
+        label {
+            position: absolute;
+            margin-top: rem(10);
+            margin-left: rem(15);
+            font-size: rem(16);
+            font-weight: bold;
+        }
+
+        .quantity-select {
+
+            &.form-control {
+                padding-left: rem(60);
+                border: 0;
+                height: 100%;
+                font-weight: 500;
+            }
+        }
+    }
+}

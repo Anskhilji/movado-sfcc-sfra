@@ -60,6 +60,11 @@ module.exports = function setProduct(product, apiProduct, options, factory) {
             value: productSetBrand
         });
     }
+    
+    Object.defineProperty(product, 'productSetCalloutMsg', {
+        enumerable: true,
+        value: !empty(apiProduct.custom.productSetCalloutMsg) ? apiProduct.custom.productSetCalloutMsg : ''
+    });
 
     return product;
 };
