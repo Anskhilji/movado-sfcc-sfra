@@ -97,3 +97,4 @@
     <iscomment> One trust html script </iscomment>
     <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 </footer>
+<isinclude template="storeLocator/storeLocator" />

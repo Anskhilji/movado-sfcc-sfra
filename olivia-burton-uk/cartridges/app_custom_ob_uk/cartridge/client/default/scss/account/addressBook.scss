@@ -1,0 +1,11 @@
+@import '~movado/account/addressBook';
+@import '../variables';
+@import 'account';
+
+.card-make-default-link {
+
+    a {
+        font: rem(16) $font-gill-std-medium;
+    }
+}
+

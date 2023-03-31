@@ -29,6 +29,9 @@
 
 <div class="container cart-header-wrapper text-center">
     <h1 class="page-title cart-header">${Resource.msg('title.cart', 'cart', null)}</h1>
+
+    <isinclude template="common/progressMeter" sf-toolkit="on" />
+    
     <isif condition="${pdict.items.length !== 0}">
         <div class="estimate-price-wrapper">
             <div class="row estimated-total justify-content-center">
@@ -86,7 +89,6 @@
                         <isinclude template="cart/productCard/cartProductCard" />
                     </isif>
                 </isloop>
-                <isinclude template="cart/cartApproachingDiscount" />
             </div>
             <!---totals, and checkout actions--->
             <div class="col-sm-5 col-md-4 totals">
