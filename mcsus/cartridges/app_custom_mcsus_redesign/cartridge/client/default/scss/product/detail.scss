@@ -1143,7 +1143,7 @@
                                 max-width: 100%;
                                 margin-left: rem(0);
                                 margin-top: rem(39);
-                                padding: rem(0) rem(3);
+                                padding: rem(0) rem(10);
                             }
 
                             // mobile design
@@ -1763,6 +1763,247 @@
             }
         }
     }
+
+    .swatch-circle {
+        position: relative;
+        width: rem(37);
+        height: rem(37);
+        max-width: 100%;
+        border-radius: 50%;
+        padding: rem(1);
+        cursor: pointer;
+        margin: 0 rem(10) rem(14) 0;
+        color: $black;
+        background-color: $white-gray;
+        border: rem(1) solid $white-gray;
+        font-size: rem(12);
+        font-weight: 500;
+        letter-spacing: rem(1.2);
+        text-transform: uppercase;
+        background-size: 90%;
+        transition: 0.3s ease;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        &.active, &:hover {
+            border-color: $black;
+        }
+
+        &.disabled {
+
+            span {
+                &:before {
+                    content: "";
+                    position: absolute;
+                    background: $black;
+                    left: rem(22);
+                    top: 47%;
+                    width: rem(2);
+                    height: rem(50);
+                    transform: translate(-50%, -50%) rotate(45deg);
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    background: $black;
+                }
+            }
+
+        }
+    }
+
+    .pdp-select-variations {
+
+        background-color: $white-gray;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        @include media-breakpoint-down(sm) {
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        @include media-breakpoint-up(md-down) {
+
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: transparent;
+        }
+
+        .select-size-head {
+
+            &-label {
+                font-size: rem(12);
+                font-weight: 500;
+                letter-spacing: rem(0.5);
+                text-transform: uppercase;
+                display: block;
+
+                span {
+                    display: inline-block;
+                    color: $light-gray2;
+                    font-size: rem(11);
+                    letter-spacing: 0;
+                    max-width: rem(100);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    vertical-align: bottom;
+                }
+
+                &.color {
+                    color: $grey8;
+                    font-weight: 300;
+                    margin-bottom: rem(10);
+                }
+
+                &.colorWatch {
+                    margin-bottom: rem(10);
+                    color: $grey8;
+                    font-weight: 300;
+                }
+            }
+
+        }
+
+        .product-size-select-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+            flex-basis: 100%;
+            padding-top: rem(16);
+            justify-content: flex-start;
+
+            &.swatches-redesign {
+                padding-top: 0;
+
+                .product-size-options {
+                    width: rem(50);
+                    height: rem(50);
+                    margin: 0 rem(8) rem(8) rem(0);
+
+                    @include media-breakpoint-down(xs) {
+                        width: rem(50);
+                        height: rem(50);
+                    }
+                }
+            }
+
+            @include media-breakpoint-up(md-down) {
+                justify-content: flex-start;
+            }
+
+            &.pdp-swatchs-redesign {
+                padding-top: rem(0);
+            }
+
+            .swatchs-redesign {
+                width: rem(49);
+                height: rem(49);
+                border-radius: rem(1.47);
+                border: rem(1) solid rgba(0, 0, 0, 0.09);
+                background-size: cover;
+                box-sizing: border-box;
+                background-color: $white;
+
+                &:hover {
+                    border: rem(1) solid $black;
+                }
+
+                @include media-breakpoint-down(xs) {
+                    width: rem(50);
+                    height: rem(50);
+                    margin: 0 rem(8) rem(8) rem(0);
+                }
+
+                &.active {
+                    border: rem(1) solid $black;
+                }
+
+                &.disabled {
+
+                    span {
+
+                        &:before {
+                            left: rem(23);
+                            top: rem(23);
+                            height: rem(67);
+                        }
+
+                        @include media-breakpoint-down(sm) {
+
+                            &::before {
+                                top: rem(-10);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        .swatch-circle {
+            position: relative;
+            background-size: cover;
+
+            &.active {
+                border-color: $black;
+                background: $white-gray;
+                background-size: cover;
+            }
+
+            &.disabled {
+                cursor: not-allowed;
+
+                span {
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        background: $black;
+                        left: rem(18);
+                        top: rem(1);
+                        width: rem(2);
+                        height: rem(36);
+                        transform: rotate(45deg);
+                    }
+
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        background: $black;
+                    }
+                }
+
+            }
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        
+        .swatch-circle {
+
+            &.disabled {
+
+                span {
+
+                    &:before {
+                        content: "";
+                        left: rem(23);
+                        top: rem(0);
+                        height: rem(50);
+                    }
+                }
+
+            }
+        }
+    }
 }
 
 .custom-tooltipsmart {
@@ -2299,6 +2540,21 @@
 }
 
 // CSS End: listrak persistent popup
+.main-variation-attribute-mcs {
+
+    .attribute {
+
+        &.pdp-select-variations {
+            margin-bottom: rem(25);
+            margin-top: rem(5);
+            position: relative;
+
+            .fa-angle-down {
+                top: 53%;
+            }
+        }
+    }
+}
 
 // product detail set scss 
 @import 'productDetailSet';

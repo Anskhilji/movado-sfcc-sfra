@@ -34,7 +34,7 @@ $(document).ready(function() {
         dots: true,
         arrows:false,
         focusOnSelect: true,
-        infinite: true,
+        infinite: false,
         responsive: [
             {
                 breakpoint: 544,
