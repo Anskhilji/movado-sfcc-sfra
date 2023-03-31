@@ -132,6 +132,7 @@ $footer-custom : rgb(254,253,252) !default;
 $medium-screen-width: 768px;
 $large-screen-width: 1400px;
 $large-screen-width-1440: 1440px;
+$small-screen-width375: 375px;
 
 @mixin custom-media-query($large-screen-width) {
     @media (min-width:#{$large-screen-width}) {

@@ -1,6 +1,6 @@
 <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
 <isif condition="${product.variationAttributes[0].values.length > 0}">
-    <div class="color-swatches">
+    <div class="color-swatches d-none">
         <div class="swatches">
             <isloop items="${product.variationAttributes[0].values}" var="swatch" status="loopState">
                 <isif condition="${loopState.count < 4
