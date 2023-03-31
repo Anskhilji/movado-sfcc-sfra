@@ -103,30 +103,33 @@ function setLineItemInventory(items, lineItemsInventory, viewData) {
     var unavailableProducts = [];
     try {
         if (items && items.length > 0) {
-            items.forEach(function (item) {
+            items.forEach(function (item, index) {
                 if (lineItemsInventory && lineItemsInventory.length > 0) {
                     var currentItemInventory = lineItemsInventory.filter(function (lineItem) {
                         return lineItem.sku == item.id
                     });
                     var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
+                    var productLineItemQuantity = (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity;
+                    var lineItemInv = itemInv > 0 ? itemInv -  productLineItemQuantity : 0;
                     var loopInventory = itemInventory.filter(function (i) {
                         return i.itemId == item.id
                     }).map(function (obj) {
                         return obj.remain
                     });
-                    if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
+                    if ((loopInventory.length == 0 || loopInventory > 0) && (lineItemInv == 0 || lineItemInv > 0) && itemInv > 0) {
                         item.storePickupAvailable = true;
                         if (loopInventory.length == 0) {
                             itemInventory.push({
                                 itemId: item.id,
-                                remain: itemInv - 1
+                                remain: itemInv - productLineItemQuantity
                             });
                             return;
                         }
                         itemInventory.filter(function (i) {
                             return i.itemId == item.id
                         }).map(function (obj) {
-                            obj.remain = obj.remain - 1
+                            productLineItemInventory = (viewData && viewData.cartModel)  ? viewData.cartModel.items[index].quantity : viewData.items[index].quantity;
+                            obj.remain = obj.remain - productLineItemInventory
                         });
                     } else {
                         item.storePickupAvailable = false;

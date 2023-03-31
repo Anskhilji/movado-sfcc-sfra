@@ -694,7 +694,7 @@
                     max-width: rem(500);
 
                     @include media-breakpoint-down(md) {
-                        max-width: rem(250);
+                        max-width: rem(200);
                     }
 
                     @include media-breakpoint-down(sm) {
@@ -2214,3 +2214,71 @@
     }
 }
 // CSS End: listrak persistent popup
+// MSS-1854 add-to cart button 
+.quantity-btn {
+    display: flex;
+    align-items: center;
+
+    .add-to-cart {
+        margin-right: 0;
+    }
+
+    .quantity-selector-pdp {
+        padding-right: rem(10);
+        width: 25%;
+
+        @include media-breakpoint-down(lg) {
+            width: 35%;
+        }
+    }
+
+    .quantity-selector {
+        height: rem(50);
+        border: rem(3) solid $black;
+        border-radius: rem(3);
+        margin-bottom: rem(10);
+        background-color: $light-grey6;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            right: rem(15);
+            transform: rotate(45deg);
+            top: rem(10);
+            z-index: 10;
+            width: rem(15);
+            height: rem(15);
+            border-bottom: rem(1) solid $light-grey9;
+            border-right: rem(1) solid $light-grey9;
+            pointer-events: none;
+        }
+
+        @include media-breakpoint-down(xs) {
+            &::after {
+                right: rem(10);
+                width: rem(10);
+                height: rem(10);
+                top: rem(14);
+            }
+        }
+
+        label {
+            position: absolute;
+            margin-top: rem(10);
+            margin-left: rem(15);
+            font-size: rem(16);
+            font-weight: bold;
+        }
+
+        .quantity-select {
+
+            &.form-control {
+                padding-left: rem(60);
+                border: 0;
+                height: 100%;
+                font-weight: 500;
+            }
+        }
+    }
+}

@@ -164,7 +164,20 @@ $('body').on('click', '.primary-images .main-carousel-movado img', function (e) 
 $('body').on('click', '.carousel-indicator-image', function (e) {
     e.preventDefault();
     $('.main-carousel .slick-active').addClass('slick-center');
-}); 
+});
+
+$('body').off('change', '.quantity-selector > .quantity').on('change', '.quantity-selector .quantity', function (e) {
+    e.preventDefault();
+    var $selectQuantity = null;
+    if ($('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+        $selectQuantity = $('.quantity-selector > .quantity').val();
+        if ($selectQuantity > 1) {
+            $('.apple-pay-pdp').addClass('d-none');
+        } else {
+            $('.apple-pay-pdp').removeClass('d-none');
+        }
+    }
+});
 
 function slickHeight() {
     var $winWidth = $(window).width();
@@ -1128,6 +1141,15 @@ var updateCartPage = function(data) {
    } 
 };
 
+if (window.Resources.IS_PDP_QUANTITY_SELECTOR) {
+    $(function () {
+        var select = $('select.value-control');
+        select.change(function () {
+            select.not(this).val(this.value);
+        });
+    });
+}
+
 module.exports = {
     attributeSelect: attributeSelect,
     methods: {
@@ -1225,6 +1247,13 @@ module.exports = {
             var pidsObj;
             var setPids;
             var giftPid;
+            var productQuantity = null;
+            if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+                productQuantity = $('.quantity-selector > .quantity').val();
+                if (productQuantity == "") {
+                    productQuantity = null;
+                }
+            }
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -1261,6 +1290,10 @@ module.exports = {
             }
 
             addToCartUrl = getAddToCartUrl();
+            var quantity = 1;
+            if (window.Resources.IS_PDP_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
+                quantity = productQuantity;
+            }
 
             var form = {
                 pid: pid,
@@ -1278,7 +1311,7 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1,
+                    quantity: quantity,
                     giftPid: giftPid ? giftPid : ''
                 };
             }
