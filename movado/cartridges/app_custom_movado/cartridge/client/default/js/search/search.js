@@ -634,7 +634,6 @@ module.exports = {
         });
     },
     // Custom End: Listrak persistent popup
-
     updatePageURLForShowMore: updatePageURLForShowMore,
     updateSortOptions: updateSortOptions,
     replaceQueryParam: replaceQueryParam,

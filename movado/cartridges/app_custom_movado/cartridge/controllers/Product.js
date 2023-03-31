@@ -52,8 +52,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
 
     var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
-
-
+    
     var collectionContentList;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
