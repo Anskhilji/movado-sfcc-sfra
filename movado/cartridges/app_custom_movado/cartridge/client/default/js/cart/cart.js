@@ -60,6 +60,7 @@ $( document ).ready(function() {
  * @param {Object} data - AJAX response from the server
  */
 function validateBasket(data) {
+    var $checkoutBtn = $('.checkout-btn');
     if (data.valid.error) {
         if (data.valid.message) {
             var errorHtml = '<div class="alert card alert-dismissible valid-cart-error ' +
@@ -81,9 +82,11 @@ function validateBasket(data) {
             $('.minicart .popover').empty().removeClass('show');
         }
 
-        $('.checkout-btn').addClass('disabled');
+        $checkoutBtn.addClass('disabled');
     } else {
-        $('.checkout-btn').removeClass('disabled');
+        if (!$checkoutBtn.hasClass('disabled')) {
+            $checkoutBtn.removeClass('disabled');
+        }
     }
 }
 
@@ -126,6 +129,16 @@ function updateCartTotals(data) {
         $progressMeterMain.append($applicablePromoMessageHtml);
     }
     
+    var $pickupFromStore = $('.cart-store-pickup').prop('checked');
+    if ($pickupFromStore) {
+        var $productIds = [];
+        $('.quantity.custom-select').each(function () {
+            if ($(this).prop('disabled')) {
+                var $pid = $(this).data('pid');
+                $productIds.push(parseInt($pid));
+            }
+        });
+    }
     $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.number-of-items').empty().append(data.resources.numberOfItems);
     $('.shipping-cost').empty().append(data.totals.totalShippingCost);
@@ -161,6 +174,20 @@ function updateCartTotals(data) {
     data.items.forEach(function (item) {
         $('.item-' + item.UUID).empty().append(item.renderedPromotions);
         $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
+
+        if ($pickupFromStore && $productIds.indexOf(parseInt(item.id)) > -1) {
+            $('select[data-pid="' + item.id + '"]').attr('disabled', true);
+        }
+
+        if (item.options.length > 0) {
+            item.options.forEach(function (option) {
+                if (option && option.optionId == Resources.CLYDE_WARRANTY && option.price != '' && option.adjustedPrice != '' && option.price == option.adjustedPrice) {
+                    $('.clyde-uuid-' + item.UUID + ' .clyde-option-price').text(option.price);
+                } else if (option && option.optionId == Resources.CLYDE_WARRANTY && option.adjustedPrice != '') {
+                    $('.clyde-uuid-' + item.UUID + ' .adjusted-clyde-price').text(option.adjustedPrice);
+                }
+            });
+        }
     });
 }
 
@@ -227,6 +254,74 @@ function updateAvailability(data, uuid) {
     }
 
     $('.availability-' + lineItem.UUID).html(messages);
+}
+
+/**
+ * updateCartQuantity function will update the quantity in the product and the cart.
+ * quantitySelector param is used to get the selected product class and it data attributes.
+ * @param quantitySelector
+ * @param isKeyEvent is used to check the current event is fire from keys or mouse.
+ */
+function updateCartQuantity(quantitySelector, isKeyEvent) {
+    var $preSelectQty = $(quantitySelector).data('pre-select-qty');
+    var $quantity = isKeyEvent ? parseInt(quantitySelector.value) : parseInt($(quantitySelector).val());
+    var $productID = $(quantitySelector).data('pid');
+    var $url = $(quantitySelector).data('action');
+    var $uuid = $(quantitySelector).data('uuid');
+
+    if (isNaN($quantity) || $quantity == 0) {
+        $quantity = 1;
+        $(quantitySelector).val($quantity);
+    }
+
+    if ($quantity == 1 || $quantity == 0) {
+        $('#decreased-' + $productID).attr('disabled', true);
+    } else {
+        $('#decreased-' + $productID).attr('disabled', false);
+    }
+
+    var $urlParams = {
+        pid: $productID,
+        quantity: $quantity,
+        uuid: $uuid
+    };
+
+    $url = appendToUrl($url, $urlParams);
+    $(quantitySelector).parents('.product-info, .align-items-center').spinner().start();
+
+    $.ajax({
+        url: $url,
+        type: 'get',
+        context: quantitySelector,
+        dataType: 'json',
+        success: function (data) {
+            $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
+            $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
+            $('.minicart-footer .subtotal-total-discount').empty().append(data.totals.subTotal);
+            var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
+            $miniCartSelector.length > 0 ? updateMiniCartTotals(data) : updateCartTotals(data);
+            updateApproachingDiscounts(data.approachingDiscounts);
+            updateAvailability(data, $uuid);
+            validateBasket(data);
+            $(quantitySelector).data('pre-select-qty', $quantity);
+            $.spinner().stop();
+            //Custom Start: [MSS-1451] Listrak SendSCA on Cart Quantity Update
+            if (window.Resources.LISTRAK_ENABLED) {
+                var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+            }
+            //Custom End
+        },
+        error: function (err) {
+            if (err.responseJSON.redirectUrl) {
+                window.location.href = err.responseJSON.redirectUrl;
+            } else {
+                createErrorNotification(err.responseJSON.errorMessage);
+                $(quantitySelector).val(parseInt($preSelectQty, 10));
+                $.spinner().stop();
+            }
+        }
+    });
 }
 
 /**
@@ -411,7 +506,11 @@ function enterGiftMessageHandler($element) {
     var charsRemaining = maxchars - currentLength;
     var currentCard = $this.closest('.product-gift-wrap');
     var addGiftButton = currentCard.find('.add-gift-message');
+    var $applePayButton = $('.apple-pay-cart');
+    $applePayButton.attr('disabled', true);
     currentCard.find('.characters-left').html(charsRemaining);
+    currentCard.find('.gift-message-apply').val(false);
+
     if ($this.val() !== '') {
         addGiftButton.removeAttr('disabled').find('.apply-button').removeClass('d-none');
         addGiftButton.find('.saved-button').addClass('d-none');
@@ -568,6 +667,17 @@ module.exports = function () {
                 }
             }
         });
+    });
+
+    /**
+     * This is override change event function on the quantity input field.
+     * It is used to update the quantity of the product in the cart. It will call
+     * the updateCartQuantity function that will handle the quantity update
+     * functionality.
+     */
+    $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form .quantity', function (e) {
+        e.preventDefault();
+        updateCartQuantity(this, false);
     });
 
     $('body').on('change', '.quantity-form > .quantity', function () {
@@ -921,6 +1031,21 @@ module.exports = function () {
         var endPointURL = $this.attr('href');
         var giftMessage = $this.parent().find('.gift-text').val();
         var prodUUID = $this.data('product-uuid');
+        $this.find('.gift-message-apply').val(true);
+        var $applePayButton = $('.apple-pay-cart');
+        var $applyButtton = $('.add-gift-message');
+        var $giftMessageArray = [];
+
+        $applyButtton.each(function () {
+            var $giftMessageApply = $(this).find('.gift-message-apply').val();
+            $giftMessageArray.push($giftMessageApply);
+        });
+
+        if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+            $applePayButton.attr('disabled', true);
+        } else {
+            $applePayButton.attr('disabled', false);
+        }
 
         $this.parent().find('.gift-message-blank').hide();
         $this.parent().find('.gift-message-error').hide();
@@ -956,6 +1081,8 @@ module.exports = function () {
 
     $('body').on('click', '.gift-check', function () {
         $(this).closest('.product-gift-wrap').find('.gift-message-wrapper, .character-limit').toggle(this.checked);
+        var $applePayButton = $('.apple-pay-cart');
+
         if (!this.checked) {
             var parentDiv = $(this).closest('.product-gift-wrap');
             parentDiv.find('.gift-text').val('');
@@ -963,6 +1090,7 @@ module.exports = function () {
             var endPointURL = giftButton.attr('href');
             var giftMessage = '';
             var prodUUID = giftButton.data('product-uuid');
+            $applePayButton.attr('disabled', false);
             giftButton.parent().find('.gift-message-blank').hide();
             giftButton.parent().find('.gift-message-error').hide();
             $.spinner().start();
@@ -979,6 +1107,20 @@ module.exports = function () {
 
                     giftButton.prop('disabled', 'disabled').find('.saved-button').removeClass('d-none');
                     giftButton.find('.apply-button').addClass('d-none');
+
+                    var $applyButtton = $('.add-gift-message');
+                    var $giftMessageArray = [];
+
+                    $applyButtton.each(function () {
+                        var $giftMessageApply = $(this).find('.gift-message-apply').val();
+                        $giftMessageArray.push($giftMessageApply);
+                    });
+
+                    if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+                        $applePayButton.attr('disabled', true);
+                    } else {
+                        $applePayButton.attr('disabled', false);
+                    }
                 },
                 error: function (data) { $.spinner().stop(); }
             });
@@ -1022,6 +1164,32 @@ module.exports = function () {
             }
         });
     });
+
+    $('body').on('click', '.checkout-btn, .paypal-btn', function (e) {
+        var $applyButtton = $('.add-gift-message');
+        var $errorMsg = Resources.GIFT_MESSAGE_CART_ERROR;
+        var $giftMessageArray = [];
+
+        $applyButtton.each(function () {
+            var $giftMessageApply = $(this).find('.gift-message-apply').val();
+            $giftMessageArray.push($giftMessageApply);
+        });
+
+        if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+            var $errorHtml = '<div class="alert card alert-dismissible gift-cart-error ' +
+            'fade show" role="alert">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">&times;</span>' +
+            '</button>' + $errorMsg + '</div>';
+
+            if ($errorMsg) {
+                $('.cart-error').empty().append($errorHtml);
+            }
+            e.stopPropagation();
+            e.preventDefault();
+        }
+    });
+
     base.selectAttribute();
     base.setOptionsAttribute();
     base.colorAttribute();

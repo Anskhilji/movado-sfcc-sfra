@@ -47,6 +47,7 @@
                 <isif condition="${!pdict.lineItemGiftMessage[lineItem.UUID].giftMessage}" >
                     d-none
                 </isif>">${pdict.giftMessaging.saved}</span>
+                <input type="hidden" class="gift-message-apply" name="gift-message-apply" value="" />
             </button>
     
         </div>

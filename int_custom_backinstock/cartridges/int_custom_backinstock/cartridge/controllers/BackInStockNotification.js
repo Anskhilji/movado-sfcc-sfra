@@ -7,54 +7,74 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var Site = require('dw/system/Site');
 
-server.post('Subscribe',
-    server.middleware.https,
-    cache.applyDefaultCache,
-    function (req, res, next) {
-        var form = req.form;
-        var result = {
-            success: false,
-            isValidEmail: false,
-            isAlreadySubscribed: false
-        };
-        if (!empty(form)) {
-            if (backInStockNotificationHelper.isValidEmail(form.email)) {
-                result.isValidEmail = true;
-                if (!empty(form.pid)) {
-                    var backInStockNotificationObj = {
-                        email: form.email,
-                        productID: form.pid,
-                        enabledMarketing: !empty(form.enabledMarketing) && (form.enabledMarketing == 'true' || form.enabledMarketing == true) ? true : false
-                    }
-                    result.isAlreadySubscribed = backInStockNotificationHelper.isAlreadySubscribed(backInStockNotificationObj);
-                    if (!result.isAlreadySubscribed) {
-                        result.success = backInStockNotificationHelper.saveBackInStockNotificationObj(backInStockNotificationObj);
-                    }
+server.post('Subscribe', server.middleware.https, cache.applyDefaultCache, function (req, res, next) {
+    var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+    var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+
+    var form = req.form;
+    var result = {
+        success: false,
+        isValidEmail: false,
+        isAlreadySubscribed: false,
+        smsApiResponse: false
+    };
+    if (!empty(form)) {
+        if (!empty(form.email) && backInStockNotificationHelper.isValidEmail(form.email)) {
+            result.isValidEmail = true;
+            if (!empty(form.pid)) {
+                var backInStockNotificationObj = {
+                    email: form.email,
+                    productID: form.pid,
+                    enabledMarketing: !empty(form.enabledMarketing) && (form.enabledMarketing == 'true' || form.enabledMarketing == true) ? true : false
                 }
-                var requestParams = {
-                    email: form.email
+                result.isAlreadySubscribed = backInStockNotificationHelper.isAlreadySubscribed(backInStockNotificationObj);
+                if (!result.isAlreadySubscribed) {
+                    result.success = backInStockNotificationHelper.saveBackInStockNotificationObj(backInStockNotificationObj);
                 }
-                //Custom Start [MSS-1453]: Send Subscriber to Listrak if checkbox is checked
-                if ((form.enabledMarketing == 'true' || form.enabledMarketing == true) && Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
-                    var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
-                    var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
-                    requestParams.source = ltkConstants.Source.BackInStock;
-                    requestParams.event = ltkConstants.Event.BackInStock;
-                    requestParams.subscribe = ltkConstants.Subscribe.BackInStock;
-                    ltkApi.sendSubscriberToListrak(requestParams);
-                } else {
-                    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
-                    SFMCApi.sendSubscriberToSFMC(requestParams);
+            }
+            var requestParams = {
+                email: form.email
+            }
+            //Custom Start [MSS-1453]: Send Subscriber to Listrak if checkbox is checked
+            if ((form.enabledMarketing == 'true' || form.enabledMarketing == true) && Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                requestParams.source = ltkConstants.Source.BackInStock;
+                requestParams.event = ltkConstants.Event.BackInStock;
+                requestParams.subscribe = ltkConstants.Subscribe.BackInStock;
+                ltkApi.sendSubscriberToListrak(requestParams);
+            } else {
+                var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+                SFMCApi.sendSubscriberToSFMC(requestParams);
+            }
+            //Custom End:
+        }
+        if (!empty(form.phoneNo) && (form.smsSubscription == 'true' || form.smsSubscription == true) && backInStockNotificationHelper.isValidPhone(form.phoneNo, form.smsSubscription)) {
+            var requestParam = {
+                phone: form.phoneNo,
+                clientSecret : form.clientSecret ? form.clientSecret : ''
+            }
+            if (form.email) {
+                requestParam.email = form.email
+            }
+            if ((form.smsSubscription == 'true' || form.smsSubscription == true) && Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                var optedOutStatus = ltkApi.sendContactToListrak(requestParam);
+                
+                //Custom Start [MSS-1984]: this code is used send the customer phone no to listrack 
+                //we are commenting this code because we don't have any scenario to test this
+
+                // if (!empty(optedOutStatus) && optedOutStatus.data.optedOut == true) {
+                //     ltkApi.subscribeContactToListrak(requestParam);
+                // }
+                if (optedOutStatus.error == '404') {
+                    result.smsApiResponse = ltkApi.createContactToListrak(requestParam);
                 }
-                //Custom End: 
             }
         }
-        res.json({
-            result: result
-        });
-        return next();
     }
-);
+    res.json({
+        result: result
+    });
+    return next();
+});
 
 // Show back-in stock notification as Remote Include
 server.get('ShowBackInStock', function (req, res, next) {

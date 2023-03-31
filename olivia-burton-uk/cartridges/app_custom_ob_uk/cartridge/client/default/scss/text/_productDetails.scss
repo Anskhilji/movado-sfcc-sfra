@@ -24,7 +24,7 @@
 		height: rem(45);
 
 		a {
-			font-family: $font-museo-light;
+			font-family: $font-gill-std;
 			font-size: $font-size-text-heading1;
 			letter-spacing: rem(0.9);
 			font-weight: $font-light;
@@ -148,7 +148,7 @@
 		width: 100%;
 
 		a {
-			font-family: $font-museo-light;
+			font-family: $font-gill-std;
 			font-size: $font-size-text-heading1;
 			letter-spacing: rem(0.9);
 			font-weight: $font-light;
@@ -181,7 +181,7 @@
 		}
 
 		button {
-			font-family: $font-museo-std;
+			font-family: $font-gill-std-medium;
 			font-size: $font-size-text-heading1;
 			letter-spacing: rem(2);
 			font-weight: $font-semi-bold;
@@ -277,7 +277,7 @@
 	}
 
 	a.btn-primary {
-		font-family: $font-museo-std;
+		font-family: $font-gill-std-medium;
 		font-size: $font-size-text-heading1;
 		letter-spacing: rem(2);
 		font-weight: $font-semi-bold;
@@ -342,7 +342,7 @@
 			opacity: unset;
 
 			&-icon {
-				font-family: $font-museo-std;
+				font-family: $font-gill-std-medium;
 				color: $black;
 				font-size: $font-size-text-heading1;
 				letter-spacing: rem(1.4);
@@ -352,7 +352,7 @@
 
 		.full-pdp-link {
 			color: $extra-dark-grey;
-			font-family: $font-museo-light;
+			font-family: $font-gill-std;
 			font-size: $font-size-text-heading1;
 			letter-spacing: rem(0.9);
 		}
