@@ -1,6 +1,6 @@
 <div class="product-tile" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
-
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
     <isloop items="${product.availability.messages}" var="message">
     	<isset name="outOfStock" value="${false}" scope="page"/>
         <isif condition="${message === Resource.msg('label.not.available', 'common', null)}">
@@ -12,7 +12,7 @@
         </isif>
     </isloop>
 
-    <isinclude template="product/components/old/productTileImage" />
+    <isinclude template="product/components/productTileImage" />
 
     <div class="tile-body">
         <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
@@ -41,7 +41,7 @@
 
         <isset name="price" value="${product.price}" scope="page" />
         <isif condition="${product.productType === 'set'}">
-            <isinclude template="product/components/pricing/setPrice" />
+            <isinclude template="product/components/productSet/setPrice" />
         <iselse>
             <isinclude template="product/components/pricing/main" />
         </isif>
@@ -67,7 +67,15 @@
     </div>
     <div class="row m-10">
         <div class="col d-flex align-items-center justify-content-center">
-            <isinclude template="product/components/ratings" />
+            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
+            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+            <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                    <isinclude template="product/components/yotpoRatings" />
+                </div>
+            <iselse/>
+                <isinclude template="product/components/ratings" />
+            </isif>
         </div>
     </div>
 

@@ -1,4 +1,5 @@
 <iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
+<isset name="mcsPdpATCABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSPdpATCTest','render-new-design')}" scope="page" />
 <div class="cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
@@ -10,7 +11,7 @@
                     <isinclude template="product/components/productQuantitySelector" />
                 </div>
             </isif>
-            <button class='add-to-cart btn btn-primary <isif condition="${product.isProductRestricted}">d-none</isif>'
+            <button class='add-to-cart btn btn-primary ${mcsPdpATCABTest ? 'static-style-wrapper' : ''} <isif condition="${product.isProductRestricted}">d-none</isif>'
                 data-pid="${product.id}"
                 ${!product.readyToOrder ? "disabled" : ""}  >
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
@@ -24,7 +25,7 @@
                     <iscomment> price  </iscomment>
                     <isif condition="${!pdict.isPLPProduct}"> 
                         <isset name="price" value="${product.price}" scope="page" />
-                        <div class="add-to-cart-price-holder addtocart-innter-price">
+                        <div class="add-to-cart-price-holder addtocart-innter-price ${mcsPdpATCABTest ? 'static-style-wrapper' : ''}">
                             <isinclude template="product/components/pricing/main" />
                         </div>
                     </isif>

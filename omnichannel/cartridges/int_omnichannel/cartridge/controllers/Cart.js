@@ -25,13 +25,13 @@ server.append(
     function (req, res, next) {
         if (session.privacy.pickupStoreID) {
             var viewData = res.getViewData();
-            var currentBasket;
+            var currentBasket = BasketMgr.getCurrentBasket();
             var productIds = [];
             var apiResponse;
             var lineItemsInventory;
             var currentCountry = productCustomHelper.getCurrentCountry();
 
-            if (session.privacy.pickupFromStore) {
+            if (currentBasket.custom.storePickUp) {
                 session.custom.applePayCheckout = false;
             } else {
                 session.custom.StorePickUp = false;
@@ -41,7 +41,6 @@ server.append(
             }
 
             try {
-                currentBasket = BasketMgr.getCurrentBasket();
                 Transaction.wrap(function () {
                     if (currentBasket) {
                         var productLineItemsIterator = currentBasket.productLineItems.iterator();
@@ -52,7 +51,7 @@ server.append(
 
                         var shippingMethods = ShippingMgr.getAllShippingMethods();
                         var shipment = currentBasket.defaultShipment
-                        if (session.privacy.pickupFromStore) {
+                        if (currentBasket.custom.storePickUp) {
                             ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
                         } else {
                             ShippingHelper.selectShippingMethod(shipment);
@@ -86,19 +85,26 @@ server.post(
     function (req, res, next) {
         var CartModel = require('*/cartridge/models/cart');
         var storeFormPickUP = req.form.pickupFromStore == 'true' ? true : false;
-        session.privacy.pickupFromStore = storeFormPickUP;
         session.custom.pickupFromStore = storeFormPickUP;
+        var currentBasket = BasketMgr.getCurrentBasket();
         var viewData = {};
         var isAllItemsAvailable = true;
-        var currentBasket;
         var productIds = [];
         var items = [];
         var apiResponse;
         var lineItemsInventory;
+
+        Transaction.wrap(function () {
+            if (currentBasket) {
+                currentBasket.custom.storePickUp = storeFormPickUP;
+                
+            }
+        });
+
         var currentCountry = productCustomHelper.getCurrentCountry();
         viewData.storeFormPickUP = storeFormPickUP;
         viewData.isAllItemsAvailable = isAllItemsAvailable;
-        if (session.privacy.pickupFromStore) {
+        if (currentBasket.custom.storePickUp) {
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
@@ -107,7 +113,6 @@ server.post(
             }
         }
         try {
-            currentBasket = BasketMgr.getCurrentBasket();
             Transaction.wrap(function () {
                 if (currentBasket) {
                     currentBasket.custom.BOPIS = storeFormPickUP;
