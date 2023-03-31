@@ -501,11 +501,11 @@
         }
 
         .dropdown-menu {
-            background-color: $gray-light-1;
+            background-color: $gray-light-2;
             min-height: 100%;           
 
             ul {
-                background-color: $gray-light-1;
+                background-color: $gray-light-2;
             }
 
             .dropdown {
@@ -556,7 +556,7 @@
             padding-bottom: rem(60);
 
             @include media-breakpoint-down(md) {
-                background-color: $gray-light-1;
+                background-color: $gray-light-2;
             }
         }
 
@@ -582,7 +582,7 @@
             &.main-menu {
                 
                 @include media-breakpoint-down(md) {
-                    background-color: $gray-light-1;
+                    background-color: $gray-light-2;
                 }
             }
         }
@@ -598,7 +598,7 @@
             }
 
             .close-menu {
-                background: $gray-light-1;
+                background: $gray-light-2;
                 border: none;
                 padding-left: rem(20);
 
@@ -815,7 +815,7 @@
             @include media-breakpoint-up(lg) {
                 width: auto;
                 min-width: 100%;
-                background-color: $gray-light-1;
+                background-color: $gray-light-2;
             }
     
         }
