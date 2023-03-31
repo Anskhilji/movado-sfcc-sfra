@@ -20,6 +20,19 @@
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['pdp700']}" var="image" status="loopStatus">
+
+               <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                  <div class="carousel-tile poster-frame-video">
+                      <iscomment> product badges </iscomment>
+                      <div class="product-badges-redesign d-block d-sm-none">
+                          <isinclude template="product/components/badges" />
+                      </div>
+                      <video class="slide-video" loop muted autoplay playsinline >
+                          <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                      </video>
+                  </div>
+              </isif>
+
               <div class="carousel-tile">
                <iscomment> product badges </iscomment>
                 <div class="product-badges-redesign d-block d-sm-none">
@@ -29,15 +42,10 @@
                   <picture>
                       <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />
                       <source media="(max-width: 991px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />
-            <iscomment> Custom End: MSS-1564 Add thumbnails to PDP </iscomment>
+                      <iscomment> Custom End: MSS-1564 Add thumbnails to PDP </iscomment>
                       <img src="${image.url}" alt="${image.alt}" itemprop="image" class="js-zoom-image  carousel-zoom-icon" aria-label="${product.resources.Zoom}" data-toggle="modal" data-target="#zoomProduct" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
-                  <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
-                      <video class="slide-video d-none " loop muted autoplay playsinline >
-                          <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
-                      </video>
-                  </isif>
               </div>
           </isloop>
       </div>
@@ -60,6 +68,17 @@
       <div class="carousel-nav-set-product" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
       <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['tile126']}" var="image" status="loopStatus">
+
+              <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                  <div class="carousel-tile"> 
+                      <picture>
+                          <source media="(min-width: 992px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
+                          <source media="(max-width: 991px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
+                          <img class="carousel-indicator-image" src="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" alt="${product.posterFrame.alt}" itemprop="image" />
+                          <isset name="isImageExist" value="true" scope="page" />
+                      </picture>
+                    </div>
+              </isif>
               <div class="carousel-tile">
                   <picture>
                       <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['tile126']) && !empty(product.images['tile126'][loopStatus.count-1]) && !empty(product.images['tile126'][loopStatus.count-1].url ) ? product.images.tile126[loopStatus.count-1].url : ''}" />
