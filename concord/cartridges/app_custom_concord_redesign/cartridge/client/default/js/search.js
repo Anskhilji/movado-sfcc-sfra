@@ -1,4 +1,4 @@
 $(document).ready(function () {
     var processInclude = require('base/util');
-    processInclude(require('movado/search'));
+    processInclude(require('movad_redesign/search'));
 });
