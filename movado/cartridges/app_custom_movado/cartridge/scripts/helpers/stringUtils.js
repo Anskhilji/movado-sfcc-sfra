@@ -12,6 +12,14 @@ var removeSingleQuotes = function(value) {
     return value;
 }
 
+var removeLineBreak = function (value) {
+    if (value != null) {
+        return value.replace(/\r\n|\r|\n/g,' ');
+    }
+    return value;
+}
+
 module.exports = {
-    removeSingleQuotes: removeSingleQuotes
+    removeSingleQuotes: removeSingleQuotes,
+    removeLineBreak: removeLineBreak
 };
