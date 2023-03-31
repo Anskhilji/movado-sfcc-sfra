@@ -5,7 +5,7 @@
 		assets.addJs('/js/search.js');
 		assets.addCss('/css/search.css');
 	</isscript>
-
+    <isset name="plpTileSlotPosition" value="${!empty(dw.system.Site.current.preferences.custom.plpTileSlotPosition) ? JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition) : false}" scope="page" />
 	<isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
 		<isinclude template="reporting/reportingUrls" />
 	</isif>
@@ -67,22 +67,26 @@
 						</isif>
 						<isinclude template="search/resultsCount" />
 					</div>
-					<isif condition="${pdict.productSearch.productIds.length > 0}">
-						<div class="col-6 col-sm-6 order-sm-1 sort-filters-button sort-col">
-							<isinclude template="search/sortOrderMenu" />
-						</div>
-						<div class="col-6 col-sm-6 text-right order-sm-3 filter-col">
-							<button type="button" class="btn btn-primary filter-results">
-							<picture>
-								<source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}">
-								<img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid">
-							</picture>
-							    <span class="d-none d-sm-inline-block">${Resource.msg('button.filters', 'search', null)}</span>
-							    <span class="d-inline-block d-sm-none">${Resource.msg('button.filterby', 'search', null)}</span>
-							</button>
-						</div>
-					</isif>
 				</div>
+				<isif condition="${pdict.productSearch.productIds.length > 0}">
+					<div class="col-12">
+						<div class="row search-filter-bar">
+							<div class="col-6 col-sm-6 order-sm-1 sort-filters-button sort-col">
+								<isinclude template="search/sortOrderMenu" />
+							</div>
+							<div class="col-6 col-sm-6 text-right order-sm-3 filter-col">
+								<button type="button" class="btn btn-primary filter-results">
+									<picture>
+										<source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}">
+										<img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid">
+									</picture>
+									<span class="d-none d-sm-inline-block">${Resource.msg('button.filters', 'search', null)}</span>
+									<span class="d-inline-block d-sm-none">${Resource.msg('button.filterby', 'search', null)}</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</isif>
 			</div>
 			<div class="col-12 d-block d-sm-none px-0 result-count-show header-bar">
 			    <div class="result-count">
@@ -110,11 +114,37 @@
 							<!--- Product Grid --->
 							<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
 								<isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
-									<isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
-										<div class="col-6 col-md-4 col-lg-3 col-container-inner">
-											<isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
-										</div>
-									</isif>							
+                                    <isif condition="${plpTileSlotPosition}">
+                                        <isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
+                                            <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot}">
+                                                <isif condition="${plpTileSlot.index == prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.1st', 'search', null)}">
+                                                    <div class="col-6 col-md-4 col-lg-3 content-tile slot-column col-container-inner">
+                                                        <isslot id="cs_plp_marketing_tile_slot_1st" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+                                                    </div>
+                                                </isif>
+                                                <isif condition="${plpTileSlot.index == prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.2nd', 'search', null)}">
+                                                    <div class="col-6 col-md-4 col-lg-3 content-tile slot-column col-container-inner">
+                                                        <isslot id="cs_plp_marketing_tile_slot_2nd" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+                                                    </div>
+                                                </isif>
+                                                <isif condition="${plpTileSlot.index == prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.3rd', 'search', null)}">
+                                                    <div class="col-6 col-md-4 col-lg-3 content-tile slot-column col-container-inner">
+                                                        <isslot id="cs_plp_marketing_tile_slot_3rd" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+                                                    </div>
+                                                </isif>
+                                                <isif condition="${plpTileSlot.index == prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.4th', 'search', null)}">
+                                                    <div class="col-6 col-md-4 col-lg-3 content-tile slot-column col-container-inner">
+                                                        <isslot id="cs_plp_marketing_tile_slot_4th" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+                                                    </div>
+                                                </isif>
+                                                <isif condition="${plpTileSlot.index == prodStatus.index + 1 && plpTileSlot.slotName == Resource.msg('plp.tile.slot.5th', 'search', null)}">
+                                                    <div class="col-6 col-md-4 col-lg-3 content-tile slot-column col-container-inner">
+                                                        <isslot id="cs_plp_marketing_tile_slot_5th" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+                                                    </div>
+                                                </isif>
+                                            </isif>
+                                        </isloop>
+                                    </isif>						
 									<isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
 									<iselse>
 										<div class="col-6 col-md-4 col-lg-3 col-container-inner" data-gtm-refinements='${product.productSearchHit.productID}'>
@@ -144,13 +174,14 @@
 			<div id="content-search-results" class="content-grid-header"></div>
 		</div>
 
-	</div>
-		</div>
-			</div>
-		<isif condition="${pdict.productSearch.category}">
-			<isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-			<isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-		</isif>
+    </div>
+        </div>
+            </div>
+        <isif condition="${pdict.productSearch.category}">
+            <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+            <isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+            <isslot id="cs_plp_marketing_bottom_slot" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        </isif>
 
 		<isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
 			<div class="d-none" id="color-swatch-images">
@@ -165,7 +196,7 @@
     <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
     <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
         <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
-        <span class="listrak-popup-product-detail"></span>
+        <span class="listrak-popup-search-result"></span>
         <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
     </isif>
     <!-- End: Listrak persistent popup -->

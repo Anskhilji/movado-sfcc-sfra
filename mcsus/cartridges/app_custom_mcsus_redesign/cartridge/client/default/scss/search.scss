@@ -68,6 +68,54 @@
 
                 .tab-pane {
                     margin: rem(50) rem(0) rem(54) rem(0);
+                    top: 0;
+                    position: relative;
+
+                    .search-filter-bar {
+
+                        &.sticky-search-filter-bar {
+                            position: fixed;
+                            top: rem(125);
+                            z-index: 6;
+                            padding: rem(15) rem(31);
+                            background-color: $white;
+                            width: 100%;
+                            box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
+                            margin-left: rem(-47);
+
+                            @include media-breakpoint-down(lg) {
+                                margin-left: rem(-30);
+                            }
+
+                            .filter-col {
+                                padding: 0;
+                            }
+
+                            @include media-breakpoint-down(md) {
+                                margin: 0;
+                                width: 100%;
+                                margin-left: rem(-30);
+                                top: rem(75);
+                                z-index: 1;
+                                border-top: rem(1) solid $border-color;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                padding: rem(15) rem(15);
+                            }
+                        }
+
+                        .sort-col {
+
+                            &::before {
+                                display: none;
+                            }
+
+                            @include media-breakpoint-down(lg) {
+                                padding-left: 0;
+                            }
+                        }
+                    }
 
                     @include media-breakpoint-down(xs) {
                         border-top: rem(0.5) solid $border-color;
@@ -271,7 +319,7 @@
                             font-weight: 600;
                             letter-spacing: rem(2.67);
                             line-height: rem(30);
-                            color: $grey-light10;
+                            color: $grey-light11;
                             outline: none;
                             font-family: $futura-medium;
                             text-transform: uppercase;
@@ -383,7 +431,7 @@
                     li {
                         height: rem(25);
                         padding: rem(6) rem(15);
-                        color: $grey-light10;
+                        color: $grey-light11;
                         font-family: $font-medium;
                         font-size: rem(14);
                         letter-spacing: 0;
@@ -537,22 +585,24 @@
             .plp-show-more {
                 button {
                     margin-top: rem(20);
-                    background-color: $light-black1;
-                    font-size: rem(14);
+                    background-color: $beige4;
+                    font-size: rem(16);
                     letter-spacing: rem(1);
-                    line-height: rem(17);
+                    line-height: rem(20);
                     text-transform: uppercase;
                     width: rem(190.18);
                     height: rem(37);
                     border-radius: rem(0);
-                    color: $white;
+                    color: $black;
+                    border-color: $beige3;
+                    font-weight: bold;
 
                     @include media-breakpoint-down(xs) {
                         margin-top: rem(15);
                         width: calc(100% - 20px);
                         height: rem(50);
                         line-height: rem(12);
-                        font-size: rem(10);
+                        font-size: rem(12);
                         letter-spacing: rem(0);
                     }
                 }

@@ -1,0 +1,23 @@
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');
+    assets.addJs('/js/yotpoRatings.js');
+</isscript>
+
+<div class="yotpo-display-wrapper" aria-hidden="true" style="visibility: hidden;">  
+    <div class="standalone-bottomline" data-source="default"> 
+        <div class="yotpo-bottomline pull-left  star-clickable" tabindex="0">  
+            <span class="yotpo-stars yotpo-stars-main"> 
+                <span class="yotpo-icon yotpo-icon-empty-star rating-star pull-left"></span>
+                <span class="yotpo-icon yotpo-icon-empty-star rating-star pull-left"></span>
+                <span class="yotpo-icon yotpo-icon-empty-star rating-star pull-left"></span>
+                <span class="yotpo-icon yotpo-icon-empty-star rating-star pull-left"></span>
+                <span class="yotpo-icon yotpo-icon-empty-star rating-star pull-left"></span>
+                <span class="sr-only">${yotpoReviews.average_score} ${Resource.msg('product.yotpo.star.rating','product',null)}</span>
+            </span>
+            <a class="text-m yotpo-stars-rating" data-average-score="${yotpoReviews.average_score}" aria-label="${yotpoReviews.average_score} ${Resource.msg('product.yotpo.star.rating','product',null)}">${yotpoReviews.total} ${Resource.msg('product.yotpo.reviews','product',null)}</a>
+            <div class="yotpo-clr"></div> 
+        </div> 
+        <div class="yotpo-clr"></div> 
+    </div>   
+    <div class="yotpo-clr"></div> 
+</div>

@@ -147,6 +147,7 @@ module.exports = {
 };
 $(document).ready(function () {
     refreshAffirmUI();
+    hideYotpoReviews();
 
     if ($(window).width() < 544) {
         var $stickyAddToCartObserver = document.querySelector('.add-to-cart-observer');
@@ -188,6 +189,34 @@ function refreshAffirmUI() {
     }
 };
 
+function hideYotpoReviews() {
+    if (document.readyState === 'complete') {
+        var $yotpoMobileContainer = $('.ratings.d-none-mobile-rating');
+        var $yotpoEmptyStarContainer = $yotpoMobileContainer.find('.yotpo-stars > .yotpo-icon-empty-star');
+        var $yotpoEmptyStarContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-empty-star');
+        var $yotpoEmptyReviewContainer = $('.yotpo-stars-rating');
+
+        if ($yotpoMobileContainer.find('.yotpo-stars').length > 0) {
+            var $yotpoIconContainer = $yotpoMobileContainer.find('.yotpo-stars > .yotpo-icon-star');
+            var $yotpoIconContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-star');
+
+            if ($yotpoIconContainer.length > 0 || $yotpoIconContainerMobile.length > 0) {
+                $yotpoEmptyStarContainer.removeClass('d-none').addClass('d-block');
+                $yotpoEmptyStarContainerMobile.removeClass('d-none').addClass('d-block');
+                $yotpoEmptyReviewContainer.removeClass('d-none').addClass('d-block');
+            } else {
+                $yotpoEmptyStarContainer.removeClass('d-block').addClass('d-none');
+                $yotpoEmptyStarContainerMobile.removeClass('d-block').addClass('d-none');
+                $yotpoEmptyReviewContainer.removeClass('d-block').addClass('d-none');
+            }
+        } else {
+            setTimeout(hideYotpoReviews, 5000);
+        }
+    } else {
+        setTimeout(hideYotpoReviews, 5000);
+    }
+}
+
 // Custom start: Listrak persistent popupnpm
 $(document).on('click','.listrak-popup', function(e) {
     e.preventDefault();
@@ -228,7 +257,7 @@ $(document).on('click','.close-icon-popup', function(e) {
         isContainListrakPopup.remove();
     }
 });
-window.onload = () => {
+$(window).on('load', function () {
     var listrakPopup = document.querySelector('.listrak-popup');
     var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
     var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
@@ -254,5 +283,5 @@ window.onload = () => {
             listrakPopup.classList.add('button-product-detail');
         }
     }
-};
+});
 // Custom End: Listrak persistent popup

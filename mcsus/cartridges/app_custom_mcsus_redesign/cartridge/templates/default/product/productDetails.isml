@@ -1,6 +1,7 @@
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
+<isset name="mcsPdpATCABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSPdpATCTest','render-new-design')}" scope="page" />
 
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
@@ -60,7 +61,19 @@
                             <iscomment> product rating </iscomment>
                            <div class="pdp-rating-reviews">
                             <div class="d-block rating-box-redisgn">
-                                <isinclude template="product/components/pidRating" />
+                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                    <div class="product-number-rating">
+                                        <div class="ratings">
+                                            <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                                <isinclude template="product/components/yotpoRatings" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/pidRating" />
+                                </isif>
                             </div>
                            </div>
                         </isif>
@@ -78,9 +91,9 @@
                     </div>
                 </div>
             <iscomment> product detail redesign section start here </iscomment>
-            <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
+            <div class="col-12 d-flex justify-content-between flex-column flex-sm-row pdp-images-addition">
                     <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarouselPdp" />
+                <isinclude template="product/components/imageCarousel" />
 
                 <div class="product-detail-right-box">
                     <div class="d-none d-sm-block">
@@ -102,7 +115,18 @@
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
                          <div class="pdp-rating-reviews">
                             <div class="d-none d-sm-block rating-box-redisgn">
-                                <isinclude template="product/components/pidRating" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                    <div class="product-number-rating">
+                                        <div class="ratings">
+                                            <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                                <isinclude template="product/components/yotpoRatings" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/pidRating" />
+                                </isif>
                             </div>
                          </div>
                         </isif>
@@ -116,7 +140,7 @@
                             <div class="prices prices-redesign">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-                                    <isif condition="${product.productType === 'set'}">
+                                    <isif condition="${product.productType === Resource.msg('product.set', 'product', null)}">
                                         <isinclude template="product/components/pricing/setPrice" />
                                     <iselse/>
                                         <isinclude template="product/components/pricing/main" />
@@ -137,6 +161,21 @@
                             <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
                         </isif>
                     </div>
+                    <iscomment> email newsletter modal start </iscomment>
+                    <div class="newsletter-modal">
+                        <div class="modal fade" id="signupModalCenter" tabindex="-1" role="dialog" aria-labelledby="signupModalCenter" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <isslot id="cs-pdp-email-signup" description="email signup content Slot." context="global" />
+                                        <isslot id="cs-pdp-email-signup-thank-you" description="coupon code content Slot." context="global" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <iscomment> email newsletter modal end </iscomment>
+
                     <hr class="d-block d-sm-none line-mobile mt-0">
                     <div class="row">
                         <!-- Attributes and Quantity -->
@@ -179,16 +218,14 @@
                             </div>
                         </isif>
                         <iscomment> Custom End: </iscomment>
-                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
+                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available ? "d-none" : ""}">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
                             <div class="smart-gift-box-new smart-gift-box-new-mcs smart-gift-box-new-mcs-new-design">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
-                                    </isif>    
+                                    <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
                                 </isif> 
                             </div>
                         </div>
@@ -252,7 +289,7 @@
         <div class="top-sticky-card scroll-hidden">
             <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
-        <div class="bottom-sticky-card scroll-hidden">
+        <div class="bottom-sticky-card ${mcsPdpATCABTest ? 'sticky-test-wrapper' : ''} scroll-hidden">
             <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
             <!-- Start: Listrak persistent popup -->
