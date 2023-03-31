@@ -199,6 +199,7 @@ server.replace('Variation', function (req, res, next) {
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 
     var badges;
+    var viewData = res.getViewData();
     var params = req.querystring;
 
     var paramsUpdated = productCustomHelpers.updateOptionsAndMessage(req, params);
@@ -245,6 +246,12 @@ server.replace('Variation', function (req, res, next) {
     var OptionsValidationError;
     if (params.validationErrorEmbossed || params.validationErrorEngraved) {
         OptionsValidationError = true
+    }
+
+    var pdpImageTemplate = 'product/components/imageCarousel';
+    var productsHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImageTemplate);
+    if (!empty(productsHTML)) {
+        viewData.pdpCarouselImages = productsHTML;
     }
 
     res.json({

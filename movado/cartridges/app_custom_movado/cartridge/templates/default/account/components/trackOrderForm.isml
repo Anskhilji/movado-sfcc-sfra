@@ -1,5 +1,5 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
-<form action="${URLUtils.url('Order-Track')}" class="trackorder" method="GET" name="trackorder-form">
+<form action="${URLUtils.url('Order-Lookup')}" class="trackorder" method="POST" name="trackorder-form">
     <h3 class="card-header heading-three">${Resource.msg('header.form.trackorder', 'login', null)}</h3>
     <div class="card-body">
         <isif condition="${pdict.orderTrackFormError}">
