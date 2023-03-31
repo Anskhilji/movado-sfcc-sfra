@@ -6,6 +6,7 @@ if(Resources.IS_CLYDE_ENABLED){
 var updateMiniCart = true;
 var pdpVideoLoaded = false;
 var videoStatusChecker;
+var $screenSize = $(window).width();
 function setMiniCartProductSummaryHeight () {
     var $miniCartHeaderTitle = parseInt($('.mini-cart-data .popover .title-free-shipping').outerHeight(true));
     var $miniCartCountrySelector = parseInt($('.mini-cart-data .popover .cart-country-selector').outerHeight(true));
@@ -17,12 +18,12 @@ function setMiniCartProductSummaryHeight () {
     $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
     var $productSummaryHeight = $miniCartFooterHeight + $miniCartHeaderHeight;
     $('.mini-cart-data .product-summary').css('max-height', '');
-    var screenSize = $(window).width();
+    
     var mediumScreenSize = 992; // mobile break point
 
     // check screen size for mobile and desktop
-    if (screenSize != null) {
-        if (screenSize <= mediumScreenSize) {
+    if ($screenSize != null) {
+        if ($screenSize <= mediumScreenSize) {
             $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight);
         } else {
             $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight);
@@ -1194,11 +1195,34 @@ function handleVariantResponse(response, $productContainer) {
             $('.google-pay-container').show();
         }
         var currentCountry = response.product.currentCountry.toLowerCase();
-        if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
-            var applePayButton = $('.apple-pay-pdp', $productContainer);
-            if (applePayButton.length !== 0) {
-                applePayButton.attr('sku', response.product.id);
-                applePayButton.removeClass('d-none');
+
+        if ($screenSize > 768) {
+            if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
+                var applePayButton = $('.apple-pay-pdp', $productContainer);
+                if (applePayButton.length !== 0) {
+                    applePayButton.attr('sku', response.product.id);
+                    applePayButton.removeClass('d-none');
+                }
+            }
+        } else {
+            if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
+                var $applePayButtonMobile = $('.show-cart-button-mobile .apple-pay-pdp', $productContainer);
+                var $applePayButtonMobileAlternatePDP = $('.prices-add-to-cart-actions .apple-pay-pdp', $productContainer);
+                var $cartButtonMobileContainer = $('.show-cart-button-mobile .prices-add-to-cart-actions .show-cart-button-mobile-container');
+                var $cartButtonMobileAlternatePDPContainer = $('.prices-add-to-cart-actions .alternate-pdp-cart-button-mobile-container'); 
+
+                if ($applePayButtonMobile.length > 0) {
+                    $applePayButtonMobile.remove();
+                    $cartButtonMobileContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
+                    'sku=' + response.product.id + '></isapplepay>');
+                } else if ($cartButtonMobileAlternatePDPContainer.length > 0) { // Handling for alternate PDP
+                    $applePayButtonMobileAlternatePDP.remove();
+                    $cartButtonMobileAlternatePDPContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
+                    'sku=' + response.product.id + '></isapplepay>');
+                } else {
+                    $cartButtonMobileContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
+                    'sku=' + response.product.id + '></isapplepay>');
+                }
             }
         }
     } else {
