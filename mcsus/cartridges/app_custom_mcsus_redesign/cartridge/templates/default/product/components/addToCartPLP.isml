@@ -14,5 +14,8 @@
                 <iselse/>
                     ${Resource.msg('label.not.available', 'common', null)}
                 </isif>
+                <isloop items="${product.individualProducts}" var="productItem" status="loopState">
+                    <div class="product-sets product-id d-none">${productItem.id}</div>
+                </isloop>
         </button>
     </div>

@@ -2,7 +2,7 @@
 <isset name="bonusproductlineitem" value="${hasEmbeddedBonusProducts ? 'bonus-product-line-item' : ''}" scope="page"/>
 <isset name="bonuslineitemrow" value="${hasEmbeddedBonusProducts ? 'bonus-line-item-row' : ''}" scope="page"/>
 <isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
-
+<isset name="currentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
 
 <div class="card product-info pb-0 ${bonusproductlineitem} uuid-${lineItem.UUID} product-card-wrapper">
     <!--- name and remove buttons --->
@@ -29,7 +29,7 @@
 
                         <p class="line-item-attributes model-name mb-2">${lineItem.resources.Model} ${lineItem.id}</p>
                         <isloop items="${lineItem.options}" var="option">
-                            <isif condition="${!!option && option.selectedValueId != 0}">
+                            <isif condition="${!!option}">
                                 <isif condition="${option.optionId === 'Embossed' && lineItem.customAttributes.emboss}">
                                 	<p class="line-item-attributes mb-2 personalize-price">${Resource.msg('emboss.displayValue.change', 'cart', null)} (${lineItem.customAttributes.emboss.price}): <span class="personalize-msg">${lineItem.customAttributes.emboss.msgLine1}</span></p>
                                 </isif>
@@ -45,7 +45,7 @@
                             </isif>
                         </isloop>
 
-                        <div class="default-product-availability ${session.privacy.pickupFromStore ? "d-none" : ""}">
+                        <div class="default-product-availability ${currentBasket && currentBasket.custom.storePickUp === true ? "d-none" : ""}">
                             <isinclude template="cart/productCard/cartProductCardAvailability" />
                         </div>
                         <isinclude template="cart/productCard/cartProductCardProductPrice" />
@@ -106,7 +106,7 @@
                                 <p class="line-item-attributes clyde-option-price" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}" data-uuid="${lineItem.UUID}">${(option.price)}</p>
                             <iselse>
                                 <isif condition="${!empty(option.adjustedPrice)}">
-                                    <p>${option.adjustedPrice}</p>
+                                    <p class="adjusted-clyde-price">${option.adjustedPrice}</p>
                                 </isif>
                             </isif>
                             <isinclude template="components/deleteClydeProductButton" />

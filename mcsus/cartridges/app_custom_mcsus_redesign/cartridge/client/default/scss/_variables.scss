@@ -17,7 +17,17 @@ $light-grey5: #6C757D;
 $light-grey6: #F8f8f8;
 $light-grey7: #4F4F4F;
 $light-grey8: #414141;
+$light-gray8: #3C3C3C;
+$light-gray9: #BDBDBD;
 $gray4: #E7E7E7;
+$grey-dark1:#757575;
+$light-green:rgba(89,175,44,0.1);
+$grey-dark:#7B7B7B;
+
+$light-grey9: #444444;
+$light-brown: #9E8975;
+$light-brown-1: #9F8B77;
+$light-brown2: #E4DDCF;
 
 $grey-light4: rgba(207,207,207,0.3) !default;
 $grey-light5: rgba(198, 198, 198, 0.5) !default;
@@ -25,6 +35,7 @@ $grey-light6: rgba(0,0,0,0.5) !default;
 $grey-light7: rgba(125,125,125,0.5);
 $grey-light8: rgba(151,151,151,0.38);
 $grey-light9: rgba(222,222,222,0.89);
+$grey-light10: rgba(0,0,0,0.8);
 $light-brown1: #2B2A2A;
 $light-pink: #FFAAAA;
 $light-pink2: rgba(255,91,91,0.2);
@@ -35,6 +46,7 @@ $transparent-gray: rgba(0, 0, 0, 0.8);
 
 // Large Screen Down
 $large-screen-width-down: 1400px;
+$small-screen-width-down: 375px;
 
 @mixin custom-media-query-down($large-screen-width-down) {
     @media (max-width:#{$large-screen-width-down}) {
@@ -44,3 +56,4 @@ $large-screen-width-down: 1400px;
 
 //font family
 $font-gill-std-semibold: "gill-sans-nova", Arial, sans-serif;
+$font-gills-light: "GillSansMTStd-Light", Arial, sans-serif;

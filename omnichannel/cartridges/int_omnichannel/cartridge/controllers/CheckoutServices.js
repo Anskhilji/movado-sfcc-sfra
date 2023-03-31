@@ -32,7 +32,7 @@ server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) 
 			redirectUrl: URLUtils.url('Cart-Show').toString()
 		});
 		return next();
-	} else if (session.privacy.pickupFromStore) {
+	} else if (currentBasket.custom.storePickUp) {
 		try {
 			Transaction.wrap(function () {
 				if (currentBasket) {
@@ -51,16 +51,17 @@ server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) 
 			}
 			//Custom:Start  Update lineItems array if its available for pickup store
 			if (lineItemsInventory && lineItemsInventory.length > 0) {
-				productIds.forEach(function (pid) {
+				productIds.forEach(function (pid, index) {
 					currentItemInventory = lineItemsInventory.filter(function (lineItem) { return lineItem.sku == pid });
 					itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
+					itemInv = itemInv - currentBasket.productLineItems[index].quantity;
 					loopInventory = itemInventory.filter(function (i) { return i.itemId == pid }).map(function (obj) { return obj.remain });
-					if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
+					if ((loopInventory.length == 0 || loopInventory > 0) && (itemInv == 0 || itemInv > 0)) {
 						if (loopInventory.length == 0) {
-							itemInventory.push({ itemId: pid, remain: itemInv - 1 });
+							itemInventory.push({ itemId: pid, remain: itemInv - currentBasket.productLineItems[index].quantity });
 							return;
 						}
-						itemInventory.filter(function (i) { return i.itemId == pid }).map(function (obj) { obj.remain = obj.remain - 1 });
+						itemInventory.filter(function (i) { return i.itemId == pid }).map(function (obj) { obj.remain = obj.remain - currentBasket.productLineItems[index].quantity });
 					} else {
 						isAllItemsAvailable = false;
 						return;

@@ -2,7 +2,7 @@
 
 .cs-carousel-wrapper {
 
-.pdp-carousel {
+.pdp-carousel, .pdp-carousel-set {
 
         .slick-arrow {
             padding: rem(0) rem(0);
@@ -20,7 +20,7 @@
 @include media-breakpoint-up(sm) {
     .cs-carousel-wrapper {
 
-        .pdp-carousel { 
+        .pdp-carousel, .pdp-carousel-set { 
             
             .slick-arrow {
             
