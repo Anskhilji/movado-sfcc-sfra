@@ -20,16 +20,27 @@
                     </div>
                 </isif>
                 <isif condition="${sitePref.Listrak_EnableBackInStockSms}">
+                <isset name="backInStockSmsMessage" value="${!empty(sitePref.Listrak_BackInStockSMSMessage) ? sitePref.Listrak_BackInStockSMSMessage : ''}" scope="page" />
                     <div class="col-12 mb-2 p-0 phone-check">
                         <input class="back-in-stock-notification-phone" id="lbisEmail" type="text" name="lbisPhone" placeholder="${Resource.msg('listrak.form.phone.placeholder', 'product', null)}">
                         <p class="back-in-stock-notification-invalid-phone error-msg back-in-stock-notification-error"></p>
+                        <isif condition="${!empty(backInStockSmsMessage)}">
+                            <p class="listrak-sms-reminder-msg d-none error-msg">${backInStockSmsMessage}</p>
+                        </isif>
                     </div>
                 </isif>
                 <div class="col-12 mb-2 p-0">
                     <iscontentasset aid="listrak-back-in-stock-terms" />
                 </div>
                 <div class="col-12 mb-2 p-0">
-                    <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
+                    <isif condition="${sitePref.Listrak_EnableBackInStockEmail && !sitePref.Listrak_EnableBackInStockSms}">
+                        <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
+                    <iselseif condition="${sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}" />
+                        <iscontentasset aid="listrak-back-in-stock-subscription-checkbox-sms" />
+                    <iselseif condition="${sitePref.Listrak_EnableBackInStockSms && sitePref.Listrak_EnableBackInStockEmail}"/>
+                        <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
+                        <iscontentasset aid="listrak-back-in-stock-subscription-checkbox-sms" />
+                    </isif>
                 </div>
                 <div class="col p-0">
                     <button class="btn btn-primary text-capitalize" type="submit" name="SubmitAlert">${Resource.msg('listrak.button.text', 'product', null)}</button>
@@ -39,3 +50,4 @@
     </form>
 </div>
 <p class="listrak-success-msg"></p>
+<p class="listrak-sms-api-response-msg d-none">${Resource.msg('listrak.sms.api.response.msg', 'product', null)}</p>
