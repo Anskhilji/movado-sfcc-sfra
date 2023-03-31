@@ -143,6 +143,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
     var isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
     var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
+
     var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
@@ -191,6 +192,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 relativeURL: URLUtils.url('Search-Show', 'cgid', productSearch.category.id),
                 isNonWatchesTileEnable: isNonWatchesTileEnable,
                 popupID: listrakPersistentPopup
+
             });
         }
     } else {
@@ -202,8 +204,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             reportingURLs: reportingURLs,
             refineurl: refineurl,
             categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
-            isNonWatchesTileEnable: isNonWatchesTileEnable,
-            popupID: listrakPersistentPopup
+            isNonWatchesTileEnable: isNonWatchesTileEnable
         });
     }
 

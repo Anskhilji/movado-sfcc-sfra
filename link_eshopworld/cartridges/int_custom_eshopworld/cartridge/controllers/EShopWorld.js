@@ -69,7 +69,7 @@ server.append('GetEswHeader', function (req, res, next) {
         eswHelper.setAllAvailablePriceBooks();
         eswHelper.selectCountry(availableCountry, currency, req.locale.id);
     } else {
-    ​    if (!eswHelper.overridePrice(req, availableCountry, currency)) {
+        if (!eswHelper.overridePrice(req, availableCountry, currency)) {
             eswHelper.setAllAvailablePriceBooks();
             eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
         }
@@ -134,7 +134,7 @@ server.append('GetEswFooter', function (req, res, next) {
         eswHelper.setAllAvailablePriceBooks();
         eswHelper.selectCountry(availableCountry, currency, req.locale.id);
     } else {
-    ​    if (!eswHelper.overridePrice(req, availableCountry, currency)) {
+        if (!eswHelper.overridePrice(req, availableCountry, currency)) {
             eswHelper.setAllAvailablePriceBooks();
             eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
         }
