@@ -9,9 +9,33 @@
     }
 
     .carousel-tile {
-      display: table-cell;
+      display: table-cell;  
       position: relative;
       width: 100%;
+    }
+
+    .poster-frame-video {
+      height: rem(600);
+
+      @include media-breakpoint-down(lg) {
+        height: rem(552);
+      }
+
+      @include media-breakpoint-down(md) {
+        height: rem(945);
+      }
+
+      @include custom-media-query-max($medium-screen-width) {
+        height: rem(722);
+      }
+
+      @include media-breakpoint-down(xs) { 
+        height: rem(409);
+      }
+
+      @media (max-width:$small-screen-width375) {
+        height: rem(360);
+      }
     }
 
     .slick-arrow {

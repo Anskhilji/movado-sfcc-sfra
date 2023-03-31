@@ -103,7 +103,7 @@ module.exports = {
                     applePayButton.attr('sku', response.product.id);
                 } else {
                     if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
-                        $('.cart-and-ipay').append('<isapplepay class="apple-pay-pdp btn"' +
+                        $('.cart-and-ipay .cta-add-to-cart').append('<isapplepay class="apple-pay-pdp btn"' +
                             'sku=' + response.product.id + '></isapplepay>');
                     }
                 }
@@ -171,6 +171,14 @@ $( document ).ready(function() {
     }
 });
 
+// added active class & scroll down on reviews widget
+$('.ratings > .yotpoBottomLine').on('click',function () {
+    var $mainWidget = $('.main-widget > .yotpo-display-wrapper');
+    $('html, body').animate({
+        scrollTop: $($mainWidget).offset().top
+    }, 10);
+});
+
 // Custom start: Listrak persistent popup
 $(document).on('click','.listrak-popup', function(e) {
     e.preventDefault();
@@ -213,7 +221,7 @@ $(document).on('click','.close-icon-popup', function(e) {
     }
 });
 
-window.onload = () => {
+$(window).on('load', function () {
     var listrakPopup = document.querySelector('.listrak-popup');
     var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
     var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
@@ -239,7 +247,7 @@ window.onload = () => {
             listrakPopup.classList.add('button-product-detail');
         }
     }
-};
+});
 // Custom End: Listrak persistent popup
 
 

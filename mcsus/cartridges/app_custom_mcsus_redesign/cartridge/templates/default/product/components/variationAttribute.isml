@@ -1,0 +1,51 @@
+<iscomment>
+
+Template Notes:
+
+- This template is intended to be referenced from an <isinclude> tag within an <isloop> in another
+  source template.  The <isloop> is expected to have a "status" attribute, named "attributeStatus".
+- ${attributeStatus.last} is checked to see whether a particular attribute row should include the
+  Quantity drop-down menu
+
+</iscomment>
+
+<div class="attribute pdp-select-variations ${attr.id == 'colorWatch' ? 'color-watch-swatches' : ''}">
+    <!-- Select <Attribute> Label -->
+    <label class="select-size-head-label ${attr.id}">
+        ${attr.displayName}
+    </label>
+
+    <div class="product-size-select-list swatches-redesign ${attr.id == 'colorWatch' ? 'pdp-swatchs-redesign' : ''}">
+        <isif condition="${attr.swatchable}">
+            <!-- Circular Swatch Image Attribute Values -->
+            <isloop items="${attr.values}" var="attrValue">
+                <isif condition="${!(isBundle && product.productType === 'variant' && !attrValue.selected)}">
+                    <a href="${attrValue.url}"
+                        class="swatch-circle swatch-value product-size-options color-variation
+                            ${attr.id == 'colorWatch' ? 'swatchs-redesign' : ''}
+                            ${attrValue.selected ? 'active' : ''}
+                            ${!attrValue.selectable ? 'disabled' : ''}"
+                        style="background-image: url(${attr.id == 'colorWatch' ? attrValue.tileImage150.url : !empty(attrValue.images['swatch']) && !empty(attrValue.images['swatch'][0].url) ? attrValue.images['swatch'][0].url : attrValue.tileImage150.url})"
+                        ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
+                            <span data-attr-value="${attrValue.value}" class=" ${attr.id}-value ${attrValue.selectable ? '' : 'disabled'}">
+                            </span>
+                    </a>
+                </isif>
+            </isloop>
+        <iselse/>
+            <!-- Attribute Values Drop Down Menu -->
+            <select class="custom-select form-control selects-non-${attr.id}" ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
+                <option value="${attr.resetUrl}">
+                    ${Resource.msg('label.select', 'common', null)} ${attr.displayName}
+                </option>
+                <isloop items="${attr.values}" var="attrValue">
+                    <option value="${attrValue.url}" data-attr-value="${attrValue.value}"
+                        ${attrValue.selected ? 'selected' : ''}>
+                        ${attrValue.displayValue}
+                    </option>
+                </isloop>
+            </select>
+            <i class="fa fa-angle-down"></i>
+        </isif>
+    </div>
+</div>

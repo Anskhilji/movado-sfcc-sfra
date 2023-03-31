@@ -2014,6 +2014,10 @@
     z-index: 99999;
 }
 
+.content-tile:not(:has(div)) {
+    display: none;
+  }
+  
 .listrak-persistent-popup {
     display: none !important;
   }

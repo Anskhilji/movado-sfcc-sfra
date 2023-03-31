@@ -12,7 +12,7 @@ var Logger = require('dw/system/Logger');
  * @returns {boolean} flag that specifies if the current attribute should be displayed as a swatch
  */
 function isSwatchable(dwAttributeId) {
-    var imageableAttrs = ['color'];
+    var imageableAttrs = ['color', 'productName'];
     return imageableAttrs.indexOf(dwAttributeId) > -1;
 }
 
@@ -60,6 +60,10 @@ function getAllAttrValues(
 
             if (isSwatchable(attr.attributeID)) {
                 processedAttr.images = new ImageModel(value, { types: ['swatch'], quantity: 'all' });
+
+                // Custom Start : getting large type image against each variant
+                var largeImages = new ImageModel(value, { types: ['tile150'], quantity: 'all' });
+                processedAttr.tileImage150 = !empty(largeImages.tile150[0]) ? largeImages.tile150[0] : '';
             }
 
             return processedAttr;

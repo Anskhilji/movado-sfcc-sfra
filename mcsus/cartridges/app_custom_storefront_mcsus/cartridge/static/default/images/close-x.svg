@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>10E0F525-A5B5-4B1E-A16B-EA46C3C508DE</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="20" height="20"></rect>
+    </defs>
+    <g id="Store-Locator-No_Map_Dec2022" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01" transform="translate(-1404.000000, -15.000000)">
+            <g id="Group" transform="translate(1065.000000, 0.000000)">
+                <g id="Stacked-Group-Copy" transform="translate(17.000000, 13.000000)">
+                    <g id="x" transform="translate(322.000000, 2.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="x-(Background/Mask)"></g>
+                        <path d="M15.5892649,5.58919074 L5.58926398,15.5891916 C5.26382706,15.9146291 4.73618945,15.9146291 4.41075252,15.5891916 C4.08531555,15.263755 4.08531555,14.7361171 4.41075252,14.4106805 L14.4107538,4.41067928 C14.7361904,4.08524231 15.2638282,4.08524231 15.5892649,4.41067928 C15.9147023,4.73611621 15.9147023,5.26375382 15.5892649,5.58919074 Z" id="Vector-(Stroke)" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                        <path d="M5.58926398,4.41067928 L15.5892649,14.4106805 C15.9147023,14.7361171 15.9147023,15.263755 15.5892649,15.5891916 C15.2638282,15.9146291 14.7361904,15.9146291 14.4107538,15.5891916 L4.41075252,5.58919074 C4.08531555,5.26375382 4.08531555,4.73611621 4.41075252,4.41067928 C4.73618945,4.08524231 5.26382706,4.08524231 5.58926398,4.41067928 Z" id="Vector-(Stroke)" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
