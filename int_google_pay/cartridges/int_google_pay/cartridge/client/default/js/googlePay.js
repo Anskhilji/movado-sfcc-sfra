@@ -405,13 +405,22 @@ function addGooglePayButton() {
 function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod, shippingAddress) {
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
+        var $pdpQuantityValue = null;
+        if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+            $pdpQuantityValue = $('.quantity-selector > .quantity').val();
+            $pdpQuantityValue = $pdpQuantityValue;
+            if ($pdpQuantityValue == "") {
+                $pdpQuantityValue = null;
+            }
+        }
 
         var data = {
             googlePayEntryPoint: $selector.data('entry-point'),
             pid: $selector.data('pid') ? $selector.data('pid') : false,
             selectedShippingMethod: selectedShippingMethod,
             includeShippingDetails: includeShippingDetails,
-            shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
+            shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress,
+            quantityPDP: $pdpQuantityValue && $pdpQuantityValue > 0 && $pdpQuantityValue != null ? $pdpQuantityValue : 1
         };
 
         if (window.Resources.IS_CLYDE_ENABLED && typeof Clyde !== 'undefined') {

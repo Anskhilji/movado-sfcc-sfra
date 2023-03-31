@@ -60,6 +60,7 @@ $( document ).ready(function() {
  * @param {Object} data - AJAX response from the server
  */
 function validateBasket(data) {
+    var $checkoutBtn = $('.checkout-btn');
     if (data.valid.error) {
         if (data.valid.message) {
             var errorHtml = '<div class="alert card alert-dismissible valid-cart-error ' +
@@ -81,9 +82,11 @@ function validateBasket(data) {
             $('.minicart .popover').empty().removeClass('show');
         }
 
-        $('.checkout-btn').addClass('disabled');
+        $checkoutBtn.addClass('disabled');
     } else {
-        $('.checkout-btn').removeClass('disabled');
+        if (!$checkoutBtn.hasClass('disabled')) {
+            $checkoutBtn.removeClass('disabled');
+        }
     }
 }
 
@@ -97,7 +100,16 @@ function updateCartTotals(data) {
     } else {
         $('.delivery-time').addClass('d-none');
     }
-    
+    var $pickupFromStore = $('.cart-store-pickup').prop('checked');
+    if ($pickupFromStore) {
+        var $productIds = [];
+        $('.quantity.custom-select').each(function () {
+            if ($(this).prop('disabled')) {
+                var $pid = $(this).data('pid');
+                $productIds.push(parseInt($pid));
+            }
+        });
+    }
     $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.number-of-items').empty().append(data.resources.numberOfItems);
     $('.shipping-cost').empty().append(data.totals.totalShippingCost);
@@ -133,6 +145,20 @@ function updateCartTotals(data) {
     data.items.forEach(function (item) {
         $('.item-' + item.UUID).empty().append(item.renderedPromotions);
         $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
+
+        if ($pickupFromStore && $productIds.indexOf(parseInt(item.id)) > -1) {
+            $('select[data-pid="' + item.id + '"]').attr('disabled', true);
+        }
+
+        if (item.options.length > 0) {
+            item.options.forEach(function (option) {
+                if (option && option.optionId == Resources.CLYDE_WARRANTY && option.price != '' && option.adjustedPrice != '' && option.price == option.adjustedPrice) {
+                    $('.clyde-uuid-' + item.UUID + ' .clyde-option-price').text(option.price);
+                } else if (option && option.optionId == Resources.CLYDE_WARRANTY && option.adjustedPrice != '') {
+                    $('.clyde-uuid-' + item.UUID + ' .adjusted-clyde-price').text(option.adjustedPrice);
+                }
+            });
+        }
     });
 }
 
@@ -199,6 +225,74 @@ function updateAvailability(data, uuid) {
     }
 
     $('.availability-' + lineItem.UUID).html(messages);
+}
+
+/**
+ * updateCartQuantity function will update the quantity in the product and the cart.
+ * quantitySelector param is used to get the selected product class and it data attributes.
+ * @param quantitySelector
+ * @param isKeyEvent is used to check the current event is fire from keys or mouse.
+ */
+function updateCartQuantity(quantitySelector, isKeyEvent) {
+    var $preSelectQty = $(quantitySelector).data('pre-select-qty');
+    var $quantity = isKeyEvent ? parseInt(quantitySelector.value) : parseInt($(quantitySelector).val());
+    var $productID = $(quantitySelector).data('pid');
+    var $url = $(quantitySelector).data('action');
+    var $uuid = $(quantitySelector).data('uuid');
+
+    if (isNaN($quantity) || $quantity == 0) {
+        $quantity = 1;
+        $(quantitySelector).val($quantity);
+    }
+
+    if ($quantity == 1 || $quantity == 0) {
+        $('#decreased-' + $productID).attr('disabled', true);
+    } else {
+        $('#decreased-' + $productID).attr('disabled', false);
+    }
+
+    var $urlParams = {
+        pid: $productID,
+        quantity: $quantity,
+        uuid: $uuid
+    };
+
+    $url = appendToUrl($url, $urlParams);
+    $(quantitySelector).parents('.product-info, .align-items-center').spinner().start();
+
+    $.ajax({
+        url: $url,
+        type: 'get',
+        context: quantitySelector,
+        dataType: 'json',
+        success: function (data) {
+            $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
+            $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
+            $('.minicart-footer .subtotal-total-discount').empty().append(data.totals.subTotal);
+            var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
+            $miniCartSelector.length > 0 ? updateMiniCartTotals(data) : updateCartTotals(data);
+            updateApproachingDiscounts(data.approachingDiscounts);
+            updateAvailability(data, $uuid);
+            validateBasket(data);
+            $(quantitySelector).data('pre-select-qty', $quantity);
+            $.spinner().stop();
+            //Custom Start: [MSS-1451] Listrak SendSCA on Cart Quantity Update
+            if (window.Resources.LISTRAK_ENABLED) {
+                var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+            }
+            //Custom End
+        },
+        error: function (err) {
+            if (err.responseJSON.redirectUrl) {
+                window.location.href = err.responseJSON.redirectUrl;
+            } else {
+                createErrorNotification(err.responseJSON.errorMessage);
+                $(quantitySelector).val(parseInt($preSelectQty, 10));
+                $.spinner().stop();
+            }
+        }
+    });
 }
 
 /**
@@ -543,6 +637,17 @@ module.exports = function () {
                 }
             }
         });
+    });
+
+    /**
+     * This is override change event function on the quantity input field.
+     * It is used to update the quantity of the product in the cart. It will call
+     * the updateCartQuantity function that will handle the quantity update
+     * functionality.
+     */
+    $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form .quantity', function (e) {
+        e.preventDefault();
+        updateCartQuantity(this, false);
     });
 
     $('body').on('change', '.quantity-form > .quantity', function () {

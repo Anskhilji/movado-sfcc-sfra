@@ -164,7 +164,20 @@ $('body').on('click', '.primary-images .main-carousel-movado img', function (e) 
 $('body').on('click', '.carousel-indicator-image', function (e) {
     e.preventDefault();
     $('.main-carousel .slick-active').addClass('slick-center');
-}); 
+});
+
+$('body').off('change', '.quantity-selector > .quantity').on('change', '.quantity-selector .quantity', function (e) {
+    e.preventDefault();
+    var $selectQuantity = null;
+    if ($('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+        $selectQuantity = $('.quantity-selector > .quantity').val();
+        if ($selectQuantity > 1) {
+            $('.apple-pay-pdp').addClass('d-none');
+        } else {
+            $('.apple-pay-pdp').removeClass('d-none');
+        }
+    }
+});
 
 function slickHeight() {
     var $winWidth = $(window).width();
@@ -315,11 +328,6 @@ function processSwatchValues(attr, $productContainer) {
         } else {
             $swatchAnchor.removeAttr('href');
         }
-
-        // Disable if not selectable
-        $attrValue.removeClass('selectable unselectable');
-
-        $attrValue.addClass(attrValue.selectable ? 'selectable' : 'unselectable');
     });
 }
 
@@ -346,10 +354,6 @@ function processNonSwatchValues(attr, $productContainer) {
             .find($attr + ' [data-attr-value="' + attrValue.value + '"]');
         $attrValue.attr('value', attrValue.url)
             .removeAttr('disabled');
-
-        if (!attrValue.selectable) {
-            $attrValue.attr('disabled', true);
-        }
     });
 }
 
@@ -830,12 +834,40 @@ function handleVariantResponse(response, $productContainer) {
     $productContainer.find('.main-attributes').empty()
         .html(getAttributesHtml(response.product.attributes));
 
+    // ATC button text upadate when the product is pre-order/back-order
+    var $addToCartSelector = $('button.add-to-cart');
+    if (response.product.availability && response.product.availability.inStockDate !== null && response.product.availability.messages.length > 0 && response.product.availability.messages[0] === window.Resources.INFO_PRODUCT_AVAILABILITY_PREORDER || response.product.availability.messages[0] === window.Resources.INFO_PRODUCT_AVAILABILITY_BACK_ORDER) {
+        $addToCartSelector.each(function (index, button) {
+            $(button).contents().first().replaceWith($addToCartSelector.textContent = window.Resources.BUTTON_PREORDER_NOW);
+        });
+    } else {
+        $addToCartSelector.each(function (index, button) {
+            $(button).contents().first().replaceWith($addToCartSelector.textContent = window.Resources.BUTTON_ADD_TO_CART);
+        });
+    }
+    
     // intialize carousel
         initializePDPMainSlider();
         initializeSlickDots();
         initializeZoomSlickDots();
         initializeZoomModelCarousel();
         $('.main-carousel .slick-active').addClass('slick-center');
+
+    $(document).ready(function () {
+        var $availabilityWrapper = $('.product-availability .availability-msg').text();
+        var $cartWrapper = $('.cart-and-ipay');
+        var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
+
+        if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
+            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock') || ($availabilityWrapper === 'Select Styles for Availability')) {
+                $cartWrapper.addClass('d-none');
+                $stickyWrapper.addClass('d-none');
+            } else {
+                $cartWrapper.removeClass('d-none');
+                $stickyWrapper.removeClass('d-none');
+            }
+        }
+    }); 
 }
 
 /**
@@ -1121,6 +1153,15 @@ var updateCartPage = function(data) {
    } 
 };
 
+if (window.Resources.IS_PDP_QUANTITY_SELECTOR) {
+    $(function () {
+        var select = $('select.value-control');
+        select.change(function () {
+            select.not(this).val(this.value);
+        });
+    });
+}
+
 module.exports = {
     attributeSelect: attributeSelect,
     methods: {
@@ -1218,6 +1259,14 @@ module.exports = {
             var pidsObj;
             var setPids;
             var giftPid;
+            var $this = $(this);
+            var productQuantity = null;
+            if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+                productQuantity = $('.quantity-selector > .quantity').val();
+                if (productQuantity == "") {
+                    productQuantity = null;
+                }
+            }
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -1228,21 +1277,32 @@ module.exports = {
                     if (!$(this).hasClass('product-set-detail')) {
                         setPids.push({
                             pid: $(this).find('.product-id').text(),
-                            qty: $(this).find('.quantity-select').val(),
+                            qty: 1,
                             options: getOptions($(this))
                         });
                     }
                 });
                 pidsObj = JSON.stringify(setPids);
             }
-
-            if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
+            
+            if ($this.data('product-set') == true) {
+                setPids = [];
+                $this.find('.product-sets').each(function () {
+                    setPids.push({
+                        pid: $(this).text(),
+                        qty: 1,
+                        options: getOptions($(this))
+                    });
+                });
+                pidsObj = JSON.stringify(setPids);
+                pid = getPidValue($(this));
+            } else if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
                 pid = $(this).data('pid');
                 if ($('.gift-allowed-checkbox').is(":checked")) {
                     giftPid = $('.gift-allowed-checkbox').val();
                 }
             } else {
-            	pid = getPidValue($(this));
+                pid = getPidValue($(this));
                 if ($('.gift-allowed-checkbox').is(":checked")) {
                     giftPid = $('.gift-allowed-checkbox').val();
                 }
@@ -1254,6 +1314,10 @@ module.exports = {
             }
 
             addToCartUrl = getAddToCartUrl();
+            var quantity = 1;
+            if (window.Resources.IS_PDP_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
+                quantity = productQuantity;
+            }
 
             var form = {
                 pid: pid,
@@ -1271,7 +1335,7 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1,
+                    quantity: quantity,
                     giftPid: giftPid ? giftPid : ''
                 };
             }
@@ -1484,5 +1548,5 @@ module.exports = {
     },
 
     getPidValue: getPidValue,
-    getQuantitySelected: getQuantitySelected
+    getQuantitySelected: getQuantitySelected,
 };
