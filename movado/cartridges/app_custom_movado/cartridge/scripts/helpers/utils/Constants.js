@@ -27,6 +27,7 @@ exports.PROMOTION_START_END_DATE_SEPARATOR = '/';
 exports.CLYDE_WARRANTY = 'clydeWarranty';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
+exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
 
 exports.FEDEX_SERVICE_ID = {
     FEDEX_AUTHENTICATION: 'fedex.auth.api',
