@@ -55,11 +55,10 @@ function getProductSetSalePrice(productID, currency, isJob) {
     var Money = require('dw/value/Money');
     var ProductMgr = require('dw/catalog/ProductMgr');
     var Transaction = require('dw/system/Transaction');
-    var Constants = require('*/cartridge/scripts/util/Constants');
+
     var productSet = ProductMgr.getProduct(productID);
     var Promotion = require('dw/campaign/Promotion');
     var PromotionMgr = require('dw/campaign/PromotionMgr');
-
     var productSetProducts = productSet.productSetProducts.iterator();
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
     var salePrice = 0;
@@ -82,38 +81,38 @@ function getProductSetSalePrice(productID, currency, isJob) {
 
     while (productSetProducts.hasNext()) {
         currentProductSetProduct = productSetProducts.next();
-            currentProdcutSetProductPriceModel = currentProductSetProduct.priceModel;
-            var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(currentProductSetProduct).iterator();
-            if (!empty(PromotionItr) && currentProductSetProduct.priceModel.priceInfo.priceBook.ID.toLowerCase().indexOf(Constants.ECOM_SALE_PRICE_BOOK) < 0) {
-                for each(var promo in PromotionItr) {
-                    if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
-                        if (currentProductSetProduct.optionProduct) {
-                            currentPromotionalPrice = promo.getPromotionalPrice(currentProductSetProduct, currentProductSetProduct.getOptionModel());
-                            promoCalloutMsg = promo.calloutMsg ? promo.calloutMsg.markup : '';
+        currentProdcutSetProductPriceModel = currentProductSetProduct.priceModel;
+        var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(currentProductSetProduct).iterator();
+        if (!empty(PromotionItr)) {
+            for each(var promo in PromotionItr) {
+                if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
+                    if (currentProductSetProduct.optionProduct) {
+                        currentPromotionalPrice = promo.getPromotionalPrice(currentProductSetProduct, currentProductSetProduct.getOptionModel());
+                        promoCalloutMsg = promo.calloutMsg ? promo.calloutMsg.markup : '';
 
-                        } else {
-                            currentPromotionalPrice = promo.getPromotionalPrice(currentProductSetProduct);
-                            promoCalloutMsg = promo.calloutMsg ? promo.calloutMsg.markup : '';
-                        }
-                        break;
+                    } else {
+                        currentPromotionalPrice = promo.getPromotionalPrice(currentProductSetProduct);
+                        promoCalloutMsg = promo.calloutMsg ? promo.calloutMsg.markup : '';
                     }
+                    break;
                 }
+            }
 
-                if (currentPromotionalPrice && currentPromotionalPrice.available && currentProdcutSetProductPriceModel.price.available) {
-                    currencyCode = currentProdcutSetProductPriceModel.price.currencyCode;
-                    salePrice += currentPromotionalPrice.decimalValue;
+            if (currentPromotionalPrice && currentPromotionalPrice.available && currentProdcutSetProductPriceModel.price.available) {
+                currencyCode = currentProdcutSetProductPriceModel.price.currencyCode;
+                salePrice += currentPromotionalPrice.decimalValue;
 
-                } else {
-                    if (currentProdcutSetProductPriceModel.price) {
-                        salePrice += currentProdcutSetProductPriceModel.price;
-                    }
-                }
             } else {
                 if (currentProdcutSetProductPriceModel.price) {
                     salePrice += currentProdcutSetProductPriceModel.price;
                 }
             }
+        } else {
+            if (currentProdcutSetProductPriceModel.price) {
+                salePrice += currentProdcutSetProductPriceModel.price;
+            }
         }
+    }
     var salePriceEffectiveDate = getProductSetEfectiveDate(productID);
     formattedSalePrice = new Money(salePrice, currencyCode).toFormattedString();
     if (isJob) {

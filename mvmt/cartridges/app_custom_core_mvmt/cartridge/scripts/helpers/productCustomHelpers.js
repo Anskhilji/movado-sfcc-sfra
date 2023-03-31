@@ -106,24 +106,6 @@ function getProductGtmObj(product, categoryName, position) {
     }
 }
 
-/**
- * Function return running AB test segments
- * @returns segmentsArray 
- */
- function getRunningAbTestSegments() {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-    var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
-    var abTestParticipationSegments = [];
-
-    while (assignedTestSegmentsIterator.hasNext()) {
-        abTestSegment = assignedTestSegmentsIterator.next();
-        abTestParticipationSegments.push({
-            runningAbTest: abTestSegment.ABTest.ID + '+' + abTestSegment.ID
-        });
-    }
-    return abTestParticipationSegments;
-}
-
 function getVariantSize(apiProduct) {
     var variantSize = '';
     var selectedVariant;
@@ -164,7 +146,6 @@ function getGtmProductClickObj(product, categoryName, position) {
     var familyName = '';
     var productColor = '';
     var productClickGtmObj = [];
-    var abTestParticipationSegments = getRunningAbTestSegments();
     var productObj = ProductMgr.getProduct(product.id);
 
     if (!empty(productObj.custom.familyName)) {
@@ -188,8 +169,7 @@ function getGtmProductClickObj(product, categoryName, position) {
             familyName: familyName,
             productColor: productColor,
             variant: productObj.master || productObj.variant ? getVariantSize(productObj) : '',
-            list: 'PLP',
-            runningAbTest: abTestParticipationSegments
+            list: 'PLP'
         });
     }	else {
         var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productObj.masterProduct.primaryCategory.ID)
@@ -209,8 +189,7 @@ function getGtmProductClickObj(product, categoryName, position) {
             variant: productObj.master || productObj.variant ? getVariantSize(productObj) : '',
             familyName: familyName,
             productColor: productColor,
-            list: 'Search Results',
-            runningAbTest: abTestParticipationSegments
+            list: 'Search Results'
         });
     }
 

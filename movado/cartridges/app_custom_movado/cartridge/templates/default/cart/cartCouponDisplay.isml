@@ -30,6 +30,5 @@
                 <span class="promotion-name">${discount.lineItemText}</span>
                 <span class="applied-promotion-discount">${discount.price}</span>
             </div>
-        </iselseif>
     </isif> 
 </isloop>
