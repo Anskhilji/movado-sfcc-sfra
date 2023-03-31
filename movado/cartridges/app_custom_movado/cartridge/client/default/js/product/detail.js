@@ -103,7 +103,7 @@ module.exports = {
                     applePayButton.attr('sku', response.product.id);
                 } else {
                     if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
-                        $('.cart-and-ipay').append('<isapplepay class="apple-pay-pdp btn"' +
+                        $('.cart-and-ipay .cta-add-to-cart').append('<isapplepay class="apple-pay-pdp btn"' +
                             'sku=' + response.product.id + '></isapplepay>');
                     }
                 }
@@ -169,6 +169,14 @@ $( document ).ready(function() {
     if (window.ApplePaySession) {
         $('.google-pay-wrapper').removeClass('mt-2');
     }
+});
+
+// added active class & scroll down on reviews widget
+$('.ratings > .yotpoBottomLine').on('click',function () {
+    var $mainWidget = $('.main-widget > .yotpo-display-wrapper');
+    $('html, body').animate({
+        scrollTop: $($mainWidget).offset().top
+    }, 10);
 });
 
 // Custom start: Listrak persistent popup

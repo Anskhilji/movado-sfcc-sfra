@@ -287,8 +287,8 @@ var onLoadProductTile = function () {
         var gtmTrackingData = $(this).data('gtm-facets');
         if (gtmTrackingData !== undefined) {
             dataLayerObj.push({ name: gtmTrackingData.name,
-                familyName: gtmTrackingData.familyName,
-                productColor: gtmTrackingData.productColor,
+                dimension22: gtmTrackingData.dimension22,
+                dimension23: gtmTrackingData.dimension23,
                 id: gtmTrackingData.id,
                 price: gtmTrackingData.price,
                 category: gtmTrackingData.category,

@@ -22,9 +22,8 @@ function getProductGtmObj(product, categoryName, position) {
         var productGtmObj = []; 
         var jewelryType = '';
         var watchGender = '';
-        var familyName: '';
-        var productColor = '';
-        var abTestParticipationSegments = getRunningAbTestSegments();
+        var dimension22 = '';
+        var dimension23 = '';
         var productObj = ProductMgr.getProduct(product.id);
         var productObjDefaultVariant = productObj.variationModel ? productObj.variationModel.defaultVariant : null;
         if (productObjDefaultVariant) {
@@ -35,10 +34,10 @@ function getProductGtmObj(product, categoryName, position) {
                 jewelryType = productObjDefaultVariant.custom.jewelryType;
             }
             if (!empty(productObjDefaultVariant.custom.familyName)) {
-                familyName = productObjDefaultVariant.custom.familyName[0];
+                dimension22 = productObjDefaultVariant.custom.familyName[0];
             }
             if (!empty(productObjDefaultVariant.custom.color)) {
-                productColor = productObjDefaultVariant.custom.color;
+                dimension23 = productObjDefaultVariant.custom.color;
             }
         } else {
             if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
@@ -48,10 +47,10 @@ function getProductGtmObj(product, categoryName, position) {
                 jewelryType = productObj.custom.jewelryType;
             }
             if (!empty(productObj.custom.familyName)) {
-                familyName = productObj.custom.familyName[0];
+                dimension22 = productObj.custom.familyName[0];
             }
             if (!empty(productObj.custom.color)) {
-                productColor = productObj.custom.color;
+                dimension23 = productObj.custom.color;
             }
         }
         var customCategory = watchGender + " " + jewelryType;
@@ -60,6 +59,8 @@ function getProductGtmObj(product, categoryName, position) {
         // Custom Start: Push product object in Array.
             productGtmObj.push({
                 name: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.name) :  stringUtils.removeSingleQuotes(escapeQuotes(product.productName)),
+                dimension22: dimension22,
+                dimension23: dimension23,
                 id: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
                 price: productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
                     : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
@@ -71,10 +72,7 @@ function getProductGtmObj(product, categoryName, position) {
                 variantID: variantID,
                 list: 'PLP',
                 position: position,
-                familyName: familyName,
-                productColor: productColor,
-                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)),
-                runningAbTest: abTestParticipationSegments 
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))    
             });
         } else {
             var productObj = ProductMgr.getProduct(product.id);
@@ -84,6 +82,8 @@ function getProductGtmObj(product, categoryName, position) {
             : '')) : '');
             productGtmObj.push({
                 name: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.name) :  stringUtils.removeSingleQuotes(escapeQuotes(product.productName)),
+                dimension22: dimension22,
+                dimension23: dimension23,
                 id: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
                 price:productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
                     : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
@@ -95,10 +95,7 @@ function getProductGtmObj(product, categoryName, position) {
                 variantID: variantID,
                 list: 'Search Results',
                 position: position,
-                familyName: familyName,
-                productColor: productColor,
-                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)),
-                runningAbTest: abTestParticipationSegments
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)) 
             });
         }
 

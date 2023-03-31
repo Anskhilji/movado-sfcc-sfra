@@ -26,7 +26,7 @@
         </isif>
         <isinclude template="product/components/old/productTileImage" />
 
-        <div class="tile-body pt-2 promotion-badge-recommendation">
+        <div class="tile-body pt-2">
             <div class="tile-badges">
                 <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''} ${!empty(outOfStock) || !empty(product.badges.textBadges && product.badges.textBadges.length > 0) || !empty(product.defaultVariantBadges.textBadges && product.defaultVariantBadges.textBadges.length > 0) ? '' : 'd-none'}">
                     <div class="m-0">
@@ -37,12 +37,10 @@
 
                     <isinclude template="product/components/badges" />
                 </div>
-                <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                <isif condition="${pdict.display.swatches !== false}">
                     <isif condition="${(!empty(product.colorVariationsValues)) && (!empty(product.colorVariationsValues.values)) ? product.colorVariationsValues.values : ''}">
                         <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? 'plp-swatches-reserved' : '0-opacity'}">
-                            <isif condition="${!product.isWatchTile}">
                                 <isinclude template="product/components/productTileSwatch" />
-                            </isif>
                         </div>
                     <iselse/>
                         <div class="plp-swatches-reserved"></div>
@@ -73,7 +71,7 @@
                         </isif>
                         <isif condition="${(product.productType != 'master' || !product.defaultVariant)}">
                             <isif condition="${product.isWatchTile}">
-                                <span class="case-diameter">${!empty(product.caseDiameterRedesigned) ? product.caseDiameterRedesigned : ''}</span>n
+                                <span class="case-diameter">${!empty(product.caseDiameterRedesigned) ? product.caseDiameterRedesigned : ''}</span>
                             </isif>
                         <iselse/>
                             <isif condition="${product.isWatchTile}">
