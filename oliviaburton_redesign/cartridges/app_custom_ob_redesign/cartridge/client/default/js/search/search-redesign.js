@@ -746,7 +746,7 @@ module.exports = {
     },
     
     listrakPersistentCheckLoad: function () {
-        window.onload = () => {
+        $(window).on('load', function () {
             var listrakPopup = document.querySelector('.listrak-popup');
             var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
             var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
@@ -772,7 +772,7 @@ module.exports = {
                     listrakPopup.classList.add('button-product-detail');
                 }
             }
-        };
+        });
     }
     // Custom End: Listrak persistent popup
 };
