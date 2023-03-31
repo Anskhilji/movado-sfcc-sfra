@@ -56,8 +56,20 @@
             <!---Breadcrumbs--->
             <div class="row d-md-none">
                 <div class="col-12">
-                    <div class="ratings">
-                        <isinclude template="product/components/productRating" />
+                    <div class="ratings-mobile pb-2">
+                        <div class="col-12 rating-margin mobile-click-review">
+                            <div class="ratings">
+                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isinclude template="product/components/yotpoRatings" />
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/productRating" />
+                                </isif>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,7 +171,22 @@
                     </div>
 
                     <div class="hidden-sm-down">
-                        <isinclude template="product/components/pidRatingAlternate" />
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                        <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                            <div class="product-number-rating clearfix">
+                                <div class="product-number d-none hidden-xs-down pull-left">
+                                    <isinclude template="product/components/productNumber" />
+                                </div>
+                                <div class="ratings pull-left">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isinclude template="product/components/yotpoRatings" />
+                                    </div>
+                                </div>
+                                <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
+                            </div>
+                        <iselse/>
+                            <isinclude template="product/components/pidRatingAlternate" />
+                        </isif>
                     </div>
 
                     <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>

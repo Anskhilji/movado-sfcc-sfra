@@ -151,6 +151,7 @@ $font-book : "FuturaStd-Book", Arial, sans-serif !default;
 $font-bold : "FuturaStd-Bold", Arial, sans-serif !default;
 $font-primary: $font-book;
 $font-demi: "futura-pt", sans-serif, Arial;
+$font-lato : "lato", "FuturaStd-Bold", sans-serif, Arial;
 
 $font-awesome: "FontAwesome";
 
@@ -235,4 +236,9 @@ $storm-gray: #787A8A;
     font-family: "futura-pt", sans-serif, Arial;
     font-weight: 600;
     font-style: normal;
+}
+
+@mixin font-lato-bold {
+    font-family: "lato", "FuturaStd-Bold", sans-serif, Arial;
+    font-display:auto;font-style:normal;font-weight:700;
 }

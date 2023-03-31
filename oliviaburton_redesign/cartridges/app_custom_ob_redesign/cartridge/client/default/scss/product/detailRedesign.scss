@@ -73,6 +73,10 @@
                     padding-left: rem(100);
                 }
 
+                @include media-breakpoint-down(sm-custom) {
+                    padding: 0;
+                }
+
                 .slick {
                     &-slide {
                         text-align: center;
@@ -212,7 +216,7 @@
                                 display: inline-block;
                                 letter-spacing: rem(0);
                                 &:hover {
-                                    border: rem(1) solid $pink-rose;
+                                    border: rem(1) solid $gray;
                                 }
                             }
                             @include media-breakpoint-down(lg) {
@@ -252,7 +256,7 @@
                             }
 
                             &.slick-active {
-                                border: rem(1) solid $pink-rose;
+                                border: rem(1) solid $gray;
                                 @include media-breakpoint-up(lg) {
                                     width: rem(81);
                                     height: rem(81);
@@ -366,8 +370,6 @@
                 @include media-breakpoint-down(sm-custom) {
                     padding-top: rem(30);
                     background-color: $white;
-                    border-radius: rem(40) rem(40) 0 0;
-                    box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                     position: relative;
 
                     &::before {
@@ -448,10 +450,15 @@
                         padding: rem(0);
                     }
                 }
-                
+
                 .yotpo-icon-empty-star {
                     display: none;
                 }
+
+                .yotpo-stars-rating {
+                    display: none;
+                }
+                
                 .hide-desktop-wrapper {
                     display: none;
                     @include media-breakpoint-down(sm-custom) {
@@ -490,6 +497,7 @@
                 text-align: center;
                 font-family: $font-gills-light;
                 letter-spacing: rem(0);
+                font-style: normal;
 
                 @include media-breakpoint-up(lg) {
                     line-height: rem(30);
@@ -518,9 +526,14 @@
                         padding: rem(0);
                     }
                     .price-to-center {
+                        .strike-through {
+                            span {
+                                font-weight: 300;
+                            }
+                        }
                         span {
                             @include media-breakpoint-down(sm-custom) {
-                                @include font-gill($font-size: 28, $font-weight: 300);
+                                @include font-gill($font-size: 28, $font-weight: 400);
                                 line-height: rem(45);
                                 color: $gray20;
                                 font-family: $font-gills-light;
@@ -532,6 +545,10 @@
                 .ratings {
 
                     .yotpo-icon-empty-star {
+                        display: none;
+                    }
+
+                    .yotpo-stars-rating {
                         display: none;
                     }
 
@@ -617,7 +634,7 @@
                 }
 
                 span {
-                    @include font-gill($font-size: 28, $font-weight: 300);
+                    @include font-gill($font-size: 28, $font-weight: 400);
                     line-height: rem(45);
                     color: $gray20;
                     letter-spacing: rem(0);
@@ -633,6 +650,8 @@
                     }
                     .strike-through {
                         span {
+                            font-weight: 300;
+
                            @include media-breakpoint-down(lg) {
                                 text-decoration: inherit;
                            }
@@ -679,7 +698,11 @@
                     margin-top: rem(20);
                     display: flex;
                     justify-content: center;
-                    
+
+                    @include media-breakpoint-down(sm-custom) {
+                        margin: rem(20) auto 0;
+                    } 
+
                     @include media-breakpoint-up(lg) { 
                         display: block;
                     }
@@ -889,7 +912,7 @@
                                 &:hover {
                                     .upsell-text {
                                         p {
-                                            background-color: $pink-hot;
+                                            background-color: $black;
                                             color: $white;
                                             transition: 0.3s ease;
                                         }
@@ -999,13 +1022,13 @@
                 
                                 &-added {
                                     display: none;
-                                    background: $pink-hot;
+                                    background: $gray;
                 
                                     &-checkmark {
                                         display: inline-block;
                                         width: rem(11);
                                         height: rem(10);
-                                        background: $pink-hot url("../../images/white-checkmark.svg") center center no-repeat;
+                                        background: $gray url("../../images/white-checkmark.svg") center center no-repeat;
                                         vertical-align: middle;
                                         position: relative;
                                         top: rem(-1);
@@ -1036,7 +1059,7 @@
                                     }
                 
                                     .upsell-wrapper-inner {
-                                        border-color: $pink-hot;
+                                        border-color: $gray;
                                     }
                                 }
                             }
@@ -1368,7 +1391,7 @@
                         &-tabs {
                             display: inline-flex;
                             justify-content: center;
-                            border: rem(1) solid $pink-rose;
+                            border: rem(1) solid $gray;
                             border-radius: rem(3);
                             margin-bottom: rem(19);
                             a {
@@ -1384,7 +1407,7 @@
                                 text-decoration: none;
                                 &:hover,
                                 &.active {
-                                    background: $pink-rose;
+                                    background: $gray;
                                 }
                                 &.active {
                                     font-weight: 600;
@@ -1517,13 +1540,13 @@
                     .add-to-cart {
                         width: 100%;
                         height: rem(45);
-                        background: $pink-hot;
+                        background: $black;
                         @include font-gill ($font-weight: 600);
                         line-height: rem(20);
                         text-transform: uppercase;
-                        color: $black;
+                        color: $white;
                         font-family: $font-gill-std-semibold;
-                        border-color: $pink-hot;
+                        border-color: $black;
                         border-radius: rem(3);
                         max-width: 100%;
                         margin: 0 auto;
@@ -1534,7 +1557,7 @@
 
                         &:hover,
                         &:focus {
-                            background-color: $pink-hot;
+                            background-color: $white;
                             box-shadow: none;
                             color: $black;
                         }
@@ -1564,7 +1587,7 @@
                     display: none;
                     
                     @include media-breakpoint-down(sm-custom) {
-                        background-color: $white;
+                        background-color: $gray-light1;
                         border-radius: rem(40) rem(40) 0 0;
                         box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                         z-index: 100;
@@ -1674,7 +1697,7 @@
         
             .why-buy-me-details {
                 color: $gray20;
-                font-family: $font-Garamond-Pro-italic;
+                font-family: $font-gill-std-semibold;
                 font-size: rem(20);
                 line-height: rem(25);
                 text-align: center;
@@ -1844,7 +1867,7 @@
         }
 
         .availability-msg {
-            @include font-gill ($font-size:12, $font-weight: 500, $letter-spacing: 0);
+            @include font-gill ($font-size:12, $font-weight: 300, $letter-spacing: 0);
             line-height: rem(20);
             color: $dark-gray;
             text-transform: capitalize !important;
@@ -1864,7 +1887,7 @@
 
         .shipping-callout {
             span {
-                @include font-gill ($font-size:12, $font-weight: 500, $letter-spacing: 0);
+                @include font-gill ($font-size:12, $font-weight: 300, $letter-spacing: 0);
                 line-height: rem(16);
                 color: $dark-gray;
                 text-transform: capitalize;
@@ -1920,7 +1943,7 @@
     
                 &-item {
                     a {
-                        @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0);
+                        @include font-gill($font-size: 12, $font-weight: 300, $letter-spacing: 0);
                         line-height: rem(16);
                         color: $black;
                         margin-left: rem(5);
@@ -1969,13 +1992,13 @@
             button.add-to-cart {
                 width: 100%;
                 height: rem(45);
-                background: $pink-hot;
+                background: $black;
                 @include font-gill($font-weight: 600);
                 line-height: rem(20);
                 text-transform: uppercase;
-                color: $black;
+                color: $white;
                 font-family: $font-gill-std-semibold;
-                border-color: $pink-hot;
+                border-color: $black;
                 border-radius: rem(3);
                 margin: 0;
                 max-width: rem(330);
@@ -1992,7 +2015,7 @@
 
                 &:hover,
                 &:focus {
-                    background-color: $pink-hot;
+                    background-color: $white;
                     box-shadow: none;
                     color: $black;
                 }
@@ -2026,7 +2049,7 @@
         .linked-head {
             .content-asset {
                 label {
-                    font-family: $font-Garamond-Pro-italic;
+                    font-family: $font-gill-std-normal;
                     color: $gray20;
                     font-size: rem(26);
                     letter-spacing: 0;
@@ -2081,6 +2104,11 @@
             transform: translate(50%, -50%);
             left: rem(100.2);
             border-radius: 100%;
+
+            @include media-breakpoint-down(sm-custom) {
+                display: none;
+            }
+            
             @include media-breakpoint-down(xxxl) {
                 bottom: 0.1vh;
             }
@@ -2139,268 +2167,6 @@
 // End productCommon css
 .description-and-detail-pt {
     padding-top: rem(30);
-}
-
-// Recommendation Carousel css
-.cs-carousel-wrapper {
-    &.pdp-carousel {
-        max-width: rem(750);
-        margin: 0 auto;
-
-        .slick-dots  {
-            button {
-                box-sizing: border-box;
-                height: rem(1);
-                width: rem(85);
-                background-color: $dark-grey2;
-                cursor: pointer;
-                margin-right: rem(-5);
-            }
-
-            .slick-active {
-                button {
-                    box-sizing: border-box;
-                    height: rem(1);
-                    border: rem(1) solid $black;
-                    width: rem(133.33);
-                    
-                    &:focus {
-                        background-color: $black;
-                        outline: none;
-                    }
-                }
-            }
-        }
-        .slick-list {
-            margin: 0 rem(-25);
-            .slick-slide {
-                @include media-breakpoint-up(lg) {
-                    margin: 0 rem(25);
-                    transform: translateX(-20px);
-                }
-            }
-        }
-        .carousel-title {
-            margin-right: rem(25);
-            color: $black;
-            font-family: $gill-sans-font-stack;
-            font-size: rem(28);
-            font-weight: 600;
-            letter-spacing: 0;
-            line-height: rem(40);
-            text-align: center;
-            text-transform: capitalize;
-        }
-    }
-
-    &.recommendation-carousel-pdp {
-        width: 100%;
-        margin: auto;
-        overflow-x: hidden;
-
-        .cs-carousel {
-            padding-bottom: rem(0);
-            .slick-track {
-                margin-bottom: rem(35);
-            }
-        }
-
-        .carousel-title {
-            color: $black;
-            font-size: rem(28);
-            font-weight: 600;
-            line-height: rem(40);
-            font-family: $font-gill-std-semibold;
-            margin-bottom: rem(30);
-            letter-spacing: 0;
-            @include media-breakpoint-down(sm-custom) {
-                font-size: rem(20);
-                margin-bottom: rem(20);
-                line-height: rem(35);
-                color: $gray20;
-            }
-        }
-        .slick-slide {
-            margin: 0 rem(12.5);
-            @include media-breakpoint-down(sm-custom) {
-                margin: 0 rem(8);
-            }
-        }
-        .slick-dots {
-            width: 20%;
-            margin: auto;
-            justify-content: center;
-            align-items: center;
-            left: 0;
-            right: 0;
-            margin-top: rem(30);
-
-            li {
-                width: 100%;
-                margin-right: rem(0);
-                @include media-breakpoint-down(sm-custom) {
-                    width: rem(20);
-                }
-
-            }
-            button {
-                border-radius: rem(0);
-                width: 100%;
-                height: rem(2);
-                outline: none;
-                background-color: $gainsboro;
-                @include media-breakpoint-down(sm-custom) {
-                    width: rem(20);
-                }
-            }
-            .slick-active {
-                button {
-                    background-color: $black;
-                }
-            }
-        }
-        .product {
-            &-tile{
-                .image-container{
-                    border: none;
-                    .tile-picture-hidden {
-                        display: none;
-                    }
-                    .product-badge {
-                        &.redesigned {
-                            left: auto;
-                            right: rem(10);
-                            top: rem(10);
-                            @include media-breakpoint-up(xl) {
-                                left: auto;
-                                right: rem(20);
-                                top: rem(20);
-                            }
-                            img {
-                                width: rem(35);
-                                height: rem(35);
-
-                                @include media-breakpoint-up(xs) {
-                                    width: rem(32);
-                                    height: rem(32);
-                                    position: relative;
-                                    left: rem(8);
-                                    top: rem(-8);
-                                }
-                                
-                                @include media-breakpoint-down(md) {    
-                                    left: rem(6);
-                                    top: rem(-6);
-                                }
-
-                                @include media-breakpoint-up(xl) {
-                                    width: rem(48);
-                                    height: rem(48);
-                                    position: relative;
-                                    left: rem(15);
-                                    top: rem(-15);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            .tile-body {
-                padding: rem(15) rem(20);
-                @include media-breakpoint-down(sm-custom) {
-                    padding: rem(10);
-                }
-                .pdp-link {
-                    text-align: left;
-                    margin-bottom: rem(5);
-                    height: rem(40);
-                    overflow: hidden;
-                    a {
-                        font-size: rem(15);
-                        font-family: $font-gills-light;
-                        text-transform: capitalize;
-                        color: $gray20;
-                        font-weight: 300;
-                        letter-spacing: rem(0);
-                        line-height: rem(20);
-                        
-                        @include media-breakpoint-down(sm-custom) {
-                            font-size: rem(12);
-                        }
-                    }
-                }
-
-                .pricing-save {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    height: rem(24);
-                    text-align: left;
-                    .price {
-                        padding-left: rem(4);
-                        font-size: rem(13);
-                        font-family: $font-gill-std-normal;
-                        color: $gray20;
-                        .value {
-                            font-size: rem(13);
-                            font-family: $font-gill-std-normal;
-                            color: $gray20;
-                            letter-spacing: rem(0);
-                            line-height: rem(18);
-                        }
-                    }
-
-                    .save-value {
-                        font-family: $font-gill-sans-std;
-                        font-size: rem(12);
-                        color: $black;
-                        font-weight: 600;
-                        letter-spacing: 0.5px;
-                        padding: rem(3) rem(5);
-                        background-color: $pink-rose;
-                        border-radius: rem(5);
-                        min-width: rem(67);
-                        text-align: center;
-                    }
-                }
-                .add-to-cart-plp-redesign {
-                    display: none;
-                }
-                .product-family {
-                    cursor: unset;
-                        &:hover {
-                            text-decoration: none;
-                        }
-                    h3 {
-                        text-align: left;
-                        color: $gray20;
-                        font-family: $font-gill-std-bold;
-                        font-size: rem(15);
-                        font-weight: 600;
-                        letter-spacing: rem(0);
-                        line-height: rem(20);
-                        margin-bottom: rem(5);
-                        @include media-breakpoint-down(sm-custom) {
-                            font-size: rem(12);
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-.pdp-bottom-carousel-redesign {
-    &.container-fluid {
-        .col-12 {
-            padding: 0 rem(6.5);
-        }
-    }
-    .cs-carousel-wrapper {
-        .slick-list {
-            margin: 0;
-        }
-    }   
 }
 
 .gift-box-wrapper-pdp {
@@ -2525,4 +2291,24 @@
 
 .promotions {
     text-align: left;
+}
+// 2133
+.pdp-obuk {
+    @include media-breakpoint-up(lg) {
+        margin-bottom: rem(40);
+    }
+    &.product-wrapper {
+        .product-section-mobile {
+            @include media-breakpoint-up(lg) {
+                padding-bottom: 0;
+            }
+        }
+    }
+    .linked-product-list {
+        
+        @include media-breakpoint-up(lg) {
+            margin-bottom: 0;
+        }
+       
+    }
 }
