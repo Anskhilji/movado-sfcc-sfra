@@ -40,19 +40,23 @@
                 }
 
                 .exclusive-product {
-                    border-radius: rem(3);
-                    background-color: $grey-light4;
+                    background-color: transparent;
                     font-size: rem(13);
+                    border-radius: rem(3);
                     @include font-medium;
                     font-style: oblique;
                     font-weight: 600;
                     letter-spacing: 0;
                     line-height: rem(14);
-                    color: $black;
-                    text-transform: capitalize;
+                    color: $beige4;
+                    text-transform: uppercase;
                     padding: rem(6) rem(13) rem(4.64) rem(11);
                     text-align: center;
-
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: rem(1) solid $beige4;
+                
                     @include media-breakpoint-down(xs) {
                         padding: rem(2.56) rem(10) rem(2.28) rem(8);
                         font-size: rem(8);
@@ -231,6 +235,21 @@
                         width: 100%;
                     }
 
+                    &.product-set-price {
+                        
+                        .sale-price-mvmt {
+                            font-size: rem(20);
+                            color: $light-black1;
+                            font-weight: 600;
+                            line-height: rem(14);
+                        }
+
+                        .strike-through {
+                            color: $light-gray3;
+                            font-weight: 400;
+                        }
+                    }
+
                     .tiered {
                         font-size: rem(14);
                         
@@ -287,7 +306,7 @@
                             text-align: center;
                             line-height: rem(14);
                             color: $black;
-                            background-color: $grey-light4;
+                            background-color: $beige4;
                             border: rem(1) solid $black;
                             padding: rem(6) rem(13);
                             border-radius: rem(3);

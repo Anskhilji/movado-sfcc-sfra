@@ -45,6 +45,7 @@ function getResources(pageContext) {
         OBUS_SITE_ID: Resource.msg('info.obus.site.id', 'common', null),
         INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
         EMAIL_SUBSCRIPTION_SUCCESS: Resource.msg('newsletter.signup.success', 'common', null),
+        EMAIL_SUBSCRIPTION_THANK_YOU: Resource.msg('newsletter.signup.thank.you', 'common', null),
         LINK_QUICKVIEW_VIEWDETAILS: Resource.msg('link.quickview.viewdetails', 'product', null),
         LINK_QUICKVIEW_CLOSE: Resource.msg('link.quickview.close', 'product', null),
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
@@ -57,10 +58,12 @@ function getResources(pageContext) {
         BOPIS_STORE_UNAVAILABLE_TEXT: Resource.msg('storepickup.unavalibilty', 'storePickUp', null),
         BOPIS_STORE_CART_ERROR: Resource.msg('store.pickup.cart.error', 'storePickUp', null),
         IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
+        IS_PDP_QUANTITY_SELECTOR: Site.current.preferences.custom.enablePDPQuantitySelector || false,
+        IS_CART_QUANTITY_SELECTOR: Site.current.preferences.custom.enableCartQuantitySelector || false,
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
-        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
+        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled || false,
         RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
         FAMILY_NAME_ENABLED: !empty(Site.current.preferences.custom.plpProductFamilyName) ? Site.current.preferences.custom.plpProductFamilyName : false,
         GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
@@ -80,7 +83,8 @@ function getResources(pageContext) {
         LISTRAK_ENABLE_BACK_IN_STOCK_SMS: !empty(Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? Site.current.preferences.custom.Listrak_EnableBackInStockSms : false,
         INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
         FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
-        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null)
+        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
+        CLYDE_WARRANTY: Constants.CLYDE_WARRANTY
     };
     return resources;
 }

@@ -43,6 +43,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var defaultVariantEyeWearLifeStyleImage;
     var tileImage300X300;
     var defaultVariantLifeStyleImage300X300;
+    var productId;
+    var productVariants;
 
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -50,6 +52,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             attributes: '*',
             endPoint: 'Variation'
         });
+
+        if (apiProduct.variationModel && apiProduct.variationModel.variants && apiProduct.variationModel.variants.length > 0) {
+            productVariants = apiProduct.variationModel.variants.toArray();
+        }
 
         if (product.variationsAttributes) {
             Object.keys(product.variationsAttributes).forEach(function (key) {
@@ -76,13 +82,19 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 if (!empty(colorVariations) && !empty(colorVariations.values)) {
                     if (colorVariations.id === ATTRIBUTE_NAME) {
                         Object.keys(colorVariations.values).forEach(function (key) {
+                            productVariants.filter(function (variant) {
+                                if (variant.custom.color == colorVariations.values[key].id) {
+                                    productId = variant.ID;
+                                    return;
+                                }
+                            });
                             if (colorVariations.values[key]) {
                                 colorVariations.values[key].swatchesURL = URLUtils.url(
                                         'Product-Variation',
-                                        'dwvar_' + product.id + '_color',
+                                        'dwvar_' + productId + '_color',
                                         colorVariations.values[key].id,
                                         'pid',
-                                        product.id,
+                                        productId,
                                         'quantity',
                                         '1'
                                         ).toString();
@@ -90,20 +102,20 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                                 colorVariations.values[key].pdpURL = URLUtils.url(
                                         'Product-Show',
                                         'pid',
-                                        product.id,
-                                        'dwvar_' + product.id + '_color',
+                                        productId,
+                                        'dwvar_' + productId + '_color',
                                         colorVariations.values[key].id
                                         ).toString();
     
                                 if (!empty(variationParam) && !empty(variationParamValue)) {
                                     colorVariations.values[key].swatchesURL = URLUtils.url(
                                             'Product-Variation',
-                                            'dwvar_' + product.id + '_color',
+                                            'dwvar_' + productId + '_color',
                                             colorVariations.values[key].id,
-                                            'dwvar_' + product.id + '_' + variationParam,
+                                            'dwvar_' + productId + '_' + variationParam,
                                             variationParamValue,
                                             'pid',
-                                            product.id,
+                                            productId,
                                             'quantity',
                                             '1'
                                             ).toString();
@@ -111,63 +123,68 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                                     colorVariations.values[key].pdpURL = URLUtils.url(
                                             'Product-Show',
                                             'pid',
-                                            product.id,
-                                            'dwvar_' + product.id + '_color',
+                                            productId,
+                                            'dwvar_' + productId + '_color',
                                             colorVariations.values[key].id,
-                                            'dwvar_' + product.id + '_' + variationParam,
+                                            'dwvar_' + productId + '_' + variationParam,
                                             variationParamValue
                                             ).toString();
                                 }
                             }
                         });
                     } else {
-                        if (colorVariations.id === COLOR_WATCH) {
-                            Object.keys(colorVariations.values).forEach(function (key) {
-                                if (colorVariations.values[key]) {
-                                    colorVariations.values[key].swatchesURL = URLUtils.url(
-                                            'Product-Variation',
-                                            'dwvar_' + product.id + '_colorWatch',
-                                            colorVariations.values[key].id,
-                                            'pid',
-                                            product.id,
-                                            'quantity',
-                                            '1'
-                                            ).toString();
-        
-                                    colorVariations.values[key].pdpURL = URLUtils.url(
-                                            'Product-Show',
-                                            'pid',
-                                            product.id,
-                                            'dwvar_' + product.id + '_colorWatch',
-                                            colorVariations.values[key].id
-                                            ).toString();
-        
-                                    if (!empty(variationParam) && !empty(variationParamValue)) {
-                                        colorVariations.values[key].swatchesURL = URLUtils.url(
-                                                'Product-Variation',
-                                                'dwvar_' + product.id + '_colorWatch',
-                                                colorVariations.values[key].id,
-                                                'dwvar_' + product.id + '_' + variationParam,
-                                                variationParamValue,
-                                                'pid',
-                                                product.id,
-                                                'quantity',
-                                                '1'
-                                                ).toString();
-        
-                                        colorVariations.values[key].pdpURL = URLUtils.url(
-                                                'Product-Show',
-                                                'pid',
-                                                product.id,
-                                                'dwvar_' + product.id + '_colorWatch',
-                                                colorVariations.values[key].id,
-                                                'dwvar_' + product.id + '_' + variationParam,
-                                                variationParamValue
-                                                ).toString();
-                                    }
+                        Object.keys(colorVariations.values).forEach(function (key) {
+                            productVariants.filter(function (variant) {
+                                var productColor = variant.custom.productName ? variant.custom.productName : apiProduct.variationModel.variants[apiProductKey].custom.color;
+                                if (productColor == colorVariations.values[key].id) {
+                                    productId = variant.ID;
+                                    return;
                                 }
                             });
-                        }
+                            if (colorVariations.values[key]) {
+                                colorVariations.values[key].swatchesURL = URLUtils.url(
+                                    'Product-Variation',
+                                    'dwvar_' + productId + '_colorWatch',
+                                    colorVariations.values[key].id,
+                                    'pid',
+                                    productId,
+                                    'quantity',
+                                    '1'
+                                ).toString();
+
+                                colorVariations.values[key].pdpURL = URLUtils.url(
+                                    'Product-Show',
+                                    'pid',
+                                    productId,
+                                    'dwvar_' + productId + '_colorWatch',
+                                    colorVariations.values[key].id
+                                ).toString();
+
+                                if (!empty(variationParam) && !empty(variationParamValue)) {
+                                    colorVariations.values[key].swatchesURL = URLUtils.url(
+                                        'Product-Variation',
+                                        'dwvar_' + productId + '_colorWatch',
+                                        colorVariations.values[key].id,
+                                        'dwvar_' + productId + '_' + variationParam,
+                                        variationParamValue,
+                                        'pid',
+                                        productId,
+                                        'quantity',
+                                        '1'
+                                    ).toString();
+
+                                    colorVariations.values[key].pdpURL = URLUtils.url(
+                                        'Product-Show',
+                                        'pid',
+                                        productId,
+                                        'dwvar_' + productId + '_colorWatch',
+                                        colorVariations.values[key].id,
+                                        'dwvar_' + productId + '_' + variationParam,
+                                        variationParamValue
+                                    ).toString();
+                                }
+                            }
+                        });
                     }
                 }
             });
@@ -330,7 +347,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: apiProduct.variationModel.defaultVariant.ID ? apiProduct.variationModel.defaultVariant.ID : apiProduct.ID
                 });
-
+                
                 Object.defineProperty(product, 'defaultVariantBadges', {
                     enumerable: true,
                     value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
