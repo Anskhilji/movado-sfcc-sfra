@@ -76,7 +76,21 @@ function getResources(pageContext) {
         PHONE_NUMBER_INVALID: Resource.msg('listrak.invalid.phone', 'product', null),
         PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
-        INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null)
+        INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
+        CHECKOUT_FIRST_NAME_VALIDATION: Resource.msg('error.message.parse.firstname.invalid', 'forms', null),
+        CHECKOUT_LAST_NAME_VALIDATION: Resource.msg('error.message.parse.lastname.invalid', 'forms', null),
+        CHECKOUT_EMAIL_VALIDATION: Resource.msg('error.message.email.invalid', 'forms', null),
+        CHECKOUT_COMPANY_NAME_VALIDATION: Resource.msg('error.message.parse.companyName.invalid', 'forms', null),
+        CHECKOUT_CITY_NAME_VALIDATION: Resource.msg('error.message.parse.city.invalid', 'forms', null),
+        CHECKOUT_ZIP_CODE_VALIDATION: Resource.msg('error.message.parse.zip', 'forms', null),
+        CHECKOUT_PHONE_NUMBER_VALIDATION: Resource.msg('error.message.parse.phone', 'forms', null),
+        CHECKOUT_STATE_VALIDATION: Resource.msg('invalid.state.error', 'forms', null),
+        CHECKOUT_ADDRESS_1_VALIDATION: Resource.msg('error.message.parse.address1PObox', 'forms', null),
+        CHECKOUT_ADDRESS_2_VALIDATION: Resource.msg('error.message.parse.address2PObox', 'forms', null),
+        CHECKOUT_CARD_NUMBER_VALIDATION: Resource.msg('error.card.number', 'creditCard', null),
+        CHECKOUT_CARD_EXPIRY_DATE_VALIDATION: Resource.msg('error.credit.card.expiry', 'creditCard', null),
+        CHECKOUT_CARD_HOLDER_NAME_VALIDATION: Resource.msg('error.card.holderName', 'creditCard', null),
+        CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION: Resource.msg('error.credit.card.security.code.validate', 'creditCard', null)
     };
     return resources;
 }
