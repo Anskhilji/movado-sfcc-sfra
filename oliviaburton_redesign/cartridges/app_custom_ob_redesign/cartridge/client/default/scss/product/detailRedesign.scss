@@ -106,44 +106,6 @@
                                 @include media-breakpoint-down(md) {
                                     margin-left: rem(0);
                                 }
-
-                                &.poster-frame-video {
-
-                                    @include media-breakpoint-up(xl) {
-                                        max-width: rem(646);
-                                        height: rem(646);
-                                    }
-
-                                    @include custom-media-query-max ($large-screen-width-1440) {
-                                        max-width: rem(636);
-                                        height: rem(636);
-                                    }
-
-                                    @include media-breakpoint-down(lg) {
-                                        max-width: rem(400);
-                                        height: rem(400);
-                                    }
-
-                                    @include media-breakpoint-down(md) {
-                                        max-width: rem(377);
-                                        height: rem(377);
-                                    }
-
-                                    @include custom-media-query-max($medium-screen-width) {
-                                        max-width: rem(266);
-                                        height: rem(266);
-                                    }
-
-                                    @include media-breakpoint-down(sm) {
-                                        max-width: rem(328);
-                                        height: rem(328);
-                                    }
-
-                                    @include m-375 {
-                                        max-width: rem(278);
-                                        height: rem(278);
-                                    }
-                                }
                             }
                         }
                         .slide-video {
