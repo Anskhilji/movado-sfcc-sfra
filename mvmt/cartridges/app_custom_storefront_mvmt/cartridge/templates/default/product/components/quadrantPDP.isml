@@ -7,15 +7,6 @@
     </div>
         <div class="row d-show-mobile-wrapper no-gutters gallery-slider-quadrant">
         <isloop items="${pdict.product.images['zoom1660']}" var="image" status="loopStatus">
-            <isif condition="${!empty(pdict.product.pdpVideoConfigs) && loopStatus.count == pdict.product.pdpVideoConfigs.imageIndex && !empty(pdict.product.pdpVideoConfigs.videoURL) }">
-                <div class="col-lg-6 col-md-12  col-mx-50-wrapper">
-                    <div class="carousel-tile poster-frame-video">
-                        <video id="slide-video" class="slide-video" loop muted autoplay playsinline>
-                            <source src="${pdict.product.pdpVideoConfigs.videoURL}" type="video/mp4" />
-                        </video>
-                    </div>
-                </div>
-            </isif>
             <div class="col-lg-6 col-md-12  col-mx-50-wrapper">
                 <div class="carousel-tile" data-thumb="${!empty(pdict.product.images) && !empty(pdict.product.images.tile150[loopStatus.count-1]) ? pdict.product.images.tile150[loopStatus.count-1].url : ''}">
                     <picture>
@@ -24,6 +15,11 @@
                         <img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='${loopStatus.count - 1}'  src="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom1660[loopStatus.count-1]) && !empty(pdict.product.images.zoom1660[loopStatus.count-1].url) ? pdict.product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom830[loopStatus.count-1]) && !empty(pdict.product.images.zoom830[loopStatus.count-1].url) ? pdict.product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom1660[loopStatus.count-1]) && !empty(pdict.product.images.zoom1660[loopStatus.count-1].url) ? pdict.product.images.zoom1660[loopStatus.count-1].url : ''}" />
                         <isset name="isImageExist" value="true" scope="page" />
                     </picture>
+                    <isif condition="${!empty(pdict.product.pdpVideoConfigs) && loopStatus.count == pdict.product.pdpVideoConfigs.imageIndex && !empty(pdict.product.pdpVideoConfigs.videoURL) }">
+                    <video id="slide-video" class="slide-video" loop muted autoplay playsinline>
+                        <source src="${pdict.product.pdpVideoConfigs.videoURL}" type="video/mp4" />
+                    </video>
+                    </isif>
                 </div>
             </div>
         </isloop>
