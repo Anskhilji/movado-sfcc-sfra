@@ -162,13 +162,13 @@ $(document).ready(function() { // eslint-disable-line
 
     $('input.expirationDate').on('change keyup', function() {
         var $creditCardDate = $(this).val().split('/');
-        var expdateRegex = /^[[2-9]{1}]?([0-9]{1})$/i;
-        var cuurentDate = new Date();
+        var $expdateRegex = /^[[2-9]{1}]?([0-9]{1})$/i;
+        var $cuurentDate = new Date();
         const date = new Date();
         let $currentMonth = date.getMonth() +1;
-        var $currentYear = cuurentDate.getFullYear().toString();
+        var $currentYear = $cuurentDate.getFullYear().toString();
 
-        if (!expdateRegex.test($creditCardDate[1]) || (($currentYear.substring(0,2) + $creditCardDate[1] <= $currentYear) && parseInt($creditCardDate[0]) < $currentMonth)){
+        if (!$expdateRegex.test($creditCardDate[1]) || (($currentYear.substring(0,2) + $creditCardDate[1] <= $currentYear) && parseInt($creditCardDate[0]) < $currentMonth)){
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
             $('.creditcard-expiration-date').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_EXPIRY_DATE_VALIDATION);
