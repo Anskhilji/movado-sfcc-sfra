@@ -280,8 +280,8 @@ $(document).ready(function() { // eslint-disable-line
     });
 
     $('input.shippingZipCode, input.billingZipCode').on('change keyup', function() {
-        var country = $('.shippingCountry').val();
-        if (country == Resources.CHECKOUT_COUNTRY_US) {
+        var $country = $('.shippingCountry').val();
+        if ($country == Resources.CHECKOUT_COUNTRY_US) {
             var $value = $(this).val();
             var $pattern = /^(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/i
             var $isValid = $pattern.test($value);
@@ -296,7 +296,7 @@ $(document).ready(function() { // eslint-disable-line
                 $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
 
             }
-        } else if (country == Resources.CHECKOUT_COUNTRY_GB) {
+        } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
             var $value = $(this).val();
             var $pattern = /^(GIR 0AA)|((([A-Za-z-[QVX]][0-9][0-9]?)|(([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][0-9]?)|(([A-Za-z-[QVX‌]][0-9][A-HJKSTUWa-hjkstuw])|([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][ABEHMNPRVWXYabehmnprvwxy]))))\s?[0-9][A-Za-z-[C‌IKMOV]]{2})/i
             var $isValid = $pattern.test($value);
@@ -316,8 +316,8 @@ $(document).ready(function() { // eslint-disable-line
     });
 
     $('input.shippingPhoneNumber').on('change keyup', function() {
-        var country = $('.shippingCountry').val();
-        if (country == Resources.CHECKOUT_COUNTRY_US) {
+        var $country = $('.shippingCountry').val();
+        if ($country == Resources.CHECKOUT_COUNTRY_US) {
             var $value = $(this).val();
             var $pattern = /^(^(?!(?=(000-000-0000|0000000000)))(\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$)/i
             var $isValid = $pattern.test($value);
@@ -332,7 +332,7 @@ $(document).ready(function() { // eslint-disable-line
             $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
 
             }
-        } else if (country == Resources.CHECKOUT_COUNTRY_GB) {
+        } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
             var $value = $(this).val();
             var $pattern = /^(^(\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*)$)/i
             var $isValid = $pattern.test($value);

@@ -68,7 +68,7 @@ function fillInAddress(){
       }
 
       case "postal_code": {
-        if (shippingCountrydefault.value == 'US') {
+        if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_US) {
           var $pattern = /^(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
@@ -78,7 +78,7 @@ function fillInAddress(){
               $('.shippingZipCode').removeClass('is-valid');
               $('.shippingZipCode').addClass('is-invalid');
           }
-        } else if (shippingCountrydefault.value == 'GB') {
+        } else if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
           var $pattern = /^(GIR 0AA)|((([A-Za-z-[QVX]][0-9][0-9]?)|(([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][0-9]?)|(([A-Za-z-[QVX‌]][0-9][A-HJKSTUWa-hjkstuw])|([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][ABEHMNPRVWXYabehmnprvwxy]))))\s?[0-9][A-Za-z-[C‌IKMOV]]{2})/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
@@ -192,7 +192,7 @@ function fillInAddressBilling(){
       }
 
       case "postal_code": {
-        if (shippingCountrydefault.value == 'US') {
+        if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_US) {
           var $pattern = /^(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
@@ -202,7 +202,7 @@ function fillInAddressBilling(){
               $('.billingZipCode').removeClass('is-valid');
               $('.billingZipCode').addClass('is-invalid');
           }
-        } else if (shippingCountrydefault.value == 'GB') {
+        } else if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
           var $pattern = /^(GIR 0AA)|((([A-Za-z-[QVX]][0-9][0-9]?)|(([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][0-9]?)|(([A-Za-z-[QVX‌]][0-9][A-HJKSTUWa-hjkstuw])|([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][ABEHMNPRVWXYabehmnprvwxy]))))\s?[0-9][A-Za-z-[C‌IKMOV]]{2})/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
