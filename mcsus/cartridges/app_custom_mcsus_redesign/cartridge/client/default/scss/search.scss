@@ -129,7 +129,6 @@
                         margin-top: rem(0);
 
                         .sort-col {
-                            display: none;
                             
                             &::before {
                                 display: none;
@@ -142,7 +141,6 @@
                         }
 
                         .filter-col {
-                            display: none;
 
                             @include media-breakpoint-down(xs) {
                                 padding: rem(0);
