@@ -1,10 +1,6 @@
 <div class="exclusive-badges exclusive-badge-search">
     <!-- First two conditions are for PLP and the last is applicable on PDP -->
-    <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true)}">
-        <isloop items="${product.defaultVariantBadges.textBadges}" var="badge">
-            <span class="badge text-uppercase">${badge.text}</span>
-        </isloop>
-    <iselseif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.searchSuggestion === true) || (product.available && pdict.display.plpTile === false)}"/>
+    <isif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.searchSuggestion === true) || (product.available && pdict.display.plpTile === false)}"/>
         <!-- Custom Start: Product level promotion badge for PDP -->
         <isif condition="${product.promotions && !empty(product.promotions)}">
             <isloop items="${product.promotions}" var="promotion">
@@ -15,6 +11,10 @@
         </isif>
         <!-- Custom End -->
         <isloop items="${product.badges.textBadges}" var="badge">
+            <span class="badge text-uppercase">${badge.text}</span>
+        </isloop>
+    <iselseif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true)}" />
+        <isloop items="${product.defaultVariantBadges.textBadges}" var="badge">
             <span class="badge text-uppercase">${badge.text}</span>
         </isloop>
     </isif>
