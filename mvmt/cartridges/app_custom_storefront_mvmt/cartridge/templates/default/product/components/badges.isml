@@ -1,7 +1,7 @@
 <div class="exclusive-badges exclusive-badge-search">
     <!-- First two conditions are for PLP and the last is applicable on PDP -->
-    <isif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.searchSuggestion === true) || (product.available && pdict.display.plpTile === false)}"/>
-        <!-- Custom Start: Product level promotion badge for PDP -->
+    <isif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.searchSuggestion === true) || (product.available && pdict.display.plpTile === false)}">
+         <!-- Custom Start: Product level promotion badge for PDP -->
         <isif condition="${product.promotions && !empty(product.promotions)}">
             <isloop items="${product.promotions}" var="promotion">
                 <isif condition="${promotion.promotionClass === dw.campaign.Promotion.PROMOTION_CLASS_PRODUCT && promotion.promotionBadge &&  !empty(promotion.promotionMsg)}">
