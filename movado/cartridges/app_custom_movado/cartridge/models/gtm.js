@@ -93,7 +93,9 @@ function gtmModel(req) {
     var language = currentLocale.language ? currentLocale.language : 'en_us';
 
     // tenant
-    var tenant = getTenant(language); 
+    var tenant = getTenant(language);
+
+    var productObj;
 
     var productObj;
 
@@ -164,7 +166,6 @@ function gtmModel(req) {
     this.customerIPAddressLocation = customerIPAddressLocation || '';
     this.runningABTests = runningABTests || '';
 }
-
 
 /**
  * Function return pageType on the basis of page action
@@ -477,7 +478,6 @@ function getBasketParameters() {
 function getCartJSONArray(checkoutObject) {
     var cartJSON = getBasketParameters();
     var cartArray = [];
-
     for (var i = 0; i < cartJSON.length; i++) {
         var cartObj = {};
         cartObj.id = cartJSON[i].id;
@@ -523,6 +523,7 @@ function getCartJSONArray(checkoutObject) {
             });
         }
     }
+
     checkoutObject.push(cartArray);
 }
 

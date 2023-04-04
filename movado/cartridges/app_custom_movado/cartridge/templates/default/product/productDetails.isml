@@ -9,7 +9,8 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript> 
-    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+    <isset name="isListrakEnable" value="${!empty(sitePref.Listrak_Cartridge_Enabled) ? sitePref.Listrak_Cartridge_Enabled : false}" scope="page" />
     <isif condition="${isListrakEnable}">
         <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
     </isif>
@@ -47,7 +48,22 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/components/pidRating" />
+                            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                            <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                <div class="product-number-rating clearfix">
+                                    <div class="product-number sku-text-alignment">
+                                        <isinclude template="product/components/productNumber" />
+                                    </div>
+                                    <div class="ratings pull-right">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isinclude template="product/components/yotpoRatings" />
+                                        </div>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <isinclude template="product/components/pidRating" />
+                            </isif>
                         </div>
                     </div>
 
@@ -68,8 +84,24 @@
                     <!-- Product Name -->
                     <h2 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
-                    <div class="d-block d-md-block d-sm-none">
-                        <isinclude template="product/components/pidRating" />
+                    <div class="d-block d-md-block d-sm-none hidden-sm-down">
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                        <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                            <div class="product-number-rating clearfix">
+                                <div class="product-number sku-text-alignment">
+                                    <isinclude template="product/components/productNumber" />
+                                </div>
+                                <div class="ratings pull-right hidden-sm-down">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isinclude template="product/components/yotpoRatings" />
+                                    </div>
+                                </div>
+                            </div>
+                        <iselse/>
+                            <div class="d-block d-md-block d-sm-none">
+                                <isinclude template="product/components/pidRating" />
+                            </div>
+                        </isif>
                     </div>
 
                     <div class="row">
@@ -205,15 +237,12 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-
         <!-- Start: Listrak persistent popup -->
-        <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
         <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
             <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
             <span class="listrak-popup-product-detail"></span>
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
         </isif>
         <!-- End: Listrak persistent popup -->
-
     </isobject>
 </isdecorate>

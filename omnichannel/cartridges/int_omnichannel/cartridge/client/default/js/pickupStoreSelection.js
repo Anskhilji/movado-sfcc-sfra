@@ -56,15 +56,21 @@ $(document).on('click', '.store-pickup-select', function () {
         var stateCode = storePickup.stateCode;
         var storeCity = storePickup.city;
         var storeCountryCode = storePickup.countryCode;
-        $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_AVAILABLE_TEXT);
+        
         $('.set-your-store').text(storePickup.address1);
         $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
         $('.pick-up-store-change-store').text('Change');
         $('#pickupStoreModal').modal('hide');
         if (storePickup.inventory && storePickup.inventory[0].records[0].ato > 0) {
             $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available');
-            $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-inventory-icon');
+            $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-inventory-icon InStock-icon-times');
+            $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-store-icon');
+            $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_AVAILABLE_TEXT); 
+        } else if (storePickup.inventory === undefined || storePickup.inventory === null || storePickup.inventory[0].records[0].ato === 0) {
             $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-store-icon'); 
+            $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-inventory-icon');
+            $('.pdp-icon-box').addClass('pickup-store-inventory-status-icon-unavailable unavailable-icon-block'); 
+            $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_UNAVAILABLE_TEXT);
         } else {
             $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-store-icon'); 
         }

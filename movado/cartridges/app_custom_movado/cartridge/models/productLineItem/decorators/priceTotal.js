@@ -4,16 +4,18 @@ var Site = require('dw/system/Site');
 var formatMoney = require('dw/util/StringUtils').formatMoney;
 var Money = require('dw/value').Money;
 
+var URLUtils = require('dw/web/URLUtils');
 var collections = require('*/cartridge/scripts/util/collections');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 var priceHelper = require('*/cartridge/scripts/helpers/priceHelper');
+var ProductInventoryMgr = require('dw/catalog/ProductInventoryMgr');
 
 /**
  * get the total price for the product line item
  * @param {dw.order.ProductLineItem} lineItem - API ProductLineItem instance
  * @returns {Object} an object containing the product line item total info.
  */
-function getTotalPrice(lineItem) {
+function getTotalPrice(lineItem, quantity) {
     var context;
     var price;
     var result = {};
@@ -46,6 +48,7 @@ function getTotalPrice(lineItem) {
             gettingCurrencyCode = eswShopperCurrencyCode ? eswShopperCurrencyCode : lineItem.lineItemCtnr.currencyCode;
         }
         result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, gettingCurrencyCode) : formatMoney(nonAdjustedPrice);
+        result.nonAdjustedPriceValue = (nonAdjustedPrice.value) ? nonAdjustedPrice.value : nonAdjustedPrice;
         result.nonAdjustedFormattedPrice = (eswModuleEnabled && !empty(result.nonAdjustedPrice)) ? formatMoney(result.nonAdjustedPrice) : null;
     }
     // If not for order history calculations
@@ -78,20 +81,67 @@ function getTotalPrice(lineItem) {
         }
     }
     savingsPrice = priceHelper.getsavingsPrice(lineItem.getPrice(), price);
-     if (savingsPrice) {
-         result.formattedSavingPrice = formatMoney(savingsPrice);
-         result.savingPrice = savingsPrice;
-     }
-    context = { lineItem: { priceTotal: result } };
+    if (savingsPrice) {
+        result.formattedSavingPrice = formatMoney(savingsPrice);
+        result.savingPrice = savingsPrice;
+    }
+
+    context = { lineItem:
+    {
+        priceTotal: result,
+        quantityOptions: getMinMaxQuantityOptions(lineItem, quantity),
+        UUID: lineItem.UUID,
+        quantity: lineItem.quantity.value,
+        id: lineItem.productID
+    }
+};
     result.saleFormattedPrice = formatMoney(lineItem.adjustedPrice);
+    result.saleFormattedPriceValue = lineItem.adjustedPrice.value;
     result.renderedPrice = renderTemplateHelper.getRenderedHtml(context, template);
     return result;
     // Custom End
 }
 
-module.exports = function (object, lineItem) {
+
+/**
+ * get the min and max numbers to display in the quantity drop down.
+ * @param {Object} productLineItem - a line item of the basket.
+ * @param {number} quantity - number of items for this product
+ * @returns {Object} The minOrderQuantity and maxOrderQuantity to display in the quantity drop down.
+ */
+function getMinMaxQuantityOptions(productLineItem, quantity) {
+    var availabilityModelLevels,
+        availableToSell;
+
+    if (productLineItem.product && productLineItem.product.availabilityModel) {
+        availabilityModelLevels = productLineItem.product.availabilityModel.getAvailabilityLevels(quantity);
+    }
+
+    if (productLineItem.product.availabilityModel && productLineItem.product.availabilityModel.inventoryRecord) {
+        availableToSell = productLineItem.product.availabilityModel.inventoryRecord.ATS.value;
+    } else if (availabilityModelLevels) {
+        availableToSell = availabilityModelLevels.inStock.value;
+    } else {
+        availableToSell = 0;
+    }
+
+    if (productLineItem.productInventoryListID) {
+        var inventoryList = ProductInventoryMgr.getInventoryList(productLineItem.productInventoryListID);
+        var inventoryRecord = inventoryList.getRecord(productLineItem.product.ID);
+        availableToSell = inventoryRecord ? inventoryRecord.ATS.value : '';
+    }
+
+    var max = Math.max(Math.min(availableToSell, 10), quantity);
+
+    return {
+        minOrderQuantity: productLineItem.product.minOrderQuantity.value || 1,
+        maxOrderQuantity: max
+    };
+}
+
+module.exports = function (object, lineItem, quantity) {
     Object.defineProperty(object, 'priceTotal', {
         enumerable: true,
-        value: getTotalPrice(lineItem)
+        value: getTotalPrice(lineItem, quantity)
     });
 };

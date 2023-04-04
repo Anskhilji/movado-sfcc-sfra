@@ -3,8 +3,8 @@
   .submit-payment,
   .place-order,
   .order-confirmation-continue-shopping {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
+    background: $gray;
+    border: rem(1) solid $gray;
     color: $black;
   }
 
@@ -281,7 +281,7 @@
 .product-summary-block {
   .line-item-name span {
     color: $black;
-    font-family: $font-museo-light;
+    font-family: $font-gill-std;
     font-size: $font-size-text-heading1;
     letter-spacing: rem(2);
     font-weight: $font-light;

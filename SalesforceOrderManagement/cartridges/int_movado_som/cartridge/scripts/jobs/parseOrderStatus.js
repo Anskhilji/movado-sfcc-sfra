@@ -56,6 +56,7 @@ function parseOrderStatus(args) {
     for (var fileCount = 0; fileCount < filesToParse.length; fileCount++) {
         try {
             var file = new File(filesToParse[fileCount]);
+            var fileName = file.getFullPath().replace(/^.*[\\\/]/, '');
             Logger.info('parseOrderStatus - Starting FILE ' + file.getFullPath());
             var fileReader = new FileReader(file);
             var xmlReader = new XMLStreamReader(fileReader);
@@ -81,7 +82,7 @@ function parseOrderStatus(args) {
                             if (!Array.isArray(nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem)) {
                                 nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem = [nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem];
                             }
-                            var resultOrderStatus = processStatusOrder(nodeStatus.EcommerceOrderStatus);
+                            var resultOrderStatus = processStatusOrder(nodeStatus.EcommerceOrderStatus ,fileName);
                             if (resultOrderStatus.error) {
                                 status.addItem(new StatusItem(Status.ERROR, 'ERROR', resultOrderStatus.message));
                                 isRecordProcessedSuccessfully = false;
@@ -105,7 +106,7 @@ function parseOrderStatus(args) {
 
             if (!isRecordProcessedSuccessfully) {
                 local_fm.MoveFileToErrored(file,errorFolder);
-            }
+            } 
         }
         catch (e) {
             errorMessage  = 'Error encountered ' + e.stack +' '+ 'Error Message '+ e.message + ',';
@@ -136,10 +137,21 @@ function parseOrderStatus(args) {
  * @param {Object} SAPOrderStatus single order object from incoming XML file
  * @return {dw.system.Status} Status
  */
-function processStatusOrder(SAPOrderStatus) {
+function processStatusOrder(SAPOrderStatus, fileName) {
     // Retrieve SOM Fulfillment Order
-     Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
+    Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
     try {
+        var cancelStatus = "Cancelled";
+        var fufilledStatus = "Fulfilled";
+        var checkTransactionStatus = '';
+
+        if (SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'CAPTURE' || SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'VOID') {
+            checkTransactionStatus = 'AND+Status+NOT+IN(\'' + fufilledStatus + '\',\'' + cancelStatus + '\')';
+        }
+        else if (SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType === 'REFUND') {
+            checkTransactionStatus = 'AND+Status!=\'' + cancelStatus + '\'' ;
+        }
+
         var fulfillmentOrder = SalesforceModel.createSalesforceRestRequest({
             method: 'GET',
             url: '/services/data/v52.0/query/?q=' +
@@ -152,7 +164,8 @@ function processStatusOrder(SAPOrderStatus) {
                 'OrderItemSummary.WarrantyParentOrderItemSummary__r.Id,' +
                 'OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity+' +
                 'FROM+FulfillmentOrderLineItems)+' +
-                'FROM+FulfillmentOrder+WHERE+FulfillmentOrderNumber=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'',
+                'FROM+FulfillmentOrder+WHERE+FulfillmentOrderNumber=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'' +
+                ''+ checkTransactionStatus +' ',
             referenceId: 'SalesforceOrderStatus'
         });
 
@@ -221,7 +234,7 @@ function processStatusOrder(SAPOrderStatus) {
         return new Status(Status.OK);
     }
     catch (e) {
-        errorMessage  = 'Error occured in this Fulfillment Order: '+ SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ' with Error ' + e.stack + ' Error Message '+ e.message + ',';
+        errorMessage  = 'Error occured in this Fulfillment Order: '+ SAPOrderStatus.EcommerceOrderStatusHeader.PONumber +'(' + fileName + ') with Error ' + e.stack + ' Error Message '+ e.message + ',';
         errorMessageList.push(errorMessage);
     }
 }

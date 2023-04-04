@@ -178,16 +178,12 @@ label.availability {
 	}
 }
 
-@include media-breakpoint-up(sm) {
-	.klarna-promo-parent-container {
-    .klarna-placement {
-      max-width: 351px !important;
-    }
-  }
-}
-
 .klarna-promo-parent-container {
     margin-bottom: 5px;
+    
+    .klarna-placement {
+        max-width: rem(350);
+    }
 }
 
 .smartgift-btn {

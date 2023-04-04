@@ -145,7 +145,7 @@ function gtmModel(req) {
     
     var userZip = getUserZip(currentCustomer);
         // Custom End
-    
+
     var runningABTests = productCustomHelper.getRunningABTestSegments();
 
         if (pid != null) {
@@ -235,7 +235,6 @@ function gtmModel(req) {
     this.customerIPAddressLocation = customerIPAddressLocation || '';
     this.runningABTests = runningABTests || '';
 }
-
 
 /**
  * Function return pageType on the basis of page action
@@ -1035,6 +1034,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 // Custom End
                 if (!empty(productLineItem.product.shortDescription)) {
                     produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
+                    produtObj.description = stringUtils.removeLineBreak(produtObj.description);
                 }
                 produtObj.productType = productHelper.getProductType(productLineItem.product);
                 produtObj.imageURL = productLineItem.product.image.absURL;

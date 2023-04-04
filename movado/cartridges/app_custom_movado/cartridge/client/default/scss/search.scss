@@ -5,11 +5,11 @@
 @import "bootstrap/scss/mixins/breakpoints";
 @import "utilities/swatch";
 @import "components/categoryTiles";
+@import "components/yotpoStarsRattingRefinements";
 
 .filter-and-count {
     visibility: hidden;
 }
-
 .refinement-bar {
     overflow: auto;
 
@@ -459,9 +459,14 @@
 
 .listrak-persistent-popup {
     display: none !important;
-  }
-  .button-floting {
+}
+
+.button-floting {
     &.button-search-result {
       bottom: rem(41);
     }
-  }
+}
+
+.content-tile:not(:has(div)) {
+    display: none;
+}

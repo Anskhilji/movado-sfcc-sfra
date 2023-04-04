@@ -6,6 +6,7 @@ if(Resources.IS_CLYDE_ENABLED){
 var updateMiniCart = true;
 var pdpVideoLoaded = false;
 var videoStatusChecker;
+var $screenSize = $(window).width();
 function setMiniCartProductSummaryHeight () {
     var $miniCartHeaderTitle = parseInt($('.mini-cart-data .popover .title-free-shipping').outerHeight(true));
     var $miniCartCountrySelector = parseInt($('.mini-cart-data .popover .cart-country-selector').outerHeight(true));
@@ -17,12 +18,12 @@ function setMiniCartProductSummaryHeight () {
     $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
     var $productSummaryHeight = $miniCartFooterHeight + $miniCartHeaderHeight;
     $('.mini-cart-data .product-summary').css('max-height', '');
-    var screenSize = $(window).width();
+    
     var mediumScreenSize = 992; // mobile break point
 
     // check screen size for mobile and desktop
-    if (screenSize != null) {
-        if (screenSize <= mediumScreenSize) {
+    if ($screenSize != null) {
+        if ($screenSize <= mediumScreenSize) {
             $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight);
         } else {
             $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight);
@@ -793,26 +794,31 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
-    if (!(response.product.isGiftBoxAllowed)) {
-        $('.gift-box-wrapper').css('visibility', 'hidden');
-        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
-            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
-        }
-    }
-    else {
-        if ($(window).width() >= 768) {
-            if($('.gift-box-wrapper').attr('style')) {
-                $('.gift-box-wrapper').removeAttr('style');
+    if (!response.product.available) {
+        $('.gift-box-wrapper.d-show-desktop').hide();
+        $('.gift-box-wrapper.d-show-mobile').hide();
+    } else {
+        if (!(response.product.isGiftBoxAllowed)) {
+            $('.gift-box-wrapper').css('visibility', 'hidden');
+            if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+                $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
             }
-            $('.gift-box-wrapper.d-desktop-show').show();
-        } else {
-            if($('.gift-box-wrapper').attr('style')) {
-                $('.gift-box-wrapper').removeAttr('style');
-            }
-            $('.gift-box-wrapper.d-mobile-show').show();
         }
-        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
-            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        else {
+            if ($(window).width() >= 768) {
+                if($('.gift-box-wrapper').attr('style')) {
+                    $('.gift-box-wrapper').removeAttr('style');
+                }
+                $('.gift-box-wrapper.d-show-desktop').show();
+            } else {
+                if($('.gift-box-wrapper').attr('style')) {
+                    $('.gift-box-wrapper').removeAttr('style');
+                }
+                $('.gift-box-wrapper.d-show-mobile').show();
+            }
+            if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+                $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+            }
         }
     }
     
@@ -1188,6 +1194,37 @@ function handleVariantResponse(response, $productContainer) {
         if (window.Resources.GOOGLE_PAY_ENABLED) {
             $('.google-pay-container').show();
         }
+        var currentCountry = response.product.currentCountry.toLowerCase();
+
+        if ($screenSize > 768) {
+            if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
+                var applePayButton = $('.apple-pay-pdp', $productContainer);
+                if (applePayButton.length !== 0) {
+                    applePayButton.attr('sku', response.product.id);
+                    applePayButton.removeClass('d-none');
+                }
+            }
+        } else {
+            if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
+                var $applePayButtonMobile = $('.show-cart-button-mobile .apple-pay-pdp', $productContainer);
+                var $applePayButtonMobileAlternatePDP = $('.prices-add-to-cart-actions .apple-pay-pdp', $productContainer);
+                var $cartButtonMobileContainer = $('.show-cart-button-mobile .prices-add-to-cart-actions .show-cart-button-mobile-container');
+                var $cartButtonMobileAlternatePDPContainer = $('.prices-add-to-cart-actions .alternate-pdp-cart-button-mobile-container'); 
+
+                if ($applePayButtonMobile.length > 0) {
+                    $applePayButtonMobile.remove();
+                    $cartButtonMobileContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
+                    'sku=' + response.product.id + '></isapplepay>');
+                } else if ($cartButtonMobileAlternatePDPContainer.length > 0) { // Handling for alternate PDP
+                    $applePayButtonMobileAlternatePDP.remove();
+                    $cartButtonMobileAlternatePDPContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
+                    'sku=' + response.product.id + '></isapplepay>');
+                } else {
+                    $cartButtonMobileContainer.append('<isapplepay class="apple-pay-pdp btn apple-pay"' +
+                    'sku=' + response.product.id + '></isapplepay>');
+                }
+            }
+        }
     } else {
         $addToCartSelector.addClass('out-of-stock-btn');
         $addToCartSelector.prop('disabled', true);
@@ -1198,7 +1235,16 @@ function handleVariantResponse(response, $productContainer) {
         if (window.Resources.GOOGLE_PAY_ENABLED) {
             $('.google-pay-container').hide();
         }
+        $('.apple-pay-pdp').addClass('d-none');
     }
+
+    // ATC button text upadate when the product is pre-order/back-order
+    if (response.product.availability && response.product.availability.inStockDate !== null && response.product.availability.messages.length > 0 && response.product.availability.messages[0] === window.Resources.INFO_PRODUCT_AVAILABILITY_PREORDER || response.product.availability.messages[0] === window.Resources.INFO_PRODUCT_AVAILABILITY_BACK_ORDER) {
+        $addToCartSelector.each(function (index, button) {
+            $(button).contents().first().replaceWith($addToCartSelector.textContent = window.Resources.BUTTON_PREORDER_NOW);
+        });
+    }
+
     $('body').on('product:afterAttributeSelect', function (e, response) {
         setTimeout(function(){
             zoomfeature();

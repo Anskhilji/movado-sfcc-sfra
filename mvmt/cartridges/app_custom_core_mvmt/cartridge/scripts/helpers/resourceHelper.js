@@ -13,12 +13,15 @@ var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers')
  * @returns {Object} resources : An objects key key-value pairs holding the resources
  */
 function getResources(pageContext) {
+    var ContentMgr = require('dw/content/ContentMgr');
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ArrayList = require('dw/util/ArrayList');
     var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
     var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
+    var fedexAddressNoRecommendation =  ContentMgr.getContent('checkout-address-validation-no-recommendation');
+    fedexAddressNoRecommendation = fedexAddressNoRecommendation && fedexAddressNoRecommendation.custom.body ? fedexAddressNoRecommendation.custom.body.source : '';
 
     var resources = {
         MINI_CART_HEADER_MESSAGE: Resource.msg('title.your.shopping.cart','cart',null),
@@ -59,7 +62,7 @@ function getResources(pageContext) {
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
-        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
+        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled || false,
         RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
         GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
         GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
@@ -93,7 +96,16 @@ function getResources(pageContext) {
         CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION: Resource.msg('error.credit.card.security.code.validate', 'creditCard', null),
         CHECKOUT_COUNTRY_US: 'US',
         CHECKOUT_COUNTRY_GB: 'GB',
-        CHECKOUT_COUNTRY_CH: 'CH'
+        CHECKOUT_COUNTRY_CH: 'CH',
+        FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
+        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
+        ESW_COUPON_VALIDATION_EMAIL_REQUIRE: Resource.msg('esw.guest.email.required', 'account', null),
+        INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
+        LISTRAK_SMS_API_CLIENT_SECRET: !empty(Site.current.preferences.custom.Listrak_SMS_ClientSecret) ? Site.current.preferences.custom.Listrak_SMS_ClientSecret : '',
+        LISTRAK_ENABLE_BACK_IN_STOCK_SMS: !empty(Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? Site.current.preferences.custom.Listrak_EnableBackInStockSms : false,
+        INFO_PRODUCT_AVAILABILITY_PREORDER: Resource.msg('info.product.availability.preorder', 'common', null),
+        INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
+        BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null)
     };
     return resources;
 }

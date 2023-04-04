@@ -6,6 +6,10 @@
 
     .filter-bar {
 
+        ul {
+            padding-top: rem(15);
+        }
+
         .filter-value {
 
             a {
@@ -139,6 +143,21 @@
             .tile-discription, .product-not-available-msg {  
                 font-family: $font-HelveticaNeueLT-book;
                 max-height: rem(36);
+            }
+        }
+    }
+
+    .filter-box {
+
+        &.filter-bar-sticky {
+            top: rem(98);
+            z-index: 800;
+            @include media-breakpoint-down(md) {
+                top: rem(60); 
+            }
+
+            @include media-breakpoint-down(sm) {
+                top: rem(44); 
             }
         }
     }

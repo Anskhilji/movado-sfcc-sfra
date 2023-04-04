@@ -4,7 +4,7 @@ body {
 
 .hero {
   h1.page-title {
-    font-family: $font-adobe;
+    font-family: $font-gills-light;
     font-size: $font-size-title6;
     letter-spacing: rem(1.8);
     text-transform: lowercase;
@@ -17,13 +17,13 @@ body {
 
 .compare-bar-wrapper {
   .compare.btn {
-    background: $pink-grey;
-    border: rem(1) solid $pink-grey;
+    background: $gray;
+    border: rem(1) solid $gray;
     color: $black;
   }
 
   .clear-all {
-    font-family: $font-museo-light;
+    font-family: $font-gill-std;
     font-size: $font-size-text-heading1;
     letter-spacing: rem(0.9);
     font-weight: $font-light;
@@ -31,7 +31,7 @@ body {
 }
 
 .btn {
-  font-family: $font-museo-std;
+  font-family: $font-gill-std-medium;
   font-size: $font-size-text-heading1;
   font-weight: $font-semi-bold;
   letter-spacing: rem(2);
@@ -39,27 +39,29 @@ body {
 }
 
 .btn-primary {
-  background: $pink-hot;
-  border: rem(1) solid $pink-hot;
-  color: $black;
+  background: $black;
+  border: rem(1) solid $black;
+  color: $white;
 
   &:hover {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
+    background: $white;
+    border: rem(1) solid $black;
     color: $black;
   }
   
   &-cta {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
-    color: $black;
+    background: $black;
+    border: rem(1) solid $black;
+    color: $white;
 
       &:hover {
-          background: $pink-hot;
-          border: rem(1) solid $pink-hot;
+          background: $white;
+          border: rem(1) solid $black;
+          color: $black;
       }
   }
 }
+
 
 .custom-select {
   color: $black;
@@ -83,7 +85,7 @@ select + i.fa {
 }
 
 .heading-one {
-  font-family: $font-adobe;
+  font-family: $font-gills-light;
   font-size: $font-size-title6;
   letter-spacing: rem(1.8);
 }
@@ -112,19 +114,19 @@ a {
 
 .pt_customerservice {
   .heading-two {
-    font-family: $font-adobe;
+    font-family: $font-gills-light;
     font-size: rem(30);
     letter-spacing: rem(0.4);
   }
 
   .heading-three {
-    font-family: $font-adobe;
+    font-family: $font-gills-light;
     font-size: $font-size-heading1;
     letter-spacing: rem(0.4);
   }
 
   .heading-four {
-    font-family:  $font-adobe;
+    font-family:  $font-gills-light;
     font-size: $font-size-heading3;
     letter-spacing: rem(0.4);
   }
@@ -185,7 +187,7 @@ form {
 }
 
 .header-banner {
-  background-color: $pink-grey;
+  background-color: $gray;
 
   .html-slot-container {
     color: $black;
@@ -233,7 +235,7 @@ form {
 
 .filter-bar {
   li.filter-value {
-    background: $pink-grey;
+    background: $gray;
   }
 }
 
@@ -326,7 +328,7 @@ form {
 @include media-breakpoint-up(md) {
   .hero {
     h1.page-title {
-      font-size: $font-size-title-heading1;
+      font-size: $font-size-title5;
       letter-spacing: rem(3);
     }
   }

@@ -10,8 +10,8 @@ header {
             .header-wrapper.checkout-header-wrapper {
                 .minicart {
                     &-quantity {
-                        color: $black;
-                        background-color: $pink-grey;
+                        color: $white;
+                        background-color: $black;
                     }
                 }
             }
@@ -64,8 +64,8 @@ header {
                             }
 
                             &-quantity {
-                                color: $black;
-                                background-color: $pink-grey;
+                                color: $white;
+                                background-color: $black;
                                 font-size: rem(12);
                             }
                         }
@@ -114,7 +114,7 @@ header {
                 .checkout-text {
                     h5 {
                         .secure-text {
-                            font-family: $font-museo-light;
+                            font-family: $font-gill-std;
                             font-size: rem(14);
                             color: $light-gray5;
                             opacity: 0.8;
@@ -337,12 +337,15 @@ header {
         .mx-container-box1 {
             
             .btn {
-                border: rem(2) solid $pink-hot;
-                background-color: $pink-hot;
-                color: $black;
+                border: rem(2) solid $black;
+                background-color: $black;
+                color: $white;
                 
+                &:hover,
                 &:focus {
-                    border-color: $pink-hot;
+                    background: $white;
+                    border: rem(1) solid $black;
+                    color: $black;
                 }
 
                 &:active {
@@ -648,4 +651,20 @@ header {
     left: 0;
     display: none;
     z-index: 5;
+}
+
+.fedex-popup {
+    &-body {
+        &-heading {
+            font-family: $font-gill-std-medium;
+        }
+        // POP UP BODY
+        &-container {
+            &-box-one {
+                .btn-wrapper {
+                    font-family: $font-gill-std-medium;
+                }
+            }
+        }
+    }
 }

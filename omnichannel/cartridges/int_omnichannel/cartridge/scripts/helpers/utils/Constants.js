@@ -16,3 +16,6 @@ exports.ERRORS_TYPE = {
 }
 
 exports.US_COUNTRY_CODE='US';
+exports.RAKUTEN_SITE_ID = 'atrv';
+exports.RAKUTEN_DROPPED_DATE = 'ald';
+exports.RAKUTEN_Order_GMT_DATE = 'yyyy-MM-dd\'T\'HH:mm:ss\'Z\'';

@@ -1,4 +1,5 @@
 var BasketMgr = require('dw/order/BasketMgr');
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Status = require('dw/system/Status');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var Logger = require('dw/system/Logger');
@@ -34,6 +35,17 @@ var NEWLINE = '\n';
 function comparePoBox(address) {
     var regex = new RegExp('(?:P(?:ost(?:al)?)?[\\.\\-\\s]*(?:(?:O(?:ffice)?[\\.\\-\\s]*)?B(?:ox|in|\\b|\\d)|o(?:ffice)(?:[-\\s]*)|code))', 'i');
     var results = regex.test(address);
+    return results;
+}
+
+/**
+ * This method is used for checking email address passed as parameter.
+ * @param email
+ * @returns results
+ */
+function emailValidation (email) {
+    var regex =/^(?=[a-zA-Z0-9_-]{1,64}(?!.*?\.\.)+(?!\@)+[a-zA-Z0-9!.#\/$%&'*+-=?^_`{|}~\S+-]{1,64})+[^\\@,;:"[\]()<>\s]{1,64}[^\\@.,;:"[\]\/()<>\s-]+@[^\\@!.,;:#$%&'*+=?^_`{|}()[\]~+<>"\s\-][a-zA-Z0-9\-\.]*[^\\@!,;:#$%&'*+=?^_`{|}()[\]~+<>"\s]*[\.]+(?!.*web|.*'')[a-zA-Z]{1,15}$/i;
+    var results = regex.test(email);
     return results;
 }
 
@@ -94,10 +106,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         return new Status(Status.ERROR);
     }
 
-    if (session.privacy.pickupFromStore) {
-        Transaction.wrap(function () {
-            COCustomHelpers.removeGiftMessageLineItem(order);
-        });
+    if (order.custom.storePickUp) {
         session.custom.applePayCheckout = false;
     } else {
         session.custom.StorePickUp = false;
@@ -204,8 +213,15 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 
         var email = order.customerEmail;
         if (!empty(email)) {
-            var maskedEmail = checkoutCustomHelpers.maskEmail(email);
-            checkoutLogger.info('(applePay.js) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+            var emailValidate = emailValidation(email);
+            if (!emailValidate) {
+                addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_CONTACT);
+                deliveryValidationFail = true;
+                Logger.error('Invalid email address for order {0}', order.orderNo);
+            } else {
+                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(applePay.js) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+            }
         }
     } catch (e) {
         Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
@@ -268,6 +284,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
         }
     }
+
+    var email = order.customerEmail;
+    if (!empty(email)) {
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        checkoutLogger.info('(applePay.js) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+    }
     // End Salesforce Order Management
 
     var email = order.customerEmail;
@@ -284,6 +306,13 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     session.custom.appleEmbossOptionId = '';
     session.custom.appleEmbossedMessage = '';
     session.custom.appleEngravedMessage = '';
+
+    Transaction.wrap(function () {
+        var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+        if (currentSessionPaymentParams) {
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        }
+    });
 
     return status;
 };
@@ -317,11 +346,10 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
-
     var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {
-        if (!session.privacy.pickupFromStore) {
+        if (!basket.custom.storePickUp) {
             session.custom.StorePickUp = false;
             session.custom.applePayCheckout = true;
         } else {
@@ -332,7 +360,7 @@ exports.prepareBasket = function (basket, parameters) {
             }
         }
     } else {
-        if (!session.privacy.pickupFromStore) {
+        if (!basket.custom.storePickUp) {
             session.custom.applePayCheckout = true;
             if (currentCountry == Constants.US_COUNTRY_CODE) {
                 session.custom.isEswShippingMethod = false;

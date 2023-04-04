@@ -1,4 +1,5 @@
 <div class="product-tile" data-loggedin-status-url="${URLUtils.url('Account-LoggedInStatus')}" itemscope itemtype="http://schema.org/Product">
+    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
     <isloop items="${product.availability.messages}" var="message">
@@ -53,9 +54,17 @@
 
         <div class="row m-0">
             <div class="col d-flex w-100 p-0">
-                <a href="${pdict.urls.product}#yotpo-reviews-top-div">
-                    <isinclude template="product/components/ratings" />
-                </a>
+                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                        <isinclude template="product/components/yotpoRatings" />
+                    </div>
+                <iselse/>
+                    <a href="${pdict.urls.product}#yotpo-reviews-top-div">
+                        <isinclude template="product/components/ratings" />
+                    </a>
+                </isif>
             </div>
         </div>
 

@@ -19,6 +19,17 @@
     </div>
 </isif>
 
+<isif condition="${!empty(pdict.couponValidationErrormessage)}">
+    <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${pdict.couponValidationErrormessage}
+            </div>
+    </div>
+</isif>
+
 <isif condition="${pdict.lastNameError}">
     <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">
         ${Resource.msg('error.last.name', 'checkout', null)}
@@ -29,6 +40,9 @@
 
 <div class="container cart-header-wrapper text-center">
     <h1 class="page-title cart-header">${Resource.msg('title.cart', 'cart', null)}</h1>
+
+    <isinclude template="common/progressMeter" sf-toolkit="on" />
+    
     <isif condition="${pdict.items.length !== 0}">
         <div class="estimate-price-wrapper">
             <div class="row estimated-total justify-content-center">
@@ -86,7 +100,6 @@
                         <isinclude template="cart/productCard/cartProductCard" />
                     </isif>
                 </isloop>
-                <isinclude template="cart/cartApproachingDiscount" />
             </div>
             <!---totals, and checkout actions--->
             <div class="col-sm-5 col-md-4 totals">

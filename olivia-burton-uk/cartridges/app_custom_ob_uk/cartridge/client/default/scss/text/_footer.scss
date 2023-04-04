@@ -10,12 +10,12 @@ footer {
 
     .input-group-btn {
       .btn-primary {
-        font-family: $font-museo-std;
+        font-family: $font-gill-std-medium;
         font-size: $font-size-text-heading1;
         font-weight: $font-semi-bold;
         letter-spacing: rem(2);
-        border: rem(1) solid $pink-grey;
-        background-color: $pink-grey;
+        border: rem(1) solid $gray;
+        background-color: $gray;
         color: $white;
       }
     }
@@ -39,7 +39,7 @@ footer {
     li {
       a {
         color: $black;
-        font-family: $font-museo-light;
+        font-family: $font-gill-std;
         font-size: $font-size-text-heading1;
         font-weight: $font-light;
         letter-spacing: rem(0.4);
@@ -64,7 +64,7 @@ footer {
 .home {
   &-email {
     &-signup {
-      background-color: $pink-grey;
+      background-color: $gray;
 
       .input {
         &-group {
@@ -92,7 +92,7 @@ footer {
     .footer {
       &-item {
         h3 {
-          font-family: $font-museo-std;
+          font-family: $font-gill-std-medium;
           font-size: $font-size-heading3;
           letter-spacing: rem(0.4);
           font-weight: $font-semi-bold;

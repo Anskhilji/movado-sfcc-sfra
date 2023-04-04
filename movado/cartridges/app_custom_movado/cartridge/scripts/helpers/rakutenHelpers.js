@@ -2,10 +2,12 @@
 var Calendar = require('dw/util/Calendar');
 var Constants = require('~/cartridge/scripts/util/Constants');
 var encoding = require('dw/crypto/Encoding');
-var Site = require('dw/system/Site');
+var Logger = require('dw/system/Logger');
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
+var Transaction = require('dw/system/Transaction');
 
-var sitePreferences = Site.getCurrent().getPreferences().getCustom();
+var CommonUtils = require('*/cartridge/utils/commonUtils');
 
 /**
  * This method is used to create cookie into the session.
@@ -20,7 +22,7 @@ function createCookieInSession(request) {
         var ranSiteID = requestHttpParameterMap.get('ranSiteID').value;
         var calendar = Site.current.calendar;
         calendar.setTimeZone('GMT');
-        var ald = getDateString(calendar, Constants.ALD_DATE_FORMAT);
+        var ald = CommonUtils.getDateString(calendar, Constants.ALD_DATE_FORMAT);
         calendar.add(calendar.DAY_OF_MONTH, 30);
         var auld = Math.round(new Date().getTime() / 1000).toString();
         var rakutenCookieValuesFormat = Resource.msgf('rakuten.cookie', 'rakuten', null, ranMID, ald, auld, ranSiteID);
@@ -40,25 +42,18 @@ function createCookieInSession(request) {
  */
 function setCookiesResponse(name, value, path) {
     var Cookie = require('dw/web/Cookie');
+    var cookieMaxAge = 2592000;
+    var rakutenCookieExpirationDate = !empty(Site.current.preferences.custom.rakutenCookieExpirationDate) ? Site.current.preferences.custom.rakutenCookieExpirationDate : false;
+    if (rakutenCookieExpirationDate) {
+        var cookieConfigurableDate = new Date(rakutenCookieExpirationDate);
+        cookieMaxAge = Math.round((cookieConfigurableDate.getTime() - Date.now()) / 1000);
+    }
     var newCookie = new Cookie(name, value);
     newCookie.setPath(path);
-    newCookie.setMaxAge(2592000);
+    newCookie.setMaxAge(cookieMaxAge);
     newCookie.setDomain('.' + request.httpHost);
     response.addHttpCookie(newCookie);
     return newCookie;
-}
-
-/**
- * This method is used to set the date into given format.
- *
- * @param {Date} date - current date.
- * @param {String} dateFormat - Format which is going to be set.
- * @returns {Date} formattedDate - returned date in the form of given format.
- */
-function getDateString(date, dateFormat) {
-    var StringUtils = require('dw/util/StringUtils');
-    var formattedDate = StringUtils.formatCalendar(date, dateFormat);
-    return formattedDate;
 }
 
 /**
@@ -116,10 +111,49 @@ function getRakutenRequestObject() {
     return rakutenRequest;
 }
 
+function saveRakutenOrderAttributes(order) {
+    try {
+        var rakutenCookieValue = request.getHttpCookies()['rmStoreGateway'] ? decodeURIComponent(request.getHttpCookies()['rmStoreGateway'].value) : '';
+        if (!empty(rakutenCookieValue)) {
+            var rakutenCookieValuesArray = rakutenCookieValue.split('|');
+            var rakutenCookieSiteID = rakutenCookieValuesArray.filter(function (siteID) {
+                if (siteID.indexOf(Constants.RAKUTEN_SITE_ID) > -1) {
+                    return siteID;
+                }
+            });
+            var rakutenCookieDroppedDate = rakutenCookieValuesArray.filter(function (droppedDate) {
+                if (droppedDate.indexOf(Constants.RAKUTEN_DROPPED_DATE) > -1) {
+                    return droppedDate;
+                }
+            });
+            if (!empty(rakutenCookieSiteID) && !empty(rakutenCookieDroppedDate)) {
+                rakutenCookieSiteID = rakutenCookieSiteID[0].split(':');
+                var rakutenCookieSiteIDValue = rakutenCookieSiteID[1];
+
+                rakutenCookieDroppedDate = rakutenCookieDroppedDate[0].split(':');
+                var rakutenCookieDateString = rakutenCookieDroppedDate[1];
+                var rakutenDroppedDate = CommonUtils.getDateFromString(rakutenCookieDateString);
+
+                if (!empty(rakutenCookieSiteIDValue) && !empty(rakutenDroppedDate)) {
+                    var calendar = Calendar(rakutenDroppedDate);
+                    calendar.setTimeZone('GMT');
+                    var droppedRakutenDate = CommonUtils.getDateString(calendar, Constants.RAKUTEN_Order_GMT_DATE);
+                    Transaction.wrap(function () {
+                        order.custom.ranSiteID = rakutenCookieSiteIDValue;
+                        order.custom.ranCookieDroppedDate = droppedRakutenDate;
+                    });
+                }
+            }
+        }
+    } catch (e) {
+        Logger.error('rakutenHelpers.js: Error occured while getting rakutenCookie params and order objects: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+}
+
 module.exports = {
     createCookieInSession: createCookieInSession,
     setCookiesResponse: setCookiesResponse,
-    getDateString: getDateString,
     isRakutenAllowedCountry: isRakutenAllowedCountry,
-    getRakutenRequestObject: getRakutenRequestObject
+    getRakutenRequestObject: getRakutenRequestObject,
+    saveRakutenOrderAttributes: saveRakutenOrderAttributes
 }

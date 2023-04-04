@@ -1,0 +1,29 @@
+<iscomment> Custom: span and icon removed, class added with condition</iscomment>
+<ul class="values content">
+    <li class="col-sm-4 col-md-12" title="${refinementValue.title}">
+        <a href="${refinementValue.url}" class="d-inline-flex">
+            <isif condition="${refinementValue.selected}">
+                <i class="fa fa-check-square"></i>
+            <iselse>
+                <i class="fa fa-square-o"></i>
+            </isif>
+
+            <span>
+                <div class="star-rating-area d-inline-block ml-1">
+                    <div class="rating-static clearfix" rel="${refinementValue.value}">
+                        <label class="full"></label>
+                        <label class="half"></label>
+                        <label class="full"></label>
+                        <label class="half"></label>
+                        <label class="full"></label>
+                        <label class="half"></label>
+                        <label class="full"></label>
+                        <label class="half"></label>
+                        <label class="full"></label>
+                        <label class="half"></label>
+                    </div>
+                </div>
+            </span>
+        </a>
+    </li>
+</ul>

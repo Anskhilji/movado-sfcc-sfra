@@ -56,8 +56,20 @@
             <!---Breadcrumbs--->
             <div class="row d-md-none">
                 <div class="col-12">
-                    <div class="ratings">
-                        <isinclude template="product/components/productRating" />
+                    <div class="ratings-mobile pb-2">
+                        <div class="col-12 rating-margin mobile-click-review">
+                            <div class="ratings">
+                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isinclude template="product/components/yotpoRatings" />
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/productRating" />
+                                </isif>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,7 +171,22 @@
                     </div>
 
                     <div class="hidden-sm-down">
-                        <isinclude template="product/components/pidRatingAlternate" />
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                        <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                            <div class="product-number-rating clearfix">
+                                <div class="product-number d-none hidden-xs-down pull-left">
+                                    <isinclude template="product/components/productNumber" />
+                                </div>
+                                <div class="ratings pull-left">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isinclude template="product/components/yotpoRatings" />
+                                    </div>
+                                </div>
+                                <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
+                            </div>
+                        <iselse/>
+                            <isinclude template="product/components/pidRatingAlternate" />
+                        </isif>
                     </div>
 
                     <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
@@ -222,25 +249,40 @@
                         <isinclude template="product/components/variationAttributes" />
                     </isif>
 
-                    <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">">
-                        <isinclude template="product/backInStockNotification" sf-toolkit="on" />
-                    <iselseif condition="${isListrakEnable}">
-                        <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
-                            <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                    <div class="back-in-Stock-desktop">
+                        <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">">
+                            <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                        <iselseif condition="${isListrakEnable}">
+                            <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                                <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                            <iselse>
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                            </isif>
+                        </iselseif> 
                         <iselse>
                             <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                         </isif>
-                    </iselseif> 
-                    <iselse>
-                        <isinclude template="product/backInStockNotification" sf-toolkit="on" />
-                    </isif>
+                    </div>
 
                     <div class="row">
                         <div class="col-12 prices-add-to-cart-actions">
-                            <div class="d-block">
+                            <div class="d-block alternate-pdp-cart-button-mobile-container">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude template="product/components/showCartButtonProduct" />
-                                <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
+                                <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
+                                <isif condition="${isEswEnabled}">
+                                    <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
+                                        <isif condition="${product.available && product.readyToOrder}">
+                                            <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
+                                        </isif>
+                                    </isif>
+                                    <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+                                    <iselse/>
+                                        <isif condition="${product.available && product.readyToOrder}">
+                                            <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
+                                        </isif>
+                                    </isif>
+                                    <iscomment> Custom End </iscomment>
 
                                 <isif condition="${product.shortDescription}">
                                     <div class="d-none d-md-flex justify-content-center content mb-2" itemprop="description">

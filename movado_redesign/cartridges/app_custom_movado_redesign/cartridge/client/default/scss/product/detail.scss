@@ -69,7 +69,6 @@ $arrow-height: 1.25em;
         color: $grey8;
         letter-spacing: normal;
         width: 100%;
-        text-transform: capitalize;
         height: auto;
         margin-bottom: rem(40);
     }
@@ -183,13 +182,50 @@ $arrow-height: 1.25em;
         font-size: rem(16);
         letter-spacing: normal;
         width: 100%;
-        height: rem(38);
+        height: rem(46);
     }
 
     .slick-slide {
 
         img {
             margin: 0 auto;
+
+            @include media-breakpoint-up(lg) {
+
+                &.carousel-indicator-image {
+                    width: rem(98);
+                    height: rem(98);
+                }
+
+            }
+            
+            @media (max-width: $custom-sm4) {
+
+                &.carousel-indicator-image {
+                    width: rem(68);
+                    height: rem(68); 
+                }
+
+            }
+            
+            @media (max-width: $small-screen-width375) {
+
+                &.carousel-indicator-image {
+                    width: rem(57);
+                    height: rem(57);
+                }
+
+            }
+            
+            @media (max-width: $small-screen-width) {
+                
+                &.carousel-indicator-image {
+                    width: rem(46);
+                    height: rem(46);
+                }
+
+            }
+
         }
     }
 
@@ -342,6 +378,23 @@ $arrow-height: 1.25em;
                     @include media-breakpoint-up(xl) {
                         min-width: auto;
                         max-width: 100%;
+                        height: rem(600);
+                        width: rem(600);
+                    }
+
+                    @media (max-width: $custom-sm4) {
+                        width: rem(424);
+                        height: rem(424);
+                    }
+                    
+                    @media (max-width: $small-screen-width375) {
+                        height: rem(359);
+                        width: rem(359);
+                    }
+                    
+                    @media (max-width: $small-screen-width) {
+                        height: rem(304);
+                        width: rem(304);
                     }
                 }
             }
@@ -469,6 +522,18 @@ $arrow-height: 1.25em;
     .zoom-img {
        cursor: zoom-in;
 
+        @media (max-width: $custom-sm4) {
+            height: rem(409);
+        }
+
+        @media (max-width: $small-screen-width375) {
+            height: rem(359);
+        }
+
+        @media (max-width: $small-screen-width) {
+            height: rem(304);
+        }
+
         &.zoomed-img {
             cursor: zoom-out;
         }
@@ -566,6 +631,16 @@ $arrow-height: 1.25em;
 
             &.text-unset-wrapper {
                 text-transform: initial !important;
+
+                @include media-breakpoint-down(xs) {
+                    display: none;
+                }          
+            }
+        }
+
+        .product-bottom-detail {
+            @include media-breakpoint-down(xs) {
+                display: none;
             }
         }
     }
@@ -765,6 +840,9 @@ $arrow-height: 1.25em;
             }
 
             .pdp-link {
+                display: flex;
+                align-items: center;
+
                 @include media-breakpoint-down(md) {
                     padding-top: rem(5);
                 }
@@ -816,13 +894,13 @@ $arrow-height: 1.25em;
     }
 
     .slick-dots {
-
+        
         li {
             width: 4%;
             height: rem(2);
             background: $gray-x11;
             margin: 0;
-
+           
             button {
                 height: 100%;
                 width: 100%;
@@ -837,14 +915,14 @@ $arrow-height: 1.25em;
             }
         }
     }
-
+    
     .primary-images{
 
         .slick-dots {
             max-width: rem(293);
             margin: 0 auto;
             right: 0;
-            
+
             li {
                 width: 100%;
                 height: rem(2);
@@ -852,13 +930,7 @@ $arrow-height: 1.25em;
             }
         }
     }
-
-    .movado-pdp-row {
-        
-        #zoomProduct {
-            z-index: 99999;
-        }
-    }
+    
 
     .prices-add-to-cart-actions {
         padding: 0;
@@ -1416,6 +1488,7 @@ $arrow-height: 1.25em;
                 justify-content: center;
                 display: flex;
             }
+    
         }
 
         .carousel-title {
@@ -1581,6 +1654,7 @@ $arrow-height: 1.25em;
             margin-top: rem(-50);
             @include media-breakpoint-down(xs) {
                 margin-top: rem(-34);
+                display: none;
             }
         }
 
@@ -2202,29 +2276,5 @@ body {
 .button-floting {
     &.button-product-detail {
         bottom: rem(160);
-    }
-}
-
-.container-fluid {
-
-    &.pdp-v-one {
-
-        .primary-images {
-
-            .cs-carousel-wrapper {
-
-                &.mvd-carousel-wrapper {
-
-                    .carousel-nav {
-                        
-                        .draggable {
-                            @include media-breakpoint-down(sm) {
-                                opacity: 0;
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }

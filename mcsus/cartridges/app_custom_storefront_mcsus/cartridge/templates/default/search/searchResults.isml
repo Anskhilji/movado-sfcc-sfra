@@ -146,7 +146,7 @@
 				<isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
 			</div>
 		</isif>
-				<!-- Start: Listrak persistent popup -->
+		<!-- Start: Listrak persistent popup -->
 		<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 		<isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
 			<span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>

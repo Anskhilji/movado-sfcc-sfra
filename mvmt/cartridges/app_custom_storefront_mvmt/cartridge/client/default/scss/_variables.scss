@@ -52,6 +52,8 @@ $transparent-white: transparent;
 
 $light-gray10: #efefef;
 $light-silver: #d9d9d9;
+$light-silver2: #DEDEDE;
+$dark-silver: #676767;
 
 $light-green: #53c563;
 $light-green2: #53c56e;
@@ -89,11 +91,13 @@ $dark-gray1: #212121;
 $dark-orange1: #231103;
 $white-smoke2: #efefef;
 $white-smoke3: #F8F8F8;
+$dark-black3: #101010;
 
 $transparent-green: #f1faf3;
 $transparent-gray: rgba(0, 0, 0, 0.8);
 $transparent-gray-light: rgba(0, 0, 0, 0.09);
 $transparent-black: rgba(0, 0, 0, 0.4);
+$transparent-black-light: rgba(0, 0, 0, 0.1);
 $light-black-shadow:  rgba(0, 0, 0, 0.24);
 $white-shadow: rgba(214,214,214,0.5);
 $gift-message-border: rgba(170, 174, 181, 0.45);
@@ -145,6 +149,7 @@ $emerald2: #53C56F;
 $transparent-gray-1: rgba(211, 211, 211, 0);
 $klarna-pink: #FFBBCE;
 $star-light: #F6DC4D;
+$star: #F6DC4D;
 
 @mixin font-bold {
     font-family: "futura-pt-bold", sans-serif;

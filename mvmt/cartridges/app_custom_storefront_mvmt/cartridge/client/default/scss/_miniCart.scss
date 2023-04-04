@@ -482,10 +482,10 @@
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
             padding-top: rem(25);
-
             .mini-cart-fixed {
                 margin: 0 rem(12) rem(12) rem(12);
                 padding-bottom: rem(20);
+                border-top: 1px solid $gray14;
             }
 
             .row {
@@ -1638,8 +1638,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    border-top: 1px solid $gray14;
     padding: rem(9) 0 rem(9) rem(45);
+    padding-left: rem(0);
+    margin: 0 rem(-6);
     &.full-cart-continaer {
         margin-top: rem(27);
     }
@@ -1779,7 +1780,7 @@
                     width: rem(20);
                     background-color: $white;
                     border: rem(2) solid $black;
-                    border-radius: 50%;
+                    border-radius: 0;
                 }
                 
                 /* On mouse-over, add a grey background color */
@@ -1806,13 +1807,16 @@
                 
                 /* Style the indicator (dot/circle) */
                 .radio-container .checkmark:after {
-                    top: rem(2);
-                    left: rem(2);
-                    width: rem(12);
+                    top: rem(1);
+                    left: rem(5);
+                    width: rem(6);
                     height: rem(12);
-                    border-radius: 50%;
-                    background: $black;
-                    border: rem(1) solid $white;
+                    border-radius: 0;
+                    background: transparent;
+                    border: rem(2) solid $black;
+                    border-top: 0;
+                    border-left: 0;
+                    transform: rotate(45deg);
                 }
                 .label-right-wrapper {
                     float: right;
@@ -1902,7 +1906,6 @@
 }
 
 .border-gift {
-    border-top: 1px solid $gray14;
     margin-top: rem(20);
     padding-top: rem(20);
 }
@@ -2008,7 +2011,6 @@
                             del {
 
                                 .strike-through {
-
                                     span {
                                         color: $black;
                                         font-family: $font-medium;
@@ -2023,7 +2025,6 @@
                         }
             
                     }
-
                     .cart-and-ipay {
                         @include media-breakpoint-up(lg) {
                             opacity: 1;

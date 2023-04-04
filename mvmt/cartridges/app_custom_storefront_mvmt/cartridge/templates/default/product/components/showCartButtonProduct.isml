@@ -1,7 +1,6 @@
 <isset name="product" value="${pdict.product}" scope="page"/>
-<isif condition="${recommendationRail}">
+<isif condition="${typeof recommendationRail != 'undefined' ? recommendationRail : false}">
     <isinclude template="product/components/recommendationRailaddToCart" />
 <iselse/>
     <isinclude template="product/components/addToCartProduct" />
 </isif>
-
