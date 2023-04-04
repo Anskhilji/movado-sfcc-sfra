@@ -92,7 +92,8 @@ function getResources(pageContext) {
         CHECKOUT_CARD_HOLDER_NAME_VALIDATION: Resource.msg('error.card.holderName', 'creditCard', null),
         CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION: Resource.msg('error.credit.card.security.code.validate', 'creditCard', null),
         CHECKOUT_COUNTRY_US: 'US',
-        CHECKOUT_COUNTRY_GB: 'GB'
+        CHECKOUT_COUNTRY_GB: 'GB',
+        CHECKOUT_COUNTRY_CH: 'CH'
     };
     return resources;
 }

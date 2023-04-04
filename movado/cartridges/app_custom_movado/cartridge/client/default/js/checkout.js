@@ -311,8 +311,21 @@ $(document).ready(function() { // eslint-disable-line
                 $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
 
             }
-        }
+        } else if ($country == Resources.CHECKOUT_COUNTRY_CH) {
+            var $value = $(this).val();
+            var $pattern = /^(^[a-zA-Z0-9 ]+$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text('');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
 
+            }
+        }
     });
 
     $('input.shippingPhoneNumber').on('change keyup', function() {
@@ -324,13 +337,12 @@ $(document).ready(function() { // eslint-disable-line
             if ($isValid) {
                 $(this).addClass('is-valid');
                 $(this).removeClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
+                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
 
             } else {
                 $(this).removeClass('is-valid');
                 $(this).addClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
-
+                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
             }
         } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
             var $value = $(this).val();
@@ -339,13 +351,25 @@ $(document).ready(function() { // eslint-disable-line
             if ($isValid) {
                 $(this).addClass('is-valid');
                 $(this).removeClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
+                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
 
             } else {
                 $(this).removeClass('is-valid');
                 $(this).addClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
-
+                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
+            }
+        } else if ($country == Resources.CHECKOUT_COUNTRY_CH) {
+            var $value = $(this).val();
+            var $pattern = /^(^[0-9\\s-]+$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
             }
         }
 
@@ -363,7 +387,6 @@ $(document).ready(function() { // eslint-disable-line
             $('.dwfrm_shipping_shippingAddress_addressFields_states_stateCode, .dwfrm_billing_addressFields_states_stateCode').find('.invalid-feedback').text(Resources.CHECKOUT_STATE_VALIDATION);
         }
     });
-
 
     $('.show-details-wrapper').click(function() {
         $('.hidden-menu').slideDown('slow');
