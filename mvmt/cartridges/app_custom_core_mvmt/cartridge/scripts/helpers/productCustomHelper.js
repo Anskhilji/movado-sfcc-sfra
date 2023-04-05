@@ -485,11 +485,11 @@ function getProductCategoryForGiftBox(apiProduct) {
         }
 
         if (!empty(apiProduct)) {
-            // if (apiProduct.variant) {
-            //     apiCategories = apiProduct.getVariationModel().getMaster().getOnlineCategories();
-            // } else {
+            if (apiProduct.variant) {
+                apiCategories = apiProduct.getVariationModel().getMaster().getOnlineCategories();
+            } else {
                 apiCategories = apiProduct.getOnlineCategories();
-            // }
+            }
             
             if (!empty(apiCategories)) {
                 for (var i = 0; i < apiCategories.length; i++) {
