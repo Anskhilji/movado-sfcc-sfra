@@ -1335,7 +1335,7 @@ module.exports = {
 
     addToCart: function () {
         $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
-            var clydeWidgets = ClydeSitePreferences.CLYDE_WIDGET_ENABLED;
+            var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
             if (clydeWidgets) {
                 var selectedContract = Clyde.getSelectedContract();
                 var clydeSettings = Clyde.getSettings();
@@ -1354,7 +1354,7 @@ module.exports = {
                 } else if (clydeSettings.modal == true) {
                      Clyde.showModal(null, clydeAddProductToCart);
                 } else {
-                     clydeAddProductToCart()
+                     clydeAddProductToCart();
                 }
             } else {
                  clydeAddProductToCart();
