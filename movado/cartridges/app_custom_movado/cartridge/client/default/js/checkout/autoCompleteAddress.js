@@ -44,7 +44,7 @@ function fillInAddress(){
   const place = autocomplete.getPlace();
   var address1 = "";
   var postcode = "";
-  var shippingCountrydefault = document.querySelector("#shippingCountrydefault");
+  var shippingCountrydefault = document.querySelector("#shippingCountrydefault") ? document.querySelector("#shippingCountrydefault") : document.querySelector("#shippingCountry");
   var billingCounty = document.querySelector("#shippingCounty");
   var billingState = document.querySelector("#shippingState");
 
@@ -79,7 +79,7 @@ function fillInAddress(){
               $('.shippingZipCode').addClass('is-invalid');
           }
         } else if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
-          var $pattern = /^(GIR 0AA)|((([A-Za-z-[QVX]][0-9][0-9]?)|(([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][0-9]?)|(([A-Za-z-[QVX‌]][0-9][A-HJKSTUWa-hjkstuw])|([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][ABEHMNPRVWXYabehmnprvwxy]))))\s?[0-9][A-Za-z-[C‌IKMOV]]{2})/i
+          var $pattern = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
               $('.shippingZipCode').addClass('is-valid');
@@ -213,7 +213,7 @@ function fillInAddressBilling(){
               $('.billingZipCode').addClass('is-invalid');
           }
         } else if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
-          var $pattern = /^(GIR 0AA)|((([A-Za-z-[QVX]][0-9][0-9]?)|(([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][0-9]?)|(([A-Za-z-[QVX‌]][0-9][A-HJKSTUWa-hjkstuw])|([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][ABEHMNPRVWXYabehmnprvwxy]))))\s?[0-9][A-Za-z-[C‌IKMOV]]{2})/i
+          var $pattern = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
               $('.billingZipCode').addClass('is-valid');

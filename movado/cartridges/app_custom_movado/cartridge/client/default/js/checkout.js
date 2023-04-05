@@ -100,7 +100,7 @@ $(document).ready(function() { // eslint-disable-line
         checkPromoInput(this);
     });
 
-    $('input.shippingFirstName, input.billingFirstName').on('change keyup', function() {
+    $('input.shippingFirstName, input.billingFirstName').on('change keyup mouseleave', function() {
         var $value = $(this).val();
         var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
         var $isValid = $pattern.test($value);
@@ -115,7 +115,7 @@ $(document).ready(function() { // eslint-disable-line
         }
     });
 
-    $('input.creditcard-holdername').on('change keyup', function() {
+    $('input.creditcard-holdername').on('change keyup mouseleave', function() {
         var $value = $(this).val();
         var $pattern = /^[a-z|A-Z]+(?: [a-z|A-Z]+)*$/i
         var $isValid = $pattern.test($value);
@@ -149,7 +149,7 @@ $(document).ready(function() { // eslint-disable-line
 
     $('input.creditcard-securitycode').on('change keyup', function() {
         var $value = $(this).val();
-        if ($value) {
+        if ($value.length >= 3) {
             $(this).addClass('is-valid');
             $(this).removeClass('is-invalid');
             $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').text('');
@@ -248,7 +248,9 @@ $(document).ready(function() { // eslint-disable-line
     $('input.shippingAddressOne, input.billingAddressOne').on('change keyup', function() {
         var $value = $(this).val();
         var $pattern = /^(^((?!(([\\'\\\\\\>\\<])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)/i
-        var $isValid = $pattern.test($value);
+        if ($value) {
+            var $isValid = $pattern.test($value);
+        }
         if ($isValid) {
             $(this).addClass('is-valid');
             $(this).removeClass('is-invalid');
@@ -298,7 +300,7 @@ $(document).ready(function() { // eslint-disable-line
             }
         } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
             var $value = $(this).val();
-            var $pattern = /^(GIR 0AA)|((([A-Za-z-[QVX]][0-9][0-9]?)|(([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][0-9]?)|(([A-Za-z-[QVX‌]][0-9][A-HJKSTUWa-hjkstuw])|([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][ABEHMNPRVWXYabehmnprvwxy]))))\s?[0-9][A-Za-z-[C‌IKMOV]]{2})/i
+            var $pattern = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g
             var $isValid = $pattern.test($value);
             if ($isValid) {
                 $(this).addClass('is-valid');
