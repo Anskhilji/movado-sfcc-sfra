@@ -200,6 +200,11 @@ function getProductCategoryForGiftBox(apiProduct) {
     var currentPrimaryCategory;
     var productPrimaryCategory;
     var productParentCategory;
+    var apiCategories;
+    var currentCategory;
+    var currentCategoryID;
+    var assignedCategoriesArray = [];
+    var parentCategoriesArray = [];
 
     try {
         if (!empty(apiProduct) && apiProduct.primaryCategory != null) {
@@ -216,10 +221,35 @@ function getProductCategoryForGiftBox(apiProduct) {
                 }
             }
         }
+
+        if (!empty(apiProduct)) {
+            apiCategories = apiProduct.getOnlineCategories();
+            
+            if (!empty(apiCategories)) {
+                for (var i = 0; i < apiCategories.length; i++) {
+                    currentCategory = apiCategories[i];
+                    currentCategoryID = apiCategories[i].ID;
+                    assignedCategoriesArray.push(currentCategoryID);
+
+                    if (!empty(currentCategory)) {
+                        while (currentCategory.parent != null) {
+                            if (currentCategory.parent.ID === 'root') {
+                                currentCategory = currentCategory.ID;
+                                break;
+                            }
+                            currentCategory = currentCategory.parent;
+                            parentCategoriesArray.push(currentCategory.ID);
+                        }
+                    }
+                }
+            }
+        }
         
         return {
             productPrimaryCategory: productPrimaryCategory,
-            productParentCategory: currentPrimaryCategory
+            productParentCategory: currentPrimaryCategory,
+            assignedCategoriesArray: assignedCategoriesArray,
+            parentCategoriesArray: parentCategoriesArray
         };
         
     } catch (e) {
@@ -257,6 +287,8 @@ function getGiftBoxSKU(apiProduct) {
         var currentCategory = getProductCategoryForGiftBox(apiProduct);
         var productPrimaryCategory = currentCategory ? currentCategory.productPrimaryCategory : '';
         var productParentCategory = currentCategory ? currentCategory.productParentCategory : '';
+        var assignedCategoriesArray = currentCategory ? currentCategory.assignedCategoriesArray : '';
+        var parentCategoriesArray = currentCategory ? currentCategory.parentCategoriesArray : '';
         var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
         var currentGiftBoxCategorySKUPair;
 
@@ -268,6 +300,24 @@ function getGiftBoxSKU(apiProduct) {
                 break;
             } else if (productParentCategory && productParentCategory === currentGiftBoxCategorySKUPair[0]) {
                 giftBoxSKU = currentGiftBoxCategorySKUPair[1];
+            } else if (assignedCategoriesArray) {
+                for (var i = 0; i < assignedCategoriesArray.length; i++) {
+                    var assignedCategory = assignedCategoriesArray[i];
+
+                    if (assignedCategory && assignedCategory === currentGiftBoxCategorySKUPair[0]) {
+                        giftBoxSKU = currentGiftBoxCategorySKUPair[1];
+                        break;
+                    } 
+                }
+            } else if (parentCategoriesArray) {
+                for (var i = 0; i < parentCategoriesArray.length; i++) {
+                    var assignedParentCategory = parentCategoriesArray[i];
+
+                    if (assignedParentCategory && assignedParentCategory === currentGiftBoxCategorySKUPair[0]) {
+                        giftBoxSKU = currentGiftBoxCategorySKUPair[1];
+                        break;
+                    }
+                }
             }
         }
         
