@@ -60,6 +60,26 @@ function getAllAttrValues(
 
             if (isSwatchable(attr.attributeID)) {
                 processedAttr.images = new ImageModel(value, { types: ['swatch'], quantity: 'all' });
+                // Custom Start : getting large type image against each variant
+
+                // var largeImages = new ImageModel(value, { types: ['tile533','tile532X300', 'tile256', 'tile217', 'tile150','tile300X375','tile512X640', 'tile300X300'], quantity: 'all' });
+                var largeImages = new ImageModel(value, { types: ['tile640Xtile764', 'tile512Xtile640', 'tile640'], quantity: 'all' });
+                // processedAttr.largeImage = !empty(largeImages.tile256[0]) ? largeImages.tile256[0] : '';
+                // processedAttr.eyeWearImage = !empty(largeImages.tile532X300[0]) ? largeImages.tile532X300[0] : '';
+                // processedAttr.tileImage300X375 = !empty(largeImages.tile300X375[0]) ? largeImages.tile300X375[0] : '';
+                // processedAttr.tileImage300X300 = !empty(largeImages.tile300X300[0]) ? largeImages.tile300X300[0] : '';
+                processedAttr.tile640Xtile764 = !empty(largeImages.tile640Xtile764[0]) ? largeImages.tile640Xtile764[0] : '';
+                processedAttr.tile512Xtile640 = !empty(largeImages.tile512Xtile640[0]) ? largeImages.tile512Xtile640[0] : '';
+                processedAttr.tile640 = !empty(largeImages.tile640[0]) ? largeImages.tile640[0] : '';
+                processedAttr.lifeStyleImage512X640 = !empty(largeImages.tile512Xtile640[2]) ? largeImages.tile512Xtile640[2] : '';
+                processedAttr.lifeStyleImage640X764 = !empty(largeImages.tile640Xtile764[2]) ? largeImages.tile640Xtile764[2] : '';
+                processedAttr.lifeStyleImage640 = !empty(largeImages.tile640[2]) ? largeImages.tile640[2] : '';
+                // processedAttr.lifeStyleImage300X375 = !empty(largeImages.tile300X375[3]) ? largeImages.tile300X375[3] : '';
+                // processedAttr.lifeStyleImage300X300 = !empty(largeImages.tile300X300[3]) ? largeImages.tile300X300[3] : '';
+                // processedAttr.eyeWearLifeStyleImage = !empty(largeImages.tile532X300[3]) ? largeImages.tile532X300[3] : '';
+                // processedAttr.lifeStyleImage512x512 = !empty(largeImages.tile256[3]) ? largeImages.tile256[3] : '';
+
+                // Custom End
             }
 
             return processedAttr;

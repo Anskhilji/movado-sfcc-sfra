@@ -1,0 +1,43 @@
+<isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+    <isif condition="${product.variationAttributes[0].values.length > 0}">
+    <iscomment> <p data-attr="${JSON.stringify(product.colorVariationsValues)}">HamzaPLPOB</p> </iscomment>
+        <div class="color-swatches color-Attribute swatches-watches-olny" data-attr="colorVar">
+            <div class="swatches swatches-watches">
+                <isif condition="${product.colorVariationsValues && product.colorVariationsValues.values.length > 0}">
+                <iscomment> <p>HamzaPLPOB</p> </iscomment>
+                    <isloop items="${product.colorVariationsValues.values}" var="swatch" status="loopState">
+                        <isif condition="${swatch.images != null && swatch.images.swatch[0] != null && swatch.images.swatch[0].url != null}">
+                            <isif condition="${parseInt(loopState.index) < 4}">
+                                <iscomment> <div class="swatch-plus-box"> </iscomment>
+                                <iscomment> <a href="${swatch.url}"> </iscomment>
+                                    <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}"
+                                        class="change-variation square-swatch">
+                                        <span>
+                                            <img class="swatch swatch-circle ${product.productType == 'variant' ? swatch.selected == true ? "is-active" : "" : product.selectedSwatch.id == swatch.id ? "is-active" : ""}"
+                                                data-index="${loopState.count - 1}"
+                                                style="background-image: url(${swatch.images.swatch[0].url})"
+                                                src="${swatch.images.swatch[0].url}" alt="${swatch.images.swatch[0].alt}"/>
+                                        </span>
+                                    </a>
+                                <iscomment> </div> </iscomment>
+                            <iselse/>
+                                <div class="swatch-plus-box">
+                                    <a href="${pdict.urls.product}" class="square-swatch">
+                                        <span class="swatch-counter">
+                                            <isset name="swatchCounter" value="${parseInt(loopState.length - 4)}" scope="page" />
+                                            ${Resource.msg('label.swatch.counter', 'common', null) + swatchCounter}
+                                        </span>
+                                    </a>
+                                </div>
+                                <iscomment> <span>
+                                    <a href="${pdict.urls.product}">...</a>
+                                </span> </iscomment>
+                                <isbreak/>
+                            </isif>
+                        </isif>
+                    </isloop>
+                </isif>
+            </div>
+        </div>
+    </isif>
+</isif>
