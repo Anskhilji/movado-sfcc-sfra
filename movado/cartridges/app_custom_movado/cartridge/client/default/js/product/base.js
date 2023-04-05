@@ -1359,7 +1359,7 @@ module.exports = {
             } else {
                  clydeAddProductToCart();
             }
-         });
+        });
     },
     selectBonusProduct: function () {
         $(document).on('click', '.select-bonus-product', function () {
