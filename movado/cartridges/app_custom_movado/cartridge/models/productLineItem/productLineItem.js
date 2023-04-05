@@ -39,7 +39,7 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.orderable(product, apiProduct, options.quantity);
     productLineItemDecorators.shipment(product, options.lineItem);
     productLineItemDecorators.bonusProductLineItem(product, options.lineItem);
-    productLineItemDecorators.priceTotal(product, options.lineItem);
+    productLineItemDecorators.priceTotal(product, options.lineItem, options.quantity);
     productLineItemDecorators.quantityOptions(product, options.lineItem, options.quantity);
     productLineItemDecorators.options(product, options.lineItemOptions);
     productLineItemDecorators.bonusProductLineItemUUID(product, options.lineItem);

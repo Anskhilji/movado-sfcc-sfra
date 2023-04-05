@@ -6,7 +6,8 @@
       "slidesToScroll": 1,
       "dots": false,
       "centerMode": true,
-      asNavFor: '.carousel-nav-redesign'
+      "arrows":false,
+      asNavFor: '.carousel-nav-set-product'
     }
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>
@@ -56,14 +57,14 @@
       1 chnage clasee for nav slider 
       2 chnage image tile size
       </iscomment>
-      <div class="carousel-nav-redesign" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+      <div class="carousel-nav-set-product" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
       <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['tile126']}" var="image" status="loopStatus">
               <div class="carousel-tile">
                   <picture>
                       <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['tile126']) && !empty(product.images['tile126'][loopStatus.count-1]) && !empty(product.images['tile126'][loopStatus.count-1].url ) ? product.images.tile126[loopStatus.count-1].url : ''}" />
                       <source media="(max-width: 991px)" srcset="${!empty(product.images) && !empty(product.images['tile126']) && !empty(product.images['tile126'][loopStatus.count-1]) && !empty(product.images['tile126'][loopStatus.count-1].url ) ? product.images.tile126[loopStatus.count-1].url : ''}" />
-      <iscomment> Custom End: MSS-1564 Add thumbnails to PDP </iscomment>
+                      <iscomment> Custom End: MSS-1564 Add thumbnails to PDP </iscomment>
                       <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
