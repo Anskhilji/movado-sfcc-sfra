@@ -100,98 +100,136 @@ $(document).ready(function() { // eslint-disable-line
         checkPromoInput(this);
     });
 
-    $('input.shippingFirstName, input.billingFirstName').on('change keyup mouseleave', function() {
+    $('input.shippingFirstName, input.billingFirstName').on('change keyup focusout', function() {
         var $value = $(this).val();
-        var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
-        var $isValid = $pattern.test($value);
-        if ($isValid) {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_firstName, .dwfrm_billing_addressFields_firstName').find('.invalid-feedback').text('');
+        if ($value) {
+            var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_firstName, .dwfrm_billing_addressFields_firstName').find('.invalid-feedback').text('');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_firstName, .dwfrm_billing_addressFields_firstName').find('.invalid-feedback').text(Resources.CHECKOUT_FIRST_NAME_VALIDATION);
+            }
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_firstName, .dwfrm_billing_addressFields_firstName').find('.invalid-feedback').text(Resources.CHECKOUT_FIRST_NAME_VALIDATION);
+            $('.dwfrm_shipping_shippingAddress_addressFields_firstName, .dwfrm_billing_addressFields_firstName').find('.invalid-feedback').text(Resources.CHECKOUT_FIRST_NAME_REQUIRED);
         }
     });
 
-    $('input.creditcard-holdername').on('change keyup mouseleave', function() {
+    $('input.creditcard-holdername').on('change keyup focusout', function() {
         var $value = $(this).val();
-        var $pattern = /^[a-z|A-Z]+(?: [a-z|A-Z]+)*$/i
-        var $isValid = $pattern.test($value);
-        if ($isValid) {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.dwfrm_billing_creditCardFields_cardOwner').find('.invalid-feedback').text('');
+        if($value) {
+            var $pattern = /^[a-z|A-Z]+(?: [a-z|A-Z]+)*$/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_billing_creditCardFields_cardOwner').find('.invalid-feedback').text('');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_billing_creditCardFields_cardOwner').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_HOLDER_NAME_VALIDATION);
+            }
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
-            $('.dwfrm_billing_creditCardFields_cardOwner').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_HOLDER_NAME_VALIDATION);
+            $('.dwfrm_billing_creditCardFields_cardOwner').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_HOLDER_NAME_VALIDATION); 
         }
     });
 
-    $('input.cardNumber').on('change keyup', function() {
+    $('input.cardNumber').on('change keyup focusout', function() {
         var $value = $(this).val();
-        var $pattern = /^(^[^(\\'\\<\\>\\\\)]+$)/i
-        var $isValid = $pattern.test($value);
-        if ($isValid) {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.card-number-wrapper').addClass('card-number-mr');
-            $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text('');
+        if ($value) {
+            var $pattern = /^(^[^(\\'\\<\\>\\\\)]+$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.card-number-wrapper').addClass('card-number-mr');
+                $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text('');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.card-number-wrapper').addClass('card-number-mr');
+                $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_NUMBER_VALIDATION);
+            }
         } else {
-            $(this).removeClass('is-valid');
-            $(this).addClass('is-invalid');
-            $('.card-number-wrapper').addClass('card-number-mr');
-            $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_NUMBER_VALIDATION);
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.card-number-wrapper').addClass('card-number-mr');
+                $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_NUMBER_VALIDATION);
         }
     });
 
-    $('input.creditcard-securitycode').on('change keyup', function() {
+    $('input.creditcard-securitycode').on('change keyup focusout', function() {
         var $value = $(this).val();
-        if ($value.length >= 3) {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').text('');
+        if ($value) {
+            if ($value.length >= 3) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').text('');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);
+            }
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
             $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);
         }
+
     });
 
-    $('input.expirationDate').on('change keyup', function() {
+    $('input.expirationDate').on('change keyup focusout', function() {
         var $creditCardDate = $(this).val().split('/');
-        var $expdateRegex = /^[[2-9]{1}]?([0-9]{1})$/i;
-        var $cuurentDate = new Date();
-        const date = new Date();
-        let $currentMonth = date.getMonth() +1;
-        var $currentYear = $cuurentDate.getFullYear().toString();
-
-        if (!$expdateRegex.test($creditCardDate[1]) || (($currentYear.substring(0,2) + $creditCardDate[1] <= $currentYear) && parseInt($creditCardDate[0]) < $currentMonth)){
+        if ($creditCardDate) {
+            var $expdateRegex = /^[[2-9]{1}]?([0-9]{1})$/i;
+            var $cuurentDate = new Date();
+            const date = new Date();
+            let $currentMonth = date.getMonth() +1;
+            var $currentYear = $cuurentDate.getFullYear().toString();
+    
+            if (!$expdateRegex.test($creditCardDate[1]) || (($currentYear.substring(0,2) + $creditCardDate[1] <= $currentYear) && parseInt($creditCardDate[0]) < $currentMonth)){
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.creditcard-expiration-date').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_EXPIRY_DATE_VALIDATION);
+            } else {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.creditcard-expiration-date').find('.invalid-feedback').text('');
+            }
+        } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
             $('.creditcard-expiration-date').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_EXPIRY_DATE_VALIDATION);
-        } else {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.creditcard-expiration-date').find('.invalid-feedback').text('');
         }
     });
 
-    $('input.billingAddressCity, input.shippingAddressCity').on('change keyup', function() {
+    $('input.billingAddressCity, input.shippingAddressCity').on('change keyup focusout', function() {
         var $value = $(this).val();
-        var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
-        var $isValid = $pattern.test($value);
-        if ($isValid) {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').text('');
+        if ($value) {
+            var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').text('');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').text(Resources.CHECKOUT_CITY_NAME_VALIDATION);
+    
+            }
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').text(Resources.CHECKOUT_CITY_NAME_VALIDATION);
-
+            $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').text(Resources.CHECKOUT_CITY_NAME_REQUIRED);
         }
     });
 
@@ -210,57 +248,74 @@ $(document).ready(function() { // eslint-disable-line
         }
     });
 
-    $('input.shippingLastName, input.billingLastName').on('change keyup', function() {
+    $('input.shippingLastName, input.billingLastName').on('change keyup focusout', function() {
         var $value = $(this).val();
-        var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
-        var $isValid = $pattern.test($value);
-        if ($isValid) {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').text(Resources.CHECKOUT_LAST_NAME_VALIDATION);
-
-        } else {
-            $(this).removeClass('is-valid');
-            $(this).addClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').text(Resources.CHECKOUT_LAST_NAME_VALIDATION);
-
-        }
-    });
-
-    $('input.shipping-email').on('change keyup', function() {
-        var $value = $(this).val();
-        var $pattern = /^(?=[a-zA-Z0-9_-]{1,64}(?!.*?\.\.)+(?!\@)+[a-zA-Z0-9!.#\/$%&'*+-=?^_`{|}~\S+-]{1,64})+[^\\@,;:"[\]()<>\s]{1,64}[^\\@.,;:"[\]\/()<>\s-]+@[^\\@!.,;:#$%&'*+=?^_`{|}()[\]~+<>"\s\-][a-zA-Z0-9\-\.]*[^\\@!,;:#$%&'*+=?^_`{|}()[\]~+<>"\s]*[\.]+(?!.*web|.*'')[a-zA-Z]{1,15}$/i
-        var $isValid = $pattern.test($value);
-        if ($isValid) {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').text('');
-
-        } else {
-            $(this).removeClass('is-valid');
-            $(this).addClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').text(Resources.CHECKOUT_EMAIL_VALIDATION);
-
-        }
-    });
-
-
-    $('input.shippingAddressOne, input.billingAddressOne').on('change keyup', function() {
-        var $value = $(this).val();
-        var $pattern = /^(^((?!(([\\'\\\\\\>\\<])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)/i
         if ($value) {
+            var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
             var $isValid = $pattern.test($value);
-        }
-        if ($isValid) {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_address1, .dwfrm_billing_addressFields_address1').find('.invalid-feedback').text('');
-
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').text('');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').text(Resources.CHECKOUT_LAST_NAME_VALIDATION);
+    
+            }
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_address1, .dwfrm_billing_addressFields_address1').find('.invalid-feedback').text(Resources.CHECKOUT_ADDRESS_1_VALIDATION);
+            $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').text(Resources.CHECKOUT_LAST_NAME_REQUIRED);
+        }
+    });
 
+    $('input.shipping-email').on('change keyup focusout', function() {
+        var $value = $(this).val();
+        if($value) {
+            var $pattern = /^(?=[a-zA-Z0-9_-]{1,64}(?!.*?\.\.)+(?!\@)+[a-zA-Z0-9!.#\/$%&'*+-=?^_`{|}~\S+-]{1,64})+[^\\@,;:"[\]()<>\s]{1,64}[^\\@.,;:"[\]\/()<>\s-]+@[^\\@!.,;:#$%&'*+=?^_`{|}()[\]~+<>"\s\-][a-zA-Z0-9\-\.]*[^\\@!,;:#$%&'*+=?^_`{|}()[\]~+<>"\s]*[\.]+(?!.*web|.*'')[a-zA-Z]{1,15}$/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').text('');
+    
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').text(Resources.CHECKOUT_EMAIL_VALIDATION);
+            }
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').text(Resources.CHECKOUT_EMAIL_REQUIRED);
+        }
+
+    });
+
+
+    $('input.shippingAddressOne, input.billingAddressOne').on('change keyup focusout', function() {
+        var $value = $(this).val();
+        if ($value) {
+            var $pattern = /^(^((?!(([\\'\\\\\\>\\<])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)/i
+            if ($value) {
+                var $isValid = $pattern.test($value);
+            }
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_address1, .dwfrm_billing_addressFields_address1').find('.invalid-feedback').text('');
+    
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_address1, .dwfrm_billing_addressFields_address1').find('.invalid-feedback').text(Resources.CHECKOUT_ADDRESS_1_VALIDATION);
+    
+            }
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_address1, .dwfrm_billing_addressFields_address1').find('.invalid-feedback').text(Resources.CHECKOUT_ADDRESS_1_REQUIRED);
         }
     });
 
@@ -281,103 +336,110 @@ $(document).ready(function() { // eslint-disable-line
         }
     });
 
-    $('input.shippingZipCode, input.billingZipCode').on('change keyup', function() {
+    $('input.shippingZipCode, input.billingZipCode').on('change keyup focusout', function() {
         var $country = $('.shippingCountry').val();
-        if ($country == Resources.CHECKOUT_COUNTRY_US) {
-            var $value = $(this).val();
-            var $pattern = /^(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/i
-            var $isValid = $pattern.test($value);
-            if ($isValid) {
-                $(this).addClass('is-valid');
-                $(this).removeClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text('');
-
-            } else {
-                $(this).removeClass('is-valid');
-                $(this).addClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
-
+        var $value = $(this).val();
+        if ($value) {
+            if ($country == Resources.CHECKOUT_COUNTRY_US) {
+                var $pattern = /^(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/i
+                var $isValid = $pattern.test($value);
+                if ($isValid) {
+                    $(this).addClass('is-valid');
+                    $(this).removeClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text('');
+    
+                } else {
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
+    
+                }
+            } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
+                var $pattern = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g
+                var $isValid = $pattern.test($value);
+                if ($isValid) {
+                    $(this).addClass('is-valid');
+                    $(this).removeClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text('');
+    
+                } else {
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
+    
+                }
+            } else if ($country == Resources.CHECKOUT_COUNTRY_CH) {
+                var $pattern = /^(^[a-zA-Z0-9 ]+$)/i
+                var $isValid = $pattern.test($value);
+                if ($isValid) {
+                    $(this).addClass('is-valid');
+                    $(this).removeClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text('');
+                } else {
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
+    
+                }
             }
-        } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
-            var $value = $(this).val();
-            var $pattern = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g
-            var $isValid = $pattern.test($value);
-            if ($isValid) {
-                $(this).addClass('is-valid');
-                $(this).removeClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text('');
-
-            } else {
-                $(this).removeClass('is-valid');
-                $(this).addClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
-
-            }
-        } else if ($country == Resources.CHECKOUT_COUNTRY_CH) {
-            var $value = $(this).val();
-            var $pattern = /^(^[a-zA-Z0-9 ]+$)/i
-            var $isValid = $pattern.test($value);
-            if ($isValid) {
-                $(this).addClass('is-valid');
-                $(this).removeClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text('');
-            } else {
-                $(this).removeClass('is-valid');
-                $(this).addClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);
-
-            }
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').text(Resources.CHECKOUT_ZIP_CODE_REQUIRED);
         }
     });
 
-    $('input.shippingPhoneNumber').on('change keyup', function() {
+    $('input.shippingPhoneNumber').on('change keyup focusout', function() {
         var $country = $('.shippingCountry').val();
-        if ($country == Resources.CHECKOUT_COUNTRY_US) {
-            var $value = $(this).val();
-            var $pattern = /^(^(?!(?=(000-000-0000|0000000000)))(\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$)/i
-            var $isValid = $pattern.test($value);
-            if ($isValid) {
-                $(this).addClass('is-valid');
-                $(this).removeClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
-
-            } else {
-                $(this).removeClass('is-valid');
-                $(this).addClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
+        var $value = $(this).val();
+        if ($value) {
+            if ($country == Resources.CHECKOUT_COUNTRY_US) {
+                var $pattern = /^(^(?!(?=(000-000-0000|0000000000)))(\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$)/i
+                var $isValid = $pattern.test($value);
+                if ($isValid) {
+                    $(this).addClass('is-valid');
+                    $(this).removeClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
+    
+                } else {
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
+                }
+            } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
+                var $pattern = /^(^(\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*)$)/i
+                var $isValid = $pattern.test($value);
+                if ($isValid) {
+                    $(this).addClass('is-valid');
+                    $(this).removeClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
+    
+                } else {
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
+                }
+            } else if ($country == Resources.CHECKOUT_COUNTRY_CH) {
+                var $pattern = /^(^[0-9\\s-]+$)/i
+                var $isValid = $pattern.test($value);
+                if ($isValid) {
+                    $(this).addClass('is-valid');
+                    $(this).removeClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
+                } else {
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
+                }
             }
-        } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
-            var $value = $(this).val();
-            var $pattern = /^(^(\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*)$)/i
-            var $isValid = $pattern.test($value);
-            if ($isValid) {
-                $(this).addClass('is-valid');
-                $(this).removeClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
-
-            } else {
-                $(this).removeClass('is-valid');
-                $(this).addClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
-            }
-        } else if ($country == Resources.CHECKOUT_COUNTRY_CH) {
-            var $value = $(this).val();
-            var $pattern = /^(^[0-9\\s-]+$)/i
-            var $isValid = $pattern.test($value);
-            if ($isValid) {
-                $(this).addClass('is-valid');
-                $(this).removeClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text('');
-            } else {
-                $(this).removeClass('is-valid');
-                $(this).addClass('is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
-            }
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').text(Resources.CHECKOUT_PHONE_NUMBER_REQUIRED);    
         }
-
     });
 
-    $('select.shippingState, select.billingState').on('change keyup', function() {
+    $('select.shippingState, select.billingState').on('change keyup focusout', function() {
         var $value = $(this).val();
         if ($value) {
             $(this).addClass('is-valid');
