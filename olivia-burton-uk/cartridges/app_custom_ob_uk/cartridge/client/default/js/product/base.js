@@ -675,8 +675,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer, data.OptionsValidationError);
-                var listrakTracking = require('movado/listrakActivityTracking.js');
-                listrakTracking.listrackProductTracking(data.product.id);
+                // var listrakTracking = require('movado/listrakActivityTracking.js');
+                // listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -928,9 +928,9 @@ module.exports = {
     },
 
     selectAttribute: function () {
-        var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"]';
+        var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"] .select-variation-product';
         $(document).off('change', selector);
-        $(document).on('change', selector, function (e) {
+        $(document).on('click', selector, function (e) {
             e.preventDefault();
 
             var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
