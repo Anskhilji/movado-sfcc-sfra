@@ -205,8 +205,8 @@ function getPromotionsHtml(promotions) {
     var html = '';
 
     promotions.forEach(function (promotion) {
-        html += '<div class="callout promo-msg" title="' + promotion.details + '">' + promotion.calloutMsg +
-            '</div>';
+        html += '<span class="promo-icon"><div class="callout pt-2" title="' + promotion.details + '">' + promotion.calloutMsg +
+            '</div></span>';
     });
 
     return html;
@@ -408,11 +408,11 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     //update wishlist icon    (not is ob)
-    // $('.add-to-wish-list').removeClass('added-to-wishlist');
-    // var $exclusiveBadges = $('.exclusive-badges');
-    // var $imageBadges = $('.primary-images .product-badges');
-    // $exclusiveBadges.empty();
-    // $imageBadges.empty();
+    $('.add-to-wish-list').removeClass('added-to-wishlist');
+    var $exclusiveBadges = $('.exclusive-badges');
+    var $imageBadges = $('.primary-images .product-badges');
+    $exclusiveBadges.empty();
+    $imageBadges.empty();
 
     // Update text Badges
     if (response.product.available) {
@@ -572,8 +572,8 @@ function handleVariantResponse(response, $productContainer) {
         $priceSelector.replaceWith(response.product.price.html);
     }
 
-    // Update promotions                                                      (Need to change if changes in DOM)
-    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions').empty().html(getPromotionsHtml(response.product.promotions));
+    // Update promotions
+    $('.product-top-detail').find('.promotions').empty().html(getPromotionsHtml(response.product.promotions));
 
     updateAvailability(response, $productContainer);
 
