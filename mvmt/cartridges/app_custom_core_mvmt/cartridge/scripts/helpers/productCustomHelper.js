@@ -457,24 +457,66 @@ function isGiftBoxAllowed(apiProduct) {
     }
 }
 
+//Custom Start: Get Product Category for Gift Box Functionality
+function getProductCategoryForGiftBox(apiProduct) {
+    var currentPrimaryCategory;
+    var productPrimaryCategory;
+    var productParentCategory;
+
+    try {
+        if (!empty(apiProduct) && apiProduct.primaryCategory != null) {
+            if (!empty(apiProduct.primaryCategory)) {
+                currentPrimaryCategory = apiProduct.primaryCategory;
+                productPrimaryCategory = currentPrimaryCategory.ID;
+
+                while (currentPrimaryCategory.parent != null) {
+                    if (currentPrimaryCategory.parent.ID == 'root') {
+                        currentPrimaryCategory = currentPrimaryCategory.ID;
+                        break;
+                    }
+                    currentPrimaryCategory = currentPrimaryCategory.parent;
+                }
+            }
+        }
+        
+        return {
+            productPrimaryCategory: productPrimaryCategory,
+            productParentCategory: currentPrimaryCategory
+        };
+        
+    } catch (e) {
+        Logger.error('productCustomHelper.js -> getProductCategoryForGiftBox) Error occured while getting category from apiProduct  . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+        apiProduct.ID, e.stack, e.message, e.lineNumber, e.fileName);
+        return;
+    }
+}
+//Custom End
+
 function getGiftBoxSKU(apiProduct) {
     var ArrayList = require('dw/util/ArrayList');
     var giftBoxSKU;
     var giftBoxSKUAvailability;
     var giftBoxSKUData;
     var giftBoxSKUPrice;
+
     try {
-        var currentCategory = getProductCategory(apiProduct);
+        var currentCategory = getProductCategoryForGiftBox(apiProduct);
+        var productPrimaryCategory = !empty(currentCategory) ? currentCategory.productPrimaryCategory : '';
+        var productParentCategory = !empty(currentCategory) ? currentCategory.productParentCategory : '';
         var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
         var currentGiftBoxCategorySKUPair;
 
         for (var giftBoxCategorySKUPair = 0; giftBoxCategorySKUPair < giftBoxCategorySKUPairArray.length; giftBoxCategorySKUPair++) {
-            currentGiftBoxCategorySKUPair = giftBoxCategorySKUPairArray[giftBoxCategorySKUPair].split("|");
-            if (currentCategory == currentGiftBoxCategorySKUPair[0]) {
+            currentGiftBoxCategorySKUPair = giftBoxCategorySKUPairArray[giftBoxCategorySKUPair].split('|');
+
+            if (productPrimaryCategory && productPrimaryCategory === currentGiftBoxCategorySKUPair[0]) {
                 giftBoxSKU = currentGiftBoxCategorySKUPair[1];
                 break;
+            } else if (productParentCategory && productParentCategory === currentGiftBoxCategorySKUPair[0]) {
+                giftBoxSKU = currentGiftBoxCategorySKUPair[1];
             }
         }
+        
         if (!empty(giftBoxSKU)) {
             giftBoxSKUAvailability = ProductMgr.getProduct(giftBoxSKU).getAvailabilityModel().inStock;
             giftBoxSKUPrice = getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) ? getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) : formatMoney(ProductMgr.getProduct(giftBoxSKU).getPriceModel().price);
@@ -543,5 +585,6 @@ movadoProductCustomHelper.getColor = getColor;
 movadoProductCustomHelper.getProductCategory = getProductCategory;
 movadoProductCustomHelper.isGiftBoxAllowed = isGiftBoxAllowed;
 movadoProductCustomHelper.getGiftBoxSKU = getGiftBoxSKU;
+movadoProductCustomHelper.getProductCategoryForGiftBox = getProductCategoryForGiftBox;
 
 module.exports = movadoProductCustomHelper;
