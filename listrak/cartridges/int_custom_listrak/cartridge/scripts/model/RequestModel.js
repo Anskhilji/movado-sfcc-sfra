@@ -2,10 +2,17 @@
 
 var Site = require('dw/system/Site');
 var Constants = require('~/cartridge/scripts/utils/ListrakConstants');
+var Logger = require('dw/system/Logger').getLogger('Listrak');
 
 function generateAuthenticationPayLoad(params) {
     var queryParam = "client_id=" + params.clientID + '&client_secret=' + params.clientSecret + '&grant_type=client_credentials';
     return queryParam;
+}
+
+function generateAuthenticationPayLoadForSMSApi(params) {
+    var queryParam = "client_id=" + params.clientID + '&client_secret=' + params.clientSecret + '&grant_type=client_credentials';
+    return queryParam;
+
 }
 
 function generateAddContactToLTKPayload(params) {
@@ -235,8 +242,24 @@ function generateTransactionalEmailToLTKPayload(params) {
     return payload;
 }
 
+function generateCreateContactToLTKPayload(params) {
+    var payload = {
+        "phoneNumber": params.phone,
+        "emailAddress": params.email || '',
+        "firstName": '',
+        "lastName": '',
+        "birthday": "2023-01-09T11:23:07Z",
+        "postalCode": '',
+        "optedOut": false,
+        "segmentationFieldValues": []
+    };
+    return payload;
+}
+
 module.exports = {
     generateAuthenticationPayLoad: generateAuthenticationPayLoad,
     generateAddContactToLTKPayload: generateAddContactToLTKPayload,
-    generateTransactionalEmailToLTKPayload: generateTransactionalEmailToLTKPayload
+    generateTransactionalEmailToLTKPayload: generateTransactionalEmailToLTKPayload,
+    generateCreateContactToLTKPayload: generateCreateContactToLTKPayload,
+    generateAuthenticationPayLoadForSMSApi: generateAuthenticationPayLoadForSMSApi
 }

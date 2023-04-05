@@ -27,7 +27,7 @@ module.exports = function bonusProductLineItem(product, apiProduct, options) {
     productLineItemDecorators.uuid(product, options.lineItem);
     productLineItemDecorators.orderable(product, apiProduct, options.quantity);
     productLineItemDecorators.shipment(product, options.lineItem);
-    productLineItemDecorators.priceTotal(product, options.lineItem);
+    productLineItemDecorators.priceTotal(product, options.lineItem, options.quantity);
     productLineItemDecorators.options(product, options.lineItemOptions);
     productLineItemDecorators.bonusProductLineItemUUID(product, options.lineItem);
     productLineItemDecorators.preOrderUUID(product, options.lineItem);

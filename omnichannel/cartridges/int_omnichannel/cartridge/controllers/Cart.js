@@ -2,11 +2,13 @@
 
 var server = require('server');
 
-var Logger = require('dw/system/Logger').getLogger('OmniChannel');
-var Transaction = require('dw/system/Transaction');
-var ShippingMgr = require('dw/order/ShippingMgr');
 var BasketMgr = require('dw/order/BasketMgr');
+var Logger = require('dw/system/Logger').getLogger('OmniChannel');
+var Resource = require('dw/web/Resource');
+var ShippingMgr = require('dw/order/ShippingMgr');
 var StoreMgr = require('dw/catalog/StoreMgr');
+var Transaction = require('dw/system/Transaction');
+var URLUtils = require('dw/web/URLUtils');
 
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
@@ -37,7 +39,7 @@ server.append(
                     session.custom.isEswShippingMethod = false;
                 }
             }
-            
+
             try {
                 Transaction.wrap(function () {
                     if (currentBasket) {
@@ -67,7 +69,7 @@ server.append(
             if (apiResponse && apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
                 lineItemsInventory = apiResponse.response[0].inventory[0].records;
             }
-            
+
             var items = viewData.items;
             //Custom:Start  Update lineItems array if its available for pickup store
             omniChannelAPIHelper.setLineItemInventory(items, lineItemsInventory, viewData);
@@ -134,9 +136,6 @@ server.post(
                     } else {
                         ShippingHelper.selectShippingMethod(shipment);
                     }
-                    basketCalculationHelpers.calculateTotals(currentBasket);
-                    var cartModel = new CartModel(currentBasket);
-                    viewData.cartModel = cartModel;
                 }
             });
 
@@ -147,11 +146,37 @@ server.post(
 
             if (apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
                 lineItemsInventory = apiResponse.response[0].inventory[0].records;
+                viewData.lineItemsInventory = lineItemsInventory;
             }
 
-            omniChannelAPIHelper.setLineItemInventory(items, lineItemsInventory, viewData);
+            //Custom Start: omni channel inventory
+            if (currentBasket.custom.BOPIS) {
+                var productLineItemsArray = currentBasket.productLineItems.toArray();
+                productLineItemsArray.filter(function (item) {
+                    lineItemsInventory.filter(function (inventoryItem) {
+                        if (item.product.ID == inventoryItem.sku) {
+                            var productQuantity = inventoryItem.ato;
+                            if (productQuantity < item.quantityValue) {
+                                Transaction.wrap(function () {
+                                    item.setQuantityValue(1);
+                                });
+                            }
+                            return;
+                        }
+                    });
+                });
+            }
+
+            //calculate basket
+            Transaction.wrap(function () {
+                basketCalculationHelpers.calculateTotals(currentBasket);
+            });
+            var cartModel = new CartModel(currentBasket);
+            viewData.cartModel = cartModel;
+
+            omniChannelAPIHelper.setLineItemInventory(items, viewData.lineItemsInventory, viewData);
         } catch (error) {
-            Logger.error('Error Occurred in Cart.Show During updating of pickInStore in CurrentBasket and LineItems and call OmniChannel Inventory API, Error: {0}', error.toString());
+            Logger.error('Error Occurred in Cart.SetPickupFromStore During updating of pickInStore in CurrentBasket and LineItems and call OmniChannel Inventory API, Error: {0} in {1} : {2}', error.toString(), error.fileName, error.lineNumber);
         }
         res.json({
             viewData: viewData
@@ -188,4 +213,133 @@ server.get(
         return next();
     }
 );
+
+server.replace('UpdateQuantity', function (req, res, next) {
+
+    var CartModel = require('*/cartridge/models/cart');
+    var collections = require('*/cartridge/scripts/util/collections');
+    var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+
+    var productIds = [];
+    var storeArray = [];
+    var productQuantity = 0;
+
+    var currentBasket = BasketMgr.getCurrentBasket();
+    //custom start: omni channel inventory
+    if (currentBasket.custom.BOPIS) {
+        var productLineItemsArray = currentBasket.productLineItems.toArray();
+        productLineItemsArray.filter(function (item) {
+            if (item.product.ID == req.querystring.pid) {
+                var preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
+                storeArray.push(preferedPickupStore);
+                productIds.push(item.product.ID);
+                var apiResponse = omniChannelAPI.omniChannelInvetoryAPI(productIds, storeArray);
+
+                if (apiResponse && apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
+                    var lineItemsInventory = apiResponse.response[0].inventory[0].records;
+                    productQuantity = lineItemsInventory[0].ato;
+                }
+                if (productQuantity < item.quantityValue) {
+                    Transaction.wrap(function () {
+                        item.setQuantityValue(1);
+                    });
+                }
+                return;
+            }
+        });
+    }
+    //custom end: bopis logic
+
+    if (!currentBasket) {
+        res.setStatusCode(500);
+        res.json({
+            error: true,
+            redirectUrl: URLUtils.url('Cart-Show').toString()
+        });
+
+        return next();
+    }
+
+    var productId = req.querystring.pid;
+    var updateQuantity = parseInt(req.querystring.quantity, 10);
+    var uuid = req.querystring.uuid;
+    var productLineItems = currentBasket.productLineItems;
+    var matchingLineItem = collections.find(productLineItems, function (item) {
+        return item.productID === productId && item.UUID === uuid;
+    });
+    var availableToSell = 0;
+
+    var totalQtyRequested = 0;
+    var qtyAlreadyInCart = 0;
+    var minOrderQuantity = 0;
+    var canBeUpdated = false;
+    var bundleItems;
+    var bonusDiscountLineItemCount = currentBasket.bonusDiscountLineItems.length;
+    
+    if (matchingLineItem) {
+        if (matchingLineItem.product.bundle) {
+            bundleItems = matchingLineItem.bundledProductLineItems;
+            canBeUpdated = collections.every(bundleItems, function (item) {
+                var quantityToUpdate = updateQuantity *
+                    matchingLineItem.product.getBundledProductQuantity(item.product).value;
+                qtyAlreadyInCart = cartHelper.getQtyAlreadyInCart(
+                    item.productID,
+                    productLineItems,
+                    item.UUID
+                );
+                totalQtyRequested = quantityToUpdate + qtyAlreadyInCart;
+                availableToSell = item.product.availabilityModel.inventoryRecord.ATS.value;
+                minOrderQuantity = item.product.minOrderQuantity.value;
+                return (totalQtyRequested <= availableToSell) &&
+                    (quantityToUpdate >= minOrderQuantity);
+            });
+        } else {
+            availableToSell = currentBasket.custom.BOPIS ? productQuantity : matchingLineItem.product.availabilityModel.inventoryRecord.ATS.value;
+            qtyAlreadyInCart = cartHelper.getQtyAlreadyInCart(
+                productId,
+                productLineItems,
+                matchingLineItem.UUID
+            );
+            totalQtyRequested = updateQuantity + qtyAlreadyInCart;
+            minOrderQuantity = matchingLineItem.product.minOrderQuantity.value;
+            canBeUpdated = (totalQtyRequested <= availableToSell) &&
+                (updateQuantity >= minOrderQuantity);
+        }
+    }
+
+    if (canBeUpdated) {
+        Transaction.wrap(function () {
+            matchingLineItem.setQuantityValue(updateQuantity);
+
+            var previousBounsDiscountLineItems = collections.map(currentBasket.bonusDiscountLineItems, function (bonusDiscountLineItem) {
+                return bonusDiscountLineItem.UUID;
+            });
+
+            basketCalculationHelpers.calculateTotals(currentBasket);
+            if (currentBasket.bonusDiscountLineItems.length > bonusDiscountLineItemCount) {
+                var prevItems = JSON.stringify(previousBounsDiscountLineItems);
+
+                collections.forEach(currentBasket.bonusDiscountLineItems, function (bonusDiscountLineItem) {
+                    if (prevItems.indexOf(bonusDiscountLineItem.UUID) < 0) {
+                        bonusDiscountLineItem.custom.bonusProductLineItemUUID = matchingLineItem.UUID; // eslint-disable-line no-param-reassign
+                        matchingLineItem.custom.bonusProductLineItemUUID = 'bonus';
+                        matchingLineItem.custom.preOrderUUID = matchingLineItem.UUID;
+                    }
+                });
+            }
+        });
+    }
+
+    if (matchingLineItem && canBeUpdated) {
+        var basketModel = new CartModel(currentBasket);
+        res.json(basketModel);
+    } else {
+        res.setStatusCode(500);
+        res.json({
+            errorMessage: Resource.msg('error.cannot.update.product.quantity', 'cart', null)
+        });
+    }
+
+    return next();
+});
 module.exports = server.exports();

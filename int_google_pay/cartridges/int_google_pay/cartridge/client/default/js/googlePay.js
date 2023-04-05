@@ -405,13 +405,22 @@ function addGooglePayButton() {
 function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod, shippingAddress) {
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
+        var $pdpQuantityValue = null;
+        if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+            $pdpQuantityValue = $('.quantity-selector > .quantity').val();
+            $pdpQuantityValue = $pdpQuantityValue;
+            if ($pdpQuantityValue == "") {
+                $pdpQuantityValue = null;
+            }
+        }
 
         var data = {
             googlePayEntryPoint: $selector.data('entry-point'),
             pid: $selector.data('pid') ? $selector.data('pid') : false,
             selectedShippingMethod: selectedShippingMethod,
             includeShippingDetails: includeShippingDetails,
-            shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
+            shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress,
+            quantityPDP: $pdpQuantityValue && $pdpQuantityValue > 0 && $pdpQuantityValue != null ? $pdpQuantityValue : 1
         };
 
         if (window.Resources.IS_CLYDE_ENABLED && typeof Clyde !== 'undefined') {
@@ -420,6 +429,29 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
                 data.clydeContractSku = clydeContract.sku;
                 data.clydeContractPrice = clydeContract.recommendedPrice;
             }
+        }
+
+        var $applyButtton = $('.add-gift-message');
+        var $errorMsg = Resources.GIFT_MESSAGE_CART_ERROR;
+        var $giftMessageArray = [];
+
+        $applyButtton.each(function () {
+            var $giftMessageApply = $(this).find('.gift-message-apply').val();
+            $giftMessageArray.push($giftMessageApply);
+        });
+
+        if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+            var $errorHtml = '<div class="alert card alert-dismissible gift-cart-error ' +
+            'fade show" role="alert">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">&times;</span>' +
+            '</button>' + $errorMsg + '</div>';
+
+            if ($errorMsg) {
+                $('.cart-error').empty().append($errorHtml);
+            }
+            e.stopPropagation();
+            e.preventDefault();
         }
 
         $.ajax({

@@ -124,6 +124,7 @@ function totals(lineItemContainer) {
     var totalsModel = new Totals(lineItemContainer);
     var totalsObj;
     var KlarnaGrandTotal = lineItemContainer.totalGrossPrice;
+    var progressBarGrandTotal = lineItemContainer.totalGrossPrice;
     var discountArray = getDiscounts(lineItemContainer);
 
     if (KlarnaGrandTotal.available) {
@@ -146,7 +147,8 @@ function totals(lineItemContainer) {
             discountsHtml: getDiscountsHtml(discountArray),
             deliveryDate : deliveryDate,
             deliveryTime : deliveryTime,
-            beamGrandTotal : lineItemContainer.totalGrossPrice.decimalValue
+            beamGrandTotal : lineItemContainer.totalGrossPrice.decimalValue,
+            progressBarGrandTotal: progressBarGrandTotal
 	    });
     }
 

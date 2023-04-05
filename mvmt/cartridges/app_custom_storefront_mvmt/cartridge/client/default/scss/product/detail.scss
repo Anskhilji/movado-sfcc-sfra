@@ -668,7 +668,6 @@
             padding-bottom: 0 !important; //using important to overwrite inline css
         }
     }
-
     .rating-box-container {
         @include media-breakpoint-down(sm) {
             display: none;

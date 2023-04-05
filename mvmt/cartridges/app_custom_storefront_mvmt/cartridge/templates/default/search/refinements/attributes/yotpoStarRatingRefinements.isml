@@ -1,0 +1,10 @@
+<li title="${refinementValue.title}" data-filter-id="${refinementValue.id}" data-target-url="${refinementValue.url}" data-selected-filter="${refinementValue.displayValue}" class="ratting-fliter col-sm-auto col-md-12 size-attribute-container filter-element ${!refinementValue.selectable ? 'disabled' : ''}">
+    <label class="elements filter-elements" data-filter-id="${refinementValue.id}" data-target-url="${refinementValue.url}" data-selected-filter="${refinementValue.displayValue}">
+        <a role="checkbox" data-selected-filter="${refinementValue.displayValue}" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} swatch-image selected <isif condition="${refinementValue.selected && refinementValue.selectable}">filter-selected check-filter-selected</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+            <div class="rating-static clearfix rounded-image ${refinementValue.selected ? 'selected' : ''}"  rel="${refinementValue.value}">
+                <i class="fa fa-star" aria-hidden="true"></i>
+            </div>
+        </a>
+        <span class="">${refinementValue.displayValue} Star</span>
+    </label>
+</li>

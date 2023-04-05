@@ -1,0 +1,36 @@
+<div class="col-12">
+    <div class="accordion-pdp-redesign" id="accordionPdpRedesign">
+        <div class="accordion-redesign">
+            <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="${'#specification' + product.id}" aria-expanded="true" aria-controls="Specification">
+                <span>${Resource.msg('accordion.heading.attributes','products',null)}</span><span class="plus-minus"></span>
+            </div>
+
+            <div id="specification${product.id}" class="collapse" aria-labelledby="headingOne">
+                <div class="accordion-redesign-detail">
+                <isinclude template="product/components/descriptionAndDetails" />
+                </div>
+            </div>
+        </div>
+
+        <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
+            <div class="accordion-redesign">
+                <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="${'#reviews' + product.id}" aria-expanded="true" aria-controls="Reviews">
+                    <div class="d-flex align-items-center">
+                        <div>${Resource.msg('accordion.heading.reviews','products',null)}</div>
+                        <isinclude template="product/components/pidRating" />
+                    </div>
+                    <span class="plus-minus">
+                    </span>
+                </div>
+
+                <div id="reviews${product.id}" class="collapse" aria-labelledby="headingOne">
+                    <div class="accordion-redesign-detail">
+                            <iscomment> Yotpo reviews widget will appear here, if these needs to be relocated
+                            then appropriate template should be overridden.  </iscomment>
+                            <isinclude template="widget/yotporeviewswidget" />
+                    </div>
+                </div>
+            </div>
+            </isif>
+    </div>
+</div>
