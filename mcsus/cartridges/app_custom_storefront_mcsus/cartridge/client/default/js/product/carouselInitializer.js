@@ -34,10 +34,42 @@ $(document).ready(function() {
         dots: true,
         arrows:false,
         focusOnSelect: true,
-        infinite: true,
+        infinite: false,
         responsive: [
             {
                 breakpoint: 544,
+                settings: {
+                    dots: false,
+                }
+            },
+        ]
+    });
+    
+    $('.carousel-nav-set-product').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '.primary-images .main-carousel',
+        dots: false,
+        arrows:false,
+        focusOnSelect: true,
+        infinite: true,
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    dots: false,
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 992,
+                settings: {
+                    dots: false,
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 545,
                 settings: {
                     dots: false,
                 }
