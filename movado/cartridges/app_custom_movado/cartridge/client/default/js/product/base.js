@@ -1393,7 +1393,8 @@ module.exports = {
     addToCart: function () {
         $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
             var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
-            if (clydeWidgets) {
+            var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
+            if (clydeWidgets && clydeWidgetsDisplay) {
                 var selectedContract = Clyde.getSelectedContract();
                 var clydeSettings = Clyde.getSettings();
                 if (clydeSettings.productPage == true) {
