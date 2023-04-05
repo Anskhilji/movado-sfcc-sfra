@@ -1,0 +1,10 @@
+<iscomment>added d-none class and drop a hint link </iscomment>
+<div class="product-number-rating clearfix">
+    <div class="product-number d-none hidden-xs-down pull-left">
+        <isinclude template="product/components/productNumber" />
+    </div>
+    <!-- Product Rating -->
+    <div class="ratings pull-left">
+        <isinclude template="product/components/productSet/individualProductSetRating" />
+    </div>
+</div>

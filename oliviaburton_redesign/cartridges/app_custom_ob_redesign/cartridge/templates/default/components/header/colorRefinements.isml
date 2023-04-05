@@ -7,7 +7,9 @@
                 <ul>
                     <isloop items="${categoryItem.subCategories}" var="category">
                         <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                            <a href="${category.url}" role="button" class="circle" style="background: ${category.hexColor}">${category.hexColor}</a>
+                            <a href="${category.url}" role="button" class="circle">
+                                <img src="${category.swatchImage}" class="img-fluid" alt="${category.name}">
+                            </a>
                         </li>
                     </isloop>
                 </ul>

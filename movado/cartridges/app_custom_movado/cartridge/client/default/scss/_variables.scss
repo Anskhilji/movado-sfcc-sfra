@@ -25,6 +25,9 @@ $invalid-red: #C82727;
 $light-blue3: #e8f0fe;
 $dots-gray: #DADADA;
 $light-black3: #101010;
+$green-progress: #35D31A;
+$gray-progress: #131313;
+$light-gray-progress: rgba(160, 169, 186, 0.75);
 
 
 // Consolidated values
@@ -102,6 +105,8 @@ $cerulean: #0092DB;
 $border-gray: #DBDBDB;
 $parrot-green: #3AAB4A;
 $parrot-green2: #429C19;
+$star: #000000;
+$star-light: #F6DC4D;
 
 $grid-breakpoints: (
     xs: 0,
@@ -154,6 +159,7 @@ $font-demi: "futura-pt", sans-serif, Arial;
 $font-lato : "lato", "FuturaStd-Bold", sans-serif, Arial;
 
 $font-awesome: "FontAwesome";
+$font-proxima-nova : "Proxima Nova";
 
 // Larger Screen
 $small-screen-width: 320px;

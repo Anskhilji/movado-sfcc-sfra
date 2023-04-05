@@ -68,18 +68,22 @@
 						<isinclude template="search/resultsCount" />
 					</div>
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
-						<div class="col-6 col-sm-6 order-sm-1 sort-filters-button sort-col">
-							<isinclude template="search/sortOrderMenu" />
-						</div>
-						<div class="col-6 col-sm-6 text-right order-sm-3 filter-col">
-							<button type="button" class="btn btn-primary filter-results">
-							<picture>
-								<source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}">
-								<img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid">
-							</picture>
-							    <span class="d-none d-sm-inline-block">${Resource.msg('button.filters', 'search', null)}</span>
-							    <span class="d-inline-block d-sm-none">${Resource.msg('button.filterby', 'search', null)}</span>
-							</button>
+						<div class="col-12">
+							<div class="row search-filter-bar">
+								<div class="col-6 col-sm-6 order-sm-1 sort-filters-button sort-col">
+									<isinclude template="search/sortOrderMenu" />
+								</div>
+								<div class="col-6 col-sm-6 text-right order-sm-3 filter-col">
+									<button type="button" class="btn btn-primary filter-results">
+									<picture>
+										<source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}">
+										<img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid">
+									</picture>
+										<span class="d-none d-sm-inline-block">${Resource.msg('button.filters', 'search', null)}</span>
+										<span class="d-inline-block d-sm-none">${Resource.msg('button.filterby', 'search', null)}</span>
+									</button>
+								</div>
+							</div>
 						</div>
 					</isif>
 				</div>
@@ -192,7 +196,7 @@
     <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
     <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
         <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
-        <span class="listrak-popup-product-detail"></span>
+        <span class="listrak-popup-search-result"></span>
         <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
     </isif>
     <!-- End: Listrak persistent popup -->
