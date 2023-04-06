@@ -118,7 +118,6 @@ module.exports = function productTile(product, apiProduct, productType, params, 
         }
 
         if (product.variationsAttributes) {
-            var a = '12';
             Object.keys(product.variationsAttributes).forEach(function (key) {
                 if (product.variationsAttributes[key].id !== ATTRIBUTE_NAME && product.variationsAttributes[key].id !== COLOR_WATCH) {
                     defaultVariant = apiProduct.variationModel.defaultVariant;
