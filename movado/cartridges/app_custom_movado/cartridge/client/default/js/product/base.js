@@ -1144,13 +1144,12 @@ function validateOptions($el) {
     }
 }
 
-function clydeAddProductToCart() {
+function clydeAddProductToCart($this) {
     var addToCartUrl;
     var pid;
     var pidsObj;
     var setPids;
     var giftPid;
-    var $this = $(this);
     var productQuantity = null;
     if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
         productQuantity = $('.quantity-selector > .quantity').val();
@@ -1161,7 +1160,7 @@ function clydeAddProductToCart() {
 
     $('body').trigger('product:beforeAddToCart', this);
 
-    if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
+    if ($('.set-items').length && $this.hasClass('add-to-cart-global')) {
         setPids = [];
 
         $('.product-detail').each(function () {
@@ -1187,21 +1186,21 @@ function clydeAddProductToCart() {
         });
         pidsObj = JSON.stringify(setPids);
         pid = getPidValue($(this));
-    } else if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
-        pid = $(this).data('pid');
+    } else if ($this.closest('.product-detail') && $this.closest('.product-detail').data('isplp') == true) {
+        pid = $this.data('pid');
         if ($('.gift-allowed-checkbox').is(":checked")) {
             giftPid = $('.gift-allowed-checkbox').val();
         }
     } else {
-        pid = getPidValue($(this));
+        pid = getPidValue($this);
         if ($('.gift-allowed-checkbox').is(":checked")) {
             giftPid = $('.gift-allowed-checkbox').val();
         }
     }
 
-    var $productContainer = $(this).closest('.product-detail');
+    var $productContainer = $this.closest('.product-detail');
     if (!$productContainer.length) {
-        $productContainer = $(this).closest('.quick-view-dialog').find('.product-detail');
+        $productContainer = $this.closest('.quick-view-dialog').find('.product-detail');
     }
 
     addToCartUrl = getAddToCartUrl();
@@ -1214,7 +1213,7 @@ function clydeAddProductToCart() {
         pid: pid,
         pidsObj: pidsObj,
         childProducts: getChildProducts(),
-        quantity: getQuantitySelected($(this)),
+        quantity: getQuantitySelected($this),
         giftPid: giftPid ? giftPid : ''
     };
 
@@ -1245,9 +1244,9 @@ function clydeAddProductToCart() {
      */
     $productContainer.find('input[type="text"], textarea').filter('[required]')
     .each(function() {
-        if($(this).val() && $(this).closest("form.submitted").length) {
+        if($this.val() && $this.closest("form.submitted").length) {
             Object.assign(form, {
-                [$(this).data('name')]: $(this).val()
+                [$this.data('name')]: $this.val()
             });
         }
     });
@@ -1256,7 +1255,7 @@ function clydeAddProductToCart() {
         form.options = getOptions($productContainer);
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
-    $(this).trigger('updateAddToCartFormData', form);
+    $this.trigger('updateAddToCartFormData', form);
     if (addToCartUrl) {
         $.ajax({
             url: addToCartUrl,
@@ -1394,28 +1393,33 @@ module.exports = {
         $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
             var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
             var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
+            var $this = $(this);
             if (clydeWidgets && clydeWidgetsDisplay) {
                 var selectedContract = Clyde.getSelectedContract();
                 var clydeSettings = Clyde.getSettings();
-                if (clydeSettings.productPage == true) {
-                     if (selectedContract) {
-                         clydeAddProductToCart();
-                     } else {
-                         var product = Clyde.getActiveProduct();
-                         var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
-                         if (hasContracts && clydeSettings.modal == true) {
-                             Clyde.showModal(null, clydeAddProductToCart);
-                         } else {
-                             clydeAddProductToCart();
-                         }
-                     }
-                } else if (clydeSettings.modal == true) {
-                     Clyde.showModal(null, clydeAddProductToCart);
+                if (clydeSettings) {
+                    if (clydeSettings.productPage == true) {
+                        if (selectedContract) {
+                            clydeAddProductToCart($this);
+                        } else {
+                            var product = Clyde.getActiveProduct();
+                            var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
+                            if (hasContracts && clydeSettings.modal == true) {
+                                Clyde.showModal(null, clydeAddProductToCart($this));
+                            } else {
+                                clydeAddProductToCart($this);
+                            }
+                        }
+                   } else if (clydeSettings.modal == true) {
+                        Clyde.showModal(null, clydeAddProductToCart($this));
+                   } else {
+                        clydeAddProductToCart($this);
+                   }
                 } else {
-                     clydeAddProductToCart();
+                    clydeAddProductToCart($this);
                 }
             } else {
-                 clydeAddProductToCart();
+                 clydeAddProductToCart($this);
             }
         });
     },
