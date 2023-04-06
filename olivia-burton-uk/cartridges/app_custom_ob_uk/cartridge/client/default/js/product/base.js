@@ -1,10 +1,4 @@
 'use strict';
-// var base = require('./base');
-// var processInclude = require('base/util');
-// processInclude(require('/lib/pinchzoom/pinch-zoom.umd.js'));
-
-
-
 
 if(Resources.IS_CLYDE_ENABLED) {
     var clydeWidget = require('link_clyde/getClydeWidget.js');
@@ -327,6 +321,7 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         $('.popup-opened').hide();
     }
 }
+
 function initializeZoom() {
     var $zoomedImageContainer = $('.zoomedImage');
     if($zoomedImageContainer.length > 0) {
@@ -408,7 +403,13 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.description .content').text(response.product.pageDescription);
     }
 
-    //update wishlist icon    (not is ob)
+    //Update product long Description
+    $('.product-detail-redesign .description-and-detail').find('.bottom-description .long-description-text').empty();
+    if (typeof response.product.longDescription !== 'undefined' && response.product.longDescription !== '' && response.product.longDescription !== null) {
+        $('.product-detail-redesign .description-and-detail').find('.bottom-description .long-description-text').text(response.product.longDescription);
+    }
+
+    //update wishlist icon
     $('.add-to-wish-list').removeClass('added-to-wishlist');
     var $exclusiveBadges = $('.exclusive-badges');
     var $imageBadges = $('.primary-images .product-badges');
@@ -598,8 +599,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer, data.OptionsValidationError);
-                // var listrakTracking = require('movado/listrakActivityTracking.js');
-                // listrakTracking.listrackProductTracking(data.product.id);
+                var listrakTracking = require('movado/listrakActivityTracking.js');
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
