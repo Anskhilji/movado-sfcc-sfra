@@ -55,13 +55,13 @@
 				color: $white;
 				background: $black;
 				border: rem(1) solid $black;
-		
+
 				@include media-breakpoint-up(custom-md) {
-					width: rem(296);
+					width: rem(330);
 					height: rem(42.44);
 					padding: rem(10) rem(12) rem(10) rem(12);
 				}
-				
+
 				&:hover,
 				&:focus {
 					background-color: $white;

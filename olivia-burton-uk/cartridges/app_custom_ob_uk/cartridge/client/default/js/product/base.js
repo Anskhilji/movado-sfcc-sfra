@@ -603,21 +603,21 @@ function handleVariantResponse(response, $productContainer) {
     // $('.main-carousel .slick-active').addClass('slick-center');
 
 
-    // $(document).ready(function () {
-    //     var $availabilityWrapper = $('.product-availability .availability-msg').text();
-    //     var $cartWrapper = $('.cart-and-ipay');
-    //     var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
+    $(document).ready(function () {
+        var $availabilityWrapper = $('.product-availability .availability-msg').text();
+        var $cartWrapper = $('.cart-and-ipay');
+        var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
 
-    //     if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
-    //         if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock') || ($availabilityWrapper === 'Select Styles for Availability')) {
-    //             $cartWrapper.addClass('d-none');
-    //             $stickyWrapper.addClass('d-none');
-    //         } else {
-    //             $cartWrapper.removeClass('d-none');
-    //             $stickyWrapper.removeClass('d-none');
-    //         }
-    //     }
-    // });
+        if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
+            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock') || ($availabilityWrapper === 'Select Styles for Availability')) {
+                $cartWrapper.addClass('d-none');
+                $stickyWrapper.addClass('d-none');
+            } else {
+                $cartWrapper.removeClass('d-none');
+                $stickyWrapper.removeClass('d-none');
+            }
+        }
+    });
 }
 
 /**
@@ -927,11 +927,30 @@ module.exports = {
         });
     },
 
+    // selectAttribute: function () {
+    //     var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"] .select-variation-product';
+    //     $(document).off('change', selector);
+    //     $(document).on('click', selector, function (e) {
+    //         e.preventDefault();
+
+    //         var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
+
+    //         var $productContainer = $(this).closest('.set-item');
+    //         if (!$productContainer.length) {
+    //             $productContainer = $(this).closest('.product-detail');
+    //         }
+    //         attributeSelect(value, $productContainer);
+    //     });
+    // },
+
     selectAttribute: function () {
-        var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"] .select-variation-product';
+        var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
         $(document).off('change', selector);
-        $(document).on('click', selector, function (e) {
+        $(document).off('click', selector).on('click', selector, function (e) {
             e.preventDefault();
+            if ($(this).attr('disabled') || $(this).hasClass('active')) {
+                return;
+            }
 
             var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 

@@ -33,7 +33,7 @@ Template Notes:
         </isloop>
     <iselse/>
         <!-- Attribute Values Drop Down Menu -->
-        <select class="custom-select form-control select-${attr.id}" ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
+        <iscomment> <select class="custom-select form-control select-${attr.id}" ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
             <option value="${attr.resetUrl}">
                 ${Resource.msg('label.select', 'common', null)} ${attr.displayName}
             </option>
@@ -44,20 +44,18 @@ Template Notes:
                 </option>
             </isloop>
         </select>
-        <i class="fa fa-angle-down"></i>
+        <i class="fa fa-angle-down"></i> </iscomment>
 
 
 
-            <isloop items="${attr.values}" var="attrValue">
-                <button class="product-size-options select-variation-product ${attrValue.selected ? 'active' : ''} ${!attrValue.selectable ? 'disabled' : ''}" value="${attrValue.url}" data-attr-value="${attrValue.value}"
-                    ${ product.productType === "variant" && isBundle ? "disabled" : "" }
-                    ${attrValue.selected ? 'selected' : ''}
-                >
-                    <span class="${attrValue.selectable ? '' : 'disabled'}">
-                        ${attrValue.value}
-                    </span>
-                </button>
-            </isloop>
-
+        <isloop items="${attr.values}" var="attrValue">
+            <button class="product-size-options select-variation-product ${attrValue.selected ? 'active' : ''} ${!attrValue.selectable ? 'disabled' : ''}" value="${attrValue.url}" data-attr-value="${attrValue.value}"
+                ${ product.productType === "variant" && isBundle ? "disabled" : "" }
+                ${attrValue.selected ? 'selected' : ''}>
+                <span class="${attrValue.selectable ? '' : 'disabled'}">
+                    ${attrValue.value}
+                </span>
+            </button>
+        </isloop>
     </isif>
 </div>

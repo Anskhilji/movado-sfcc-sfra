@@ -11,10 +11,8 @@ var Constants = require('*/cartridge/scripts/util/Constants');
 var COLOR_WATCH = Constants.COLOR_WATCH;
 var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
-var promotionCache = require('*/cartridge/scripts/util/promotionCache');
-var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 /**
  * Get product search hit for a given product
@@ -66,8 +64,6 @@ module.exports = function productTile(product, apiProduct, productType, params, 
     var defaultVariant;
     var selectedSwatch;
     var variationPdpURL;
-    var swatchesURL;
-
     var variationParam = '';
     var variationParamValue = '';
     var otherVariantValues = '';
@@ -85,7 +81,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
         return null;
     }
     var options = productHelper.getConfig(apiProduct, { pid: product.id });
-    
+
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
     decorators.setIndividualProducts(product, apiProduct, factory);
 
@@ -279,46 +275,27 @@ module.exports = function productTile(product, apiProduct, productType, params, 
                     // if (variant.custom.color == varAttr[key].id || variant.custom.productName == varAttr[key].id) {
                     if (variant.custom.color == varAttr[key].id) {
                         defaultVariantImage = !empty(varAttr[key].largeImage) ? varAttr[key].largeImage.url : '';
-                        // defulatVariantEyewearImage = !empty(varAttr[key].eyeWearImage) ? varAttr[key].eyeWearImage.url : '';
                         variationPdpURL = !empty(varAttr[key].pdpURL) ? varAttr[key].pdpURL : '';
                         defaultVariant = variant;
                         selectedSwatch = varAttr[key];
-                        // tileImage300X375 = !empty(varAttr[key].tileImage300X375) ? varAttr[key].tileImage300X375.url : '';
-                        // tile512X640 = !empty(varAttr[key].tileImage512X640) ? varAttr[key].tileImage512X640.url : '';
                         tile640Xtile764 = !empty(varAttr[key].tile640Xtile764) ? varAttr[key].tile640Xtile764.url : '';
                         tile512Xtile640 = !empty(varAttr[key].tile512Xtile640) ? varAttr[key].tile512Xtile640.url : '';
                         tile640 = !empty(varAttr[key].tile640) ? varAttr[key].tile640.url : '';
                         defaultVariantLifeStyleImage512X640 = !empty(varAttr[key].lifeStyleImage512X640) ? varAttr[key].lifeStyleImage512X640.url : '';
                         defaultVariantLifeStyleImage640X764 = !empty(varAttr[key].lifeStyleImage640X764) ? varAttr[key].lifeStyleImage640X764.url : '';
                         defaultVariantLifeStyleImage640 = !empty(varAttr[key].lifeStyleImage640) ? varAttr[key].lifeStyleImage640.url : '';
-                        // defaultVariantLifeStyleImage300X375 = !empty(varAttr[key].lifeStyleImage300X375) ? varAttr[key].lifeStyleImage300X375.url : '';
-                        // defaultVariantEyeWearLifeStyleImage = !empty(varAttr[key].eyeWearLifeStyleImage) ? varAttr[key].eyeWearLifeStyleImage.url : '';
-                        // defaultVariantLifeStyleImage512x512 =  !empty(varAttr[key].lifeStyleImage512x512) ? varAttr[key].lifeStyleImage512x512.url : '';
-                        // tileImage300X300 = !empty(varAttr[key].tileImage300X300) ? varAttr[key].tileImage300X300.url : '';
-                        // defaultVariantLifeStyleImage300X300 = !empty(varAttr[key].lifeStyleImage300X300) ? varAttr[key].lifeStyleImage300X300.url : '';
-
                     }
                 });
             } else {
-                // defulatVariantEyewearImage = !empty(varAttr[0].eyeWearImage) ? varAttr[0].eyeWearImage.url : '';
                 defaultVariantImage = !empty(varAttr[0].largeImage) ? varAttr[0].largeImage.url : '';
                 variationPdpURL = !empty(varAttr[0].pdpURL) ? varAttr[0].pdpURL : '';
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];
-                // tileImage300X375 = !empty(varAttr[0].tileImage300X375) ? varAttr[0].tileImage300X375.url : '';
-                // tile512X640 = !empty(varAttr[0].tileImage512X640) ? varAttr[0].tileImage512X640.url : '';
                 tile640Xtile764 = !empty(varAttr[key].tile640Xtile764) ? varAttr[key].tile640Xtile764.url : '';
                 tile512Xtile640 = !empty(varAttr[key].tile512Xtile640) ? varAttr[key].tile512Xtile640.url : '';
                 tile640 = !empty(varAttr[key].tile640) ? varAttr[key].tile640.url : '';
                 defaultVariantLifeStyleImage512X640 = !empty(varAttr[key].lifeStyleImage512X640) ? varAttr[key].lifeStyleImage512X640.url : '';
                 defaultVariantLifeStyleImage640X764 = !empty(varAttr[key].lifeStyleImage640X764) ? varAttr[key].lifeStyleImage640X764.url : '';
-                // defaultVariantLifeStyleImage = !empty(varAttr[0].lifeStyleImage) ? varAttr[0].lifeStyleImage.url : '';
-                // defaultVariantLifeStyleImage300X375 = !empty(varAttr[0].lifeStyleImage300X375) ? varAttr[0].lifeStyleImage300X375.url : '';
-                // defaultVariantEyeWearLifeStyleImage = !empty(varAttr[0].eyeWearLifeStyleImage) ? varAttr[0].eyeWearLifeStyleImage.url : '';
-                // tileImage300X300 = !empty(varAttr[0].tileImage300X300) ? varAttr[0].tileImage300X300.url : '';
-                // defaultVariantLifeStyleImage300X300 = !empty(varAttr[0].lifeStyleImage300X300) ? varAttr[0].lifeStyleImage300X300.url : '';
-                // defaultVariantLifeStyleImage512x512 =  !empty(varAttr[0].lifeStyleImage512x512) ? varAttr[0].lifeStyleImage512x512.url : '';
-
             }
 
             Object.defineProperty(product, 'defaultVariantLifeStyleImage512X640', {
@@ -336,35 +313,10 @@ module.exports = function productTile(product, apiProduct, productType, params, 
                 value: defaultVariantLifeStyleImage640
             });
 
-            // Object.defineProperty(product, 'defaultVariantLifeStyleImage300X375', {
-            //     enumerable: true,
-            //     value: defaultVariantLifeStyleImage300X375
-            // });
-
-            // Object.defineProperty(product, 'defaultVariantLifeStyleImage300X300', {
-            //     enumerable: true,
-            //     value: defaultVariantLifeStyleImage300X300
-            // });
-
             Object.defineProperty(product, 'defaultVariantImageDIS', {
                 enumerable: true,
                 value: defaultVariantImage
             });
-
-            // Object.defineProperty(product, 'defulatVariantEyewearImage', {
-            //     enumerable: true,
-            //     value: defulatVariantEyewearImage
-            // });
-
-            // Object.defineProperty(product, 'defaultVariantTileImage300X375', {
-            //     enumerable: true,
-            //     value: tileImage300X375
-            // });
-
-            // Object.defineProperty(product, 'defaultVariantTileImage300X300', {
-            //     enumerable: true,
-            //     value: tileImage300X300
-            // });
 
             Object.defineProperty(product, 'defaultVariantTile640X764 ', {
                 enumerable: true,
@@ -391,10 +343,10 @@ module.exports = function productTile(product, apiProduct, productType, params, 
                 value: defaultVariant
             });
 
-            // Object.defineProperty(product, 'selectedSwatch', {
-            //     enumerable: true,
-            //     value: selectedSwatch
-            // });
+            Object.defineProperty(product, 'selectedSwatch', {
+                enumerable: true,
+                value: selectedSwatch
+            });
 
             Object.defineProperty(product, 'colorVariationsValues', {
                 enumerable: true,
@@ -460,8 +412,6 @@ module.exports = function productTile(product, apiProduct, productType, params, 
                 });
             }
         }
-
-
 
     } catch (e) {
         Logger.error('Variation exception: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
