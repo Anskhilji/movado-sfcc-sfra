@@ -1,4 +1,4 @@
-<div class="col-md-10 col-12 variationAttribute">
+<div class="col-md-10 col-12 px-0 variationAttribute">
     <isset name="isBundle" value="${false}" scope="page" />
     <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
         <div class="main-variation-attribute" data-attr="${attr.id}">

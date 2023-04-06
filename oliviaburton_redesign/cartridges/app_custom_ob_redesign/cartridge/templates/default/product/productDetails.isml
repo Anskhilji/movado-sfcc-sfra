@@ -71,7 +71,7 @@
                                 </isif>
                             </div>
                         </div>
-                        <p>OBPDPSwatchesTemplateInclude<p>
+                        <iscomment> <p>OBPDPSwatchesTemplateInclude<p> </iscomment>
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
                         </isif>

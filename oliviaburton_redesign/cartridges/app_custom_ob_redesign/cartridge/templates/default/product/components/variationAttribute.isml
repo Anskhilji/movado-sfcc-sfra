@@ -15,31 +15,33 @@ Template Notes:
         ${Resource.msg('label.select', 'common', null)} ${attr.displayName}
     </label>
 
-    <isif condition="${attr.swatchable}">
-        <!-- Circular Swatch Image Attribute Values -->
-        <isloop items="${attr.values}" var="attrValue">
-            <isif condition="${!(isBundle && product.productType === 'variant' && !attrValue.selected) }">
-                <a  href="${attrValue.url}"
-                    class=" product-size-options color-variation swatch-circle swatch-value ${attr.id}-value
-                            ${attrValue.selected ? 'active' : ''}
-                            ${!attrValue.selectable ? 'disabled' : ''} "
-                    style="background: url(${attrValue.images['swatch'][0].url}) no-repeat center/cover"
-                    ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
-                        <span data-attr-value="${attrValue.value}" class=" ${attr.id}-value ${attrValue.selectable ? '' : 'disabled'}">
-                        </span>
-                </a>
-            </isif>
-        </isloop>
-    <iselse/>
-        <!-- Attribute Values Drop Down Menu -->
-        <isloop items="${attr.values}" var="attrValue">
-            <button class="product-size-options select-variation-product ${attrValue.selected ? 'active' : ''} ${!attrValue.selectable ? 'disabled' : ''}" value="${attrValue.url}" data-attr-value="${attrValue.value}"
-                ${ product.productType === "variant" && isBundle ? "disabled" : "" }
-                ${attrValue.selected ? 'selected' : ''}>
-                <span class="${attrValue.selectable ? '' : 'disabled'}">
-                    ${attrValue.value}
-                </span>
-            </button>
-        </isloop>
-    </isif>
+    <div class="d-flex swatch-sec">
+        <isif condition="${attr.swatchable}">
+            <!-- Circular Swatch Image Attribute Values -->
+            <isloop items="${attr.values}" var="attrValue">
+                <isif condition="${!(isBundle && product.productType === 'variant' && !attrValue.selected) }">
+                    <a  href="${attrValue.url}"
+                        class="attribute-link d-flex align-items-center justify-content-center product-size-options color-variation swatch-circle swatch-value ${attr.id}-value
+                                ${attrValue.selected ? 'active' : ''}
+                                ${!attrValue.selectable ? 'disabled' : ''} "
+                        style="background: url(${attrValue.images['swatch'][0].url}) no-repeat center/cover"
+                        ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
+                            <span data-attr-value="${attrValue.value}" class=" ${attr.id}-value ${attrValue.selectable ? '' : 'disabled'}">
+                            </span>
+                    </a>
+                </isif>
+            </isloop>
+        <iselse/>
+            <!-- Attribute Values Drop Down Menu -->
+            <isloop items="${attr.values}" var="attrValue">
+                <button class="product-size-options select-variation-product ${attrValue.selected ? 'active' : ''} ${!attrValue.selectable ? 'disabled' : ''}" value="${attrValue.url}" data-attr-value="${attrValue.value}"
+                    ${ product.productType === "variant" && isBundle ? "disabled" : "" }
+                    ${attrValue.selected ? 'selected' : ''}>
+                    <span class="${attrValue.selectable ? '' : 'disabled'}">
+                        ${attrValue.value}
+                    </span>
+                </button>
+            </isloop>
+        </isif>
+    </div>
 </div>
