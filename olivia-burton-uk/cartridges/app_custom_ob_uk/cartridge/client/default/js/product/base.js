@@ -90,15 +90,18 @@ function getQuantitySelected($el) {
  * @param {jQuery} $productContainer - DOM container for a given product
  */
 function processSwatchValues(attr, $productContainer) {
+    var $selectedValueContainer = $productContainer.find('[data-selected-variation-attr="' + attr.id + '"]');
+    $selectedValueContainer.empty();
     attr.values.forEach(function (attrValue) {
         var $attrValue = $productContainer.find('[data-attr="' + attr.id + '"] [data-attr-value="' +
             attrValue.value + '"]');
         var $swatchAnchor = $attrValue.parent();
 
         if (attrValue.selected) {
-            $attrValue.addClass('selected');
+            $swatchAnchor.addClass('active');
+            $selectedValueContainer.text(attrValue.displayValue);
         } else {
-            $attrValue.removeClass('selected');
+            $swatchAnchor.removeClass('active');
         }
 
         if (attrValue.url) {
@@ -108,9 +111,11 @@ function processSwatchValues(attr, $productContainer) {
         }
 
         // Disable if not selectable
-        $attrValue.removeClass('selectable unselectable');
-
-        $attrValue.addClass(attrValue.selectable ? 'selectable' : 'unselectable');
+        if (!attrValue.selectable) {
+            $swatchAnchor.addClass('disabled');
+        } else {
+            $swatchAnchor.removeClass('disabled')
+        }
     });
 }
 
@@ -139,8 +144,11 @@ function processNonSwatchValues(attr, $productContainer) {
             .removeAttr('disabled');
 
         if (!attrValue.selectable) {
-            $attrValue.attr('disabled', true);
+            $attrValue.addClass('disabled');
+        } else {
+            $attrValue.removeClass('disabled')
         }
+
     });
 }
 
@@ -915,9 +923,17 @@ module.exports = {
         $(document).off('click', '.main-variation-attribute[data-attr="color"] a').on('click', '.main-variation-attribute[data-attr="color"] a', function (e) {
             e.preventDefault();
 
-            if ($(this).attr('disabled')) {
+            // if ($(this).attr('disabled')) {
+            //     return;
+            // }
+
+            if ($(this).attr('disabled') || $(this).hasClass('active')) {
                 return;
+            } else {
+                $('.product-size-options.color-variation.active').removeClass('active');
+                $(this).addClass('active');
             }
+
             var $productContainer = $(this).closest('.set-item');
             if (!$productContainer.length) {
                 $productContainer = $(this).closest('.product-detail');

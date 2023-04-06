@@ -19,35 +19,19 @@ Template Notes:
         <!-- Circular Swatch Image Attribute Values -->
         <isloop items="${attr.values}" var="attrValue">
             <isif condition="${!(isBundle && product.productType === 'variant' && !attrValue.selected) }">
-                <a href="${attrValue.url}" ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
-                    <span data-attr-value="${attrValue.value}"
-                        class="
-                            ${attr.id}-value
-                            swatch-circle
-                            swatch-value
-                            ${attrValue.selected ? 'selected' : ''}"
-                        style="background: url(${attrValue.images['swatch'][0].url}) no-repeat center/cover">
-                    </span>
+                <a  href="${attrValue.url}"
+                    class=" product-size-options color-variation swatch-circle swatch-value ${attr.id}-value
+                            ${attrValue.selected ? 'active' : ''}
+                            ${!attrValue.selectable ? 'disabled' : ''} "
+                    style="background: url(${attrValue.images['swatch'][0].url}) no-repeat center/cover"
+                    ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
+                        <span data-attr-value="${attrValue.value}" class=" ${attr.id}-value ${attrValue.selectable ? '' : 'disabled'}">
+                        </span>
                 </a>
             </isif>
         </isloop>
     <iselse/>
         <!-- Attribute Values Drop Down Menu -->
-        <iscomment> <select class="custom-select form-control select-${attr.id}" ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
-            <option value="${attr.resetUrl}">
-                ${Resource.msg('label.select', 'common', null)} ${attr.displayName}
-            </option>
-            <isloop items="${attr.values}" var="attrValue">
-                <option value="${attrValue.url}" data-attr-value="${attrValue.value}"
-                    ${attrValue.selected ? 'selected' : ''}>
-                    ${attrValue.displayValue}
-                </option>
-            </isloop>
-        </select>
-        <i class="fa fa-angle-down"></i> </iscomment>
-
-
-
         <isloop items="${attr.values}" var="attrValue">
             <button class="product-size-options select-variation-product ${attrValue.selected ? 'active' : ''} ${!attrValue.selectable ? 'disabled' : ''}" value="${attrValue.url}" data-attr-value="${attrValue.value}"
                 ${ product.productType === "variant" && isBundle ? "disabled" : "" }
