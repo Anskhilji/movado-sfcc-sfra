@@ -6,8 +6,7 @@
                     <isloop items="${product.colorVariationsValues.values}" var="swatch" status="loopState">
                         <isif condition="${swatch.images != null && swatch.images.swatch[0] != null && swatch.images.swatch[0].url != null}">
                             <isif condition="${parseInt(loopState.index) < 4}">
-                                <iscomment> <div class="swatch-plus-box"> </iscomment>
-                                <iscomment> <a href="${swatch.url}"> </iscomment>
+                                <div class="swatch-plus-box">
                                     <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}"
                                         class="change-variation square-swatch">
                                         <span>
@@ -17,7 +16,7 @@
                                                 src="${swatch.images.swatch[0].url}" alt="${swatch.images.swatch[0].alt}"/>
                                         </span>
                                     </a>
-                                <iscomment> </div> </iscomment>
+                                </div>
                             <iselse/>
                                 <div class="swatch-plus-box">
                                     <a href="${pdict.urls.product}" class="square-swatch">

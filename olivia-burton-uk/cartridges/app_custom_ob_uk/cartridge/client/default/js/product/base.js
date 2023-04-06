@@ -398,12 +398,6 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
-
-
-
-
-
-
     //Update Product Title
     if (typeof response.product.productName !== 'undefined' && response.product.productName !== '' && response.product.productName !== null) {
         $productContainer.find('.product-name').text(response.product.productName);
@@ -412,7 +406,6 @@ function handleVariantResponse(response, $productContainer) {
     //Update product pageDescription
     if (typeof response.product.pageDescription !== 'undefined' && response.product.pageDescription !== '' && response.product.pageDescription !== null) {
         $productContainer.find('.description .content').text(response.product.pageDescription);
-        // $productContainer.find('.bottom-detail-mobile').text(response.product.pageDescription);
     }
 
     //update wishlist icon    (not is ob)
@@ -468,24 +461,6 @@ function handleVariantResponse(response, $productContainer) {
         $('.google-pay-container').data('pid', response.product.id);
     }
 
-    // Update Product Long Description & Higlight Attributes   (not in Olivia Burton)
-    // if (response.product.longDescription !== 'undefined' && response.product.longDescription !== '' && response.product.longDescription !== null) {
-    //     $('.product-bottom-detail').html(response.product.longDescription);
-    // } else {
-    //     $('.product-bottom-detail').html(response.product.shortDescription);
-    // }
-
-    // Update Product Higlight Attributes                      (not in Olivia Burton)
-    // if (response.product.productDetailAttribute1 !== 'undefined' && response.product.productDetailAttribute1 !== '' && response.product.productDetailAttribute1 !== null) {
-    //     $('.product-detail-attribute-1').html(response.product.productDetailAttribute1);
-    // }
-    // if (response.product.productDetailAttribute2 !== 'undefined' && response.product.productDetailAttribute2 !== '' && response.product.productDetailAttribute2 !== null) {
-    //     $('.product-detail-attribute-2').html(response.product.productDetailAttribute2);
-    // }
-    // if (response.product.productDetailAttribute3 !== 'undefined' && response.product.productDetailAttribute3 !== '' && response.product.productDetailAttribute3 !== null) {
-    //     $('.product-detail-attribute-3').html(response.product.productDetailAttribute3);
-    // }
-
     //update pdp Detailed Attributes
     var $detailsArray = response && response.product ? response.product.pdpDetailedAttributes : null;
     $('.product-attributes .details-img').find('img').attr('src', response.product && response.product.images && response.product.images.pdp533[2] && response.product.images.pdp533[2].url ? response.product.images.pdp533[2].url : response.product && response.product.images && response.product.images.pdp533[1] && response.product.images.pdp533[1].url ? response.product.images.pdp533[1].url : response.product && response.product.images && response.product.images.pdp533[0] && response.product.images.pdp533[0].url ? response.product.images.pdp533[0].url : '');
@@ -512,65 +487,11 @@ function handleVariantResponse(response, $productContainer) {
 
     // unslick Carousel
     $('.primary-images .main-ob-carousel').slick('unslick');
-    // $('.primary-images .carousel-nav').slick('unslick');
-    // $('.zoom-carousel').slick('unslick');
-    // $('.zoom-carousel-slider').slick('unslick');
-
-
-    // Update primary images (Movado base)
-    // var $primaryImageUrls = response.product.images;
-    // $primaryImageUrls.pdp533.forEach(function (imageUrl, idx) {
-    //     $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
-    //         .attr('src', imageUrl.url);
-    //     $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
-    //         .attr('srcset', imageUrl.url);
-    //     $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
-    //         .attr('srcset', imageUrl.url);
-    // });
-
-    // Update primary images
-    // var primaryImageUrls = response.product.images;
-    // primaryImageUrls.pdp533.forEach(function (imageUrl, idx) {
-    //     $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
-    //         .attr('src', imageUrl.url);
-    //     $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source').eq(idx)
-    //         .attr('srcset', imageUrl.url);
-    // });
-
-    // Update primary images indicators (Movado base)
-    // var $primaryImageindiCatorsUrls = response.product.images;
-    // $primaryImageindiCatorsUrls.tile150.forEach(function (imageUrl, idx) {
-    //     $productContainer.find('.primary-images .carousel-nav').find('img').eq(idx)
-    //         .attr('src', imageUrl.url);
-    //     $productContainer.find('.primary-images .carousel-nav').find('picture source:nth-child(1)').eq(idx)
-    //         .attr('srcset', imageUrl.url);
-    //     $productContainer.find('.primary-images .carousel-nav').find('picture source:nth-child(2)').eq(idx)
-    //         .attr('srcset', imageUrl.url);
-    // });
 
     var primaryImageUrls = response.product.images;
     $('.pdp-images-carousel-removal').remove();
     $('.zoom-modal').remove();
     $('.pdp-images-carousel-addition').prepend(response.pdpCarouselImages);
-
-    // Update model primary images
-    // var $ZoomCarousel = $('.zoom-carousel');
-    // $ZoomCarousel.empty();
-    // var $primaryImageZoomUrls = response.product.images;
-    // $primaryImageZoomUrls.zoom1660.forEach(function (imageUrl) {
-    //     $ZoomCarousel.append('<div class="carousel-tile zoomit" data-thumb="' + imageUrl.url + '"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom" src="' + imageUrl.url + '" alt="Coronada Ceramic" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
-    // });
-
-    // // Update model primary images indicators
-    // var primaryImageZoomIndicatorsUrls = response.product.images;
-    // primaryImageZoomIndicatorsUrls.tile150.forEach(function (imageUrl, idx) {
-    //     $productContainer.find('.zoom-carousel-nav').find('img').eq(idx)
-    //         .attr('src', imageUrl.url);
-    //     $productContainer.find('.zoom-carousel-nav').find('picture source:nth-child(1)').eq(idx)
-    //         .attr('srcset', imageUrl.url);
-    //     $productContainer.find('.zoom-carousel-nav').find('picture source:nth-child(2)').eq(idx)
-    //         .attr('srcset', imageUrl.url);
-    // });
 
     // Update pricing
     if (!isChoiceOfBonusProducts) {
@@ -604,12 +525,6 @@ function handleVariantResponse(response, $productContainer) {
     // intialize carousel
     initializePrimarySlider();
     initializeZoom();
-    // initializePDPMainSlider();
-    // initializeSlickDots();
-    // initializeZoomSlickDots();
-    // initializeZoomModelCarousel();
-    // $('.main-carousel .slick-active').addClass('slick-center');
-
 
     $(document).ready(function () {
         var $availabilityWrapper = $('.product-availability .availability-msg').text();
@@ -783,8 +698,6 @@ function chooseBonusProducts(data) {
     });
 }
 
-
-
 /**
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
@@ -801,8 +714,8 @@ function handlePostCartAdd(response) {
             window.dispatchEvent(setAnalyticsTrackingByAJAX);
         }
         if(response.addCartGtmArray !== undefined){
-        	 $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
-        }	
+        	$('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
+        }
     }
 
     if (response.newBonusDiscountLineItem
@@ -919,13 +832,8 @@ module.exports = {
         }
     },
     colorAttribute: function () {
-        // $(document).on('click', '[data-attr="color"] a', function (e) {
         $(document).off('click', '.main-variation-attribute[data-attr="color"] a').on('click', '.main-variation-attribute[data-attr="color"] a', function (e) {
             e.preventDefault();
-
-            // if ($(this).attr('disabled')) {
-            //     return;
-            // }
 
             if ($(this).attr('disabled') || $(this).hasClass('active')) {
                 return;
@@ -942,22 +850,6 @@ module.exports = {
             attributeSelect(e.currentTarget.href, $productContainer);
         });
     },
-
-    // selectAttribute: function () {
-    //     var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"] .select-variation-product';
-    //     $(document).off('change', selector);
-    //     $(document).on('click', selector, function (e) {
-    //         e.preventDefault();
-
-    //         var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
-
-    //         var $productContainer = $(this).closest('.set-item');
-    //         if (!$productContainer.length) {
-    //             $productContainer = $(this).closest('.product-detail');
-    //         }
-    //         attributeSelect(value, $productContainer);
-    //     });
-    // },
 
     selectAttribute: function () {
         var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';

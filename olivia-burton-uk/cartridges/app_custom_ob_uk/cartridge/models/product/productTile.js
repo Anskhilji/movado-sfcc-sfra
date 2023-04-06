@@ -21,7 +21,7 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
  */
 function getProductSearchHit(apiProduct) {
     var searchModel = new ProductSearchModel();
-    if(!empty(apiProduct)) {
+    if (!empty(apiProduct)) {
         searchModel.setSearchPhrase(apiProduct.ID);
         searchModel.search();
     }
@@ -53,7 +53,6 @@ function getProductSearchHit(apiProduct) {
  * @returns {Object} - Decorated product model
  */
 module.exports = function productTile(product, apiProduct, productType, params, productSetStockAvailabilityModel, factory) {
-    // baseProductTile.call(this, product, apiProduct, productType, params);
     var productSearchHit = getProductSearchHit(apiProduct);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
@@ -107,23 +106,8 @@ module.exports = function productTile(product, apiProduct, productType, params, 
         decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel, productSetStockAvailabilityModel);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
-        // var options = productHelper.getConfig(apiProduct, 'OBJSAN03');
         decorators.variationsAttributes(product, options.variationModel, {
             attributes: '*',
             endPoint: 'Variation'
@@ -175,7 +159,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
                                         'quantity',
                                         '1'
                                         ).toString();
-    
+
                                 colorVariations.values[key].pdpURL = URLUtils.url(
                                         'Product-Show',
                                         'pid',
@@ -183,7 +167,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
                                         'dwvar_' + productId + '_color',
                                         colorVariations.values[key].id
                                         ).toString();
-    
+
                                 if (!empty(variationParam) && !empty(variationParamValue)) {
                                     colorVariations.values[key].swatchesURL = URLUtils.url(
                                             'Product-Variation',
@@ -196,7 +180,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
                                             'quantity',
                                             '1'
                                             ).toString();
-    
+
                                     colorVariations.values[key].pdpURL = URLUtils.url(
                                             'Product-Show',
                                             'pid',
@@ -272,7 +256,6 @@ module.exports = function productTile(product, apiProduct, productType, params, 
             var variant = apiProduct.variationModel.defaultVariant;
             if (!empty(variant) && !empty(variant.custom)) {
                 Object.keys(varAttr).forEach(function (key) {
-                    // if (variant.custom.color == varAttr[key].id || variant.custom.productName == varAttr[key].id) {
                     if (variant.custom.color == varAttr[key].id) {
                         defaultVariantImage = !empty(varAttr[key].largeImage) ? varAttr[key].largeImage.url : '';
                         variationPdpURL = !empty(varAttr[key].pdpURL) ? varAttr[key].pdpURL : '';
@@ -416,22 +399,6 @@ module.exports = function productTile(product, apiProduct, productType, params, 
     } catch (e) {
         Logger.error('Variation exception: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var collectionName = productCustomHelper.getCollectionName(apiProduct);

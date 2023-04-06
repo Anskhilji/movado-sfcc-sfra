@@ -169,7 +169,6 @@
 
                             <iscomment> Custom Start: [MSS-1954] Added A/B Test for ATC Button Variation </iscomment>
                             <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','Control')}" > 
-                            <p>HamzaOB1</p>
                                 <div class="${product.available ? "add-to-cart-actions " : ""}">
                                     <!-- Cart and [Optionally] Apple Pay -->
                                     <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
@@ -184,7 +183,6 @@
                                     <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                 </div>
                             <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','render-sticky-cta')}" />
-                            <p>HamzaOB2</p>
                                 <div class="${product.available ? "add-to-cart-actions d-none d-sm-block" : ""}">
                                     <!-- Cart and [Optionally] Apple Pay -->
                                     <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
@@ -199,13 +197,11 @@
                                     <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                 </div>
                             <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','render-static-cta')}" /> 
-                            <p>HamzaOB3</p>
                                 <div class="${product.available ? "add-to-cart-actions " : ""}">
                                     <!-- Cart and [Optionally] Apple Pay -->
                                     <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                 </div>
                             <iselse/>
-                            <p>HamzaOB4</p>
                                 <div class="${product.available ? "add-to-cart-actions " : ""}">
                                     <!-- Cart and [Optionally] Apple Pay -->
                                     <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
