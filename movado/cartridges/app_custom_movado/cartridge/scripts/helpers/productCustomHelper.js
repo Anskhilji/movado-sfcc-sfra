@@ -210,10 +210,10 @@ function getProductCategoryForGiftBox(apiProduct) {
         if (!empty(apiProduct) && apiProduct.primaryCategory != null) {
             if (!empty(apiProduct.primaryCategory)) {
                 currentPrimaryCategory = apiProduct.primaryCategory;
-                productPrimaryCategory = currentPrimaryCategory.ID;
+                productPrimaryCategory = apiProduct.primaryCategory.ID;
 
                 while (currentPrimaryCategory.parent != null) {
-                    if (currentPrimaryCategory.parent.ID == 'root') {
+                    if (currentPrimaryCategory.parent.ID === Constants.ROOT_CATEGORY) {
                         currentPrimaryCategory = currentPrimaryCategory.ID;
                         break;
                     }
@@ -225,7 +225,7 @@ function getProductCategoryForGiftBox(apiProduct) {
         if (!empty(apiProduct)) {
             apiCategories = apiProduct.getOnlineCategories();
             
-            if (!empty(apiCategories)) {
+            if (!empty(apiCategories) && apiCategories.length) {
                 for (var i = 0; i < apiCategories.length; i++) {
                     currentCategory = apiCategories[i];
                     currentCategoryID = apiCategories[i].ID;
@@ -233,7 +233,7 @@ function getProductCategoryForGiftBox(apiProduct) {
 
                     if (!empty(currentCategory)) {
                         while (currentCategory.parent != null) {
-                            if (currentCategory.parent.ID === 'root') {
+                            if (currentCategory.parent.ID === Constants.ROOT_CATEGORY) {
                                 currentCategory = currentCategory.ID;
                                 break;
                             }
@@ -300,22 +300,30 @@ function getGiftBoxSKU(apiProduct) {
                 break;
             } else if (productParentCategory && productParentCategory === currentGiftBoxCategorySKUPair[0]) {
                 giftBoxSKU = currentGiftBoxCategorySKUPair[1];
-            } else if (assignedCategoriesArray) {
-                for (var i = 0; i < assignedCategoriesArray.length; i++) {
-                    var assignedCategory = assignedCategoriesArray[i];
+            }
+        }
 
-                    if (assignedCategory && assignedCategory === currentGiftBoxCategorySKUPair[0]) {
-                        giftBoxSKU = currentGiftBoxCategorySKUPair[1];
-                        break;
-                    } 
-                }
-            } else if (parentCategoriesArray) {
-                for (var i = 0; i < parentCategoriesArray.length; i++) {
-                    var assignedParentCategory = parentCategoriesArray[i];
+        if (empty(giftBoxSKU)) {
+            for (var giftBoxCategorySKUPair = 0; giftBoxCategorySKUPair < giftBoxCategorySKUPairArray.length; giftBoxCategorySKUPair++) {
+                currentGiftBoxCategorySKUPair = giftBoxCategorySKUPairArray[giftBoxCategorySKUPair].split('|');
 
-                    if (assignedParentCategory && assignedParentCategory === currentGiftBoxCategorySKUPair[0]) {
-                        giftBoxSKU = currentGiftBoxCategorySKUPair[1];
-                        break;
+                if (assignedCategoriesArray.length) {
+                    for (var i = 0; i < assignedCategoriesArray.length; i++) {
+                        var assignedCategory = assignedCategoriesArray[i];
+    
+                        if (assignedCategory && assignedCategory === currentGiftBoxCategorySKUPair[0]) {
+                            giftBoxSKU = currentGiftBoxCategorySKUPair[1];
+                            break;
+                        } 
+                    }
+                } else if (parentCategoriesArray.length) {
+                    for (var i = 0; i < parentCategoriesArray.length; i++) {
+                        var assignedParentCategory = parentCategoriesArray[i];
+    
+                        if (assignedParentCategory && assignedParentCategory === currentGiftBoxCategorySKUPair[0]) {
+                            giftBoxSKU = currentGiftBoxCategorySKUPair[1];
+                            break;
+                        }
                     }
                 }
             }
