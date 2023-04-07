@@ -2324,38 +2324,3 @@
 
     }
 }
-
-.product-size-options {
-    position: relative;
-    background-size: cover;
-
-    &.active {
-        border-color: $black;
-        background: $white-gray;
-        background-size: cover;
-    }
-
-    &.disabled {
-        cursor: not-allowed;
-
-        span {
-            &:before {
-                content: "";
-                position: absolute;
-                background: $black;
-                left: rem(18);
-                top: rem(1);
-                width: rem(2);
-                height: rem(36);
-                transform: rotate(45deg);
-            }
-
-            &:after {
-                content: "";
-                position: absolute;
-                background: $black;
-            }
-        }
-
-    }
-}
