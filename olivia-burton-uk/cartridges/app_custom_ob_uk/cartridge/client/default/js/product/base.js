@@ -1,5 +1,4 @@
 'use strict';
-
 if(Resources.IS_CLYDE_ENABLED) {
     var clydeWidget = require('link_clyde/getClydeWidget.js');
 }
