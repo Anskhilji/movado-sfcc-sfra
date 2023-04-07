@@ -21,7 +21,7 @@
                     ${Resource.msg('button.addtocart', 'common', null)}
                 </isif>
         </button>
-        <button  class='add-to-cart tile-quick-view-btn plpToCart <isif condition="${product.isProductRestricted}">d-none</isif>' aria-label="Add to Cart" data-pid="${product.id}" ${!pdict.readyToOrder ? "disabled" : ""} >
+        <button  class='add-to-cart tile-quick-view-btn plpToCart <isif condition="${product.isProductRestricted}">d-none</isif>' aria-label="Add to Cart" data-plp-addtocart="true" data-pid="${product.id}" ${!pdict.readyToOrder ? "disabled" : ""} >
 
         </button>
         <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
