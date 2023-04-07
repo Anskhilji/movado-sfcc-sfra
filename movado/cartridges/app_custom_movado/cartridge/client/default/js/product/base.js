@@ -1405,7 +1405,8 @@ module.exports = {
                             var product = Clyde.getActiveProduct();
                             var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
                             if (hasContracts && clydeSettings.modal == true) {
-                                Clyde.showModal(null, clydeAddProductToCart($this));
+                                Clyde.showModal(null);
+                                clydeAddProductToCart($this)
                             } else {
                                 clydeAddProductToCart($this);
                             }
