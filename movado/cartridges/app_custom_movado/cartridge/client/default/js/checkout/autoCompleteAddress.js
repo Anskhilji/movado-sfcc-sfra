@@ -273,10 +273,9 @@ function fillInAddressBilling(){
       case "administrative_area_level_1": {
         if ($shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_US || $shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_CH) {
           if (billingState !== null) {
-            billingState.value =
-            component.short_name;
+            billingState.value = component.short_name;
             $('.billingState').addClass('is-valid');
-            $('.billingState ').removeClass('is-invalid');
+            $('.billingState').removeClass('is-invalid');
           } else {
             $('.billingState').removeClass('is-valid');
             $('.billingState').addClass('is-invalid');
@@ -288,10 +287,9 @@ function fillInAddressBilling(){
       case "administrative_area_level_2": {
         if ($shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
           if (billingCounty !== null) {
-            billingCounty.value =
-            component.short_name;
+            billingCounty.value = component.short_name;
             $('.billingState').addClass('is-valid');
-            $('.billingState ').removeClass('is-invalid');
+            $('.billingState').removeClass('is-invalid');
           } else {
             $('.billingState').removeClass('is-valid');
             $('.billingState').addClass('is-invalid');
