@@ -79,7 +79,7 @@ function fillInAddress(){
               $('.shippingZipCode').addClass('is-invalid');
           }
         } else if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
-          var $pattern = /^[A-Z]{1,2}[0-9RCHNQ][0-9A-Z]?\s?[0-9][ABD-HJLNP-UW-Z]{2}$|^[A-Z]{2}-?[0-9]{4}$/g
+          var $pattern = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/g
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
               $('.shippingZipCode').addClass('is-valid');
@@ -178,8 +178,8 @@ function fillInAddressBilling(){
   var postcodeBilling = "";
   var billingCounty = document.querySelector("#billingCounty");
   var billingState = document.querySelector("#billingState");
-  var billingCountry = document.querySelector("#billingCountry");
-  var shippingCountrydefault = document.querySelector("#shippingCountrydefault") ? document.querySelector("#shippingCountrydefault") : document.querySelector("#shippingCountry");
+  var $billingCountry = document.querySelector("#billingCountry");
+  var $shippingCountrydefault = document.querySelector("#shippingCountrydefault") ? document.querySelector("#shippingCountrydefault") : document.querySelector("#shippingCountry");
 
   
 
@@ -203,7 +203,7 @@ function fillInAddressBilling(){
       }
 
       case "postal_code": {
-        if (billingCountry.value == Resources.CHECKOUT_COUNTRY_US) {
+        if ($billingCountry.value == Resources.CHECKOUT_COUNTRY_US) {
           var $pattern = /^(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
@@ -213,8 +213,8 @@ function fillInAddressBilling(){
               $('.billingZipCode').removeClass('is-valid');
               $('.billingZipCode').addClass('is-invalid');
           }
-        } else if (billingCountry.value == Resources.CHECKOUT_COUNTRY_GB) {
-          var $pattern = /^[A-Z]{1,2}[0-9RCHNQ][0-9A-Z]?\s?[0-9][ABD-HJLNP-UW-Z]{2}$|^[A-Z]{2}-?[0-9]{4}$/g
+        } else if ($billingCountry.value == Resources.CHECKOUT_COUNTRY_GB) {
+          var $pattern = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/g
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
               $('.billingZipCode').addClass('is-valid');
@@ -223,7 +223,7 @@ function fillInAddressBilling(){
               $('.billingZipCode').removeClass('is-valid');
               $('.billingZipCode').addClass('is-invalid');
           }
-        } else if (billingCountry.value == Resources.CHECKOUT_COUNTRY_CH) {
+        } else if ($billingCountry.value == Resources.CHECKOUT_COUNTRY_CH) {
           var $pattern = /^(^[a-zA-Z0-9 ]+$)/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
@@ -271,7 +271,7 @@ function fillInAddressBilling(){
         break;
 
       case "administrative_area_level_1": {
-        if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_US || shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_CH) {
+        if ($shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_US || $shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_CH) {
           if (billingState !== null) {
             billingState.value =
             component.short_name;
@@ -286,7 +286,7 @@ function fillInAddressBilling(){
       }
 
       case "administrative_area_level_2": {
-        if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
+        if ($shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
           if (billingCounty !== null) {
             billingCounty.value =
             component.short_name;

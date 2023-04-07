@@ -355,7 +355,7 @@ $(document).ready(function() { // eslint-disable-line
     
                 }
             } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
-                var $pattern = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g
+                var $pattern = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/g
                 var $isValid = $pattern.test($value);
                 if ($isValid) {
                     $(this).addClass('is-valid');
