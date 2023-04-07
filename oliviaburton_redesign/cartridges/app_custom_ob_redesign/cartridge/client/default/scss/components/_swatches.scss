@@ -24,6 +24,13 @@
 
                 label {
                     display: block;
+                    color: $dark-gray;
+                    font-family: $font-gill-std-semibold;
+                    font-size: rem(15);
+                    font-weight: 600;
+                    letter-spacing: 0;
+                    line-height: rem(20);
+                    text-transform: unset;
                 }
 
                 .swatch-sec {
