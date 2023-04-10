@@ -1,14 +1,21 @@
-<nav class="navbar navbar-expand-lg movado-desktop-header bg-inverse col-12">
+<nav class="navbar navbar-expand-lg movado-desktop-header bg-inverse">
   <div class="close-menu clearfix hidden-lg-up">
     <a class="back" href="${'#'}" role="button">
       <span class="caret-left"></span>
       ${Resource.msg('link.header.menu.back', 'common', null)}
     </a>
     <a class="close-button" href="${'#'}" role="button">
-      ${Resource.msg('link.header.menu.close', 'common', null)}
+      <iscomment> ${Resource.msg('link.header.menu.close', 'common', null)} </iscomment>
       <span class="close-icon"></span>
+      <isslot id="brand-logo" description="Brand Logo" context="global" />
+        
     </a>
   </div>
+<div class="mobile-menu-search">
+ <div class="hidden-sm-down search">
+    <isinclude template="components/header/search" />
+  </div>
+</div>
   <div class="menu-group" aria-label="Main menu" role="navigation">
     <ul class="nav navbar-nav" role="menu">
       <isif condition="${pdict.categories}">
