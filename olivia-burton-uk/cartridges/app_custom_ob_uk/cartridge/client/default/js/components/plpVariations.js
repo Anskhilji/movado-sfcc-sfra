@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function () {
-    function handleVariantResponse(response, $productContainer, pdpURL) {
+    function handleVariantResponse(response, $productContainer, $pdpURL) {
         var $product = response.product;
         // Update primary images
         var primaryImageUrls = response.product.images;
@@ -8,7 +8,7 @@ module.exports = function () {
 
         $productContainer.find('.image-container .tile-picture-primary').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[0].url);
         $imageContainer.attr('src', primaryImageUrls.tile512Xtile640[0].url);
-        $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+        $productContainer.find('.image-container').find('a').attr('href', $pdpURL);
 
         // Update life style images
         if ($productContainer && primaryImageUrls && primaryImageUrls.tile512Xtile640[2] && primaryImageUrls.tile512Xtile640[2].url) {
@@ -51,16 +51,16 @@ module.exports = function () {
         var $productNameSelector = $productContainer.find('.product-name');
         if ($productNameSelector) {
             $productNameSelector.text(response.product.productName);
+            $productNameSelector.attr('href', $product.selectedProductUrl);
         }
         //Custom End
-        $productNameSelector.attr('href', $product.selectedProductUrl);
 
         var $productFamilyNameSelector = $productContainer.find('.product-family');
         if ($productFamilyNameSelector) {
             $productFamilyNameSelector.empty();
             $productFamilyNameSelector.append('<h3>' + response.product.collectionName + '</h3>');
+            $productFamilyNameSelector.attr('href', $product.selectedProductUrl);
         }
-        $productFamilyNameSelector.attr('href', $product.selectedProductUrl);
 
         var $exclusiveBadges = $productContainer.find('.product-tag-content .exclusive-badges');
         $exclusiveBadges.empty();
@@ -93,7 +93,7 @@ module.exports = function () {
             }
         }
 
-        var $variationPID = response.product.id;
+        var $variationPid = response.product.id;
         var $isVariationQantityExist = response.product.quantities;
         var $addToCartSelector = $productContainer.find('.cta-add-to-cart button.add-to-cart-plp-redesign');
         var $cartButtonContainer = $productContainer.find('button.add-to-cart-plp-redesign');
@@ -104,7 +104,8 @@ module.exports = function () {
             $cartButtonContainer.text(window.Resources.OUT_OF_STOCK_LABEL);
         }
 
-        $addToCartSelector.data('pid', $variationPID);
+        $addToCartSelector.data('pid', $variationPid);
+
         if ($isVariationQantityExist) {
             $addToCartSelector.removeClass('out-of-stock-btn');
             $addToCartSelector.prop('disabled', false);
@@ -114,8 +115,8 @@ module.exports = function () {
         }
         var $availibilityContainer = $productContainer.find('.mvmt-avilability');
         if ($availibilityContainer) {
-
             $availibilityContainer.hide();
+
             if (!response.product.available) {
                 $availibilityContainer.show();
                 $availibilityContainer.removeClass('d-none').css('display', 'inline');
@@ -150,14 +151,14 @@ module.exports = function () {
                 $productContainer.find('.color-swatches img.is-active').removeClass('is-active');
                 $('.color-swatches img').removeClass('is-active');
                 $(this).find('img.swatch-circle').addClass('is-active');
-                var selectedValueUrl = $(this).data('swatch-url');
-                var pdpURL = $(this).data('pdp-url');
+                var $selectedValueUrl = $(this).data('swatch-url');
+                var $pdpURL = $(this).data('pdp-url');
 
                 $.ajax({
-                    url: selectedValueUrl,
+                    url: $selectedValueUrl,
                     method: 'GET',
                     success: function (data) {
-                        handleVariantResponse(data, $productContainer, pdpURL);
+                        handleVariantResponse(data, $productContainer, $pdpURL);
                         setTimeout(function () {
                             $.spinner().stop();
                         }, 1500);

@@ -468,19 +468,19 @@ function handleVariantResponse(response, $productContainer) {
     if ($detailsArray) {
         var $maxCloumnItems = $detailsArray.length > 6 ? (response.product.pdpDetailedAttributes.length > 7 ? 6 : 5): 6;
         if ($maxCloumnItems > 0) {
-            var counter = 1;
+            var $counter = 1;
             for (var i = 0; i < $detailsArray.length; i++) {
-                if (counter == 1) {
+                if ($counter == 1) {
                     $('.product-attributes .details-list-height').append("<div class='details-list'>")
                 }
                 $('.product-attributes .details-list:last').append("<div class='attribute-detail'><span class='attribute-name'>"+ $detailsArray[i].displayName +"</span><h3 class='attribute-value'>"+ $detailsArray[i].value+"</h3></div>");
-                if (counter % $maxCloumnItems == 0 || $detailsArray.length == counter) {
+                if ($counter % $maxCloumnItems == 0 || $detailsArray.length == $counter) {
                     $('.product-attributes .details-list').append("</div>");
-                    if ($detailsArray.length != counter) {
+                    if ($detailsArray.length != $counter) {
                         $('.product-attributes .details-list-height').append("<div class='details-list'>");
                     }
                 }
-                counter = counter + 1;
+                $counter = $counter + 1;
             }
         }
     }
