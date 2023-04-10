@@ -16,7 +16,7 @@
     &.popup-modal {
         @include media-breakpoint-down(md) {
             position: fixed;
-            left: calc(#{$width} - #{$marginLeftlg});
+            left: calc(#{$width} - #{$marginLeftlg_xl});
         }
   
         @include media-breakpoint-down(sm) {
@@ -141,4 +141,603 @@ nav {
         }
       }
     }
+}
+// MSS-2220
+.new-header-deign {
+
+  .search-mobile {
+    display: none;
+  }
+
+  .main-menu-mobile {
+
+    &.main-menu {
+
+      &.menu-toggleable-left {
+
+        &.navbar-toggleable-sm {
+
+          &.in {
+            @include media-breakpoint-down(md) {
+              min-width: 30%;
+              width: rem(320);
+            }
+          }
+        }
+      }
+    }
+
+    .mobile-menu-search {
+
+      @include media-breakpoint-down(md) {
+        width: 100%;
+        padding: 0 rem(15);
+        margin-top: rem(15);
+        display: block;
+      }
+
+      .search-icon {
+
+        @include media-breakpoint-down(md) {
+            left: 0;
+            right: auto;
+            width: rem(17);
+            height: rem(17);
+            padding: 0;
+            top: rem(1);
+            z-index: 1;
+        }
+      }
+
+      .search-field {
+
+        @include media-breakpoint-down(md) {
+          height: rem(31);
+          border: 0;
+          border-bottom: rem(0.5) solid $black;
+          border-radius: 0 !important; //i'm using using important to overwrite css
+          padding: 0 0 rem(18) rem(29);
+          width: 100%;
+          opacity: 0.5;
+          color: $black;
+          font-size: rem(12);
+          letter-spacing: 0;
+          line-height: rem(13);
+        }
+
+        &::placeholder {
+
+          @include media-breakpoint-down(md) {
+            opacity: 0.5;
+            color: $black;
+            font-size: rem(12);
+            letter-spacing: 0;
+            line-height: rem(13);
+          }
+        }
+      }
+    }
+
+    .close-menu {
+
+      @include media-breakpoint-down(md) {
+          justify-content: center;
+          height: auto;
+          background-color: $white;
+          border: 0;
+          padding-top: rem(38);
+      }
+
+      .close-button {
+
+        @include media-breakpoint-down(md) {
+          top: rem(47);
+        }
+      }
+
+      .logo-link {
+
+        @include media-breakpoint-down(md) {
+          display: flex;
+          max-width: rem(135);
+        }
+
+        img {
+
+          @include media-breakpoint-down(md) {
+            width: rem(135);
+          }
+        }
+      }
+    }
+
+    .menu-group {
+
+      @include media-breakpoint-down(md) {
+        margin-top: rem(10);
+        padding: 0px rem(18) 0 rem(15);
+      }
+
+      .nav-item {
+
+        @include media-breakpoint-down(md) {
+          height: auto;
+          border-bottom: rem(1) solid rgba(160,160,160,0.2);
+        }
+
+        a {
+
+          @include media-breakpoint-down(md) {
+            color: $black;
+            font-family: $font-futura-demi;
+            font-size: rem(14);
+            font-weight: 300;
+            letter-spacing: 0;
+            line-height: rem(16);
+            padding: rem(21) 0;
+
+            &::after {
+
+              @include media-breakpoint-down(md) {
+                height: rem(8.33);
+                width: rem(5);
+                top: rem(25);
+                right: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .navbar-toggler {
+
+    @include media-breakpoint-down(md) {
+      align-items: inherit;
+    }
+  }
+
+  .hidden-md-down {
+    
+    @include media-breakpoint-down(md) {
+      display: block !important; //i'm using important to overwrite inline css
+      margin-left: 0;
+    }
+  }
+
+  .menu-text {
+
+    @include media-breakpoint-down(md) {
+      display: none !important; //i'm using important to overwrite inline css
+    }
+  }
+
+@media (max-width:991px) {
+  // display: none;
+}
+  .header-menu-wrapper {
+
+    .header-wrapper {
+
+      @include media-breakpoint-down(md) {
+        display: flex;
+        align-items: inherit;
+        width: 100%;
+        padding: rem(15) rem(17) 0px rem(13);
+      }
+
+      .main-menu-top {
+        height: rem(70);
+        padding: rem(13) rem(50) rem(13) rem(25);
+        background-color: $white;
+        display: flex;
+        align-items: center;
+
+        @include media-breakpoint-down (md) {
+          height: auto;
+          padding: 0;
+          width: 100%;
+        }
+
+        &:hover {
+          box-shadow: none;
+        }
+
+        .row {
+          position: inherit;
+
+          .col-lg-12 {
+            position: inherit;
+          }
+        }
+
+        .navbar-sec {
+
+          @include media-breakpoint-down(md) {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+          }
+
+
+          .menu-left {
+            align-items: center;
+
+            .brand-logo {
+              height: rem(43);
+              margin-left: rem(16);
+
+              @include custom-media-query-1440($large-screen-width-1440) {
+                margin-left: 0;
+              }
+
+              img {
+                width: rem(150);
+              }
+            }
+
+            .navbar {
+              margin-left: rem(43.5);
+              position: inherit;
+              padding-left: 0;
+              padding-right: 0;
+
+              .menu-group {
+
+                .navbar-nav {
+                  position: inherit;
+
+                  .nav-item {
+                    margin-right: rem(24);
+
+                    &:hover {
+                      box-shadow: none;
+                    }
+
+                    &:last-child {
+                      margin-right: 0;
+                    } 
+                    
+                    .nav-link {
+                      color: $black;
+                      font-family: $font-book-std;
+                      font-size: rem(12);
+                      font-weight: 300;
+                      letter-spacing: 0;
+                      line-height: rem(13);
+                      position: relative;
+                      padding-left: 0;
+                      padding-right: 0;
+                      padding-top: rem(29);
+                      padding-bottom: rem(28);
+                      background: transparent;
+                      text-transform: capitalize;
+
+                      &::after {
+                        content: "";
+                        height: rem(3);
+                        background: $black;
+                        bottom: 0;
+                        position: absolute;
+                        left: rem(-3);
+                        display: none;
+                        width: 100%;
+                      }
+
+                    }
+                    &:hover {
+                      
+                      .nav-link {
+                        &::after {
+                          display: block;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .menu-right {
+            margin-left: rem(140);
+
+            @include media-breakpoint-up(xl) {
+              margin-left: rem(90);
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+              margin-left: rem(140);
+            }
+
+            @include media-breakpoint-down(md) {
+              width: 100%;
+              margin-left: 0;
+            }
+
+            .right {
+              position: relative;
+
+              @include media-breakpoint-down(md) {
+                width: 100%;
+                margin: 0 rem(-17);
+              }
+
+              .search {
+
+                @include media-breakpoint-down(md) {
+                  width: 100%;
+                }
+
+                @include media-breakpoint-down(sm) {
+                  display: block !important; // i'm uusing important to overwrite inline css
+                }
+              }
+
+              .search-recomendation {
+                position: absolute;
+                top: rem(45);
+                border: 0;
+                background-color: $white;
+                box-shadow: 0 rem(4) rem(20) 0 $white-smoke5;
+                width: rem(355);
+                padding: rem(22)  rem(27) rem(40) rem(30);
+                height: auto;
+
+                .col-12 {
+                  padding: 0;
+                }
+
+                .search-suggestions {
+
+                  .recent-search {
+
+                    .category-slot {
+
+                      ul {
+                        margin-bottom: 0;
+                      }
+                    }
+                  }
+
+                  .category-slot {
+
+                    .carousel-title {
+                      padding-top: 0;
+                      opacity: 0.8;
+                      color: $black;
+                      font-family: $font-book-std;
+                      font-size: rem(10);
+                      font-weight: 300;
+                      letter-spacing: rem(1);
+                      line-height: rem(11);
+                      margin-bottom: rem(18);
+                    }
+
+                    ul {
+                      display: flex;
+                      align-items: center;
+                      flex-wrap: wrap;
+                      margin-bottom: rem(25);
+
+                      li {
+                        border-radius: 15px;
+                        background-color: $beige;
+                        padding: rem(0) rem(16);
+                        margin-bottom: rem(15);
+                        height: rem(26);
+                        display: flex;
+                        align-items: center;
+                        margin-right: rem(10);
+                        border-radius: rem(15);
+
+                        a {
+                          color: $black;
+                          font-size: rem(10);
+                          letter-spacing: 0;
+                          line-height: rem(10);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+
+              .search {
+
+                .site-search {
+                  height: rem(20);
+                  position: relative;
+                  margin-right: 0;
+
+                  &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: rem(-5);
+                    background: $light-black1;
+                    height: rem(0.5);
+                    width: rem(170);
+                  }
+
+                  @include media-breakpoint-down(md) {
+
+                    &::after {
+                      width: 100%;
+                      display: none;
+                    }
+                  }
+
+                  .search-icon {
+                    left: 0;
+                    padding-left: rem(0);
+                    right: auto;
+                    padding-bottom: 0;
+                    top: rem(5);
+                  }
+
+                  .search-field {
+                    width: rem(170);
+                    border: 0;
+                    border-radius: 0 !important; //i'm using important to overwrite inline css
+                    height: rem(20);
+                    padding: 0;
+                    padding-left: rem(23);
+
+                    @include media-breakpoint-down(md) {
+                      width: 100%;
+                      border-bottom: rem(0.5) solid $black;
+                      padding-bottom: rem(10);
+                    }
+
+                    &:focus {
+                      box-shadow: none;
+                    }
+
+                    &::placeholder {
+                      color: $black;
+                      font-size: rem(12);
+                      letter-spacing: 0;
+                      line-height: rem(13);
+                    }
+                  }
+                }
+              }
+            }
+
+            .left {
+
+              @include media-breakpoint-down(md) {
+                position: absolute;
+                top: rem(20);
+                right: rem(20);
+              }
+
+              .minicart {
+
+                @include media-breakpoint-down(md) {
+                  margin-top: rem(-10);
+                }
+                
+                .minicart-total {
+
+                  .minicart-icon {
+                    background: url(../images/sign-in-icon-updated.svg) center center no-repeat;
+                    width: rem(11);
+                    height: rem(12);
+                  }
+
+                  .minicart-quantity {
+                    top: rem(5);
+                    right: rem(-28);
+                    background: none;
+                    font-size: rem(12);
+                    letter-spacing: 0;
+                    line-height: rem(13);
+                    color: $black;
+
+                    @include media-breakpoint-down(md) {
+                      display: none;
+                    }
+                  }
+                }
+              }
+
+              .top-navbar-label {
+                height: auto;
+                line-height: unset;
+              }
+
+              .account-wrapper {
+                margin-left: rem(40);
+
+                @include media-breakpoint-down(md) {
+                  margin-top: rem(-5px);
+                }
+
+                .user {
+                  display: flex;
+                  flex-direction: row-reverse;
+
+                  a {
+                    margin-left: rem(40);
+                    
+                    .login-icon {
+                      background: url(../images/add-to-cart.svg) center center no-repeat;
+                      width: rem(12);
+                      height: rem(12);
+                    }
+
+                    .user-message {
+                      color: $black;
+                      font-size: rem(12);
+                      letter-spacing: 0;
+                      line-height: rem(13);
+                      margin-left: rem(2);
+                      
+                      @include media-breakpoint-down(md) {
+                        display: none;
+                      }
+                    }
+                  }
+
+                  .store-pickup-button {
+                    display: flex;
+                    align-items: center;
+                    line-height: unset;
+
+                    @include media-breakpoint-down(md) {
+                      display: none;
+                    }
+
+                    .pickup-store-popup-button {
+                      width: rem(12);
+                      height: rem(12);
+                    }
+
+                    .set-your-store {
+                      bottom: 0;
+                      color: $black;
+                      font-size: rem(12);
+                      letter-spacing: 0;
+                      line-height: rem(13);
+                      margin-left: rem(8);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.main-menu-desktop {
+
+  .mobile-menu-search {
+    display: none;
+  }
+
+  @media (max-width:992px) {
+    display: none;
+  }
+}
+
+.main-menu-mobile {
+  width: 100%;
+
+  @include media-breakpoint-down(md) {
+    width: unset;
+  }
+
+  &.main-menu {
+    display: none;
+  }
+
+  .movado-desktop-header {
+    width: 100%;
+  }
 }

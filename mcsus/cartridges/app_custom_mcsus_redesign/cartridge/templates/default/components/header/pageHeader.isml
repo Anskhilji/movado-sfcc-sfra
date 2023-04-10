@@ -9,14 +9,45 @@
   </isif>
   <iscomment> Custom End </iscomment>
   <nav>
-    <div class="sticky-header-wrapper">
+    <div class="sticky-header-wrapper new-header-deign">
       <div class="sticky-header-placeholder"></div>
       <div class="header-menu-wrapper">
         <div class="header-wrapper">
-          <div class="container-fluid header-menu-container">
-            <div class="row">
-              <div class="col-12 header-container">
-                <div class="left navbar-header">
+          <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse"
+                    aria-expanded="false">
+                    <i class="new-hamburger"></i>
+                    <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
+                    <span class="menu-text d-none d-md-inline-block d-lg-none">
+                      ${Resource.msg('link.header.menu', 'common', null)}
+                    </span>
+                  </button>
+          <div class="main-menu-top" >
+            <div class="container-fluid p-0">
+              <div class="row">
+               <div class="col-lg-12 p-0">
+                  <div class="navbar-sec d-flex">
+                    <div class="menu-left d-flex">
+                        <div class="brand-logo">
+                          <isslot id="brand-logo" description="Brand Logo" context="global" />
+                        </div>
+                       <div class="main-menu-desktop">
+                        <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                       </div>
+                    </div>
+
+                    <div class="menu-right d-flex">
+                      <div class="right">
+                          <div class="hidden-sm-down search">
+                            <isinclude template="components/header/search" />
+                          </div>
+                            <isif condition="${!isPickupStoreEnabled}">
+                              <div class="btn btn-store-locator">
+                                <iscontentasset aid="ca-header-locate-store" />
+                              </div>
+                           </isif>
+                      </div>
+
+                       <div class="left navbar-header">
                   <div class="hidden-md-down account-wrapper top-navbar-label">
                     <isinclude url="${URLUtils.url('Account-Header')}" />
                     <iscomment>Custom Start: Adding ESW Logic </iscomment>
@@ -33,40 +64,26 @@
                     </iscomment>
                     <iscomment> Custom End </iscomment>
                   </div>
-                  <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse"
-                    aria-expanded="false">
-                    <i class="new-hamburger"></i>
-                    <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
-                    <span class="menu-text d-none d-md-inline-block d-lg-none">
-                      ${Resource.msg('link.header.menu', 'common', null)}
-                    </span>
-                  </button>
-                  <isif condition="${!isPickupStoreEnabled}">
-                    <div class="btn btn-store-locator">
-                      <iscontentasset aid="ca-header-locate-store" />
+                
+                    <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                        <isinclude url="${URLUtils.url('Cart-MiniCart')}" />
                     </div>
-                  </isif>
                 </div>
-                <div class="middle">
-                  <isslot id="brand-logo" description="Brand Logo" context="global" />
-                </div>
-                <div class="right">
-                  <div class="hidden-sm-down search">
-                    <isinclude template="components/header/search" />
-                  </div>
-                  <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
-                    <isinclude url="${URLUtils.url('Cart-MiniCart')}" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="main-menu navbar-toggleable-sm menu-toggleable-left multilevel-dropdown menu-scroll-bar" id="sg-navbar-collapse">
-            <div class="container">
-              <div class="row">
+            <iscomment> mobile </iscomment>
+
+            <div class="main-menu-mobile main-menu navbar-toggleable-sm menu-toggleable-left multilevel-dropdown menu-scroll-bar" id="sg-navbar-collapse">
+              <div class="container">
+                <div class="row">
                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                </div>
               </div>
             </div>
+            <iscomment> end </iscomment>
           </div>
       </div>
     </div>
@@ -99,3 +116,7 @@
     </isif>
   </nav>
 </header>
+
+<iscomment>  Mobile menu </iscomment>
+
+

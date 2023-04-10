@@ -18,6 +18,9 @@
         <div class="col-12">
             <div class="search-suggestions">
                 <div>
+                    <isslot id="recent-search-product-name" description="Top Search Product Name" context="global" />
+                </div>
+                <div class="recent-search">
                     <isslot id="top-search-product-name" description="Top Search Product Name" context="global" />
                 </div>
                 <div>
