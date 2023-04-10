@@ -1,13 +1,14 @@
 'use strict';
 
 var baseProductTile = module.superModule;
+var ATTRIBUTE_NAME = 'color';
 
 var Logger = require('dw/system/Logger');
 var ProductSearchModel = require('dw/catalog/ProductSearchModel');
 var URLUtils = require('dw/web/URLUtils');
 
 var Constants = require('*/cartridge/scripts/util/Constants');
-var ATTRIBUTE_NAME = Constants.COLOR;
+
 var COLOR_WATCH = Constants.COLOR_WATCH;
 var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
