@@ -92,16 +92,20 @@
     </div>
     <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
 
-    <div class="search-suggestions">
-    <div>
-        <isslot id="recent-search-product-name" description="Top Search Product Name" context="global" />
+    <div class="suggestion-request">
+        <div class="search-recomendation ">
+            <div class="search-suggestions">
+                <div>
+                    <isslot id="recent-search-product-name" description="Top Search Product Name" context="global" />
+                </div>
+                <div class="recent-search">
+                    <isslot id="top-search-product-name" description="Top Search Product Name" context="global" />
+                </div>
+                <div>
+                    <isslot id="top-search-product" description="Top Search Product" context="global" />
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="recent-search">
-        <isslot id="top-search-product-name" description="Top Search Product Name" context="global" />
-    </div>
-    <div>
-        <isslot id="top-search-product" description="Top Search Product" context="global" />
-    </div>
-</div>
 </div>
 

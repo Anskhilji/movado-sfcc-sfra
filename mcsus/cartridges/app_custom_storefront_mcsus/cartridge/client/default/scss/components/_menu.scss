@@ -643,6 +643,19 @@ nav {
                 margin: 0 rem(-17);
               }
 
+              .suggestion-request {
+
+                .search-recomendation  {
+                  background: transparent;
+                  width: 100%;
+                  padding: 0;
+                  display: block !important;
+                  visibility: visible;
+                  box-shadow: none;
+                  position: inherit;
+                }
+              }
+
               .search {
 
                 @include media-breakpoint-down(md) {
