@@ -5,30 +5,57 @@
     .tile-body {
 
         .color-swatches {
-
+            margin-bottom: rem(10);
 
             .swatch-plus-box {
 
                 a {
                     &.square-swatch {
-                        width: rem(25.2);
-                        min-width: rem(25.2);
-                        height: rem(25.2);
-                        background: $white;
-                        border-radius: rem(12.6);
-                        border: rem(1) solid $grey-transparent-5;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        margin-right: rem(4.382);
-                        position: relative;
+                        margin-right: rem(10);
+                        display: inline-block;
+                        // width: rem(25.2);
+                        // min-width: rem(25.2);
+                        // height: rem(25.2);
+                        // background: $white;
+                        // border-radius: rem(12.6);
+                        // border: rem(1) solid $grey-transparent-5;
+                        // display: flex;
+                        // align-items: center;
+                        // justify-content: center;
+                        // position: relative;
+                        // overflow: hidden;
 
                         .swatch-counter {
-                            font-size: rem(12);
-                            font-weight: 500;
+                            font-size: rem(10);
+                            font-weight: 400;
                             color: $black;
                             font-family: $font-gill-std-semibold;
                             margin-right: 0;
+                            width: rem(20);
+                            min-width: rem(20);
+                            height: rem(20);
+                            border: rem(1) solid $gray-light-4;
+                            box-sizing: border-box;
+                            border-radius: 100%;
+                            color: $gray20;
+                            display: inline-block;
+                            cursor: pointer;
+                            letter-spacing: rem(0.5);
+                        }
+
+                        .swatch-circle {
+                            border: none;
+                            width: rem(20);
+                            min-width: rem(20);
+                            height: rem(20);
+                            margin-right: 0;
+                            border: rem(1) solid transparent;
+                            box-sizing: border-box;
+                            cursor: pointer;
+
+                            &.is-active {
+                                border-color: $black;
+                            }
                         }
                     }
                 }
