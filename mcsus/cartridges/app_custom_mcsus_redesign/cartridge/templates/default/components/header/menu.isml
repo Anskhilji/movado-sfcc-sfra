@@ -39,12 +39,12 @@
           </isif>
         </isloop>
       </isif>
-      <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
       <iscomment>Custom Start: Removing old country logic </iscomment>
       <iscomment>
       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
       </iscomment>
       <iscomment> Custom End </iscomment>
     </ul>
+    <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
   </div>
 </nav>

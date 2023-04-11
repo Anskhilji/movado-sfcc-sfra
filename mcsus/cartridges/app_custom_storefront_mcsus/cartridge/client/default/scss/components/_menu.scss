@@ -16,7 +16,7 @@
     &.popup-modal {
         @include media-breakpoint-down(md) {
             position: fixed;
-            left: calc(#{$width} - #{$marginLeftlg_xl});
+            left: calc(#{$width} - #{$marginLeftlg});
         }
   
         @include media-breakpoint-down(sm) {
@@ -145,6 +145,13 @@ nav {
 // MSS-2220
 .new-header-deign {
 
+  .sticky-header-placeholder {
+    
+    @include media-breakpoint-up(lg) {
+      height: rem(70);
+    }
+  }
+
   .search-mobile {
     display: none;
   }
@@ -158,9 +165,91 @@ nav {
         &.navbar-toggleable-sm {
 
           &.in {
+
             @include media-breakpoint-down(md) {
-              min-width: 30%;
-              width: rem(320);
+             width: 40%;
+              background-color: #f2eee6;
+            }
+
+            @include media-breakpoint-down(sm) {
+              width: calc(100% - 20px);
+            }
+
+            .search-recomendation  {
+              
+              @include media-breakpoint-down(md) {
+                width: calc(100% + 28px);
+                margin-right: 0;
+                background-color: $white;
+                height: 100vh;
+                margin-left: rem(-15);
+                border: 0;
+                padding: 0 rem(10) 0 rem(12);
+                top: 30px;
+                
+
+                .col-12 {
+
+                  @include media-breakpoint-down(md) {
+                    padding: 0;
+                  }
+                }
+
+                .carousel-title {
+
+                  @include media-breakpoint-down(md) {
+                    opacity: 0.8;
+                    color: $black;
+                    font-size: rem(10);
+                    font-weight: 300;
+                    letter-spacing: rem(1);
+                    line-height: rem(11);
+                    font-family: $font-book-std;
+                    margin-bottom: rem(18);
+                    padding-top: 0;
+                  }
+                }
+
+                ul {
+
+                 @include media-breakpoint-down(md) {
+                  display: flex;
+                  align-items: center;
+                  flex-wrap: wrap
+                 }
+
+                  li {
+
+                    @include media-breakpoint-down(md) {
+                      margin-right: rem(10);
+                      border: 0;
+                      height: rem(26);
+                      padding: 0;
+                      background: $beige;
+                      border-radius: rem(15);
+                      margin-bottom: rem(15);
+                      padding: 0 rem(16);
+                    }
+
+                    a {
+
+                      @include media-breakpoint-down(md) {
+                        color: $black;
+                        font-size: rem(10);
+                        letter-spacing: 0;
+                        line-height: rem(10);
+                      }
+                    }
+                  }
+                }
+              }
+
+              .recent-search {
+
+                @include media-breakpoint-down(md) {
+                  margin-top: rem(40);
+                }
+              }
             }
           }
         }
@@ -174,6 +263,13 @@ nav {
         padding: 0 rem(15);
         margin-top: rem(15);
         display: block;
+      }
+
+      .hidden-sm-down {
+
+        @include media-breakpoint-down(sm) {
+          display: block !important; // i'm using important to overwrite inine css
+        }
       }
 
       .search-icon {
@@ -203,6 +299,13 @@ nav {
           font-size: rem(12);
           letter-spacing: 0;
           line-height: rem(13);
+        }
+
+        &:focus {
+
+          @include media-breakpoint-down(md) {
+            box-shadow: none;
+          }
         }
 
         &::placeholder {
@@ -255,21 +358,58 @@ nav {
 
       @include media-breakpoint-down(md) {
         margin-top: rem(10);
-        padding: 0px rem(18) 0 rem(15);
+      }
+
+      .mobile-bottom {
+        background-color: #f2eee6;
+
+        .nav-item {
+          list-style: none;
+
+          &:hover {
+            background-color: transparent;
+          }
+        }
+
+        .nav-link {
+          font-family: $font-book-std;
+
+          .user-message {
+            font-weight: 300;
+            font-family: $font-book-std;
+          }
+
+          .stores-icon {
+            width: rem(17);
+            height: rem(14);
+            margin-right: rem(12);
+          }
+
+          .login-icon {
+            width: rem(19);
+            height: rem(20);
+            margin-right: rem(10);
+          }
+        }
       }
 
       .nav-item {
 
         @include media-breakpoint-down(md) {
           height: auto;
-          border-bottom: rem(1) solid rgba(160,160,160,0.2);
+          border-bottom: rem(1) solid $white-smoke6;
+          margin: 0px rem(18) 0 rem(15);
+        }
+
+        &:last-child {
+          border-bottom: 0;
         }
 
         a {
 
           @include media-breakpoint-down(md) {
             color: $black;
-            font-family: $font-futura-demi;
+            font-family: $font-book-std;
             font-size: rem(14);
             font-weight: 300;
             letter-spacing: 0;
@@ -324,7 +464,7 @@ nav {
         display: flex;
         align-items: inherit;
         width: 100%;
-        padding: rem(15) rem(17) 0px rem(13);
+        padding: rem(15) rem(17) rem(21) rem(13);
       }
 
       .main-menu-top {
@@ -342,6 +482,13 @@ nav {
 
         &:hover {
           box-shadow: none;
+        }
+
+        .site-search {
+
+          @include media-breakpoint-down(xs) {
+            margin-left: 0;
+          }
         }
 
         .row {
@@ -372,6 +519,10 @@ nav {
                 margin-left: 0;
               }
 
+              @include media-breakpoint-down(lg) {
+                margin-left: 0;
+              }
+
               img {
                 width: rem(150);
               }
@@ -380,16 +531,37 @@ nav {
             .navbar {
               margin-left: rem(43.5);
               position: inherit;
-              padding-left: 0;
-              padding-right: 0;
+              padding: 0;
+
+              @include media-breakpoint-down(lg) {
+                margin-left: rem(10);
+              }
 
               .menu-group {
 
                 .navbar-nav {
                   position: inherit;
 
+                  .dropdown-menu {
+                    width: 100%;
+                    margin-top: 0;
+
+                    .level-collection {
+
+                      .dropdown-menu {
+                        display: block;
+                        position: inherit;
+                      }
+                    }
+                  }
+
                   .nav-item {
-                    margin-right: rem(24);
+                    margin-right: rem(25);
+                    position: inherit;
+
+                    @include media-breakpoint-down(lg) {
+                      margin-right: rem(15);
+                    }
 
                     &:hover {
                       box-shadow: none;
@@ -451,9 +623,16 @@ nav {
               margin-left: rem(140);
             }
 
+            @include media-breakpoint-down(lg) {
+              margin-left: rem(30);
+            }
+
             @include media-breakpoint-down(md) {
               width: 100%;
               margin-left: 0;
+            }
+            .minicart {
+              margin-right: 0;
             }
 
             .right {
@@ -560,7 +739,7 @@ nav {
                     width: rem(170);
                   }
 
-                  @include media-breakpoint-down(md) {
+                  @include media-breakpoint-down(lg) {
 
                     &::after {
                       width: 100%;
@@ -574,6 +753,10 @@ nav {
                     right: auto;
                     padding-bottom: 0;
                     top: rem(5);
+
+                    @include media-breakpoint-down(lg) {
+                      top: 0;
+                    }
                   }
 
                   .search-field {
@@ -584,10 +767,14 @@ nav {
                     padding: 0;
                     padding-left: rem(23);
 
+                    @include media-breakpoint-down(lg) {
+                      width: rem(90);
+                      padding-bottom: rem(10);
+                      border-bottom: rem(0.5) solid $black;
+                    }
+
                     @include media-breakpoint-down(md) {
                       width: 100%;
-                      border-bottom: rem(0.5) solid $black;
-                      padding-bottom: rem(10);
                     }
 
                     &:focus {
@@ -651,6 +838,10 @@ nav {
               .account-wrapper {
                 margin-left: rem(40);
 
+                @include media-breakpoint-down(lg) {
+                  margin-left: rem(10);
+                }
+
                 @include media-breakpoint-down(md) {
                   margin-top: rem(-5px);
                 }
@@ -661,6 +852,8 @@ nav {
 
                   a {
                     margin-left: rem(40);
+                    display: flex;
+                    align-items: center;
                     
                     .login-icon {
                       background: url(../images/add-to-cart.svg) center center no-repeat;
@@ -685,6 +878,8 @@ nav {
                     display: flex;
                     align-items: center;
                     line-height: unset;
+                    height: rem(14);
+                    margin-top: rem(-5);
 
                     @include media-breakpoint-down(md) {
                       display: none;
@@ -728,6 +923,15 @@ nav {
 
 .main-menu-mobile {
   width: 100%;
+
+  .site-search {
+
+    @include media-breakpoint-down(sm) {
+      margin-left: 0;
+      margin-top: rem(21);
+      margin-bottom: 0;
+    }
+  }
 
   @include media-breakpoint-down(md) {
     width: unset;
