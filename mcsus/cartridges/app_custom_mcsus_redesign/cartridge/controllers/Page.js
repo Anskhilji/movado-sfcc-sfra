@@ -7,7 +7,6 @@ server.extend(page);
 
 var ABTestMgr = require('dw/campaign/ABTestMgr');
 
-
 server.replace(
     'IncludeHeaderMenu',
     server.middleware.include,
@@ -20,12 +19,13 @@ server.replace(
             siteRootCategory.getOnlineSubCategories() : null;
         var menuTemplate = null;
         
-        // A/B testing for header design
-        if (ABTestMgr.isParticipant('MCSHeaderRedesign','render-new-design')) {
+        // Custom Start: A/B Test for Header Redesign
+        if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
             menuTemplate = '/components/header/menu';
         } else {
             menuTemplate = '/components/header/old/menu';
         }
+        // Custom End
 
         res.render(menuTemplate, new Categories(topLevelCategories));
         next();
@@ -40,11 +40,13 @@ server.get(
 
         var headerTemplate = null;
 
-        if (ABTestMgr.isParticipant('MCSHeaderRedesign','render-new-design')) {
+        // Custom Start: A/B Test for Header Redesign
+        if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
             headerTemplate = '/components/header/pageHeader';
         } else {
             headerTemplate = '/components/header/old/pageHeader';
         }
+        // Custom End
 
         res.render(headerTemplate);
         next();

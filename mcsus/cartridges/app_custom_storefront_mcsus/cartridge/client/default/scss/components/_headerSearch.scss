@@ -207,6 +207,21 @@
     .category-parent {
         font-size: rem(16);
     }
+
+    &.suggestions-dropdown {
+        width: rem(355);
+        padding: rem(22) rem(27) rem(40) rem(30);
+        height: auto;
+        left: 0;
+
+        &::before {
+            content: none;
+        }
+
+        &::after {
+            content: none;
+        }
+    }
 }
 
 
