@@ -542,17 +542,97 @@ nav {
                 .navbar-nav {
                   position: inherit;
 
+                  &.lv1 {
+
+                    .dropdown-menu {
+                      display: block !important;
+
+                      .dropdown-best-Seller {
+                          max-width: rem(550);
+                          width: 100%;
+
+                          .mcs-product-carousel-redesign {
+                            
+                              .mcs-product-carousel-container {
+                                  padding: 0 rem(15);
+                                  
+
+                                  .product-tile {
+
+                                      .image-container {
+                                          min-width: rem(266);
+                                          min-height: rem(266);
+                                      }
+                                  }
+                              }
+                          } 
+                      }
+                    }
+                  }
+
                   .dropdown-menu {
                     width: 100%;
                     margin-top: 0;
 
-                    .level-collection {
+                    .menu-pane {
 
-                      .dropdown-menu {
-                        display: block;
-                        position: inherit;
-                      }
+                        .lv2 {
+
+                            > .dropdown-item {
+                                background-color: transparent;
+
+                                .dropdown-link {
+                                  color: $grey-transparent-8;
+                                  font-family: $font-book-std;
+                                  font-size: rem(12);
+                                  font-weight: 300;
+                                  letter-spacing: rem(2);
+                                  line-height: rem(13);
+                                  text-transform: uppercase;
+                                  margin-bottom: rem(25);
+                                  display: inline-block;
+                                }
+                            }
+                        }
                     }
+
+                      .level-collection {
+
+                          .dropdown-menu {
+                                display: block;
+                                position: inherit;
+                                border: none;
+                                padding: 0;
+
+                                .lv3 {
+                                  margin: 0;
+                                  padding: 0;
+
+                                    > .dropdown-item {
+                                        padding: 0;
+
+                                        &:not(:last-of-type) {
+                                            .dropdown-link {
+                                              margin-bottom: rem(25);
+                                            }
+                                        }
+
+                                        &:hover {
+                                            background-color: transparent;
+                                        }
+                                        
+                                        .dropdown-link {
+                                          color: $black;
+                                          font-size: rem(14);
+                                          font-weight: 300;
+                                          letter-spacing: 0;
+                                          line-height: rem(16);
+                                          text-transform: unset;
+                                        }
+                                    }
+                                }
+                          }
+                      }
                   }
 
                   .nav-item {
