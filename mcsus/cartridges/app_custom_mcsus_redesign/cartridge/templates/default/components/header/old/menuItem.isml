@@ -1,21 +1,17 @@
 <isif condition="${!topCat.disableSubCategories}">
     <div class="dropdown-menu" role="menu" aria-hidden="true">
-        <div class="d-flex justify-content-center w-100" >
-            <div class="menu-pane">
-            <ul class="lv2">
+        <div class="menu-pane">
+            <ul>
                 <isloop items="${menuItem.subCategories}" var="category">
                     <isif condition="${category.subCategories}">
                         <li class="dropdown-item dropdown <isif condition="${category.subCategories}"> third-level-category</isif>" role="menuitem">
-                            <a href="${category.url}" class="dropdown-link dropdown-toggle lv2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
+                            <iscomment> <a href="${category.url}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a> </iscomment>
                             <isset name="categoryItem" value="${category}" scope="page"/>
-                            <isinclude template="components/header/menuItemList"/>
+                            <isinclude template="components/header/old/menuItemList"/>
                         </li>
                     <iselse/>
                         <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                            <a href="${category.url}" role="button" class="dropdown-link lv2" >${category.name}</a>
-                            <div class="level-collection">
-                                <isinclude template="components/header/menuItemList"/>
-                            </div>
+                            <a href="${category.url}" role="button" class="dropdown-link" >${category.name}</a>
                         </li>
                     </isif>
                 </isloop>
@@ -26,7 +22,7 @@
                         <li class="dropdown-item dropdown" role="menuitem" >
                             <a href="${category.url}" id="${category.id+'list'}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
                             <isset name="categoryItem" value="${category}" scope="page"/>
-                            <isinclude template="components/header/menuItemList"/>
+                            <isinclude template="components/header/old/menuItemList"/>
                         </li>
                     </ul>
                 </isif>
@@ -37,9 +33,5 @@
                 <isprint value="${topCat.headerMenuBanner}" encoding="off"/>
             </div>
         </isif>
-        <div class="dropdown-best-Seller">
-            <isslot id="cs-dropdown-bestSeller" description="Featured products content." context="global" />
-        </div>
-        </div>
     </div>
 </isif>

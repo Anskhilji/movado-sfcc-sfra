@@ -1,9 +1,9 @@
 <div class="dropdown-menu" role="menu" aria-hidden="true">
   <ul class="lv3">
-    <iscomment> <isloop items="${categoryItem.subCategories}" var="category"> </iscomment>
+    <isloop items="${categoryItem.subCategories}" var="category">
       <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-        <a href="${category.url}" role="button" class="dropdown-link lv3">${category.name} usman</a>
+        <a href="${category.url}" role="button" class="dropdown-link lv3">${category.name}</a>
       </li>
-    <iscomment> </isloop> </iscomment>
+    </isloop>
   </ul>
 </div>
