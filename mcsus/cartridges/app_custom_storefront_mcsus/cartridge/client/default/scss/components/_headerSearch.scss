@@ -215,6 +215,7 @@
         left: 0;
         top: rem(25);
         border-radius: 0;
+        box-shadow: 0 rem(4) rem(20) 0 $white-smoke5;
 
         @include media-breakpoint-down(xs) {
             flex-direction: column;

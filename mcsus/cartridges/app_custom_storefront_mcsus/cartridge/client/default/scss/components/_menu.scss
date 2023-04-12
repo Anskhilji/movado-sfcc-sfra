@@ -309,6 +309,13 @@ nav {
         @include media-breakpoint-down(sm) {
           display: block !important; // i'm using important to overwrite inine css
         }
+
+        .site-search {
+
+          @include media-breakpoint-down(md) {
+            margin-top: 0;
+          }
+        }
       }
 
       .search-icon {
@@ -331,7 +338,7 @@ nav {
           border: 0;
           border-bottom: rem(0.5) solid $black;
           border-radius: 0 !important; //i'm using using important to overwrite css
-          padding: 0 0 rem(18) rem(29);
+          padding: 0 0 rem(14) rem(29);
           width: 100%;
           opacity: 0.5;
           color: $black;
@@ -475,6 +482,15 @@ nav {
 
     @include media-breakpoint-down(md) {
       align-items: inherit;
+      padding: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .new-hamburger {
+      background: url(../images/hammer-new.png) center center no-repeat;
+      width: 25px;
+      height: 25px;
     }
   }
 
@@ -569,8 +585,21 @@ nav {
                 margin-left: 0;
               }
 
+              @include media-breakpoint-down(md) {
+                max-width: rem(104);
+                height: rem(36);
+              }
+
+              @include media-breakpoint-down(xs) {
+                margin-right: rem(25);
+              }
+
               img {
                 width: rem(150);
+              }
+
+              @include media-breakpoint-down(md) {
+                width: rem(104);
               }
             }
 
@@ -721,6 +750,14 @@ nav {
                     margin-right: rem(25);
                     position: inherit;
 
+                    @include media-breakpoint-up(xl) {
+                      margin-right: rem(20);
+                    }
+
+                    @include custom-media-query-1440($large-screen-width-1440) {
+                      margin-right: rem(25);
+                    }
+
                     @include media-breakpoint-down(lg) {
                       margin-right: rem(15);
                     }
@@ -807,7 +844,8 @@ nav {
 
               @include media-breakpoint-down(md) {
                 width: 100%;
-                margin: 0 rem(-17);
+                margin: 0 rem(-10);
+                margin-top: rem(15);
               }
 
               .suggestion-request {
@@ -844,7 +882,7 @@ nav {
               .search {
 
                 @include media-breakpoint-down(md) {
-                  width: 100%;
+                  width: calc(100% - 3px);
                 }
 
                 @include media-breakpoint-down(sm) {
@@ -1003,6 +1041,10 @@ nav {
                 @include media-breakpoint-down(md) {
                   margin-top: rem(-10);
                 }
+
+                @include media-breakpoint-down(sm) {
+                  margin-top: 0;
+                }
                 
                 .minicart-total {
 
@@ -1010,6 +1052,11 @@ nav {
                     background: url(../images/sign-in-icon-updated.svg) center center no-repeat;
                     width: rem(11);
                     height: rem(12);
+
+                    @include media-breakpoint-down(md) {
+                      height: rem(16);
+                      width: rem(14);
+                    }
                   }
 
                   .minicart-quantity {
@@ -1057,6 +1104,12 @@ nav {
                       background: url(../images/add-to-cart.svg) center center no-repeat;
                       width: rem(12);
                       height: rem(12);
+
+                      @include media-breakpoint-down(md) {
+                        background: url(../images/sign-in-icon.svg) center center no-repeat;
+                        width: rem(19);
+                        height: rem(18);
+                      }
                     }
 
                     .user-message {
@@ -1064,7 +1117,11 @@ nav {
                       font-size: rem(12);
                       letter-spacing: 0;
                       line-height: rem(13);
-                      margin-left: rem(2);
+                      margin-left: rem(8);
+                      text-overflow: ellipsis;
+                      max-width: rem(67);
+                      white-space: nowrap;
+                      overflow: hidden;
                       
                       @include media-breakpoint-down(md) {
                         display: none;
@@ -1095,6 +1152,10 @@ nav {
                       letter-spacing: 0;
                       line-height: rem(13);
                       margin-left: rem(8);
+                      max-width: 72px;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
                     }
                   }
                 }
