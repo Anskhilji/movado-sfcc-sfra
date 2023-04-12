@@ -168,7 +168,7 @@ nav {
 
             @include media-breakpoint-down(md) {
              width: 40%;
-              background-color: #f2eee6;
+              background-color: $white-smoke7;
             }
 
             @include media-breakpoint-down(sm) {
@@ -268,6 +268,11 @@ nav {
 
       .suggestions-wrapper {
 
+        @include media-breakpoint-down(md) {
+          width: calc(100% + 9px);
+          background: $white;
+        }
+
         .suggestions-dropdown {
         
           &.suggestions {
@@ -278,6 +283,9 @@ nav {
               height: 100vh;
               background: $white;
               position: inherit;
+              box-shadow: none;
+              flex-direction: unset;
+              top: rem(25);
             }
 
             .term {
@@ -408,7 +416,7 @@ nav {
       }
 
       .mobile-bottom {
-        background-color: #f2eee6;
+        background-color: $white-smoke7;
 
         .nav-item {
           list-style: none;
