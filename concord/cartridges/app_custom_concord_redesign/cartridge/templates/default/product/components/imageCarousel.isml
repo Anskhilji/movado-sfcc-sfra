@@ -18,6 +18,15 @@
       <div class="js-carousel main-carousel main-carousel-movado traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['pdp600']}" var="image" status="loopStatus">
+                <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                    <div class="text-center">
+                        <div class="carousel-tile w-100 d-inline-block poster-frame-video ${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) ? 'video' : ''}" data-thumb="${!empty(product) && !empty(product.posterFrame) &&  product.posterFrame.url ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}">
+                            <video id="slide-video" class="slide-video d-block" loop muted autoplay playsinline>
+                                <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                            </video>
+                        </div>
+                    </div>
+                </isif>
               <div class="carousel-tile">
                   <picture>
                       <source media="(min-width: 992px)" srcset="${product.images.pdp600[loopStatus.count-1].url}" />
@@ -36,6 +45,16 @@
       <iscomment>Added pagination slider</iscomment>
       <div class="carousel-nav" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isloop items="${product.images['tile150']}" var="image" status="loopStatus">
+                <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                  <div class="carousel-tile"> 
+                      <picture>
+                          <source media="(min-width: 992px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
+                          <source media="(max-width: 991px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
+                          <img class="carousel-indicator-image" src="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" alt="${product.posterFrame.alt}" itemprop="image" />
+                          <isset name="isImageExist" value="true" scope="page" />
+                      </picture>
+                    </div>
+              </isif>
               <div class="carousel-tile">
                   <picture>
                       <source media="(min-width: 992px)" srcset="${product.images.tile150[loopStatus.count-1].url}" />
@@ -58,7 +77,6 @@
       </isif>
   </isif>
 </div>
-
 <iscomment> Zoom Modal </iscomment>
 <div class="modal fade zoom-modal" id="zoomProduct" role="dialog">
     <div class="modal-dialog">

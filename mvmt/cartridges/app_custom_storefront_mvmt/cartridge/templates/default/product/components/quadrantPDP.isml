@@ -7,6 +7,15 @@
     </div>
         <div class="row d-show-mobile-wrapper no-gutters gallery-slider-quadrant">
         <isloop items="${pdict.product.images['zoom1660']}" var="image" status="loopStatus">
+            <isif condition="${!empty(pdict.product.pdpVideoConfigs) && loopStatus.count == pdict.product.pdpVideoConfigs.imageIndex && !empty(pdict.product.pdpVideoConfigs.videoURL) }">
+                <div class="col-lg-6 col-md-12  col-mx-50-wrapper">
+                    <div class="carousel-tile poster-frame-video">
+                        <video id="slide-video" class="slide-video" loop muted autoplay playsinline>
+                            <source src="${pdict.product.pdpVideoConfigs.videoURL}" type="video/mp4" />
+                        </video>
+                    </div>
+                </div>
+            </isif>
             <div class="col-lg-6 col-md-12  col-mx-50-wrapper">
                 <div class="carousel-tile" data-thumb="${!empty(pdict.product.images) && !empty(pdict.product.images.tile150[loopStatus.count-1]) ? pdict.product.images.tile150[loopStatus.count-1].url : ''}">
                     <picture>
@@ -25,9 +34,7 @@
         </isloop>
     </div>
 </div>
-
 <isinclude template="product/components/imageCarouselPDP" />
-
 <iscomment> Zoom Modal </iscomment>
 <div class="modal fade zoom-modal zoom-modal-inner" id="zoomProduct" role="dialog">
     <div class="modal-dialog">
@@ -60,7 +67,6 @@
                             </div>
                             <iscomment>Added zomm box</iscomment>
                             <div class="zoom-box">
-
                             </div>
                         </div>
                     </div>
@@ -68,4 +74,3 @@
         </div>
     </div>
 </div>
-

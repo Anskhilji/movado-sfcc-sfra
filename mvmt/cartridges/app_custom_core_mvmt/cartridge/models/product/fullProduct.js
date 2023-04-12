@@ -161,5 +161,12 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
+    if (!empty(product)) {
+        Object.defineProperty(product, 'posterFrame', {
+            enumerable: true,
+            value: product.images.posterFrame[0] ? product.images.posterFrame[0] : ''
+        });
+    }
+
     return product;
 };
