@@ -1,20 +1,8 @@
-.product-detail-redesign {
-
-    &.product-wrapper {
-
-        .price-rating {
-
-            &:has(+ .variationAttribute .main-variation-attribute) {
-                margin: rem(30) rem(0);
-            }
-        }
-    }
-}
-
 .product-detail {
     .variationAttribute {
 
         .main-variation-attribute {
+            margin: rem(30) rem(0);
             
             &:not(:last-of-type) {
                 margin-bottom: rem(20);
@@ -31,6 +19,7 @@
                     letter-spacing: 0;
                     line-height: rem(20);
                     text-transform: unset;
+                    margin-bottom: rem(15);
                 }
 
                 .swatch-sec {
@@ -47,6 +36,10 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
+
+                        &.active {
+                            border-color: $black;
+                        }
 
                         &:has(.active) {
                             border-color: $black;
