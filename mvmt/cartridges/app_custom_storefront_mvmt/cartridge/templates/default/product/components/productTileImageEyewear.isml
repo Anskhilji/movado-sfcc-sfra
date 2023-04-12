@@ -69,7 +69,7 @@
                 </a>
             </isif>
         <iselse>
-            <a href="${product.variationPdpURL}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${product.promotionObj}">
+            <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${product.promotionObj}">
                 <picture>
                     <iscomment> duplicate this template from productTileimage and change default varaint tile size for eyewear images </iscomment>
                     <isif condition="${product.defulatVariantEyewearImage}"><source media="(min-width: 992px)" srcset="${product.defulatVariantEyewearImage}" /></isif>
