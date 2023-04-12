@@ -1,6 +1,6 @@
 <isif condition="${!topCat.disableSubCategories}">
     <div class="dropdown-menu" role="menu" aria-hidden="true">
-        <div class="d-flex category-level w-100">
+        <div class="d-sm-flex justify-content-center category-level w-100">
             <div class="menu-pane">
             <ul class="lv2">
                 <isloop items="${menuItem.subCategories}" var="category">
@@ -29,11 +29,11 @@
                 </isif>
             </isloop> </iscomment>
         </div>
-        <isif condition="${topCat.headerMenuBanner}">
+        <iscomment> <isif condition="${topCat.headerMenuBanner}">
             <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
                 <isprint value="${topCat.headerMenuBanner}" encoding="off"/>
             </div>
-        </isif>
+        </isif> </iscomment>
         <div class="dropdown-best-Seller">
             <isslot id="cs-dropdown-bestSeller" description="Featured products content." context="global" />
         </div>

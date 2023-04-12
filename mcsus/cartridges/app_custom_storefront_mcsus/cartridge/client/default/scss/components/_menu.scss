@@ -1216,3 +1216,87 @@ nav {
     width: 100%;
   }
 }
+
+
+@include media-breakpoint-down(md) {
+  .main-menu {
+    
+ 
+    .navbar>.close-menu>.menu-search-mmobile>.back {
+      display: none;
+    }
+
+    .dropdown-menu {
+      .nav-menu {
+        height: auto;
+      }
+      .dropdown-link {
+        padding: 0 rem(15) 0 rem(35);
+        line-height: rem(50);
+      }
+    }
+
+    .lv1 {
+        > .nav-item  {
+          .dropdown-menu {
+            .category-level {
+              .menu-pane {
+                .lv2 {
+                  padding-top: rem(20);
+
+                  .dropdown-item {
+                    height: auto;
+                    
+                    .dropdown-link {
+                      color: $grey-transparent-8;
+                      font-family: $font-book-std;
+                      font-size: rem(12);
+                      font-weight: 300;
+                      letter-spacing: rem(2);
+                      line-height: rem(13);
+                      text-transform: uppercase;
+                      margin-bottom: rem(25);
+                      display: block;
+                      height: auto;
+                      padding: 0;
+                      
+
+                      &::after {
+                        display: none;
+                      }
+                    }
+
+                    .level-collection {
+                      .dropdown-menu {
+                        position: static;
+                        height: auto;
+
+                        .lv3 {
+                          .dropdown-item {
+                            border: none;
+                            .dropdown-link {
+                              color: $black;
+                              font-size: rem(14);
+                              font-weight: 300;
+                              letter-spacing: 0;
+                              line-height: rem(16);
+                              text-transform: unset;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            } 
+          }
+        }
+    }
+
+    .menu-pane {
+      width: 100%;
+      padding: 0 rem(15);
+    }
+  }
+}
