@@ -13,9 +13,6 @@
                     <iselse/>
                         <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                             <a href="${category.url}" role="button" class="dropdown-link lv2" >${category.name}</a>
-                            <div class="level-collection">
-                                <isinclude template="components/header/menuItemList"/>
-                            </div>
                         </li>
                     </isif>
                 </isloop>
