@@ -30,6 +30,13 @@
       <div class="js-carousel main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
+              <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                  <div class="carousel-tile poster-frame-video">
+                      <video class="slide-video" loop muted autoplay playsinline >
+                          <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                      </video>
+                  </div>
+              </isif>
               <div class="carousel-tile">
                   <picture>
                       <source media="(min-width: 992px)" srcset="${product.images.zoom1660[loopStatus.count-1].url}" />
@@ -45,9 +52,18 @@
               </div>
           </isloop>
       </div>
-
       <div class="carousel-nav d-md-none" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
+              <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                  <div class="carousel-tile"> 
+                      <picture>
+                          <source media="(min-width: 992px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
+                          <source media="(max-width: 991px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
+                          <img class="carousel-indicator-image" src="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" alt="${product.posterFrame.alt}" itemprop="image" />
+                          <isset name="isImageExist" value="true" scope="page" />
+                      </picture>
+                    </div>
+              </isif>
               <div class="carousel-tile">
                   <picture>
                       <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
@@ -70,7 +86,6 @@
       </isif>
   </isif>
 </div>
-
 <iscomment> Zoom Modal </iscomment>
 <div class="modal fade zoom-modal" id="zoomProduct" role="dialog">
     <div class="modal-dialog">
