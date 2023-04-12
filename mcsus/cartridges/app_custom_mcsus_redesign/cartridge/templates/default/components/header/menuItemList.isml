@@ -1,9 +1,11 @@
-<div class="dropdown-menu" role="menu" aria-hidden="true">
-  <ul class="lv3">
-    <isloop items="${categoryItem.subCategories}" var="category">
-      <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-        <a href="${category.url}" role="button" class="dropdown-link lv3">${category.name}</a>
-      </li>
-    </isloop>
-  </ul>
+<div class="level-collection">
+  <div class="dropdown-menu" role="menu" aria-hidden="true">
+      <ul class="lv3">
+        <isloop items="${categoryItem.subCategories}" var="category">
+          <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+            <a href="${category.url}" role="button" class="dropdown-link lv3">${category.name}</a>
+          </li>
+        </isloop>
+      </ul>
+  </div>
 </div>

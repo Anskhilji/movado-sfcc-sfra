@@ -184,61 +184,62 @@ nav {
                 height: 100vh;
                 margin-left: rem(-15);
                 border: 0;
-                padding: 0 rem(10) 0 rem(12);
-                top: 30px;
-                
+                padding: 0 rem(12) 0 rem(10);
+                top: 0;
+                padding-top: rem(30);
+              }
 
-                .col-12 {
+              .col-12 {
+
+                @include media-breakpoint-down(md) {
+                  padding: 0;
+                }
+              }
+
+              .carousel-title {
+
+                @include media-breakpoint-down(md) {
+                  opacity: 0.8;
+                  color: $black;
+                  font-size: rem(10);
+                  font-weight: 300;
+                  letter-spacing: rem(1);
+                  line-height: rem(11);
+                  font-family: $font-book-std;
+                  margin-bottom: rem(18);
+                  padding-top: 0;
+                }
+              }
+
+              ul {
+
+               @include media-breakpoint-down(md) {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                margin-bottom: 0;
+               }
+
+                li {
 
                   @include media-breakpoint-down(md) {
+                    margin-right: rem(10);
+                    border: 0;
+                    height: rem(26);
                     padding: 0;
+                    background: $beige;
+                    border-radius: rem(15);
+                    margin-bottom: rem(15);
+                    padding: 0 rem(16);
                   }
-                }
 
-                .carousel-title {
-
-                  @include media-breakpoint-down(md) {
-                    opacity: 0.8;
-                    color: $black;
-                    font-size: rem(10);
-                    font-weight: 300;
-                    letter-spacing: rem(1);
-                    line-height: rem(11);
-                    font-family: $font-book-std;
-                    margin-bottom: rem(18);
-                    padding-top: 0;
-                  }
-                }
-
-                ul {
-
-                 @include media-breakpoint-down(md) {
-                  display: flex;
-                  align-items: center;
-                  flex-wrap: wrap
-                 }
-
-                  li {
+                  a {
 
                     @include media-breakpoint-down(md) {
-                      margin-right: rem(10);
-                      border: 0;
-                      height: rem(26);
-                      padding: 0;
-                      background: $beige;
-                      border-radius: rem(15);
-                      margin-bottom: rem(15);
-                      padding: 0 rem(16);
-                    }
-
-                    a {
-
-                      @include media-breakpoint-down(md) {
-                        color: $black;
-                        font-size: rem(10);
-                        letter-spacing: 0;
-                        line-height: rem(10);
-                      }
+                      color: $black;
+                      font-size: rem(10);
+                      letter-spacing: 0;
+                      line-height: rem(10);
                     }
                   }
                 }
@@ -247,7 +248,7 @@ nav {
               .recent-search {
 
                 @include media-breakpoint-down(md) {
-                  margin-top: rem(40);
+                  margin-top: rem(25);
                 }
               }
             }
@@ -263,6 +264,44 @@ nav {
         padding: 0 rem(15);
         margin-top: rem(15);
         display: block;
+      }
+
+      .suggestions-wrapper {
+
+        .suggestions-dropdown {
+        
+          &.suggestions {
+  
+            @include media-breakpoint-down(md) {
+              width: 100%;
+              padding: 0;
+              height: 100vh;
+              background: $white;
+              position: inherit;
+            }
+
+            .term {
+              @include media-breakpoint-down(md) {
+                margin-bottom: rem(25);
+              }
+            }
+          }
+  
+          .suggestion-request {
+  
+            .search-recomendation  {
+  
+              @include media-breakpoint-down(md) {
+                display: block !important; // i'm using important to overwrite inine css
+                position: absolute;
+                top: rem(70);
+                left: 0;
+                z-index: 99;
+                visibility: visible;
+              }
+            }
+          }
+        }
       }
 
       .hidden-sm-down {
@@ -318,6 +357,7 @@ nav {
             line-height: rem(13);
           }
         }
+
       }
     }
 
@@ -511,9 +551,15 @@ nav {
           .menu-left {
             align-items: center;
 
+            @include custom-media-query($xl-large-screen-width) {
+              flex: 1;
+            }
+
             .brand-logo {
               height: rem(43);
               margin-left: rem(16);
+              max-width: rem(150);
+              width: 100%;
 
               @include custom-media-query-1440($large-screen-width-1440) {
                 margin-left: 0;
@@ -537,6 +583,11 @@ nav {
                 margin-left: rem(10);
               }
 
+              @include custom-media-query($xl-large-screen-width) {
+                justify-content: center;
+                margin-left: 0;
+              }
+
               .menu-group {
 
                 .navbar-nav {
@@ -545,7 +596,7 @@ nav {
                   &.lv1 {
 
                     .dropdown-menu {
-                      display: block !important;
+                      // display: block !important;
 
                       .dropdown-best-Seller {
                           max-width: rem(550);
@@ -573,13 +624,29 @@ nav {
                   .dropdown-menu {
                     width: 100%;
                     margin-top: 0;
+                    padding-top: rem(50);
+                    // display: block;
+                    border: 0;
+                    border-top: rem(1) solid $black;
+
+                    .category-level {
+                      max-width: rem(1049);
+                      margin: 0 auto;
+                    }
 
                     .menu-pane {
 
                         .lv2 {
+                          padding: 0;
+                          display: flex;
+                          flex-direction: column-reverse;
+                          flex-wrap: wrap;
+                          height: rem(426);
+                          justify-content: start;
 
                             > .dropdown-item {
                                 background-color: transparent;
+                                padding: 0;
 
                                 .dropdown-link {
                                   color: $grey-transparent-8;
@@ -591,7 +658,18 @@ nav {
                                   text-transform: uppercase;
                                   margin-bottom: rem(25);
                                   display: inline-block;
+                                  height: auto;
+
+                                  &::after {
+                                    display: none;
+                                  }
                                 }
+                            }
+                            .dropdown-menu {
+                                padding: 0;
+                                border: 0;
+                                position: inherit;
+                                display: block;
                             }
                         }
                     }
@@ -619,6 +697,10 @@ nav {
 
                                         &:hover {
                                             background-color: transparent;
+                                        }
+
+                                        .dropdown-menu {
+                                          display: block;
                                         }
                                         
                                         .dropdown-link {
@@ -695,12 +777,16 @@ nav {
           .menu-right {
             margin-left: rem(140);
 
+
             @include media-breakpoint-up(xl) {
               margin-left: rem(90);
             }
 
             @include custom-media-query-1440($large-screen-width-1440) {
               margin-left: rem(140);
+            }
+            @include custom-media-query($xl-large-screen-width) {
+              margin-left: 0;
             }
 
             @include media-breakpoint-down(lg) {
@@ -713,6 +799,7 @@ nav {
             }
             .minicart {
               margin-right: 0;
+              margin-top: rem(-8);
             }
 
             .right {
@@ -729,10 +816,28 @@ nav {
                   background: transparent;
                   width: 100%;
                   padding: 0;
-                  display: block !important;
+                  display: block !important; // i'm using important to overwrite inine css
                   visibility: visible;
                   box-shadow: none;
                   position: inherit;
+
+
+                  .search-suggestions {
+                    
+                    .category-slot {
+
+                      ul {
+                        margin-bottom: rem(10);
+                      }
+                    }
+
+                    .recent-search {
+                      
+                      ul {
+                        margin-bottom: 0;
+                      }
+                    }
+                  }
                 }
               }
 
@@ -1004,6 +1109,10 @@ nav {
 
 
 .main-menu-desktop {
+
+  @include custom-media-query($xl-large-screen-width) {
+    width: 100%;
+  }
 
   .mobile-menu-search {
     display: none;

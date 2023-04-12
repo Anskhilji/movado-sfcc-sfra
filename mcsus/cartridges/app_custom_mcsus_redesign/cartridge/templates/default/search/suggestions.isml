@@ -21,11 +21,11 @@
         </isif>
 
         <isif condition="${pdict.suggestions.product && pdict.suggestions.product.available}">
-            <div class="row items-header">
+            <div class="row items-header d-none">
                 <div class="col-xs-12 col-sm-10">${Resource.msg('label.suggest.products', 'search', null)}</div>
             </div>
 
-            <div class="row product-serach-items items">
+            <div class="row product-serach-items items d-none">
                 <isloop items="${pdict.suggestions.product.products}" var="product">
                     <div class="col-12 item">
                         <div class="row">
@@ -44,13 +44,13 @@
         </isif>
 
         <isif condition="${pdict.suggestions.category && pdict.suggestions.category.available}">
-            <div class="row items-header">
+            <div class="row items-header d-none">
                 <div class="col-xs-12 col-sm-10">
                     ${Resource.msg('label.suggest.categories', 'search', null)}
                 </div>
             </div>
 
-            <div class="row product-serach-items items">
+            <div class="row product-serach-items items d-none">
                 <isloop items="${pdict.suggestions.category.categories}" var="category">
                     <div class="col-12 item">
                         <div class="row">

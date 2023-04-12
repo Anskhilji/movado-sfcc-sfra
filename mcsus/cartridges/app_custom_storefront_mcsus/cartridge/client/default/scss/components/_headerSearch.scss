@@ -247,6 +247,8 @@
 
         .product-serach-items {
             padding: 0;
+            border-bottom: rem(1) solid $silver2;
+            margin-bottom: rem(30);
 
             .term {
                 padding: 0;
@@ -263,6 +265,7 @@
                     font-weight: 300;
                     letter-spacing: 0;
                     line-height: rem(16);
+                    text-transform: capitalize;
                 }
             }
         }

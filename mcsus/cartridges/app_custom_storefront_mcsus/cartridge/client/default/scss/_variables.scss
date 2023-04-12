@@ -58,6 +58,7 @@ $grayish-blue: #212529;
 $light-silver: #D8D8D8;
 $Grey: #242526;
 $silver: #B0B0B0;
+$silver2:#ededed;
 $light-grey4: #6C757D;
 $black3: #1E1E1E;
 $gray2: #A5A5A5;
@@ -159,6 +160,7 @@ $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org
 }
 // Large Screen
 $large-screen-width: 1400px;
+$xl-large-screen-width:1500px;
 
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {

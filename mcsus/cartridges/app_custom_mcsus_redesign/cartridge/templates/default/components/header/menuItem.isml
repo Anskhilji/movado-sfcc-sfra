@@ -1,6 +1,6 @@
 <isif condition="${!topCat.disableSubCategories}">
     <div class="dropdown-menu" role="menu" aria-hidden="true">
-        <div class="d-flex justify-content-center w-100" >
+        <div class="d-flex category-level w-100">
             <div class="menu-pane">
             <ul class="lv2">
                 <isloop items="${menuItem.subCategories}" var="category">
