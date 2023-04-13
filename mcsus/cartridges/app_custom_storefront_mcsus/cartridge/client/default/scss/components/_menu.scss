@@ -178,11 +178,11 @@ nav {
             .search-recomendation {
 
               @include media-breakpoint-down(md) {
-                width: calc(100% + 28px);
+                width: calc(100% + 70px);
                 margin-right: 0;
                 background-color: $white;
                 height: 100vh;
-                margin-left: rem(-15);
+                margin-left: rem(-28);
                 border: 0;
                 padding: 0 rem(12) 0 rem(10);
                 top: 0;
@@ -639,6 +639,14 @@ nav {
 
                           .mcs-product-carousel-container {
                             padding: 0 rem(15);
+
+                            .slick-track {
+                              min-width: rem(578);
+
+                                .slick-slide {
+                                    min-width: rem(264);
+                                }
+                            }
 
                             .product-tile {
 
