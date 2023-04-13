@@ -627,7 +627,7 @@ nav {
                 .navbar-nav {
                   position: inherit;
 
-                  &.lv1 {
+                  &.level-one {
 
                     .dropdown-menu {
 
@@ -676,8 +676,8 @@ nav {
                     .menu-pane {
                       display: flex;
                       width: 100%;
-                      
-                      .lv2 {
+
+                      .level-two {
                         padding: 0;
                         display: flex;
                         flex-direction: column-reverse;
@@ -724,7 +724,7 @@ nav {
                         border: none;
                         padding: 0;
 
-                        .lv3 {
+                        .level-three {
                           margin: 0;
                           padding: 0;
 
@@ -1246,7 +1246,7 @@ nav {
       }
     }
 
-    .lv1 {
+    .level-one {
       >.nav-item {
 
         .dropdown-menu {
@@ -1255,7 +1255,7 @@ nav {
 
             .menu-pane {
 
-              .lv2 {
+              .level-two {
                 padding-top: rem(20);
 
                 .dropdown-item {
@@ -1286,7 +1286,7 @@ nav {
                       position: static;
                       height: auto;
 
-                      .lv3 {
+                      .level-three {
 
                         .dropdown-item {
                           border: none;

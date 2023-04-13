@@ -6,9 +6,9 @@
         	<input class="form-control search-field"
                type="search"
                name="q"
-               title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+               title="${Resource.msg('label.header.searchwatermarks', 'common', null)}"
                value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
-               placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+               placeholder="${Resource.msg('label.header.searchwatermarks', 'common', null)}"
                autocomplete="off"
                data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
         <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>

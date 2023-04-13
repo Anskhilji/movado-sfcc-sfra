@@ -21,7 +21,7 @@
 
   </div>
   <div class="menu-group" aria-label="Main menu" role="navigation">
-    <ul class="nav navbar-nav lv1" role="menu">
+    <ul class="nav navbar-nav level-one" role="menu">
       <isif condition="${pdict.categories}">
         <isloop items="${pdict.categories}" var="category">
           <isif condition="${category.subCategories}">
