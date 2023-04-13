@@ -56,13 +56,6 @@
                         url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', !empty(request.httpParameterMap.get('country').value) ? request
                            .httpParameterMap.get('country').value : '')}" />
                     </isif>
-                    <iscomment> Custom End </iscomment>
-                    <iscomment>Custom Start: Not needed old country selector logic </iscomment>
-                    <iscomment>
-                      <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
-                      <isslot id="country-selector" description="country selector" context="global" />
-                    </iscomment>
-                    <iscomment> Custom End </iscomment>
                   </div>
                 
                     <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">

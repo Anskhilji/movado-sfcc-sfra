@@ -953,7 +953,7 @@ nav {
                       margin-bottom: rem(25);
 
                       li {
-                        border-radius: 15px;
+                        border-radius: rem(15);
                         background-color: $beige;
                         padding: rem(0) rem(16);
                         margin-bottom: rem(15);
@@ -1168,7 +1168,7 @@ nav {
                       letter-spacing: 0;
                       line-height: rem(13);
                       margin-left: rem(8);
-                      max-width: 72px;
+                      max-width: rem(72);
                       white-space: nowrap;
                       overflow: hidden;
                       text-overflow: ellipsis;
