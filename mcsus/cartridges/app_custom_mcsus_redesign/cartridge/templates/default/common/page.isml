@@ -20,7 +20,11 @@
         </isscript>
         <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
         <div class="page" data-action="${pdict.action}" data-querystring="${pdict.queryString}" >
-            <isinclude template="/components/header/pageHeader" />
+
+            <iscomment> Custom Start: Implemented A/B Test for Header Redesign </iscomment>
+            <isinclude url="${URLUtils.url('Page-IncludeHeader')}" />
+            <iscomment> Custom End </iscomment>
+
             <isinclude url="${URLUtils.url('EmailPopUp-Show')}">
             <div id="mainContent">
               <isreplace/>
