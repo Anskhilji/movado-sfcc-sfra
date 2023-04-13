@@ -34,6 +34,22 @@
                             text-align: center;
                         }
 
+                        .disabled {
+                            position: relative;
+                            
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                left: rem(10);
+                                top: rem(0);
+                                width: rem(1);
+                                height: rem(20);
+                                background-color: $black;
+                                transform: rotate(45deg);
+                                z-index: 2;
+                            }
+                        }
+
                         .swatch-circle {
                             border: none;
                             width: rem(20);
