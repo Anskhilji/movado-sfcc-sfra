@@ -12,7 +12,15 @@ Template Notes:
 <div class="attribute">
     <!-- Select <Attribute> Label -->
     <label class="${attr.id} d-flex justify-content-center justify-content-sm-start w-100">
-        ${Resource.msg('label.select', 'common', null)} ${attr.displayName}
+        ${attr.displayName}:
+        <span class="selected-variation ml-1" data-selected-variation-attr="${attr.id}">
+            <isloop items="${attr.values}" var="attrValue">
+                <isif condition="${attrValue.selected}">
+                    <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
+                    ${attrValue.displayValue}
+                </isif>
+            </isloop>
+        </span>
     </label>
 
     <div class="d-flex swatch-sec flex-wrap justify-content-center justify-content-sm-start">

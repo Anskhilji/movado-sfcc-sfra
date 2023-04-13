@@ -1,7 +1,18 @@
+        <div class="exclusive-badges exclusive-badge-search">
+            <isif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+                <isloop items="${product.badges.imageBadges}" var="imageBadge">
+                    <div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                </isloop>
+            <iselseif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true)}"/>
+                <isloop items="${product.badges.imageBadges}" var="imageBadge">
+                    <div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                </isloop>
+            </isif>
+        </div>
 
-        <isloop items="${product.badges.imageBadges}" var="imageBadge">
+        <iscomment> <isloop items="${product.badges.imageBadges}" var="imageBadge">
             <div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
-        </isloop>
+        </isloop> </iscomment>
         <isif condition="${pdict.display.redesignPDPCarousel}">
             <a href="${pdict.urls.product}">
                 <picture class="tile-picture tile-picture-primary">

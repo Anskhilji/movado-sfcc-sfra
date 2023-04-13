@@ -1599,6 +1599,9 @@
                         margin-bottom: rem(10);
                         overflow: hidden;
 
+                        @include media-breakpoint-down(sm) {
+                            margin-bottom: rem(8);
+                        }
                         @include media-breakpoint-up(sm) {
                             height: rem(42);
                         }

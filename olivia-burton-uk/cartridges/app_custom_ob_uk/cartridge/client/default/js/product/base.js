@@ -92,9 +92,11 @@ function processSwatchValues(attr, $productContainer) {
 
         if (attrValue.selected) {
             $swatchAnchor.addClass('active');
+            $swatchAnchor.parent().addClass('active');
             $selectedValueContainer.text(attrValue.displayValue);
         } else {
             $swatchAnchor.removeClass('active');
+            $swatchAnchor.parent().removeClass('active');
         }
 
         if (attrValue.url) {
@@ -126,6 +128,8 @@ function processSwatchValues(attr, $productContainer) {
  * @param {jQuery} $productContainer - DOM container for a given product
  */
 function processNonSwatchValues(attr, $productContainer) {
+    var $selectedValueContainer = $productContainer.find('[data-selected-variation-attr="' + attr.id + '"]');
+    $selectedValueContainer.empty();
     var $attr = '[data-attr="' + attr.id + '"]';
     var $defaultOption = $productContainer.find($attr + ' .select-' + attr.id + ' option:first');
     $defaultOption.attr('value', attr.resetUrl);
@@ -140,6 +144,13 @@ function processNonSwatchValues(attr, $productContainer) {
             $attrValue.addClass('disabled');
         } else {
             $attrValue.removeClass('disabled')
+        }
+
+        if (attrValue.selected) {
+            $attrValue.addClass('active');
+            $selectedValueContainer.text(attrValue.displayValue);
+        } else {
+            $attrValue.removeClass('active');
         }
 
     });
@@ -390,6 +401,11 @@ function handleVariantResponse(response, $productContainer) {
         if($('.product-side-details .gift-allowed-checkbox').is(':checked')) {
             $('.product-side-details .gift-allowed-checkbox').prop('checked', false);
         }
+    }
+
+    //Update Product family name
+    if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
+        $productContainer.find('.family-name').text(response.product.collectionName);
     }
 
     //Update Product Title

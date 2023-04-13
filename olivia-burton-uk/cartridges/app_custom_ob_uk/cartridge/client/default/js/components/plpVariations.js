@@ -62,7 +62,7 @@ module.exports = function () {
             $productFamilyNameSelector.attr('href', $product.selectedProductUrl);
         }
 
-        var $exclusiveBadges = $productContainer.find('.product-tag-content .exclusive-badges');
+        var $exclusiveBadges = $productContainer.find('.image-container .exclusive-badges');
         $exclusiveBadges.empty();
 
         var $imageBadgesLeft = $productContainer.find('.product-badge.left');
@@ -85,9 +85,9 @@ module.exports = function () {
             if (badges.imageBadges && badges.imageBadges.length > 0) {
                 badges.imageBadges.forEach(function (imageBadge, idx) {
                     if (idx === 0) {
-                        $imageBadgesLeft.append('<span class="badge-text"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></span>');
+                        $exclusiveBadges.append('<div class="product-badge left"><span class="badge-text"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></span></div>');
                     } else {
-                        $imageBadgesRight.append('<span class="badge-text"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></span>');
+                        $imageBadgesRight.append('<div class="product-badge left"><span class="badge-text"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></span></div>');
                     }
                 });
             }
