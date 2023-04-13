@@ -146,7 +146,7 @@ nav {
 .new-header-deign {
 
   .sticky-header-placeholder {
-    
+
     @include media-breakpoint-up(lg) {
       height: rem(70);
     }
@@ -167,7 +167,7 @@ nav {
           &.in {
 
             @include media-breakpoint-down(md) {
-             width: 40%;
+              width: 40%;
               background-color: $white-smoke7;
             }
 
@@ -175,8 +175,8 @@ nav {
               width: calc(100% - 20px);
             }
 
-            .search-recomendation  {
-              
+            .search-recomendation {
+
               @include media-breakpoint-down(md) {
                 width: calc(100% + 28px);
                 margin-right: 0;
@@ -213,12 +213,12 @@ nav {
 
               ul {
 
-               @include media-breakpoint-down(md) {
-                display: flex;
-                align-items: center;
-                flex-wrap: wrap;
-                margin-bottom: 0;
-               }
+                @include media-breakpoint-down(md) {
+                  display: flex;
+                  align-items: center;
+                  flex-wrap: wrap;
+                  margin-bottom: 0;
+                }
 
                 li {
 
@@ -274,9 +274,9 @@ nav {
         }
 
         .suggestions-dropdown {
-        
+
           &.suggestions {
-  
+
             @include media-breakpoint-down(md) {
               width: 100%;
               padding: 0;
@@ -294,11 +294,11 @@ nav {
               }
             }
           }
-  
+
           .suggestion-request {
-  
-            .search-recomendation  {
-  
+
+            .search-recomendation {
+
               @include media-breakpoint-down(md) {
                 display: block !important; // i'm using important to overwrite inine css
                 position: absolute;
@@ -329,13 +329,13 @@ nav {
       .search-icon {
 
         @include media-breakpoint-down(md) {
-            left: 0;
-            right: auto;
-            width: rem(17);
-            height: rem(17);
-            padding: 0;
-            top: rem(1);
-            z-index: 1;
+          left: 0;
+          right: auto;
+          width: rem(17);
+          height: rem(17);
+          padding: 0;
+          top: rem(1);
+          z-index: 1;
         }
       }
 
@@ -379,11 +379,11 @@ nav {
     .close-menu {
 
       @include media-breakpoint-down(md) {
-          justify-content: center;
-          height: auto;
-          background-color: $white;
-          border: 0;
-          padding-top: rem(38);
+        justify-content: center;
+        height: auto;
+        background-color: $white;
+        border: 0;
+        padding-top: rem(38);
       }
 
       .close-button {
@@ -503,7 +503,7 @@ nav {
   }
 
   .hidden-md-down {
-    
+
     @include media-breakpoint-down(md) {
       display: block !important; //i'm using important to overwrite inline css
       margin-left: 0;
@@ -632,23 +632,23 @@ nav {
                     .dropdown-menu {
 
                       .dropdown-best-Seller {
-                          max-width: rem(550);
-                          width: 100%;
+                        max-width: rem(550);
+                        width: 100%;
 
-                          .mcs-product-carousel-redesign {
-                            
-                              .mcs-product-carousel-container {
-                                  padding: 0 rem(15);
+                        .mcs-product-carousel-redesign {
 
-                                  .product-tile {
+                          .mcs-product-carousel-container {
+                            padding: 0 rem(15);
 
-                                      .image-container {
-                                          min-width: rem(266);
-                                          min-height: rem(266);
-                                      }
-                                  }
+                            .product-tile {
+
+                              .image-container {
+                                min-width: rem(266);
+                                min-height: rem(266);
                               }
-                          } 
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -657,7 +657,6 @@ nav {
                     width: 100%;
                     margin-top: 0;
                     padding-top: rem(50);
-                    // display: block;
                     border: 0;
                     border-top: rem(1) solid $black;
 
@@ -668,85 +667,86 @@ nav {
 
                     .menu-pane {
 
-                        .lv2 {
+                      .lv2 {
+                        padding: 0;
+                        display: flex;
+                        flex-direction: column-reverse;
+                        flex-wrap: wrap;
+                        height: rem(426);
+                        justify-content: start;
+
+                        >.dropdown-item {
+                          background-color: transparent;
                           padding: 0;
-                          display: flex;
-                          flex-direction: column-reverse;
-                          flex-wrap: wrap;
-                          height: rem(426);
-                          justify-content: start;
 
-                            > .dropdown-item {
-                                background-color: transparent;
-                                padding: 0;
+                          .dropdown-link {
+                            color: $grey-transparent-8;
+                            font-family: $font-book-std;
+                            font-size: rem(12);
+                            font-weight: 300;
+                            letter-spacing: rem(2);
+                            line-height: rem(13);
+                            text-transform: uppercase;
+                            margin-bottom: rem(25);
+                            display: inline-block;
+                            height: auto;
 
-                                .dropdown-link {
-                                  color: $grey-transparent-8;
-                                  font-family: $font-book-std;
-                                  font-size: rem(12);
-                                  font-weight: 300;
-                                  letter-spacing: rem(2);
-                                  line-height: rem(13);
-                                  text-transform: uppercase;
-                                  margin-bottom: rem(25);
-                                  display: inline-block;
-                                  height: auto;
-
-                                  &::after {
-                                    display: none;
-                                  }
-                                }
+                            &::after {
+                              display: none;
                             }
-                            .dropdown-menu {
-                                padding: 0;
-                                border: 0;
-                                position: inherit;
-                                display: block;
-                            }
+                          }
                         }
+
+                        .dropdown-menu {
+                          padding: 0;
+                          border: 0;
+                          position: inherit;
+                          display: block;
+                        }
+                      }
                     }
 
-                      .level-collection {
+                    .level-collection {
 
-                          .dropdown-menu {
-                                display: block;
-                                position: inherit;
-                                border: none;
-                                padding: 0;
+                      .dropdown-menu {
+                        display: block;
+                        position: inherit;
+                        border: none;
+                        padding: 0;
 
-                                .lv3 {
-                                  margin: 0;
-                                  padding: 0;
+                        .lv3 {
+                          margin: 0;
+                          padding: 0;
 
-                                    > .dropdown-item {
-                                        padding: 0;
+                          >.dropdown-item {
+                            padding: 0;
 
-                                        &:not(:last-of-type) {
-                                            .dropdown-link {
-                                              margin-bottom: rem(25);
-                                            }
-                                        }
+                            &:not(:last-of-type) {
+                              .dropdown-link {
+                                margin-bottom: rem(25);
+                              }
+                            }
 
-                                        &:hover {
-                                            background-color: transparent;
-                                        }
+                            &:hover {
+                              background-color: transparent;
+                            }
 
-                                        .dropdown-menu {
-                                          display: block;
-                                        }
-                                        
-                                        .dropdown-link {
-                                          color: $black;
-                                          font-size: rem(14);
-                                          font-weight: 300;
-                                          letter-spacing: 0;
-                                          line-height: rem(16);
-                                          text-transform: unset;
-                                        }
-                                    }
-                                }
+                            .dropdown-menu {
+                              display: block;
+                            }
+
+                            .dropdown-link {
+                              color: $black;
+                              font-size: rem(14);
+                              font-weight: 300;
+                              letter-spacing: 0;
+                              line-height: rem(16);
+                              text-transform: unset;
+                            }
                           }
+                        }
                       }
+                    }
                   }
 
                   .nav-item {
@@ -771,8 +771,8 @@ nav {
 
                     &:last-child {
                       margin-right: 0;
-                    } 
-                    
+                    }
+
                     .nav-link {
                       color: $black;
                       font-family: $font-book-std;
@@ -800,8 +800,9 @@ nav {
                       }
 
                     }
+
                     &:hover {
-                      
+
                       .nav-link {
                         &::after {
                           display: block;
@@ -825,6 +826,7 @@ nav {
             @include custom-media-query-1440($large-screen-width-1440) {
               margin-left: rem(140);
             }
+
             @include custom-media-query($xl-large-screen-width) {
               margin-left: 0;
             }
@@ -837,6 +839,7 @@ nav {
               width: 100%;
               margin-left: 0;
             }
+
             .minicart {
               margin-right: 0;
               margin-top: rem(-8);
@@ -853,7 +856,7 @@ nav {
 
               .suggestion-request {
 
-                .search-recomendation  {
+                .search-recomendation {
                   background: transparent;
                   width: 100%;
                   padding: 0;
@@ -864,7 +867,7 @@ nav {
 
 
                   .search-suggestions {
-                    
+
                     .category-slot {
 
                       ul {
@@ -873,7 +876,7 @@ nav {
                     }
 
                     .recent-search {
-                      
+
                       ul {
                         margin-bottom: 0;
                       }
@@ -900,7 +903,7 @@ nav {
                 background-color: $white;
                 box-shadow: 0 rem(4) rem(20) 0 $white-smoke5;
                 width: rem(355);
-                padding: rem(22)  rem(27) rem(40) rem(30);
+                padding: rem(22) rem(27) rem(40) rem(30);
                 height: auto;
 
                 .col-12 {
@@ -1048,7 +1051,7 @@ nav {
                 @include media-breakpoint-down(sm) {
                   margin-top: 0;
                 }
-                
+
                 .minicart-total {
 
                   .minicart-icon {
@@ -1102,7 +1105,7 @@ nav {
                     margin-left: rem(40);
                     display: flex;
                     align-items: center;
-                    
+
                     .login-icon {
                       background: url(../images/add-to-cart.svg) center center no-repeat;
                       width: rem(12);
@@ -1125,7 +1128,7 @@ nav {
                       max-width: rem(67);
                       white-space: nowrap;
                       overflow: hidden;
-                      
+
                       @include media-breakpoint-down(md) {
                         display: none;
                       }
@@ -1215,16 +1218,18 @@ nav {
 
 @include media-breakpoint-down(md) {
   .main-menu {
-    
- 
+
+
     .navbar>.close-menu>.menu-search-mmobile>.back {
       display: none;
     }
 
     .dropdown-menu {
+
       .nav-menu {
         height: auto;
       }
+
       .dropdown-link {
         padding: 0 rem(15) 0 rem(35);
         line-height: rem(50);
@@ -1232,51 +1237,57 @@ nav {
     }
 
     .lv1 {
-        > .nav-item  {
-          .dropdown-menu {
-            .category-level {
-              .menu-pane {
-                .lv2 {
-                  padding-top: rem(20);
+      >.nav-item {
 
-                  .dropdown-item {
+        .dropdown-menu {
+
+          .category-level {
+
+            .menu-pane {
+
+              .lv2 {
+                padding-top: rem(20);
+
+                .dropdown-item {
+                  height: auto;
+
+                  .dropdown-link {
+                    color: $grey-transparent-8;
+                    font-family: $font-book-std;
+                    font-size: rem(12);
+                    font-weight: 300;
+                    letter-spacing: rem(2);
+                    line-height: rem(13);
+                    text-transform: uppercase;
+                    margin-bottom: rem(25);
+                    display: block;
                     height: auto;
-                    
-                    .dropdown-link {
-                      color: $grey-transparent-8;
-                      font-family: $font-book-std;
-                      font-size: rem(12);
-                      font-weight: 300;
-                      letter-spacing: rem(2);
-                      line-height: rem(13);
-                      text-transform: uppercase;
-                      margin-bottom: rem(25);
-                      display: block;
-                      height: auto;
-                      padding: 0;
-                      
+                    padding: 0;
 
-                      &::after {
-                        display: none;
-                      }
+
+                    &::after {
+                      display: none;
                     }
+                  }
 
-                    .level-collection {
-                      .dropdown-menu {
-                        position: static;
-                        height: auto;
+                  .level-collection {
 
-                        .lv3 {
-                          .dropdown-item {
-                            border: none;
-                            .dropdown-link {
-                              color: $black;
-                              font-size: rem(14);
-                              font-weight: 300;
-                              letter-spacing: 0;
-                              line-height: rem(16);
-                              text-transform: unset;
-                            }
+                    .dropdown-menu {
+                      position: static;
+                      height: auto;
+
+                      .lv3 {
+
+                        .dropdown-item {
+                          border: none;
+
+                          .dropdown-link {
+                            color: $black;
+                            font-size: rem(14);
+                            font-weight: 300;
+                            letter-spacing: 0;
+                            line-height: rem(16);
+                            text-transform: unset;
                           }
                         }
                       }
@@ -1284,9 +1295,10 @@ nav {
                   }
                 }
               }
-            } 
+            }
           }
         }
+      }
     }
 
     .menu-pane {
