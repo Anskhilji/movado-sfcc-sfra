@@ -14,7 +14,6 @@
         </isif>
     </isif>
 
-
     <iscomment> New template of add to cart created for plp </iscomment>
     <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
