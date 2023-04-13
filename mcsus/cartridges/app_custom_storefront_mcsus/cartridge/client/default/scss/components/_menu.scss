@@ -517,9 +517,6 @@ nav {
     }
   }
 
-@media (max-width:991px) {
-  // display: none;
-}
   .header-menu-wrapper {
 
     .header-wrapper {
@@ -633,7 +630,6 @@ nav {
                   &.lv1 {
 
                     .dropdown-menu {
-                      // display: block !important;
 
                       .dropdown-best-Seller {
                           max-width: rem(550);
@@ -643,7 +639,6 @@ nav {
                             
                               .mcs-product-carousel-container {
                                   padding: 0 rem(15);
-                                  
 
                                   .product-tile {
 
