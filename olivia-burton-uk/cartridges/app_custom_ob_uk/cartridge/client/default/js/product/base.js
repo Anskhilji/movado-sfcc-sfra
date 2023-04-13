@@ -457,14 +457,11 @@ function handleVariantResponse(response, $productContainer) {
     */
     var $backInStockContanier = $('.listrak-back-in-stock-notification-container-main ');
     if ($backInStockContanier.length > 0) {
-        var $ctaAddToCart = $('.cart-and-ipay');
         $backInStockContanier.data('pid', response.product.id);
         if (response.product.isBackInStockEnabled) {
             $backInStockContanier.removeClass('d-none');
-            $ctaAddToCart.addClass('d-none');
         } else {
             $backInStockContanier.addClass('d-none');
-            $ctaAddToCart.removeClass('d-none');
         }
     }
 
