@@ -267,7 +267,7 @@ nav {
         width: 100%;
         padding: 0 rem(15);
         margin-top: rem(15);
-        display: block;
+        display: none;
       }
 
       .suggestions-wrapper {
@@ -390,6 +390,14 @@ nav {
         padding-top: rem(38);
       }
 
+      .back {
+
+        @include media-breakpoint-down(md) {
+          position: absolute;
+          left: 0;
+        }
+      }
+
       .close-button {
 
         @include media-breakpoint-down(md) {
@@ -402,6 +410,7 @@ nav {
         @include media-breakpoint-down(md) {
           display: flex;
           max-width: rem(135);
+          padding: 0;
         }
 
         img {
@@ -417,6 +426,59 @@ nav {
 
       @include media-breakpoint-down(md) {
         margin-top: rem(10);
+      }
+
+      .level-one {
+        margin-top: rem(15);
+      }
+
+      .nav-menu {
+
+        @include media-breakpoint-down(md) {
+          border: 0;
+        }
+      }
+
+      .top-category {
+
+        &.dropdown-item {
+
+          @include media-breakpoint-down(md) {
+            border: 0;
+            height: auto;
+            margin: 0 rem(15);
+            width: calc(100% - 30px);
+            border-bottom: rem(1) solid $white-smoke6;
+            position: relative;
+            margin-top: rem(25);
+          }
+
+          &::after {
+
+            @include media-breakpoint-down(md) {
+              content: '';
+              background: url(../../images/icons/arrow_right.png);
+              position: absolute;
+              left: 0;
+              width: rem(16);
+              height: rem(16);
+              background-repeat: no-repeat;
+              background-size: rem(8);
+              background-position: center;
+              display: inline-block;
+              top: rem(21);
+              left: 0;
+              transform: rotate(180deg);
+            }
+          }
+
+          a {
+          
+            @include media-breakpoint-down(md) {
+             padding-left: rem(26);
+            }
+          }
+        }
       }
 
       .mobile-bottom {
@@ -483,6 +545,20 @@ nav {
                 top: rem(25);
                 right: 0;
               }
+            }
+          }
+
+          &.logo-link {
+
+            @include media-breakpoint-down(md) {
+              padding: 0;
+            }
+          }
+
+          &.close-button {
+
+            @include media-breakpoint-down(md) {
+              padding: 0;
             }
           }
         }
@@ -688,10 +764,14 @@ nav {
                         flex-wrap: wrap;
                         height: rem(426);
                         justify-content: start;
+                        margin-left: rem(-70);
 
                         >.dropdown-item {
                           background-color: transparent;
                           padding: 0;
+                          padding: 0 rem(70);
+                          border-right: rem(1) solid $border-color;
+                         
 
                           .dropdown-link {
                             color: $grey-transparent-8;
@@ -701,7 +781,7 @@ nav {
                             letter-spacing: rem(2);
                             line-height: rem(13);
                             text-transform: uppercase;
-                            margin-bottom: rem(25);
+                            margin-bottom: rem(28);
                             display: inline-block;
                             height: auto;
 
@@ -727,6 +807,7 @@ nav {
                         position: inherit;
                         border: none;
                         padding: 0;
+                        min-width: auto;
 
                         .level-three {
                           margin: 0;
@@ -1302,11 +1383,27 @@ nav {
 
             .menu-pane {
 
+              @include media-breakpoint-down(md) {
+                background-color: $white;
+              }
+
               .level-two {
                 padding-top: rem(20);
 
                 .dropdown-item {
                   height: auto;
+
+                  @include media-breakpoint-down(md) {
+                    margin-bottom: rem(20);
+                    border-color: $white-smoke6;
+                  }
+
+                  &:last-child {
+
+                    @include media-breakpoint-down(md) {
+                      margin-bottom: 0;
+                    }
+                  }
 
                   .dropdown-link {
                     color: $grey-transparent-8;
@@ -1316,7 +1413,7 @@ nav {
                     letter-spacing: rem(2);
                     line-height: rem(13);
                     text-transform: uppercase;
-                    margin-bottom: rem(25);
+                    margin-bottom: rem(28);
                     display: block;
                     height: auto;
                     padding: 0;
@@ -1361,6 +1458,16 @@ nav {
     .menu-pane {
       width: 100%;
       padding: 0 rem(15);
+    }
+  }
+}
+
+.dropdown-best-Seller {
+
+  .mcs-product-carousel-redesign {
+
+    @include media-breakpoint-down(md) {
+      display: none;
     }
   }
 }
