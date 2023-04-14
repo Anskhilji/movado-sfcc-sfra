@@ -751,6 +751,11 @@ nav {
                     .category-level {
                       max-width: rem(1049);
                       margin: 0 auto;
+
+                      @include media-breakpoint-down(lg) {
+                        max-width: 100%;
+                        margin: 0 rem(30);
+                      }
                     }
 
                     .menu-pane {
@@ -1350,7 +1355,7 @@ nav {
                           padding: 0 rem(15);
                         }
                       }
-                      
+
                       .suggestion-request {
 
                         .search-recomendation {
