@@ -765,12 +765,17 @@ nav {
                         height: rem(426);
                         justify-content: start;
                         margin-left: rem(-70);
+                        overflow-y:auto;
+                        max-width: rem(500);
+                        width: 100%;
 
                         >.dropdown-item {
                           background-color: transparent;
                           padding: 0;
                           padding: 0 rem(70);
                           border-right: rem(1) solid $border-color;
+                          max-width: rem(250);
+                          width: 100%;
                          
 
                           .dropdown-link {
@@ -993,7 +998,7 @@ nav {
 
               .search-recomendation {
                 position: absolute;
-                top: rem(45);
+                top: rem(30);
                 border: 0;
                 background-color: $white;
                 box-shadow: 0 rem(4) rem(20) 0 $white-smoke5;
@@ -1470,4 +1475,19 @@ nav {
       display: none;
     }
   }
+}
+
+.level-two::-webkit-scrollbar {
+  width: rem(5);
+  height: rem(5);
+}
+
+/* Track */
+.level-two::-webkit-scrollbar-track {
+  background: $light-grey;
+}
+
+/* Handle */
+.level-two::-webkit-scrollbar-thumb {
+  background: $grey4;
 }

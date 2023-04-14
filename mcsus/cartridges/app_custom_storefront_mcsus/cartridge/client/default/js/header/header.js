@@ -5,8 +5,8 @@ $('body').on('focus, keydown', ".search-field:visible", function (e) {
         $(".search-recomendation").fadeOut();
     } else {
         $(".search-recomendation").fadeIn();
-        $mobileMenuGroup.addClass('d-none');
-        $('.menu-group').hide();
+        // $mobileMenuGroup.addClass('d-none');
+        // $('.menu-group').hide();
     }
 });
 $(".search-field").on('click', function (e) {
@@ -14,8 +14,8 @@ $(".search-field").on('click', function (e) {
         $(".search-recomendation").css('visibility', 'visible');
         $(".search-field").css('border-radius', '3px 3px 0 0');
         $(".search-recomendation").fadeIn();
-        $mobileMenuGroup.addClass('d-none');
-        $('.menu-group').hide();
+        // $mobileMenuGroup.addClass('d-none');
+        // $('.menu-group').hide();
         e.stopPropagation();
     }
 });
@@ -23,7 +23,7 @@ $(".search-field").on('click', function (e) {
 // If you move your mouse away from the search flyout, the search flyout closes
 $('.search').on('mouseleave', function(){
     $('.search-recomendation').hide();
-    $mobileMenuGroup.removeClass('d-none');
+    // $mobileMenuGroup.removeClass('d-none');
     $(this).focusout();
 });
 $('.search-recomendation').on('mouseenter', function(e){
@@ -32,7 +32,7 @@ $('.search-recomendation').on('mouseenter', function(e){
 $('.search-recomendation').on('mouseleave', function(e){
     $('.search').on('mouseleave', function(){
         $('.search-recomendation').hide();
-        $mobileMenuGroup.removeClass('d-none');
+        // $mobileMenuGroup.removeClass('d-none');
         $(this).focusout();
     });
 });
