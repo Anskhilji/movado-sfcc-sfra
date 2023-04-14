@@ -14,7 +14,6 @@ $(".search-field").on('click', function (e) {
         $(".search-recomendation").css('visibility', 'visible');
         $(".search-field").css('border-radius', '3px 3px 0 0');
         $(".search-recomendation").fadeIn();
-        $mobileMenuGroup.addClass('d-none'); //if we need search on mobile 
         $mobileMenuGroup.hide();
         e.stopPropagation();
     }
@@ -32,7 +31,6 @@ $('.search-recomendation').on('mouseenter', function(e){
 $('.search-recomendation').on('mouseleave', function(e){
     $('.search').on('mouseleave', function(){
         $('.search-recomendation').hide();
-        $mobileMenuGroup.removeClass('d-none'); //if we need search on mobile
         $mobileMenuGroup.show();
         $(this).focusout();
     });
