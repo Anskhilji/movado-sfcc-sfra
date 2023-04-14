@@ -99,7 +99,8 @@ module.exports = function () {
         var $cartButtonContainer = $productContainer.find('button.add-to-cart-plp-redesign');
 
         if (response.product.available) {
-            $cartButtonContainer.text(window.Resources.ADD_TO_CART_LABEL);
+            // $cartButtonContainer.text(window.Resources.ADD_TO_CART_LABEL);
+            $cartButtonContainer.text(window.Resources.ADD_TO_BAG_LABEL);
         } else {
             $cartButtonContainer.text(window.Resources.OUT_OF_STOCK_LABEL);
         }
