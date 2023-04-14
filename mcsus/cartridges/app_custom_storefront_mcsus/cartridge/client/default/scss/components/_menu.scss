@@ -267,7 +267,6 @@ nav {
         width: 100%;
         padding: 0 rem(15);
         margin-top: rem(15);
-        display: none;
       }
 
       .suggestions-wrapper {
@@ -425,7 +424,7 @@ nav {
     .menu-group {
 
       @include media-breakpoint-down(md) {
-        margin-top: rem(10);
+        margin-top: rem(0);
       }
 
       .level-one {
@@ -712,13 +711,35 @@ nav {
                     .dropdown-menu {
 
                       .dropdown-best-Seller {
-                        max-width: rem(550);
+                        min-width: rem(550);
                         width: 100%;
 
                         .mcs-product-carousel-redesign {
 
                           .mcs-product-carousel-container {
-                            padding: 0 rem(15);
+                            margin-top: 0;
+                            padding: 0;
+
+                            .mcs-product-carousel-row {
+
+                              .mcs-product-carousel-column {
+
+                                .cs-carousel-wrapper {
+
+                                  .carousel-title {
+                                    opacity: 0.5;
+                                    color: $black;
+                                    font-family: $font-book-std;
+                                    font-size: rem(12);
+                                    font-weight: 300;
+                                    letter-spacing: rem(2);
+                                    line-height: rem(13);
+                                    text-align: left !important; //i'm using important to overwrite inline css
+                                    margin-bottom: rem(20);
+                                  }
+                                }
+                              }
+                            }
 
                             .slick-track {
                               min-width: rem(578);
@@ -1338,12 +1359,12 @@ nav {
                     margin-left: rem(-29);
                     
                     .search-field {
-                      max-width: 80%;
+                      max-width: 90%;
                       margin: 0 auto;
                     }
 
                     .search-icon {
-                      left: rem(34);
+                      left: rem(20);
                     }
 
                     .suggestions-wrapper {
