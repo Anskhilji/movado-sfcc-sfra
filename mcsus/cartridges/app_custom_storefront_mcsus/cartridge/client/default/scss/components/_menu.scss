@@ -1317,11 +1317,16 @@ nav {
 
 
 @include media-breakpoint-down(md) {
+
   .main-menu {
+
     &.in {
+
         .mobile-menu-search {
+
             .site-search {
               padding: 0 rem(15);
+
                 form {
                     width: 100%;
                     width: rem(355);
@@ -1338,12 +1343,16 @@ nav {
 
                     .suggestions-wrapper {
                       width: 100%;
+
                       .suggestions-dropdown {
+
                         .do-you-mean,.term {
                           padding: 0 rem(15);
                         }
                       }
+                      
                       .suggestion-request {
+
                         .search-recomendation {
                           margin:0;
                           width: rem(355);
@@ -1372,17 +1381,10 @@ nav {
     }
 
     .level-one {
+
       >.nav-item {
 
         .dropdown-menu {
-          
-          // .nav-menu {
-          //   .close-menu {
-          //     .back .html-slot-container {
-          //       display: none;
-          //     }
-          //   }
-          // }
 
           .category-level {
 

@@ -14,7 +14,7 @@ $(".search-field").on('click', function (e) {
         $(".search-recomendation").css('visibility', 'visible');
         $(".search-field").css('border-radius', '3px 3px 0 0');
         $(".search-recomendation").fadeIn();
-        // $mobileMenuGroup.addClass('d-none');
+        // $mobileMenuGroup.addClass('d-none'); //if we need search on mobile 
         // $('.menu-group').hide();
         e.stopPropagation();
     }
@@ -23,7 +23,7 @@ $(".search-field").on('click', function (e) {
 // If you move your mouse away from the search flyout, the search flyout closes
 $('.search').on('mouseleave', function(){
     $('.search-recomendation').hide();
-    // $mobileMenuGroup.removeClass('d-none');
+    // $mobileMenuGroup.removeClass('d-none'); //if we need search on mobile
     $(this).focusout();
 });
 $('.search-recomendation').on('mouseenter', function(e){
@@ -32,7 +32,7 @@ $('.search-recomendation').on('mouseenter', function(e){
 $('.search-recomendation').on('mouseleave', function(e){
     $('.search').on('mouseleave', function(){
         $('.search-recomendation').hide();
-        // $mobileMenuGroup.removeClass('d-none');
+        // $mobileMenuGroup.removeClass('d-none'); //if we need search on mobile
         $(this).focusout();
     });
 });
