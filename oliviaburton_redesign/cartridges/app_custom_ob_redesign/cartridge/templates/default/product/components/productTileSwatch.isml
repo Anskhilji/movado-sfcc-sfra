@@ -13,7 +13,7 @@
                                                 data-pdp-url="${swatch.pdpURL} ${!swatch.selectable ? 'disabled' : ''}"
                                                 class="change-variation square-swatch">
                                                 <span class="${!swatch.selectable ? 'disabled' : ''}">
-                                                    <img class="swatch swatch-circle ${product.productType == 'variant' ? swatch.selected == true ? "is - active " : "" : product.selectedSwatch.id==swatch.id ? "is-active" : ""}" 
+                                                    <img class="swatch swatch-circle ${product.productType == 'variant' ? swatch.selected == true ? "is-active" : "" : product.selectedSwatch.id==swatch.id ? "is-active" : ""}" 
                                                         data-index="${loopState.count - 1}"
                                                         style="background-image: url(${swatch.images.swatch[0].url})"
                                                         src="${swatch.images.swatch[0].url}"
@@ -46,7 +46,7 @@
                                                 data-pdp-url="${swatch.pdpURL} ${!swatch.selectable ? 'disabled' : ''}"
                                                 class="change-variation square-swatch">
                                                 <span class="${!swatch.selectable ? 'disabled' : ''}">
-                                                    <img class="swatch swatch-circle ${product.productType == 'variant' ? swatch.selected == true ? "is - active " : "" : product.selectedSwatch.id==swatch.id ? "is-active" : ""}"
+                                                    <img class="swatch swatch-circle ${product.productType == 'variant' ? swatch.selected == true ? "is-active" : "" : product.selectedSwatch.id==swatch.id ? "is-active" : ""}"
                                                         data-index="${loopState.count - 1}"
                                                         style="background-image: url(${swatch.images.swatch[0].url})"
                                                         src="${swatch.images.swatch[0].url}"
