@@ -1,11 +1,19 @@
         <div class="exclusive-badges exclusive-badge-search">
             <isif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
-                <isloop items="${product.badges.imageBadges}" var="imageBadge">
-                    <div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                <isloop items="${product.badges.imageBadges}" var="imageBadge" status="loopStatus">
+                    <isif condition="${loopStatus.first}">
+                        <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                    <iselseif condition="${loopStatus.last}" />
+                        <div class="product-badge right"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                    </isif>
                 </isloop>
             <iselseif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true)}"/>
-                <isloop items="${product.defaultVariantBadges.imageBadges}" var="imageBadge">
-                    <div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                <isloop items="${product.defaultVariantBadges.imageBadges}" var="imageBadge" status="loopStatus">
+                    <isif condition="${loopStatus.first}">
+                        <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                    <iselseif condition="${loopStatus.last}"/>
+                        <div class="product-badge right"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                    </isif>
                 </isloop>
             </isif>
         </div>

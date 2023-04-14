@@ -4,8 +4,12 @@
 
     .tile-body {
 
-        .color-swatches {
+        .plp-swatches-wrapper {
             margin-bottom: rem(8);
+            min-height: rem(20);
+        }
+
+        .color-swatches {
 
             .swatch-plus-box {
 

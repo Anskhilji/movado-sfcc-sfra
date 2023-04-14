@@ -66,10 +66,10 @@ module.exports = function () {
         $exclusiveBadges.empty();
 
         var $imageBadgesLeft = $productContainer.find('.product-badge.left');
-        $imageBadgesLeft.empty();
+        $imageBadgesLeft.remove();
 
         var $imageBadgesRight = $productContainer.find('.product-badge.right');
-        $imageBadgesRight.empty();
+        $imageBadgesRight.remove();
 
         if (response.product.available) {
             var badges = response.badges;
@@ -87,7 +87,7 @@ module.exports = function () {
                     if (idx === 0) {
                         $exclusiveBadges.append('<div class="product-badge left"><span class="badge-text"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></span></div>');
                     } else {
-                        $imageBadgesRight.append('<div class="product-badge left"><span class="badge-text"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></span></div>');
+                        $exclusiveBadges.append('<div class="product-badge right"><span class="badge-text"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></span></div>');
                     }
                 });
             }
@@ -99,8 +99,11 @@ module.exports = function () {
         var $cartButtonContainer = $productContainer.find('button.add-to-cart-plp-redesign');
 
         if (response.product.available) {
-            // $cartButtonContainer.text(window.Resources.ADD_TO_CART_LABEL);
-            $cartButtonContainer.text(window.Resources.ADD_TO_BAG_LABEL);
+            if (window.Resources.CURRENT_SITE_ID == 'OliviaBurtonUS') {
+                $cartButtonContainer.text(window.Resources.ADD_TO_CART_LABEL);
+            } else {
+                $cartButtonContainer.text(window.Resources.ADD_TO_BAG_LABEL);
+            }
         } else {
             $cartButtonContainer.text(window.Resources.OUT_OF_STOCK_LABEL);
         }
