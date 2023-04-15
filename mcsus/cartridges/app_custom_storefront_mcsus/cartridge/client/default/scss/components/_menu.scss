@@ -145,6 +145,13 @@ nav {
 // MSS-2220
 .new-header-deign {
 
+  &.fixed-header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+  }
+
   .sticky-header-placeholder {
 
     @include media-breakpoint-up(lg) {
@@ -607,6 +614,7 @@ nav {
         width: 100%;
         padding: rem(15) rem(17) rem(21) rem(13);
         position: inherit;
+        height: rem(125);
       }
 
       .main-menu-top {
@@ -663,6 +671,23 @@ nav {
               max-width: rem(150);
               width: 100%;
 
+              .logo-link {
+
+                @include media-breakpoint-down(md) {
+                  display: flex;
+                  align-items: center;
+                  height: rem(36);
+                  max-width: rem(126);
+                }
+              }
+
+              p {
+                
+                @include media-breakpoint-down(md) {
+                  margin: 0;
+                }
+              }
+
               @include custom-media-query-1440($large-screen-width-1440) {
                 margin-left: rem(15);
               }
@@ -672,8 +697,13 @@ nav {
               }
 
               @include media-breakpoint-down(md) {
-                max-width: rem(126);
+                max-width: rem(104);
                 height: rem(36);
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                margin: 0;
+                top: rem(30);
               }
 
               @include media-breakpoint-down(xs) {
@@ -1099,6 +1129,11 @@ nav {
                   height: rem(20);
                   position: relative;
                   margin-right: 0;
+                  
+                  @include media-breakpoint-down(md) {
+                    margin-bottom: 0;
+                    height: auto;
+                  }
 
                   &::after {
                     content: '';
@@ -1145,6 +1180,7 @@ nav {
 
                     @include media-breakpoint-down(md) {
                       width: 100%;
+                      height: rem(31);
                     }
 
                     &:focus {
