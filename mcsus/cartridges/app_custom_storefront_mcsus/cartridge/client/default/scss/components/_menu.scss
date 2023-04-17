@@ -555,6 +555,15 @@ nav {
           &:hover {
             background-color: transparent;
           }
+
+          .js-store-modal {
+            padding: rem(21) 0;
+
+            .pickup-store-popup-button {
+              width: rem(17);
+              height: rem(14);
+            }
+          }
         }
 
         .nav-link {
@@ -897,7 +906,7 @@ nav {
                             letter-spacing: rem(2);
                             line-height: rem(13);
                             text-transform: uppercase;
-                            margin-bottom: rem(28);
+                            margin-bottom: rem(25);
                             display: inline-block;
                             height: auto;
                             margin-left: rem(0);
@@ -1349,7 +1358,7 @@ nav {
 
                 .user {
                     display: flex;
-                    flex-direction: unset;
+                    flex-direction: row-reverse;
                     align-items: center;
                     gap: rem(8);
 
@@ -1574,6 +1583,8 @@ nav {
 
               @include media-breakpoint-down(md) {
                 background-color: $white;
+                padding: 0 rem(15);
+                width: 100%;
               }
 
               .level-two {
@@ -1642,11 +1653,6 @@ nav {
           }
         }
       }
-    }
-
-    .menu-pane {
-      width: 100%;
-      padding: 0 rem(15);
     }
   }
 }
