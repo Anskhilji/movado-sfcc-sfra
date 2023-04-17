@@ -6,6 +6,8 @@ var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var customAccountHelper = require('*/cartridge/scripts/helpers/customAccountHelpers');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
+var ABTestMgr = require('dw/campaign/ABTestMgr');
+
 
 // Function will be called when a new customer is being created
 server.replace('SubmitRegistration', server.middleware.https, csrfProtection.validateAjaxRequest,
@@ -248,5 +250,21 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 		return next();
 	}
 );
+
+server.replace('Header', server.middleware.include, function (req, res, next) {
+    var headerTemplate = null;
+
+	// Custom Start: A/B Test for Header Redesign
+	if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
+	    headerTemplate = req.querystring.mobile ? 'account/mobileHeader' : 'account/header';
+	} else {
+	    headerTemplate = req.querystring.mobile ? 'account/old/mobileHeader' : 'account/header';
+	}
+	// Custom End
+    res.render(headerTemplate, { name:
+        req.currentCustomer.profile ? req.currentCustomer.profile.firstName : null
+    });
+    next();
+});
 
 module.exports = server.exports();
