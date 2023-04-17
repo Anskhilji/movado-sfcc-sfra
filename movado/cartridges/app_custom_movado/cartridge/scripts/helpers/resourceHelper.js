@@ -80,8 +80,7 @@ function getResources(pageContext) {
         FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
         FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
         OUT_OF_STOCK_LABEL: Resource.msg('label.out.of.stock', 'common', null),
-        ADD_TO_CART_LABEL: Resource.msg('label.add.to.cart', 'common', null),
-        ADD_TO_BAG_LABEL: Resource.msg('label.add.to.bag', 'common', null)
+        ADD_TO_CART_LABEL: Resource.msg('label.add.to.cart', 'common', null)
     };
     return resources;
 }
