@@ -435,6 +435,62 @@ nav {
 
       @include media-breakpoint-down(md) {
         margin-top: rem(0);
+
+        .sign-in-bottom {
+
+          .top-category {
+            
+            &.dropdown-item {
+              margin: 0;
+              height: rem(50);
+              width: 100%;
+              display: flex;
+              align-items: center;
+
+              &::after {
+                display: none;
+              }
+            }
+
+           
+          }
+
+          .my-account {
+            padding: 0 rem(15);
+            display: flex;
+            align-items: center;
+
+            a {
+              padding: 0;
+              display: flex;
+              align-items: center;
+            }
+          }
+
+          .my-wishlist {
+            padding: 0 rem(15);
+            display: flex;
+            align-items: center;
+
+            a {
+              padding: 0;
+              display: flex;
+              align-items: center;
+            }
+          }
+
+          .logout-login {
+            padding: 0 rem(15);
+            display: flex;
+            align-items: center;
+
+            a {
+              padding: 0;
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
       }
 
       .level-one {
