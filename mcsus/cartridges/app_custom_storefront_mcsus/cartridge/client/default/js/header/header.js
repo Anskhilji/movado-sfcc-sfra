@@ -56,3 +56,13 @@ $('.site-search input').focus(function () {
 }).blur(function () {
     $('.site-search').removeClass('active');
 });
+
+// overlayey show on on hover for nav-item
+$(".nav-item.dropdown").hover(function() {
+    $('body').find(".movado-modal").css({
+    'display': 'block',
+    'z-index': '26'
+});
+}, function() {
+    $('body').find(".movado-modal").removeAttr('style');
+});
