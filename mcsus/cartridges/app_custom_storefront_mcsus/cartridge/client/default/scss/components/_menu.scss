@@ -813,7 +813,6 @@ nav {
                     }
 
                     .menu-pane {
-                      display: flex;
                       width: 100%;
 
                       .level-two {
@@ -826,15 +825,16 @@ nav {
                         margin-left: rem(-70);
                         overflow-y: auto;
                         max-width: rem(500);
-                        width: 100%;
+                        width: auto;
 
                         >.dropdown-item {
                           background-color: transparent;
                           padding: 0;
                           padding: 0 rem(70);
                           border-right: rem(1) solid $border-color;
-                          max-width: rem(250);
-                          width: 100%;
+                          min-width: rem(250);
+                          max-width: 100%;
+                          width: auto;
                          
 
                           .dropdown-link {
@@ -848,6 +848,10 @@ nav {
                             margin-bottom: rem(28);
                             display: inline-block;
                             height: auto;
+                            margin-left: rem(0);
+                            overflow: unset;
+                            max-width: unset;
+
 
                             &::after {
                               display: none;
