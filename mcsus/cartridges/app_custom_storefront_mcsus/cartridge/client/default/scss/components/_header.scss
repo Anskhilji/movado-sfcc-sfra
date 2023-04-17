@@ -168,8 +168,14 @@ header {
     }
     
     .popover {
-      display: none;
+        display: none;
 
+        @include media-breakpoint-down(md) { 
+            top: rem(30);
+            padding: rem(10);
+            left: rem(-95);
+        }
+      
         &.show {
           display: block;
         }

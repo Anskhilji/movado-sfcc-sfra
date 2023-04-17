@@ -12,7 +12,7 @@
 <iselse/>
   <div class="user hidden-md-down" tabindex="0">
     <i class="login-icon"></i>
-    <span class="user-message">${pdict.name}</span>
+    <span class="user-message user-name">${pdict.name}</span>
     <div class="popover popover-bottom">
       <a href="${URLUtils.https('Account-Show')}">${Resource.msg('link.header.myaccount', 'account', null)}</a>
       <a href="${URLUtils.https('Wishlist-Show')}">
