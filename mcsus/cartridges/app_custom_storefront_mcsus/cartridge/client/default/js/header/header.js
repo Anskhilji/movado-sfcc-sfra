@@ -49,3 +49,10 @@ $('.navbar-nav').on('click', '.close-button', function (e) {
 $('.navbar-toggler').click(function (e) {
     $('.modal-background').addClass('popup-modal');
 });
+
+// 2220
+$('.site-search input').focus(function () {
+    $('.site-search').addClass('active');
+}).blur(function () {
+    $('.site-search').removeClass('active');
+});

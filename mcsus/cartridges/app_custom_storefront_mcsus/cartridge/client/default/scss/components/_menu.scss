@@ -146,10 +146,13 @@ nav {
 .new-header-deign {
 
   &.fixed-header {
+
+   @include media-breakpoint-down(md) {
     position: fixed;
     top: 0;
     z-index: 1;
     width: 100%;
+   }
   }
 
   .sticky-header-placeholder {
@@ -1054,7 +1057,7 @@ nav {
 
               .search-recomendation {
                 position: absolute;
-                top: rem(30);
+                top: rem(32);
                 border: 0;
                 background-color: $white;
                 box-shadow: 0 rem(4) rem(20) 0 $white-smoke5;
@@ -1139,13 +1142,33 @@ nav {
                     margin-top: rem(0);
                   }
 
-                  &::after {
-                    content: '';
-                    position: absolute;
-                    bottom: rem(-5);
-                    background: $light-black1;
-                    height: rem(0.5);
-                    width: rem(170);
+                  &.active {
+
+                    .search-recomendation {
+                      display: block !important; //i'm using important to overwrite inline css
+                      visibility: visible;
+                    }
+
+                    &::before {
+
+                      @include media-breakpoint-down(md) {
+                        display: block;
+                      }
+                    }
+                  }
+
+                  @include media-breakpoint-down(md) {
+                    &::before {
+                      content: '';
+                      position: absolute;
+                      top: rem(3);
+                      right: 0;
+                      background: url(../images/search-cross.svg) center center no-repeat;
+                      width: rem(14);
+                      height: rem(14);
+                      z-index: 9;
+                      display: none;
+                    }
                   }
 
                   @include media-breakpoint-down(lg) {
@@ -1157,11 +1180,11 @@ nav {
                   }
 
                   .search-icon {
-                    left: 0;
+                    left: rem(4);
                     padding-left: rem(0);
                     right: auto;
                     padding-bottom: 0;
-                    top: rem(5);
+                    top: rem(0);
 
                     @include media-breakpoint-down(lg) {
                       top: 0;
@@ -1174,7 +1197,9 @@ nav {
                     border-radius: 0 !important; //i'm using important to overwrite inline css
                     height: rem(20);
                     padding: 0;
-                    padding-left: rem(23);
+                    padding-left: rem(27);
+                    border-bottom: rem(1) solid $black;
+                    padding-bottom: rem(5);
 
                     @include media-breakpoint-down(lg) {
                       width: rem(90);
@@ -1187,16 +1212,6 @@ nav {
                       height: rem(31);
                       font-size: rem(12);
                       line-height: rem(13);
-                    }
-
-                    &::after {
-                      content: '';
-                      position: absolute;
-                      top: 0;
-                      right: 0;
-                      background: url(../images/search-cross.svg) center center no-repeat;
-                      width: rem(14);
-                      height: rem(14);
                     }
 
                     &:focus {
@@ -1255,10 +1270,6 @@ nav {
                     color: $black;
                     height: rem(14);
                     width: rem(8);
-
-                    @include media-breakpoint-down(md) {
-                      display: none;
-                    }
                   }
                 }
               }
@@ -1282,6 +1293,16 @@ nav {
                 .user {
                   display: flex;
                   flex-direction: row-reverse;
+
+                  .popover {
+
+                    &.show {
+                     
+                      a {
+                        margin-left: 0;
+                      }
+                    }
+                  }
 
                   a {
                     margin-left: rem(40);
@@ -1502,7 +1523,7 @@ nav {
                     letter-spacing: rem(2);
                     line-height: rem(13);
                     text-transform: uppercase;
-                    margin-bottom: rem(28);
+                    margin-bottom: rem(25);
                     display: block;
                     height: auto;
                     padding: 0;
@@ -1574,4 +1595,50 @@ nav {
 /* Handle */
 .level-two::-webkit-scrollbar-thumb {
   background: $grey4;
+}
+
+.sign-in-bottom {
+
+  .top-category {
+
+   @include media-breakpoint-down(md) {
+    margin: 0;
+    height: rem(50);
+    width: 100%;
+
+    &::after {
+      display: none;
+    }
+
+    .nav-link {
+      padding: 0 rem(15);
+    }
+   }
+  }
+
+  .mcs-account-name {
+
+    .nav-link {
+      padding: rem(21) 0;
+
+      &::after {
+        height: rem(10);
+        width: rem(16);
+        right: 0;
+        top: rem(25);
+      }
+    }
+  }
+
+  .nav-item {
+
+    .store-pickup-button {
+      padding: rem(21) 0;
+
+      .pickup-store-popup-button {
+        width: rem(17);
+        height: rem(14);
+      }
+    }
+  }
 }
