@@ -4,6 +4,8 @@
 
 .header-banner {
   background-color: $beige;
+  position: relative;
+  z-index: 6;
 
   .html-slot-container {
     font-family: $font-medium;

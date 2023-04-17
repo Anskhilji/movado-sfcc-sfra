@@ -59,10 +59,7 @@ $('.site-search input').focus(function () {
 
 // overlayey show on on hover for nav-item
 $(".nav-item.dropdown").hover(function() {
-    $('body').find(".movado-modal").css({
-    'display': 'block',
-    'z-index': '26'
-});
+    $('body').find(".dropdown-overlayer").addClass('active');
 }, function() {
-    $('body').find(".movado-modal").removeAttr('style');
+    $('body').find(".dropdown-overlayer").removeClass('active');
 });
