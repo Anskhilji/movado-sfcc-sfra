@@ -166,7 +166,14 @@ header {
       font-family: $font-medium;
       font-weight: 500;
     }
+    
+    .popover {
+      display: none;
 
+        &.show {
+          display: block;
+        }
+    }
   }
 
   .menu-group { 

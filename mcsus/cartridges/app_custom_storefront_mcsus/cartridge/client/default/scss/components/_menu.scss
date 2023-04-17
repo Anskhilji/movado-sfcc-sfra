@@ -1291,8 +1291,28 @@ nav {
                 }
 
                 .user {
-                  display: flex;
-                  flex-direction: row-reverse;
+                    display: flex;
+                    flex-direction: unset;
+                    align-items: center;
+                    gap: rem(8);
+
+                    .login-icon {
+                        background: url(../images/add-to-cart.svg) center center no-repeat;
+                        width: rem(12);
+                        height: rem(12);
+
+                        @include media-breakpoint-down(md) {
+                        background-size: rem(15);
+                          width: rem(19);
+                          height: rem(18);
+                        }
+                    }
+
+                    .user-message {
+                        @include media-breakpoint-down(md) {
+                          display: none;
+                        }
+                    }
 
                   .popover {
 
