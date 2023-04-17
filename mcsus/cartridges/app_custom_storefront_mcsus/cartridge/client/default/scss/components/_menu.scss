@@ -436,7 +436,7 @@ nav {
       @include media-breakpoint-down(md) {
         margin-top: rem(0);
 
-        .sign-in-bottom {
+        .login-sidebar-container {
 
           .top-category {
             
@@ -1676,7 +1676,7 @@ nav {
   background: $grey4;
 }
 
-.sign-in-bottom {
+.login-sidebar-container {
 
   .top-category {
 
