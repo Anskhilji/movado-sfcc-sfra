@@ -2,6 +2,7 @@ var AdyenHelper = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper'
 var Site = require('dw/system/Site');
 var Logger = require('dw/system/Logger');
 var adyenCustomHelper = require('~/cartridge/scripts/helpers/adyenCustomHelper');
+var PaymentMgr = require('dw/order/PaymentMgr');
 var Transaction = require('dw/system/Transaction');
 var Order = require('dw/order/Order');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
@@ -194,11 +195,17 @@ function refund(order, amount, isJob, sendMail) {
 
         /* check the payment method and accordingly revoke authorization or  perform refund*/
         var paymentMethod = order.paymentInstruments[0].paymentMethod;
-        if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY') && amount == orderTotal && refundedAmount == 0) {
+        var paymentMethods = PaymentMgr.getPaymentMethod(order.paymentInstrument
+			.getPaymentMethod());
+        var isImmediateCapture = paymentMethods.custom.isImmediateCapture;
+        if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY') && amount == orderTotal && refundedAmount == 0 && isImmediateCapture) {
             var cancelResponse = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, amount, isJob, sendMail,
                 require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').cancelOrRefund);
-            return cancelResponse;
-
+            return cancelResponse;   
+        } 
+        else if (!isImmediateCapture) {
+            var technicalCancel = hooksHelper('app.payment.adyen.technicalCancel', 'technicalCancel', order, require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').technicalCancel);
+            return technicalCancel;
             /* call the adjust authorization hook */
         } else if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY') && amount < orderTotal && transactionType.toLowerCase() == 'void') {
             var adjustResponse = hooksHelper('app.payment.adyen.adjustAuthorisation', 'adjustAuthorisation', order, amount, sendMail,

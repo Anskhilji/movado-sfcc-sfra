@@ -8,6 +8,7 @@ var URLUtils = require('dw/web/URLUtils');
 var Transaction = require('dw/system/Transaction');
 var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var OrderMgr = require('dw/order/OrderMgr');
+var PaymentMgr = require('dw/order/PaymentMgr');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 
@@ -17,6 +18,7 @@ var Order = require('dw/order/Order');
 var constants = require('*/cartridge/scripts/helpers/constants.js');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var adyenPaymentCheckout = require('int_custom_adyen_klarna/cartridge/scripts/adyen/klarna/adyenPaymentCheckout.js');
+var orderStatusHelper = require('*/cartridge/scripts/lib/orderStatusHelper');
 
 
 server.replace('Redirect', server.middleware.https, function (req, res, next) {
@@ -303,8 +305,31 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         });
         return next();
     }
+    
+
+    var orderTotal = order.getTotalGrossPrice().value;
+    var refundedAmount = 0;
+    var alreadyRefundedAmountList = orderStatusHelper.convertSapAttributesToList(order.custom.sapAlreadyRefundedAmount);
+    if (alreadyRefundedAmountList) {
+        for (var i = 0; i < alreadyRefundedAmountList.length; i++) {
+            refundedAmount = parseFloat(refundedAmount) + parseFloat(alreadyRefundedAmountList[i]);
+        }
+    }
+
     // Adding hook for technical cancel
-    hooksHelper('app.payment.adyen.cancelOrRefund', 'technicalCancel', order, require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').technicalCancel);
+    var paymentMethod = PaymentMgr.getPaymentMethod(order.paymentInstrument
+        .getPaymentMethod());
+    var isImmediateCapture = paymentMethod.custom.isImmediateCapture;
+    var sendMail = true;
+    var isJob = false;
+
+    if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY') && order.getTotalGrossPrice().value == orderTotal && refundedAmount == 0 && isImmediateCapture) {
+        var cancelResponse = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, order.getTotalGrossPrice().value, isJob, sendMail,
+            require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').cancelOrRefund);
+        return cancelResponse;   
+    } else if (!isImmediateCapture) {
+        hooksHelper('app.payment.adyen.technicalCancel', 'technicalCancel', order, require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').technicalCancel);
+    }
     checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);
     checkoutLogger.error('(Adyen) -> ShowConfirmation: Order is Failed due to payment result is not authorized and redirecting to the Checkout-Begin and stage is payment and order number: ' + orderNumber);
     session.custom.klarnaRiskifiedFlag = '';
