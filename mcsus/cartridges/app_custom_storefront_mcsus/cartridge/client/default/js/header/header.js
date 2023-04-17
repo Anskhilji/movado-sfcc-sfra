@@ -63,3 +63,8 @@ $(".nav-item.dropdown").hover(function() {
 }, function() {
     $('body').find(".dropdown-overlayer").removeClass('active');
 });
+
+if(!$('.dropdown-best-Seller > .mcs-product-carousel-redesign').length > 0) {
+    $('.category-level').addClass('bestseller-disable');
+    $('.dropdown-best-Seller').hide();
+}
