@@ -769,6 +769,10 @@ nav {
         width: 100%;
         padding: rem(15) rem(17) rem(21) rem(13);
         position: inherit;
+        height: rem(67);
+      }
+
+      @include media-breakpoint-down(sm) {
         height: rem(125);
       }
 

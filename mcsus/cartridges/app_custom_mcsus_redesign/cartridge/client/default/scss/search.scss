@@ -95,12 +95,13 @@
                                 margin: 0;
                                 width: 100%;
                                 margin-left: rem(-30);
-                                top: rem(125);
+                                top: rem(67);
                                 z-index: 1;
                             }
 
                             @include media-breakpoint-down(sm) {
                                 padding: rem(15) rem(15);
+                                top: rem(125);
                             }
                         }
                     }
