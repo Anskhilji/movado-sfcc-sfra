@@ -161,6 +161,10 @@ nav {
       font-size: rem(12);
       letter-spacing: 0;
       line-height: rem(14);
+      max-width: rem(80);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .user-name {
@@ -215,6 +219,13 @@ nav {
             @include media-breakpoint-down(md) {
               width: 40%;
               background-color: $white-smoke7;
+
+              .dropdown-menu {
+
+                &.my-account-wrapper {
+                  height: 100%;
+                }
+              }
             }
 
             @include media-breakpoint-down(sm) {
@@ -224,11 +235,11 @@ nav {
             .search-recomendation {
 
               @include media-breakpoint-down(md) {
-                width: calc(100% + 70px);
+                width: calc(100% + 30px);
                 margin-right: 0;
                 background-color: $white;
                 height: 100vh;
-                margin-left: rem(-28);
+                margin-left: rem(-15);
                 border: 0;
                 padding: 0 rem(12) 0 rem(10);
                 top: 0;
@@ -590,6 +601,11 @@ nav {
         .nav-item {
           list-style: none;
 
+          a {
+            display: flex;
+            align-items: center;
+          }
+
           &:hover {
             background-color: transparent;
           }
@@ -600,6 +616,7 @@ nav {
             .pickup-store-popup-button {
               width: rem(17);
               height: rem(14);
+              margin-right: rem(10) !important; //i'm using important to overwrite inline css
             }
           }
         }
@@ -615,13 +632,15 @@ nav {
           .stores-icon {
             width: rem(17);
             height: rem(14);
-            margin-right: rem(12);
+            margin-right: rem(10);
           }
 
           .login-icon {
             width: rem(19);
             height: rem(20);
             margin-right: rem(10);
+            background: url(../images/add-to-cart.svg) center center no-repeat;
+            background-size: rem(17);
           }
         }
       }
@@ -745,6 +764,7 @@ nav {
 
           @include media-breakpoint-down(xs) {
             margin-left: 0;
+            margin-right: 0;
           }
         }
 
@@ -829,8 +849,8 @@ nav {
               }
 
               @include custom-media-query($xl-large-screen-width) {
-                justify-content: center;
-                margin-left: 0;
+                justify-content: flex-start;
+                margin-left: rem(40);
               }
 
               .menu-group {
@@ -1290,6 +1310,7 @@ nav {
                     margin-bottom: 0;
                     height: auto;
                     margin-top: rem(0);
+                    margin-left: 0;
                   }
 
                   &.active {
@@ -1330,14 +1351,18 @@ nav {
                   }
 
                   .search-icon {
-                    left: rem(4);
+                    left: rem(0);
                     padding-left: rem(0);
                     right: auto;
                     padding-bottom: 0;
-                    top: rem(0);
+                    top: rem(2);
                     background-image: url(../images/search-icon.svg);
                     background-repeat: no-repeat;
                     background-position: center;
+                    padding: 0;
+                    background-size: rem(12);
+                    width: rem(12);
+                    height: rem(12);
 
                     @include media-breakpoint-down(lg) {
                       top: 0;
@@ -1350,7 +1375,7 @@ nav {
                     border-radius: 0 !important; //i'm using important to overwrite inline css
                     height: rem(20);
                     padding: 0;
-                    padding-left: rem(27);
+                    padding-left: rem(20);
                     border-bottom: rem(1) solid $black;
                     padding-bottom: rem(5);
 
@@ -1471,7 +1496,6 @@ nav {
                     display: flex;
                     flex-direction: row-reverse;
                     align-items: center;
-                    gap: rem(8);
 
                     &.set-login {
                       flex-direction: unset;
@@ -1501,7 +1525,7 @@ nav {
                       line-height: rem(13);
                       margin-left: rem(8);
                       text-overflow: ellipsis;
-                      max-width: rem(67);
+                      max-width: rem(75);
                       white-space: nowrap;
                       overflow: hidden;
                       
@@ -1573,7 +1597,7 @@ nav {
                       letter-spacing: 0;
                       line-height: rem(13);
                       margin-left: rem(8);
-                      max-width: rem(75);
+                      max-width: rem(80);
                       white-space: nowrap;
                       overflow: hidden;
                       text-overflow: ellipsis;
@@ -1657,7 +1681,9 @@ nav {
                 }
               }
 
-              @include media-breakpoint-down(md) {
+              @include media-breakpoint-down(md) 
+              
+              {
                 &::before {
                   content: '';
                   position: absolute;
@@ -1683,10 +1709,14 @@ nav {
 
                     .search-icon {
                       left: rem(0);
+                      background-image: url(../images/search-icon.svg);
+                      background-repeat: no-repeat;
+                      background-position: center;
                     }
 
                     .suggestions-wrapper {
-                      width: 100%;
+                      width: calc(100% + 30px);
+                      margin-left: rem(-15);
 
                       .suggestions-dropdown {
 
@@ -1731,6 +1761,8 @@ nav {
         .dropdown-menu {
 
           .category-level {
+            height: 100%;
+            background-color: $white;
 
             .menu-pane {
 
@@ -1858,6 +1890,16 @@ nav {
 
     .nav-link {
       padding: rem(21) 0;
+      color: $black;
+
+      i {
+        background: url(../images/add-to-cart.svg) center center no-repeat;
+        width: rem(20);
+        height: rem(19);
+        position: relative;
+        top: 5px;
+        left: 5px;
+      }
 
       &::after {
         height: rem(10);
@@ -1876,6 +1918,11 @@ nav {
       .pickup-store-popup-button {
         width: rem(17);
         height: rem(14);
+      }
+
+      .set-your-store {
+        color: $black;
+        font-family: $font-book-std;
       }
     }
   }

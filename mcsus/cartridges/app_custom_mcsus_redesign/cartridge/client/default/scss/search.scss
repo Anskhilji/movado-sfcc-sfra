@@ -97,7 +97,6 @@
                                 margin-left: rem(-30);
                                 top: rem(125);
                                 z-index: 1;
-                                border-top: rem(1) solid $border-color;
                             }
 
                             @include media-breakpoint-down(sm) {
