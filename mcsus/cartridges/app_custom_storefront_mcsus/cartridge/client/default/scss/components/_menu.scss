@@ -1222,7 +1222,7 @@ nav {
               margin-right: 0;
               margin-top: rem(-8);
 
-              @include media-breakpoint-up(xl) {
+              @include media-breakpoint-up(lg) {
                 margin-right: rem(15);
               }
             }
