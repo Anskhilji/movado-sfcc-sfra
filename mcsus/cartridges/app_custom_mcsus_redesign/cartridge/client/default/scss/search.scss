@@ -698,3 +698,12 @@
 .filter-by-icon {
     display: none;
 }
+.sort-filters-button {
+
+    &.sort-col{
+        
+        &::before {
+            display: none;
+        }
+    }
+}
