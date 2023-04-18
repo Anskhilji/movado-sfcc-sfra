@@ -1200,7 +1200,18 @@ nav {
               @include media-breakpoint-down(md) {
                 width: 100%;
                 margin: 0 rem(-10);
-                margin-top: rem(57);
+                position: absolute;
+                top: rem(7);
+                right: rem(99);
+                max-width: rem(180);
+              }
+
+              @include media-breakpoint-down(sm) {
+                 margin-top: rem(57);
+                 position: relative;
+                 max-width: 100%;
+                 top: 0;
+                 right: rem(0);
               }
 
               .suggestion-request {
@@ -1387,6 +1398,14 @@ nav {
                     @include media-breakpoint-down(lg) {
                       top: 0;
                     }
+
+                    @include media-breakpoint-down(md) {
+                      top: rem(10);
+                    }
+
+                    @include media-breakpoint-down(md) {
+                      top: 0;
+                    }
                   }
 
                   .search-field {
@@ -1401,7 +1420,7 @@ nav {
 
                     @include media-breakpoint-down(lg) {
                       width: rem(90);
-                      padding-bottom: rem(14);
+                      padding-bottom: rem(0);
                       border-bottom: rem(0.5) solid $black;
                     }
 
@@ -1409,6 +1428,7 @@ nav {
                       width: 100%;
                       height: rem(31);
                       font-size: rem(12);
+                      padding-bottom: rem(14);
                       line-height: rem(13);
                     }
 
