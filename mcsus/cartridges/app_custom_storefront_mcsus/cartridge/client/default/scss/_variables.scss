@@ -177,6 +177,7 @@ $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org
 // Large Screen
 $large-screen-width: 1400px;
 $xl-large-screen-width:1500px;
+$laptop-screen-width:1300px;
 
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {
