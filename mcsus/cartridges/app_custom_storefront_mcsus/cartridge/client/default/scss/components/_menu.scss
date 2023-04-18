@@ -462,7 +462,7 @@ nav {
           position: absolute;
           left: 0;
         }
-      }
+      }  
 
       .close-button {
 
@@ -575,25 +575,6 @@ nav {
             margin-top: rem(25);
           }
 
-          &::after {
-
-            @include media-breakpoint-down(md) {
-              content: '';
-              background: url(../../images/icons/arrow_right.png);
-              position: absolute;
-              left: 0;
-              width: rem(16);
-              height: rem(16);
-              background-repeat: no-repeat;
-              background-size: rem(8);
-              background-position: center;
-              display: inline-block;
-              top: rem(21);
-              left: 0;
-              transform: rotate(180deg);
-            }
-          }
-
           a {
           
             @include media-breakpoint-down(md) {
@@ -699,6 +680,29 @@ nav {
             @include media-breakpoint-down(md) {
               padding: 0;
             }
+          }
+        }
+        .close-menu {
+
+          @include media-breakpoint-down(md) {
+            justify-content: center;
+            height: auto;
+            background-color: $white;
+            border: 0;
+            padding-top: rem(38);
+          }
+    
+          a {
+    
+            &.back {
+              @include media-breakpoint-down(md) {
+                position: absolute;
+                top: rem(113);
+                left: rem(10);
+                font-size: 0;
+                z-index: 99;
+              }
+            } 
           }
         }
       }
@@ -1909,6 +1913,10 @@ nav {
 }
 
 .login-sidebar-container {
+
+  .back {
+    display: none;
+  }
 
   .top-category {
 

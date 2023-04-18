@@ -3,7 +3,7 @@
   <div class="user hidden-md-down">
     <a href="${URLUtils.https('Login-Show')}">
       <i class="login-icon"></i>
-      <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
+      <span class="user-message user-name">${Resource.msg('link.header.login', 'account', null)}</span>
     </a>
     <isif condition="${isPickupStoreEnabled}">
       <isinclude template="modalpopup/modelPopUpButton"/>
