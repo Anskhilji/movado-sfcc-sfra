@@ -915,7 +915,7 @@ nav {
                           .menu-pane {
       
                               .level-two {
-                                max-width: rem(500);
+                                  max-width: 100%;
                                   margin: 0 auto;
                               }
                           }
@@ -937,6 +937,41 @@ nav {
                         max-width: rem(500);
                         width: auto;
 
+                        &.column-three {
+                          display: -webkit-box;
+                          display: -ms-flexbox;
+                          display: flex;
+                          -ms-flex-wrap: wrap;
+                          flex-wrap: wrap;
+                          flex-direction: row;
+                          align-content: flex-start;
+
+                            .dropdown-item {
+                              -webkit-box-flex: 0;
+                              -ms-flex: 0 0 33.333%;
+                              flex: 0 0 33.333%;
+                              max-width: 33.333%;
+                              white-space: unset;
+                            }
+                        }
+                        
+                        &.column-five {
+                          display: -webkit-box;
+                          display: -ms-flexbox;
+                          display: flex;
+                          -ms-flex-wrap: wrap;
+                          flex-wrap: wrap;
+                          align-content: flex-start;
+
+                            .dropdown-item {
+                              -webkit-box-flex: 0;
+                              -ms-flex: 0 0 20%;
+                              flex: 0 0 20%;
+                              max-width: 20%;
+                              white-space: unset;
+                            }
+                        }
+
                         >.dropdown-item {
                           background-color: transparent;
                           padding: 0;
@@ -945,6 +980,7 @@ nav {
                           min-width: rem(250);
                           max-width: 100%;
                           width: auto;
+                          box-sizing: border-box;
                          
 
                           .dropdown-link {
