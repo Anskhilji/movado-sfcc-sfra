@@ -468,7 +468,7 @@ nav {
       .close-button {
 
         @include media-breakpoint-down(md) {
-          top: rem(47);
+          top: rem(51);
         }
       }
 
@@ -704,7 +704,7 @@ nav {
             &.back {
               @include media-breakpoint-down(md) {
                 position: absolute;
-                top: rem(130);
+                top: rem(140);
                 left: rem(10);
                 font-size: 0;
                 z-index: 99;
