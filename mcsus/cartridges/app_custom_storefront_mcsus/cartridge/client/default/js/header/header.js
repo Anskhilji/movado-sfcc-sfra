@@ -69,3 +69,12 @@ if(!$('.dropdown-best-Seller > .mcs-product-carousel-redesign').length > 0) {
     $('.level-two').addClass('column-three');
     $('.dropdown-best-Seller').hide();
 }
+
+
+$(".new-hamburger").on('click', function (e) {
+    $('body').css('overflow','hidden');
+});
+
+$(document).on('click', '.close-button, .close-icon', function(e) {
+    $('body').removeAttr('style');
+});

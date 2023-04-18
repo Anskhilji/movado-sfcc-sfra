@@ -1,12 +1,12 @@
 <isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 <isif condition="${pdict.name === null}">
  <div class="mobile-bottom">
- <li class="nav-item my-stores d-lg-none" role="menuitem">
-      <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
-        <i class="fa stores-icon" aria-hidden="true"></i>
-        <span class="user-message">${Resource.msg('link.header.stores.locator', 'account', null)}</span>
-      </a>
-    </li>
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <div data-action = "${URLUtils.url('Stores-FindStores')}" class="nav-link store-sidebar-link px-0">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores.locator', 'account', null)}</span>
+    </div>
+  </li>
   <li class="nav-item d-lg-none" role="menuitem">
       <a href="${URLUtils.https('Login-Show')}" class="nav-link">
         <i class="login-icon" aria-hidden="true"></i>

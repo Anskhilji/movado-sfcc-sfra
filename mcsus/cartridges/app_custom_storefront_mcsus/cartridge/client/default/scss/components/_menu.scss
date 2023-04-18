@@ -647,7 +647,7 @@ nav {
           border-bottom: 0;
         }
 
-        a {
+        a,.store-sidebar-link {
 
           @include media-breakpoint-down(md) {
             color: $black;
