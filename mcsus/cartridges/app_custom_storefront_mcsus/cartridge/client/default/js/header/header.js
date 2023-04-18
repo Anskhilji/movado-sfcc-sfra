@@ -3,15 +3,30 @@ var $mobileMenuGroup = $('.main-menu-mobile .menu-group');
 $('body').on('focus, keydown', ".search-field:visible", function (e) {
     if ($(this).val().length > 0) {
         $(".search-recomendation").fadeOut();
+        $(".search-recomendation-sidebar").fadeOut();
+        $mobileMenuGroup.removeClass('d-none'); 
     } else {
         $(".search-recomendation").fadeIn();
+        $(".search-recomendation-sidebar").fadeIn();
         $mobileMenuGroup.addClass('d-none');
         $mobileMenuGroup.hide();
     }
 });
-$(".search-field").on('click', function (e) {
+$(".search-field-home").on('click', function (e) {
     if ($(this).val() === '') {
+        $(".search-recomendation-sidebar").css('visibility', 'hidden');
         $(".search-recomendation").css('visibility', 'visible');
+        $(".search-field").css('border-radius', '3px 3px 0 0');
+        $(".search-recomendation").fadeIn();
+        $mobileMenuGroup.hide();
+        e.stopPropagation();
+    }
+});
+
+$(".search-field-menu").on('click', function (e) {
+    if ($(this).val() === '') {
+        $(".search-recomendation").css('visibility', 'hidden');
+        $(".search-recomendation-sidebar").css('visibility', 'visible');
         $(".search-field").css('border-radius', '3px 3px 0 0');
         $(".search-recomendation").fadeIn();
         $mobileMenuGroup.hide();
@@ -51,10 +66,16 @@ $('.navbar-toggler').click(function (e) {
 });
 
 // 2220
-$('.site-search input').focus(function () {
-    $('.site-search').addClass('active');
+$('.home-search input').focus(function () {
+    $('.home-search').addClass('active');
 }).blur(function () {
-    $('.site-search').removeClass('active');
+    $('.home-search').removeClass('active');
+});
+
+$('.menu-search input').focus(function () {
+    $('.menu-search').addClass('active');
+}).blur(function () {
+    $('.menu-search').removeClass('active');
 });
 
 // overlayey show on on hover for nav-item

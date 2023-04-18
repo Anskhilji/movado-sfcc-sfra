@@ -12,7 +12,7 @@
     </div>
     <div class="mobile-menu-search">
         <div class="hidden-sm-down search">
-           <isinclude template="components/header/search" />
+           <isinclude template="components/header/menuSearch" />
         </div>
     </div>
 

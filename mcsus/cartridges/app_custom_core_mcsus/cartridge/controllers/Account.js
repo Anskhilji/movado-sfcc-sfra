@@ -258,7 +258,7 @@ server.replace('Header', server.middleware.include, function (req, res, next) {
 	if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
 	    headerTemplate = req.querystring.mobile ? 'account/mobileHeader' : 'account/header';
 	} else {
-	    headerTemplate = req.querystring.mobile ? 'account/old/mobileHeader' : 'account/header';
+	    headerTemplate = req.querystring.mobile ? 'account/old/mobileHeader' : 'account/old/header';
 	}
 	// Custom End
     res.render(headerTemplate, { name:
