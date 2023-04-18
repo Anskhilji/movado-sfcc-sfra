@@ -58,10 +58,10 @@ $('.site-search input').focus(function () {
 });
 
 // overlayey show on on hover for nav-item
-$(".nav-item.dropdown").hover(function() {
-    $('body').find(".dropdown-overlayer").addClass('active');
+$('.nav-item.dropdown').hover(function() {
+    $('body').find('.dropdown-overlayer').addClass('active');
 }, function() {
-    $('body').find(".dropdown-overlayer").removeClass('active');
+    $('body').find('.dropdown-overlayer').removeClass('active');
 });
 
 if(!$('.dropdown-best-Seller > .mcs-product-carousel-redesign').length > 0) {
