@@ -680,6 +680,12 @@ nav {
 
             @include media-breakpoint-down(md) {
               padding: 0;
+              left: rem(22);
+
+              .close-icon {
+                width: rem(11);
+                height: rem(11);
+              }
             }
           }
         }
@@ -698,10 +704,20 @@ nav {
             &.back {
               @include media-breakpoint-down(md) {
                 position: absolute;
-                top: rem(113);
+                top: rem(130);
                 left: rem(10);
                 font-size: 0;
                 z-index: 99;
+                padding: 0;
+
+                .caret-left {
+                  width: rem(6);
+                  height: rem(10);
+                }
+              }
+
+              @include media-breakpoint-down(sm) {
+                top: rem(140);
               }
             } 
           }
@@ -1920,7 +1936,7 @@ nav {
 .login-sidebar-container {
 
   .back {
-    display: none;
+    display: none !important; //using important to overwrite inline css
   }
 
   .top-category {
