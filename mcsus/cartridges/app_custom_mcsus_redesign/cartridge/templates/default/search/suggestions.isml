@@ -92,7 +92,7 @@
     <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
 
     <div class="suggestion-request">
-        <div class="search-recomendation ">
+        <div class="search-recomendation ${pdict.suggestions.product.phrases.length === 0 || pdict.suggestions.didYouMeanPresence === false ? 'no-suggestions' : ''}">
             <div class="search-suggestions">
                 <div>
                     <isslot id="recent-search-product-name" description="Top Search Product Name" context="global" />

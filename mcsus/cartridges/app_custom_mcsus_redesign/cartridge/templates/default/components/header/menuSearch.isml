@@ -14,7 +14,7 @@
         <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
         <input type="hidden" value="${pdict.locale}" name="lang" />
     </form>
-    <div class="row search-recomendation search-recomendation-sidebar justify-content-center">
+    <div class="row search-recomendation search-recomendation-sidebar search-slot justify-content-center">
         <div class="col-12">
             <div class="search-suggestions">
                 <div>
