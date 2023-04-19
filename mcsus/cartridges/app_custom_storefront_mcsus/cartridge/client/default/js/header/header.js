@@ -3,18 +3,18 @@ var $mobileMenuGroup = $('.main-menu-mobile .menu-group');
 $('body').on('focus, keydown', ".search-field:visible", function (e) {
     if ($(this).val().length > 0) {
         $(".search-recomendation").fadeOut();
-        $(".search-recomendation-sidebar").fadeOut();
+        $('.search-recomendation-sidebar').fadeOut();
         $mobileMenuGroup.removeClass('d-none'); 
     } else {
         $(".search-recomendation").fadeIn();
-        $(".search-recomendation-sidebar").fadeIn();
+        $('.search-recomendation-sidebar').fadeIn();
         $mobileMenuGroup.addClass('d-none');
         $mobileMenuGroup.hide();
     }
 });
-$(".search-field-home").on('click', function (e) {
+$('.search-field-home').on('click', function (e) {
     if ($(this).val() === '') {
-        $(".search-recomendation-sidebar").css('visibility', 'hidden');
+        $('.search-recomendation-sidebar').css('visibility', 'hidden');
         $(".search-recomendation").css('visibility', 'visible');
         $(".search-field").css('border-radius', '3px 3px 0 0');
         $(".search-recomendation").fadeIn();
@@ -23,12 +23,12 @@ $(".search-field-home").on('click', function (e) {
     }
 });
 
-$(".search-field-menu").on('click', function (e) {
+$('.search-field-menu').on('click', function (e) {
     if ($(this).val() === '') {
-        $(".search-recomendation").css('visibility', 'hidden');
-        $(".search-recomendation-sidebar").css('visibility', 'visible');
-        $(".search-field").css('border-radius', '3px 3px 0 0');
-        $(".search-recomendation").fadeIn();
+        $('.search-recomendation').css('visibility', 'hidden');
+        $('.search-recomendation-sidebar').css('visibility', 'visible');
+        $('.search-field').css('border-radius', '3px 3px 0 0');
+        $('.search-recomendation').fadeIn();
         $mobileMenuGroup.hide();
         e.stopPropagation();
     }
@@ -37,6 +37,7 @@ $(".search-field-menu").on('click', function (e) {
 // If you move your mouse away from the search flyout, the search flyout closes
 $('.search').on('mouseleave', function(){
     $('.search-recomendation').hide();
+    $('.search-recomendation-sidebar').hide();
     $mobileMenuGroup.removeClass('d-none'); //if we need search on mobile
     $(this).focusout();
 });
@@ -92,7 +93,7 @@ if(!$('.dropdown-best-Seller > .mcs-product-carousel-redesign').length > 0) {
 }
 
 
-$(".new-hamburger").on('click', function (e) {
+$('.new-hamburger').on('click', function (e) {
     $('body').css('overflow','hidden');
     $('.new-header-deign').removeClass('fixed-header')
 });
