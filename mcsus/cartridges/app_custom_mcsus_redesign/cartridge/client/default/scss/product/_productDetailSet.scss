@@ -276,7 +276,7 @@
                 .bundle-offer-box {
                     min-width: rem(218);
                     border-radius: rem(3);
-                    background-color: $light-green;
+                    background-color: $grey-light4;
                     padding: rem(10) rem(20);
                     margin-bottom: rem(30);
 
@@ -285,7 +285,7 @@
                     }
 
                     .bundle-text {
-                        color: $apple;
+                        color: $black;
                         font-size: rem(14);
                         font-weight: 600;
                         letter-spacing: 0;
@@ -476,26 +476,37 @@
                     border: none;
 
                     .plus-minus {
-                        top: rem(20);
-                        transform: rotate(180deg);
-                        transition: .4s ease all;
-
-                        &::after {
-                            content: "";
-                            content: url('../../images/Chevron_down.svg');
-                            position: unset;
-
-                        }
+                        position: absolute;
+                        top: rem(16);
+                        right: rem(0);
 
                         &::before {
-                            display: none;
+                            content: url('../../images/minus.png');
+                            display: inline-block;
+                            position: absolute;
+                            transform: rotate(0deg);
+                            transition: all 0.4s;
+                            right: rem(0);
+                            top: rem(0);
+                        }
+
+                        &::after {
+                            content: url('../../images/minus.png');
+                            display: inline-block;
+                            position: absolute;
+                            right: rem(0);
                         }
                     }
 
                     &.collapsed {
-                        
+
                         .plus-minus {
-                            transform: rotate(0deg);
+
+                            &::before {
+                                transform: rotate(90deg);
+                                top: rem(4);
+                                right: rem(-4);
+                            }
                         }
                     }
 

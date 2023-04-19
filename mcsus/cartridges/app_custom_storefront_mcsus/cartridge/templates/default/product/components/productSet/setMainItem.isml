@@ -37,13 +37,13 @@
 
                 <div class="product-detail-right-box">
                     <div class="d-none d-sm-block">
-                        <h2 class="product-family-name-redesign">
+                        <h2 class="product-family-name-redesign text-center text-md-left">
                             <isif condition="${product.productSetBrand}">
                                 <a href="${!empty(pdict.customProductSetURL) ? pdict.customProductSetURL : ''}">${product.productSetBrand}</a>
                             </isif>
                         </h2>
                     </div>
-                    <h2 class="product-name prdouct-name-gtm  d-sm-block">${product.productName}</h2>
+                    <h2 class="product-name prdouct-name-gtm  d-sm-block text-center text-md-left">${product.productName}</h2>
 
                     <div class="w-100 price-promotions-box">
                         <!-- Applicable Promotions -->
@@ -78,7 +78,7 @@
                                         width="20px" height="20px" viewBox="0 0 778.000000 778.000000"
                                         preserveAspectRatio="xMidYMid meet">
                                         <g transform="translate(0.000000,778.000000) scale(0.100000,-0.100000)"
-                                        fill="#59AF2C" stroke="none">
+                                        fill="#000" stroke="none">
                                         <path d="M288 7761 c-31 -10 -72 -28 -91 -40 -59 -36 -143 -135 -169 -198
                                         l-23 -58 -3 -1415 c-3 -1545 -4 -1488 55 -1653 31 -88 91 -210 140 -286 49
                                         -76 3956 -3989 4035 -4041 121 -80 275 -91 406 -30 64 29 142 106 1569 1533
@@ -103,7 +103,7 @@
                                         preserveAspectRatio="xMidYMid meet">
 
                                         <g transform="translate(0.000000,778.000000) scale(0.100000,-0.100000)"
-                                        fill="#59AF2C" stroke="none">
+                                        fill="#000" stroke="none">
                                         <path d="M288 7761 c-31 -10 -72 -28 -91 -40 -59 -36 -143 -135 -169 -198
                                         l-23 -58 -3 -1415 c-3 -1545 -4 -1488 55 -1653 31 -88 91 -210 140 -286 49
                                         -76 3956 -3989 4035 -4041 121 -80 275 -91 406 -30 64 29 142 106 1569 1533

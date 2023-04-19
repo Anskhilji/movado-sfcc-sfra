@@ -34,7 +34,7 @@
                                         <div class="product-detail-right-box">
                                             <div class="d-sm-block">
                                                 <iscomment> product family name </iscomment>
-                                                <h2 class="product-family-name-redesign">
+                                                <h2 class="product-family-name-redesign text-center text-md-left">
                                                     <isloop items="${pdict.customIndividualItemURL}" var="customIndividualItemURL" status="loopstatus">
                                                         <isset name="customIndividualItemURL" value="${customIndividualItemURL}" scope="page" />
                                                         <isset name="currentSetItemID" value="${customIndividualItemURL.split('|')[1]}" scope="page" />
@@ -48,7 +48,7 @@
                                                     </isif>
                                                 </h2>
                                                 <!-- Product Name -->
-                                                <h2 class="product-name prdouct-name-gtm d-sm-block text-left">
+                                                <h2 class="product-name prdouct-name-gtm d-sm-block text-center text-md-left">
                                                     <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
                                                         ${product.productName}
                                                     </a>
@@ -81,13 +81,14 @@
                                                 </div>
                                             </isif>
 
-                                            <div class="description-redesign setitem-description  pdp-short-detail pdp-short-detail-main">
+                                            <iscomment> <div class="description-redesign setitem-description  pdp-short-detail pdp-short-detail-main">
                                                <isinclude template="/product/components/description" />
-                                            </div>
+                                            </div> </iscomment>
                     
                                            <iscomment> accordion start here </iscomment>
                                             <div class="row">
-                                                <isinclude template="product/components/productSet/accordion" />
+                                                <isinclude template="product/components/accordion" />
+                                                <iscomment> <isinclude template="product/components/productSet/accordion" /> </iscomment>
                                             </div>
                                             <iscomment> accordion end here </iscomment>
                                         </div>
