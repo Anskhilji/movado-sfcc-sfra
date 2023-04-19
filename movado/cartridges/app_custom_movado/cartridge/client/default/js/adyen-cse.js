@@ -90,6 +90,7 @@ function showValidation(validationResult) {
                     break;
                 case 'number':
                     $('#cardNumber').addClass('is-invalid');
+                    $('.invalid-feedback').removeClass('d-none');
                     break;
                 case 'expiryMonth':
                     $('#expirationDate').addClass('is-invalid');

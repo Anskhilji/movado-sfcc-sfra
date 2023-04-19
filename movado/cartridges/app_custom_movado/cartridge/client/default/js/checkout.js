@@ -151,18 +151,18 @@ $(document).ready(function() { // eslint-disable-line
                 $(this).addClass('is-valid');
                 $(this).removeClass('is-invalid');
                 $('.card-number-wrapper').addClass('card-number-mr');
-                $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text('');
+                $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').addClass('d-none');
             } else {
                 $(this).removeClass('is-valid');
                 $(this).addClass('is-invalid');
                 $('.card-number-wrapper').addClass('card-number-mr');
-                $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_NUMBER_VALIDATION);
+                $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').removeClass('d-none');
             }
         } else {
-                $(this).removeClass('is-valid');
-                $(this).addClass('is-invalid');
-                $('.card-number-wrapper').addClass('card-number-mr');
-                $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_NUMBER_VALIDATION);
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
+            $('.card-number-wrapper').addClass('card-number-mr');
+            $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').removeClass('d-none');
         }
     });
 
@@ -319,15 +319,22 @@ $(document).ready(function() { // eslint-disable-line
         }
     });
 
-    $('input.shippingAddressTwo, input.billingAddressTwo').on('change keyup', function() {
+    $('input.shippingAddressTwo, input.billingAddressTwo').on('change keyup focusout', function() {
         var $value = $(this).val();
-        var $pattern = /^(^((?!(([\\'\\\\\\>\\<])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)/i
-        var $isValid = $pattern.test($value);
-        if ($isValid) {
-            $(this).addClass('is-valid');
-            $(this).removeClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').text('');
-
+        if ($value) {
+            var $pattern = /^(^((?!(([\\'\\\\\\>\\<])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('is-valid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').text('');
+    
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).addClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').text(Resources.CHECKOUT_ADDRESS_2_VALIDATION);
+    
+            }
         } else {
             $(this).removeClass('is-valid');
             $(this).addClass('is-invalid');
@@ -445,10 +452,6 @@ $(document).ready(function() { // eslint-disable-line
             $(this).addClass('is-valid');
             $(this).removeClass('is-invalid');
             $('.dwfrm_shipping_shippingAddress_addressFields_states_stateCode, .dwfrm_billing_addressFields_states_stateCode').find('.invalid-feedback').text('');
-        } else {
-            $(this).removeClass('is-valid');
-            $(this).addClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_states_stateCode, .dwfrm_billing_addressFields_states_stateCode').find('.invalid-feedback').text(Resources.CHECKOUT_STATE_VALIDATION);
         }
     });
 
