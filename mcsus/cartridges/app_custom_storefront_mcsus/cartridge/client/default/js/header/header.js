@@ -95,10 +95,10 @@ if(!$('.dropdown-best-Seller > .mcs-product-carousel-redesign').length > 0) {
 
 $('.new-hamburger').on('click', function (e) {
     $('body').css('overflow','hidden');
-    $('.new-header-deign').removeClass('fixed-header')
+    $('.new-header-deign,.sticky-header-wrapper').removeClass('fixed-header')
 });
 
 $(document).on('click', '.close-button, .close-icon', function(e) {
     $('body').removeAttr('style');
-    $('.new-header-deign').addClass('fixed-header')
+    $('.new-header-deign,.sticky-header-wrapper').addClass('fixed-header')
 });
