@@ -480,6 +480,7 @@ nav {
           .close-icon {
             width: rem(11);
             height: rem(11);
+            z-index: 10;
           }
         }
       }
@@ -702,6 +703,7 @@ nav {
               .close-icon {
                 width: rem(11);
                 height: rem(11);
+                z-index: 10;
               }
             }
           }
@@ -1756,6 +1758,7 @@ nav {
       .close-icon {
         width: rem(11);
         height: rem(11);
+        z-index: 10;
       }
     }
   }
