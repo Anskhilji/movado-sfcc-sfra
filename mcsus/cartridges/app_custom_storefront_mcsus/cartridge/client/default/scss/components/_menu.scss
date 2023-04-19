@@ -224,6 +224,10 @@ nav {
 
           &.in {
 
+            .menu-search > .search-recomendation {
+              display: none !important;
+            }
+
             @include media-breakpoint-down(md) {
               width: 40%;
               max-width: rem(320);
@@ -469,6 +473,14 @@ nav {
 
         @include media-breakpoint-down(md) {
           top: rem(51);
+          left: rem(14);
+          width: rem(11);
+          height: rem(11);
+
+          .close-icon {
+            width: rem(11);
+            height: rem(11);
+          }
         }
       }
 
@@ -614,6 +626,11 @@ nav {
         .nav-link {
           font-family: $font-book-std;
 
+          .set-your-store {
+            font-family: $font-book-std;
+            color: $black;
+          }
+
           .user-message {
             font-weight: 300;
             font-family: $font-book-std;
@@ -680,7 +697,7 @@ nav {
 
             @include media-breakpoint-down(md) {
               padding: 0;
-              left: rem(22);
+              left: rem(14);
 
               .close-icon {
                 width: rem(11);
@@ -1231,6 +1248,10 @@ nav {
               position: relative;
               z-index: 2;
 
+              .home-search > .search-recomendation {
+                display: none !important;
+              }
+
               @include media-breakpoint-down(md) {
                 width: 100%;
                 margin: 0 rem(-10);
@@ -1246,6 +1267,17 @@ nav {
                  max-width: 100%;
                  top: 0;
                  right: rem(0);
+              }
+
+              .home-search {
+
+                form {
+                  .suggestions 
+
+                  &.suggestions-dropdown {
+                    top: rem(15);
+                  }
+                }
               }
 
               .suggestion-request {
