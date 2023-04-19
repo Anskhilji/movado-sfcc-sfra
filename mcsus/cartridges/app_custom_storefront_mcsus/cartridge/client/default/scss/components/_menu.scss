@@ -382,7 +382,7 @@ nav {
                 }
 
                 &.no-suggestions {
-                  top: rem(-10);
+                  top: rem(-20);
                 }
             }
           }
@@ -1283,7 +1283,7 @@ nav {
                   right: rem(0);
 
                   .suggestions-wrapper {
-                    
+
                       .suggestions {
                       left: rem(5);
                       width: calc(100% + -15px);
