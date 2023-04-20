@@ -103,7 +103,6 @@ $(document).on('click', '.close-button, .close-icon', function(e) {
     $('.new-header-deign,.sticky-header-wrapper').addClass('fixed-header')
 });
 
-
 $(document).ready(function(e) {
 
     var $slickCarouselSlider = $('.dropdown-best-Seller .js-carousel');
@@ -114,7 +113,6 @@ $(document).ready(function(e) {
     // Convert the data value to an object
     $slickCarouselConfig = JSON.stringify($slickCarouselConfig);
     $slickCarouselConfig = JSON.parse($slickCarouselConfig);
-
 
     // Reinitialize the slider with the new configuration
     $('.nav-item.dropdown').on('mouseenter', function(){
