@@ -102,3 +102,25 @@ $(document).on('click', '.close-button, .close-icon', function(e) {
     $('body').removeAttr('style');
     $('.new-header-deign,.sticky-header-wrapper').addClass('fixed-header')
 });
+
+
+$(document).ready(function(e) {
+
+    var $slickCarouselSlider = $('.dropdown-best-Seller .js-carousel');
+
+    // Get the data value from the data-carousel-config attribute
+    var $slickCarouselConfig = $slickCarouselSlider.data('carousel-config');
+    
+    // Convert the data value to an object
+    $slickCarouselConfig = JSON.stringify($slickCarouselConfig);
+    $slickCarouselConfig = JSON.parse($slickCarouselConfig);
+
+
+    // Reinitialize the slider with the new configuration
+    $('.nav-item.dropdown').on('mouseenter', function(){
+        // Unslick the slider to reset the configuration
+        $slickCarouselSlider.slick('unslick');
+        // Reinitialize the slider to reset the configuration
+        $slickCarouselSlider.slick($slickCarouselConfig);
+    });
+});
