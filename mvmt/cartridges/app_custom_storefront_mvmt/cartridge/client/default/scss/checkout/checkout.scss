@@ -166,7 +166,7 @@
 
                 &.form-control {
 
-                    &.is-invalid,&.is-valid {
+                    &.is-invalid,&.is-valid,&.auto-is-valid {
                         background-position-x: 90%;
 
                         @include media-breakpoint-down(lg) {
@@ -184,7 +184,7 @@
 
                 &.form-control {
 
-                    &.is-valid {
+                    &.is-valid,&.auto-is-valid {
 
                         @include media-breakpoint-down(md) {
                             background-position-x: 90% !important;
@@ -221,7 +221,7 @@
 
                 &.form-control {
 
-                    &.is-invalid,&.is-valid {
+                    &.is-invalid,&.is-valid,&.auto-is-valid {
 
                         @include media-breakpoint-down(xs) {
                             background-position-x: 97%;

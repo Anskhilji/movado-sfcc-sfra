@@ -155,7 +155,7 @@
 
                 &.form-control {
 
-                    &.is-valid {
+                    &.is-valid,&.auto-is-valid {
 
                         @include media-breakpoint-down(lg) {
                             background-position-x: 85% ;

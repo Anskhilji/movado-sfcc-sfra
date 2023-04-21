@@ -887,13 +887,17 @@ $stored-payment-spacing: rem(16);
 
                     .form-control {
 
-                        &.is-invalid {
+                        &.is-invalid,&.auto-is-invalid {
                             border: rem(2.4) solid $invalid-red;
                             background: url("../../images/invalid.svg") center right no-repeat;
                             background-position-x: 97%;
+
+                          ~ .invalid-feedback {
+                              display: block!important;
+                          }
                         }
       
-                        &.is-valid {
+                        &.is-valid,&.auto-is-valid {
                             background: url("../../images/green_tick.svg") center right no-repeat;
                             background-position-x: 97%;
                         }
@@ -903,7 +907,7 @@ $stored-payment-spacing: rem(16);
 
                             &.form-control {
 
-                                &.is-invalid,&.is-valid {
+                                &.is-invalid,&.auto-is-invalid,&.is-valid,&.auto-is-valid {
                                     background-position-x: 98.4%;
                                 }
                             }
@@ -914,7 +918,7 @@ $stored-payment-spacing: rem(16);
 
                             &.form-control {
 
-                                &.is-invalid,&.is-valid {
+                                &.is-invalid,&.auto-is-invalid,&.auto-is-invalid,&.is-valid {
 
                                     @include media-breakpoint-down(md) {
                                         background-position-x: 98.4%;
@@ -924,7 +928,7 @@ $stored-payment-spacing: rem(16);
                         }
                     }
 
-                    .invalid-feedback {
+                    .invalid-feedback{
                         font-size: rem(16);
                     }
                 }
@@ -1134,10 +1138,14 @@ $stored-payment-spacing: rem(16);
                   }
               }
 
-              &.is-invalid {
+              &.is-invalid,&.auto-is-invalid {
 
                   &:focus {
                       border: rem(2.4) solid $invalid-red;
+                  }
+
+                  ~ .invalid-feedback {
+                    display: block!important;
                   }
               }
           }
@@ -1169,15 +1177,18 @@ $stored-payment-spacing: rem(16);
                 text-align: center;
             }
 
-              &.is-invalid {
+              &.is-invalid,&.auto-is-invalid {
 
                 &:focus {
                     border: rem(2.4) solid $invalid-red;
                 }
+                ~ .invalid-feedback {
+                  display: block!important;
+                }
               }
           }
 
-          &.is-valid {
+          &.is-valid,&.auto-is-valid {
             background: url("../../images/green_tick.svg") center right no-repeat;
             background-position-x: 97%;
           }
