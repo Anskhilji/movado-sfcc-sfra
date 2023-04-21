@@ -37,13 +37,13 @@
 
                 <div class="product-detail-right-box">
                     <div class="d-none d-sm-block">
-                        <h2 class="product-family-name-redesign text-center text-md-left">
+                        <h2 class="product-family-name-redesign text-center text-sm-left">
                             <isif condition="${product.productSetBrand}">
                                 <a href="${!empty(pdict.customProductSetURL) ? pdict.customProductSetURL : ''}">${product.productSetBrand}</a>
                             </isif>
                         </h2>
                     </div>
-                    <h2 class="product-name prdouct-name-gtm  d-sm-block text-center text-md-left">${product.productName}</h2>
+                    <h2 class="product-name prdouct-name-gtm  d-sm-block text-center text-sm-left">${product.productName}</h2>
 
                     <div class="w-100 price-promotions-box">
                         <!-- Applicable Promotions -->
