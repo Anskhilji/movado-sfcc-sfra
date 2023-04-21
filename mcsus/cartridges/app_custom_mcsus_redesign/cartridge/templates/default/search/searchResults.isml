@@ -60,7 +60,7 @@
 					<div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
 
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
-						<div class="col-12">
+						<div class="col-12 show-resultcount-not-zero">
 							<div class="row search-filter-bar">
 								<div class="col-6 col-sm-8 order-sm-1 sort-filters-button sort-col">
 									<div class="d-flex">
@@ -96,7 +96,7 @@
 					</isif>
 				
 			</div>
-			<div class="col-12 d-block px-0 result-count-show header-bar ${pdict.productSearch.productIds.length > 0 ? 'd-sm-none' : ''}">
+			<div class="col-12 d-block px-0 show-resultcount-zero result-count-show header-bar ${pdict.productSearch.productIds.length > 0 ? 'd-sm-none' : ''}">
 			    <div class="result-count">
 				    <isinclude template="search/resultsCount" />
 			    </div>
