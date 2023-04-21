@@ -12,7 +12,11 @@
                     ${Resource.msg('info.selectforstock', 'product', 'Select Styles for Availability')}
                 <iselse>
                     <isloop items="${product.availability.messages}" var="message">
-                        <span class="availability-msg-text">${message}</span> 
+                        <isif condition="${message === 'View Local Retailers' || message === 'Voir les détaillants locaux' || message === 'Sehen Sie sich lokale Einzelhändler an'}">
+                            <a href="${URLUtils.https('Stores-Find')}" class="availability-msg-text availability-link">${message}</a>
+                        <iselse/>
+                            <span class="availability-msg-text">${message}</span> 
+                        </isif> 
                     </isloop>
                     <iscomment> MSS-1713 Not need in Ebel redesign therefore commented this line of code
                         <isif condition="${product.available && product.readyToOrder}">

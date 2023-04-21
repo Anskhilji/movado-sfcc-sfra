@@ -43,6 +43,10 @@
 
     .availability-msg {
         font-family: $font-HelveticaNeueLT-book;
+
+        .availability-link {
+            color: $storm-gray;
+        }
     }
 
     .add-to-cart {
