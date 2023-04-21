@@ -64,7 +64,7 @@
 							<div class="row search-filter-bar">
 								<div class="col-6 col-sm-8 order-sm-1 sort-filters-button sort-col">
 									<div class="d-flex">
-										<div class="position-relative">
+										<div class="position-relative sort-box-filter">
 											<isinclude template="search/sortOrderMenu" />
 										</div>
 

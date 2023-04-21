@@ -51,7 +51,9 @@ function parseResults(response) {
         '.header-bar',
         '.product-grid',
         '.show-more',
-        '.filter-bar'
+        '.filter-bar',
+        '.sort-box-filter',
+        '.filter-col'
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
