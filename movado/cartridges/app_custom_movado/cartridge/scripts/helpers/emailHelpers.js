@@ -98,8 +98,10 @@ function send(emailObj, template, context) {
                 requestParams.productLayout = productLayout(context);
                 if (!empty(context.order) && !empty(context.order.items) && !empty(context.order.items.totalQuantity > 0)) {
                     for (var i = 0; i < context.order.items.totalQuantity; i++) {
-                    productLevelDiscount = context.order.items.items[i].priceTotal.savingPrice.value;
-                    productLevelTotalDiscount = productLevelTotalDiscount + productLevelDiscount;
+                        if (context.order.items.items[i] && context.order.items.items[i].priceTotal && context.order.items.items[i].priceTotal.savingPrice && context.order.items.items[i].priceTotal.savingPrice.value) {
+                            productLevelDiscount = context.order.items.items[i].priceTotal.savingPrice.value;
+                            productLevelTotalDiscount = productLevelTotalDiscount + productLevelDiscount;
+                        }
                     }
                     if (productLevelTotalDiscount > 0) {
                         totalDiscount = productLevelTotalDiscount + context.order.totals.orderLevelDiscountTotal.value;
