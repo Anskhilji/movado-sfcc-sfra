@@ -323,11 +323,9 @@ $( document ).ready(function() {
 function checkResultCount() {
     var $dataValue = $('.total-product-count').data('total-product-count');
     if($dataValue > 0) {
-        console.log($dataValue + 'ali');
         $('.show-resultcount-not-zero').show();       
         $('.show-resultcount-zero').addClass('d-sm-none');
     } else {
-        console.log($dataValue + 'haider');
         $('.show-resultcount-not-zero').hide();
         $('.show-resultcount-zero').removeClass('d-sm-none');
     }
