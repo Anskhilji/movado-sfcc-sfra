@@ -13,24 +13,24 @@
                                 ${product.productName} <span class="plus-minus-icon"></span>
                             </div>
                         </div>
-                    
+
                         <div id="collapseOne${product.id}" class="collapse">
                             <div class="container-fluid product-detail product-wrapper product-detail1-wrapper mcs-product-detail-section-redesign"
                                 data-pid="${product.id}" itemscope itemtype="http://schema.org/Product">
-                    
+
                                 <isif condition="${pdict.lastNameError}">
                                     <div
                                         class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
                                         ${Resource.msg('error.last.name', 'checkout', null)}
                                     </div>
                                 </isif>
-                    
+
                                 <div class="row">
                                     <iscomment> product detail redesign section start here </iscomment>
                                     <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
                                         <!-- Product Images Carousel -->
                                         <isinclude template="product/components/productSet/setProductImageCarousel" />
-                    
+
                                         <div class="product-detail-right-box">
                                             <div class="d-sm-block">
                                                 <iscomment> product family name </iscomment>
@@ -40,7 +40,7 @@
                                                         <isset name="currentSetItemID" value="${customIndividualItemURL.split('|')[1]}" scope="page" />
                                                         <isset name="currentSetItemURL" value="${customIndividualItemURL.split('|')[0]}" scope="page" />
                                                         <isif condition="${currentSetItemID === product.id}">
-                                                            <isbreak/>                                           
+                                                            <isbreak/>
                                                         </isif>
                                                     </isloop>
                                                     <isif condition="${product.brand}">
@@ -54,7 +54,7 @@
                                                     </a>
                                                 </h2>
                                             </div>
-                    
+
                                             <div class="w-100 price-promotions-box">
                                                 <!-- Applicable Promotions -->
                                                 <div
@@ -81,20 +81,15 @@
                                                 </div>
                                             </isif>
 
-                                            <iscomment> <div class="description-redesign setitem-description  pdp-short-detail pdp-short-detail-main">
-                                               <isinclude template="/product/components/description" />
-                                            </div> </iscomment>
-                    
                                            <iscomment> accordion start here </iscomment>
                                             <div class="row">
                                                 <isinclude template="product/components/accordion" />
-                                                <iscomment> <isinclude template="product/components/productSet/accordion" /> </iscomment>
                                             </div>
                                             <iscomment> accordion end here </iscomment>
                                         </div>
                                     </div>
                                 </div>
-                    
+
                                 <div class="d-none">
                                     <isinclude template="/product/components/productNumber" />
                                 </div>
