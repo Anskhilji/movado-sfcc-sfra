@@ -51,7 +51,9 @@ function parseResults(response) {
         '.header-bar',
         '.product-grid',
         '.show-more',
-        '.filter-bar'
+        '.filter-bar',
+        '.sort-box-filter',
+        '.filter-col'
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
@@ -317,6 +319,17 @@ $( document ).ready(function() {
         getTileHeight()
     }
 });
+
+function checkResultCount() {
+    var $dataValue = $('.total-product-count').data('total-product-count');
+    if($dataValue > 0) {
+        $('.show-resultcount-not-zero').show();       
+        $('.show-resultcount-zero').addClass('d-sm-none');
+    } else {
+        $('.show-resultcount-not-zero').hide();
+        $('.show-resultcount-zero').removeClass('d-sm-none');
+    }
+}
 
 function IsFilterApplicable() {
     // if user remove selected filter from sidebar top
@@ -789,6 +802,8 @@ module.exports = {
                                 if ($(window).width() > 991) {
                                     getTileHeight()
                                 }
+
+                                checkResultCount();
                             },
                             error: function () {
                                 $.spinner().stop();

@@ -605,6 +605,8 @@ function handleVariantResponse(response, $productContainer) {
     var isChoiceOfBonusProducts =
         $productContainer.parents('.choose-bonus-product-dialog').length > 0;
     var isVaraint;
+    var $shortDescriptionMobile = $('.description .bottom-detail-mobile');
+
     if (response.product.variationAttributes) {
         updateAttrs(response.product.variationAttributes, $productContainer);
         isVaraint = response.product.productType === 'variant';
@@ -645,9 +647,9 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     //Update product pageDescription
-    if (typeof response.product.pageDescription !== 'undefined' && response.product.pageDescription !== '' && response.product.pageDescription !== null) {
-        $productContainer.find('.product-description .content').text(response.product.pageDescription);
-        $productContainer.find('.bottom-detail-mobile').text(response.product.pageDescription);
+    if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
+        $productContainer.find('.product-description .content').text(response.product.shortDescription);
+        $shortDescriptionMobile.text(response.product.shortDescription);
     }
 
     //update wishlist icon
