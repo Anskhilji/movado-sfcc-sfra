@@ -167,6 +167,8 @@ $(document).ready(function() { // eslint-disable-line
         } else {
             $(this).removeClass('auto-is-valid');
             $(this).addClass('auto-is-invalid');
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
             $('.card-number-wrapper').addClass('card-number-mr');
             $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').removeClass('d-none');
         }
@@ -189,6 +191,8 @@ $(document).ready(function() { // eslint-disable-line
         } else {
             $(this).removeClass('auto-is-valid');
             $(this).addClass('auto-is-invalid');
+            $(this).removeClass('is-valid');
+            $(this).addClass('is-invalid');
             $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').removeClass('d-none');
             $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);
         }
@@ -250,6 +254,7 @@ $(document).ready(function() { // eslint-disable-line
 
     $('input.shippingCompanyName, input.billingCompanyName').on('change keyup', function() {
         var $value = $(this).val();
+        if ($value) {
         var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
         var $isValid = $pattern.test($value);
         if ($isValid) {
@@ -263,6 +268,10 @@ $(document).ready(function() { // eslint-disable-line
             $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').removeClass('d-none');
             $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').text(Resources.CHECKOUT_COMPANY_NAME_VALIDATION);
         }
+    } else {
+        $(this).removeClass('auto-is-valid');
+        $(this).removeClass('auto-is-invalid');
+    }
     });
 
     $('input.shippingLastName, input.billingLastName').on('change keyup focusout', function() {
@@ -365,10 +374,7 @@ $(document).ready(function() { // eslint-disable-line
             }
         } else {
             $(this).removeClass('auto-is-valid');
-            $(this).addClass('auto-is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').removeClass('d-none');
-            $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').text(Resources.CHECKOUT_ADDRESS_2_VALIDATION);
-
+            $(this).removeClass('auto-is-invalid');
         }
     });
 

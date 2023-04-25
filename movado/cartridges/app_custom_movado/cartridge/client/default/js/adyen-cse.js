@@ -89,7 +89,8 @@ function showValidation(validationResult) {
                     $('#holderName').addClass('is-invalid');
                     break;
                 case 'number':
-                    $('#cardNumber').addClass('is-invalid');
+                    $('#cardNumber').removeClass('auto-is-valid');
+                    $('#cardNumber').addClass('auto-is-invalid');
                     $('.invalid-feedback').removeClass('d-none');
                     break;
                 case 'expiryMonth':
@@ -99,6 +100,8 @@ function showValidation(validationResult) {
                     $('#expirationDate').addClass('is-invalid');
                     break;
                 case 'cvc':
+                    $('#cardNumber').removeClass('auto-is-valid');
+                    $('#cardNumber').addClass('auto-is-invalid');
                     $('#securityCode').addClass('is-invalid');
                     break;
                 default:
