@@ -54,7 +54,7 @@ function getBadges(apiProduct) {
     var badgeVeganFriendly = Site.getCurrent().getCustomPreferenceValue('badgeVeganFriendly');
     var badgeStatus = Site.getCurrent().getCustomPreferenceValue('badgeStatus');
     var badgeText = JSON.parse(Site.getCurrent().getCustomPreferenceValue('textForBadges'));
-    var textBadgesConfig = JSON.parse(Site.getCurrent().getCustomPreferenceValue('textBadgesConfig'));
+    var textBadgesConfig = Site.current.preferences.custom.textBadgesConfig ? JSON.parse(Site.current.preferences.custom.textBadgesConfig) : '';
 
     var attrDef = SystemObjectMgr.describe('Product');
     var attGrp = attrDef.getAttributeGroup('indicators');
@@ -174,49 +174,15 @@ function getBadges(apiProduct) {
             var locale = request.locale;
 
             if (!empty(locale)) {
-                var badgeTexts = textBadgesConfig[locale];
+                badgeText = textBadgesConfig[locale];
             }
 
             if (beginDate && numOfdays) {
-                // Logic to check if badge required or not
-                var today = new Calendar();
-                var badgeStartDate = new Calendar(beginDate);
-                var badgeEndDate = new Calendar(beginDate);
-                badgeEndDate.add(badgeEndDate.DAY_OF_MONTH, numOfdays);
-
-                if (today.after(badgeStartDate) && today.before(badgeEndDate)) {
-                    Object.keys(badgeTexts).forEach(function (txtKey) {
-                        if (txtKey.indexOf(textBadge) > -1) {
-                            var badge = {
-                                attr: textBadge,
-                                attrType: 'text',
-                                text: badgeTexts[txtKey]
-                            };
-                            textBadgesObj.add(badge);
-                        }
-                    });
-                }
+                getBadgesText(badgeText, beginDate, numOfdays, textBadge, textBadgesObj);
             }
         } else {
             if (beginDate && numOfdays) {
-                // Logic to check if badge required or not
-                var today = new Calendar();
-                var badgeStartDate = new Calendar(beginDate);
-                var badgeEndDate = new Calendar(beginDate);
-                badgeEndDate.add(badgeEndDate.DAY_OF_MONTH, numOfdays);
-
-                if (today.after(badgeStartDate) && today.before(badgeEndDate)) {
-                    Object.keys(badgeText).forEach(function (txtKey) {
-                        if (txtKey.indexOf(textBadge) > -1) {
-                            var badge = {
-                                attr: textBadge,
-                                attrType: 'text',
-                                text: badgeText[txtKey]
-                            };
-                            textBadgesObj.add(badge);
-                        }
-                    });
-                }
+                getBadgesText(badgeText, beginDate, numOfdays, textBadge, textBadgesObj);
             }
         }       
     });
@@ -227,6 +193,25 @@ function getBadges(apiProduct) {
     };
 
     return badges;
+}
+function getBadgesText(badgeText, beginDate, numOfdays, textBadge, textBadgesObj) {
+    var today = new Calendar();
+    var badgeStartDate = new Calendar(beginDate);
+    var badgeEndDate = new Calendar(beginDate);
+    badgeEndDate.add(badgeEndDate.DAY_OF_MONTH, numOfdays);
+
+    if (today.after(badgeStartDate) && today.before(badgeEndDate)) {
+        Object.keys(badgeText).forEach(function (txtKey) {
+            if (txtKey.indexOf(textBadge) > -1) {
+                var badge = {
+                    attr: textBadge,
+                    attrType: 'text',
+                    text: badgeText[txtKey]
+                };
+                textBadgesObj.add(badge);
+            }
+        });
+    }
 }
 
 
