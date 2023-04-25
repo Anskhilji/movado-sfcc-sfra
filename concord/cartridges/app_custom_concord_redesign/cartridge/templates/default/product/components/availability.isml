@@ -14,7 +14,7 @@
                     <isloop items="${product.availability.messages}" var="message">
                         <isset name="outOfStock" value="${Resource.msg('label.not.available', 'common', null)}" scope="page" />
                         <isif condition="${message === outOfStock}">
-                            <a href="${URLUtils.https('Stores-Find')}" class="availability-msg-text availability-link">${message}</a>
+                            <a href="${URLUtils.https('Stores-Find', 'showMap', true, 'horizontalView', true, 'isForm', true)}" class="availability-msg-text availability-link">${message}</a>
                         <iselse/>
                             <span class="availability-msg-text">${message}</span> 
                         </isif> 
