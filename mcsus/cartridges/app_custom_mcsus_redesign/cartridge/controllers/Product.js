@@ -115,6 +115,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
             
            // Custom Start: Add price logic for product sets
             if (productType == Constants.PRODUCT_TYPE) {
+                var productSetCarousel = productSetCustomHelper.getProductSetCarouselImages(showProductPageHelperResult.product);
+                showProductPageHelperResult.product.productSetCarousel = productSetCarousel;
             if (productSetSalePrice.salePrice !== 0) {
                 klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetSalePrice.salePrice), session.getCurrency())).toString();
             } else {
