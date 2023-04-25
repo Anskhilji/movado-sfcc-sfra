@@ -12,7 +12,8 @@
                     ${Resource.msg('info.selectforstock', 'product', 'Select Styles for Availability')}
                 <iselse>
                     <isloop items="${product.availability.messages}" var="message">
-                        <isif condition="${message === 'View Local Retailers' || message === 'Voir les détaillants locaux' || message === 'Sehen Sie sich lokale Einzelhändler an'}">
+                        <isset name="outOfStock" value="${Resource.msg('label.not.available', 'common', null)}" scope="page" />
+                        <isif condition="${message === outOfStock}">
                             <a href="${URLUtils.https('Stores-Find')}" class="availability-msg-text availability-link">${message}</a>
                         <iselse/>
                             <span class="availability-msg-text">${message}</span> 
