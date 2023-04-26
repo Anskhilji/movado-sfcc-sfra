@@ -184,7 +184,7 @@ $(document).ready(function() { // eslint-disable-line
             var $currentYear = $cuurentDate.getFullYear().toString();
     
             if (!$expdateRegex.test($creditCardDate[1]) || (($currentYear.substring(0,2) + $creditCardDate[1] <= $currentYear) && parseInt($creditCardDate[0]) < $currentMonth)){
-                $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');;
+                $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
                 $('.creditcard-expiration-date').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CARD_EXPIRY_DATE_VALIDATION);
             } else {
                 $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');;
