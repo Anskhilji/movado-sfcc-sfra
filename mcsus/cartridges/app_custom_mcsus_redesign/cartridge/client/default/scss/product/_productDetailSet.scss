@@ -544,7 +544,7 @@
                 font-weight: 300;
                 letter-spacing: 0;
                 line-height: rem(25);
-                margin: rem(18) rem(0) rem(30);
+                margin: rem(0) rem(0) rem(0);
                 opacity: 0.8;
 
                 @include media-breakpoint-down(xs) {
@@ -553,7 +553,7 @@
             }
 
             .rating-box-redisgn {
-                border-bottom: rem(1) solid $light-gray9;
+                border-bottom: rem(1) solid transparent;
 
                 .product-number-rating {
 
@@ -562,6 +562,9 @@
 
                         @include media-breakpoint-down(xs) {
                             margin-bottom: rem(22);
+                            display: flex;
+                            justify-content: center;
+                            margin-right: 0;
                         }
                     }
                 }

@@ -26,7 +26,7 @@
             <iscomment> product detail redesign section start here </iscomment>
             <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
                 <div class="d-block d-sm-none">
-                    <h2 class="product-family-name-redesign">
+                    <h2 class="product-family-name-redesign d-flex justify-content-center justify-content-sm-start">
                         <isif condition="${product.productSetBrand}">
                             <a href="${!empty(pdict.customProductSetURL) ? pdict.customProductSetURL : ''}">${product.productSetBrand}</a>
                         </isif>
