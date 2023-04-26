@@ -270,28 +270,28 @@ $(document).ready(function() { // eslint-disable-line
     $('input.shippingCompanyName, input.billingCompanyName').on('change keyup', function() {
         var $value = $(this).val();
         if ($value) {
-        var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
-        var $isValid = $pattern.test($value);
-        if ($isValid) {
-            $(this).addClass('auto-is-valid');
-            $(this).removeClass('auto-is-invalid');
-            $(this).removeClass('is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').addClass('d-none');
-            $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').text('');
+            var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
+            var $isValid = $pattern.test($value);
+            if ($isValid) {
+                $(this).addClass('auto-is-valid');
+                $(this).removeClass('auto-is-invalid');
+                $(this).removeClass('is-invalid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').addClass('d-none');
+                $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').text('');
+            } else {
+                $(this).removeClass('auto-is-valid');
+                $(this).addClass('auto-is-invalid');
+                $(this).removeClass('is-valid');
+                $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').removeClass('d-none');
+                $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').text(Resources.CHECKOUT_COMPANY_NAME_VALIDATION);
+            }
         } else {
             $(this).removeClass('auto-is-valid');
-            $(this).addClass('auto-is-invalid');
+            $(this).removeClass('auto-is-invalid');
             $(this).removeClass('is-valid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').removeClass('d-none');
-            $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').text(Resources.CHECKOUT_COMPANY_NAME_VALIDATION);
-        }
-    } else {
-        $(this).removeClass('auto-is-valid');
-        $(this).removeClass('auto-is-invalid');
-        $(this).removeClass('is-valid');
-        $(this).removeClass('is-invalid');
+            $(this).removeClass('is-invalid');
 
-    }
+        }
     });
 
     $('input.shippingLastName, input.billingLastName').on('change keyup focusout', function() {
