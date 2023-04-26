@@ -72,37 +72,25 @@ function fillInAddress(){
           var $pattern = /^(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
-              $('.shippingZipCode').addClass('auto-is-valid');
-              $('.shippingZipCode').removeClass('auto-is-invalid');
-              $('.shippingZipCode').removeClass('is-invalid');
+              $('.shippingZipCode').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
           } else {
-              $('.shippingZipCode').removeClass('auto-is-valid');
-              $('.shippingZipCode').removeClass('is-valid');
-              $('.shippingZipCode').addClass('auto-is-invalid');
+              $('.shippingZipCode').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
           }
         } else if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
           var $pattern = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/g
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
-              $('.shippingZipCode').addClass('auto-is-valid');
-              $('.shippingZipCode').removeClass('auto-is-invalid');
-              $('.shippingZipCode').removeClass('is-invalid');
+              $('.shippingZipCode').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
           } else {
-              $('.shippingZipCode').removeClass('auto-is-valid');
-              $('.shippingZipCode').removeClass('is-valid');
-              $('.shippingZipCode').addClass('auto-is-invalid');
+              $('.shippingZipCode').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
           }
         } else if (shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_CH) {
           var $pattern = /^(^[a-zA-Z0-9 ]+$)/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
-              $('.shippingZipCode').addClass('auto-is-valid');
-              $('.shippingZipCode').removeClass('auto-is-invalid');
-              $('.shippingZipCode').removeClass('is-invalid');
+              $('.shippingZipCode').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
           } else {
-              $('.shippingZipCode').removeClass('auto-is-valid');
-              $('.shippingZipCode').removeClass('is-valid');
-              $('.shippingZipCode').addClass('auto-is-invalid');
+              $('.shippingZipCode').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
           }
         }
 
@@ -114,13 +102,9 @@ function fillInAddress(){
         var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
         var $isValid = $pattern.test(component.long_name);
         if ($isValid) {
-            $('.shippingAddressCity').addClass('auto-is-valid');
-            $('.shippingAddressCity').removeClass('auto-is-invalid');
-            $('.shippingAddressCity').removeClass('is-invalid');
+            $('.shippingAddressCity').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
         } else {
-            $('.shippingAddressCity').removeClass('auto-is-valid');
-            $('.shippingAddressCity').removeClass('is-valid');
-            $('.shippingAddressCity').addClass('auto-is-invalid');
+            $('.shippingAddressCity').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
         }
 
         (document.querySelector("#shippingAddressCity")).value =
@@ -132,13 +116,9 @@ function fillInAddress(){
         var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
         var $isValid = $pattern.test(component.long_name);
         if ($isValid) {
-            $('.shippingAddressCity').addClass('auto-is-valid');
-            $('.shippingAddressCity').removeClass('auto-is-invalid');
-            $('.shippingAddressCity').removeClass('is-invalid');
+            $('.shippingAddressCity').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
         } else {
-            $('.shippingAddressCity').removeClass('auto-is-valid');
-            $('.shippingAddressCity').removeClass('is-valid');
-            $('.shippingAddressCity').addClass('auto-is-invalid');
+            $('.shippingAddressCity').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
         }
 
         (document.querySelector("#shippingAddressCity")).value =
@@ -151,13 +131,9 @@ function fillInAddress(){
         if (billingState !== null) {
           billingState.value =
           component.short_name;
-          $('.shippingState').addClass('auto-is-valid');
-          $('.shippingState ').removeClass('auto-is-invalid');
-          $('.shippingState ').removeClass('is-invalid');
+          $('.shippingState ').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
         } else {
-          $('.shippingState').removeClass('auto-is-valid');
-          $('.shippingState').removeClass('is-valid');
-          $('.shippingState').addClass('auto-is-invalid');
+          $('.shippingState').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
         }
         break;
       }
@@ -166,13 +142,9 @@ function fillInAddress(){
         if (billingCounty !== null) {
             billingCounty.value =
             component.short_name;
-            $('.shippingState').addClass('auto-is-valid');
-            $('.shippingState ').removeClass('auto-is-invalid');
-            $('.shippingState ').removeClass('is-invalid');
+            $('.shippingState ').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
         } else {
-          $('.shippingState').removeClass('auto-is-valid');
-          $('.shippingState').removeClass('is-valid');
-          $('.shippingState').addClass('auto-is-invalid');
+          $('.shippingState').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
         }
         break;
       }
@@ -221,37 +193,25 @@ function fillInAddressBilling(){
           var $pattern = /^(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
-              $('.billingZipCode').addClass('auto-is-valid');
-              $('.billingZipCode').removeClass('auto-is-invalid');
-              $('.billingZipCode').removeClass('is-invalid');
+              $('.billingZipCode').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
           } else {
-              $('.billingZipCode').removeClass('auto-is-valid');
-              $('.billingZipCode').removeClass('is-valid');
-              $('.billingZipCode').addClass('auto-is-invalid');
+              $('.billingZipCode').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
           }
         } else if ($billingCountry.value == Resources.CHECKOUT_COUNTRY_GB) {
           var $pattern = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/g
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
-              $('.billingZipCode').addClass('auto-is-valid');
-              $('.billingZipCode').removeClass('auto-is-invalid');
-              $('.billingZipCode').removeClass('is-invalid');
+              $('.billingZipCode').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
           } else {
-              $('.billingZipCode').removeClass('auto-is-valid');
-              $('.billingZipCode').removeClass('is-valid');
-              $('.billingZipCode').addClass('auto-is-invalid');
+              $('.billingZipCode').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
           }
         } else if ($billingCountry.value == Resources.CHECKOUT_COUNTRY_CH) {
           var $pattern = /^(^[a-zA-Z0-9 ]+$)/i
           var $isValid = $pattern.test(component.short_name);
           if ($isValid) {
-              $('.billingZipCode').addClass('auto-is-valid');
-              $('.billingZipCode').removeClass('auto-is-invalid');
-              $('.billingZipCode').removeClass('is-invalid');
+              $('.billingZipCode').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
           } else {
-              $('.billingZipCode').removeClass('auto-is-valid');
-              $('.billingZipCode').removeClass('is-valid');
-              $('.billingZipCode').addClass('auto-is-invalid');
+              $('.billingZipCode').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
           }
         }
         postcodeBilling = `${component.long_name}`;
@@ -263,13 +223,9 @@ function fillInAddressBilling(){
         var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
         var $isValid = $pattern.test(component.long_name);
         if ($isValid) {
-            $('.billingAddressCity').addClass('auto-is-valid');
-            $('.billingAddressCity').removeClass('auto-is-invalid');
-            $('.billingAddressCity').removeClass('is-invalid');
+            $('.billingAddressCity').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
         } else {
-            $('.billingAddressCity').removeClass('auto-is-valid');
-            $('.billingAddressCity').removeClass('is-valid');
-            $('.billingAddressCity').addClass('auto-is-invalid');
+            $('.billingAddressCity').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
         }
 
         (document.querySelector("#billingAddressCity")).value =
@@ -281,13 +237,9 @@ function fillInAddressBilling(){
         var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
         var $isValid = $pattern.test(component.long_name);
         if ($isValid) {
-            $('.billingAddressCity').addClass('auto-is-valid');
-            $('.billingAddressCity').removeClass('auto-is-invalid');
-            $('.billingAddressCity').removeClass('is-invalid');
+            $('.billingAddressCity').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
         } else {
-            $('.billingAddressCity').removeClass('auto-is-valid');
-            $('.billingAddressCity').removeClass('is-valid');
-            $('.billingAddressCity').addClass('auto-is-invalid');
+            $('.billingAddressCity').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
         }
 
         (document.querySelector("#billingAddressCity")).value =
@@ -298,13 +250,9 @@ function fillInAddressBilling(){
         if ($shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_US || $shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_CH) {
           if (billingState !== null) {
             billingState.value = component.short_name;
-            $('.billingState').addClass('auto-is-valid');
-            $('.billingState').removeClass('auto-is-invalid');
-            $('.billingState').removeClass('is-invalid');
+            $('.billingState').removeClass('auto-is-invalid ').addClass('auto-is-valid');
           } else {
-            $('.billingState').removeClass('auto-is-valid');
-            $('.billingState').removeClass('is-valid');
-            $('.billingState').addClass('auto-is-invalid');
+            $('.billingState').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
           }
         }
         break;
@@ -314,13 +262,9 @@ function fillInAddressBilling(){
         if ($shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_GB) {
           if (billingCounty !== null) {
             billingCounty.value = component.short_name;
-            $('.billingState').addClass('auto-is-valid');
-            $('.billingState').removeClass('auto-is-invalid');
-            $('.billingState').removeClass('is-invalid');
+            $('.billingState').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
           } else {
-            $('.billingState').removeClass('auto-is-valid');
-            $('.billingState').removeClass('is-valid');
-            $('.billingState').addClass('auto-is-invalid');
+            $('.billingState').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
           }
         }
         break;
