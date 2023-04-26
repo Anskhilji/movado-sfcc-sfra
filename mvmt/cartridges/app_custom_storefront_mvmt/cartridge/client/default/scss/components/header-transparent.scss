@@ -32,6 +32,10 @@ header {
                                         -webkit-filter: unset;
                                     }
                                 }
+
+                                .header-wrapper {
+                                    border-color: $transparent-gray-2;
+                                }
                             }
                         }
                     }
@@ -47,6 +51,10 @@ header {
                             &.non-sticky{
                                 filter: unset;
                                 -webkit-filter: unset;
+
+                                .header-wrapper {
+                                    border-color: $transparent-gray-3;
+                                }
                             }
                         }
                     }
@@ -70,6 +78,7 @@ header {
     
                                 .header-wrapper {
                                    background-color: $white;
+                                   border-color: $gray94;
     
                                     .header-container {
                                         box-shadow: none;
