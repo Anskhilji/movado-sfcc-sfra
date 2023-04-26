@@ -59,7 +59,7 @@ $('.desktop-search-icon').click(function() {
     $('.desktop-side-search .header-search-field').focus();
 
     // Custom:MSS-2034 add class when open search
-    $(".home-header-transparent").addClass("solid-header");
+    $('.home-header-transparent').addClass('solid-header');
 });
 
 $('.header-mobile-categories .header-mobile-category').click(function() {
@@ -143,7 +143,7 @@ $('.desktop-search-close-text').click(function() {
 
     // Custom:MSS-2234 
     setTimeout(function(){
-        $(".home-header-transparent").removeClass("solid-header"); 
+        $('.home-header-transparent').removeClass('solid-header'); 
     },400);
 });
 

@@ -1,21 +1,31 @@
 @import '../variables';
 
 header {
+
     &.new-header {
+        
         &.transparent-header {
+
             // Custom:MSS-2234  this style only works when the header transparent
             &.home-header-transparent {
+
                 .overlay {
                     height: auto;
                 }
+
                 // Custom:MSS-2234 text white class
                 &.header-white-text{
+
                     .sticky-header-wrapper {
+
                         .header-menu-wrapper {
+
                             &.non-sticky{
                                 filter: brightness(0.5) invert(1);
                                 -webkit-filter: brightness(0.5) invert(1);
+
                                 &.sticky-header {
+
                                     &:hover {
                                         background-color: $white;
                                         filter: unset;
@@ -26,10 +36,14 @@ header {
                         }
                     }
                 }
+
                 // Custom:MSS-2234 text black class
                 &.header-black-text{
+
                     .sticky-header-wrapper {
+
                         .header-menu-wrapper {
+
                             &.non-sticky{
                                 filter: unset;
                                 -webkit-filter: unset;
@@ -37,10 +51,14 @@ header {
                         }
                     }
                 }
+
                 // Custom:MSS-2234 when search open than the header solid
                 &.solid-header {
+
                     .sticky-header-wrapper {
+
                         .header-menu-wrapper {
+
                             &.non-sticky{
                                 background-color: $white;
                                 filter: unset;
@@ -61,11 +79,13 @@ header {
                         }
                     }
                 }
+
                 // Custom:MSS-2234 when header transparent active
                 .sticky-header-wrapper {
                     min-height: auto;
 
                     .header-menu-wrapper {
+
                         &.non-sticky{
                             background-color: transparent;
                             position: absolute;
@@ -78,6 +98,7 @@ header {
                                 background-color: $white;
                                 filter: unset;
                                 -webkit-filter: unset;
+
                                 .header-wrapper {
                                     border-color: $gray94;
                                 }
@@ -86,6 +107,7 @@ header {
                             &.sticky-header {
                                 position: fixed;
                                 background-color: transparent;
+                                
                                 &:hover {
                                     background-color: $white;
                                     filter: unset;
