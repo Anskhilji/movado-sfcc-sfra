@@ -3,7 +3,7 @@
     <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 </div><iscomment> Custom: HTML Structure change</iscomment>
 <isinclude template="/components/modules" sf-toolkit="off" />
-<header class="new-header mvmt-header-design mvmt-header-redesign">
+<header class="new-header mvmt-header-design mvmt-header-redesign transparent-header ${!empty(dw.system.Site.current.preferences.custom.navigationColor) ? (dw.system.Site.current.preferences.custom.navigationColor == 'black' ? 'header-black-text' : 'header-white-text') : ''} ${!empty(dw.system.Site.current.preferences.custom.isHeaderTransparent) ? (dw.system.Site.current.preferences.custom.isHeaderTransparent == true ? 'home-header-transparent' : '') : ''}">
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
     <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
     <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableLandingPage()}" >

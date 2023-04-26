@@ -142,7 +142,7 @@ $('.desktop-search-close-text').click(function() {
     }
 
     // Custom:MSS-2234 
-    setTimeout(function(){
+    setTimeout(function() {
         $('.home-header-transparent').removeClass('solid-header'); 
     },400);
 });
@@ -268,20 +268,26 @@ $(window).scroll(function (event) {
         });
  
     // Custom:MSS-2234 Header tranparent
-    var $divOffsetTop = $('.banner-view-port').offset().top;
-    if (!$('.banner-view-port').isOnScreen()) { // if on load banner is not in viewPort show 
-        if ($(window).scrollTop() > $divOffsetTop) {
-            $('.home-header-transparent').removeClass('transparent-header');
+    var $bannerViewPort = $('.banner-view-port');
+    
+    if($bannerViewPort.length > 0 ) {
+
+        var $divOffsetTop = $bannerViewPort.offset().top;
+        if (!$bannerViewPort.isOnScreen()) { // if on load banner is not in viewPort show 
+            if ($(window).scrollTop() > $divOffsetTop) {
+                $('.home-header-transparent').removeClass('transparent-header');
+            }
         }
-    }
-     $(window).scroll(function () {
-        var $headerViewPort = $('.banner-view-port').isOnScreen();
-        if ($headerViewPort) { // check if  banner is on screen
-            $('.home-header-transparent').addClass('transparent-header');// both bottom and top will hidde
-        } else {
-            $('.home-header-transparent').removeClass('transparent-header');
-        }
-    });
+
+        $(window).scroll(function () {
+            var $headerViewPort = $bannerViewPort.isOnScreen();
+            if ($headerViewPort) { // check if  banner is on screen
+                $('.home-header-transparent').addClass('transparent-header');// both bottom and top will hidde
+            } else {
+                $('.home-header-transparent').removeClass('transparent-header');
+            }
+        });
+    }    
 });
 
 $.fn.isOnScreen = function () {
