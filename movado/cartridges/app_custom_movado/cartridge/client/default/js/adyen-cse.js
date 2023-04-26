@@ -90,18 +90,25 @@ function showValidation(validationResult) {
                     break;
                 case 'number':
                     $('#cardNumber').removeClass('auto-is-valid');
+                    $('#cardNumber').addClass('is-invalid');
                     $('#cardNumber').addClass('auto-is-invalid');
                     $('.invalid-feedback').removeClass('d-none');
                     break;
                 case 'expiryMonth':
+                    $('#expirationDate').removeClass('auto-is-valid');
                     $('#expirationDate').addClass('is-invalid');
+                    $('#expirationDate').addClass('auto-is-invalid');
+                    $('.invalid-feedback').removeClass('d-none');
                     break;
                 case 'expiryYear':
+                    $('#expirationDate').removeClass('auto-is-valid');
                     $('#expirationDate').addClass('is-invalid');
+                    $('#expirationDate').addClass('auto-is-invalid');
+                    $('.invalid-feedback').removeClass('d-none');
                     break;
                 case 'cvc':
-                    $('#cardNumber').removeClass('auto-is-valid');
-                    $('#cardNumber').addClass('auto-is-invalid');
+                    $('#securityCode').removeClass('auto-is-valid');
+                    $('#securityCode').addClass('auto-is-invalid');
                     $('#securityCode').addClass('is-invalid');
                     break;
                 default:

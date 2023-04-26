@@ -191,14 +191,14 @@ module.exports = {
                 $option.text('New Address');
                 $option.prop('selected', 'selected');
                 $el.parents('[data-address-mode]').attr('data-address-mode', 'new');
-                $('.shipping-form input').removeClass('is-valid');
-                $('.shipping-form input').removeClass('auto-is-valid');
-                $('.shipping-form input').removeClass('is-invalid');
-                $('.shipping-form input').removeClass('auto-is-invalid');
-                $('.shipping-form select').removeClass('auto-is-invalid');
-                $('.shipping-form select').removeClass('auto-is-valid');
-                $('.shipping-form select').removeClass('is-valid');
-                $('.shipping-form select').removeClass('is-invalid');
+                $('.billing-form input').removeClass('is-valid');
+                $('.billing-form input').removeClass('auto-is-valid');
+                $('.billing-form input').removeClass('is-invalid');
+                $('.billing-form input').removeClass('auto-is-invalid');
+                $('.billing-form select').removeClass('auto-is-invalid');
+                $('.billing-form select').removeClass('auto-is-valid');
+                $('.billing-form select').removeClass('is-valid');
+                $('.billing-form select').removeClass('is-invalid');
             } else {
                 // Handle shipping address case
                 var $newEl = $el.parents('form').find('.addressSelector option[value=new]');
