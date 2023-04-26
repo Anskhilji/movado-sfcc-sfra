@@ -50,8 +50,9 @@
                                     <div class="main-level-item">
                                         <button class="desktop-search-icon p-0" tabindex="0" aria-label="Search" role="search">
                                             <span class="desktop-search-icon-search">
-                                                <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M13.787 12.752l-3.451-3.466a5.519 5.519 0 0 0 1.373-3.634C11.71 2.536 9.083 0 5.855 0 2.626 0 0 2.536 0 5.652c0 3.117 2.626 5.653 5.855 5.653a5.936 5.936 0 0 0 3.354-1.023l3.477 3.492c.146.146.341.226.55.226a.774.774 0 0 0 .53-.206.72.72 0 0 0 .021-1.042zM5.855 1.475c2.386 0 4.327 1.874 4.327 4.177 0 2.304-1.941 4.178-4.327 4.178S1.527 7.956 1.527 5.652c0-2.303 1.942-4.177 4.328-4.177z"></path>
+                                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="8" cy="8" r="7" stroke="#1A1818" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M13.5 13L18.5 16.5" stroke="#1A1818" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
                                             </span>
                                             <span class="desktop-search-icon-close">
@@ -86,8 +87,9 @@
                                 <div class="main-level-item">
                                     <button class="desktop-search-icon" tabindex="0" aria-label="Search" role="search">
                                         <span class="desktop-search-icon-search">
-                                            <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M13.787 12.752l-3.451-3.466a5.519 5.519 0 0 0 1.373-3.634C11.71 2.536 9.083 0 5.855 0 2.626 0 0 2.536 0 5.652c0 3.117 2.626 5.653 5.855 5.653a5.936 5.936 0 0 0 3.354-1.023l3.477 3.492c.146.146.341.226.55.226a.774.774 0 0 0 .53-.206.72.72 0 0 0 .021-1.042zM5.855 1.475c2.386 0 4.327 1.874 4.327 4.177 0 2.304-1.941 4.178-4.327 4.178S1.527 7.956 1.527 5.652c0-2.303 1.942-4.177 4.328-4.177z"></path>
+                                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="8" cy="8" r="7" stroke="#1A1818" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M13.5 13L18.5 16.5" stroke="#1A1818" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                         </span>
                                         <span class="desktop-search-icon-close">
