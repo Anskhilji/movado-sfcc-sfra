@@ -144,7 +144,7 @@ $('.desktop-search-close-text').click(function() {
     // Custom:MSS-2234 
     setTimeout(function() {
         $('.home-header-transparent').removeClass('solid-header'); 
-    },400);
+    }, 400);
 });
 
 $('.header-search-field').focusout(function() {
