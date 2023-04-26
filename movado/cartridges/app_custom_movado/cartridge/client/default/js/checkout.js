@@ -164,12 +164,12 @@ $(document).ready(function() { // eslint-disable-line
                 $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
                 $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').addClass('d-none').text('');
             } else {
-                $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');;
+                $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
                 $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);
             }
         } else {
             $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid is-invalid');
-            $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);;
+            $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);
         }
 
     });
@@ -187,11 +187,11 @@ $(document).ready(function() { // eslint-disable-line
                 $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
                 $('.creditcard-expiration-date').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CARD_EXPIRY_DATE_VALIDATION);
             } else {
-                $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');;
-                $('.creditcard-expiration-date').find('.invalid-feedback').addClass('d-none').text('');;
+                $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
+                $('.creditcard-expiration-date').find('.invalid-feedback').addClass('d-none').text('');
             }
         } else {
-            $(this).removeClass('auto-is-valid').addClass('auto-is-invalid');;
+            $(this).removeClass('auto-is-valid').addClass('auto-is-invalid');
             $('.creditcard-expiration-date').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CARD_EXPIRY_DATE_VALIDATION);
         }
     });
@@ -203,7 +203,7 @@ $(document).ready(function() { // eslint-disable-line
             var $isValid = $pattern.test($value);
             if ($isValid) {
                 $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').addClass('d-none').text('');;
+                $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').addClass('d-none').text('');
             } else {
                 $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
                 $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CITY_NAME_VALIDATION);    
@@ -221,7 +221,7 @@ $(document).ready(function() { // eslint-disable-line
             var $isValid = $pattern.test($value);
             if ($isValid) {
                 $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').addClass('d-none').text('');;
+                $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').addClass('d-none').text('');
             } else {
                 $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
                 $('.dwfrm_shipping_shippingAddress_addressFields_companyName, .dwfrm_billing_addressFields_companyName').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_COMPANY_NAME_VALIDATION);
@@ -238,7 +238,7 @@ $(document).ready(function() { // eslint-disable-line
             var $isValid = $pattern.test($value);
             if ($isValid) {
                 $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').addClass('d-none').text('');;
+                $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').addClass('d-none').text('');
             } else {
                 $(this).removeClass('is-valid auto-is-valid').addClass('auto-is-invalid');
                 $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_LAST_NAME_VALIDATION);    
@@ -257,14 +257,14 @@ $(document).ready(function() { // eslint-disable-line
             if ($isValid) {
                 $(this);
                 $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').addClass('d-none').text('');;    
+                $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').addClass('d-none').text('');  
             } else {
                 $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_EMAIL_VALIDATION);;
+                $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_EMAIL_VALIDATION);
             }
         } else {
             $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
-            $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_EMAIL_REQUIRED);;
+            $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_EMAIL_REQUIRED);
         }
 
     });
@@ -300,7 +300,7 @@ $(document).ready(function() { // eslint-disable-line
                 $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').addClass('d-none').text('');    
             } else {
                 $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
-                $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_ADDRESS_2_VALIDATION);;    
+                $('.dwfrm_shipping_shippingAddress_addressFields_address2, .dwfrm_billing_addressFields_address2').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_ADDRESS_2_VALIDATION);
             }
         } else {
             $(this).removeClass('auto-is-valid auto-is-invalid is-valid is-invalid');
@@ -316,7 +316,7 @@ $(document).ready(function() { // eslint-disable-line
                 var $isValid = $pattern.test($value);
                 if ($isValid) {
                     $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
-                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').addClass('d-none').text('');;    
+                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').addClass('d-none').text('');  
                 } else {
                     $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
                     $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);    
@@ -326,7 +326,7 @@ $(document).ready(function() { // eslint-disable-line
                 var $isValid = $pattern.test($value);
                 if ($isValid) {
                     $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
-                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').addClass('d-none').text('');;    
+                    $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').addClass('d-none').text('');  
                 } else {
                     $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
                     $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_ZIP_CODE_VALIDATION);    
@@ -370,7 +370,7 @@ $(document).ready(function() { // eslint-disable-line
                     $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').addClass('d-none').text('');    
                 } else {
                     $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
-                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);;
+                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
                 }
             } else if ($country == Resources.CHECKOUT_COUNTRY_CH) {
                 var $pattern = /^(^[0-9\\s-]+$)/i
@@ -380,7 +380,7 @@ $(document).ready(function() { // eslint-disable-line
                     $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').addClass('d-none').text('');
                 } else {
                     $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
-                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);;
+                    $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_PHONE_NUMBER_VALIDATION);
                 }
             }
         } else {
