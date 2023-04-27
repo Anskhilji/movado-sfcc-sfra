@@ -546,10 +546,6 @@
                 line-height: rem(25);
                 margin: rem(0) rem(0) rem(0);
                 opacity: 0.8;
-
-                @include media-breakpoint-down(xs) {
-                    margin: rem(23) rem(0) rem(30);
-                }
             }
 
             .rating-box-redisgn {
