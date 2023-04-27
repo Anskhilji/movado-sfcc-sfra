@@ -477,6 +477,7 @@ require('./fedexAddressValidate');
                       $('.shipping-express-checkout').removeClass('d-none');
                   }  
                   members.gotoStage('payment');
+                  $('.creditcard-securitycode').removeClass('is-valid auto-is-valid');
               });
 
           //
