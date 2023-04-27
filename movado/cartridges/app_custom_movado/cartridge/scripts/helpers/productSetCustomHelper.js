@@ -269,24 +269,8 @@ function getPLPCustomSetURL(productID, product) {
     }
 }
 
-function getProductSetCarouselImages(product) {
-    var productSetImageCarousel = [];
-    if (product.images) {
-        productSetImageCarousel.push(product.images['pdp700'][0]);
-    }
-    if (product.individualProducts.length > 0) {
-        for (var j = 0; j < product.individualProducts.length; j++) {
-            if(product.individualProducts[j].images){
-                productSetImageCarousel.push(product.individualProducts[j].images['pdp700'][0]);
-            }
-        }
-    }
-    return productSetImageCarousel;
-}
-
 module.exports = {
     getProductSetBasePrice: getProductSetBasePrice,
     getProductSetSalePrice: getProductSetSalePrice,
-    getPLPCustomSetURL: getPLPCustomSetURL,
-    getProductSetCarouselImages: getProductSetCarouselImages
+    getPLPCustomSetURL: getPLPCustomSetURL
 };
