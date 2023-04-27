@@ -397,6 +397,16 @@ $(document).ready(function() { // eslint-disable-line
         }
     });
 
+    $('input.shippingState, input.billingState ').on('change keyup focusout', function() {
+        var $value = $(this).val();
+        if ($value) {
+            $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
+            $('.dwfrm_shipping_shippingAddress_addressFields_states_stateCode, .dwfrm_billing_addressFields_states_stateCode').find('.invalid-feedback').addClass('d-none').text('');
+        } else {
+            $(this).removeClass('auto-is-valid is-valid');
+        }
+    });
+
     $('.show-details-wrapper').click(function() {
         $('.hidden-menu').slideDown('slow');
         $('.hidden-menu').addClass('pop-up-top-container');
