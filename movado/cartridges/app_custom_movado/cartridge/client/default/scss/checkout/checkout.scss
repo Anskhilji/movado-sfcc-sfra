@@ -718,7 +718,7 @@ header {
     .form-group {
         .form-control {
             &.is-invalid,&.auto-is-invalid {
-                border: rem(2.4) solid $invalid-red;
+                border: rem(2.4) solid $invalid-red !important;
                 background: url("../../images/invalid.svg") center right no-repeat;
                 background-position-x: 97%;
 
