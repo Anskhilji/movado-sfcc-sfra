@@ -1,4 +1,5 @@
 @import '../variables';
+@import "bootstrap/scss/mixins/breakpoints";
 
 header {
 
@@ -71,6 +72,10 @@ header {
                                 background-color: $white;
                                 filter: unset;
                                 -webkit-filter: unset;
+
+                                @include media-breakpoint-down(xs) {
+                                    z-index: 1124;
+                                }
     
                                 &.sticky-header {
                                     background-color: $white;

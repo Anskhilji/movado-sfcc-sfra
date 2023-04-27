@@ -115,6 +115,11 @@ $('.mobile-search-close-text').click(function() {
     $('.search-modal-open').removeClass('active');
     $('.search-modal-open').removeClass('color-or-family');
     $('.content-show').removeClass('d-none');
+
+    // Custom:MSS-2234 
+    setTimeout(function() {
+        $('.home-header-transparent').removeClass('solid-header'); 
+    }, 300);
 });
 
 $('.mobile-nav .mobile-subnav-btn').click(function() {
