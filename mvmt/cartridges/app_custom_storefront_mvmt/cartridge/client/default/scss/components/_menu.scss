@@ -190,6 +190,7 @@
           &::after {
             transform: rotateY(0);
             opacity: 1;
+            background-color: $dark-blue-btn;
           }
         }
       }
@@ -424,6 +425,7 @@
           transition: transform .24s ease 0s;
           display: inline-block;
           position: relative;
+          color: $dark-gray2;
 
           &::before {
             content: "";
@@ -440,9 +442,12 @@
           }
 
           &:hover {
+            color: $dark-blue-btn;
+            text-decoration: none;
 
             &::before {
               opacity: 1;
+              background-color: $dark-blue-btn;
             }
           }
         }

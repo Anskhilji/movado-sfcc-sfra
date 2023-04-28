@@ -160,6 +160,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: rem(64.5);
 
             span {
                 color: $black;
@@ -167,7 +168,7 @@
             }
 
             &:hover {
-                background-color: $light-green;
+                background-color: $dark-blue-btn;
                 color: $white;
 
                 span {

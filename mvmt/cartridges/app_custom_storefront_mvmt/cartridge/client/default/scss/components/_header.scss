@@ -419,7 +419,11 @@ header.new-header {
         position: static;
 
         .nav-link {
-          color: $black;
+          color: $dark-gray2;
+
+          &:hover {
+            color: $dark-blue-btn;
+          }
         }
       }
     }
