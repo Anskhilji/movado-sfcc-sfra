@@ -12,6 +12,16 @@ $('body').on('focus, keydown', ".search-field:visible", function (e) {
         $mobileMenuGroup.hide();
     }
 });
+
+$(".search-field").on('click', function (e) {
+    if ($(this).val() === '') {
+        $(".search-recomendation").css('visibility', 'visible');
+        $(".search-field").css('border-radius', '3px 3px 0 0');
+        $(".search-recomendation").fadeIn();
+        e.stopPropagation();
+    }
+});
+
 $('.search-field-home').on('click', function (e) {
     if ($(this).val() === '') {
         $('.search-recomendation-sidebar').css('visibility', 'hidden');
