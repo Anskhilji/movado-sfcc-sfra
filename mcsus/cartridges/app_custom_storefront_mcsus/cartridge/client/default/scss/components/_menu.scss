@@ -1346,7 +1346,7 @@ nav {
 
               .search-recomendation {
                 position: absolute;
-                top: rem(32);
+                top: rem(20);
                 border: 0;
                 background-color: $white;
                 box-shadow: 0 rem(4) rem(20) 0 $white-smoke5;
@@ -1357,6 +1357,7 @@ nav {
                 @include media-breakpoint-down(md) {
                   width: 100%;
                   padding-top: rem(40);
+                  top: rem(32);
                 }
 
                 .col-12 {
