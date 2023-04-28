@@ -984,6 +984,7 @@
   }
 
   .show-more {
+
     button {
       font-family: $font-medium;
       font-weight: 500;
@@ -991,21 +992,27 @@
       text-transform: uppercase;
       font-size: rem(11);
       letter-spacing: rem(1.5);
-      color: $black;
-      border: rem(2) solid $black;
+      color: $dark-gray2;
+      border: rem(1) solid $dark-gray2;
       margin: rem(20) auto rem(10);
       transition: 0.3s ease-in;
       min-width: rem(200);
       padding: rem(14) rem(20);
       line-height: rem(18);
       text-align: center;
+      border-radius: rem(64.5);
 
       &:hover,
       &:focus {
         color: $white;
-        background-color: $black;
+        background-color: $dark-blue-btn;
+        border-color: $dark-blue-btn;
         box-shadow: none;
         outline: none;
+      }
+
+      &:not(:disabled):not(.disabled):active:focus {
+        box-shadow: none;
       }
     }
   }
@@ -1587,17 +1594,20 @@
         }
 
         a {
-          color: $black;
+          color: $dark-gray2;
           background: transparent;
-          border: rem(2) solid $black;
+          border: rem(1) solid $dark-gray2;
           transition: 0.3s ease-in;
           min-width: rem(200);
           padding: rem(14) rem(20);
           font-size: rem(14);
+          border-radius: rem(64.5);
 
-          &:hover {
+          &:hover,:focus {
             color: $white;
-            background: $black;
+            background: $dark-blue-btn;
+            border-color: $dark-blue-btn;
+            box-shadow: none;
           }
         }
       }

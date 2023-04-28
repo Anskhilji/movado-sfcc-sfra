@@ -796,6 +796,20 @@
             padding: rem(75) rem(30);
         }
     }
+
+    &-wrapper {
+
+        .faq-main-panel-title {
+
+            a {
+                color: $dark-gray2;
+
+                &:hover {
+                    color: $dark-blue-btn;
+                }
+            }
+        }
+    }
     
     &-main {
         margin: 0 auto rem(40);
@@ -827,14 +841,17 @@
 .button {
     &--black-gradient {
         color: $white;
-        background: $black;
+        background: $dark-gray2;
         font-family: $font-medium;
         font-weight: 500;
+        border-radius: rem(64.5);
 
         &:hover, &:focus {
-            background: $apple-green;
+            background: $dark-blue-btn;
             color: $white;
             text-decoration: none;
+            border-color: $dark-blue-btn;
+            outline: none;
         }
     }
 

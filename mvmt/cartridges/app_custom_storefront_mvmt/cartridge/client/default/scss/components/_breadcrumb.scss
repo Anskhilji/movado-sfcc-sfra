@@ -31,6 +31,14 @@
                   }
               }
           }
+
+          a {
+            color: $dark-gray2;
+
+            &:hover {
+                color: $dark-blue-btn;
+            }
+          }
       }
       
       .social-container {

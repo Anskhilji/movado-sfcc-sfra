@@ -279,10 +279,11 @@ header.new-header {
         letter-spacing: rem(1.5);
         line-height: rem(14);
         text-align: center;
+        border-radius: rem(64.5);
 
         &:hover {
           color: $white;
-          background-color: $apple-green;
+          background-color: $dark-blue-btn;
         }
 
         &:focus {
@@ -306,8 +307,9 @@ header.new-header {
             border-color:$white;
 
             &:hover {
-              background: $white;
-              color: $black;
+              background: $dark-blue-btn;
+              color: $white;
+              border-color: $dark-blue-btn;
             }
           }
         }

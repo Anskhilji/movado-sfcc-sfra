@@ -617,9 +617,9 @@
       }
 
       .add-to-cart {
-        border-color: $light-green;
-        border-radius: rem(2.33008);
-        background-color: $emerald2;
+        border-color: $dark-blue-btn;
+        border-radius: rem(64.5);
+        background-color: $dark-blue-btn;
         color: $white;
 
         @include media-breakpoint-down(xs) {
@@ -629,17 +629,18 @@
           max-height: rem(35);
           width: 100%;
           display: block;
-          background-color: $emerald2;
+          background-color: $dark-blue-btn;
         }
     
         &:hover {
-          background: $light-green;
+          background: $dark-blue-btn;
+          box-shadow: none;
         }
     
         &.out-of-stock-btn {
-          background: $light-grey10;
-          opacity: 0.5;
-          color: $black;
+          background: $dark-gray2;
+          opacity: 0.3;
+          color: $white;
           font-family: $font-bold;
           font-size: rem(12);
           font-weight: 500;
@@ -648,8 +649,8 @@
           border: none;
   
           &:hover {
-            background: $light-grey10;
-            border-color: $light-grey10;
+            background: $dark-gray2;
+            border-color: $dark-gray2;
           }
         }
       }

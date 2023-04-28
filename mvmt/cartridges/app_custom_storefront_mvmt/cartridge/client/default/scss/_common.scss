@@ -122,7 +122,7 @@
     white-space: nowrap;
     user-select: none;
     border: rem(2) solid $black;
-    transition: .3s ease-in;
+    transition: 0.3s ease-in;
     min-width: rem(200);
     padding: rem(14) rem(20);
     font-size: rem(14);
@@ -142,7 +142,7 @@
     line-height: rem(18);
     background: transparent;
 
-    &:hover{
+    &:hover {
         color: $white;
         background-color: $black;
     }
@@ -237,14 +237,13 @@
         top: 0;
         bottom: 0;
         background-color: $white;
-        transition: transform 0.35s,opacity 0.35s;
+        transition: transform 0.35s, opacity 0.35s;
         z-index: 11;
         opacity: 0;
         left: 0;
         right: 0;
 
         @include media-breakpoint-down(md) {
-
             &.dashboard-active {
                 z-index: 1015;
                 transform: translateX(0);
@@ -297,13 +296,13 @@
         }
 
         &.is-tab-bar-menu-link-active {
-
             @include media-breakpoint-up(lg) {
                 background-color: $white-gray;
             }
         }
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             background-color: $white-gray;
         }
 
@@ -315,7 +314,7 @@
             line-height: rem(48);
             margin: 0;
             padding: 0 rem(25);
-            transition: background-color .25s ease-out;
+            transition: background-color 0.25s ease-out;
             width: auto;
 
             &:first-of-type {
@@ -341,11 +340,8 @@
     }
 }
 .form-group {
-
     &.required {
-
-         .form-control-label {
-    
+        .form-control-label {
             &::after {
                 content: "*";
                 color: $black;
@@ -374,11 +370,10 @@
 }
 
 .custom-select-wrapper {
-
     .custom-select-form-wrapper {
         border: rem(1) solid $cyan-blue1;
         padding: rem(20);
-        color:$light-gray;
+        color: $light-gray;
         text-transform: none;
         font-family: $font-book;
         background: $white url(../images/up-and-down-arrows.svg) 95% 50% no-repeat;
@@ -394,7 +389,6 @@
             }
 
             @include media-breakpoint-down(lg) {
-
                 &:focus {
                     box-shadow: 0 0 0 rem(1) $corvette;
                     border-color: $corvette;
@@ -406,14 +400,14 @@
 
 .widgets-title {
     margin: rem(20);
-    overflow :hidden;
+    overflow: hidden;
     text-align: left;
     line-height: 1.6em;
 
     &::before {
         display: block;
         float: right;
-        margin-top: .8em; 
+        margin-top: 0.8em;
         border-top: 1px solid $light-gray4;
         width: 50%;
         content: "";
@@ -429,9 +423,7 @@ ul {
     list-style: none;
 }
 
-
 .plp-grid-overlay {
-
     @include media-breakpoint-up(lg) {
         display: block;
         background-color: $transparent-black;
@@ -442,7 +434,7 @@ ul {
         height: 100%;
         z-index: 5;
         opacity: 0;
-        transition: opacity .35s;
+        transition: opacity 0.35s;
         pointer-events: none;
 
         &.active {
@@ -457,7 +449,6 @@ ul {
 }
 
 body {
-
     &.lock-bg {
         height: 100%;
         overflow: hidden;
@@ -490,23 +481,18 @@ body {
 }
 
 .product-card-wrapper {
-    
     .veil {
         z-index: 999;
     }
 }
 
 .product-tile-redesign {
-
     .tile-body {
-
         .price {
-
             del {
-
                 .strike-through {
                     margin-right: rem(5);
-    
+
                     span {
                         color: $light-gray2;
                         font-weight: 600;
@@ -524,22 +510,19 @@ body {
 }
 
 @keyframes nodeInserted {
-
     from {
         outline-color: $white;
     }
-    
+
     to {
         outline-color: $black;
     }
 }
 
 div {
-
     &.yotpo {
-
-        &.bottomLine, &.yotpoBottomLine {
-
+        &.bottomLine,
+        &.yotpoBottomLine {
             .star-clickable {
                 animation-duration: 0.01s;
                 animation-name: nodeInserted;
@@ -560,7 +543,7 @@ div {
     top: rem(53);
     width: 100%;
     z-index: 6;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
     transform: translateZ(0);
 
     @include media-breakpoint-up(lg) {
@@ -590,7 +573,7 @@ div {
                 display: block;
                 width: 100%;
             }
-            
+
             i {
                 color: $black;
                 vertical-align: middle;
@@ -608,16 +591,16 @@ div {
 // Styles for promo code form on cart and checkout page
 .collapsible-promo-wrapper {
     .form-control {
-      border-right: 0;
+        border-right: 0;
     }
-  
+
     [class*="collapsible-"] {
-      margin-bottom: 0;
+        margin-bottom: 0;
         .title {
             width: 100%;
             line-height: rem(17);
             cursor: pointer;
-  
+
             &::after {
                 content: "\F107";
                 font-size: rem(24);
@@ -625,17 +608,12 @@ div {
                 float: right;
             }
         }
-
     }
 }
 
-
 .checkout-promo-section {
-
     &.checkout-promo-redesign {
-
         .checkout-coupons-and-promos {
-
             .coupon-price-adjustment {
                 border: rem(1) solid $parrot-green;
                 border-radius: rem(22.5);
@@ -698,9 +676,7 @@ div {
             }
 
             .promo-box-space {
-
                 .promo-label-wrapper {
-
                     &.title {
                         color: $cerulean;
                         font-size: rem(13);
@@ -710,7 +686,7 @@ div {
                         text-transform: capitalize;
                         width: auto;
                         margin-bottom: rem(0);
-                        
+
                         &::after {
                             content: "";
                         }
@@ -738,7 +714,7 @@ div {
                         letter-spacing: rem(1);
                         line-height: rem(20);
                         text-transform: capitalize;
-                      
+
                         @include media-breakpoint-down(xs) {
                             font-size: rem(12);
                             letter-spacing: rem(1.07);
@@ -780,7 +756,7 @@ div {
                     &:focus {
                         box-shadow: none;
                         padding-left: rem(10);
-                      
+
                         &::placeholder {
                             color: transparent;
                             opacity: 0;
@@ -818,7 +794,7 @@ div {
                     font-size: rem(12);
                     letter-spacing: rem(0.92);
                     font-weight: 500;
-        
+
                     &.input-has-value {
                         transition: 0.25s ease-in-out;
                         top: 0;
@@ -843,7 +819,7 @@ div {
                 .coupon-error {
                     margin: rem(5) 0;
                 }
-                .promo-label-wrapper { 
+                .promo-label-wrapper {
                     margin-bottom: rem(13);
                     display: inline-block;
 
@@ -894,7 +870,6 @@ div {
                 .mob-order-total-m {
                     margin-bottom: rem(3);
                     .top-grandtotal-label {
-    
                         &.label-container-wrapper {
                             margin-bottom: 0;
                         }
@@ -905,7 +880,7 @@ div {
                     }
                 }
             }
-  
+
             .sticky-hide-wrapper {
                 position: sticky;
                 bottom: 0;
@@ -914,18 +889,14 @@ div {
             }
 
             .card-border-none-wrapper {
-
                 &.card-summary-wrapper-container {
                     @include media-breakpoint-down(sm) {
                         margin-bottom: rem(30);
                     }
 
                     .order-total-summary {
-
                         .leading-lines {
-
                             &.leading-lines-wrapper {
-                        
                                 .start-lines {
                                     p {
                                         margin: rem(0);
@@ -942,7 +913,7 @@ div {
                                         @include media-breakpoint-down(xs) {
                                             letter-spacing: rem(0.93);
                                         }
-                        
+
                                         span {
                                             font-size: rem(13);
                                             font-weight: 300;
@@ -958,11 +929,9 @@ div {
                                         }
                                     }
                                 }
-                        
+
                                 .end-lines {
-                        
                                     .text-right {
-                                        
                                         &.tax-total {
                                             color: $light-black4;
                                             font-size: rem(13);
@@ -975,7 +944,7 @@ div {
                                                 letter-spacing: rem(0.93);
                                             }
                                         }
-                        
+
                                         span {
                                             color: $light-black4;
                                             font-size: rem(13);
@@ -987,17 +956,17 @@ div {
                                             @include media-breakpoint-down(xs) {
                                                 letter-spacing: rem(0.93);
                                             }
-                        
+
                                             &.product-discount-total {
                                                 color: $gossamer2;
                                                 background-color: transparent;
                                             }
-                        
+
                                             &.order-discount-total {
                                                 color: $gossamer2;
                                                 background-color: transparent;
                                             }
-                
+
                                             &.shipping-total-cost {
                                                 color: $gossamer2;
                                             }
@@ -1007,26 +976,19 @@ div {
                             }
                         }
                     }
-                    
+
                     .flex-box-contianer-bottom {
-                        
                         .grand-total {
-        
                             &.grand-total-wrapper {
-                
                                 .start-lines {
-                
                                     .order-receipt-label {
                                         color: $light-black4;
                                     }
                                 }
-                
+
                                 .end-lines {
-                
                                     .text-right {
-                
                                         .grand-total {
-                
                                             &.grand-total-sum {
                                                 color: $light-black4;
                                             }
@@ -1039,7 +1001,7 @@ div {
                 }
             }
         }
-        
+
         .label-show-title {
             font-size: rem(12);
             font-weight: 500;
@@ -1052,7 +1014,7 @@ div {
             &:hover {
                 text-decoration: none;
             }
-            
+
             img {
                 padding-left: rem(5);
             }
@@ -1064,4 +1026,81 @@ div {
     outline: none;
     outline-color: transparent;
     box-shadow: none;
+}
+
+//site-map-mss-2238
+.site-map {
+    h5 {
+        a {
+            color: $dark-gray2;
+
+            &:hover {
+                color: $dark-blue-btn;
+            }
+        }
+    }
+
+    ul {
+        li {
+            a {
+                color: $dark-gray2;
+
+                &:hover {
+                    color: $dark-blue-btn;
+                }
+            }
+        }
+    }
+}
+
+.data-checkout-stage {
+
+    .form-group {
+
+        .edit-button, .btn-show-details, .btn-add-new {
+            color: $dark-gray2;
+
+            &:hover {
+                color: $dark-blue-btn;
+            }
+        }
+    }
+
+    .order-product-summary {
+
+        .product-summary-block {
+
+            .card {
+    
+                &.product-line-item {
+        
+                    &.product-card-wrapper {
+            
+                        &.product-card-container{
+                
+                            .product-line-item-details {
+                    
+                                .item-attributes {
+                        
+                                    .line-item-header {
+                            
+                                        .line-item-name {
+                                
+                                            a {
+                                                color: $dark-gray2;
+
+                                                &:hover {
+                                                    color: $dark-blue-btn;
+                                                }
+                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

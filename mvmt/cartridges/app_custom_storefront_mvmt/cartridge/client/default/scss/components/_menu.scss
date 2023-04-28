@@ -281,6 +281,12 @@
               line-height: 1.4;
               letter-spacing: normal;
               text-transform: uppercase;
+              color: $dark-gray2;
+
+              &:hover {
+                color: $dark-blue-btn;
+                text-decoration: underline;
+              }
             }
           }
         }
@@ -586,12 +592,14 @@
     width: auto;
     padding: 0 rem(30);
     min-width: auto;
-    background-color: $black;
+    background-color: $dark-gray2;
     color: $white;
+    border-color: $dark-gray2;
+    border-radius: rem(64.5);
 
     &:hover, &:focus {
-      border-color: $dark-red;
-      background-color: $dark-red;
+      border-color: $dark-blue-btn;
+      background-color: $dark-blue-btn;
       color: $white;
     }
   }
@@ -635,6 +643,14 @@
     
     .category-custom-link {
       margin: 0;
+      color: $dark-gray2;
+      &:hover {
+        color: $dark-blue-btn;
+
+        &::before {
+          background: $dark-blue-btn;
+        }
+      }
     }
   }
 
@@ -648,6 +664,15 @@
     letter-spacing: 0.82px;
     margin-bottom: rem(20);
     line-height: normal;
+    color: $dark-gray2;
+
+     &:hover {
+      color: $dark-blue-btn;
+
+      &::before {
+        background: $dark-blue-btn;
+      }
+     }
   
     &::before {
       content: "";
@@ -678,7 +703,7 @@
       &:hover {
 
         .category-custom-link {
-
+         
           &::before {
             opacity: 1;
           }

@@ -133,7 +133,9 @@
         .register-button {
             height: rem(50);
             width: 90%;
-            background-color: $black;
+            background-color: $dark-gray2;
+            border-color: $dark-gray2;
+            border-radius: rem(64.5);
         }
     } 
 }
