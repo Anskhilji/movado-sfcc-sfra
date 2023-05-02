@@ -383,8 +383,9 @@
                     padding: rem(16);
                     line-height: 1;
                     margin-right: 26%;
-                    color: $black;
+                    color: $dark-gray2;
                     background: $white;
+                    border-color: $dark-gray2;
 
                     @include media-breakpoint-down(sm) {
                         width: 50%;
@@ -402,8 +403,8 @@
                         box-shadow: none;
                         transition: opacity 0.25s ease-in-out;
                         color: $white;
-                        background: $black;
-                        border: rem(1) solid $black;
+                        background: $dark-blue-btn;
+                        border: rem(1) solid $dark-blue-btn;
                     }
                 }
 
