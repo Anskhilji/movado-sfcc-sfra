@@ -8,7 +8,7 @@
         &.btn {
 
             &.continue-shopping {
-                border-radius: 64.5px;
+                border-radius: rem(64.5);
                 background-color: $dark-gray2;
                 border-color: $dark-gray2;
                 box-shadow: none;

@@ -340,8 +340,11 @@
     }
 }
 .form-group {
+
     &.required {
+
         .form-control-label {
+
             &::after {
                 content: "*";
                 color: $black;
@@ -370,6 +373,7 @@
 }
 
 .custom-select-wrapper {
+
     .custom-select-form-wrapper {
         border: rem(1) solid $cyan-blue1;
         padding: rem(20);
@@ -389,6 +393,7 @@
             }
 
             @include media-breakpoint-down(lg) {
+
                 &:focus {
                     box-shadow: 0 0 0 rem(1) $corvette;
                     border-color: $corvette;
@@ -408,7 +413,7 @@
         display: block;
         float: right;
         margin-top: 0.8em;
-        border-top: 1px solid $light-gray4;
+        border-top: rem(1) solid $light-gray4;
         width: 50%;
         content: "";
     }
@@ -424,6 +429,7 @@ ul {
 }
 
 .plp-grid-overlay {
+
     @include media-breakpoint-up(lg) {
         display: block;
         background-color: $transparent-black;
@@ -449,6 +455,7 @@ ul {
 }
 
 body {
+
     &.lock-bg {
         height: 100%;
         overflow: hidden;
@@ -487,9 +494,13 @@ body {
 }
 
 .product-tile-redesign {
+
     .tile-body {
+
         .price {
+
             del {
+
                 .strike-through {
                     margin-right: rem(5);
 
@@ -500,6 +511,7 @@ body {
                 }
 
                 & + span {
+
                     span {
                         color: $dark-red;
                     }
@@ -510,6 +522,7 @@ body {
 }
 
 @keyframes nodeInserted {
+
     from {
         outline-color: $white;
     }
@@ -520,9 +533,13 @@ body {
 }
 
 div {
+
     &.yotpo {
+
         &.bottomLine,
+
         &.yotpoBottomLine {
+
             .star-clickable {
                 animation-duration: 0.01s;
                 animation-name: nodeInserted;
@@ -590,12 +607,14 @@ div {
 
 // Styles for promo code form on cart and checkout page
 .collapsible-promo-wrapper {
+
     .form-control {
         border-right: 0;
     }
 
     [class*="collapsible-"] {
         margin-bottom: 0;
+
         .title {
             width: 100%;
             line-height: rem(17);
@@ -612,8 +631,11 @@ div {
 }
 
 .checkout-promo-section {
+
     &.checkout-promo-redesign {
+
         .checkout-coupons-and-promos {
+
             .coupon-price-adjustment {
                 border: rem(1) solid $parrot-green;
                 border-radius: rem(22.5);
@@ -676,7 +698,9 @@ div {
             }
 
             .promo-box-space {
+
                 .promo-label-wrapper {
+
                     &.title {
                         color: $cerulean;
                         font-size: rem(13);
@@ -812,6 +836,7 @@ div {
             }
 
             .promo-box-space {
+
                 @include media-breakpoint-down(xs) {
                     padding: rem(0);
                 }
@@ -819,6 +844,7 @@ div {
                 .coupon-error {
                     margin: rem(5) 0;
                 }
+
                 .promo-label-wrapper {
                     margin-bottom: rem(13);
                     display: inline-block;
@@ -829,6 +855,7 @@ div {
                 }
             }
             .coupon-error {
+                
                 &.checkout-coupon-error {
                     font-size: rem(14);
                 }
@@ -869,7 +896,9 @@ div {
 
                 .mob-order-total-m {
                     margin-bottom: rem(3);
+
                     .top-grandtotal-label {
+
                         &.label-container-wrapper {
                             margin-bottom: 0;
                         }
@@ -889,15 +918,21 @@ div {
             }
 
             .card-border-none-wrapper {
+
                 &.card-summary-wrapper-container {
+
                     @include media-breakpoint-down(sm) {
                         margin-bottom: rem(30);
                     }
 
                     .order-total-summary {
+
                         .leading-lines {
+
                             &.leading-lines-wrapper {
+
                                 .start-lines {
+
                                     p {
                                         margin: rem(0);
                                     }
@@ -931,7 +966,9 @@ div {
                                 }
 
                                 .end-lines {
+
                                     .text-right {
+
                                         &.tax-total {
                                             color: $light-black4;
                                             font-size: rem(13);
@@ -978,17 +1015,24 @@ div {
                     }
 
                     .flex-box-contianer-bottom {
+
                         .grand-total {
+
                             &.grand-total-wrapper {
+
                                 .start-lines {
+
                                     .order-receipt-label {
                                         color: $light-black4;
                                     }
                                 }
 
                                 .end-lines {
+
                                     .text-right {
+
                                         .grand-total {
+
                                             &.grand-total-sum {
                                                 color: $light-black4;
                                             }
@@ -1030,6 +1074,7 @@ div {
 
 //site-map-mss-2238
 .site-map {
+
     h5 {
         a {
             color: $dark-gray2;
@@ -1041,7 +1086,9 @@ div {
     }
 
     ul {
+
         li {
+
             a {
                 color: $dark-gray2;
 
