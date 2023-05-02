@@ -61,6 +61,24 @@ function riskifiedPaymentReversal(order, paymentMethod) {
     }
  }
  
+function encodedUrl(order, data) {
+    /* Local API Includes */
+    var StringUtils = require('dw/util/StringUtils');
+    var Cipher = require('dw/crypto/Cipher');
+
+    if (data === null || typeof data !== 'string') {
+        return '';
+    }
+    var hashKey = order.orderNo;
+    var hashKeyEncoded = StringUtils.encodeBase64(hashKey);
+    var padAmount = 32 - (data.length % 32);
+    var padFill = StringUtils.pad('', padAmount).replace(/\s/g, '{');
+    var padData = data + padFill;
+    var dataEncrypted = new Cipher().encrypt(padData, hashKeyEncoded, 'AES/ECB/PKCS5Padding', '', 0);
+    dataEncrypted = Encoding.toURI(dataEncrypted);
+    return dataEncrypted;
+}
+
 function orderDeclined(order, riskifiedOrderStatus) {
     var paymentInstrument = order.paymentInstrument;
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
@@ -81,13 +99,13 @@ function orderDeclined(order, riskifiedOrderStatus) {
         });
 
         if (isRiskifiedShopperRecoveryDeclinedStatus) {
-        var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
-        var service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedSyncRestService');
-       
-        var authCode = service.getConfiguration().getCredential().getPassword();
-        var hmacAuthCode = RCUtilities.calculateRFC2104HMAC(order.orderNo, authCode);
-        var locale = order.customerLocaleID;
         var riskifiedShoppperRecoveryURL = Site.current.preferences.custom.riskifiedShoppperRecoveryURL;
+        
+        riskifiedPaymentReversal(order, paymentMethod);
+        var riskApproved = URLUtils.https('Checkout-RiskApproved').toString();
+        var riskDeclined = URLUtils.https('Checkout-RiskDeclined').toString();
+        var successUrl = encodedUrl(order, riskApproved);
+        var failureUrl = encodedUrl(order, riskDeclined);
 
         try {
             Transaction.wrap(function () {
@@ -95,8 +113,7 @@ function orderDeclined(order, riskifiedOrderStatus) {
             });
           
             var accountId = Site.current.preferences.custom.merchantDomainAddressOnRiskified;
-            // Example Url: https://verify.self-veri.com/movado.com?id=dev0900008169&sig=0fb777a9a0fea84b45e782cd2fec4e9fedb0344f7bc1a2f23f8204c350527249&returnUrl=https://bdkz-009.dx.commercecloud.salesforce.com/on/demandware.store/Sites-MovadoUS-Site/en_US/Checkout-RiskApproved?orderNo=dev0900008169&orderToken=nGO8HFQIyIpXniadzTFtn0zWZS4AlKMZWo0RBMfyd9E&language=en_US
-            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + accountId + '?id=' + order.orderNo + '&sig=' + hmacAuthCode + '&returnUrl=' + URLUtils.https('Checkout-RiskApproved', 'orderNo', order.orderNo, 'orderToken', order.orderToken) + '&language=' + locale;
+            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + accountId + '?successUrl=' + successUrl + '&failureUrl=' + failureUrl;
 
             return {
                 error: false,

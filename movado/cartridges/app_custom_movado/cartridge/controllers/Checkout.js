@@ -206,8 +206,6 @@ server.get('RiskDeclined', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var Resource = require('dw/web/Resource');
 
-    var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
-
     var orderNo = req.querystring.orderNo;
     var orderToken = req.querystring.orderToken;
 
@@ -215,12 +213,8 @@ server.get('RiskDeclined', function (req, res, next) {
         var order = OrderMgr.getOrder(orderNo, orderToken);
 
         if (order) {
-            var riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, {});
-
-            if (!riskifiedOrderDeclined.error) {
-              res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
-              next();
-            }
+            res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+            next();
         }
     }
 
@@ -238,7 +232,6 @@ server.get('RiskApproved', function (req, res, next) {
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
-    var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
 
     var orderNo = req.querystring.orderNo;
     var orderToken = req.querystring.orderToken;
@@ -249,7 +242,6 @@ server.get('RiskApproved', function (req, res, next) {
         var order = OrderMgr.getOrder(orderNo, orderToken);
 
         if (order) {
-            // Riskified order approved response from decide API
             var placeOrderStatus = OrderMgr.placeOrder(order); 
             
             if (placeOrderStatus === Status.ERROR) {
@@ -257,8 +249,6 @@ server.get('RiskApproved', function (req, res, next) {
                 throw new Error();
             }
             order.setExportStatus(Order.EXPORT_STATUS_READY);
-            RiskifiedOrderDescion.orderApproved(order);
-
             //set custom attirbute in session to avoid order confirmation page reload
             session.custom.orderJustPlaced = true;
             //set order number in session to get order back after redirection
