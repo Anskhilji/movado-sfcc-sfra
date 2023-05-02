@@ -198,7 +198,7 @@ function refund(order, amount, isJob, sendMail) {
         var paymentMethods = PaymentMgr.getPaymentMethod(order.paymentInstrument
 			.getPaymentMethod());
         var isImmediateCapture = paymentMethods.custom.isImmediateCapture;
-        if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY') && amount == orderTotal && refundedAmount == 0 && isImmediateCapture) {
+        if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY' || paymentMethod == 'Adyen') && amount == orderTotal && refundedAmount == 0 && isImmediateCapture) {
             var cancelResponse = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, amount, isJob, sendMail,
                 require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').cancelOrRefund);
             return cancelResponse;   

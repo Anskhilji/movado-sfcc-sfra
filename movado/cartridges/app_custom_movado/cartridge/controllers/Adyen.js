@@ -323,7 +323,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
     var sendMail = true;
     var isJob = false;
 
-    if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY') && order.getTotalGrossPrice().value == orderTotal && refundedAmount == 0 && isImmediateCapture) {
+    if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY' || paymentMethod == 'Adyen') && order.getTotalGrossPrice().value == orderTotal && refundedAmount == 0 && isImmediateCapture) {
         var cancelResponse = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, order.getTotalGrossPrice().value, isJob, sendMail,
             require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').cancelOrRefund);
         return cancelResponse;   
