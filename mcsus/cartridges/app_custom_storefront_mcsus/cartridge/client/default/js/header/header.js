@@ -76,7 +76,6 @@ $('.navbar-toggler').click(function (e) {
     $('.modal-background').addClass('popup-modal');
 });
 
-// 2220
 $('.menu-search input').focus(function () {
     $('.menu-search').addClass('active');
 }).blur(function () {
