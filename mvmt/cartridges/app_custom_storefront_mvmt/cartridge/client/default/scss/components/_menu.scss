@@ -5,6 +5,15 @@
 
     .nav-link {
       text-transform: capitalize;
+
+      @include media-breakpoint-down(md) {
+        color: $dark-gray2;
+
+        &:hover {
+          color: $dark-blue-btn;
+          text-decoration: underline;
+        }
+      }
     }
 
     &.show {
