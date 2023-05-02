@@ -133,6 +133,7 @@
     }
 
     &:hover {
+
       .dropdown-menu {
         z-index: 0;
         opacity: 0;
@@ -320,6 +321,7 @@
                 margin-right: 0;
               }
             }
+
             @include media-breakpoint-up(xl) {
               margin-right: rem(50);
               margin-bottom: rem(50);
@@ -332,6 +334,7 @@
       + .featured-promotion {
 
         .header-tiles {
+          
           > div:not(.no-margin) {
             margin-top: rem(31);
           }
