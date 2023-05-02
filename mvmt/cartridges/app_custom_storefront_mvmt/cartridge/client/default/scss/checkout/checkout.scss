@@ -1206,6 +1206,14 @@ header {
 
             .form-group {
 
+                .edit-button, .btn-show-details, .btn-add-new {
+                    color: $dark-gray2;
+        
+                    &:hover {
+                        color: $dark-blue-btn;
+                    }
+                }
+
                 .input-wrapper-checkout {
                     padding: rem(16) rem(15) rem(6) rem(15);
 
@@ -1271,6 +1279,41 @@ header {
         }
         
         .order-product-summary {
+
+            .product-summary-block {
+
+                .card {
+        
+                    &.product-line-item {
+            
+                        &.product-card-wrapper {
+                
+                            &.product-card-container{
+                    
+                                .product-line-item-details {
+                        
+                                    .item-attributes {
+                            
+                                        .line-item-header {
+                                
+                                            .line-item-name {
+                                    
+                                                a {
+                                                    color: $dark-gray2;
+    
+                                                    &:hover {
+                                                        color: $dark-blue-btn;
+                                                    }
+                                                 }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             .product-summary-block {
 
