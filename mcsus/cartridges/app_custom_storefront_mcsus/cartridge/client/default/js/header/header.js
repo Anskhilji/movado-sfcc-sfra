@@ -77,12 +77,6 @@ $('.navbar-toggler').click(function (e) {
 });
 
 // 2220
-$('.home-search input').focus(function () {
-    $('.home-search').addClass('active');
-}).blur(function () {
-    $('.home-search').removeClass('active');
-});
-
 $('.menu-search input').focus(function () {
     $('.menu-search').addClass('active');
 }).blur(function () {
