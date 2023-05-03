@@ -105,8 +105,6 @@ $(document).on('click', '.close-button, .close-icon', function(e) {
 
 $(document).ready(function(e) {
 
-    // headerClass ();
-
     var $slickCarouselSlider = $('.dropdown-best-Seller .js-carousel');
 
     // Get the data value from the data-carousel-config attribute
