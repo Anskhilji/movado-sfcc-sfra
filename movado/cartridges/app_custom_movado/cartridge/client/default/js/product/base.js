@@ -1548,16 +1548,14 @@ module.exports = {
                                     clydeAddProductToCart();
                                 }
                             }
-                       } else if (clydeSettings.modal == true) {
-                            Clyde.showModal(null, clydeAddProductToCart);
-                       } else {
+                        }  else {
                             clydeAddProductToCart();
-                       }
+                        }
                     } else {
                         clydeAddProductToCart();
                     }
                 } else {
-                     clydeAddProductToCart();
+                    clydeAddProductToCart();
                 }
             } else {
                 addProductToCartPlp($this);
