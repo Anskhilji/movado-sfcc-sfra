@@ -60,12 +60,11 @@
                             min-width: rem(20);
                             height: rem(20);
                             margin-right: 0;
-                            border: rem(1) solid transparent;
                             box-sizing: border-box;
                             cursor: pointer;
 
                             &.is-active {
-                                border-color: $black;
+                                border: rem(1) solid $black;
                             }
                         }
                     }
