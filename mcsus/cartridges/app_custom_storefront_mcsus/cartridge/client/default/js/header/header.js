@@ -74,6 +74,9 @@ $('.navbar-nav').on('click', '.close-button', function (e) {
 });
 $('.navbar-toggler').click(function (e) {
     $('.modal-background').addClass('popup-modal');
+    $('body').addClass('header-body-fixed');
+    $('.new-header-deign,.sticky-header-wrapper').removeClass('fixed-header');
+
 });
 
 $('.menu-search input').focus(function () {
@@ -95,18 +98,14 @@ if(!$('.dropdown-best-Seller > .mcs-product-carousel-redesign').length > 0) {
     $('.dropdown-best-Seller').hide();
 }
 
-
-$('.new-hamburger').on('click', function (e) {
-    $('body').css('overflow','hidden');
-    $('.new-header-deign,.sticky-header-wrapper').removeClass('fixed-header')
-});
-
 $(document).on('click', '.close-button, .close-icon', function(e) {
-    $('body').removeAttr('style');
+    $('body').removeClass('header-body-fixed');
     $('.new-header-deign,.sticky-header-wrapper').addClass('fixed-header')
 });
 
 $(document).ready(function(e) {
+
+    // headerClass ();
 
     var $slickCarouselSlider = $('.dropdown-best-Seller .js-carousel');
 

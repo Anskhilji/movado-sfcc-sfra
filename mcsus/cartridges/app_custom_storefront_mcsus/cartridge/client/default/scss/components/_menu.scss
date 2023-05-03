@@ -431,7 +431,6 @@ nav {
           border-radius: 0 !important; //i'm using using important to overwrite css
           padding: 0 0 rem(14) rem(29);
           width: 100%;
-          opacity: 0.5;
           color: $black;
           font-size: rem(12);
           letter-spacing: 0;
@@ -2099,4 +2098,7 @@ nav {
             display: block;
         }
     }
+}
+.header-body-fixed {
+  overflow: hidden !important;
 }
