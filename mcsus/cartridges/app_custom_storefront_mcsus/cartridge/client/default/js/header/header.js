@@ -124,3 +124,9 @@ $(document).ready(function(e) {
         $slickCarouselSlider.slick($slickCarouselConfig);
     });
 });
+
+$('.home-search input').focus(function () {
+    $('.home-search').addClass('active');
+}).blur(function () {
+    $('.home-search').removeClass('active');
+});

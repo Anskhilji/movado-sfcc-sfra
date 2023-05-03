@@ -1434,11 +1434,6 @@ nav {
 
                   &.active {
 
-                    .search-recomendation {
-                      display: block !important; //i'm using important to overwrite inline css
-                      visibility: visible;
-                    }
-
                     &::before {
 
                       @include media-breakpoint-down(md) {
@@ -1819,10 +1814,6 @@ nav {
 
               &.active {
 
-                .search-recomendation {
-                  display: block !important; //i'm using important to overwrite inline css
-                  visibility: visible;
-                }
 
                 &::before {
 
@@ -2100,5 +2091,5 @@ nav {
     }
 }
 .header-body-fixed {
-  overflow: hidden !important;
+  overflow: hidden;
 }
