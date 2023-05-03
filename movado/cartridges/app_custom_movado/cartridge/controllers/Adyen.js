@@ -319,7 +319,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
     // Adding hook for technical cancel
     var paymentMethod = PaymentMgr.getPaymentMethod(order.paymentInstrument
         .getPaymentMethod());
-    var isImmediateCapture = paymentMethods && paymentMethods.custom && paymentMethods.custom.isImmediateCapture ? paymentMethods.custom.isImmediateCapture : false;
+    var isImmediateCapture = paymentMethod && paymentMethod.custom && paymentMethod.custom.isImmediateCapture ? paymentMethod.custom.isImmediateCapture : false;
     var sendMail = true;
     var isJob = false;
 
