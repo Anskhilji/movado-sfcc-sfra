@@ -470,13 +470,17 @@
                             font-size: rem(11);
                         }
 
-                        &::after {
-                            content: "\00d7";
-                            font-family: FontAwesome;
-                            font-size: rem(12);
-                            margin-left: rem(8);
-                            transform: translateY(1px);
-                            display: inline-block;
+                        a {
+                            text-decoration: none;
+
+                            &::after {
+                                content: "\00d7";
+                                font-family: FontAwesome;
+                                font-size: rem(12);
+                                margin-left: rem(8);
+                                transform: translateY(1px);
+                                display: inline-block;
+                            }
                         }
                     }
                 }
