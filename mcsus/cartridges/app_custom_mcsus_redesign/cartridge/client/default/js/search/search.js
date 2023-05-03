@@ -505,15 +505,15 @@ module.exports = {
             e.stopPropagation();
 
             //push data on ga tracking
-            var $AriaLabel = $(this).attr('aria-label');
+            var $ariaLabel = $(this).attr('aria-label');
             var $pageSize = $(this).data('page-size');
             var $pageNumber = $(this).data('page-number');
 
-            if ($AriaLabel !== undefined) {
+            if ($ariaLabel !== undefined) {
                 dataLayer.push({
                     event: 'Pagination',
                     eventCategory: 'Load More Results - Pagination',
-                    eventAction: $AriaLabel,
+                    eventAction: $ariaLabel,
                     eventLabel: $pageSize
                 });
             } else {
@@ -577,23 +577,23 @@ module.exports = {
 
             // Get currently selected sort option to retain sorting rules
             var $urlparams = getUrlParamObj(document.location.href);
-            var filtersURL = e.currentTarget.href;
+            var $filtersURL = e.currentTarget.href;
             var $currentSelectedSortId = '';
             if ($urlparams.hasOwnProperty('srule') == true) {
                 if ($urlparams.srule) {
                     $currentSelectedSortId = $urlparams.srule;
-                    filtersURL = removeParam('srule', filtersURL); // Custom: [MSS-1348 Fix for not applying price filters]
-                    filtersURL = replaceUrlParam(filtersURL, 'srule', $currentSelectedSortId);
+                    $filtersURL = removeParam('srule', $filtersURL); // Custom: [MSS-1348 Fix for not applying price filters]
+                    $filtersURL = replaceUrlParam($filtersURL, 'srule', $currentSelectedSortId);
                 }
             }
 
             $.spinner().start();
             $(this).trigger('search:filter', e);
             $.ajax({
-                url: filtersURL,
+                url: $filtersURL,
                 data: {
                     page: $('.grid-footer').data('page-number'),
-                    selectedUrl: filtersURL
+                    selectedUrl: $filtersURL
                 },
                 method: 'GET',
                 success: function (response) {
@@ -602,7 +602,7 @@ module.exports = {
                     }).toArray();
                     $('body').trigger('facet:success', [gtmFacetArray]);
                     parseResults(response);
-                    updatePageURLForFacets(filtersURL);
+                    updatePageURLForFacets($filtersURL);
                     if (window.Resources.IS_YOTPO_ENABLED) {
                         refreshYotpoWidgets();
                     }
