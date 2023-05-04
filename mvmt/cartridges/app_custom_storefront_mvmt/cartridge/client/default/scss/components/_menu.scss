@@ -253,6 +253,13 @@
           text-align: left;
           display: inline-block;
 
+          &:hover {
+            
+            a {
+              color: $dark-blue-btn;
+            }
+          }
+
           @include media-breakpoint-up(lg) {
             width: 50%;
           }
