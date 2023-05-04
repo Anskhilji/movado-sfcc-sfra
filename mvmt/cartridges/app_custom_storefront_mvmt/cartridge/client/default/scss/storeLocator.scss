@@ -10,6 +10,27 @@
         padding-bottom: 0;
     }
 
+    .card-button {
+        color: $dark-gray2;
+        border-color: $dark-gray2;
+        border-radius: rem(64.5);
+        margin-top: rem(16);
+
+        &:hover,:focus,:active {
+            background-color: $dark-blue-btn;
+            border-color: $dark-blue-btn;
+            box-shadow: none;
+            color: $white;
+        }
+
+        &:not(:disabled):not(.disabled):active {
+            background-color: $dark-blue-btn;
+            border-color: $dark-blue-btn;
+            box-shadow: none;
+            color: $white;
+        }
+    }
+
     .search-form {
         padding: rem(25) 0 rem(40);
         box-shadow: inherit;
@@ -260,6 +281,11 @@
 
                         .store-name, .get-direction a {
                             color: $white;
+
+                            &:hover {
+                                color: $dark-blue-btn;
+                                text-decoration: underline;
+                            }
                         }
 
                         .get-direction a {

@@ -617,10 +617,16 @@
       }
 
       .add-to-cart {
-        border-color: $dark-blue-btn;
+        border-color: $dark-gray2;
         border-radius: rem(64.5);
-        background-color: $dark-blue-btn;
+        background-color: $dark-gray2;
         color: $white;
+
+        &:hover,:focus {
+          background-color: $dark-blue-btn;
+          border-color: $dark-blue-btn;
+          color: $white;
+        }
 
         @include media-breakpoint-down(xs) {
           line-height: 0;
@@ -629,12 +635,14 @@
           max-height: rem(35);
           width: 100%;
           display: block;
-          background-color: $dark-blue-btn;
+          background-color: $dark-gray2;
+          border-color: $dark-gray2;
         }
     
         &:hover {
           background: $dark-blue-btn;
           box-shadow: none;
+          border-color: $dark-blue-btn;
         }
     
         &.out-of-stock-btn {

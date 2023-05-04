@@ -1335,6 +1335,7 @@ header {
                                 .line-item-header {
     
                                     .line-item-name {
+
                                         @include media-breakpoint-down(xs) {
                                             word-break: break-word;
                                             overflow: hidden;
@@ -1884,4 +1885,30 @@ header {
 }
 .popup-body-content {
     max-width: rem(600);
+}
+
+.order-product-summary {
+
+    .product-summary-block {
+
+        .product-line-item {
+         
+            &.product-card-wrapper {
+
+                .line-item-header {
+
+                    .line-item-name {
+                        
+                        a {
+                            color: $dark-gray2;
+
+                            &:hover {
+                                color: $dark-blue-btn;
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+    }
 }

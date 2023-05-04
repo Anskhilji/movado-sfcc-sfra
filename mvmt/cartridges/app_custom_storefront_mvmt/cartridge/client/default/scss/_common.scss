@@ -1098,3 +1098,27 @@ div {
         }
     }
 }
+.change-password-save {
+
+    &.btn-primary {
+        box-shadow: none;
+    }
+}
+.change-password-cancel {
+
+    &.btn {
+
+        &.btn-block {
+
+            &.btn-outline-primary {
+
+                &:not(:disabled):not(.disabled):active {
+                    background-color: $dark-blue-btn;
+                    border-color: $dark-blue-btn;
+                    color: $white;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}

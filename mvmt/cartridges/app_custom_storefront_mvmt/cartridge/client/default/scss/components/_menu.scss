@@ -262,6 +262,13 @@
             width: 50%;
           }
 
+          &:hover {
+
+            .dropdown-menu-item-text {
+              color: $dark-blue-btn;
+            }
+          }
+
           a {
             align-items: center;
             display: flex;
@@ -430,6 +437,17 @@
         background: transparent;
         white-space: nowrap;
         width: auto;
+
+       &:hover {
+
+        .dropdown-link {
+          color: $dark-blue-btn;
+
+          &::before {
+            background-color: $dark-blue-btn !important; // i'm using important to overwrite inline css
+          }
+        }
+       }
 
         .dropdown-link {
           @include font-medium;

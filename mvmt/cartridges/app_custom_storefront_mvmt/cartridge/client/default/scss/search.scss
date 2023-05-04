@@ -1177,6 +1177,12 @@
         padding: 0 rem(5) 0 rem(13);
         padding-top: rem(7);
         border-left: rem(1) solid $light-gray2;
+        color: $dark-gray2;
+
+        &:hover {
+          color: $dark-blue-btn;
+          text-decoration: underline;
+        }
       }
 
       svg {

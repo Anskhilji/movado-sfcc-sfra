@@ -114,21 +114,28 @@
 
             .earn-more-btn {
                 color: $white;
-                background: $black;
-                border: rem(2) solid $black;
+                background: $dark-gray2;
+                border: rem(1) solid $dark-gray2;
+                border-radius: rem(64.5);
 
                 &:hover, &:focus {
-                    background: $light-green;
+                    background: $dark-blue-btn;
+                    border-color: $dark-blue-btn;
                 }
             }
 
             .get-reward-btn {
-                color: $black;
+                color: $dark-gray2;
                 background: $white;
+                border-color: $dark-gray2;
+                border-radius: rem(64.5);
 
                 &:hover, &:focus {
-                    background: $black;
+                    background: $dark-blue-btn;
                     color: $white;
+                    border-color: $dark-blue-btn;
+                    box-shadow: none;
+                    outline: none;
                 }
             }
 
@@ -323,7 +330,7 @@
             width: 100%;
             min-width: auto;
             color: $white;
-            background: $black;
+            background: $dark-gray2;
             padding-top: .5rem;
             padding-bottom: .5rem;
             max-width: initial;
@@ -331,9 +338,12 @@
             min-width: auto;
             max-width: rem(200);
             margin: 0 auto;
+            border-color: $dark-gray2;
+            border-radius: rem(64.5);
 
             &:hover, &:focus {
-                background: $light-green;
+                background: $dark-blue-btn;
+                border-color: $dark-blue-btn;
             }
         }
     }
@@ -483,12 +493,13 @@
                     font-size: rem(11);
                     letter-spacing: rem(1.5);
                     color: $white;
-                    background: $black;
+                    background: $dark-gray2;
                     padding: rem(8) rem(10);
                     width: 90%;
                     min-width: auto;
                     max-width: rem(200);
-                    border: rem(2) solid $black;
+                    border: rem(1) solid $dark-gray2;
+                    border-radius: rem(64.5);
                     transition: .3s ease-in;
                     letter-spacing: rem(1);
                     text-align: center;
@@ -500,7 +511,8 @@
                     text-overflow: ellipsis;
 
                     &:hover, &:focus {
-                        background: $light-green;
+                        background: $dark-blue-btn;
+                        border-color: $dark-blue-btn;
                     }
                 }
             }
@@ -768,4 +780,5 @@
     font-size: rem(10.8);
     height: rem(45);
     white-space: nowrap;
+    box-shadow: none;
 }

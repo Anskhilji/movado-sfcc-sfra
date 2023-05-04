@@ -566,7 +566,6 @@
 
                                     @include media-breakpoint-down(sm) {
                                         font-size: rem(16);
-                                        padding: 0;
                                     }
 
                                     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
@@ -906,17 +905,19 @@
                         }
 
                         &-btn {
-                            background-color: $black;
+                            background-color: $dark-gray2;
                             border-radius: rem(4);
                             font-weight: 600;
                             font-size: rem(14);
                             padding: rem(9) rem(5);
                             box-shadow: none;
+                            border-color: $dark-gray2;
+                            border-radius: rem(64.5);
 
                             &:hover, &:focus {
-                                background-color: $black;
-                                background-image: linear-gradient($black, $black);
-                                border-color: $black;
+                                background-color: $dark-blue-btn;
+                                background-image: linear-gradient($dark-blue-btn, $dark-blue-btn);
+                                border-color: $dark-blue-btn;
                             }
                         }
                     }
@@ -1857,6 +1858,12 @@
                     padding-right: rem(20);
                     font-weight: 300;
                     text-transform: uppercase;
+                    color: $dark-gray2;
+
+                    &:hover {
+                        color: $dark-blue-btn;
+                        text-decoration: underline;
+                    }
                 }
                 &-textarea-container {
                     text-align: left;
@@ -1905,7 +1912,8 @@
             }
             &-save-button {
                 border-radius: rem(3);
-                background-color: $light-green2;
+                background-color: $dark-blue-btn;
+                border-radius: rem(64.5);
                 color: $white;
                 font-family: $font-medium;
                 font-size: rem(15);
@@ -1916,7 +1924,13 @@
                 max-width: rem(271);
                 width: 100%;
                 margin: auto;
-                height: rem(45); 
+                height: rem(45);
+
+                &:disabled {
+                    background-color: $dark-gray2;
+                    border-color: $dark-gray2;
+                    opacity: 0.3;
+                }
             }
             .close {
                 opacity: 1;
