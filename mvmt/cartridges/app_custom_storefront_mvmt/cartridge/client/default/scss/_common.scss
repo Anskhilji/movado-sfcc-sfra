@@ -1156,7 +1156,9 @@ div {
     &.sticky-add-to-cart {
         
         .cta-add-to-cart  {
-            background: $white;
+            @include media-breakpoint-down(sm) {
+                background: $white;
+            }
         }
     }
 }
