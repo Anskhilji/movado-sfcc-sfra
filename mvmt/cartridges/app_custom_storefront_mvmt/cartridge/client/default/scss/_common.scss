@@ -1122,3 +1122,16 @@ div {
         }
     }
 }
+.need-help {
+
+    &.contact-help {
+
+        a {
+            color: $dark-gray2;
+
+            &:hover {
+                color: $dark-blue-btn;
+            }
+        }
+    }
+}
