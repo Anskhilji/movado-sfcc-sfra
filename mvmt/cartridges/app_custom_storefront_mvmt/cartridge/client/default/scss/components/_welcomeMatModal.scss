@@ -1,0 +1,20 @@
+.welcomeMat {
+    
+    .movado-welcome-mat {
+
+        .eswModalWrapper {
+
+            .eswModal {
+
+                .esw-btn {
+
+                    &:hover {
+                        background-color: $dark-blue-btn;
+                        border-color: $dark-blue-btn;
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
