@@ -509,7 +509,7 @@ module.exports = {
             var $pageSize = $(this).data('page-size');
             var $pageNumber = $(this).data('page-number');
 
-            if ($ariaLabel !== undefined) {
+            if ($ariaLabel) {
                 dataLayer.push({
                     event: 'Pagination',
                     eventCategory: 'Load More Results - Pagination',
@@ -517,7 +517,7 @@ module.exports = {
                     eventLabel: $pageSize
                 });
             } else {
-                if ($pageNumber !== undefined && $pageNumber !== undefined) {
+                if ($pageNumber) {
                     dataLayer.push({
                         event: 'Pagination',
                         eventCategory: 'Load More Results - Pagination',
