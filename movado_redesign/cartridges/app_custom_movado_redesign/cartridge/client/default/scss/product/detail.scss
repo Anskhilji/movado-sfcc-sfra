@@ -1839,7 +1839,7 @@ body {
 .smart-gift-btn {
     width: 100%;
     border: rem(1) solid $black;
-    padding: rem(20);
+    padding: rem(24);
 
     @include media-breakpoint-down(sm) {
         display: flex;

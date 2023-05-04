@@ -12,29 +12,49 @@
     &.active {
         display: flex;
     }
+
     .smartGift-modal-box {
         background-color: $white;
-        height: rem(500);
-        max-width: rem(800);
+        height: 100%;
+        max-height: rem(447);
+        max-width: rem(828);
         width: 100%;
-        padding: rem(20) rem(50);
+        padding: rem(46) rem(64) rem(40);
         position: relative;
         z-index: 1025;
 
-        .smartGift-header {
-            border-bottom: rem(1) solid $gray-overlay;
-            position: relative;
-            margin-bottom: rem(30);
-            p {
-                text-align: center;
+        @include media-breakpoint-down(sm) {
+            max-width: rem(280);
+            max-height: rem(480);
+            padding: rem(33) rem(20) rem(44);
+        }
+
+        .gift-content {
+            overflow-y: auto;
+            max-height: rem(292);
+            @include media-breakpoint-down(sm) {
+                max-height: rem(343);
             }
-            .gift-close {
-                position: absolute;
-                top: 0;
-                right: 0;
-                background-color: none;
-                outline: none;
-                border: none;
+           
+            /* width */
+            &::-webkit-scrollbar {
+                width: rem(5);
+            }
+
+            /* Track */
+            &::-webkit-scrollbar-track {
+                background: $slate-grey-light;
+            }
+
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background: $regent-grey;
+                border-radius: rem(5);
+            }
+
+            /* Handle on hover */
+            &::-webkit-scrollbar-thumb:hover {
+                background: $slate-grey;
             }
         }
     }
@@ -51,8 +71,102 @@
     opacity: 0;
     z-index: 1024;
     display: none;
+
     &.active {
         opacity: .5;
         display: block;
+    }
+}
+
+.smart-gift-sec {
+
+    .smart-gift-btn {
+        width: 100%;
+        border: rem(1) solid $black;
+        padding: rem(24) rem(24) rem(3);
+
+        @include media-breakpoint-down(sm) {
+            display: block;
+        }
+
+        .smart-gift-works-left {
+            margin-bottom: rem(9);
+
+            img {
+                margin-right: rem(13);
+            }
+
+            .smart-box {
+                font-family: $font-fotter;
+                font-weight: 400;
+                font-size: rem(14);
+                line-height: rem(21);
+                letter-spacing: rem(0.15);
+                color: $google-grey1;
+            }
+        }
+
+        .smart-gift-works-right {
+            font-family: $font-fotter;
+            font-weight: 400;
+            font-size: rem(14);
+            line-height: rem(21);
+            letter-spacing: rem(0.15);
+            color: $google-grey1;
+
+            .gift-works-popup {
+                font-family: $font-fotter;
+                font-weight: 400;
+                font-size: rem(14);
+                line-height: rem(21);
+                letter-spacing: rem(0.15);
+                color: $google-grey1;
+                border: none;
+                background: none;
+                outline: none;
+                box-shadow: none;
+                padding: 0;
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+
+        .gift-pick {
+            font-family: $font-fotter;
+            font-weight: 400;
+            font-size: rem(12);
+            line-height: rem(18);
+            letter-spacing: rem(0.15);
+            color: $google-grey1;
+            text-align: left;
+        }
+
+        .smartgift-btn-redesign {
+            border-radius: 0;
+            width: 100%;
+            height: rem(38);
+            border: 1px solid $black;
+            padding: rem(0) rem(40);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: $font-fotter;
+            font-weight: 600;
+            font-size: rem(16);
+            line-height: rem(24);
+            letter-spacing: rem(1);
+            color: $black;
+            text-transform: uppercase;
+            transition: all 0.4s;
+
+            &:hover {
+                background-color: $black;
+                color: white;
+            }
+
+            @include media-breakpoint-down(xs) {
+                margin-left: rem(0);
+            }
+        }
     }
 }
