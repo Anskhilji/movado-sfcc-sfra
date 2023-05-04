@@ -1135,3 +1135,28 @@ div {
         }
     }
 }
+
+.account-pages {
+
+    .card-header {
+
+        a {
+            &.pull-right {
+                color: $dark-gray2;
+
+                &:hover {
+                    color: $dark-blue-btn;
+                }
+            }
+        }
+    }
+}
+.cart-and-ipay {
+
+    &.sticky-add-to-cart {
+        
+        .cta-add-to-cart  {
+            background: $white;
+        }
+    }
+}

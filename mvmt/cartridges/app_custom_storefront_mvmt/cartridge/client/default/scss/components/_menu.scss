@@ -665,6 +665,18 @@
     li {
       line-height: rem(20);
 
+      &:hover {
+        
+        .category-custom-link {
+          color: $dark-blue-btn;
+ 
+        &::before {
+          background-color: $dark-blue-btn;
+          opacity: 1;
+        }
+        }
+      }
+
       &:last-child {
         a {
           margin-bottom: rem(5);

@@ -1839,6 +1839,12 @@
                     background-color: $dark-gray2;
                     border-color: $dark-gray2;
                     border-radius: rem(64.5);
+
+                    &:hover {
+                        background-color: $dark-blue-btn;
+                        border-color: $dark-blue-btn;
+                        box-shadow: none;
+                    }
             }
 
             &.mobileBtn.btn-primary {
@@ -1977,10 +1983,15 @@
             }
 
             &.mobileBtn {
-                background-color: $dark-blue-btn;
-                border-color: $dark-blue-btn;
+                background-color: $dark-gray2;
+                border-color: $dark-gray2;
                 width: 100%;
                 height: rem(60);
+
+                &:hover {
+                    background-color: $dark-blue-btn;
+                    border-color: $dark-blue-btn;
+                }
             }
             
             &.out-of-stock-btn {

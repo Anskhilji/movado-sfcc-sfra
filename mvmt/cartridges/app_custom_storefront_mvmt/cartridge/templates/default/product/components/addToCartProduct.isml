@@ -15,7 +15,7 @@
     </isif>
 </isif>
 
-<div class="cart-and-ipay w-100">
+<div class="cart-and-ipay w-100 sticky-add-to-cart">
     <div class="cta-add-to-cart ${product.isBackInStockEnabled ? 'd-none' : ''}">
         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
         
