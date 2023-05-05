@@ -87,7 +87,7 @@ function processSubscriptionPDP(response) {
 }
 
 // copy coupon code on click
-$('#couponCode').on('click', function() {
+$('#emailSignUpcoupon').on('click', function() {
     var element = $('#copiedText');
     var elementText = element.text();
 
