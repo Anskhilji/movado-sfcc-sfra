@@ -477,8 +477,6 @@ $(document).ready(function () {
         }
     }
 
-    console.log($smartGiftModal);
-
     // Remove the .smartGift-body element from the DOM
     $smartGiftModalBox.remove();
 
