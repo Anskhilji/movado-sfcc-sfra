@@ -179,60 +179,53 @@
     }
 }
 
-.eeIeBU {
+.sidebar-header {
+    border-bottom: rem(1) solid $grey12-light;
+    margin: rem(0) rem(20) rem(20);
 
-    .sidebar-header {
-        border-bottom: rem(1) solid $grey12-light;
-        margin: rem(0) rem(20) rem(20);
-
-        .sidebar-header-top {
-            padding: rem(20) rem(0) rem(18) !important;
-        }
-
-        p {
-            &.overview-copy {
-                padding: rem(0) rem(0) rem(16) !important;
-                margin-bottom: rem(0) !important;
-            }
-        }
+    .sidebar-header-top {
+        padding: rem(20) rem(0) rem(18) !important;
     }
 
-    .widget-body {
+    p {
+        &.overview-copy {
+            padding: rem(0) rem(0) rem(16) !important;
+            margin-bottom: rem(0) !important;
+        }
+    }
+}
 
-        .product-list {
+.widget-body {
 
-            .clTHuX {
+    .product-list {
 
-                .product-item {
-                    padding: rem(0) rem(20) rem(20);
+        .product-item {
+            padding: rem(0) rem(20) rem(20);
 
-                    .product-item-image {
-                        margin-left: rem(0);
-                        
-                        a {
-                            display: block;
+            .product-item-image {
+                margin-left: rem(0);
+                
+                a {
+                    display: block;
 
-                            img {
-                                max-width: rem(72);
-                                width: rem(72);
-                            }
-                        }
+                    img {
+                        max-width: rem(72);
+                        width: rem(72);
                     }
+                }
+            }
 
-                    .product-item-text {
-                        margin-right: 0;
+            .product-item-text {
+                margin-right: 0;
 
-                        .product-item-text-first {
+                .product-item-text-first {
 
-                            .product-item-text-detail {
-                                margin-bottom: rem(4);
-                            }
-                        }
+                    .product-item-text-detail {
+                        margin-bottom: rem(4);
                     }
                 }
             }
         }
     }
 }
-
 
