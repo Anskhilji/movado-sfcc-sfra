@@ -380,7 +380,7 @@ $(document).ready(function() {
 
     // custom end: remove or add clyde top and bottom border if clyde widgets exist
 
-    $(document).on('click','.smartgift-btn-redesign', function(e) {
+    $(document).on('click', '.smartgift-btn-redesign', function(e) {
         e.preventDefault();
         var url = $(this).attr('href');
 
@@ -409,12 +409,12 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('click','.gift-works-popup', function(e) {
+    $(document).on('click', '.gift-works-popup', function(e) {
         $('.smartGift-main-box').addClass('active');
         $('.smartgift-backdrop').addClass('active');
     });
 
-    $(document).on('click','.smartgift-backdrop , .gift-close', function(e) {
+    $(document).on('click', '.smartgift-backdrop , .gift-close', function(e) {
         $('.smartGift-main-box').removeClass('active');
         $('.smartgift-backdrop').removeClass('active');
     });
