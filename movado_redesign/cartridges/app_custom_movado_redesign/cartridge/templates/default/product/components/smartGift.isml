@@ -20,7 +20,9 @@
             </div>
             <a href="${URLUtils.https('Product-ShowSmartGiftCart', 'pid', product.id)}" target="_blank" class="btn smartgift-btn-redesign mt-2">${Resource.msg('button.smartgift.label', 'smartgift', null)}</a>
             <!-- Modal -->
-            <iscontentasset aid="smart-gift-modal" />
+            <div id="smartgift-modal-box">
+                <iscontentasset aid="smart-gift-modal" />
+            </div>
         </div>  
     </div>
 </div>

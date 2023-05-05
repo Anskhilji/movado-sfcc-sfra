@@ -412,14 +412,11 @@ $(document).ready(function() {
     $(document).on('click','.gift-works-popup', function(e) {
         $('.smartGift-main-box').addClass('active');
         $('.smartgift-backdrop').addClass('active');
-        $('.header-banner.slide-up,.header-menu-wrapper').css('z-index','1');
     });
 
     $(document).on('click','.smartgift-backdrop , .gift-close', function(e) {
         $('.smartGift-main-box').removeClass('active');
         $('.smartgift-backdrop').removeClass('active');
-        $('.header-banner.slide-up').css('z-index','45');
-        $('.header-menu-wrapper').css('z-index','1024');
     });
 
 });
@@ -465,6 +462,10 @@ $(document).ready(function () {
     var $availabilityWrapper = $availability.replace(/\s/g, '');
     var $cartWrapper = $('.cart-and-ipay');
     var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
+    // Get the HTML code of the .smartGift-body element
+    var $smartGiftModalBox = $('#smartgift-modal-box');
+    var $smartGiftModal = $smartGiftModalBox.prop('outerHTML');
+
     if ($productWrapper !== '' || $productWrapper !== undefined || $productWrapper !== null) {
         if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock') || ($availabilityWrapper === 'SelectStylesforAvailability')) {
             if ($stickyWrapper) {
@@ -475,4 +476,12 @@ $(document).ready(function () {
             }
         }
     }
+
+    console.log($smartGiftModal);
+
+    // Remove the .smartGift-body element from the DOM
+    $smartGiftModalBox.remove();
+
+    // Append the HTML code of the .smartGift-body element to the #mainContent element
+    $('#mainContent').after($smartGiftModal);
 });

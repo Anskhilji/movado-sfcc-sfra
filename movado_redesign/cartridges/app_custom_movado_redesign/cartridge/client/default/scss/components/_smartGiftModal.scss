@@ -83,7 +83,7 @@
     .smart-gift-btn {
         width: 100%;
         border: rem(1) solid $black;
-        padding: rem(24) rem(24) rem(3);
+        padding: rem(24);
 
         @include media-breakpoint-down(sm) {
             display: block;
