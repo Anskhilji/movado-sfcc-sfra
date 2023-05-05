@@ -23,7 +23,11 @@
         position: relative;
         z-index: 1025;
 
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(md) {
+            max-width: 80%;
+        }
+        
+        @include media-breakpoint-down(xs) {
             max-width: rem(280);
             max-height: rem(480);
             padding: rem(33) rem(20) rem(44);
