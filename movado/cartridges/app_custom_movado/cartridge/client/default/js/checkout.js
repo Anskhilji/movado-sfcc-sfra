@@ -96,8 +96,8 @@ $(document).ready(function() { // eslint-disable-line
 
     function removeAutofillBackground($this) {
         $this.each(function(){
-            var clone = $(this).clone(true, true);
-            $(this).after(clone).remove();
+            var $clone = $(this).clone(true, true);
+            $(this).after($clone).remove();
         });
 
     }
@@ -109,7 +109,6 @@ $(document).ready(function() { // eslint-disable-line
     });
 
     $('input.shippingFirstName, input.billingFirstName').on('change keyup focusout', function() {
-        var $this = $(this);
         var $value = $(this).val();
         if ($value) {
             var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
@@ -537,9 +536,4 @@ $(document).ready(function() { // eslint-disable-line
             $('select[name$=_country]', form).val('');
         }
     }
-
-    $('input:-webkit-autofill').each(function(){
-        var clone = $(this).clone(true, true);
-        $(this).after(clone).remove();
-    });
 });
