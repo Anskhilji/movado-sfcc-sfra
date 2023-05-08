@@ -141,7 +141,7 @@ header.new-header {
       width: 100%;
       background: none;
       padding-left: rem(1);
-      display: none;
+      opacity: 0;
     }
 
     .cart-icon.fill-cart-icon +span.minicart-quantity {
@@ -1365,7 +1365,7 @@ header.new-header.mvmt-header-design {
             top: auto;
             bottom: rem(1);
             right: auto;
-            display: none;
+            opacity: 0;
           }
 
           .cart-icon.fill-cart-icon + div.minicart span.minicart-quantity {
