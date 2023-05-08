@@ -4,7 +4,7 @@
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
         <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
         <button class='add-to-cart btn btn-primary add-to-cart-global <isif condition="${product.isProductRestricted}">d-none</isif>'
-            data-pid="${product.id}"
+            data-pid="${product.id}" data-product-set="true"
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
