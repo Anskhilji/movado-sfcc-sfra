@@ -537,8 +537,20 @@
   &.fill-cart-icon {
     width: rem(17);
     height: rem(17);
-    background: url("../../images/full-cart.svg") center center no-repeat;
+    background: url("../../images/cart-empty.svg") center center no-repeat;
     background-size: contain;
+
+    .add-to-cart {
+      left: 50.82%;
+      right: 0%;
+      top: 0%;
+      bottom: 57.89%;
+      width: rem(8);
+      height: rem(8);
+      background-color: $red3;
+      position: absolute;
+      border-radius: 100%;
+    }
 
     span.minicart-quantity {
       color: $white;
