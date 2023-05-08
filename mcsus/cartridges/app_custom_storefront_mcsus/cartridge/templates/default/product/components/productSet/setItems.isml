@@ -28,11 +28,35 @@
                                 <div class="row">
                                     <iscomment> product detail redesign section start here </iscomment>
                                     <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
+                                        <iscomment> mobile veiw design start </iscomment>
+                                        <div class="product-detail-right-box mobile-detail-redsign d-block d-sm-none">
+                                             <iscomment> product family name </iscomment>
+                                                <h2 class="product-family-name-redesign text-center text-sm-left">
+                                                    <isloop items="${pdict.customIndividualItemURL}" var="customIndividualItemURL" status="loopstatus">
+                                                        <isset name="customIndividualItemURL" value="${customIndividualItemURL}" scope="page" />
+                                                        <isset name="currentSetItemID" value="${customIndividualItemURL.split('|')[1]}" scope="page" />
+                                                        <isset name="currentSetItemURL" value="${customIndividualItemURL.split('|')[0]}" scope="page" />
+                                                        <isif condition="${currentSetItemID === product.id}">
+                                                            <isbreak/>
+                                                        </isif>
+                                                    </isloop>
+                                                    <isif condition="${product.brand}">
+                                                        <a href="${currentSetItemID == product.id && currentSetItemURL ? currentSetItemURL : ''}">${product.brand}</a>
+                                                    </isif>
+                                                </h2>
+                                                <!-- Product Name -->
+                                                <h2 class="product-name prdouct-name-gtm d-sm-block text-center text-sm-left">
+                                                    <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
+                                                        ${product.productName}
+                                                    </a>
+                                                </h2>
+                                        </div>
+                                        <iscomment> mobile veiw design end </iscomment>
                                         <!-- Product Images Carousel -->
                                         <isinclude template="product/components/productSet/setProductImageCarousel" />
 
                                         <div class="product-detail-right-box">
-                                            <div class="d-sm-block">
+                                            <div class="d-none d-sm-block">
                                                 <iscomment> product family name </iscomment>
                                                 <h2 class="product-family-name-redesign text-center text-sm-left">
                                                     <isloop items="${pdict.customIndividualItemURL}" var="customIndividualItemURL" status="loopstatus">

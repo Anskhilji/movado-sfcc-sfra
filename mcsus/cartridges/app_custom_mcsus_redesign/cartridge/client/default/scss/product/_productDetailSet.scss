@@ -210,7 +210,7 @@
                     margin-left: rem(28);
                 }
                 @include media-breakpoint-down(xs) {
-                    margin-top: rem(66);
+                    margin-top: rem(39);
                 }
 
                 @include media-breakpoint-down(sm) {
@@ -221,6 +221,12 @@
                 @include media-breakpoint-down(xs) {
                     margin-left: 0;
                     max-width: 100%;
+                }
+
+                &.mobile-detail-redsign {
+                    @include media-breakpoint-down(xs) {
+                        margin-top: rem(0);
+                    }
                 }
 
                 .prices {
@@ -237,39 +243,44 @@
                             align-items: center;
 
                             .sale-price-mvmt {
-                                color: $grey8;
-                                font-size: rem(34);
-                                font-weight: 100;
+                                color: $light-black1;
+                                font-family: $font-medium;
+                                font-size: rem(36);
+                                font-weight: 600;
                                 letter-spacing: 0;
-                                line-height: rem(41);
+                                line-height: rem(32);
+                                margin-right: rem(10);
+                                display: inline-block;
                             }
-
+    
                             .strike-through {
-                                color: $grey8;
-                                font-size: rem(22);
-                                font-weight: 100;
+                                color: $light-gray3;
+                                font-family: $font-regular;
+                                font-size: rem(20);
                                 letter-spacing: 0;
-                                line-height: rem(41);
-                                margin-left: rem(20);
-                                display: inline-flex;
+                                line-height: rem(16);
+                                display: inline-block;
+                                margin-right: rem(10);
+                                font-weight: 400;
                             }
                         }
                     }
                 }
 
                 .product-name {
-                    color: $grey8;
-                    font-size: rem(34);
-                    font-weight: 500;
-                    letter-spacing: 0;
-                    line-height: rem(41);
-                    margin-bottom: rem(20);
+                    color: $black;
+                    font-family: $font-regular;
+                    font-weight: 400;
+                    font-size: rem(24);
+                    letter-spacing: rem(0);
+                    line-height: rem(30);
+                    margin-bottom: rem(25);
 
                     @include media-breakpoint-down(xs) {
-                        font-size: rem(28);
-                        line-height: rem(35);
-                        margin-bottom: rem(30);
-                        text-align: left;
+                        font-size: rem(14);
+                        letter-spacing: rem(0);
+                        line-height: rem(30);
+                        margin-bottom: rem(5);
                     }
                 }
 
@@ -423,21 +434,16 @@
                         }
 
                         .slick-arrow {
-                            height: rem(75.89);
-                            width: rem(75.91);
-
-                            @include media-breakpoint-down(xs) {
-                                height: rem(39);
-                                width: rem(39);
-                            }
+                            width: rem(10);
+                            height: rem(17);
 
                             &.slick-next {
-                                background-image: url("../../images/RightArrow.svg");
+                                background-image: url("../../images/chevron-angle-right.svg");
                                 right: 0;
                             }
 
                             &.slick-prev {
-                                background-image: url("../../images/LeftArrow.svg");
+                                background-image: url("../../images/chevron-angle-left.svg");
                                 left: 0;
                             }
                         }
@@ -516,11 +522,12 @@
 
             .product-name {
                 color: $black;
-                font-size: rem(32);
-                font-weight: 500;
-                letter-spacing: 0;
-                line-height: rem(41);
-                margin-bottom: rem(18);
+                font-family: $font-regular;
+                font-weight: 400;
+                font-size: rem(24);
+                letter-spacing: rem(0);
+                line-height: rem(30);
+                margin-bottom: rem(25);
 
                 @include media-breakpoint-down(xs) {
                     font-size: rem(24);
@@ -567,21 +574,27 @@
             }
 
             .product-family-name-redesign {
-                margin-bottom: rem(18);
-
-                @include media-breakpoint-down(xs) {
-                    margin-top: rem(41);
-                }
+                margin-bottom: rem(25);
+                line-height: rem(20);
 
                 a {
-                    color: $grey8;
-                    font-size: rem(20);
-                    font-weight: 300;
-                    letter-spacing: 0;
-                    line-height: rem(41);
+                    color: $black;
+                    font-family: $font-regular;
+                    font-weight: 600;
+                    font-size: rem(18);
+                    letter-spacing: rem(1);
+                    line-height: rem(20);
+                    text-decoration: none;
+                    position: relative;
 
                     &::before {
                         display: none;
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                        font-size: rem(18);
+                        letter-spacing: rem(0.9);
+                        line-height: rem(23);
                     }
                 }
             }
@@ -603,20 +616,25 @@
                         align-items: center;
 
                         .sale-price-mvmt {
-                            color: $black;
-                            font-size: rem(34);
-                            font-weight: 100;
+                            color: $light-black1;
+                            font-family: $font-medium;
+                            font-size: rem(36);
+                            font-weight: 600;
                             letter-spacing: 0;
-                            line-height: rem(41);
+                            line-height: rem(32);
+                            margin-right: rem(10);
+                            display: inline-block;
                         }
 
                         .strike-through {
-                            color: $grey8;
-                            font-size: rem(22);
-                            font-weight: 100;
+                            color: $light-gray3;
+                            font-family: $font-regular;
+                            font-size: rem(20);
                             letter-spacing: 0;
-                            line-height: rem(41);
-                            margin-left: rem(10);
+                            line-height: rem(16);
+                            display: inline-block;
+                            margin-right: rem(10);
+                            font-weight: 400;
                         }
                     }
                 }
