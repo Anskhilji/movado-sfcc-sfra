@@ -93,6 +93,14 @@ $(document).ready(function() { // eslint-disable-line
             $labelPromo.removeClass('input-has-value');
         }
     }
+
+    function removeAutofillBackground($this) {
+        $this.each(function(){
+            var clone = $(this).clone(true, true);
+            $(this).after(clone).remove();
+        });
+
+    }
     $('input.checkout-coupon-code-field').each(function() {
         checkPromoInput(this);
     });
@@ -101,6 +109,7 @@ $(document).ready(function() { // eslint-disable-line
     });
 
     $('input.shippingFirstName, input.billingFirstName').on('change keyup focusout', function() {
+        var $this = $(this);
         var $value = $(this).val();
         if ($value) {
             var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
@@ -116,6 +125,13 @@ $(document).ready(function() { // eslint-disable-line
             $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
             $('.dwfrm_shipping_shippingAddress_addressFields_firstName, .dwfrm_billing_addressFields_firstName').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_FIRST_NAME_REQUIRED);
         }
+        
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
     $('input.creditcard-holdername').on('change keyup focusout', function() {
@@ -124,7 +140,7 @@ $(document).ready(function() { // eslint-disable-line
             var $pattern = /^[a-z|A-Z]+(?: [a-z|A-Z]+)*$/i
             var $isValid = $pattern.test($value);
             if ($isValid) {
-                $(this).removeClass('auto-is-invalid is-invalid'.addClass('auto-is-valid'));
+                $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
                 $('.dwfrm_billing_creditCardFields_cardOwner').find('.invalid-feedback').addClass('d-none').text('');
             } else {
                 $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
@@ -134,6 +150,13 @@ $(document).ready(function() { // eslint-disable-line
             $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
             $('.dwfrm_billing_creditCardFields_cardOwner').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CARD_HOLDER_NAME_VALIDATION);
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
     $('input.cardNumber').on('change keyup focusout', function() {
@@ -155,9 +178,16 @@ $(document).ready(function() { // eslint-disable-line
             $('.card-number-wrapper').addClass('card-number-mr');
             $('.dwfrm_billing_creditCardFields_cardNumber').find('.invalid-feedback').removeClass('d-none');
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
-    $('input.creditcard-securitycode').on('change keyup focusout', function() {
+    $('input.creditcard-securitycode').on('change keyup', function() {
         var $value = $(this).val();
         if ($value) {
             if ($value.length >= 3) {
@@ -171,7 +201,6 @@ $(document).ready(function() { // eslint-disable-line
             $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid is-invalid');
             $('.dwfrm_billing_creditCardFields_securityCode').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);
         }
-
     });
 
     $('input.expirationDate').on('change keyup focusout', function() {
@@ -194,6 +223,13 @@ $(document).ready(function() { // eslint-disable-line
             $(this).removeClass('auto-is-valid').addClass('auto-is-invalid');
             $('.creditcard-expiration-date').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CARD_EXPIRY_DATE_VALIDATION);
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
     $('input.billingAddressCity, input.shippingAddressCity').on('change keyup focusout', function() {
@@ -212,9 +248,16 @@ $(document).ready(function() { // eslint-disable-line
             $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
             $('.dwfrm_shipping_shippingAddress_addressFields_city, .dwfrm_billing_addressFields_city').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_CITY_NAME_REQUIRED);
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
-    $('input.shippingCompanyName, input.billingCompanyName').on('change keyup', function() {
+    $('input.shippingCompanyName, input.billingCompanyName').on('change keyup focusout', function() {
         var $value = $(this).val();
         if ($value) {
             var $pattern = /^(^[^(\\'\\<\\>\\\)]+$)/i
@@ -229,6 +272,13 @@ $(document).ready(function() { // eslint-disable-line
         } else {
             $(this).removeClass('auto-is-valid auto-is-invalid is-valid is-invalid');
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
     $('input.shippingLastName, input.billingLastName').on('change keyup focusout', function() {
@@ -247,6 +297,13 @@ $(document).ready(function() { // eslint-disable-line
             $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
             $('.dwfrm_shipping_shippingAddress_addressFields_lastName, .dwfrm_billing_addressFields_lastName').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_LAST_NAME_REQUIRED);
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
     $('input.shipping-email').on('change keyup focusout', function() {
@@ -267,6 +324,12 @@ $(document).ready(function() { // eslint-disable-line
             $('.dwfrm_shipping_shippingAddress_addressFields_email').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_EMAIL_REQUIRED);
         }
 
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
 
@@ -305,9 +368,16 @@ $(document).ready(function() { // eslint-disable-line
         } else {
             $(this).removeClass('auto-is-valid auto-is-invalid is-valid is-invalid');
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
-    $('input.shippingZipCode, input.billingZipCode').on('change keyup focusout', function() {
+    $('input.shippingZipCode, input.billingZipCode').on('change keyup complete', function() {
         var $country = $('.shippingCountry option').val();
         var $value = $(this).val();
         if ($value) {
@@ -346,6 +416,13 @@ $(document).ready(function() { // eslint-disable-line
             $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
             $('.dwfrm_shipping_shippingAddress_addressFields_postalCode, .dwfrm_billing_addressFields_postalCode').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_ZIP_CODE_REQUIRED);
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
     $('input.shippingPhoneNumber').on('change keyup focusout', function() {
@@ -387,6 +464,13 @@ $(document).ready(function() { // eslint-disable-line
             $(this).removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
             $('.dwfrm_shipping_shippingAddress_addressFields_phone').find('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_PHONE_NUMBER_REQUIRED); 
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
     $('select.shippingState, select.billingState').on('change keyup focusout', function() {
@@ -395,6 +479,13 @@ $(document).ready(function() { // eslint-disable-line
             $(this).removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
             $('.dwfrm_shipping_shippingAddress_addressFields_states_stateCode, .dwfrm_billing_addressFields_states_stateCode').find('.invalid-feedback').addClass('d-none').text('');
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
     $('input.shippingState, input.billingState ').on('change keyup focusout', function() {
@@ -405,6 +496,13 @@ $(document).ready(function() { // eslint-disable-line
         } else {
             $(this).removeClass('auto-is-valid is-valid');
         }
+
+        if ($(this).is(":-webkit-autofill")) {    
+            removeAutofillBackground($(this));
+        }
+
+        $(this).unbind("autofill");
+        $(this).unbind("autocomplete");
     });
 
     $('.show-details-wrapper').click(function() {
@@ -439,4 +537,9 @@ $(document).ready(function() { // eslint-disable-line
             $('select[name$=_country]', form).val('');
         }
     }
+
+    $('input:-webkit-autofill').each(function(){
+        var clone = $(this).clone(true, true);
+        $(this).after(clone).remove();
+    });
 });

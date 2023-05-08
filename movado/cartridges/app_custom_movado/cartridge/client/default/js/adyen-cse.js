@@ -100,6 +100,10 @@ function showValidation(validationResult) {
                     break;
                 case 'cvc':
                     $('#securityCode').removeClass('auto-is-valid').addClass('auto-is-invalid is-invalid');
+                    var $securityCode = $('.security-code').text();
+                    if ($securityCode == undefined || $securityCode == '') {
+                        $('.security-code').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);
+                    }
                     break;
                 default:
                     break;

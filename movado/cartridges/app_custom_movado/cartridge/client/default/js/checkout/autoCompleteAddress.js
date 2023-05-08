@@ -44,7 +44,7 @@ function fillInAddress(){
   const place = autocomplete.getPlace();
   var address1 = "";
   var postcode = "";
-  var shippingCountrydefault = document.querySelector("#shippingCountrydefault") ? document.querySelector("#shippingCountrydefault") : document.querySelector("#shippingCountry");
+  var shippingCountrydefault = document.querySelector("#shippingCountrydefault option") ? document.querySelector("#shippingCountrydefault option") : document.querySelector("#shippingCountry option");
   var billingCounty = document.querySelector("#shippingCounty");
   var billingState = document.querySelector("#shippingState");
 
@@ -165,7 +165,7 @@ function fillInAddressBilling(){
   var billingCounty = document.querySelector("#billingCounty");
   var billingState = document.querySelector("#billingState");
   var $billingCountry = document.querySelector("#billingCountry");
-  var $shippingCountrydefault = document.querySelector("#shippingCountrydefault") ? document.querySelector("#shippingCountrydefault") : document.querySelector("#shippingCountry");
+  var $shippingCountrydefault = document.querySelector("#shippingCountrydefault option") ? document.querySelector("#shippingCountrydefault option") : document.querySelector("#shippingCountry option");
 
   
 
