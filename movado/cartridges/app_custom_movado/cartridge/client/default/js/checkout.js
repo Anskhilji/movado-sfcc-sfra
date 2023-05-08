@@ -187,7 +187,7 @@ $(document).ready(function() { // eslint-disable-line
         $(this).unbind("autocomplete");
     });
 
-    $('input.creditcard-securitycode').on('change keyup', function() {
+    $('input.creditcard-securitycode').on('change keyup focusout', function() {
         var $value = $(this).val();
         if ($value) {
             if ($value.length >= 3) {
@@ -377,7 +377,7 @@ $(document).ready(function() { // eslint-disable-line
         $(this).unbind("autocomplete");
     });
 
-    $('input.shippingZipCode, input.billingZipCode').on('change keyup complete', function() {
+    $('input.shippingZipCode, input.billingZipCode').on('change keyup focusout', function() {
         var $country = $('.shippingCountry option').val();
         var $value = $(this).val();
         if ($value) {
