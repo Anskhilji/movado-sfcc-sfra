@@ -27,11 +27,8 @@
                 ${Resource.msg('label.minicart.cart', 'account', null)}
                 <span class="header-nav-cart-icon cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
                     <div class="cart-icon ${pdict.quantityTotal > 0 ? 'fill-cart-icon' : ''}">
-                    <span class="add-to-cart"></span>
+                        <span class="add-to-cart"></span>
                     </div>
-                    <span data-item-count="" data-cart-render="item_count"
-                        class="minicart-quantity header-nav-cart-count" aria-label="cart count">
-                    </span>
                 </span>
             </a>
         </div>
