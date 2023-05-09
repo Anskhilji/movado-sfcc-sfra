@@ -571,6 +571,32 @@
                         }
                     }
                 }
+
+                &.setitem-rating {
+                    height: rem(20);
+                    pointer-events: none;
+
+                    .product-number-rating {
+
+                        .ratings {
+                            margin-bottom: rem(0);
+    
+                            @include media-breakpoint-down(xs) {
+                                margin-bottom: rem(0);
+                            }
+
+                            .yotpo {
+                                .standalone-bottomline {
+                                    .star-clickable {
+                                        .text-m {
+                                            line-height: rem(20);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             .product-family-name-redesign {

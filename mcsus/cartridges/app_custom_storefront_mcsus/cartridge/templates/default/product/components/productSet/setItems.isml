@@ -31,25 +31,30 @@
                                         <iscomment> mobile veiw design start </iscomment>
                                         <div class="product-detail-right-box mobile-detail-redsign d-block d-sm-none">
                                              <iscomment> product family name </iscomment>
-                                                <h2 class="product-family-name-redesign text-center text-sm-left">
-                                                    <isloop items="${pdict.customIndividualItemURL}" var="customIndividualItemURL" status="loopstatus">
-                                                        <isset name="customIndividualItemURL" value="${customIndividualItemURL}" scope="page" />
-                                                        <isset name="currentSetItemID" value="${customIndividualItemURL.split('|')[1]}" scope="page" />
-                                                        <isset name="currentSetItemURL" value="${customIndividualItemURL.split('|')[0]}" scope="page" />
-                                                        <isif condition="${currentSetItemID === product.id}">
-                                                            <isbreak/>
-                                                        </isif>
-                                                    </isloop>
-                                                    <isif condition="${product.brand}">
-                                                        <a href="${currentSetItemID == product.id && currentSetItemURL ? currentSetItemURL : ''}">${product.brand}</a>
+                                            <h2 class="product-family-name-redesign text-center text-sm-left">
+                                                <isloop items="${pdict.customIndividualItemURL}" var="customIndividualItemURL" status="loopstatus">
+                                                    <isset name="customIndividualItemURL" value="${customIndividualItemURL}" scope="page" />
+                                                    <isset name="currentSetItemID" value="${customIndividualItemURL.split('|')[1]}" scope="page" />
+                                                    <isset name="currentSetItemURL" value="${customIndividualItemURL.split('|')[0]}" scope="page" />
+                                                    <isif condition="${currentSetItemID === product.id}">
+                                                        <isbreak/>
                                                     </isif>
-                                                </h2>
-                                                <!-- Product Name -->
-                                                <h2 class="product-name prdouct-name-gtm d-sm-block text-center text-sm-left">
-                                                    <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
-                                                        ${product.productName}
-                                                    </a>
-                                                </h2>
+                                                </isloop>
+                                                <isif condition="${product.brand}">
+                                                    <a href="${currentSetItemID == product.id && currentSetItemURL ? currentSetItemURL : ''}">${product.brand}</a>
+                                                </isif>
+                                            </h2>
+                                            <!-- Product Name -->
+                                            <h2 class="product-name prdouct-name-gtm d-sm-block text-center text-sm-left">
+                                                <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
+                                                    ${product.productName}
+                                                </a>
+                                            </h2>
+                                            <isif condition="${product.yotpoIndividualProductData && product.yotpoIndividualProductData.isRatingEnabled}">
+                                                <div class="d-block rating-box-redisgn">
+                                                    <isinclude template="product/components/productSet/pidIndividualRating" />
+                                                </div>
+                                            </isif>
                                         </div>
                                         <iscomment> mobile veiw design end </iscomment>
                                         <!-- Product Images Carousel -->
@@ -99,7 +104,7 @@
                                             </div>
 
                                             <isif condition="${product.yotpoIndividualProductData && product.yotpoIndividualProductData.isRatingEnabled}">
-                                                <div class="d-block rating-box-redisgn">
+                                                <div class="d-none d-sm-block rating-box-redisgn">
                                                     <isinclude template="product/components/productSet/pidIndividualRating" />
                                                 </div>
                                             </isif>
