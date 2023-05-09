@@ -513,7 +513,11 @@
                             margin: 0;
                             opacity: 0.25;
                             height: auto;
-                            padding-bottom: rem(20);
+                            padding-bottom: 0;
+
+                            @include media-breakpoint-down(xs) {
+                                padding-bottom: rem(20);
+                            }
 
                             .reset {
                                 border: none;

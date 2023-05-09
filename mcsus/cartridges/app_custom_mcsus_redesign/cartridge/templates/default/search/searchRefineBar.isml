@@ -72,7 +72,7 @@
         </div>
     </isif>
 
-    <div class="result-count w-100">
+    <div class="result-count w-100 d-sm-none">
         <a class="btn btn-primary filter-btn w-100" href="#" data-filter="true">
             <isinclude template="search/resultsCountFilterBar" />
         </a>

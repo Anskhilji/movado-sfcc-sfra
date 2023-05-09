@@ -322,16 +322,19 @@ $( document ).ready(function() {
 
 function checkResultCount() {
     var $dataValue = $('.total-product-count').data('total-product-count');
-    if($dataValue > 0) {
-        $('.show-resultcount-not-zero').show();       
+    if ($dataValue > 0) {
+        $('.show-resultcount-not-zero').show();
         $('.show-resultcount-zero').addClass('d-sm-none');
     } else {
         $('.show-resultcount-not-zero').hide();
         $('.show-resultcount-zero').removeClass('d-sm-none');
     }
+
+    var $plpMobileCounter = '<div class="result-count">' + $('.result-count').html() + '</div>';
+    $('.result-count-show').html($plpMobileCounter);
 }
 
-function  hideSelectedFilterTabs () {
+function hideSelectedFilterTabs() {
     var $selectedFilterList = $('.seleced-filter-list');
     var $selectedList = $selectedFilterList.find('.filter-value');
     if ($selectedList.length < 1) {
@@ -357,10 +360,10 @@ module.exports = {
             $('.modal-background').addClass('filter-modal-background');
             var $refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
             if ($refinementBarPl) {
-              $refinementBarPl.addClass('refinement-bar-pl');
-              $('.secondary-bar').addClass('secondary-bar-mt');
+                $refinementBarPl.addClass('refinement-bar-pl');
+                $('.secondary-bar').addClass('secondary-bar-mt');
             }
-            if($(window).width() > 991) {
+            if ($(window).width() > 991) {
                 getTileHeight();
             }
         });
@@ -368,15 +371,15 @@ module.exports = {
 
     closeRefinments: function () {
         // Refinements close button
-        $('.filter-container, body').on('click', '.refinement-bar button.close, .filter-btn, .filter-modal-background', function () {
+        $('.filter-container, body').on('click', '.refinement-bar button.close, .filter-btn, .filter-modal-background, .close-btn-text', function () {
             $('.refinement-bar, .movado-modal').hide();
             $('.modal-background').removeClass('filter-modal-background');
             var $refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
             if ($refinementBarPl) {
-              $refinementBarPl.removeClass('refinement-bar-pl');
-              $('.secondary-bar').removeClass('secondary-bar-mt');
+                $refinementBarPl.removeClass('refinement-bar-pl');
+                $('.secondary-bar').removeClass('secondary-bar-mt');
             }
-            if($(window).width() > 991) {
+            if ($(window).width() > 991) {
                 getTileHeight();
             }
         });
@@ -562,7 +565,7 @@ module.exports = {
     applyFilter: function () {
         // Handle refinement value selection and reset click
         // custome : we are using 'body' because to close refinement bar on click [modal-background.filter-modal-background]
-        $('.filter-container').on('click','.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a', function (e) {
+        $('.filter-container').on('click', '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a', function (e) {
             e.preventDefault();
             e.stopPropagation();
 
