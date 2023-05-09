@@ -111,7 +111,7 @@
 
                                            <iscomment> accordion start here </iscomment>
                                             <div class="row">
-                                                <isinclude template="product/components/accordion" />
+                                                <isinclude template="product/components/setItemAccordion" />
                                             </div>
                                             <iscomment> accordion end here </iscomment>
                                         </div>
