@@ -98,10 +98,9 @@
                                                 </div>
                                             </div>
 
-                                            <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
-                                                <iscomment> product rating </iscomment>
+                                            <isif condition="${product.yotpoIndividualProductData && product.yotpoIndividualProductData.isRatingEnabled}">
                                                 <div class="d-block rating-box-redisgn">
-                                                    <isinclude template="product/components/pidRating" />
+                                                    <isinclude template="product/components/productSet/pidIndividualRating" />
                                                 </div>
                                             </isif>
 

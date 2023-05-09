@@ -19,7 +19,10 @@ var decorators = require('*/cartridge/models/product/decorators/index');
  */
 module.exports = function setProduct(product, apiProduct, options, factory) {
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+
     var detailAndSpecAttributes = productCustomHelpers.getPdpDetailAndSpecsAttributes(apiProduct);
+    var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
     var productSetBrand = apiProduct.custom.productSetBrand ? apiProduct.custom.productSetBrand : '';
 
     decorators.base(product, apiProduct, options.productType);
@@ -58,6 +61,13 @@ module.exports = function setProduct(product, apiProduct, options, factory) {
         Object.defineProperty(product, 'productSetBrand', {
             enumerable: true,
             value: productSetBrand
+        });
+    }
+
+    if (!empty(yotpoReviewsCustomAttribute)) {
+        Object.defineProperty(product, 'yotpoReviewsCustomAttribute', {
+            enumerable: true,
+            value: yotpoReviewsCustomAttribute
         });
     }
     
