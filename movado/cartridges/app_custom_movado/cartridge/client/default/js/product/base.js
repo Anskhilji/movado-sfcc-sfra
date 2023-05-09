@@ -1301,11 +1301,11 @@ function clydeAddProductSetToCart($this) {
         setPids = [];
 
         $('.product-detail').each(function () {
-            if (!$this.hasClass('product-set-detail')) {
+            if (!$(this).hasClass('product-set-detail')) {
                 setPids.push({
-                    pid: $this.find('.product-id').text(),
+                    pid: $(this).find('.product-id').text(),
                     qty: 1,
-                    options: getOptions($this)
+                    options: getOptions($(this))
                 });
             }
         });
@@ -1667,7 +1667,7 @@ module.exports = {
         $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
             var $this = $(this);
             if (!$(this).data('plp-addtocart')) {
-                if (!$(this).data('product-set')) {
+                if (!$(this).data('pdp-product-set')) {
                     var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
                     var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
                     if (clydeWidgets && clydeWidgetsDisplay) {
