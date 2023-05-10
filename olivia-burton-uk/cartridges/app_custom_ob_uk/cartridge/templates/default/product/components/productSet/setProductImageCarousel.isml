@@ -27,18 +27,18 @@
         <div class="js-carousel cs-carousel main-ob-carousel">
             <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <isset name="counter" value="${1}" scope="page" />
-            <isloop items="${product.individualProducts}" var="individualProducts" status="loopStatus">
-                <isif condition="${counter > product.individualProducts.length}">
+            <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
+                <isif condition="${counter > image.length}">
                     <isbreak/>
                 </isif>
-                <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.tile156[0]) && !empty(individualProducts.images.tile156[0].url) ? individualProducts.images.tile156[0].url : ''}">
+                <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(product.images) && !empty(product.images.tile156[loopStatus.count - 1]) && product.images.tile156[loopStatus.count - 1].url ? product.images.tile156[loopStatus.count - 1].url : ''}">
                    <picture>
-                        <source media="(min-width: 992px)" srcset="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom1660[0]) && !empty(individualProducts.images.zoom1660[0].url) ? individualProducts.images.zoom1660[0].url : ''}"  alt="${!empty(individualProducts.images.zoom1660[0].alt) ? individualProducts.images.zoom1660[0].alt : ''}" />
-                        <source media="(min-width: 544px)" srcset="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom1660[0]) && !empty(individualProducts.images.zoom1660[0].url) ? individualProducts.images.zoom1660[0].url : ''}"  alt="${!empty(individualProducts.images.zoom1660[0].alt) ? individualProducts.images.zoom1660[0].alt : ''}" />
-                        <source media="(min-width: 320px)" srcset="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom691X830[0]) && !empty(individualProducts.images.zoom691X830[0].url) ? individualProducts.images.zoom691X830[0].url : ''}"  alt="${!empty(individualProducts.images.zoom691X830[0].alt) ? individualProducts.images.zoom691X830[0].alt : ''}" />
-                        <img class="normal-zoom" src="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom1660[0]) && !empty(individualProducts.images.zoom1660[0].url) ? individualProducts.images.zoom1660[0].url : ''}"  alt="${!empty(individualProducts.images.zoom1660[0].alt) ? individualProducts.images.zoom1660[0].alt : ''}" itemprop="image"
-                            data-zoom-mobile-url="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom691X830[0]) && !empty(individualProducts.images.zoom691X830[0].url) ? individualProducts.images.zoom691X830[0].url : ''}"
-                            data-zoom-desktop-url="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom1660[0]) && !empty(individualProducts.images.zoom1660[0].url) ? individualProducts.images.zoom1660[0].url : ''}" />
+                        <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
+                        <source media="(min-width: 544px)" srcset="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
+                        <source media="(min-width: 320px)" srcset="${!empty(product.images) && !empty(product.images.zoom691X830[loopStatus.count - 1]) && !empty(product.images.zoom691X830[loopStatus.count - 1].url) ? product.images.zoom691X830[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
+                        <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" itemprop="image"
+                            data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom691X830[loopStatus.count - 1]) && !empty(product.images.zoom691X830[loopStatus.count - 1].url) ? product.images.zoom691X830[loopStatus.count - 1].url : ''}"
+                            data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
                     </picture>
                     <isset name="isImageExist" value="true" scope="page" />
                     <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL)}">
@@ -49,15 +49,15 @@
                 </div>
                 <isset name="counter" value="${counter + 1}" scope="page" />
             </isloop>
-            <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-                <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(product.images) && !empty(product.images.tile156[loopStatus.count - 1]) && product.images.tile156[loopStatus.count - 1].url ? product.images.tile156[loopStatus.count - 1].url : ''}">
+            <isloop items="${product.individualProducts}" var="individualProducts" status="loopStatus">
+                <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.tile156[0]) && !empty(individualProducts.images.tile156[0].url) ? individualProducts.images.tile156[0].url : ''}">
                    <picture>
-                        <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
-                        <source media="(min-width: 544px)" srcset="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
-                        <source media="(min-width: 320px)" srcset="${!empty(product.images) && !empty(product.images.zoom691X830[loopStatus.count - 1]) && !empty(product.images.zoom691X830[loopStatus.count - 1].url) ? product.images.zoom691X830[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
-                        <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" itemprop="image"
-                            data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom691X830[loopStatus.count - 1]) && !empty(product.images.zoom691X830[loopStatus.count - 1].url) ? product.images.zoom691X830[loopStatus.count - 1].url : ''}"
-                            data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
+                        <source media="(min-width: 992px)" srcset="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom1660[0]) && !empty(individualProducts.images.zoom1660[0].url) ? individualProducts.images.zoom1660[0].url : ''}"  alt="${!empty(individualProducts.images.zoom1660[0].alt) ? individualProducts.images.zoom1660[0].alt : ''}" />
+                        <source media="(min-width: 544px)" srcset="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom1660[0]) && !empty(individualProducts.images.zoom1660[0].url) ? individualProducts.images.zoom1660[0].url : ''}"  alt="${!empty(individualProducts.images.zoom1660[0].alt) ? individualProducts.images.zoom1660[0].alt : ''}" />
+                        <source media="(min-width: 320px)" srcset="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom691X830[0]) && !empty(individualProducts.images.zoom691X830[0].url) ? individualProducts.images.zoom691X830[0].url : ''}"  alt="${!empty(individualProducts.images.zoom691X830[0].alt) ? individualProducts.images.zoom691X830[0].alt : ''}" />
+                        <img class="normal-zoom" src="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom1660[0]) && !empty(individualProducts.images.zoom1660[0].url) ? individualProducts.images.zoom1660[0].url : ''}"  alt="${!empty(individualProducts.images.zoom1660[0].alt) ? individualProducts.images.zoom1660[0].alt : ''}" itemprop="image"
+                            data-zoom-mobile-url="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom691X830[0]) && !empty(individualProducts.images.zoom691X830[0].url) ? individualProducts.images.zoom691X830[0].url : ''}"
+                            data-zoom-desktop-url="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.zoom1660[0]) && !empty(individualProducts.images.zoom1660[0].url) ? individualProducts.images.zoom1660[0].url : ''}" />
                     </picture>
                 </div>
             </isloop>    
@@ -80,10 +80,7 @@
             </div>
             <div class="modal-body">
                 <div class="pinchZoom zoomedImage">
-                <isloop items="${product.individualProducts}" var="individualProducts" status="loopstatus">
-                    <img alt="${individualProducts.images.zoom1660[0].alt}" src="${individualProducts.images.zoom1660[0].url}" />
-                    <isbreak/>
-                </isloop>
+                    <img alt="${product.resources.Zoom}" src="${product.images['zoom1660'][0].url}" />
                 </div>
             </div>
         </div>
