@@ -531,7 +531,7 @@
 
                 @include media-breakpoint-down(xs) {
                     font-size: rem(24);
-                    font-weight: 300;
+                    font-weight: 400;
                     line-height: rem(41);
                     margin-bottom: rem(10);
                 }
@@ -611,11 +611,7 @@
                     letter-spacing: rem(1);
                     line-height: rem(20);
                     text-decoration: none;
-                    position: relative;
-
-                    &::before {
-                        display: none;
-                    }
+                    position: relative; 
 
                     @include media-breakpoint-down(xs) {
                         font-size: rem(18);
