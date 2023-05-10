@@ -28,7 +28,7 @@
                 <span class="header-nav-cart-icon cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
                     <div class="cart-icon ${pdict.quantityTotal > 0 ? 'fill-cart-icon' : ''}">
                     </div>
-                    <span class="add-to-cart ${pdict.quantityTotal > 0 ? 'fill-cart-count' : ''}"></span>
+                    <span class="cart-counter ${pdict.quantityTotal > 0 ? 'fill-cart-count' : ''}"></span>
                      <span data-item-count="" data-cart-render="item_count"
                         class="minicart-quantity header-nav-cart-count" aria-label="cart count">
                         <isprint value="${pdict.quantityTotal !== 0 ? pdict.quantityTotal : '0'}" formatter="##" />

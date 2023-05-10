@@ -221,7 +221,7 @@ function openMiniCart() {
 function updateCartIcons() {
     var $cartItems = $('.cart-quantity-items').data('quantity-id');
     var $cartIcon = $('.cart-icon');
-    var $cartIcount = $('.add-to-cart');
+    var $cartIcount = $('.cart-counter');
     if ($cartItems !== undefined && $cartItems !== 0) {
         $cartIcon.addClass('fill-cart-icon');
         $cartIcount.addClass('fill-cart-count');
