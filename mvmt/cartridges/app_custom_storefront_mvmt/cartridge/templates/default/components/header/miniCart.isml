@@ -4,8 +4,8 @@
         <div class="header-nav-cart-icon header-icon mobile-cart-icon">
             <span class="cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
                     <div class="cart-icon ${pdict.quantityTotal > 0 ? 'fill-cart-icon' : ''}">
-                        <span class="add-to-cart"></span>
                     </div>
+                    <span class="add-to-cart ${pdict.quantityTotal > 0 ? 'fill-cart-count' : ''}"></span>
                 <div class="minicart main-level-item" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
                     <span data-item-count="" data-cart-render="item_count"
                         class="minicart-quantity header-nav-cart-count" aria-label="cart count">
@@ -24,11 +24,11 @@
     <iselse>
         <div class="minicart-total hide-link-med">
             <a class="minicart-link header-icon m-0">
-                ${Resource.msg('label.minicart.cart', 'account', null)}
+                <span class="minicart-text">${Resource.msg('label.minicart.cart', 'account', null)}</span>
                 <span class="header-nav-cart-icon cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
                     <div class="cart-icon ${pdict.quantityTotal > 0 ? 'fill-cart-icon' : ''}">
-                        <span class="add-to-cart"></span>
                     </div>
+                    <span class="add-to-cart ${pdict.quantityTotal > 0 ? 'fill-cart-count' : ''}"></span>
                      <span data-item-count="" data-cart-render="item_count"
                         class="minicart-quantity header-nav-cart-count" aria-label="cart count">
                         <isprint value="${pdict.quantityTotal !== 0 ? pdict.quantityTotal : '0'}" formatter="##" />
