@@ -1,4 +1,5 @@
 @import '../variables';
+@import '../mixins';
 @import "bootstrap/scss/mixins/breakpoints";
 
 header {
@@ -14,7 +15,7 @@ header {
                     height: auto;
                 }
 
-                // Custom:MSS-2234 text white class
+                // // Custom:MSS-2234 text white class
                 &.header-white-text{
 
                     .sticky-header-wrapper {
@@ -22,20 +23,43 @@ header {
                         .header-menu-wrapper {
 
                             &.non-sticky{
-                                filter: brightness(0.5) invert(1);
-                                -webkit-filter: brightness(0.5) invert(1);
 
                                 &.sticky-header {
 
                                     &:hover {
                                         background-color: $white;
-                                        filter: unset;
-                                        -webkit-filter: unset;
                                     }
                                 }
 
                                 .header-wrapper {
                                     border-color: $transparent-gray-2;
+                                    
+                                    .header-container {
+                                        box-shadow: none;
+    
+                                        // Css Filter Apply
+                                        .header-logo,
+                                        .mvmt-mobile-header-logo,
+                                        .nav-left,
+                                        .main-level-item,
+                                        .minicart-text,
+                                        .cart-icon,
+                                        .mobile-cart-close-icon {
+                                            @include filter;
+                                        }
+    
+                                        .nav-left {
+                                            background: transparent;
+                                        } 
+
+                                        // Css Filter remove
+                                        .main-level-item {
+
+                                            &.minicart {
+                                                @include filterRemove;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -50,11 +74,23 @@ header {
                         .header-menu-wrapper {
 
                             &.non-sticky{
-                                filter: unset;
-                                -webkit-filter: unset;
 
                                 .header-wrapper {
                                     border-color: $transparent-gray-3;
+                                    
+                                    .header-container {
+
+                                        // css Filter remove
+                                        .header-logo,
+                                        .mvmt-mobile-header-logo,
+                                        .nav-left,
+                                        .main-level-item,
+                                        .minicart-text,
+                                        .cart-icon,
+                                        .mobile-cart-close-iconn {
+                                            @include filterRemove;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -70,8 +106,6 @@ header {
 
                             &.non-sticky{
                                 background-color: $white;
-                                filter: unset;
-                                -webkit-filter: unset;
 
                                 @include media-breakpoint-down(xs) {
                                     z-index: 1124;
@@ -87,6 +121,17 @@ header {
     
                                     .header-container {
                                         box-shadow: none;
+
+                                        // Css Filter remove
+                                        .header-logo,
+                                        .mvmt-mobile-header-logo,
+                                        .nav-left,
+                                        .main-level-item,
+                                        .minicart-text,
+                                        .cart-icon,
+                                        .mobile-cart-close-icon {
+                                            @include filterRemove;
+                                        }
                                     }
                                 }
                             }
@@ -104,17 +149,14 @@ header {
                             background-color: transparent;
                             position: absolute;
                             width: 100%;
-                            filter: brightness(0.5) invert(1);
-                            -webkit-filter: brightness(0.5) invert(1);
                             z-index: 1005;
                            
                             &:hover {
                                 background-color: $white;
-                                filter: unset;
-                                -webkit-filter: unset;
 
                                 .header-wrapper {
                                     border-color: $gray94;
+                                    background-color: $white;
                                 }
                             }
                             
@@ -124,22 +166,56 @@ header {
                                 
                                 &:hover {
                                     background-color: $white;
-                                    filter: unset;
-                                    -webkit-filter: unset;
                                 }
                             }
-                            
+
                             .header-wrapper {
-                               background-color: transparent;
-                               height: auto;
-                               border-color: transparent;
-                               
+                                background-color: transparent;
+                                height: auto;
+                                border-color: transparent;
+
                                 .header-container {
                                     box-shadow: none;
 
+                                    // Css Filter Apply
+                                    .header-logo,
+                                    .mvmt-mobile-header-logo,
+                                    .nav-left,
+                                    .main-level-item,
+                                    .minicart-text,
+                                    .cart-icon,
+                                    .mobile-cart-close-icon {
+                                        @include filter;
+                                    }
+
                                     .nav-left {
                                         background: transparent;
-                                    }        
+                                    }
+
+                                    // Css Filter remove
+                                    .main-level-item {
+                                        
+                                        &.minicart {
+                                            @include filterRemove;
+                                        }
+                                    }
+                                }
+
+                                &:hover {
+
+                                    .header-container {
+
+                                        // css Filter remove
+                                        .header-logo,
+                                        .mvmt-mobile-header-logo,
+                                        .nav-left,
+                                        .main-level-item,
+                                        .minicart-text,
+                                        .cart-icon,
+                                        .mobile-cart-close-icon {
+                                            @include filterRemove;
+                                        }
+                                    }
                                 }
                             }
                         }
