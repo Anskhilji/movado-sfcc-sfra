@@ -723,10 +723,10 @@ module.exports = function () {
                     $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket) : updateCartTotals(data.basket);
                     $('.mini-cart-data .popover').append($cartContainer);
                     var $cartIcon = $('.cart-icon');
-                    var $cartIcount = $('.cart-counter');
+                    var $cartcounter = $('.cart-counter');
                     if (typeof $cartIcon !== 'undefined' && ($cartIcon !== '' || $cartIcon.length > 0)) {
                         $cartIcon.removeClass('fill-cart-icon');
-                        $cartIcount.removeClass('fill-cart-count');
+                        $cartcounter.removeClass('fill-cart-count');
                     }
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
@@ -834,10 +834,10 @@ module.exports = function () {
                     $('body').removeClass('modal-open');
                     $('html').removeClass('veiled');
                     var $cartIcon = $('.cart-icon');
-                    var $cartIcount = $('.cart-counter');
+                    var $cartcounter = $('.cart-counter');
                     if (typeof $cartIcon !== 'undefined' && ($cartIcon !== '' || $cartIcon.length > 0)) {
                         $cartIcon.removeClass('fill-cart-icon');
-                        $cartIcount.removeClass('fill-cart-count');
+                        $cartcounter.removeClass('fill-cart-count');
                     }
                     if (data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
                         setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
