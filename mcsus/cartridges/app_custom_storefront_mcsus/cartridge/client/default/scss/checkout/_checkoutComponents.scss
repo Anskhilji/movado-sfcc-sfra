@@ -8,6 +8,17 @@ $receipt-font-size: rem(14);
 
 .data-checkout-stage {
   .form-group {
+
+    .form-control  {
+
+      &.custom-select-box {
+
+        &.auto-is-valid {
+          background: url(../../images/green_tick.svg) center right no-repeat !important;
+          background-position-x: 90% !important;
+        }
+      }
+    }
     .form-control-label {
       font-family: $font-regular;
       font-weight: 400;
