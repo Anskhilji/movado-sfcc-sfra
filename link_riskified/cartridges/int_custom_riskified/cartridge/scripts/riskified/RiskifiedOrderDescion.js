@@ -61,15 +61,30 @@ function riskifiedPaymentReversal(order, paymentMethod) {
     }
  }
  
+function addZeros(str, numZeros) {
+    for (var i = 0; i < numZeros; i++) {
+        str += "0";
+    }
+    return str;
+}
+
 function encodedUrl(order, data) {
     /* Local API Includes */
+    var Encoding = require('dw/crypto/Encoding');
     var StringUtils = require('dw/util/StringUtils');
     var Cipher = require('dw/crypto/Cipher');
 
     if (data === null || typeof data !== 'string') {
         return '';
     }
-    var hashKey = order.orderNo;
+
+    var orderNo = order.orderNo
+    
+    if (orderNo.length < 32) {
+        var orderNoVal = 32 - orderNo.length;
+        var hashKey = addZeros(orderNo, orderNoVal);
+    }
+
     var hashKeyEncoded = StringUtils.encodeBase64(hashKey);
     var padAmount = 32 - (data.length % 32);
     var padFill = StringUtils.pad('', padAmount).replace(/\s/g, '{');
@@ -99,21 +114,28 @@ function orderDeclined(order, riskifiedOrderStatus) {
         });
 
         if (isRiskifiedShopperRecoveryDeclinedStatus) {
+        var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
+        var service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedSyncRestService');
+       
+        var authCode = service.getConfiguration().getCredential().getPassword();
+        var hmacAuthCode = RCUtilities.calculateRFC2104HMAC(order.orderNo, authCode);
+        var locale = order.customerLocaleID;
         var riskifiedShoppperRecoveryURL = Site.current.preferences.custom.riskifiedShoppperRecoveryURL;
         
-        riskifiedPaymentReversal(order, paymentMethod);
         var riskApproved = URLUtils.https('Checkout-RiskApproved').toString();
         var riskDeclined = URLUtils.https('Checkout-RiskDeclined').toString();
         var successUrl = encodedUrl(order, riskApproved);
         var failureUrl = encodedUrl(order, riskDeclined);
+        
+        riskifiedPaymentReversal(order, paymentMethod);
 
         try {
             Transaction.wrap(function () {
                 order.custom.riskifiedShopperRecovery = true;
             });
-          
+
             var accountId = Site.current.preferences.custom.merchantDomainAddressOnRiskified;
-            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + accountId + '?successUrl=' + successUrl + '&failureUrl=' + failureUrl;
+            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + accountId + '?id=' + order.orderNo + '&sig=' + hmacAuthCode + '&successUrl=' + successUrl + '&failureUrl=' + failureUrl + '&language=' + locale;
 
             return {
                 error: false,
