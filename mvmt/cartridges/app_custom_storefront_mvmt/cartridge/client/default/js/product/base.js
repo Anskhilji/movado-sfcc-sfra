@@ -221,10 +221,10 @@ function openMiniCart() {
 function updateCartIcons() {
     var $cartItems = $('.cart-quantity-items').data('quantity-id');
     var $cartIcon = $('.cart-icon');
-    var $cartcounter = $('.cart-counter');
+    var $cartCounter = $('.cart-counter');
     if ($cartItems !== undefined && $cartItems !== 0) {
         $cartIcon.addClass('fill-cart-icon');
-        $cartcounter.addClass('fill-cart-count');
+        $cartCounter.addClass('fill-cart-count');
     }
 }
 
