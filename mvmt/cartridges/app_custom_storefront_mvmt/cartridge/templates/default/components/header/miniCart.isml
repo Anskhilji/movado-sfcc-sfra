@@ -5,7 +5,7 @@
             <span class="cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
                     <div class="cart-icon ${pdict.quantityTotal > 0 ? 'fill-cart-icon' : ''}">
                     </div>
-                    <span class="add-to-cart ${pdict.quantityTotal > 0 ? 'fill-cart-count' : ''}"></span>
+                    <span class="cart-counter ${pdict.quantityTotal > 0 ? 'fill-cart-count' : ''}"></span>
                 <div class="minicart main-level-item" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
                     <span data-item-count="" data-cart-render="item_count"
                         class="minicart-quantity header-nav-cart-count" aria-label="cart count">
