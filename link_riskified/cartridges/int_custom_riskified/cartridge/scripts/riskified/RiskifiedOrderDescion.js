@@ -135,7 +135,8 @@ function orderDeclined(order, riskifiedOrderStatus) {
             });
 
             var accountId = Site.current.preferences.custom.merchantDomainAddressOnRiskified;
-            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + accountId + '?id=' + order.orderNo + '&sig=' + hmacAuthCode + '&successUrl=' + successUrl + '&failureUrl=' + failureUrl + '&language=' + locale;
+            var newAccountId = accountId.replace('.com', '');
+            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + newAccountId + '?id=' + order.orderNo + '&sig=' + hmacAuthCode + '&successUrl=' + successUrl + '&failureUrl=' + failureUrl + '&language=' + locale;
 
             return {
                 error: false,
