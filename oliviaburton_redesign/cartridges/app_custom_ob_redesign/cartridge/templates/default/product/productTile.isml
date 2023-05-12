@@ -23,19 +23,30 @@
             <div class="image-container" style="background-color: ${pdict.tileImageBackground};">
                 <isinclude template="product/components/productTileImage" />
             </div>
-             <div class="tile-body" style="background-color: ${pdict.tileBodyBackground};">
-
-                <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
-                    <isinclude template="product/components/productTileSwatch" />
-                </isif>
+            <div class="tile-body" style="background-color: ${pdict.tileBodyBackground};">
 
                 <isif condition="${pdict.plpProductFamilyName}">
-                    <a href="${pdict.urls.product}"  class="product-family"> <h3>${product.collectionName ? product.collectionName :''}</h3> </a>
+                    <isif condition="${(product.productType != 'master' || !product.defaultVariant)}">
+                        <a href="${pdict.urls.product}"  class="product-family"> <h3>${product.collectionName ? product.collectionName :''}</h3> </a>
+                    <iselse/>
+                        <a href="${product.variationPdpURL ? product.variationPdpURL : pdict.urls.product}"  class="product-family"> <h3>${product.defaultVariantCollectionName ? product.defaultVariantCollectionName : product.collectionName}</h3> </a>
+                    </isif>
                 </isif>
-            
+
                 <isinclude template="product/components/productTileName" />
+                <div class="plp-swatches-wrapper">
+                    <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                        <isinclude template="product/components/productTileSwatch" />
+                    </isif>
+                </div>
+
                 <div class="pricing-save">
-                    <isset name="price" value="${product.price}" scope="page" />
+                    <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
+                        <isset name="price" value="${product.defaultVariantPrice}" scope="page" />
+                    <iselse/>
+                        <isset name="price" value="${product.price}" scope="page" />
+                    </isif>
+
                     <isif condition="${product.productType === 'set'}">
                         <isinclude template="product/components/productSet/setPrice" />
                     <iselse>
@@ -50,7 +61,6 @@
                 <iscomment> new add to card button template addded </iscomment>
                 <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
 
-                
             </div>
         </isif>
         <!-- END_dwmarker -->
