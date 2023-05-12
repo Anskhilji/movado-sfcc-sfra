@@ -400,6 +400,8 @@ $(document).ready(function() {
                             image: response.image,
                             quantity: response.smartGift.quantity
                        });
+                    } else {
+                        $('.smart-gift-error').text(window.Resources.SMART_GIFT_ERROR_MESSAGE)
                     }
                 },
                 error: function () {

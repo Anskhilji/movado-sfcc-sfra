@@ -59,8 +59,6 @@ $(document).on('click','.listrak-popup', function(e) {
                             clearInterval(interval);
                         }
                     }, 1000);
-                } else {
-                    $('.smart-gift-error').text(window.Resources.SMART_GIFT_ERROR_MESSAGE)
                 }
             },
             error: function () {
