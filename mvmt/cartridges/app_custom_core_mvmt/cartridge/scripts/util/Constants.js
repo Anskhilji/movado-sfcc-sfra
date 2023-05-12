@@ -20,4 +20,5 @@ exports.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN = ' | ';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.COLOR_WATCH = 'colorWatch';
+exports.ROOT_CATEGORY = 'root';
 exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
