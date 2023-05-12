@@ -26,13 +26,6 @@
                                 <p class="line-item-attributes mb-2">${attribute.displayName}: ${attribute.displayValue}</p>
                             </isif>
                         </isloop>
-                        <isloop items="${lineItem.variationAttributes}" var="attribute">
-                            <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}">
-                                <p class="line-item-attributes mb-2">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>
-                            <iselse>
-                                <p class="line-item-attributes mb-2">${attribute.displayName}: ${attribute.displayValue}</p>
-                            </isif>
-                        </isloop>
 
                         <p class="line-item-attributes model-name mb-2">${lineItem.resources.Model} ${lineItem.id}</p>
                         <isloop items="${lineItem.options}" var="option">
@@ -113,7 +106,7 @@
                                 <p class="line-item-attributes clyde-option-price" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}" data-uuid="${lineItem.UUID}">${(option.price)}</p>
                             <iselse>
                                 <isif condition="${!empty(option.adjustedPrice)}">
-                                    <p>${option.adjustedPrice}</p>
+                                    <p class="adjusted-clyde-price">${option.adjustedPrice}</p>
                                 </isif>
                             </isif>
                             <isinclude template="components/deleteClydeProductButton" />

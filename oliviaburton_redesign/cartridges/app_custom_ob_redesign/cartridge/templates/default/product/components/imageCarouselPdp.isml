@@ -27,6 +27,13 @@
         <div class="js-carousel cs-carousel main-ob-carousel">
             <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
+                <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL)}">
+                <div class="carousel-tile carousel-tile-two-wrapper poster-frame-video" data-thumb="${!empty(product) && !empty(product.posterFrame) &&  product.posterFrame.url ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}">
+                    <video class="slide-video" loop muted autoplay playsinline>
+                        <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                    </video>
+                </div>
+                </isif>
                 <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(product.images) && !empty(product.images.tile156[loopStatus.count - 1]) && product.images.tile156[loopStatus.count - 1].url ? product.images.tile156[loopStatus.count - 1].url : ''}">
                     <picture>
                         <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" />
@@ -36,12 +43,6 @@
                             data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom691X830[loopStatus.count - 1]) && !empty(product.images.zoom691X830[loopStatus.count - 1].url) ? product.images.zoom691X830[loopStatus.count - 1].url : ''}"
                             data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
                     </picture>
-                    <isset name="isImageExist" value="true" scope="page" />
-                    <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL)}">
-                        <video class="slide-video d-none" loop muted autoplay playsinline>
-                            <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
-                        </video>
-                    </isif>
                 </div>
             </isloop>
         </div>
@@ -53,7 +54,6 @@
         </isif>
     </div>
 </div>
-
 <iscomment> Zoom Modal </iscomment>
 <div class="modal fade" id="zoomProduct" role="dialog">
     <div class="modal-dialog">

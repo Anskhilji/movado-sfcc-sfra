@@ -41,4 +41,5 @@ exports.DE_COUNTRY_CODE = 'DE';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.ROOT_CATEGORY = 'root';
-
+exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
+exports.CLYDE_WARRANTY = 'clydeWarranty';

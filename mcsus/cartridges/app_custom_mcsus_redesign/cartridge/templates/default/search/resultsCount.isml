@@ -3,7 +3,7 @@
         <isprint value="${Resource.msgf('label.results.found', 'search', null, pdict.productSearch.count)}" encoding="off">
     </span>
 <iselse>
-    <p>
+    <span>
         <span class="total-product-count" data-total-product-count="${pdict.productSearch.count}">
             <isif condition="${pdict.productSearch.productIds.length > 0}">
                 <isprint value="${Resource.msgf('label.resultsfor', 'search', null, pdict.productSearch.count)}" encoding="off">
@@ -14,7 +14,7 @@
         <span class="search-keywords">
             ${pdict.productSearch.searchKeywords ? pdict.productSearch.searchKeywords : ''}
         </span>
-    </p>
+    </span>
     <isif condition="${pdict.productSearch.isSearchSuggestionsAvailable}">
         <isloop items="${pdict.productSearch.suggestionPhrases}" alias="phrase" status="loopState" >
             <isif condition="${loopState.first}">
