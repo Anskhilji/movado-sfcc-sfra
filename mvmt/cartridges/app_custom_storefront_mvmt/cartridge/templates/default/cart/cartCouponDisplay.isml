@@ -27,10 +27,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <isif condition="${discount.applied}">
-                    <div class="coupon-applied">${Resource.msg('msg.coupon.applied','cart',null)}</div>
+                <isif condition="${!empty(discount.excludeProductLevelMessage)}">
+                    <div class="coupon-not-applied">${discount.excludeProductLevelMessage}</div>
                 <iselse/>
-                    <div class="coupon-not-applied">${Resource.msg('msg.coupon.not.applied','cart',null)}</div>
+                    <isif condition="${discount.applied}">
+                        <div class="coupon-applied">${Resource.msg('msg.coupon.applied','cart',null)}</div>
+                    <iselse/>
+                        <div class="coupon-not-applied">${Resource.msg('msg.coupon.not.applied','cart',null)}</div>
                 </isif>
                 <div class="coupon-promotion-relationship">
                     <isloop items="${discount.relationship}" var="relatedPromotion">
