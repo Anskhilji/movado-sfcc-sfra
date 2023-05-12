@@ -75,6 +75,10 @@ function categoryToObject(category) {
         result.hexColor = category.custom.hexColor;
     }
 
+    if(!empty(category.custom.swatchImage)) {
+        result.swatchImage = category.custom.swatchImage.absURL;
+    }
+
     if (!empty(category.custom.showColorSwatchForSubcategories)) {
         result.showColorSwatchForSubcategories = category.custom.showColorSwatchForSubcategories;
     }

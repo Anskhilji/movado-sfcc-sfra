@@ -52,8 +52,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
 
     var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
-
-
+    
     var collectionContentList;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
@@ -125,6 +124,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
         var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
         var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
+        var isHideSwissmovement = !empty(product.custom.isHideSwissmovement) ? product.custom.isHideSwissmovement : false;
     }
 
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
@@ -137,6 +137,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
         isGiftWrapEnabled: isGiftWrapEnabled,
+        isHideSwissmovement: isHideSwissmovement,
         productDetailAttribute1: productDetailAttribute1,
         productDetailAttribute2: productDetailAttribute2,
         productDetailAttribute3: productDetailAttribute3,

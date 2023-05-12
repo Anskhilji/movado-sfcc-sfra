@@ -1,0 +1,11 @@
+<isset name="plpCustomUrlEnabled" value="${!empty(dw.system.Site.current.preferences.custom.plpCustomUrl) ? dw.system.Site.current.preferences.custom.plpCustomUrl : false}" scope="page" />
+<isif condition="${plpCustomUrlEnabled}">
+    <div class="line-item-brand-name">
+        <isif condition="${lineItem.brand}">
+            <span>${lineItem.brand}</span>
+        </isif>
+    </div>
+</isif>
+<div class="line-item-name">
+    <span>${lineItem.productName}</span>
+</div>

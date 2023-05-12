@@ -100,7 +100,7 @@ $stored-payment-spacing: rem(16);
   }
 
   .custom-select {
-    font-family: $font-medium;
+    font-family: $font-raleway-medium;
     font-size: rem(14);
     line-height: rem(17);
     letter-spacing: rem(2);
@@ -139,7 +139,7 @@ $stored-payment-spacing: rem(16);
       .order-receipt-label,
       .text-right,
       .sub-total {
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
         font-size: rem(16);
         letter-spacing: rem(2);
         line-height: rem(21);
@@ -151,7 +151,7 @@ $stored-payment-spacing: rem(16);
     .grand-total {
       .order-receipt-label,
       .text-right {
-        font-family: $font-bold;
+        font-family: $font-raleway-bold;
         font-size: rem(18);
         letter-spacing: rem(2);
         line-height: rem(22);
@@ -236,7 +236,6 @@ $stored-payment-spacing: rem(16);
       float: left;
       width: 0;
       white-space: nowrap;
-      content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
       z-index: 1;
       color: #adadad;
     }
@@ -254,7 +253,7 @@ $stored-payment-spacing: rem(16);
 
   &.justify-content-between {
     .end-lines {
-      background: $white;
+      background: transparent;
     }
   }
 
@@ -321,7 +320,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-details {
-  font-family: $font-book;
+  font-family: $font-raleway-book;
   font-size: rem(14);
   letter-spacing: rem(2);
   line-height: rem(21);
@@ -335,7 +334,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-section-label {
-  font-family: $font-medium;
+  font-family: $font-raleway-medium;
   font-size: rem(14);
   letter-spacing: rem(2);
   line-height: rem(17);
@@ -641,7 +640,6 @@ $stored-payment-spacing: rem(16);
                   + .field-label-wrapper {
                       transition: 0.2s ease-in-out;
                       top: 0;
-                      left: 2em;
                       height: rem(24);
                       color: $grey15;
                       font-size: rem(10);
@@ -709,7 +707,6 @@ $stored-payment-spacing: rem(16);
         .field-label-wrapper {
             position: absolute;
             top: 1em;
-            left: 2em;
             color: $grey15;
             transition: 0.2s ease-in-out;
             width: 100%;
@@ -719,7 +716,6 @@ $stored-payment-spacing: rem(16);
           &.input-has-value {
               transition: 0.2s ease-in-out;
               top: 0;
-              left: 2em;
               height: rem(24);
               color: $grey15;
               font-size: rem(10);
@@ -734,7 +730,7 @@ $stored-payment-spacing: rem(16);
               left: rem(16);
             
             &.input-has-value {
-                left: rem(13);
+                left: rem(16);
             }
           }
           
@@ -885,7 +881,7 @@ $stored-payment-spacing: rem(16);
                             left: rem(16);
           
                             &.input-has-value {
-                                left: rem(13);
+                                left: rem(16);
                             }
                         }
                     }

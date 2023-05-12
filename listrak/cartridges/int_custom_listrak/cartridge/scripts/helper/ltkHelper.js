@@ -130,9 +130,35 @@ function saveNewAuthToken(accessToken) {
     }
 }
 
+
+function getSavedSMSAuthToken() {
+    var accessToken = CustomObjectMgr.getCustomObject(Constants.LTK_SMS_ACCESS_TOKEN_OBJECT, Constants.LTK_SMS_ACCESS_TOKEN_OBJECT_ID);
+    return accessToken;
+}
+
+function saveNewSMSAuthToken(accessToken) {
+    var existingAccessToken = getSavedSMSAuthToken();
+    try {
+        if (existingAccessToken) {
+            Transaction.wrap(function () {
+                existingAccessToken.custom.token = accessToken;
+            });
+        } else {
+            Transaction.wrap(function () {
+                var ltkAccessToken = CustomObjectMgr.createCustomObject(Constants.LTK_SMS_ACCESS_TOKEN_OBJECT, Constants.LTK_SMS_ACCESS_TOKEN_OBJECT_ID);
+                ltkAccessToken.custom.token = accessToken;
+            });
+        }
+    } catch (e) {
+        Logger.error('Error occurred while trying to update sms access Token, ERROR: ' + e);
+    }
+}
+
 module.exports = {
     getProductPrice: getProductPrice,
     getCountryCode: getCountryCode,
     saveNewAuthToken: saveNewAuthToken,
-    getSavedAuthToken: getSavedAuthToken
+    getSavedAuthToken: getSavedAuthToken,
+    saveNewSMSAuthToken: saveNewSMSAuthToken,
+    getSavedSMSAuthToken: getSavedSMSAuthToken
 };

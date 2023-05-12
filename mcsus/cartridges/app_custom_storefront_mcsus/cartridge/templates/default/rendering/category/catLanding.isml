@@ -1,0 +1,28 @@
+<isdecorate template="common/layout/page">
+<isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addCss('/css/search.css');
+    </isscript>
+    <isif condition="${sitePref.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.landing', 'eum', null))}"/>
+    </isif>
+    <isif condition=${false}>
+        <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+    </isif>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+            </div>
+        </div>
+    </div>
+    <div class="static-content-wrapper">
+        <isslot id="cs-category-landing-cs1" description="Category Landing Page content Slot 1." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs2" description="Category Landing Page content Slot 2." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs3" description="Category Landing Page content Slot 3." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs4" description="Category Landing Page content Slot 4." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs5" description="Category Landing Page content Slot 5." context="category" context-object="${pdict.category}"/>
+    </div>
+</isdecorate>

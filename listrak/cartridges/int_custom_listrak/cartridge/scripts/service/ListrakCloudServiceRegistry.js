@@ -35,7 +35,66 @@ function getTransactionalAPIServiceConfigs() {
     return serviceConfig;
 }
 
+function getContactStatusOptAPIServiceConfigs() {
+    var serviceConfig = {
+        createRequest: function (svc, args) {
+            var requestJSONString = JSON.stringify(args);
+            svc.addHeader('Content-Type', 'application/json');
+            svc.setRequestMethod('GET');
+            return requestJSONString;
+        },
+        parseResponse: function (svc, client) {
+            return JSON.parse(client.text);
+        }
+    };
+    return serviceConfig;
+}
+
+function getSubscribeContactsAPIServiceConfigs() {
+    var serviceConfig = {
+        createRequest: function (svc, args) {
+            var requestJSONString = JSON.stringify(args);
+            svc.addHeader('Content-Type', 'application/json');
+            svc.setRequestMethod('POST');
+            return requestJSONString;
+        },
+        parseResponse: function (svc, client) {
+            return JSON.parse(client.text);
+        }
+    };
+    return serviceConfig;
+}
+
+function getCreateContactsAPIServiceConfigs() {
+    var serviceConfig = {
+        createRequest: function (svc, args) {
+            var requestJSONString = JSON.stringify(args);
+            svc.addHeader('Content-Type', 'application/json');
+            svc.setRequestMethod('POST');
+            return requestJSONString;
+        },
+        parseResponse: function (svc, client) {
+            return JSON.parse(client.text);
+        }
+    };
+    return serviceConfig;
+}
+
 function getAuthorizationServiceConfigs() {
+    var serviceConfig = {
+        createRequest: function (svc, args) {
+            svc.addHeader('Content-Type', 'application/x-www-form-urlencoded');
+            svc.setRequestMethod('POST');
+            return args;
+        },
+        parseResponse: function (svc, client) {
+            return JSON.parse(client.text);
+        }
+    };
+    return serviceConfig;
+}
+
+function getSMSAuthorizationServiceConfigs() {
     var serviceConfig = {
         createRequest: function (svc, args) {
             svc.addHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -87,13 +146,70 @@ function getTransactionalAPIService(serviceID, endpoint, messageId) {
     return dataService;
 }
 
+function getContactStatusOptAPIService(serviceID, endpoint, phone) {
+    var serviceConfig = null;
+    serviceConfig = getContactStatusOptAPIServiceConfigs();
+    var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
+    var baseUrl = dataService.getConfiguration().getCredential().URL;
+    var shortCodeID = Site.current.preferences.custom.Listrak_ShortCode || '';
+    var url = baseUrl.toString();
+    if (!empty(endpoint)) {
+        endpoint = endpoint.replace('{shortCodeId}', shortCodeID).replace('{phoneNumber}', phone);
+        url = baseUrl.toString() + endpoint;
+    }
+    dataService.setURL(url);
+    dataService.requestMethod = 'GET';
+    return dataService;
+}
+
+function getSubscribeContactsAPIService(serviceID, endpoint, phone) {
+    var serviceConfig = null;
+    serviceConfig = getSubscribeContactsAPIServiceConfigs();
+    var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
+    var baseUrl = dataService.getConfiguration().getCredential().URL;
+    var shortCodeID = Site.current.preferences.custom.Listrak_ShortCode || '';
+    var phoneListId = Site.current.preferences.custom.Listrak_SMSBackInStockList || '';
+    var url = baseUrl.toString();
+    if (!empty(endpoint)) {
+        endpoint = endpoint.replace('{shortCodeId}', shortCodeID).replace('{phoneNumber}', phone).replace('{phoneListId}', phoneListId);
+        url = baseUrl.toString() + endpoint;
+    }
+    dataService.setURL(url);
+    return dataService;
+}
+
+function getCreateContactsAPIService(serviceID, endpoint, phone) {
+    var serviceConfig = null;
+    serviceConfig = getCreateContactsAPIServiceConfigs();
+    var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
+    var baseUrl = dataService.getConfiguration().getCredential().URL;
+    var shortCodeID = Site.current.preferences.custom.Listrak_ShortCode || '';
+    var phoneListId = Site.current.preferences.custom.Listrak_SMSBackInStockList || '';
+    var url = baseUrl.toString();
+    if (!empty(endpoint)) {
+        endpoint = endpoint.replace('{shortCodeId}', shortCodeID).replace('{phoneListId}', phoneListId);
+        url = baseUrl.toString() + endpoint;
+    }
+    dataService.setURL(url);
+    return dataService;
+}
+
 function getAuthorizationService(serviceID) {
     var auhtorizationService = LocalServiceRegistry.createService(serviceID, getAuthorizationServiceConfigs());
     return auhtorizationService;
 }
 
+function getSMSAuthorizationService(serviceID) {
+    var auhtorizationService = LocalServiceRegistry.createService(serviceID, getSMSAuthorizationServiceConfigs());
+    return auhtorizationService;
+}
+
 module.exports = {
     getAuthorizationService: getAuthorizationService,
+    getSMSAuthorizationService: getSMSAuthorizationService,
     getAPIService: getAPIService,
-    getTransactionalAPIService: getTransactionalAPIService
+    getTransactionalAPIService: getTransactionalAPIService,
+    getContactStatusOptAPIService: getContactStatusOptAPIService,
+    getSubscribeContactsAPIService: getSubscribeContactsAPIService,
+    getCreateContactsAPIService: getCreateContactsAPIService
 }
