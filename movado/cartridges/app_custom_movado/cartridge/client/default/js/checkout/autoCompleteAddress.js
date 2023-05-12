@@ -6,15 +6,20 @@ var postalField;
 var address1FieldBilling;
 var address2FieldBilling;
 var postalFieldBilling;
+var postalFieldValue = document.querySelector("#shippingZipCode").value = '';
+var postalFieldBillingValue = document.querySelector("#billingZipCode").value = '';
 
 window.initAutocomplete = function() {
     address1Field = document.querySelector("#shippingAddressOne");
     address2Field = document.querySelector("#shippingAddressTwo");
     postalField = document.querySelector("#shippingZipCode");
 
+
     address1FieldBilling = document.querySelector("#billingAddressOne");
     address2FieldBilling = document.querySelector("#billingAddressTwo");
     postalFieldBilling = document.querySelector("#billingZipCode");
+
+
 
   if (typeof google != 'undefined') {
     // Create the autocomplete object, restricting the search predictions to Shipping Form
@@ -154,6 +159,7 @@ function fillInAddress(){
   var $address1Value = address1;
   address1Field.value = $address1Value.replace(/'/g, ' ');
   postalField.value = postcode;
+  document.querySelector("#shippingZipCode").value = postcode;
   autoCompleteFields();
 }
 
@@ -282,6 +288,7 @@ function fillInAddressBilling(){
   var $address1BillingValue = address1Billing;
   address1FieldBilling.value = $address1BillingValue.replace(/'/g, ' ');;
   postalFieldBilling.value = postcodeBilling;
+  document.querySelector("#billingZipCode").value = postcodeBilling;
   autoCompleteFields();
 }
 
@@ -299,4 +306,10 @@ function autoCompleteFields() {
     checkForInput(this);
   });
 };
-window.initAutocomplete()
+
+window.initAutocomplete();
+
+// module.exports = {
+//   fillInAddress: fillInAddress,
+//   fillInAddressBilling: fillInAddressBilling,
+// };

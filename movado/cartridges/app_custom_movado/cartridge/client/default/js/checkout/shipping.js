@@ -325,12 +325,15 @@ function updateShippingSummaryInformation(shipping, order) {
         var $shippingSummaryLabel = $container.find('.shipping-method-label');
         var $summaryDetails = $container.find('.row.summary-details');
         var giftMessageSummary = $container.find('.gift-summary');
+        var $shippingCompany = $('.shippingCompanyName');
 
         var address = shipping.shippingAddress;
         var selectedShippingMethod = shipping.selectedShippingMethod;
         var isGift = shipping.isGift;
 
         addressHelpers.methods.populateAddressSummary($addressContainer, address);
+
+        $shippingCompany.removeClass('is-valid auto-is-valid is-invalid auto-is-invalid');
 
         if (address && address.phone) {
             $shippingPhone.text(address.phone);

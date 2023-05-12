@@ -18,7 +18,7 @@
         <div class="form-group
             ${addressFields.firstName.mandatory === true ? 'required' : ''}
             ${addressFields.firstName.htmlName}">
-            <input <isif condition="${isAmazonPay}">readonly</isif> autofocus type="text" class="form-control input-wrapper-checkout shippingFirstName" id="shippingFirstName"
+            <input <isif condition="${isAmazonPay}">readonly</isif> autofocus type="text" class="form-control input-wrapper-checkout shippingFirstName auto-validation" id="shippingFirstName"
                 value="${shippingAddress.firstName||''}" <isprint value="${addressFields.firstName.attributes}" encoding="off"/>
                 autocomplete="shipping given-name" >
             <label class="form-control-label field-label-wrapper" for="shippingFirstName"><isprint value="${addressFields.firstName.label}" encoding="htmlcontent" /></label>
@@ -29,7 +29,7 @@
         <div class="form-group
             ${addressFields.lastName.mandatory === true ? 'required' : ''}
             ${addressFields.lastName.htmlName}">
-            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingLastName" id="shippingLastName"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingLastName auto-validation" id="shippingLastName"
                 value="${shippingAddress.lastName||''}" <isprint value="${addressFields.lastName.attributes}" encoding="off"/>
                 autocomplete="shipping family-name">
             <label class="form-control-label field-label-wrapper" for="shippingLastName"><isprint value="${addressFields.lastName.label}" encoding="htmlcontent" /></label>
@@ -47,7 +47,7 @@
             <isif condition="${sitePref.custom.enableCalloutMsgMobileNumber === true}">
                 <iscontentasset aid="calloutMsgMobileNumber"/>
             </isif>
-            <input <isif condition="${isAmazonPay}">readonly</isif> type="tel" class="form-control input-wrapper-checkout shippingPhoneNumber" id="shippingPhoneNumber"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="tel" class="form-control input-wrapper-checkout shippingPhoneNumber auto-validation" id="shippingPhoneNumber"
                 value="${shippingAddress.phone||''}" <isprint value="${addressFields.phone.attributes}" encoding="off"/>
                    autocomplete="tel">
             <label class="form-control-label field-label-wrapper" for="shippingPhoneNumber">
@@ -70,7 +70,7 @@
                     ${Resource.msg('tooltip.email','creditCard',null)}
                 </div>
             </span>
-            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout email shipping-email" id="email" value="${pdict.customerEmail ? pdict.customerEmail : (pdict.customer && pdict.customer.profile && pdict.customer.profile.email) || ''}"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout email shipping-email auto-validation" id="email" value="${pdict.customerEmail ? pdict.customerEmail : (pdict.customer && pdict.customer.profile && pdict.customer.profile.email) || ''}"
                 <isprint value="${addressFields.email.attributes}" encoding="off" />> 
             <label class="form-control-label field-label-wrapper" for="email">${Resource.msg('field.customer.email', 'checkout', null)}</label>
             <div class="invalid-feedback"></div>
@@ -97,7 +97,7 @@
         <div class="form-group
             ${addressFields.companyName.mandatory === true ? 'required' : ''}
             ${addressFields.companyName.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout shippingCompanyName" id="shippingCompanyName"
+            <input type="text" class="form-control input-wrapper-checkout shippingCompanyName auto-validation optional-field" id="shippingCompanyName"
                 value="${shippingAddress.companyName||''}" <isprint value="${addressFields.companyName.attributes}" encoding="off" />
                 autocomplete="shipping company-name">
             <label class="form-control-label field-label-wrapper" for="shippingCompanyName"><isprint value="${addressFields.companyName.label}" encoding="htmlcontent" /></label>
@@ -114,7 +114,7 @@
             <isif condition="${sitePref.custom.enableCalloutMsgAddress1 === true}">
                 <iscontentasset aid="calloutMsgAddress1"/>
             </isif>
-            <span><input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
+            <span><input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressOne auto-validation auto-address" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeAddress || '' : shippingAddress.address1 || ''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
             <label class="form-control-label field-label-wrapper" for="shippingAddressOne"><isprint value="${addressFields.address1.label}" encoding="htmlcontent" /></label>
@@ -132,7 +132,7 @@
             <isif condition="${sitePref.custom.enableCalloutMsgAddress2 === true}">
                 <iscontentasset aid="calloutMsgAddress2"/>
             </isif>
-            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressTwo" id="shippingAddressTwo"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressTwo auto-validation optional-field" id="shippingAddressTwo"
                 value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeAddress2 || '' : shippingAddress.address2 || ''}" <isprint value="${addressFields.address2.attributes}" encoding="off"/>
                 autocomplete="shipping address-line2">
             <label class="form-control-label field-label-wrapper" for="shippingAddressTwo">
@@ -170,7 +170,7 @@
             ${addressFields.states.stateCode.mandatory === true ? 'required' : ''}
             ${addressFields.states.stateCode.htmlName} relative">
             <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shippingState"><isprint value="${addressFields.states.stateCode.label}" encoding="htmlcontent" /></label>
-            <select <isif condition="${isAmazonPay}">readonly</isif> class="form-control shippingState custom-select custom-select-box" id="shippingState"
+            <select <isif condition="${isAmazonPay}">readonly</isif> class="form-control shippingState custom-select custom-select-box auto-validation states" id="shippingState"
                 <isprint value=${addressFields.states.stateCode.attributes} encoding="off"/>
                 autocomplete="shipping address-level1">
                 <isloop items=${addressFields.states.stateCode.options} var="state">
@@ -191,7 +191,7 @@
         <div class="form-group
             ${addressFields.city.mandatory === true ? 'required' : ''}
             ${addressFields.city.htmlName}">
-            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressCity" id="shippingAddressCity"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressCity auto-validation" id="shippingAddressCity"
                 value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeCity || '' : shippingAddress.city || ''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
                 autocomplete="shipping address-level2">
             <label class="form-control-label field-label-wrapper" for="shippingAddressCity"><isprint value="${addressFields.city.label}" encoding="htmlcontent" /></label>
@@ -223,7 +223,7 @@
             <isif condition="${sitePref.custom.enableCalloutMsgMobileNumber === true}">
                 <iscontentasset aid="calloutMsgMobileNumber"/>
             </isif>
-            <input <isif condition="${isAmazonPay}">readonly</isif> type="tel" class="form-control input-wrapper-checkout shippingPhoneNumber" id="shippingPhoneNumber"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="tel" class="form-control input-wrapper-checkout shippingPhoneNumber auto-validation" id="shippingPhoneNumber"
                 value="${shippingAddress.phone||''}" <isprint value="${addressFields.phone.attributes}" encoding="off"/>
                    autocomplete="tel">
             <label class="form-control-label field-label-wrapper" for="shippingPhoneNumber"><isprint value="${addressFields.phone.label}" encoding="htmlcontent" /></label>
