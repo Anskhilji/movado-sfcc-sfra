@@ -9,6 +9,7 @@
                         <div class="coupon-applied">${Resource.msg('msg.coupon.applied','cart',null)}</div>
                     <iselse/>
                         <div class="coupon-not-applied">${Resource.msg('msg.coupon.not.applied','cart',null)}</div>
+                    </isif>
                 </isif>
                 <div class="coupon-code"><p class="m-0">${discount.couponCode}</p>
                     <button type="button" class="float-right remove-coupon clear-icon-btn"
