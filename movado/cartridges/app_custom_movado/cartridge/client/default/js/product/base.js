@@ -1670,11 +1670,13 @@ module.exports = {
                 if (!$(this).data('pdp-product-set')) {
                     var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
                     var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
+                    var clydeWidgetDisplayPDP = Resources.CLYDE_WIDGET_DISPLAY_PDP_ENABLED;
+
                     if (clydeWidgets && clydeWidgetsDisplay) {
                         var selectedContract = Clyde.getSelectedContract();
                         var clydeSettings = Clyde.getSettings();
                         if (clydeSettings) {
-                            if (clydeSettings.productPage == true) {
+                            if (clydeWidgetDisplayPDP == true) {
                                 if (selectedContract) {
                                     clydeAddProductToCart();
                                 } else {
@@ -1686,7 +1688,9 @@ module.exports = {
                                         clydeAddProductToCart();
                                     }
                                 }
-                            }  else {
+                            }  else if (clydeSettings.modal == true) {
+                                Clyde.showModal(null, clydeAddProductToCart);
+                            } else {
                                 clydeAddProductToCart();
                             }
                         } else {

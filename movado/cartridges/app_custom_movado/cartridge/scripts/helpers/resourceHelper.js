@@ -93,7 +93,8 @@ function getResources(pageContext) {
         INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
         BUTTON_ADD_TO_CART: Resource.msg('button.addtocart', 'common', null),
         BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null),
-        CLYDE_WARRANTY: Constants.CLYDE_WARRANTY
+        CLYDE_WARRANTY: Constants.CLYDE_WARRANTY,
+        CLYDE_WIDGET_DISPLAY_PDP_ENABLED: Site.current.preferences.custom.clydeWidgetDisplayPDP ? true : false
     };
     return resources;
 }
