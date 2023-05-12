@@ -7,10 +7,20 @@
 
 </isif>
 <div class="line-item-header">
-    <div class="line-item-name">
-        <iscomment>Custom Start: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
-        <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}">${lineItem.productName}</a>
-        <iscomment>Custom End: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
+    <div class="line-items-name">
+        <isset name="plpCustomUrlEnabled" value="${!empty(dw.system.Site.current.preferences.custom.plpCustomUrl) ? dw.system.Site.current.preferences.custom.plpCustomUrl : false}" scope="page" />
+        <isif condition="${plpCustomUrlEnabled}">
+            <div class="line-item-brand-name">
+                <isif condition="${lineItem.brand}">
+                    <a href="${lineItem.plpCustomUrl}">${lineItem.brand}</a>
+                </isif>
+            </div>
+        </isif>
+        <div class="line-item-name">
+            <iscomment>Custom Start: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
+            <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}">${lineItem.productName}</a>
+            <iscomment>Custom End: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
+        </div>
     </div>
     <isif condition="${!lineItem.isBonusProductLineItem}"/>
         <div class="remove-line-item">
