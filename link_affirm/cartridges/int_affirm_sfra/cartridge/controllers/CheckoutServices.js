@@ -29,6 +29,7 @@ server.replace(
             return next();
         }
         var paymentForm = server.forms.getForm('billing');
+        var paymentFormShipping = server.forms.getForm('shipping');
         var billingFormErrors = {};
         var creditCardErrors = {};
         var viewData = {};
@@ -117,7 +118,7 @@ server.replace(
 
             viewData.phone = { value: shippingAddress.phone };
             viewData.email = {
-                value: paymentForm.email.value
+                value: paymentFormShipping.shippingAddress.addressFields.email.value
             };
 
             res.setViewData(viewData);

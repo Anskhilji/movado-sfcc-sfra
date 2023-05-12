@@ -32,40 +32,6 @@
         <isset name="creditFields" value="${pdict.forms.billingForm.creditCardFields}" scope="page" />
 
         <div class="row d-none">
-            <div class="col-sm-6 field-left">
-                <div class="form-group
-                <isif condition=${creditFields.email.mandatory === true}>required</isif>
-                ${creditFields.email.htmlName}">
-                    <label class="form-control-label" for="email">${Resource.msg('field.customer.email','checkout',null)}</label>
-                    <span class="info-icon">
-                        <span class="icon">i</span>
-                        <div class="tooltip">
-                            ${Resource.msg('tooltip.email','creditCard',null)}
-                        </div>
-                    </span>
-                    <input type="text" class="form-control email billing-email" id="email" value="${pdict.order.orderEmail}" autocomplete="off"
-                        ${creditFields.email.attributes}>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-sm-6 field-right">
-                <div class="form-group
-                <isif condition=${creditFields.phone.mandatory === true}>required</isif>
-                ${creditFields.phone.htmlName}">
-                    <label class="form-control-label" for="phoneNumber">${Resource.msg('field.customer.phone.number','checkout',null)}</label>
-                    <span class="info-icon">
-                        <span class="icon">i</span>
-                        <div class="tooltip">
-                            ${Resource.msg('tooltip.phone.number','creditCard',null)}
-                        </div>
-                    </span>
-                    <input type="tel" class="form-control phone billing-phone" id="phoneNumber" value="${pdict.order.billing.billingAddress.address
-                ? pdict.order.billing.billingAddress.address.phone||''
-                : ''}"
-                        ${creditFields.phone.attributes} autocomplete="off" >
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
             <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
                 <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
                 ${pdict.forms.billingForm.subscribetomovado.attributes}/>

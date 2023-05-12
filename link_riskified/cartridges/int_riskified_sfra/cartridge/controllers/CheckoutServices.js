@@ -51,6 +51,7 @@ server.replace(
     csrfProtection.validateAjaxRequest,
     function (req, res, next) {
         var paymentForm = server.forms.getForm('billing');
+        var paymentFormShipping = server.forms.getForm('shipping');
         var billingFormErrors = {};
         var creditCardErrors = {};
         var viewData = {};
@@ -119,18 +120,18 @@ server.replace(
                     htmlName: paymentForm.creditCardFields.expirationYear.htmlName
                 }
             };
-            
-            
 
             if (req.form.storedPaymentUUID) {
                 viewData.storedPaymentUUID = req.form.storedPaymentUUID;
             }
 
             viewData.email = {
-                value: paymentForm.creditCardFields.email.value
+                value: paymentFormShipping.shippingAddress.addressFields.email.value
             };
 
-            viewData.phone = { value: paymentForm.creditCardFields.phone.value };
+            viewData.phone = {
+                value: paymentFormShipping.shippingAddress.addressFields.phone.value
+            };
 
             viewData.saveCard = paymentForm.creditCardFields.saveCard.checked;
 
