@@ -1145,6 +1145,7 @@ function validateOptions($el) {
 }
 
 function clydeAddProductToCart() {
+    var $this = $('button.add-to-cart');
     var addToCartUrl;
     var pid;
     var pidsObj;
@@ -1197,10 +1198,9 @@ function clydeAddProductToCart() {
             giftPid = $('.gift-allowed-checkbox').val();
         }
     }
-
-    var $productContainer = $(this).closest('.product-detail');
+    var $productContainer = $this.closest('.product-detail');
     if (!$productContainer.length) {
-        $productContainer = $(this).closest('.quick-view-dialog').find('.product-detail');
+        $productContainer = $this.closest('.quick-view-dialog').find('.product-detail');
     }
 
     addToCartUrl = getAddToCartUrl();
