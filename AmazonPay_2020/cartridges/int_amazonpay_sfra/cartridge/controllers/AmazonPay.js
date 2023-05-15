@@ -1058,7 +1058,7 @@ server.post(
 
         var viewData = {};
         var paymentForm = server.forms.getForm('billing');
-        var paymentFormShipping = server.forms.getForm('shipping');
+        var shippingForm = server.forms.getForm('shipping');
         var currentBasket = BasketMgr.getCurrentBasket();
 
         // Handling Amazon Pay Checkout
@@ -1107,12 +1107,12 @@ server.post(
         } else {
             // Custom: Change contactInfoFields to creditCardFields
             viewData.email = {
-                value: paymentFormShipping.shippingAddress.addressFields.email.value
+                value: shippingForm.shippingAddress.addressFields.email.value
             };
 
             // Custom: Change contactInfoFields to creditCardFields
             viewData.phone = {
-                value: paymentFormShipping.shippingAddress.addressFields.phone.value
+                value: shippingForm.shippingAddress.addressFields.phone.value
             };
         }
 
