@@ -810,57 +810,7 @@
 
                 .coupons-and-promos {
                     width: 100%;
-
-                    .redeem-rewards-promos {
-                        padding: 0;
-                    }
-                    .swell-promotion-information {
-                        margin-bottom: rem(10);
-                        margin-top: rem(10);
-
-                            .promotion-price-adjustment {
-                                margin: rem(6);
-                                box-shadow: rem(0) rem(2) rem(2) rem(0) $light-black-shadow;
-                                border-radius: rem(3);
-                                border: rem(1) solid $grey3;
-                                background-color: $white;
-                                padding: rem(10);
-                                height: rem(55);
-
-                                .promotion-adjustment {
-                                    font-size: rem(16);
-                                    letter-spacing: rem(2);
-                                    text-transform: uppercase;
-                                    font-weight: 600;
-                                }
-                            }
-
-                            .applied-promotion-discount {
-                                font-family: $font-medium;
-                                font-size: rem(12);
-                                letter-spacing: rem(1);
-                                line-height: rem(14);
-                                text-transform: uppercase;
-                                position: relative;
-                                left: rem(14);
-                                top: rem(5);
-                            }
-
-                            .swell-remove-redeem-rewards {
-                                border: none;
-                                background: transparent;
-                                padding: 0;
-                                position: relative;
-                                bottom: rem(10);
-                                font-size: rem(23);
-                                color: $black;
-                                font-weight: 600;
-                            }
-                            .redeem-discount-promotion {
-                                position: relative;
-                                top: rem(15);
-                            }
-                    }
+                    
                     .coupon-price-adjustment {
                         margin: rem(6);
                     }
@@ -868,48 +818,6 @@
 
                 .promo-code-inner-div {
                     border-bottom: rem(1) solid $light-gray4;
-
-                    .swell-redemption {
-
-                        .swell-point-balance {
-                            padding: 0 rem(4);
-                        }
-
-                        &-text {
-
-                            &.content {
-                                margin-left: 0;
-                            }
-                        }
-
-                        .swell-redemption-text {
-                            padding: 0 0 rem(8) rem(16);     
-                        }
-
-                        &-dropdown {
-                            width: 100%;
-                            padding: rem(8.32) rem(12);
-                            border-radius: rem(4);
-                            border: rem(1) solid $light-gray4;
-                            padding: rem(9) rem(5);
-                            outline: 0;
-                        }
-
-                        &-btn {
-                            background-color: $black;
-                            border-radius: rem(4);
-                            font-weight: 600;
-                            font-size: rem(14);
-                            padding: rem(9) rem(5);
-                            box-shadow: none;
-
-                            &:hover, &:focus {
-                                background-color: $black;
-                                background-image: linear-gradient($black, $black);
-                                border-color: $black;
-                            }
-                        }
-                    }
 
                     .coupon-code-field {
                         line-height: 1;

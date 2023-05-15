@@ -1,17 +1,3 @@
-<div class="swell-redeem-rewards-promos">
-    <isif condition="${!empty(pdict.swellRedemption && pdict.swellRedemption.swellRedemptionID)}">
-        <div class="redeem-rewards-promos swell-promotion-information col-12">
-            <div class="promotion-price-adjustment swell-promotion-price-adjustment">
-                <div class="promotion-adjustment">${pdict.swellRedemption.swellRedemptionText}
-                    <button type="button" class="float-right swell-remove-redeem-rewards" aria-label="Close" data-redemption-id="${!empty(pdict.swellRedemption) ? pdict.swellRedemption.swellRedemptionID : ''}">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="coupon-applied">${Resource.msg('msg.coupon.applied','cart',null)}</div>
-            </div>
-        </div>
-    </isif>
-</div>
 <div class="coupons-and-promos-wrapper">
     <isloop items="${pdict.totals.discounts}" var="discount">
         <isif condition="${discount.type === 'coupon'}">
