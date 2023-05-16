@@ -317,7 +317,7 @@ server.post('ProcessPayments',
                 var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
                 // Riskified order declined response from decide API
                 riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
-                session.privacy.isGooglePayPayment = true;
+
                 if (!riskifiedOrderDeclined.error) {
                     res.json({
                         error: false,
