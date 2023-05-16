@@ -49,8 +49,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
 
-   var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-   var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
    var productType = showProductPageHelperResult.product.productType;
    var template =  showProductPageHelperResult.template;
 
@@ -60,6 +58,24 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+
+    var apiProduct = productMgr.getProduct(product.id);
+    var params = req.querystring;
+    if (!apiProduct.variant && apiProduct.master) {
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
+
+        if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
+            var pid = apiProduct.variationModel.defaultVariant.getID();
+            params.pid = pid;
+            apiProduct = productMgr.getProduct(pid);
+        }
+        var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
+
+        viewData.product = showProductPageHelperResult.product,
+        viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
+        viewData.resources = showProductPageHelperResult.resources,
+        viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
+    }
 
     if(product.individualProducts) {
         yotpoCustomHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);

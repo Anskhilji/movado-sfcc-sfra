@@ -124,7 +124,7 @@
                     ${Resource.msg('label.minicart.estimateddiscount', 'cart', null)}
                 </div>
                 <div class="orderdiscount-total">
-                    <span class="orderdiscount-value text-right grand-total cost">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</span>
+                    <span class="orderdiscount-value text-right cost">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</span>
                 </div>
             </div>
         </div>
