@@ -51,6 +51,14 @@ $(document).ready(function() { // eslint-disable-line
         }
     });
 
+    // Creates a new jQuery object representing a div element with the class "validation-icon"
+    var $validationIcon = $('<div class="validation-icon"></div>');
+    // Selects all elements with the class "invalid-feedback" that are descendants of elements with the class "mx-field-wrapper"
+    var $autoValidation = $('.mx-field-wrapper .invalid-feedback');
+
+    // Inserts the $validationIcon element after each $autoValidation element in the DOM
+    $autoValidation.after($validationIcon);
+    
     function checkForInput(element) {
         const $label = $(element).siblings('.field-label-wrapper');
         if ($(element).val().length > 0) {

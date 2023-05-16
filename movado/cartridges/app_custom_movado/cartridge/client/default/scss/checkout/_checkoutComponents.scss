@@ -889,8 +889,12 @@ $stored-payment-spacing: rem(16);
 
                         &.is-invalid,&.auto-is-invalid {
                             border: rem(2.4) solid $invalid-red !important;
-                            background: url("../../images/invalid.svg") center right no-repeat;
-                            background-position-x: 97%;
+                            @include red-tick-image;
+                            @include background-postion(33);
+                            
+                            @include media-breakpoint-down(sm) {
+                                @include background-postion(14);
+                            }
 
                           ~ .invalid-feedback {
                               display: block!important;
@@ -898,33 +902,12 @@ $stored-payment-spacing: rem(16);
                         }
       
                         &.is-valid,&.auto-is-valid {
-                            background: url("../../images/green_tick.svg") center right no-repeat;
-                            background-position-x: 97%;
-                        }
+                          @include green-tick-image;
+                          @include background-postion(33);
 
-                        &#holderName,
-                        &#cardNumber {
-
-                            &.form-control {
-
-                                &.is-invalid,&.auto-is-invalid,&.is-valid,&.auto-is-valid {
-                                    background-position-x: 98.4%;
-                                }
-                            }
-                        }
-
-                        &#expirationDate,
-                        &#securityCode {
-
-                            &.form-control {
-
-                                &.is-invalid,&.auto-is-invalid,&.auto-is-invalid,&.is-valid {
-
-                                    @include media-breakpoint-down(md) {
-                                        background-position-x: 98.4%;
-                                    }
-                                }
-                            }
+                          @include media-breakpoint-down(sm) {
+                              @include background-postion(14);
+                          }
                         }
                     }
 
@@ -1189,8 +1172,13 @@ $stored-payment-spacing: rem(16);
           }
 
           &.is-valid,&.auto-is-valid {
-            background: url("../../images/green_tick.svg") center right no-repeat;
-            background-position-x: 97%;
+            
+            @include green-tick-image;
+            @include background-postion(33);
+
+            @include media-breakpoint-down(sm) {
+                @include background-postion(14);
+            }
           }
         }
 

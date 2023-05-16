@@ -719,98 +719,26 @@ header {
         .form-control {
             &.is-invalid,&.auto-is-invalid {
                 border: rem(2.4) solid $invalid-red !important;
-                background: url("../../images/invalid.svg") center right no-repeat;
-                background-position-x: 97%;
 
                 ~ .invalid-feedback {
                     display: block !important;
                 }
-            }
-            &.input-invalid-icon {
-                &.is-invalid,&.auto-is-invalid {
-                    background-position-x: 93.5%;
+                
+                @include red-tick-image;
+                @include background-postion(33);
+                
+                @include media-breakpoint-down(sm) {
+                    @include background-postion(14);
                 }
             }
+
 
             &.is-valid,&.auto-is-valid {
-                background: url("../../images/green_tick.svg") center right no-repeat;
-                background-position-x: 97%;
-            }
+                @include green-tick-image;
+                @include background-postion(33);
 
-            &#shippingState,
-            &#shippingCountrydefault,
-            &#shippingCountry,
-            &#billingState,
-            &#billingCountry {
-                &.form-control {
-                    &.is-invalid,&.auto-is-invalid,&.is-valid, &.auto-is-valid {
-                        background-position-x: 90%;
-                    }
-                }
-            }
-
-            &#shippingZipCode,
-            &#shippingLastName,
-            &#shippingFirstName,
-            &#shippingAddressCity,
-            &#billingZipCode,
-            &#billingAddressCity,
-            &#billingFirstName,
-            &#billingLastName {
-                &.form-control {
-                    &.is-invalid,&.auto-is-invalid,&.is-valid,&.auto-is-valid{
-                        background-position-x: 93.5%;
-                    }
-                }
-            }
-            
-            &#shippingCountrydefault,
-            &#shippingState {
-
-                &.form-control {
-
-                    &.is-invalid,&.auto-is-invalid,&.is-valid,&.auto-is-valid {
-
-                        @include media-breakpoint-down(lg) {
-                            background-position-x: 85% !important;
-                        }
-
-                        @include media-breakpoint-down(sm) {
-                            background-position-x: 90% !important;
-                        }
-                    }
-                }
-            }
-
-            &#billingAddressOne,
-            &#billingAddressTwo {
-                &.form-control {
-                    &.is-valid,&.auto-is-valid,&.is-invalid,&.auto-is-invalid {
-                        @include media-breakpoint-down(xs) {
-                            background-position-x: 93.5%;
-                        }
-                    }
-                }
-            }
-
-            &#shippingFirstName,
-            &#shippingLastName,
-            &#email,
-            &#shippingCompanyName,
-            &#shippingAddressOne,
-            &#shippingAddressTwo,
-            &#shippingAddressCity,
-            &#shippingZipCode,
-            &#shippingPhoneNumber {
-
-                &.form-control {
-
-                    &.is-invalid,&.auto-is-invalid,&.is-valid,&.auto-is-valid {
-
-                        @include media-breakpoint-down(xs) {
-                            background-position-x: 97%;
-                        }
-                    }
+                @include media-breakpoint-down(sm) {
+                    @include background-postion(14);
                 }
             }
         }
