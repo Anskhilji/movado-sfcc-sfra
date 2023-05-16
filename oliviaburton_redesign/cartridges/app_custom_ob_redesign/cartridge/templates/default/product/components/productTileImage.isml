@@ -1,7 +1,23 @@
+        <div class="exclusive-badges exclusive-badge-search">
+            <isif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+                <isloop items="${product.badges.imageBadges}" var="imageBadge" status="loopStatus">
+                    <isif condition="${loopStatus.first}">
+                        <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                    <iselseif condition="${loopStatus.last}" />
+                        <div class="product-badge right"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                    </isif>
+                </isloop>
+            <iselseif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true)}"/>
+                <isloop items="${product.defaultVariantBadges.imageBadges}" var="imageBadge" status="loopStatus">
+                    <isif condition="${loopStatus.first}">
+                        <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                    <iselseif condition="${loopStatus.last}"/>
+                        <div class="product-badge right"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+                    </isif>
+                </isloop>
+            </isif>
+        </div>
 
-        <isloop items="${product.badges.imageBadges}" var="imageBadge">
-            <div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
-        </isloop>
         <isif condition="${pdict.display.redesignPDPCarousel}">
             <a href="${pdict.urls.product}">
                 <picture class="tile-picture tile-picture-primary">
@@ -10,7 +26,7 @@
                     <isif condition="${pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 320px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[0]) && !empty(pdict.apiProduct.images.tile512Xtile640[0].url) ? pdict.apiProduct.images.tile512Xtile640[0].url : ''}" /></isif>
                     <isif condition="${pdict.apiProduct.images.tile640[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640[0]) && !empty(pdict.apiProduct.images.tile640[0].url) ? pdict.apiProduct.images.tile640[0].url : ''}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                 </picture>
-        
+
                 <picture class="tile-picture tile-picture-hidden d-none">
                     <isif condition="${pdict.apiProduct.images.tile640Xtile764[2] || pdict.apiProduct.images.tile640Xtile764[0]}"><source media="(min-width: 992px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640Xtile764[2]) && !empty(pdict.apiProduct.images.tile640Xtile764[2].url) ? pdict.apiProduct.images.tile640Xtile764[2].url : pdict.apiProduct.images.tile640Xtile764[0].url}" /></isif>
                     <isif condition="${pdict.apiProduct.images.tile512Xtile640[2] || pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 544px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[2]) && !empty(pdict.apiProduct.images.tile512Xtile640[2].url) ? pdict.apiProduct.images.tile512Xtile640[2].url : pdict.apiProduct.images.tile512Xtile640[0].url}" /></isif>
@@ -19,19 +35,37 @@
                 </picture>
             </a>
         <iselse/>
-            <a href="${pdict.urls.product}">
-                <picture class="tile-picture tile-picture-primary">
-                    <isif condition="${pdict.apiProduct.images.tile640Xtile764[0]}"><source media="(min-width: 992px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640Xtile764[0]) && !empty(pdict.apiProduct.images.tile640Xtile764[0].url) ? pdict.apiProduct.images.tile640Xtile764[0].url : ''}" /></isif>
-                    <isif condition="${pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 544px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[0]) && !empty(pdict.apiProduct.images.tile512Xtile640[0].url) ? pdict.apiProduct.images.tile512Xtile640[0].url : ''}" /></isif>
-                    <isif condition="${pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 320px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[0]) && !empty(pdict.apiProduct.images.tile512Xtile640[0].url) ? pdict.apiProduct.images.tile512Xtile640[0].url : ''}" /></isif>
-                    <isif condition="${pdict.apiProduct.images.tile640[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640[0]) && !empty(pdict.apiProduct.images.tile640[0].url) ? pdict.apiProduct.images.tile640[0].url : ''}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-                </picture>
-        
-                <picture class="tile-picture tile-picture-hidden">
-                    <isif condition="${pdict.apiProduct.images.tile640Xtile764[2] || pdict.apiProduct.images.tile640Xtile764[0]}"><source media="(min-width: 992px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640Xtile764[2]) && !empty(pdict.apiProduct.images.tile640Xtile764[2].url) ? pdict.apiProduct.images.tile640Xtile764[2].url : pdict.apiProduct.images.tile640Xtile764[0].url}" /></isif>
-                    <isif condition="${pdict.apiProduct.images.tile512Xtile640[2] || pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 544px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[2]) && !empty(pdict.apiProduct.images.tile512Xtile640[2].url) ? pdict.apiProduct.images.tile512Xtile640[2].url : pdict.apiProduct.images.tile512Xtile640[0].url}" /></isif>
-                    <isif condition="${pdict.apiProduct.images.tile512Xtile640[2] || pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 320px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[2]) && !empty(pdict.apiProduct.images.tile512Xtile640[2].url) ? pdict.apiProduct.images.tile512Xtile640[2].url : pdict.apiProduct.images.tile512Xtile640[0].url}" /></isif>
-                    <isif condition="${pdict.apiProduct.images.tile640[2] || pdict.apiProduct.images.tile640[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640[2]) && !empty(pdict.apiProduct.images.tile640[2].url) ? pdict.apiProduct.images.tile640[2].url : pdict.apiProduct.images.tile640[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-                </picture>
-            </a>
+            <isif condition="${product && product.images && (product.productType != 'master' || !product.variationPdpURL)}" >
+                <a href="${pdict.urls.product}">
+                    <picture class="tile-picture tile-picture-primary">
+                        <isif condition="${pdict.apiProduct.images.tile640Xtile764[0]}"><source media="(min-width: 992px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640Xtile764[0]) && !empty(pdict.apiProduct.images.tile640Xtile764[0].url) ? pdict.apiProduct.images.tile640Xtile764[0].url : ''}" /></isif>
+                        <isif condition="${pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 544px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[0]) && !empty(pdict.apiProduct.images.tile512Xtile640[0].url) ? pdict.apiProduct.images.tile512Xtile640[0].url : ''}" /></isif>
+                        <isif condition="${pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 320px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[0]) && !empty(pdict.apiProduct.images.tile512Xtile640[0].url) ? pdict.apiProduct.images.tile512Xtile640[0].url : ''}" /></isif>
+                        <isif condition="${pdict.apiProduct.images.tile640[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640[0]) && !empty(pdict.apiProduct.images.tile640[0].url) ? pdict.apiProduct.images.tile640[0].url : ''}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    </picture>
+
+                    <picture class="tile-picture tile-picture-hidden">
+                        <isif condition="${pdict.apiProduct.images.tile640Xtile764[2] || pdict.apiProduct.images.tile640Xtile764[0]}"><source media="(min-width: 992px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640Xtile764[2]) && !empty(pdict.apiProduct.images.tile640Xtile764[2].url) ? pdict.apiProduct.images.tile640Xtile764[2].url : pdict.apiProduct.images.tile640Xtile764[0].url}" /></isif>
+                        <isif condition="${pdict.apiProduct.images.tile512Xtile640[2] || pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 544px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[2]) && !empty(pdict.apiProduct.images.tile512Xtile640[2].url) ? pdict.apiProduct.images.tile512Xtile640[2].url : pdict.apiProduct.images.tile512Xtile640[0].url}" /></isif>
+                        <isif condition="${pdict.apiProduct.images.tile512Xtile640[2] || pdict.apiProduct.images.tile512Xtile640[0]}"><source media="(min-width: 320px)" srcset="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile512Xtile640[2]) && !empty(pdict.apiProduct.images.tile512Xtile640[2].url) ? pdict.apiProduct.images.tile512Xtile640[2].url : pdict.apiProduct.images.tile512Xtile640[0].url}" /></isif>
+                        <isif condition="${pdict.apiProduct.images.tile640[2] || pdict.apiProduct.images.tile640[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile640[2]) && !empty(pdict.apiProduct.images.tile640[2].url) ? pdict.apiProduct.images.tile640[2].url : pdict.apiProduct.images.tile640[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    </picture>
+                </a>
+            <iselse/>
+                <a href="${product.variationPdpURL}">
+                    <picture class="tile-picture tile-picture-primary">
+                        <isif condition="${product.defaultVariantTile640X764}"><source media="(min-width: 992px)" srcset="${!empty(product) && !empty(product.defaultVariantTile640X764) ? product.defaultVariantTile640X764 : ''}" /></isif>
+                        <isif condition="${product.defaultVariantTile512X640}"><source media="(min-width: 544px)" srcset="${!empty(product) && !empty(product.defaultVariantTile512X640) ? product.defaultVariantTile512X640 : ''}" /></isif>
+                        <isif condition="${product.defaultVariantTile512X640}"><source media="(min-width: 320px)" srcset="${!empty(product) && !empty(product.defaultVariantTile512X640) ? product.defaultVariantTile512X640 : ''}" /></isif>
+                        <isif condition="${product.defaultVariantTile640}"><img class="tile-image gtm-product" src="${!empty(product) && !empty(product.defaultVariantTile640) ? product.defaultVariantTile640 : ''}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    </picture>
+
+                    <picture class="tile-picture tile-picture-hidden">
+                        <isif condition="${product.defaultVariantLifeStyleImage640X764 || product.defaultVariantTile640X764}"><source media="(min-width: 992px)" srcset="${!empty(product) && !empty(product.defaultVariantLifeStyleImage640X764) ? product.defaultVariantLifeStyleImage640X764 : product.defaultVariantTile640X764}" /></isif>
+                        <isif condition="${product.defaultVariantLifeStyleImage512X640 || product.defaultVariantTile512X640}"><source media="(min-width: 544px)" srcset="${!empty(product) && !empty(product.defaultVariantLifeStyleImage512X640) ? product.defaultVariantLifeStyleImage512X640 : product.defaultVariantTile512X640}" /></isif>
+                        <isif condition="${product.defaultVariantLifeStyleImage512X640 || product.defaultVariantTile512X640}"><source media="(min-width: 320px)" srcset="${!empty(product) && !empty(product.defaultVariantLifeStyleImage512X640) ? product.defaultVariantLifeStyleImage512X640 : product.defaultVariantTile512X640}" /></isif>
+                        <isif condition="${product.defaultVariantLifeStyleImage640 || product.defaultVariantTile640}"><img class="tile-image gtm-product" src="${!empty(product) && !empty(product.defaultVariantLifeStyleImage640) ? product.defaultVariantLifeStyleImage640  : product.defaultVariantTile640}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    </picture>
+                </a>
+            </isif>
         </isif>
