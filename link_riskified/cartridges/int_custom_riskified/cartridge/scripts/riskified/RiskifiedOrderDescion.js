@@ -86,10 +86,7 @@ function encodedUrl(order, data) {
     }
 
     var hashKeyEncoded = StringUtils.encodeBase64(hashKey);
-    var padAmount = 32 - (data.length % 32);
-    var padFill = StringUtils.pad('', padAmount).replace(/\s/g, '{');
-    var padData = data + padFill;
-    var dataEncrypted = new Cipher().encrypt(padData, hashKeyEncoded, 'AES/ECB/PKCS5Padding', '', 0);
+    var dataEncrypted = new Cipher().encrypt(data, hashKeyEncoded, 'AES/ECB/PKCS5Padding', '', 0);
     dataEncrypted = Encoding.toURI(dataEncrypted);
     return dataEncrypted;
 }
@@ -123,7 +120,7 @@ function orderDeclined(order, riskifiedOrderStatus) {
         var riskifiedShoppperRecoveryURL = Site.current.preferences.custom.riskifiedShoppperRecoveryURL;
         
         var riskApproved = URLUtils.https('Checkout-RiskApproved').toString();
-        var riskDeclined = URLUtils.https('Checkout-RiskDeclined').toString();
+        var riskDeclined = URLUtils.https('Checkout-Declined').toString();
         var successUrl = encodedUrl(order, riskApproved);
         var failureUrl = encodedUrl(order, riskDeclined);
         

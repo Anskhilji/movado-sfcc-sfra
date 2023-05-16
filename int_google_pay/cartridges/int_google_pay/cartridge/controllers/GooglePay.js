@@ -280,14 +280,6 @@ server.post('ProcessPayments',
             return new Status(Status.ERROR);
         }
 
-        // Listrack Integeration
-        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
-            var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
-            session.privacy.SendOrder = true;
-            session.privacy.OrderNumber = order.orderNo;
-            ltkSendOrder.SendPost();
-        }
-
         // Making API call for order create
         session.custom.delayRiskifiedStatus = true;
         var orderNumber = order.orderNo;
@@ -384,6 +376,14 @@ server.post('ProcessPayments',
         Transaction.wrap(function () {
             Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
         });
+
+        // Listrack Integeration
+        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+            var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
+            session.privacy.SendOrder = true;
+            session.privacy.OrderNumber = order.orderNo;
+            ltkSendOrder.SendPost();
+        }
 
 		/**~    
          * Custom Start: Clyde Integration
