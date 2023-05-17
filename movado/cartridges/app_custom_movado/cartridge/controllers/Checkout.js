@@ -205,7 +205,7 @@ server.get('ShoperRecovery', function (req, res, next) {
 server.get('RiskApproved', function (req, res, next) {
     var Resource = require('dw/web/Resource');
 
-    res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('shopper.recovery.success', 'checkout', null)));
+    res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentSuccess', Resource.msg('shopper.recovery.success', 'checkout', null)));
     next();
 });
 
