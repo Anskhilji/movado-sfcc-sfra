@@ -117,25 +117,24 @@ function priceConversionUSD(productPrice, order) {
         if (order.currencyCode == constant.USD_CURRENCY_CODE) {
             convertedItemPrice = productPrice;
         } else {
+
+            if (listrakCurrencyConversion) {
+                var listrakCurrencyConversionJson = JSON.parse(listrakCurrencyConversion);
+                var listrakCurrencyConversionCode = listrakCurrencyConversionJson[order.currencyCode];
+                convertedItemPrice = productPrice * listrakCurrencyConversionCode.conversions.conversionRate;
+                eswShopperCurrency = true;
+            }
+
             if (eswFxRatesJson) {
                 var eswFxRatesCode = JSON.parse(eswFxRatesJson);
-        
-                for (var i = 0; i < eswFxRatesCode.length; i++) {
-                    var shopperCurrencyCheck = eswFxRatesCode[i];
-        
-                    if (shopperCurrencyCheck.toShopperCurrencyIso == order.currencyCode) {
-                        eswShopperCurrency = true;
-                        convertedItemPrice = productPrice * shopperCurrencyCheck.rate;
+                if(!eswShopperCurrency) {
+                    for (var i = 0; i < eswFxRatesCode.length; i++) {
+                        var shopperCurrencyCheck = eswFxRatesCode[i];
+            
+                        if (shopperCurrencyCheck.toShopperCurrencyIso == order.currencyCode) {
+                            convertedItemPrice = productPrice * shopperCurrencyCheck.rate;
+                        }
                     }
-                }
-            }
-        
-            if (listrakCurrencyConversion) {
-        
-                if (!eswShopperCurrency) {
-                    var listrakCurrencyConversionJson = JSON.parse(listrakCurrencyConversion);
-                    var listrakCurrencyConversionCode = listrakCurrencyConversionJson[order.currencyCode];
-                    convertedItemPrice = productPrice * listrakCurrencyConversionCode.conversions.conversionRate;
                 }
             }
         }
