@@ -308,8 +308,3 @@ function autoCompleteFields() {
 };
 
 window.initAutocomplete();
-
-// module.exports = {
-//   fillInAddress: fillInAddress,
-//   fillInAddressBilling: fillInAddressBilling,
-// };
