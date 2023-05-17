@@ -133,7 +133,7 @@ $(document).ready(function() { // eslint-disable-line
                 var $currentYear = $cuurentDate.getFullYear().toString();
         
                 if (!$expdateRegex.test($creditCardDate[1]) || (($currentYear.substring(0,2) + $creditCardDate[1] <= $currentYear) && parseInt($creditCardDate[0]) < $currentMonth)){
-                    input.addClass('auto-is-valid is-valid').removeClass('auto-is-invalid is-invalid');
+                    input.addClass('auto-is-invalid is-invalid').removeClass('auto-is-valid is-valid');
                     input.siblings('invalid-feedback').addClass('d-none');
                 } else {
                     input.addClass('auto-is-valid is-valid').removeClass('auto-is-invalid is-invalid');
@@ -244,12 +244,18 @@ $(document).ready(function() { // eslint-disable-line
                 if ($isValid) {
                     input.addClass('auto-is-valid is-valid').removeClass('auto-is-invalid is-invalid');
                     input.parent().find('.invalid-feedback').addClass('d-none');
+
+                    if (input.hasClass('cardNumber')) {
+                        input.parent().addClass('card-number-mr');
+                    }
+
                 } else {
                     if (input.hasClass('optional-field')) {
                         input.addClass('auto-is-valid is-valid').removeClass('auto-is-valid is-valid');
                         return;
                     }
                     if (input.hasClass('cardNumber')) {
+                        input.parent().addClass('card-number-mr');
                         input.removeClass('auto-is-valid is-valid').addClass('auto-is-invalid is-invalid');
                         input.parent().find('.invalid-feedback').removeClass('d-none');
                         return;
@@ -266,6 +272,7 @@ $(document).ready(function() { // eslint-disable-line
                 }
     
                 if (input.hasClass('cardNumber')) {
+                    input.parent().addClass('card-number-mr');
                     input.removeClass('auto-is-valid is-valid').addClass('auto-is-invalid is-invalid');
                     input.parent().find('.invalid-feedback').removeClass('d-none');
                     return;

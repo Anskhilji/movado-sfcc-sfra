@@ -145,14 +145,19 @@ $base-font-size: 16px;
 @mixin background-postion($bgPosition-x){
     & ~ .validation-icon{
         right: rem($bgPosition-x);
-      
-        &.cardNumber, &.expirationDate{
+    }
+}
+
+@mixin card-icons{
+    &.cardNumber, &.expirationDate{
+        & ~ .validation-icon {
             right: rem(15);
         }
+    }
 
-        &.holderName, &.securityCode {
-              right: rem(24);
+    &.holderName, &.securityCode {
+        & ~ .validation-icon {
+            right: rem(24);
         }
-
     }
 }

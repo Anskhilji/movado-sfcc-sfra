@@ -895,6 +895,8 @@ $stored-payment-spacing: rem(16);
                             @include media-breakpoint-down(sm) {
                                 @include background-postion(14);
                             }
+                            
+                            @include card-icons;
 
                           ~ .invalid-feedback {
                               display: block!important;
@@ -908,6 +910,8 @@ $stored-payment-spacing: rem(16);
                           @include media-breakpoint-down(sm) {
                               @include background-postion(14);
                           }
+
+                          @include card-icons;
                         }
                     }
 
@@ -1179,6 +1183,8 @@ $stored-payment-spacing: rem(16);
             @include media-breakpoint-down(sm) {
                 @include background-postion(14);
             }
+
+            @include card-icons;
           }
         }
 

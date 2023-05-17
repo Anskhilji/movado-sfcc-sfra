@@ -469,6 +469,7 @@ require('./fedexAddressValidate');
                     $('.shipping-express-checkout').removeClass('d-none');
                   }
                   members.gotoStage('shipping');
+                  $('.creditcard-securitycode').removeClass('is-valid auto-is-valid');
               });
 
               $('.payment-summary .edit-button', plugin).on('click', function () {
