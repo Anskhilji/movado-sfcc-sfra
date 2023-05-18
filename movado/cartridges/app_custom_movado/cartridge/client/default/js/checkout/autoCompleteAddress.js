@@ -273,6 +273,13 @@ function fillInAddressBilling(){
       }
 
       case "country": {
+        var country = component.short_name;
+        if (country) {
+          $('.billingCountry').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
+        } else {
+            $('.billingCountry').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
+        }
+
         (document.querySelector("#billingCountry")).value =
           component.short_name;
         break;

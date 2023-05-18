@@ -115,7 +115,7 @@ $(document).ready(function() { // eslint-disable-line
             $phoneNumber = /^(^(?!(?=(000-000-0000|0000000000)))(\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$)/i;
         } else if ($country == Resources.CHECKOUT_COUNTRY_GB) {
             $zipCode = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/g;
-            phoneNumber = /^(^(\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*)$)/i;
+            $phoneNumber = /^(^(\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*)$)/i;
         } else if ($country == Resources.CHECKOUT_COUNTRY_CH) {
             $zipCode = /^(^[a-zA-Z0-9 ]+$)/i;
             $phoneNumber = /^(^[0-9\\s-]+$)/i;
@@ -210,6 +210,16 @@ $(document).ready(function() { // eslint-disable-line
             } else {
                 input.removeClass('auto-is-valid is-valid').addClass('auto-is-invalid is-invalid');
                 input.siblings('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_STATE_REQUIRED);
+            }
+        }
+
+        if (input.hasClass('billingCountry')) {
+            if ($fieldValue) {
+                input.addClass('auto-is-valid is-valid').removeClass('auto-is-invalid is-invalid');
+                input.siblings('.invalid-feedback').addClass('d-none').text('');
+            } else {
+                input.removeClass('auto-is-valid is-valid').addClass('auto-is-invalid is-invalid');
+                input.siblings('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_COUNTRY_REQUIRED);
             }
         }
 

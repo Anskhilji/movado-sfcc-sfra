@@ -95,6 +95,7 @@ function getResources(pageContext) {
         CHECKOUT_PHONE_NUMBER_REQUIRED: Resource.msg('error.message.parse.phone.required', 'forms', null),
         CHECKOUT_STATE_VALIDATION: Resource.msg('invalid.state.error', 'forms', null),
         CHECKOUT_STATE_REQUIRED: Resource.msg('error.message.parse.states', 'forms', null),
+        CHECKOUT_COUNTRY_REQUIRED: Resource.msg('error.message.parse.country', 'forms', null),
         CHECKOUT_ADDRESS_1_VALIDATION: Resource.msg('error.message.parse.address1PObox', 'forms', null),
         CHECKOUT_ADDRESS_1_REQUIRED: Resource.msg('error.message.parse.address1', 'forms', null),
         CHECKOUT_ADDRESS_2_VALIDATION: Resource.msg('error.message.parse.address2PObox', 'forms', null),
