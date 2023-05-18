@@ -282,7 +282,7 @@ var SalesforceModel = ({
     getOrders: function (dateFrom, dateTo) {
         var setAccessToken = SalesforceServicesUtils.getAccessToken();
         if (Object.hasOwnProperty.call(setAccessToken, 'token')) {
-            var query = "SELECT OrderNumber FROM OrderSummary WHERE OrderedDate>= '"+dateFrom+"' AND OrderedDate <= '"+dateTo+"' Order By CreatedDate DESC";
+            var query = "SELECT OrderNumber FROM OrderSummary WHERE OrderedDate >= "+dateFrom+" AND OrderedDate <= "+dateTo+" Order By CreatedDate DESC";
             query = encodeURIComponent(query);
             var URL = SalesforceFactory.ENDPOINTS.QUERYURL.replace('{query}', query);
             var requestContainer = {
@@ -292,7 +292,7 @@ var SalesforceModel = ({
             var requestDataContainer = SalesforceFactory.buildCreateSalesforceRestRequestContainer(requestContainer);
             var apiResponse = SalesforceRestService.call(requestDataContainer);
         }
-        return null;
+        return apiResponse;
     }
 });
 

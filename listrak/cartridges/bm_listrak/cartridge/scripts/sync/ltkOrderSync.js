@@ -20,8 +20,6 @@ var ErrorHandling = require('~/cartridge/scripts/util/ltkErrorHandling.js');
 importScript('sync/ltkExportUtils.js');
 importScript('objects/ltkOrder.js');
 
-var SalefroceOrdeModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-
 var ExportUtil = require('~/cartridge/scripts/sync/ltkExportUtils');
 
 /**
@@ -39,28 +37,52 @@ function orderSync(args) {
     var calendar = new Calendar();
     var currentExportStartTime = calendar.getTime().toISOString();
 
-    
+
     // Load the date of the last successful export - If no date is found go back 5 yrs
     var lastExport = new ltkExportInfo('lastOrderExportDate');
     var lastExportDate = lastExport.GetValueAsDate();
-    
+
     calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - 30); // 30 days before the current date
     var maxHistoryDate = calendar.getTime();
-    
+
     if (empty(lastExportDate) || maxHistoryDate > lastExportDate) {
         lastExportDate = maxHistoryDate;
     }
-    
-    
+
+    lastExportDate = lastExportDate.toISOString();
+
+
     // Get the orders ready for export
     var products = [];
-    
-    SalefroceOrdeModel.getOrders('2023-01-15T00:00:00Z', '2023-05-15T00:00:00Z');
-
     // var products : List = new dw.util.List(Product);
-    var orders = dw.order.OrderMgr.queryOrders('lastModified >= {1}', 'orderNo', false, lastExportDate);
 
-    if (orders.hasNext()) {
+    var salesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+    var soMorders = salesforceModel.getOrders(lastExportDate, currentExportStartTime);
+
+
+    var ordersArray = [];
+    var orderQuery = '';
+
+    if (!empty(soMorders) && soMorders.status == 'OK') {
+        if (!empty(soMorders) && !empty(soMorders.object) && !empty(soMorders.object.records)) {
+            var orderNumbers = soMorders.object.records.forEach(function (items, index) {
+                ordersArray.push(items.OrderNumber);
+                if (orderQuery === '') {
+                    orderQuery += 'orderNo = {' + index + '}'
+                } else {
+                    orderQuery += ' OR orderNo = {' + index + '}'
+                }
+            })
+        }
+    }
+
+    try {
+        var orders = dw.order.OrderMgr.searchOrders(orderQuery, 'orderNo DESC', ordersArray);
+    } catch (error) {
+        Logger.error('Error Occured While Getting the Orders From OMS: {0}, Error: {1}', orders, error);
+    }
+
+    if (!empty(orders) && orders.hasNext()) {
         // //////// Prepare order files //////////
         var orderfile = new ExportFile('orders_DW.txt');
         var itemfile = new ExportFile('orderItems_DW.txt');
