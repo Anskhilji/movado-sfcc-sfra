@@ -7,7 +7,7 @@
         assets.addJs('/js/productDetail.js');
     </isscript>
     <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
-        <isset name="plpTileSlotPosition" value="${!empty(sitePref.plpTileSlotPosition) ? JSON.parse(sitePref.plpTileSlotPosition) : false}" scope="page" />
+    <isset name="plpTileSlotPosition" value="${!empty(sitePref.plpTileSlotPosition) ? JSON.parse(sitePref.plpTileSlotPosition) : false}" scope="page" />
     <isif condition=${false}>
         <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
     </isif>

@@ -495,7 +495,6 @@ module.exports = {
                 } else {
                     loadMoreInProcessing = false;
                 }
-    
             });
         }
     },

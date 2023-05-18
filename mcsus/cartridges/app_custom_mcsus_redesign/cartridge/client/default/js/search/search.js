@@ -1,6 +1,5 @@
 'use strict';
 
-
 var desktopInfiniteScrollSize = $('.product-grid').data('desktop-infinite-sroll');
 var isLoadOnScroll = false;
 var initiallyLoadedProducts = $('.product-grid').data('initial-products');
