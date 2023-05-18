@@ -37,7 +37,6 @@ function orderSync(args) {
     var calendar = new Calendar();
     var currentExportStartTime = calendar.getTime().toISOString();
 
-
     // Load the date of the last successful export - If no date is found go back 5 yrs
     var lastExport = new ltkExportInfo('lastOrderExportDate');
     var lastExportDate = lastExport.GetValueAsDate();
@@ -51,21 +50,19 @@ function orderSync(args) {
 
     lastExportDate = lastExportDate.toISOString();
 
-
     // Get the orders ready for export
     var products = [];
     // var products : List = new dw.util.List(Product);
 
     var salesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-    var soMorders = salesforceModel.getOrders(lastExportDate, currentExportStartTime);
-
-
+    var somOrders = salesforceModel.getOrders(lastExportDate, currentExportStartTime);
     var ordersArray = [];
     var orderQuery = '';
+    var orders = null;
 
-    if (!empty(soMorders) && soMorders.status == 'OK') {
-        if (!empty(soMorders) && !empty(soMorders.object) && !empty(soMorders.object.records)) {
-            var orderNumbers = soMorders.object.records.forEach(function (items, index) {
+    if (!empty(somOrders) && somOrders.status == 'OK') {
+        if (!empty(somOrders) && !empty(somOrders.object) && !empty(somOrders.object.records)) {
+            var orderNumbers = somOrders.object.records.forEach(function (items, index) {
                 ordersArray.push(items.OrderNumber);
                 if (orderQuery === '') {
                     orderQuery += 'orderNo = {' + index + '}'
@@ -77,7 +74,7 @@ function orderSync(args) {
     }
 
     try {
-        var orders = dw.order.OrderMgr.searchOrders(orderQuery, 'orderNo DESC', ordersArray);
+        orders = dw.order.OrderMgr.searchOrders(orderQuery, 'orderNo DESC', ordersArray);
     } catch (error) {
         Logger.error('Error Occured While Getting the Orders From OMS: {0}, Error: {1}', orders, error);
     }
