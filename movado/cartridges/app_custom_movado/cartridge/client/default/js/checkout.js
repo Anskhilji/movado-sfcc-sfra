@@ -197,7 +197,7 @@ $(document).ready(function() { // eslint-disable-line
             billingAddressCity: Resources.CHECKOUT_CITY_NAME_REQUIRED,
             shippingZipCode: Resources.CHECKOUT_ZIP_CODE_REQUIRED,
             billingZipCode: Resources.CHECKOUT_ZIP_CODE_REQUIRED,
-            shippingPhoneNumber: Resources.CHECKOUT_REQUIRED
+            shippingPhoneNumber: Resources.CHECKOUT_REQUIRED,
         }
     
         var $fieldValue = input.val();
@@ -206,10 +206,10 @@ $(document).ready(function() { // eslint-disable-line
         if (input.hasClass('states')) {
             if ($fieldValue) {
                 input.addClass('auto-is-valid is-valid').removeClass('auto-is-invalid is-invalid');
-                input.siblings('invalid-feedback').addClass('d-none').text('');
+                input.siblings('.invalid-feedback').addClass('d-none').text('');
             } else {
                 input.removeClass('auto-is-valid is-valid').addClass('auto-is-invalid is-invalid');
-                input.siblings('invalid-feedback').removeClass('d-none').text('');
+                input.siblings('.invalid-feedback').removeClass('d-none').text(Resources.CHECKOUT_STATE_REQUIRED);
             }
         }
 
@@ -219,7 +219,7 @@ $(document).ready(function() { // eslint-disable-line
             if ($fieldValue) {
                 if ($fieldValue.length >= 3) {
                     input.addClass('auto-is-valid is-valid').removeClass('auto-is-invalid is-invalid');
-                    input.siblings('invalid-feedback').addClass('d-none');
+                    input.siblings('.invalid-feedback').addClass('d-none');
                 } else {
                     input.removeClass('auto-is-valid is-valid').addClass('auto-is-invalid is-invalid');
                     input.parent().find('.invalid-feedback').removeClass('d-none');

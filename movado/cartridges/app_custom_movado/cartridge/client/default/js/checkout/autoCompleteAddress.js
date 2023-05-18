@@ -252,7 +252,7 @@ function fillInAddressBilling(){
         if ($shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_US || $shippingCountrydefault.value == Resources.CHECKOUT_COUNTRY_CH) {
           if (billingState !== null) {
             billingState.value = component.short_name;
-            $('.billingState').removeClass('auto-is-invalid ').addClass('auto-is-valid');
+            $('.billingState').removeClass('auto-is-invalid is-invalid').addClass('auto-is-valid');
           } else {
             $('.billingState').removeClass('auto-is-valid is-valid').addClass('auto-is-invalid');
           }
