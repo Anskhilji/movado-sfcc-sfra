@@ -5,11 +5,12 @@
 		assets.addJs('/js/search.js');
 		assets.addCss('/css/search.css');
 	</isscript>
+	<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
     <isset name="plpTileSlotPosition" value="${!empty(dw.system.Site.current.preferences.custom.plpTileSlotPosition) ? JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition) : false}" scope="page" />
 	<isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
 		<isinclude template="reporting/reportingUrls" />
 	</isif>
-	<div class="container-fluid filter-container search-results plp-tiles-wrapper search-results-plp-redesign">
+	<div class="container-fluid filter-container search-results plp-tiles-wrapper search-results-plp-redesign" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
 		<iscomment>changes the placement of breadcrumbs to top from content slot banner.</iscomment>
 		<isinclude template="components/breadcrumbs/pageBreadcrumbs" />
 		
@@ -120,7 +121,7 @@
 							</div>
 
 							<!--- Product Grid --->
-							<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
+							<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product" data-initial-products="${sitePref.pageSize}" data-desktop-infinite-sroll="${sitePref.desktopInfiniteScrollSize}" data-mobile-infinite-scroll="${sitePref.mobileInfiniteScrollSize}">
 								<isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
                                     <isif condition="${plpTileSlotPosition}">
                                         <isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
@@ -153,18 +154,15 @@
                                             </isif>
                                         </isloop>
                                     </isif>						
-									<isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
-									<iselse>
-										<div class="col-6 col-md-4 col-lg-3 col-container-inner" data-gtm-refinements='${product.productSearchHit.productID}'>
-											<isobject object="${product.productSearchHit}" view="searchhit">											
-												<isif condition="${pdict.productSearch.category}">
-													<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name,'isRedesigned', true)}" />
-												<iselse>
-													<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count,'isRedesigned', true)}" />
-												</isif>
-											</isobject>
-										</div>
-									</isif>
+									<div class="col-6 col-md-4 col-lg-3 col-container-inner" data-gtm-refinements='${product.productSearchHit.productID}'>
+										<isobject object="${product.productSearchHit}" view="searchhit">											
+											<isif condition="${pdict.productSearch.category}">
+												<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name,'isRedesigned', true)}" />
+											<iselse>
+												<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count,'isRedesigned', true)}" />
+											</isif>
+										</isobject>
+									</div>
 								</isloop>
 								<isif condition="${pdict.productSearch.enablePagination}">
 									<isinclude template="search/pagination" />

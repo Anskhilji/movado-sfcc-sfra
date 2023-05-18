@@ -1,6 +1,19 @@
 'use strict';
 
+
+var desktopInfiniteScrollSize = $('.product-grid').data('desktop-infinite-sroll');
+var isLoadOnScroll = false;
+var initiallyLoadedProducts = $('.product-grid').data('initial-products');
+var isInfiniteScrollEnabled = $('.search-results-plp-redesign').data('infinte-scroll-enabled');
+var isPaginationEnabled = $('.search-results-plp-redesign').data('enable-pagination');
+var loadMoreIndex = parseInt(initiallyLoadedProducts / 2) - 1;
+var loadMoreInProcessing = false;
+var mobileInfiniteScrollSize = $('.product-grid').data('mobile-infinite-scroll');
+var mediumWidth = 992;
 var swatches = require('movado/utilities/swatches');
+var totalProductCount = $('.total-product-count').data('total-product-count');
+var windowWidth = $(window).width();
+
 /**
  * Update DOM elements with Ajax results
  *
@@ -535,6 +548,97 @@ module.exports = {
         });
     },
 
+    loadMoreProductsOnScroll: function () {
+        if ($('.search-results-plp-redesign').length == 0){
+            return;
+        }
+        
+        // Load more products on scroll
+        if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+    
+            $(window).scroll(function (e) {
+
+                if (!loadMoreInProcessing) {
+                    loadMoreInProcessing = true;
+                } else {
+                    return;
+                }
+    
+                if (totalProductCount == $('.searech-results-wrapper .product-tile').length) {
+                    return;
+                }
+    
+                var productTileHeigth = $('.searech-results-wrapper .product-tile').outerHeight();
+                var scrollPostion = $(window).scrollTop() + productTileHeigth;
+                var nextLoadMorePosition = $('.searech-results-wrapper .product-tile').eq(loadMoreIndex).offset().top;
+                var initialScroll = (($('.searech-results-wrapper .product-tile').length % initiallyLoadedProducts) == 0);
+
+                if (windowWidth < mediumWidth) {
+                    if (($('.searech-results-wrapper .product-tile').length % (mobileInfiniteScrollSize * initiallyLoadedProducts)) != 0) {
+                        isLoadOnScroll = true;
+                    } else {
+                        isLoadOnScroll = false;
+                    }
+                } else {
+                    if (($('.searech-results-wrapper .product-tile').length % (desktopInfiniteScrollSize * initiallyLoadedProducts)) != 0) {
+                        isLoadOnScroll = true;
+                    } else {
+                        isLoadOnScroll = false;
+                    }
+                }
+
+                if (windowWidth < mediumWidth) {
+                    if (($('.searech-results-wrapper .product-tile').length % (mobileInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                        $('.grid-footer').removeClass('d-none');
+                    }
+                } else {
+                    if (($('.searech-results-wrapper .product-tile').length % (desktopInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                        $('.grid-footer').removeClass('d-none');
+                    }
+                }
+    
+                if ((scrollPostion >= nextLoadMorePosition) && loadMoreInProcessing && isLoadOnScroll && initialScroll) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var showMoreUrl = $('.plp-show-more button').data('url');
+                    $.spinner().start();
+                    $(this).trigger('search:loadMoreProductsOnScroll', e);
+                    $.ajax({
+                        url: showMoreUrl,
+                        data: { selectedUrl: showMoreUrl },
+                        method: 'GET',
+                        success: function (response) {
+                            loadMoreIndex += parseInt(initiallyLoadedProducts / 2);
+                            var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                            $('body').trigger('facet:success', [gtmFacetArray]);
+                            $('.grid-footer').replaceWith(response);
+                            updateSortOptions(response);
+                            updatePageURLForShowMore(showMoreUrl);
+                            loadMoreInProcessing = false;
+
+                            if (windowWidth < mediumWidth) {
+                                if (($('.searech-results-wrapper .product-tile').length % (mobileInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                                    $('.grid-footer').removeClass('d-none');
+                                }
+                            } else {
+                                if (($('.searech-results-wrapper .product-tile').length % (desktopInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                                    $('.grid-footer').removeClass('d-none');
+                                }
+                            }
+                            
+                            $.spinner().stop();
+                        },
+                        error: function () {
+                            $.spinner().stop();
+                        }
+                    });
+                } else {
+                    loadMoreInProcessing = false;
+                }
+            });
+        }
+    },
+
     showMore: function () {
         // Show more products
         $('.filter-container').on('click', '.plp-show-more button, .show-more button', function (e) {
@@ -582,6 +686,9 @@ module.exports = {
                     setTimeout(() => {
                         $('.product-tile-plp-container').removeClass('disable-hover');
                     }, 200);
+                    if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+                        loadMoreIndex = $('.searech-results-wrapper .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+                    }
                 },
                 error: function () {
                     $.spinner().stop();
@@ -804,6 +911,9 @@ module.exports = {
                                 }
 
                                 checkResultCount();
+                                if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+                                    loadMoreIndex = $('.searech-results-wrapper .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+                                }
                             },
                             error: function () {
                                 $.spinner().stop();

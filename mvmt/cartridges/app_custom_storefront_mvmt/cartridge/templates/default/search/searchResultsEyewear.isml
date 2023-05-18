@@ -94,7 +94,7 @@
 
                         <!--- Product Grid --->
                         <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product"
-                            data-initial-products="${sitePref.eyewearPageSize}">
+                            data-initial-products="${sitePref.eyewearPageSize}" data-desktop-infinite-sroll="${sitePref.desktopInfiniteScrollSize}" data-mobile-infinite-scroll="${sitePref.mobileInfiniteScrollSize}">
                             <isloop items="${pdict.productSearch.productIds}" var="product" status="prodStatus">
                                 <isif condition="${plpTileSlotPosition}">
                                     <isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
