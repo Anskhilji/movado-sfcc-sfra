@@ -118,8 +118,6 @@ $base-font-size: 16px;
   box-shadow:$horizantal $vertical $blur $spread $color;
 }
 
-
-
 // Targets the sibling element with the class "validation-icon" that appears after the element using this mixin
 @mixin green-tick-image{
     & ~ .validation-icon{

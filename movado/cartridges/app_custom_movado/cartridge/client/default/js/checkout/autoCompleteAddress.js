@@ -13,13 +13,9 @@ window.initAutocomplete = function() {
     address1Field = document.querySelector("#shippingAddressOne");
     address2Field = document.querySelector("#shippingAddressTwo");
     postalField = document.querySelector("#shippingZipCode");
-
-
     address1FieldBilling = document.querySelector("#billingAddressOne");
     address2FieldBilling = document.querySelector("#billingAddressTwo");
     postalFieldBilling = document.querySelector("#billingZipCode");
-
-
 
   if (typeof google != 'undefined') {
     // Create the autocomplete object, restricting the search predictions to Shipping Form
