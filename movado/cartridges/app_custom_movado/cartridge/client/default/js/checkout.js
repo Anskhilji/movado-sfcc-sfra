@@ -12,7 +12,8 @@ $(document).ready(function() { // eslint-disable-line
         $('.error-message-text').text(decodeURIComponent(error[1]));
     }
     if (successMessage) {
-        $('.success-message').show();
+        $('.success-message').removeClass('d-none');
+        $('.success-message').addClass('d-block');
         $('.success-message-text').text(decodeURIComponent(successMessage[1]));
     }
     processInclude(require('./checkout/billing'));
