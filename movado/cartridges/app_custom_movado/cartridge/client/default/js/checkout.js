@@ -197,7 +197,7 @@ $(document).ready(function() { // eslint-disable-line
             billingAddressCity: Resources.CHECKOUT_CITY_NAME_REQUIRED,
             shippingZipCode: Resources.CHECKOUT_ZIP_CODE_REQUIRED,
             billingZipCode: Resources.CHECKOUT_ZIP_CODE_REQUIRED,
-            shippingPhoneNumber: Resources.CHECKOUT_REQUIRED,
+            shippingPhoneNumber: Resources.CHECKOUT_PHONE_NUMBER_REQUIRED,
         }
     
         var $fieldValue = input.val();
