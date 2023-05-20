@@ -121,8 +121,11 @@ function priceConversionUSD(productPrice, order) {
             if (listrakCurrencyConversion) {
                 var listrakCurrencyConversionJson = JSON.parse(listrakCurrencyConversion);
                 var listrakCurrencyConversionCode = listrakCurrencyConversionJson[order.currencyCode];
-                convertedItemPrice = productPrice * listrakCurrencyConversionCode.conversions.conversionRate;
-                eswShopperCurrency = true;
+                
+                if (!empty(listrakCurrencyConversionCode)) {
+                    convertedItemPrice = productPrice * listrakCurrencyConversionCode.conversions.conversionRate;
+                    eswShopperCurrency = true;
+                }
             }
 
             if (eswFxRatesJson) {
