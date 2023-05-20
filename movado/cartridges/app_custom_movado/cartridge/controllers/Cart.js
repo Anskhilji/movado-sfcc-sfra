@@ -477,6 +477,12 @@ server.append(
             });
         }
 
+        if (!empty(req.querystring.cartOptionalProductError)) {
+            res.setViewData({ 
+                cartOptionalProductError: req.querystring.cartOptionalProductError
+            });
+        }
+
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
         var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
