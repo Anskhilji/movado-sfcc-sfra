@@ -6,8 +6,6 @@ var postalField;
 var address1FieldBilling;
 var address2FieldBilling;
 var postalFieldBilling;
-var postalFieldValue = document.querySelector("#shippingZipCode").value = '';
-var postalFieldBillingValue = document.querySelector("#billingZipCode").value = '';
 
 window.initAutocomplete = function() {
     address1Field = document.querySelector("#shippingAddressOne");
