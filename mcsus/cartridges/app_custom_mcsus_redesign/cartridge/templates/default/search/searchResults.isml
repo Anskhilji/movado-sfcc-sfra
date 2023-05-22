@@ -6,6 +6,9 @@
 		assets.addCss('/css/search.css');
 	</isscript>
     <isset name="plpTileSlotPosition" value="${!empty(dw.system.Site.current.preferences.custom.plpTileSlotPosition) ? JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition) : false}" scope="page" />
+	<div class="dropdown-best-Seller">
+	    <isslot id="cs_navigation_best_seller" context="category" description="Best seller products" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+	</div>
 	<isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
 		<isinclude template="reporting/reportingUrls" />
 	</isif>

@@ -11,6 +11,9 @@
     <isif condition=${false}>
         <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
     </isif>
+    <div class="dropdown-best-Seller">
+        <isslot id="cs_navigation_best_seller" context="category" description="Best seller products" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
