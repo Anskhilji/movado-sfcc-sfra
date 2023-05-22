@@ -94,16 +94,18 @@ require('./fedexAddressValidate');
                     if (window.Resources.PICKUP_FROM_STORE) {
                         var form = $('form[name=dwfrm_billing]');
                         if (!form) return;
-                
-                        $('input[name$=_firstName]', form).val('');
-                        $('input[name$=_lastName]', form).val('');
-                        $('input[name$=_companyName]', form).val('');
-                        $('input[name$=_address1]', form).val('');
-                        $('input[name$=_address2]', form).val('');
-                        $('input[name$=_city]', form).val('');
-                        $('input[name$=_postalCode]', form).val('');
-                        $('select[name$=_stateCode],input[name$=_stateCode]', form).val('');
-                        $('select[name$=_country]', form).val('');
+
+                        $('input[name$=_firstName]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_lastName]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_companyName]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_address1]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_address2]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_city]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_postalCode]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('select[name$=_stateCode],input[name$=_stateCode]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('select[name$=_country]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('select[name$=_country]', form).closest('field-label-wrapper').removeClass('input-has-value');
+                        $('select[name$=_stateCode],input[name$=_stateCode]', form).closest('field-label-wrapper').removeClass('input-has-value');
                     }
                 }
             }

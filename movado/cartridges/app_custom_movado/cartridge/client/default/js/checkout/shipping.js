@@ -804,18 +804,22 @@ function checkoutFieldValidationIcon() {
         if ($(this)[0].id == 'billingCountry') {
             var selectedOption = $(this).siblings('.field-label-wrapper');
             $(this).removeClass('is-valid');
-            if (selectedOption.hasClass('input-has-value')) {
-                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
-                $(this).addClass('is-valid');
-                $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+            if (!Resources.PICKUP_FROM_STORE) {
+                if (selectedOption.hasClass('input-has-value')) {
+                    $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                    $(this).addClass('is-valid');
+                    $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+                }
             }
         } else if ($(this)[0].id == 'billingState') {
             var selectedOption = $(this).siblings('.field-label-wrapper');
             $(this).removeClass('is-valid');
-            if (selectedOption.hasClass('input-has-value')) {
-                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
-                $(this).addClass('is-valid');
-                $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+            if (!Resources.PICKUP_FROM_STORE) {
+                if (selectedOption.hasClass('input-has-value')) {
+                    $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                    $(this).addClass('is-valid');
+                    $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+                }
             }
         } else if (!$(this).hasClass('is-invalid') && $(this).val().length > 0) {
             $(this).addClass('is-valid');
