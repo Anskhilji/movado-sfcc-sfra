@@ -6,7 +6,7 @@ module.exports = function (req, res, next) {
     var URLUtils = require('dw/web/URLUtils');
 
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
-    var countryCodeArray = !empty(Site.current.preferences.custom.optionalProductsCountry) ? JSON.parse(Site.current.preferences.custom.optionalProductsCountry) : '';
+    var optionalProductsCountry = !empty(Site.current.preferences.custom.optionalProductsCountry) ? JSON.parse(Site.current.preferences.custom.optionalProductsCountry) : '';
     var error = false;
     var optionID;
     var message;
@@ -14,20 +14,21 @@ module.exports = function (req, res, next) {
     var productLineItems = currentBasket.allProductLineItems.iterator();
     while (productLineItems.hasNext()) {
         var lineItem = productLineItems.next();
-        var countryCode = orderCustomHelper.getCountryCode(req);
+        var currentCountry = orderCustomHelper.getCountryCode(req);
         if (lineItem.optionID) {
-            for (var i = 0; i <= countryCodeArray.length; i++) {
-                if (countryCodeArray[i].countryCode == countryCode && countryCodeArray[i].option.indexOf(lineItem.optionID) == -1) {
-                    error = true;
-                    message = countryCodeArray[i].error;
-                    break;
-                }
+
+            var selectedCountry = optionalProductsCountry.filter(function (countryList) {
+                return countryList.countryCode == currentCountry;
+            });
+            if ((!empty(selectedCountry) && selectedCountry[0].option.indexOf(lineItem.optionID) == -1) || empty(selectedCountry)) {
+                error = true;
+                break;
             }
         }
     }
 
     if (error) {
-        res.redirect(URLUtils.url('Cart-Show', 'cartOptionalProductError', message).toString());
+        res.redirect(URLUtils.url('Cart-Show', 'cartOptionalProductError', error).toString());
     }
     return next();
 }
