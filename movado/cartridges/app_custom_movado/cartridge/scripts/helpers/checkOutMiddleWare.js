@@ -14,11 +14,13 @@ module.exports = function (req, res, next) {
     while (productLineItems.hasNext()) {
         var lineItem = productLineItems.next();
         var currentCountry = orderCustomHelper.getCountryCode(req);
+
         if (lineItem.optionID) {
 
             var selectedCountry = optionalProductsCountry.filter(function (countryList) {
                 return countryList.countryCode == currentCountry;
             });
+
             if ((!empty(selectedCountry) && selectedCountry[0].option.indexOf(lineItem.optionID) == -1) || empty(selectedCountry)) {
                 error = true;
                 break;
