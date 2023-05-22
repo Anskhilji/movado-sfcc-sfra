@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
     var currentBasket = BasketMgr.getCurrentBasket();
-    var optionProductAllowedCountries = !empty(Site.current.preferences.custom.optionProductAllowedCountries) ? JSON.parse(Site.current.preferences.custom.optionProductAllowedCountries) : '';
+    var optionProductAllowedCountries = !empty(Site.current.preferences.custom.optionProductAllowedCountries) ? JSON.parse(Site.current.preferences.custom.optionProductAllowedCountries) : false;
     var error = false;
     var optionID;
     var lineItem;
@@ -19,7 +19,7 @@ module.exports = function (req, res, next) {
         lineItem = productLineItems.next();
         currentCountry = orderCustomHelper.getCountryCode(req);
 
-        if (lineItem.optionID) {
+        if (lineItem.optionID && optionProductAllowedCountries) {
 
             var selectedCountry = optionProductAllowedCountries.filter(function (countryList) {
                 return countryList.countryCode == currentCountry;

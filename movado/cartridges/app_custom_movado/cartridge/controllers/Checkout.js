@@ -8,12 +8,12 @@ var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
-var checkoutMiddleware = require('*/cartridge/scripts/helpers/checkoutMiddleware');
+var revokeCheckout = require('*/cartridge/scripts/middleware/revokeCheckout');
 
 var page = module.superModule;
 server.extend(page);
 
-server.prepend('Login', checkoutMiddleware);
+server.prepend('Login', revokeCheckout);
 
 server.append(
     'Login',
