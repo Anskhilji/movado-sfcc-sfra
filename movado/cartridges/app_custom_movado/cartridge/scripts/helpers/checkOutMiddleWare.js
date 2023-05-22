@@ -9,7 +9,6 @@ module.exports = function (req, res, next) {
     var optionalProductsCountry = !empty(Site.current.preferences.custom.optionalProductsCountry) ? JSON.parse(Site.current.preferences.custom.optionalProductsCountry) : '';
     var error = false;
     var optionID;
-    var message;
 
     var productLineItems = currentBasket.allProductLineItems.iterator();
     while (productLineItems.hasNext()) {
