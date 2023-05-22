@@ -2,24 +2,31 @@
     <div class="dropdown-menu" role="menu" aria-hidden="true">
         <div class="d-sm-flex justify-content-center category-level w-100">
             <div class="menu-pane">
-            <ul class="level-two">
-                <isloop items="${menuItem.subCategories}" var="category">
-                    <isif condition="${category.subCategories}">
-                        <li class="dropdown-item dropdown <isif condition="${category.subCategories}"> third-level-category</isif>" role="menuitem">
-                            <a href="${category.url}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
-                            <isset name="categoryItem" value="${category}" scope="page"/>
-                            <isinclude template="components/header/menuItemList"/>
-                        </li>
-                    <iselse/>
-                        <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                            <a href="${category.url}" role="button" class="dropdown-link level-two" >${category.name}</a>
-                        </li>
+            <isset name="navigationColumn" value="${!empty(dw.system.Site.current.preferences.custom.navigationColumnMapping) ? JSON.parse(dw.system.Site.current.preferences.custom.navigationColumnMapping) : false}" scope="page" />
+            <isif condition="${navigationColumn}">
+                <isloop items="${navigationColumn}" var="navigationColumnIndex" status="slotStatus">
+                    <isif condition="${navigationColumnIndex.categoryID === menuItem.id}">  
+                        <ul class="level-two ${navigationColumnIndex.numberOfColumns}">
+                            <isloop items="${menuItem.subCategories}" var="category">
+                                <isif condition="${category.subCategories}">
+                                    <li class="dropdown-item dropdown <isif condition="${category.subCategories}"> third-level-category</isif>" role="menuitem">
+                                        <a href="${category.url}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
+                                        <isset name="categoryItem" value="${category}" scope="page"/>
+                                        <isinclude template="components/header/menuItemList"/>
+                                    </li>
+                                <iselse/>
+                                    <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                                        <a href="${category.url}" role="button" class="dropdown-link level-two ${navigationColumnIndex.numberOfColumns}" >${category.name}</a>
+                                    </li>
+                                </isif>
+                            </isloop>
+                        </ul>
                     </isif>
                 </isloop>
-            </ul>
+            </isif>
         </div>
         <div class="dropdown-best-Seller">
-            <isslot id="cs-dropdown-bestSeller" description="Featured products content." context="global" />
+            <isslot id="cs_navigation_best_seller" context="category" description="Best seller products" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
         </div>
         </div>
     </div>
