@@ -1,23 +1,27 @@
 'use strict';
 
 module.exports = function (req, res, next) {
-    var currentBasket = require('dw/order/BasketMgr').getCurrentBasket();
+    var BasketMgr = require('dw/order/BasketMgr');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
 
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
-    var optionalProductsCountry = !empty(Site.current.preferences.custom.optionalProductsCountry) ? JSON.parse(Site.current.preferences.custom.optionalProductsCountry) : '';
+
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var optionProductAllowedCountries = !empty(Site.current.preferences.custom.optionProductAllowedCountries) ? JSON.parse(Site.current.preferences.custom.optionProductAllowedCountries) : '';
     var error = false;
     var optionID;
+    var lineItem;
+    var currentCountry;
 
     var productLineItems = currentBasket.allProductLineItems.iterator();
     while (productLineItems.hasNext()) {
-        var lineItem = productLineItems.next();
-        var currentCountry = orderCustomHelper.getCountryCode(req);
+        lineItem = productLineItems.next();
+        currentCountry = orderCustomHelper.getCountryCode(req);
 
         if (lineItem.optionID) {
 
-            var selectedCountry = optionalProductsCountry.filter(function (countryList) {
+            var selectedCountry = optionProductAllowedCountries.filter(function (countryList) {
                 return countryList.countryCode == currentCountry;
             });
 
