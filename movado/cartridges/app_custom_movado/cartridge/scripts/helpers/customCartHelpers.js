@@ -347,8 +347,6 @@ function removeNullOptionLineItems(currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
     var orderLineItems = currentBasket.allProductLineItems;
     var orderLineItemsIterator = orderLineItems.iterator();
-    var pulseIdEngraving = 'pulseIdEngraving';
-    var optionValueIdNone = '0';
     var productLineItem;
 
     Transaction.wrap(function () {
@@ -356,11 +354,11 @@ function removeNullOptionLineItems(currentBasket) {
             productLineItem = orderLineItemsIterator.next();
             if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
                 currentBasket.removeProductLineItem(productLineItem);
-            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == EMBOSSED && productLineItem.optionValueID == optionValueIdNone)) {
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == EMBOSSED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
                 currentBasket.removeProductLineItem(productLineItem);
-            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == ENGRAVED && productLineItem.optionValueID == optionValueIdNone)) {
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == ENGRAVED && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE)) {
                 currentBasket.removeProductLineItem(productLineItem);
-            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == GIFTWRAPPED && productLineItem.optionValueID == optionValueIdNone)) {
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == GIFTWRAPPED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
                 currentBasket.removeProductLineItem(productLineItem);
             }
         }
