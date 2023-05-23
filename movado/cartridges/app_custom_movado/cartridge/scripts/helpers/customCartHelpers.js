@@ -341,16 +341,26 @@ function getCountrySwitch() {
 
 };
 
-function removeNullClydeWarrantyLineItem(currentBasket) {
-    var Constants = require('*/cartridge/utils/Constants');
+function removeNullOptionLineItems(currentBasket) {
     var Transaction = require('dw/system/Transaction');
+
+    var Constants = require('*/cartridge/utils/Constants');
     var orderLineItems = currentBasket.allProductLineItems;
     var orderLineItemsIterator = orderLineItems.iterator();
+    var pulseIdEngraving = 'pulseIdEngraving';
+    var optionValueIdNone = '0';
     var productLineItem;
+
     Transaction.wrap(function () {
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
             if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == EMBOSSED && productLineItem.optionValueID == optionValueIdNone)) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == ENGRAVED && productLineItem.optionValueID == optionValueIdNone)) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == GIFTWRAPPED && productLineItem.optionValueID == optionValueIdNone)) {
                 currentBasket.removeProductLineItem(productLineItem);
             }
         }
@@ -415,6 +425,6 @@ module.exports = {
     getGiftTransactionATC: getGiftTransactionATC,
     getCountrySwitch: getCountrySwitch,
     removeClydeWarranty: removeClydeWarranty,
-    removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem,
+    removeNullOptionLineItems: removeNullOptionLineItems,
     removeGiftMessaging: removeGiftMessaging
 };
