@@ -95,7 +95,7 @@ $('.nav-item.dropdown').hover(function() {
 if(!$('.dropdown-best-Seller > .mcs-product-carousel-redesign').length > 0) {
     $('.category-level').addClass('bestseller-disable');
     $('.level-two').addClass('column-three');
-    $('.dropdown-best-Seller').hide();
+    $('.tile-slide').hide();
 }
 
 $(document).on('click', '.close-button, .close-icon', function(e) {
