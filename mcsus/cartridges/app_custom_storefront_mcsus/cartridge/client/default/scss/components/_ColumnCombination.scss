@@ -54,6 +54,11 @@
         width: calc(100% - 40%);
     }
 
+    &~.tile-2 {
+        width: calc(100% - 60%);
+        // min-width: rem(639);
+    }
+
     &~.tile-1 {
         width: calc(100% - 70%);
     }
@@ -91,6 +96,7 @@
             flex: 0 0 33.333%;
             max-width: 33.333%;
             white-space: unset;
+            height: 100%;
 
             .level-collection {
 
@@ -115,6 +121,7 @@
             flex: 0 0 25%;
             max-width: 25%;
             white-space: unset;
+            height: 100%;
 
             .level-collection {
 

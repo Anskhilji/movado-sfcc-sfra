@@ -943,7 +943,7 @@ nav {
                               .mcs-product-carousel-column {
 
                                 .cs-carousel-wrapper {
-                                  margin-bottom: 0;
+                                    margin-bottom: 0;
 
                                   .carousel-title {
                                     opacity: 0.5;
@@ -958,25 +958,17 @@ nav {
                                   }
 
                                   .slick-slider {
-                                    margin-bottom: 0;
-                                    padding-bottom: 0;
+                                      margin-bottom: 0;
+                                      padding-bottom: 0;
                                   }
 
                                   .slick-dots {
-                                    @include media-breakpoint-down(lg) {
-                                      max-width: rem(180);
-                                    }
+                                      @include media-breakpoint-down(lg) {
+                                          max-width: rem(180);
+                                      }
                                   }
                                 }
                               }
-                            }
-
-                            .slick-track {
-                              // min-width: rem(578);
-
-                                .slick-slide {
-                                    min-width: rem(264);
-                                }
                             }
 
                             .product-tile {
