@@ -19,20 +19,22 @@
         <iselse>
             <isset name="price" value="${finalOrigPrice.list}" scope="page" />
         </isif>
-    
-        <del>
-            <span class="strike-through list">
-                <span class="value" content="${price}">
-                    <span class="sr-only">
-                        ${Resource.msg('label.price.reduced.from', 'pricing', null)}
-                    </span>
-                    <isinclude template="/product/components/pricing/formatted" />
-                    <span class="sr-only">
-                        ${Resource.msg('label.price.to', 'pricing', null)}
+
+        <isif condition="${!empty(price) && !empty(price.value)}">
+            <del>
+                <span class="strike-through list">
+                    <span class="value" content="${JSON.stringify(price)}">
+                        <span class="sr-only">
+                            ${Resource.msg('label.price.reduced.from', 'pricing', null)}
+                        </span>
+                        <isinclude template="/product/components/pricing/formatted" />
+                        <span class="sr-only">
+                            ${Resource.msg('label.price.to', 'pricing', null)}
+                        </span>
                     </span>
                 </span>
-            </span>
-        </del>
+            </del>
+        </isif>
     </isif>
     <isif condition="${isEswEnabled && !empty(matchingLineItem)}">
         <isset name="price" value="${formatMoney(eswHelper.getUnitPriceCost(matchingLineItem))}" scope="page" />
