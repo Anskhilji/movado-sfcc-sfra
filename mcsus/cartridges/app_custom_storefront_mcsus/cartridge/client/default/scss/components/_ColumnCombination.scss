@@ -39,11 +39,7 @@
 
     &~.tile-slide {
         border-left: rem(1) solid $grey-transparent-10;
-        padding: rem(0) rem(20) rem(0) rem(70);
-
-        @include media-breakpoint-down(lg) {
-            padding: rem(0) rem(20);
-        }
+        padding: rem(0) rem(20) rem(0);
     }
 
     &~.tile-4 {
