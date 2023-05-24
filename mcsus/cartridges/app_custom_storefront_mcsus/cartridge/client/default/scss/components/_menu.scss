@@ -930,7 +930,6 @@ nav {
                     .dropdown-menu {
 
                       .dropdown-best-Seller {
-                        min-width: rem(550);
                         width: 100%;
 
                         .mcs-product-carousel-redesign {
@@ -944,6 +943,7 @@ nav {
                               .mcs-product-carousel-column {
 
                                 .cs-carousel-wrapper {
+                                  margin-bottom: 0;
 
                                   .carousel-title {
                                     opacity: 0.5;
@@ -956,12 +956,23 @@ nav {
                                     text-align: left !important; //i'm using important to overwrite inline css
                                     margin-bottom: rem(20);
                                   }
+
+                                  .slick-slider {
+                                    margin-bottom: 0;
+                                    padding-bottom: 0;
+                                  }
+
+                                  .slick-dots {
+                                    @include media-breakpoint-down(lg) {
+                                      max-width: rem(180);
+                                    }
+                                  }
                                 }
                               }
                             }
 
                             .slick-track {
-                              min-width: rem(578);
+                              // min-width: rem(578);
 
                                 .slick-slide {
                                     min-width: rem(264);
@@ -989,7 +1000,6 @@ nav {
                     border-top: rem(1) solid $gray9;
 
                     .category-level {
-                      max-width: rem(1049);
                       margin: 0 auto;
 
                       @include media-breakpoint-down(lg) {
@@ -1011,63 +1021,27 @@ nav {
 
                     .menu-pane {
                       width: 100%;
+                      display: flex;
+                      padding-bottom: rem(41);
 
                       .level-two {
-                        padding: 0;
-                        display: flex;
-                        flex-direction: column;
-                        flex-wrap: wrap;
-                        height: rem(426);
-                        justify-content: start;
-                        margin-left: rem(-70);
-                        overflow-y: auto;
-                        max-width: rem(500);
-                        width: auto;
-
-                        &.column-three {
-                          display: -webkit-box;
-                          display: -ms-flexbox;
-                          display: flex;
-                          -ms-flex-wrap: wrap;
-                          flex-wrap: wrap;
-                          flex-direction: row;
-                          align-content: flex-start;
-
-                            .dropdown-item {
-                              -webkit-box-flex: 0;
-                              -ms-flex: 0 0 33.333%;
-                              flex: 0 0 33.333%;
-                              max-width: 33.333%;
-                              white-space: unset;
-                            }
-                        }
-                        
-                        &.column-five {
-                          display: -webkit-box;
-                          display: -ms-flexbox;
-                          display: flex;
-                          -ms-flex-wrap: wrap;
-                          flex-wrap: wrap;
-                          align-content: flex-start;
-
-                            .dropdown-item {
-                              -webkit-box-flex: 0;
-                              -ms-flex: 0 0 20%;
-                              flex: 0 0 20%;
-                              max-width: 20%;
-                              white-space: unset;
-                            }
-                        }
 
                         >.dropdown-item {
                           background-color: transparent;
                           padding: 0;
                           padding: 0 rem(70);
-                          border-right: rem(1) solid $border-color;
-                          min-width: rem(250);
+                          border-right: rem(1) solid $grey-transparent-10;
                           max-width: 100%;
                           width: auto;
                           box-sizing: border-box;
+
+                          @include media-breakpoint-down(lg) {
+                              padding: 0 rem(20);
+                          }
+
+                          &:last-child {
+                              border: none;
+                          }
                          
 
                           .dropdown-link {
@@ -1099,6 +1073,9 @@ nav {
                           display: block;
                         }
                       }
+
+                      // column combination style
+                      @import 'ColumnCombination';
                     }
 
                     .level-collection {

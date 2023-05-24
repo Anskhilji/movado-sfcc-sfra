@@ -6,7 +6,7 @@
             <isif condition="${navigationColumn}">
                 <isloop items="${navigationColumn}" var="navigationColumnIndex" status="slotStatus">
                     <isif condition="${navigationColumnIndex.categoryID === menuItem.id}">  
-                        <ul class="level-two ${navigationColumnIndex.numberOfColumns}">
+                        <ul class="level-two ${navigationColumnIndex.numberOfColumns} ${navigationColumnIndex.numberOfColumns === 'column-5' ? 'justify-content-start' : ''}">
                             <isloop items="${menuItem.subCategories}" var="category">
                                 <isif condition="${category.subCategories}">
                                     <li class="dropdown-item dropdown <isif condition="${category.subCategories}"> third-level-category</isif>" role="menuitem">
@@ -21,12 +21,15 @@
                                 </isif>
                             </isloop>
                         </ul>
+
+                        <div class="tile-slide ${navigationColumnIndex.numberOfTiles} ${navigationColumnIndex.numberOfColumns === 'column-5' ? 'd-none' : '' }">
+                            <div class="dropdown-best-Seller">
+                                <isslot id="cs_navigation_best_seller" context="category" description="Best seller products" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
+                            </div>
+                        </div>
                     </isif>
                 </isloop>
             </isif>
-        </div>
-        <div class="dropdown-best-Seller">
-            <isslot id="cs_navigation_best_seller" context="category" description="Best seller products" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
         </div>
         </div>
     </div>
