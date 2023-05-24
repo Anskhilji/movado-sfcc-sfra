@@ -69,15 +69,16 @@ function orderSync(args) {
                 } else {
                     orderQuery += ' OR orderNo = {' + index + '}'
                 }
-            })
+            });
+
+            try {
+                orders = dw.order.OrderMgr.searchOrders(orderQuery, 'orderNo DESC', ordersArray);
+            } catch (error) {
+                Logger.error('Error Occured While Getting the Orders From OMS: {0}, Error: {1}', orders, error);
+            }
         }
     }
 
-    try {
-        orders = dw.order.OrderMgr.searchOrders(orderQuery, 'orderNo DESC', ordersArray);
-    } catch (error) {
-        Logger.error('Error Occured While Getting the Orders From OMS: {0}, Error: {1}', orders, error);
-    }
 
     if (!empty(orders) && orders.hasNext()) {
         // //////// Prepare order files //////////
