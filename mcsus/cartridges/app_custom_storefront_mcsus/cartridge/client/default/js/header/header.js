@@ -1,3 +1,5 @@
+var slickCarousel = require('movado/components/slickCarousel');
+
 var $mobileMenuGroup = $('.main-menu-mobile .menu-group');
 
 $('body').on('focus, keydown', ".search-field:visible", function (e) {
@@ -88,6 +90,10 @@ $('.menu-search input').focus(function () {
 // overlayey show on on hover for nav-item
 $('.nav-item.dropdown').hover(function() {
     $('body').find('.dropdown-overlayer').addClass('active');
+    setTimeout(function () {
+        $('.mcs-category-carousel .js-carousel').slick('unslick');
+        slickCarousel.initCarousel($('.mcs-category-carousel'));
+    }, 100);
 }, function() {
     $('body').find('.dropdown-overlayer').removeClass('active');
 });
