@@ -161,6 +161,7 @@ $(document).ready(function() { // eslint-disable-line
             billingAddressCity: $commonValidationFields,
             shippingZipCode: $zipCode,
             billingZipCode: $zipCode,
+            shippingState: $commonValidationFields,
             shippingPhoneNumber: $phoneNumber,
             holderName: $holderName,
             cardNumber: $cardNumber

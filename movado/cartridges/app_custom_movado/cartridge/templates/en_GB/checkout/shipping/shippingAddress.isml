@@ -185,7 +185,7 @@
 <div class="row ${currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
     <div class="col-sm-6 mx-field-wrapper field-left">
         <div class="form-group ${addressFields.states.stateCode.mandatory === true ? 'required' : ''}">
-            <input class="form-control input-wrapper-checkout shippingState" id="shippingState" name="${addressFields.states.stateCode.htmlName}"
+            <input class="form-control input-wrapper-checkout shippingState auto-validation optional-field" id="shippingState" name="${addressFields.states.stateCode.htmlName}"
                 value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.stateCode || '' : shippingAddress.stateCode||''}"
                 <isprint value="${addressFields.states.stateCode.attributes}" encoding="off" />
                 autocomplete="shipping address-level1">
