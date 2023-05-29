@@ -90,13 +90,6 @@ $('.menu-search input').focus(function () {
 // overlayey show on on hover for nav-item
 $('.nav-item.dropdown').hover(function() {
     $('body').find('.dropdown-overlayer').addClass('active');
-
-    if($this.find('.mcs-product-carousel-redesign')) {
-        $('.tile-slide').show();
-    } else {
-        $('.tile-slide').hide();
-    }
-    
     setTimeout(function () {
         $('.mcs-category-carousel .js-carousel').slick('unslick');
         slickCarousel.initCarousel($('.mcs-category-carousel'));
