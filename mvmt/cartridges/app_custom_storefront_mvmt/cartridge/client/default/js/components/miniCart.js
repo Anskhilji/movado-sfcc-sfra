@@ -664,7 +664,10 @@ module.exports = function () {
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
                 // Custom:MSS-2034 add class when open miniCart
-                $homeHeaderTransparent.addClass('solid-header');
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
+                
                 giftMessageTooltip();
                 checkGiftBoxItem();
                 return;
@@ -683,7 +686,9 @@ module.exports = function () {
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
                 // Custom:MSS-2034 add class when open miniCart
-                $homeHeaderTransparent.addClass('solid-header');
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
                 loadAmazonButton();
                 $('#AmazonPayButtonCheckout').css('width', '100%');
             });
@@ -694,7 +699,9 @@ module.exports = function () {
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
                 // Custom:MSS-2034 add class when open miniCart
-                $homeHeaderTransparent.addClass('solid-header');
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
                 giftMessageTooltip();
                 checkGiftBoxItem();
                 return;
@@ -711,7 +718,9 @@ module.exports = function () {
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
                 // Custom:MSS-2034 add class when open miniCart
-                $homeHeaderTransparent.addClass('solid-header');
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
             });
          }
      });
@@ -734,7 +743,9 @@ module.exports = function () {
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
                 // Custom:MSS-2034 add class when open miniCart
-                $homeHeaderTransparent.addClass('solid-header');
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
             });
         }
     });
@@ -747,7 +758,9 @@ module.exports = function () {
         $('.mobile-cart-icon').show();
         $('.mobile-cart-close-icon').hide();
         // Custom:MSS-2034 add class when close miniCart
-        $homeHeaderTransparent.removeClass('solid-header');
+        if ($homeHeaderTransparent.length > 0) {
+            $homeHeaderTransparent.removeClass('solid-header');
+        }
     });
     
 
@@ -761,7 +774,9 @@ module.exports = function () {
             $('.mobile-cart-icon').show();
             $('.mini-cart-data .popover').removeClass('show');
             // Custom:MSS-2034 add class when close miniCart
-            $homeHeaderTransparent.removeClass('solid-header');
+            if ($homeHeaderTransparent.length > 0) {
+                $homeHeaderTransparent.removeClass('solid-header');
+            }
         }
     });
 
@@ -889,7 +904,9 @@ module.exports = function () {
         $('.mini-cart-data .popover').removeClass('show');
         $('#footer-overlay').removeClass('footer-form-overlay');
         // Custom:MSS-2034 add class when close miniCart
-        $homeHeaderTransparent.removeClass('solid-header');
+        if ($homeHeaderTransparent.length > 0) {
+            $homeHeaderTransparent.removeClass('solid-header');
+        }
     });
 
     $('.mini-cart-data').on('submit', 'form.login', function (e) {
