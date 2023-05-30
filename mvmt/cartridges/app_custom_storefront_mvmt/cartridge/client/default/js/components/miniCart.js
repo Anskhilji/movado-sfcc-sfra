@@ -651,7 +651,7 @@ module.exports = function () {
         }
         
     });
-    
+
      $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
