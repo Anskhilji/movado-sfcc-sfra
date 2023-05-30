@@ -652,10 +652,10 @@ module.exports = function () {
         
     });
     
-     var $homeHeaderTransparent = $('.home-header-transparent');
      $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
+         var $homeHeaderTransparent = $('.home-header-transparent');
 
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
@@ -719,6 +719,7 @@ module.exports = function () {
     $('body').off('click', '.mobile-cart-btn').on('click', '.mobile-cart-btn', function(event) {
         var $url = $('.minicart').data('action-url');
         var $count = parseInt($('.mini-cart-data .mini-cart-data-quantity').text());
+        var $homeHeaderTransparent = $('.home-header-transparent');
         if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             $.get($url, function (data) {
                 $('.mobile-cart-icon').hide();
@@ -739,6 +740,7 @@ module.exports = function () {
     });
     
     $('body').off('click', '.mobile-cart-btn').on('click', '.mobile-cart-close-icon', function(event) {
+        var $homeHeaderTransparent = $('.home-header-transparent');
         event.preventDefault();
         $('#footer-overlay').removeClass('footer-form-overlay');
         $('.mini-cart-data .popover').removeClass('show');
@@ -753,6 +755,7 @@ module.exports = function () {
      * This event is used to close the mini cart.
      */
     $('#footer-overlay').on('click', function (event) {
+        var $homeHeaderTransparent = $('.home-header-transparent');
         if ($('.mini-cart-data .popover.show').length > 0) {
             $('.mobile-cart-close-icon').hide();
             $('.mobile-cart-icon').show();
@@ -880,6 +883,7 @@ module.exports = function () {
     * This event is used to close the miniCart on the click event.
     */
     $('.mini-cart-data').on('click touchstart', '#close-mini-cart', function (event) {
+        var $homeHeaderTransparent = $('.home-header-transparent');
         $('.mobile-cart-close-icon').hide();
         $('.mobile-cart-icon').show();
         $('.mini-cart-data .popover').removeClass('show');
