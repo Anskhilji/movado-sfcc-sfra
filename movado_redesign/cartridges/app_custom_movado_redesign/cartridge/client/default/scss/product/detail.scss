@@ -804,6 +804,17 @@ $arrow-height: 1.25em;
             .tile-discription, .tile-btns {
                 display: none;
             }
+
+            .promotions {
+                margin: 0;
+                margin-left: rem(5);
+
+                .callout {
+                    margin-top: 0;
+                    text-align: left;
+                    line-height: rem(15);
+                }
+            }
         }
     }
 

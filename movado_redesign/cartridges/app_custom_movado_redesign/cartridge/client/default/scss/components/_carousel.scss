@@ -19,3 +19,22 @@
         }
     }
 }
+
+header {
+    
+    &.new-header {
+
+        .top-search-update {
+
+            .product {
+
+                .product-tile {
+
+                    .promo-msg {
+                        color: $black;
+                    }
+                }
+            }
+        }
+    }
+}
