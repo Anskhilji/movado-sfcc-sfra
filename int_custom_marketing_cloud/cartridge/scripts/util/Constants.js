@@ -41,3 +41,4 @@ exports.DE_COUNTRY_CODE = 'DE';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.SLICING_GROUP = 'slicing_group';
+exports.VARIATION_GROUP = 'variation_group';
