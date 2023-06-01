@@ -14,7 +14,6 @@ server.append('SubmitPayment',
     };
     var viewData = res.getViewData();
     var paymentForm = server.forms.getForm('billing');
-    var shippingForm = server.forms.getForm('shipping');
 
     if (viewData.address) {
         viewData.address.companyName = { value: paymentForm.addressFields.companyName.value };
@@ -24,11 +23,11 @@ server.append('SubmitPayment',
     };
 
     viewData.phone = {
-        value: shippingForm.shippingAddress.addressFields.phone.value
+		value: paymentForm.creditCardFields.phone.value
     };
 
     viewData.email = {
-        value: shippingForm.shippingAddress.addressFields.email.value
+		value: paymentForm.creditCardFields.email.value
     };
 
     if (status.error) {

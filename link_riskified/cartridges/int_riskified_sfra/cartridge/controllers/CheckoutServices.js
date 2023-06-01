@@ -51,7 +51,6 @@ server.replace(
     csrfProtection.validateAjaxRequest,
     function (req, res, next) {
         var paymentForm = server.forms.getForm('billing');
-        var shippingForm = server.forms.getForm('shipping');
         var billingFormErrors = {};
         var creditCardErrors = {};
         var viewData = {};
@@ -126,11 +125,11 @@ server.replace(
             }
 
             viewData.email = {
-                value: shippingForm.shippingAddress.addressFields.email.value
+                value: paymentForm.creditCardFields.email.value
             };
 
-            viewData.phone = {
-                value: shippingForm.shippingAddress.addressFields.phone.value
+            viewData.phone = { 
+                value: paymentForm.creditCardFields.phone.value
             };
 
             viewData.saveCard = paymentForm.creditCardFields.saveCard.checked;
