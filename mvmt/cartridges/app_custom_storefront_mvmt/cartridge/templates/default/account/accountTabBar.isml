@@ -21,10 +21,6 @@
             </svg>
         </div>
         <a href="${URLUtils.https('Account-Show')}" class="tab-bar-menu-link ${isPage.equalsIgnoreCase('dashboard') ? 'is-tab-bar-menu-link-active' : ''}" title="${Resource.msg('page.heading.dashboard', 'account', null)}">${Resource.msg('page.heading.dashboard', 'account', null)}</a>
-        <isset name="isSwellAllowedCountry" value="${require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry()}" scope="page" />
-        <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
-            <a href="${URLUtils.https('Account-MvmtInsider')}" class="tab-bar-menu-link ${isPage.equalsIgnoreCase('mvmtInsider') ? 'is-tab-bar-menu-link-active' : ''}" title="${Resource.msg('label.mvmt.insider', 'common', null)}">${Resource.msg('label.mvmt.insider', 'common', null)}</a>
-        </isif>
         <a href="${URLUtils.https('Order-History')}" class="tab-bar-menu-link ${isPage.equalsIgnoreCase('orderHistory') ? 'is-tab-bar-menu-link-active' : ''}" title="${Resource.msg('label.orderhistory', 'account', null)}">${Resource.msg('label.orderhistory', 'account', null)}</a>
         <a href="${URLUtils.url('Page-Show','cid','account-contact-us')}" class="tab-bar-menu-link ${isPage.equalsIgnoreCase('contactUs') ? 'is-tab-bar-menu-link-active' : ''}" title="${Resource.msg('label.contact.us', 'common',null)}">${Resource.msg('label.contact.us', 'common', null)}</a>
         <a href="${URLUtils.https('Login-Logout')}" class="tab-bar-menu-link tab-bar-sign-out">${Resource.msg('label.sign.out', 'common', null)}</a>

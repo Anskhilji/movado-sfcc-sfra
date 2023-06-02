@@ -1,0 +1,5 @@
+@import "~movado/components/yotpoStarsRattingRefinements";
+@import "../variables";
+.star-rating-area {
+    @include starsValue($star-light-brown);
+}

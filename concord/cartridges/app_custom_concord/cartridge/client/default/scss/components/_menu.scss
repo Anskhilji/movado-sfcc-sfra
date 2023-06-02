@@ -45,7 +45,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
   .nav-item {
     .nav-link {
       font-size: rem(14);
-      font-family: $font-medium;
+      font-family: $font-raleway-medium;
       font-weight: 700;
     }
   }
@@ -122,7 +122,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
         display: flex;
         align-items: center;
         font-size: rem(16);
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
         font-weight: 500;
       }
       .close-button {
@@ -144,7 +144,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
         .dropdown-link,
         .nav-link {
           color: $grey10;
-          font-family: $font-bold;
+          font-family: $font-raleway-bold;
           font-size: rem(14);
           font-weight: bold;
           letter-spacing: rem(.4);
@@ -313,7 +313,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
           span {
             display: block;
             font-size: rem(14);
-            font-family: $font-book;
+            font-family: $font-raleway-book;
             font-weight: 300;
           }
           &:first-child {
@@ -334,7 +334,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
       }
       .dropdown-toggle {
         color: $grey10;
-        font-family: $font-bold;
+        font-family: $font-raleway-bold;
         font-size: rem(14);
         font-weight: bold;
         letter-spacing: rem(1);

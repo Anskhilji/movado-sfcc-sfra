@@ -1,0 +1,43 @@
+<iscomment>Updated carousel configuration</iscomment>
+<div class="primary-images">
+  <isscript>
+    var primaryImageCarouselConfig = {
+      "slidesToShow": 1,
+      "slidesToScroll": 1,
+      "dots": true,
+      "centerMode": true,
+    }
+    <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
+  </isscript>
+  <div class="cs-carousel-wrapper">
+  <iscomment> Custom style:MSS-1829 badges d-none  </iscomment>
+    <div class="product-badges d-none">
+        <isinclude template="product/components/newnessBadge"/>
+    </div>
+      <div class="js-carousel main-carousel traditional-main-carousel pdp-carousel-set cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+          <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
+            <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
+          <isloop items="${product.images['pdp700']}" var="image" status="loopStatus">
+              <div class="carousel-tile">
+               <iscomment> product badges </iscomment>
+                <div class="product-badges-redesign d-block d-sm-none">
+                    <isinclude template="product/components/badges" />
+                </div>
+                <iscomment> product family name </iscomment>
+                  <picture>
+                      <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />
+                      <source media="(max-width: 991px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />
+                      <iscomment> Custom End: MSS-1564 Add thumbnails to PDP </iscomment>
+                      <img src="${image.url}" alt="${image.alt}" itemprop="image" aria-label="${product.resources.Zoom}"/>
+                      <isset name="isImageExist" value="true" scope="page" />
+                  </picture>
+                  <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                      <video class="slide-video d-none " loop muted autoplay playsinline >
+                          <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                      </video>
+                  </isif>
+              </div>
+          </isloop>
+      </div>
+  </div>
+</div>

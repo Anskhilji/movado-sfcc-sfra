@@ -12,7 +12,7 @@ var Logger = require('dw/system/Logger');
  * @returns {boolean} flag that specifies if the current attribute should be displayed as a swatch
  */
 function isSwatchable(dwAttributeId) {
-    var imageableAttrs = ['color'];
+    var imageableAttrs = ['color', 'productName'];
     return imageableAttrs.indexOf(dwAttributeId) > -1;
 }
 
@@ -60,6 +60,16 @@ function getAllAttrValues(
 
             if (isSwatchable(attr.attributeID)) {
                 processedAttr.images = new ImageModel(value, { types: ['swatch'], quantity: 'all' });
+                // Custom Start : getting large type image against each variant
+                var largeImages = new ImageModel(value, { types: ['tile150', 'tile640Xtile764', 'tile512Xtile640', 'tile640'], quantity: 'all' });
+                processedAttr.tileImage150 = !empty(largeImages.tile150[0]) ? largeImages.tile150[0] : '';
+                processedAttr.tile640Xtile764 = !empty(largeImages.tile640Xtile764[0]) ? largeImages.tile640Xtile764[0] : '';
+                processedAttr.tile512Xtile640 = !empty(largeImages.tile512Xtile640[0]) ? largeImages.tile512Xtile640[0] : '';
+                processedAttr.tile640 = !empty(largeImages.tile640[0]) ? largeImages.tile640[0] : '';
+                processedAttr.lifeStyleImage512X640 = !empty(largeImages.tile512Xtile640[2]) ? largeImages.tile512Xtile640[2] : '';
+                processedAttr.lifeStyleImage640X764 = !empty(largeImages.tile640Xtile764[2]) ? largeImages.tile640Xtile764[2] : '';
+                processedAttr.lifeStyleImage640 = !empty(largeImages.tile640[2]) ? largeImages.tile640[2] : '';
+                // Custom End
             }
 
             return processedAttr;

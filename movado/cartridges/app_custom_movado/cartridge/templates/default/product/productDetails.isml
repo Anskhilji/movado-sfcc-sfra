@@ -237,7 +237,6 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-
         <!-- Start: Listrak persistent popup -->
         <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
             <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
@@ -245,6 +244,5 @@
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
         </isif>
         <!-- End: Listrak persistent popup -->
-
     </isobject>
 </isdecorate>

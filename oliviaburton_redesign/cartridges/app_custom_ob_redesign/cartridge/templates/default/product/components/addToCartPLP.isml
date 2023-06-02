@@ -1,3 +1,19 @@
+    <isif condition="${product.productType == 'master'}">
+        <isset name="availabilityStatus" value="${product.defaultVariantAvailabilityStatus}" scope="page" />
+        <isset name="outOfStock" value="${false}" scope="page"/>
+        <isif condition="${availabilityStatus && availabilityStatus.indexOf(Resource.msg('label.product.out.of.stock', 'common', null)) != -1}">
+            <isset name="outOfStock" value="${true}" scope="page"/>
+        </isif>
+        <isset name="preOrder" value="${false}" scope="page"/>
+        <isif condition="${availabilityStatus && availabilityStatus.indexOf(Resource.msg('label.product.pre.order', 'common', null)) != -1}">
+            <isset name="preOrder" value="${true}" scope="page"/>
+        </isif>
+        <isset name="ociPreOrder" value="${false}" scope="page"/>
+        <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}">
+            <isset name="ociPreOrder" value="${true}" scope="page"/>
+        </isif>
+    </isif>
+
     <iscomment> New template of add to cart created for plp </iscomment>
     <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
@@ -7,23 +23,42 @@
         <iselse/>
             <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
         </isif>
-        <button class='btn btn-primary add-to-cart-plp-redesign ${!product.available ? "out-of-stock-btn" : ""} '
-            data-pid="${product.id}"
-            data-product-set="${!empty(product.individualProducts) ? true : false}"
-            data-add-to-cart-text="${addtoCart}" 
-            ${!product.available ? "disabled" : ""} >
-                <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
-                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
-                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
-                <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
-                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
-                <iselseif condition="${product.available}"/>
-                    ${addtoCart}
-                <iselse/>
-                    ${Resource.msg('label.not.available', 'common', null)} 
-                </isif>
-                <isloop items="${product.individualProducts}" var="productItem" status="loopState">
-                    <div class="product-sets product-id d-none">${productItem.id}</div>
-                </isloop>
-        </button>
+
+        <isif condition="${product.productType != 'master'}">
+	        <button class='btn btn-primary add-to-cart-plp-redesign ${outOfStock || !product.available ? "out-of-stock-btn1" : ""}'
+                data-pid="${product.id}"
+                data-product-set="${!empty(product.individualProducts) ? true : false}"
+                data-add-to-cart-text="${addtoCart}"
+                ${outOfStock || !product.available ? "disabled" : ""}>
+                    <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
+                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                        ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                    <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                        ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                    <iselseif condition="${product.available}"/>
+                        ${addtoCart}
+                    <iselse/>
+                        ${Resource.msg('label.not.available', 'common', null)}
+                    </isif>
+                    <isloop items="${product.individualProducts}" var="productItem" status="loopState">
+                        <div class="product-sets product-id d-none">${productItem.id}</div>
+                    </isloop>
+            </button>
+	    <iselse/>
+	        <button class='btn btn-primary add-to-cart-plp-redesign ${outOfStock || !product.available ? "out-of-stock-btn2" : ""}' data-avalibility="${!outOfStock}"
+                data-pid="${product.defaultVariant ? product.defaultVariant.ID : ''}"
+                data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
+                ${outOfStock || !product.available ? "disabled" : ""}>
+                    <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
+                    <isif condition="${outOfStock}">
+                        ${Resource.msg('label.not.available', 'common', null)}
+                    <iselseif condition="${preOrder}"/>
+                        ${Resource.msg('button.preorder.now', 'common', null)}
+                    <iselseif condition="${ociPreOrder}"/>
+                        ${Resource.msg('button.preorder.now', 'common', null)}
+                    <iselse/>
+                        ${addtoCart}
+                    </isif>
+            </button>
+        </isif>
     </div>

@@ -611,7 +611,7 @@ module.exports = {
     
                                                         var $isSelectionTabVal = $(this).find('.selection-tab').text().trim();
     
-                                                        if ($isSelectionTabVal == $selectedFilterVal) {
+                                                        if ($isSelectionTabVal && $isSelectionTabVal == $selectedFilterVal) {
                                                             $(this).find('.selection-tab').addClass('selected');
                                                             $selectedFilterVal = '';
                                                         }
