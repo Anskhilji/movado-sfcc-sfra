@@ -1,0 +1,41 @@
+<iscontent type="text/html" charset="UTF-8" />
+<html>
+<body>
+    <div style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: x-small; color: Black;">
+        <div style="font-size: 20px; font-weight:bold;">ContactUS Inquiry</div>
+        <br>
+        <isif condition="${pdict.sessionID}">
+            <div style="font-size: 10px; font-weight:bold;">Session ID: ${pdict.sessionID}</div>
+            <br>
+        </isif>
+        <isif condition="${pdict.fileDetails}">
+            <div style="font-size: 10px; font-weight:bold;">Error File: ${pdict.fileDetails}</div>
+            <br>
+        </isif>
+        <isif condition="${pdict.message}">
+            <div style="font-size: 10px; font-weight:bold;">Error Message: ${pdict.message}</div>
+            <br>
+        </isif>
+        <isif condition="${pdict.lastClick}">
+            <div style="font-size: 10px; font-weight:bold;">Last Click: ${pdict.lastClick}</div>
+            <br>
+        </isif>
+        <isif condition="${pdict.details}">
+            <div style="font-size: 10px; font-weight:bold;">Error Details: ${pdict.details}</div>
+            <br>
+        </isif>
+        <isif condition="${pdict.lineNumber}">
+            <div style="font-size: 10px; font-weight:bold;">File Line Number: ${pdict.lineNumber}</div>
+            <br>
+        </isif>
+        <isif condition="${pdict.fileDetails}">
+            <div style="font-size: 10px; font-weight:bold;">File Details: ${pdict.fileDetails}</div>
+            <br>
+        </isif>
+        <isif condition="${pdict.timeStamp}">
+            <div style="font-size: 10px; font-weight:bold;">Order Time: ${pdict.timeStamp}</div>
+            <br>
+        </isif>
+    </div>
+</body>
+</html>

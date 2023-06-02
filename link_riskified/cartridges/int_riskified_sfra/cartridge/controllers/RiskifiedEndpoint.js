@@ -10,7 +10,8 @@ var server = require('server');
 var RCLogger = require('*/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
 var AnalysisResponseModel = require('*/cartridge/scripts/riskified/export/api/riskifiedendpoint/AnalysisResponseModel');
-
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * This function handles order analysis status request from Riskified. This perform authorization
@@ -25,7 +26,9 @@ server.post('AnalysisNotificationEndpoint', function (req, res, next){
 	var response = AnalysisResponseModel.handle(moduleName);
 	
 	if(response.error){
-		RCLogger.logMessage("There were errors while updating order analysis. Error Message: " + response.message, "error", logLocation);
+		message = "There were errors while updating order analysis. Error Message: " + response.message, "error", logLocation;
+		RCLogger.logMessage(message);
+	    checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
 		
 		res.render('riskified/riskifiedorderanalysisresponse', {
 			AnalysisUpdateError:true,
