@@ -6,6 +6,7 @@
             data-product-set="${!empty(product.individualProducts) ? true : false}"
             data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
             ${!product.available ? "disabled" : ""} >
+            <isif condition="${!pdict.display.showAddToCartIcon}">
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
@@ -17,5 +18,6 @@
                 <isloop items="${product.individualProducts}" var="productItem" status="loopState">
                     <div class="product-sets product-id d-none">${productItem.id}</div>
                 </isloop>
+            </isif>
         </button>
     </div>
