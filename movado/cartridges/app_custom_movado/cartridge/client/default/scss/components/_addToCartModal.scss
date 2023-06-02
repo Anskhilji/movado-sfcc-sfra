@@ -1,25 +1,336 @@
-.addToCartModal {
-    .modal-dialog {
-        height: 100vh;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 1.7rem 0;
-    }
-    .modal-body {
-        padding: rem(20) rem(10);
-    }
-    p {
-        font-weight: bold;
-        line-height: rem(25);
-        letter-spacing: rem(1);
-        margin-bottom: rem(30);
-    }
-    
-    .btn:last-child {
-        text-decoration: underline;
-        margin-top: rem(20);
-    }
+.addToCartRedesign {
 
+    &.addToCartModal {
+
+        .mcs-product-carousel {
+
+            &.mcs-product-carousel-override {
+
+                &.mcs-product-carousel-redesign {
+                    
+                    .mcs-product-carousel-container {
+                        margin: 0;
+                        
+                        @include media-breakpoint-up(lg) {
+                            padding: 0 rem(42);
+                        }
+
+                        .carousel-title {
+                            color: $black;
+                            font-size: rem(20);
+                            font-weight: 500;
+                            letter-spacing: 0;
+                            line-height: rem(26);
+                            margin-bottom: rem(30);
+                        }
+
+                        .cs-carousel {
+                            margin: 0;
+                            padding: 0;
+
+                            .slick-dots {
+                                max-width: rem(159);
+                                height: rem(3);
+                
+                                li {
+                                    background: $grey-dark-6;
+                                    height: rem(3);
+                
+                                    &.slick-active {
+                                    
+                                        button {
+                                            background-color: $black;
+                                        }
+                                    }
+                
+                                    button {
+                                        background: $grey-dark-6;
+                                        border-radius: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .cs-carousel-wrapper {
+            margin-top: rem(40);
+            margin-bottom: rem(30);
+            padding: 0 rem(12);
+            
+            .carousel-title {
+                color: $black;
+                font-size: rem(20);
+                font-weight: 500;
+                letter-spacing: 0;
+                line-height: rem(26);
+                margin-bottom: rem(30);
+            }
+    
+            .container {
+                padding: 0;
+    
+                @include media-breakpoint-up(sm) {
+                    max-width: 100%;
+                }
+            }
+
+            &.recommendation-carousel-pdp {
+                margin: 0;
+                margin-top: rem(40);
+                padding: 0 rem(42);
+
+                .carousel-title {
+                    color: $black;
+                    font-size: rem(20);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(26);
+                    margin-bottom: rem(30);
+                }
+
+                .cs-carousel {
+
+                    .slick-track {
+                        margin: 0;
+                    }
+
+                    .slick-dots {
+                        max-width: rem(159);
+                        height: rem(3);
+        
+                        li {
+        
+                            &.slick-active {
+                            
+                                button {
+                                    background-color: $black;
+                                }
+                            }
+        
+                            button {
+                                background: $grey-dark-6;
+                                border-radius: 0;
+                            }
+                        }
+                    }
+        
+                }
+            }
+    
+            &.cs-carousel-update {
+    
+                .slick-dots {
+                    max-width: rem(159);
+                    height: rem(3);
+    
+                    li {
+                        background: $grey-dark-6;
+                        height: rem(3);
+    
+                        &.slick-active {
+                        
+                            button {
+                                background-color: $black;
+                            }
+                        }
+    
+                        button {
+                            background: $grey-dark-6;
+                            border-radius: 0;
+                        }
+                    }
+                }
+    
+                .cs-carousel {
+                    padding-bottom: rem(11);
+                }
+            }
+        }
+    
+        .modal-dialog {
+            height: 100vh;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.7rem 0;
+    
+            &.modal-sm {
+                max-width: rem(1043);
+            }
+    
+            .modal-content {
+                border-radius: 0;
+    
+                @include media-breakpoint-down(md) {
+                    flex-direction: column-reverse;
+                }
+    
+                .close {
+                    position: absolute;
+                    top: rem(25);
+                    right: rem(25);
+                    width: rem(13);
+                    height: rem(13);
+                    display: flex;
+                    align-items: center;
+                    font-size: rem(21);
+                    z-index: 1;
+                    opacity: 1;
+                    outline: none;
+                    border-radius: 100%;
+    
+                    span {
+                        width: rem(13);
+                        height: rem(13);
+                        font-size: rem(20);
+                        display: flex;
+                        align-items: center;
+    
+                        @include media-breakpoint-down(md) {
+                            width: rem(9);
+                            height: rem(9);
+                            font-size: rem(13);
+                            position: absolute;
+                            transform: translate(-50%, -50%);
+                            left: 50%;
+                            top: 0;
+                            margin: rem(8) 0;
+                        }
+                    }
+    
+                    @include media-breakpoint-down(md) {
+                        height: rem(24);
+                        width: rem(24);
+                        background-color: $white;
+                        box-shadow: 0 rem(1) rem(7) 0 $grey-transparent-9;
+                    }
+                }
+            }
+        }
+    
+        .modal-body {
+            padding: rem(30) 0;
+            padding-bottom: 0;
+    
+            @include media-breakpoint-down(md) {
+                position: unset;
+                padding: 0;
+                margin-bottom: rem(20);
+            }
+    
+            .modal-inner {
+    
+                .total-price {
+                    opacity: 0.55;
+                    color: $black;
+                    font-size: rem(16);
+                    font-weight: 300;
+                    letter-spacing: 0;
+                    line-height: rem(21);
+                    text-align: center;
+                    margin-bottom: rem(19);
+                }
+            }
+    
+            .checkmarks {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: rem(19);
+    
+                img {
+                    width: rem(25);
+                    height: rem(25);
+                    margin-right: rem(12);
+                }
+    
+                .add-to-cart-title {
+                    color: $grey8 !important; //I'm using important to overwrite inline css
+                    font-size: rem(24);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(41);
+                    margin-bottom: 0;
+    
+                    @include media-breakpoint-down(md) {
+                        font-size: rem(18);
+                    }
+                }
+            }
+    
+            .top-sec {
+                justify-content: center;
+    
+                @include media-breakpoint-down(md) {
+                    flex-direction: column;
+                }
+    
+                .btn-primary {
+                    max-width: rem(240);
+                    width: 100%;
+                    padding: rem(12) 0;
+                    color: $white;
+                    font-size: rem(16);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(21);
+                    text-align: center;
+                    
+                    &:hover {
+                        background: $black;
+                        border: none;
+                    }
+    
+                    &.btn {
+                        
+                        @include media-breakpoint-down(md) {
+                            max-width: 100%;
+                        }
+                    }
+                }
+    
+                .btn-link {
+                    padding: rem(11) 0;
+                    width: 100%;
+                    max-width: rem(240);
+                    border: rem(1) solid $black;
+                    color: $grey8;
+                    font-size: rem(16);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(21);
+                    text-align: center;
+                    margin-left: rem(20);
+                    margin-top: 0;
+                    text-decoration: none;
+    
+                    &.btn {
+                        
+                        @include media-breakpoint-down(md) {
+                            max-width: 100%;
+                            margin-left: 0;
+                            margin-top: rem(13);
+                        }
+                    }
+                }
+            }
+        }
+    
+        p {
+            font-weight: bold;
+            line-height: rem(25);
+            letter-spacing: rem(1);
+            margin-bottom: rem(30);
+        }
+        
+        .btn:last-child {
+            text-decoration: underline;
+            margin-top: rem(20);
+        }
+    
+    }
 }

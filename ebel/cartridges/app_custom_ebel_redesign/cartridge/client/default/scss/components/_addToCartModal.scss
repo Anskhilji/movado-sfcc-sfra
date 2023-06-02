@@ -1,18 +1,35 @@
 .addToCartModal {
-    
+
     .modal-dialog {
+        height: 100vh;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1.7rem 0;
         font-family: $font-HelveticaNeueLT-book;
     }
 
     .modal-body {
-        font-family: $font-HelveticaNeueLT-book;       
+        padding: rem(20) rem(10);
+        font-family: $font-HelveticaNeueLT-book;  
     }
 
     p {
-      font-family: $font-HelveticaNeueLT-book;
+        font-weight: bold;
+        line-height: rem(25);
+        letter-spacing: rem(1);
+        margin-bottom: rem(30);
+        font-family: $font-HelveticaNeueLT-book;
     }
-    
+
     .btn {
         font-family: $font-HelveticaNeueLT-medium;
     }
+    
+    .btn:last-child {
+        text-decoration: underline;
+        margin-top: rem(20);
+    }
+
 }
