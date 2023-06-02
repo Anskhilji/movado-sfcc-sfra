@@ -60,7 +60,6 @@ server.append(
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
-    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
     
     var viewData = res.getViewData();
 
@@ -144,7 +143,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
     var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
 
-    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
     }
@@ -176,8 +174,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 reportingURLs: reportingURLs,
                 refineurl: refineurl,
                 categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
-                isNonWatchesTileEnable: isNonWatchesTileEnable,
-                popupID: listrakPersistentPopup
+                isNonWatchesTileEnable: isNonWatchesTileEnable
             });
         } else {
             res.render(categoryTemplate, {
@@ -190,8 +187,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 refineurl: refineurl,
                 categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
                 relativeURL: URLUtils.url('Search-Show', 'cgid', productSearch.category.id),
-                isNonWatchesTileEnable: isNonWatchesTileEnable,
-                popupID: listrakPersistentPopup
+                isNonWatchesTileEnable: isNonWatchesTileEnable
 
             });
         }

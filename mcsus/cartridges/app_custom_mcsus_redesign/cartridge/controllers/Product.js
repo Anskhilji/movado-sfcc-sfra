@@ -49,7 +49,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     var productType = showProductPageHelperResult.product.productType;
     var template =  showProductPageHelperResult.template;
-    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
 
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
@@ -152,7 +151,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    //Custom End
    
-   var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
    viewData = {
        isEmbossEnabled: isEmbossEnabled,
        isEngraveEnabled: isEngraveEnabled,
@@ -183,8 +181,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        smartGiftAddToCartURL : smartGiftAddToCartURL,
        customURL: customURL,
        customProductSetURL: productSetURL.customProductSetURL,
-       customIndividualItemURL: productSetURL.customIndividualItemURL,
-       popupID: listrakPersistentPopup
+       customIndividualItemURL: productSetURL.customIndividualItemURL
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
    res.setViewData(smartGift);
