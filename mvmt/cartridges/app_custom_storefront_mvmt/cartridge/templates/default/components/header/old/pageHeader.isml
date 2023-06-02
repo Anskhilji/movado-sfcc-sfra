@@ -75,14 +75,6 @@
                                 </li>
                             </ul>
                             <div class="hidden-md-down d-lg-flex">
-                                <iscomment>Custom Start: Added swell point slot in page header for login user </iscomment>
-                                <isset name="isSwellAllowedCountry" value="${require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry()}" scope="page" />
-                                <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
-                                    <div class="main-level-item navbar-header account-wrapper search">
-                                        <isslot id="swell-compaign-total-points-header" description="Swell Points" context="global" />
-                                    </div>
-                                </isif>
-                                <iscomment>Custom End</iscomment>
                                 <div class="main-level-item">
                                     <button class="desktop-search-icon" tabindex="0" aria-label="Search" role="search">
                                         <span class="desktop-search-icon-search">

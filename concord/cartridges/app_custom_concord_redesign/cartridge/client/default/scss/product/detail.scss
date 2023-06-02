@@ -36,6 +36,10 @@
     .availability-msg {
         font-family: $font-raleway-book;
         font-weight: 400;
+
+        .availability-link {
+            color: $storm-gray;
+        }
     }
 
     .add-to-cart {
@@ -58,9 +62,11 @@
     }
 
     .promotions {
+        color: $danger;
 
         .callout {
             font-family: $font-raleway-book;
+            color: $dark-green;
         }
     }
 

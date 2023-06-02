@@ -69,7 +69,6 @@ $arrow-height: 1.25em;
         color: $grey8;
         letter-spacing: normal;
         width: 100%;
-        text-transform: capitalize;
         height: auto;
         margin-bottom: rem(40);
     }
@@ -420,7 +419,7 @@ $arrow-height: 1.25em;
             font-weight: normal;
             font-size: rem(13);
             padding-top: rem(0);
-            color: $dark-green;
+            color: $black;
             letter-spacing: normal;
             margin-top: rem(3);
             width: 100%;
@@ -804,6 +803,16 @@ $arrow-height: 1.25em;
 
             .tile-discription, .tile-btns {
                 display: none;
+            }
+
+            .promotions {
+                margin: 0 0 0 rem(15);
+
+                .callout {
+                    margin-top: 0;
+                    text-align: left;
+                    line-height: rem(15);
+                }
             }
         }
     }
@@ -2089,6 +2098,7 @@ body {
 
     .promotions {
         text-align: left;
+        color: $black;
 
         @include media-breakpoint-down(md) {
             text-align: center;

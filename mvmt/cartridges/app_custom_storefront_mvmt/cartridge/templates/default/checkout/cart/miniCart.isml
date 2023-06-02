@@ -21,7 +21,7 @@
 </div>
 <isinclude template="cart/switchToCountryMessage" />
 
-<isif condition="${itemsLength === 0}">
+<isif condition="${itemsLength === 0 || itemsLength === null}">
 <iscomment> Wraped content asset into empty-min-cart div </iscomment>
     <div class="empty-mini-cart">
         <iscomment>Custom Start: Adding empty mini cart content assets </iscomment>
@@ -124,7 +124,7 @@
                     ${Resource.msg('label.minicart.estimateddiscount', 'cart', null)}
                 </div>
                 <div class="orderdiscount-total">
-                    <span class="orderdiscount-value text-right grand-total cost">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</span>
+                    <span class="orderdiscount-value text-right cost">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</span>
                 </div>
             </div>
         </div>
@@ -145,8 +145,6 @@
             <isslot id="esw-cart-message" description="esw cart message" context="global" />
         </isif>
     </div>
-    <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
-    <isinclude template="include/yotpofooter"/>
 </isif>
 
 <!-- Modal -->

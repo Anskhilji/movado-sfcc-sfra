@@ -14,6 +14,46 @@
       width: 100%;
     }
 
+    
+    .poster-frame-video {
+      height: rem(600);
+      max-width: rem(600);
+      margin: 0 auto;
+
+      @include media-breakpoint-down(lg) {
+          height: rem(542);
+          max-width: rem(542);
+      }
+
+      @include media-breakpoint-down(md) {
+          height: rem(928);
+          max-width: rem(928);
+      }
+
+      @include custom-media-query-max($medium-screen-width) {
+          height: rem(705);
+          max-width: rem(705);
+      }
+
+      @include media-breakpoint-down(xs) { 
+          height: rem(392);
+          max-width: rem(392);
+      }
+
+      @media (max-width:$small-screen-width375) {
+          height: rem(342);
+          max-width: rem(342);
+      }
+
+      .slide-video {
+        
+          @include media-breakpoint-up(xl) {
+              padding: 0;
+          }
+      }
+    }
+
+
     .slick-arrow {
       top: 42%;
       background-color: rgba($white, 0.5);
@@ -63,4 +103,27 @@
     cursor: context-menu;
   }
 
+}
+
+// MSS-1397 video height width fixed
+.container-fluid {
+
+  &.pdp-v-one {
+
+      .primary-images {
+
+          .traditional-main-carousel {
+
+              .poster-frame-video {
+
+                  .slide-video {
+                      padding-left: 0;
+                      padding-right: 0;
+                  }
+              }
+          }
+
+      }
+
+  }
 }

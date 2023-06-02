@@ -114,13 +114,6 @@ function parseRiskifiedResponse(order, reqBody) {
             COCustomHelpers.sendCancellationEmail(orderObj, customerLocale);
         }
     } else {
-        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
-            var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-            SwellExporter.exportOrder({
-                orderNo: order.orderNo,
-                orderState: 'created'
-            });
-        }
 
         //[MSS-1257] Removed 3DS order check as we are not holding 3DS status any more and calling the Riskified order creation API after customer redirects back from 3DS
         // riskifiedStatus as approved then mark as confirmed

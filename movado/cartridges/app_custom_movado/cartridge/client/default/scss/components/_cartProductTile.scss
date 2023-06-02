@@ -5,6 +5,10 @@
       margin-bottom: rem(16);
       padding: rem(10);
 
+  .line-items-name {
+    width: 90%;
+  }
+
   .line-item-name {
       font-family: $font-medium;
       font-size: rem(16);
@@ -14,6 +18,33 @@
       color: $grey14;
       text-transform: uppercase;
   }
+
+  .line-item-brand-name {
+        margin-bottom: rem(10);
+        a, span {
+
+            font-family: $font-medium;
+            font-size: rem(16);
+            letter-spacing: rem(2);
+            line-height: rem(19);
+            font-weight: 600;
+            color: $grey14;
+            text-transform: uppercase;
+            text-decoration: none;
+            position: relative;
+
+            &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                height: rem(2);
+                width: 100%;
+                background-color: $black;
+                bottom: rem(3);
+            }
+        }
+    }
+
   .item-info {
       .item-attributes {
           color: $grey14;
@@ -156,5 +187,11 @@
                 }
             }
         }
+    }
+}
+
+.order-product-summary {
+    .line-item-brand-name {
+        margin-bottom: rem(5);
     }
 }

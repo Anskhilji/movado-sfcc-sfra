@@ -215,15 +215,7 @@ server.append('NotifyV2', function(req, res, next) {
         }
     }
     // End Salesforce Order Management
-    var deliveryCountryCode = obj.deliveryCountryIso;
-    var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry(deliveryCountryCode);
-    if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
-        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-        SwellExporter.exportOrder({
-            orderNo: res.viewData.OrderNumber,
-            orderState: 'created'
-        });
-    }
+
     var emailOptIn = !empty(obj.shopperCheckoutExperience.emailMarketingOptIn) ? obj.shopperCheckoutExperience.emailMarketingOptIn : false;
     if (emailOptIn) {
         var billingCustomer = obj.contactDetails;
