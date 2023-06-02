@@ -213,6 +213,7 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var productLineItems = currentBasket.productLineItems.iterator();
     var marketingProductsData = [];
+    var ABTestMiniCartATC = false;
 
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
@@ -220,6 +221,11 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
         var quantity = productLineItem.getQuantity().value;
 
         marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+    }
+
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+    if (ABTestMgr.isParticipant('MVMTMinicartATC', 'render-new-design-minicart-ATC')) {
+        res.viewData.ABTestMiniCartATC = true;
     }
 
     var quantityTotal;
