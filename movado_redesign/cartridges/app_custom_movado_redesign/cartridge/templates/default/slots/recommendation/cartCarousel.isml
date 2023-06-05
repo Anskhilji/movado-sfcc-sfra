@@ -16,7 +16,7 @@
                         <isloop items="${slotcontent.content}" var="product">
                             <div class="carousel-tile">
                                 <isobject object="${product}" view="recommendation">
-                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true ,'isTopSearch', true, 'recommendattionTile', true, 'showAddToCart', true, 'showAddToCartIcon', true, 'showAddToCartIcon', true)}"/>
+                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true ,'isTopSearch', true, 'recommendattionTile', true, 'showAddToCart', true, 'showAddToCartIcon', true, 'recommendatoionsCartIcon', true)}"/>
                                 </isobject>
                             </div>
                         </isloop>

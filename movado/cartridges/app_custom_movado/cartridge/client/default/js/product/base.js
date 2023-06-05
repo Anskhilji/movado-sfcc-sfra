@@ -1066,6 +1066,8 @@ function handlePostCartAdd(response) {
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
+        var priceTitle = 'Estimate total:';
+        $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
         $('#addToCartModal').modal('show');
         $('.slick-slider').slick('refresh');
     }
