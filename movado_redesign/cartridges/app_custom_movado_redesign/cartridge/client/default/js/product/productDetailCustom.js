@@ -192,6 +192,9 @@ $(function() {
         }
     );
 
+
+
+
 });
 
 
@@ -380,47 +383,6 @@ $(document).ready(function() {
 
     // custom end: remove or add clyde top and bottom border if clyde widgets exist
 
-    $(document).on('click', '.smartgift-btn-redesign', function(e) {
-        e.preventDefault();
-        var url = $(this).attr('href');
-
-        if (url) {
-            $.ajax({
-                url: url,
-                method: 'GET',
-                success: function (response) {
-
-                    if (response.success == true) {
-
-                        SGBasket.addItem({
-                            skuCode: response.smartGift.skuCode,
-                            skuUrl: response.skuUrl,
-                            price: response.smartGift.price,
-                            name: response.smartGift.name,
-                            image: response.image,
-                            quantity: response.smartGift.quantity
-                       });
-                    } else {
-                        $('.smart-gift-error').text(window.Resources.SMART_GIFT_ERROR_MESSAGE)
-                    }
-                },
-                error: function () {
-                    $.spinner().stop();
-                }
-            });
-        }
-    });
-
-    $(document).on('click', '.gift-works-popup', function(e) {
-        $('.smartGift-main-box').addClass('active');
-        $('.smartgift-backdrop').addClass('active');
-    });
-
-    $(document).on('click', '.smartgift-backdrop , .gift-close', function(e) {
-        $('.smartGift-main-box').removeClass('active');
-        $('.smartgift-backdrop').removeClass('active');
-    });
-
 });
 
 function ratingRedesign() {
@@ -464,10 +426,6 @@ $(document).ready(function () {
     var $availabilityWrapper = $availability.replace(/\s/g, '');
     var $cartWrapper = $('.cart-and-ipay');
     var $stickyWrapper = $('.cart-sticky-wrapper-btn .cart-and-ipay');
-    // Get the HTML code of the .smartGift-body element
-    var $smartGiftModalBox = $('#smartgift-modal-box');
-    var $smartGiftModal = $smartGiftModalBox.prop('outerHTML');
-
     if ($productWrapper !== '' || $productWrapper !== undefined || $productWrapper !== null) {
         if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock') || ($availabilityWrapper === 'SelectStylesforAvailability')) {
             if ($stickyWrapper) {
@@ -478,10 +436,4 @@ $(document).ready(function () {
             }
         }
     }
-
-    // Remove the .smartGift-body element from the DOM
-    $smartGiftModalBox.remove();
-
-    // Append the HTML code of the .smartGift-body element to the #mainContent element
-    $('#mainContent').after($smartGiftModal);
 });
