@@ -6,7 +6,11 @@
         </button>
             <div class="modal-body text-center">
             </div>
-            <isslot id="recommendation-carousel" description="recommendation-carousel" context="global" />
+            <div class="recomendation-carousel-wrapper d-none">
+                <isslot id="recommendation-carousel" description="recommendation-carousel" context="global" />
+            </div>
+            <div class="modal-footer">
+            </div>
         </div>
     </div>
 </div>

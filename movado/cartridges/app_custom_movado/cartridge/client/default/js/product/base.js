@@ -1036,8 +1036,20 @@ function chooseBonusProducts(data) {
 function handlePostCartAdd(response) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
+
+    if(response.error == false) {
+        $('.recomendation-carousel-wrapper').removeClass('d-none');
+    } else {
+        $('#addToCartModal').addClass('addToCartError');
+        $('#addToCartModal').removeClass('addToCartRedesign');
+        $('.recomendation-carousel-wrapper').addClass('d-none');
+    }
+
     // show add to cart modal
     $('#addToCartModal .modal-body').html(response.message);
+    $('#addToCartModal .modal-footer').html(response.footerContent);
+
+    
     $('#addToCartModal .modal-body p').addClass(messageType);
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {

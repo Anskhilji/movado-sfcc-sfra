@@ -161,8 +161,11 @@ server.append('AddProduct', function (req, res, next) {
 
         // update the success message from content
         var content = ContentMgr.getContent('product-successfully-added');
+        var footerContent = ContentMgr.getContent('product-successfully-added-footer');
+
         if (content) {
             viewData.message = content.custom.body.markup;
+            viewData.footerContent = content.custom.body.markup;
         }
 
         if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
