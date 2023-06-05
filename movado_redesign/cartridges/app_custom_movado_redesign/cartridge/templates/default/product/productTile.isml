@@ -59,25 +59,24 @@
         <p class="tile-discription" tabindex="0">
            <isprint value="${dw.catalog.ProductMgr.getProduct(product.id).shortDescription}"  encoding="off"/>
         </p>
-        <div class="tile-btns">
-		    
-            <a href="${pdict.urls.product}" class="tile-detail-btn">${Resource.msg('label.product.tile.details', 'product', null)}</a>
-            <div class="plp-botton-text">
-                <isif condition="${preOrder}">
-                    <div class="pre-order-text">
-                        ${Resource.msg('info.product.availability.preorder', 'common', null)}
-                    </div>
-                </isif>
-                <div class="${(pdict.display && pdict.display.isTopSearch) ? 'top-search-product-detail' : 'product-detail'}" data-isplp="true" data-pid="${product.id}" itemscope
-                    itemtype="http://schema.org/Product">
-                    <isif condition="${pdict.display.recommendatoionsCartIcon == true}">
-                        <isinclude template="product/components/showCartButtonOnRecommendations" />
-                    <iselse/>
-                        <isinclude template="product/components/showCartButtonProduct" />
+        <isif condition="${pdict.display.recommendatoionsCartIcon == true}">
+            <isinclude template="product/components/showCartButtonOnRecommendations" />
+        <iselse/>
+            <div class="tile-btns">    
+                <a href="${pdict.urls.product}" class="tile-detail-btn">${Resource.msg('label.product.tile.details', 'product', null)}</a>
+                <div class="plp-botton-text">
+                    <isif condition="${preOrder}">
+                        <div class="pre-order-text">
+                            ${Resource.msg('info.product.availability.preorder', 'common', null)}
+                        </div>
                     </isif>
+                    <div class="${(pdict.display && pdict.display.isTopSearch) ? 'top-search-product-detail' : 'product-detail'}" data-isplp="true" data-pid="${product.id}" itemscope
+                        itemtype="http://schema.org/Product">
+                            <isinclude template="product/components/showCartButtonProduct" />
+                    </div>
                 </div>
             </div>
-        </div>
+        </isif>
     </div>
     <!-- END_dwmarker -->
 </div>

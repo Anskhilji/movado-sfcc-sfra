@@ -4,6 +4,9 @@
        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+            <div class="modal-header">
+                <p></p>
+            </div>
             <div class="modal-body text-center">
             </div>
             <div class="recomendation-carousel-wrapper d-none">

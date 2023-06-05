@@ -727,12 +727,26 @@ function chooseBonusProducts(data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
-function handlePostCartAdd(response) {
+function handlePostCartAdd(response, $recomendationAddToCartMessage) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
+
+    if(response.error == false) {
+        $('#addToCartModal').addClass('addToCartRedesign')
+        $('.recomendation-carousel-wrapper').removeClass('d-none');
+        $('#addToCartModal').removeClass('addToCartError');
+    } else {
+        $('#addToCartModal').addClass('addToCartError');
+        $('#addToCartModal').removeClass('addToCartRedesign');
+        $('.recomendation-carousel-wrapper').addClass('d-none');
+    }
+
     // show add to cart modal
     $('#addToCartModal .modal-body').html(response.message);
+    $('#addToCartModal .modal-footer').html(response.footerContent);
     $('#addToCartModal .modal-body p').addClass(messageType);
+    $('#addToCartModal .modal-header p').html($recomendationAddToCartMessage);
+
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {
             setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
@@ -747,7 +761,13 @@ function handlePostCartAdd(response) {
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
-        $('#addToCartModal').modal('show');
+        var priceTitle = 'Estimate total:';
+        $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
+        $('.slick-slider').slick('refresh');
+
+        setTimeout(function() { 
+            $('#addToCartModal').modal('show');
+        }, 1000);
     }
 }
 
@@ -1045,7 +1065,7 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data);
+                        handlePostCartAdd(data, null);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
@@ -1251,6 +1271,11 @@ module.exports = {
             var pidsObj;
             var setPids;
             var $this = $(this);
+            var $recomendationAddToCartMessage;
+
+            if ($this.data('recommendation-message') !== '' && $this.data('recommendation-message') !== undefined) {
+                $recomendationAddToCartMessage = $this.data('recommendation-message');
+            }
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -1284,7 +1309,7 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data);
+                        handlePostCartAdd(data, $recomendationAddToCartMessage);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');

@@ -1033,7 +1033,7 @@ function chooseBonusProducts(data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
-function handlePostCartAdd(response) {
+function handlePostCartAdd(response, $recomendationAddToCartMessage) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
 
@@ -1050,9 +1050,12 @@ function handlePostCartAdd(response) {
     // show add to cart modal
     $('#addToCartModal .modal-body').html(response.message);
     $('#addToCartModal .modal-footer').html(response.footerContent);
-
-    
     $('#addToCartModal .modal-body p').addClass(messageType);
+
+    if ($recomendationAddToCartMessage) {
+        $('#addToCartModal .modal-header p').text($recomendationAddToCartMessage);
+    }
+
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {
             setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
@@ -1278,12 +1281,17 @@ module.exports = {
             var setPids;
             var giftPid;
             var $this = $(this);
+            var $recomendationAddToCartMessage;
             var productQuantity = null;
             if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
                 productQuantity = $('.quantity-selector > .quantity').val();
                 if (productQuantity == "") {
                     productQuantity = null;
                 }
+            }
+
+            if ($this.data('recommendation-message') !== '' && $this.data('recommendation-message') !== undefined) {
+                $recomendationAddToCartMessage = $this.data('recommendation-message');
             }
 
             $('body').trigger('product:beforeAddToCart', this);
@@ -1391,7 +1399,7 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data);
+                        handlePostCartAdd(data, $recomendationAddToCartMessage);
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
                         //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
