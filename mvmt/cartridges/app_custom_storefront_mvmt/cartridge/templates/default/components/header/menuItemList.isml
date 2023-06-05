@@ -26,14 +26,16 @@
                     <ul>
                         <isloop items="${categoryItem.subCategories}" var="category">
                             <isif condition="${category.gender && category.gender.equalsIgnoreCase('Women')}" >
-                                <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                                    <a href="${category.url}">
-                                        <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
-                                            <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
-                                        </div>
-                                        <div class="dropdown-menu-item-text">${category.name}</div>
-                                    </a>
-                                </li>
+                                <isif condition="${!category.hideDesktopNavigation}">
+                                    <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                                        <a href="${category.url}">
+                                            <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
+                                                <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
+                                            </div>
+                                            <div class="dropdown-menu-item-text">${category.name}</div>
+                                        </a>
+                                    </li>
+                                </isif>
                             </isif>
                         </isloop>
                     </ul>
@@ -43,14 +45,16 @@
     <iselse/>
         <ul>
             <isloop items="${categoryItem.subCategories}" var="category">
-                <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                    <a href="${category.url}">
-                        <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
-                            <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
-                        </div>
-                        <div class="dropdown-menu-item-text">${category.name}</div>
-                    </a>
-                </li>
+                <isif condition="${!category.hideDesktopNavigation}">
+                    <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                        <a href="${category.url}">
+                            <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
+                                <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
+                            </div>
+                            <div class="dropdown-menu-item-text">${category.name}</div>
+                        </a>
+                    </li>
+                </isif>
             </isloop>
         </ul>
     </isif>
