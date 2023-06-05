@@ -213,7 +213,6 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var productLineItems = currentBasket.productLineItems.iterator();
     var marketingProductsData = [];
-    var ABTestMiniCartATC = false;
 
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
