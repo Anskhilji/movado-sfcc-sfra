@@ -13,7 +13,7 @@
                   <isif condition="${!category.hideDesktopNavigation}">
                     <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                       <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        ${category.name} sgfdgdsfgsdf
+                        ${category.name}
                       </a>
                       <isset name="topCat" value="${category}" scope="page"/>
                       <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>

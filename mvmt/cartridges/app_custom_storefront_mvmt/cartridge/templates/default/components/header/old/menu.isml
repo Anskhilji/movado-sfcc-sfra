@@ -13,7 +13,7 @@
                       <isif condition="${!category.hideDesktopNavigation}">
                         <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                           <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              ${category.name}abcdef
+                              ${category.name}
                             </a>
                           <isset name="topCat" value="${category}" scope="page"/>
                           <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
@@ -38,8 +38,8 @@
               <isif condition="${!category.hideDesktopNavigation}">
                 <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                   <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      ${category.name} ghij
-                  </a>-
+                      ${category.name}
+                  </a>
                   <isset name="topCat" value="${category}" scope="page"/>
                   <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
                   <isset name="menuItem" value="${category}" scope="page" />
@@ -133,7 +133,7 @@
           <isif condition="${category.subCategories}">
             <iscomment> Custom: sub-dropdown class added</iscomment>
             <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <span class="image-text" style="color: ${category.hexColor}">${category.name} klmcn</span>
+              <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
               <img alt="${category.name}" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
               <isset name="topCat" value="${category}" scope="page"/>
               <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
