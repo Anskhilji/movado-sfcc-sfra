@@ -2,11 +2,35 @@
 
     &.addToCartModal {
 
+        .cta-add-to-cart {
+            display: block;
+
+            .btn {
+
+                &.btn-primary {
+
+                    &.add-to-cart-plp-redesign {
+                        display: block;
+                    }
+                }
+            }
+        }
+
         .mcs-product-carousel {
 
             &.mcs-product-carousel-override {
 
                 &.mcs-product-carousel-redesign {
+
+                    .product-tile-plp-container {
+
+                        .tile-body {
+
+                            .cta-add-to-cart {
+                                display: block;
+                            }
+                        }
+                    }
                     
                     .mcs-product-carousel-container {
                         margin: 0;
@@ -28,27 +52,27 @@
                             margin: 0;
                             padding: 0;
 
-                            .slick-dots {
-                                max-width: rem(159);
-                                height: rem(3);
+                            // .slick-dots {
+                            //     max-width: rem(159);
+                            //     height: rem(3);
                 
-                                li {
-                                    background: $grey-dark-6;
-                                    height: rem(3);
+                            //     li {
+                            //         background: $grey-dark-6;
+                            //         height: rem(3);
                 
-                                    &.slick-active {
+                            //         &.slick-active {
                                     
-                                        button {
-                                            background-color: $black;
-                                        }
-                                    }
+                            //             button {
+                            //                 background-color: $black;
+                            //             }
+                            //         }
                 
-                                    button {
-                                        background: $grey-dark-6;
-                                        border-radius: 0;
-                                    }
-                                }
-                            }
+                            //         button {
+                            //             background: $grey-dark-6;
+                            //             border-radius: 0;
+                            //         }
+                            //     }
+                            // }
                         }
                     }
                 }
@@ -82,6 +106,20 @@
                 margin-top: rem(40);
                 padding: 0 rem(42);
 
+                .cta-add-to-cart {
+                    display: block;
+
+                    .btn {
+
+                        &.btn-primary {
+
+                            &.add-to-cart-plp-redesign {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+
                 .carousel-title {
                     color: $black;
                     font-size: rem(20);
@@ -92,29 +130,15 @@
                 }
 
                 .cs-carousel {
+                    margin-bottom: rem(35);
+                    padding-bottom: rem(22);
 
                     .slick-track {
                         margin: 0;
                     }
 
                     .slick-dots {
-                        max-width: rem(159);
-                        height: rem(3);
-        
-                        li {
-        
-                            &.slick-active {
-                            
-                                button {
-                                    background-color: $black;
-                                }
-                            }
-        
-                            button {
-                                background: $grey-dark-6;
-                                border-radius: 0;
-                            }
-                        }
+                        margin-top: rem(23);
                     }
         
                 }
@@ -122,27 +146,27 @@
     
             &.cs-carousel-update {
     
-                .slick-dots {
-                    max-width: rem(159);
-                    height: rem(3);
+                // .slick-dots {
+                //     max-width: rem(159);
+                //     height: rem(3);
     
-                    li {
-                        background: $grey-dark-6;
-                        height: rem(3);
+                //     li {
+                //         background: $grey-dark-6;
+                //         height: rem(3);
     
-                        &.slick-active {
+                //         &.slick-active {
                         
-                            button {
-                                background-color: $black;
-                            }
-                        }
+                //             button {
+                //                 background-color: $black;
+                //             }
+                //         }
     
-                        button {
-                            background: $grey-dark-6;
-                            border-radius: 0;
-                        }
-                    }
-                }
+                //         button {
+                //             background: $grey-dark-6;
+                //             border-radius: 0;
+                //         }
+                //     }
+                // }
     
                 .cs-carousel {
                     padding-bottom: rem(11);
