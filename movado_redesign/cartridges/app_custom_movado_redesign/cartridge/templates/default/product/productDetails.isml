@@ -17,14 +17,6 @@
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
     <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
-    <isif condition="${!empty(sitePref.enableSmartGift)}">
-        <isif condition="${sitePref.smartGiftMode == 'TEST' || sitePref.smartGiftMode == 'LIVE'}">
-            <script>
-                (function (d,g,e,c,o,t,s) {t= d.createElement(g);t.async=1;t.src=e;t.onload=function(){SmartGiftWidget.mount(c,o);};s=d.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);})
-                (document,'script','${sitePref.jsLibURL}', '${sitePref.smartGiftMerchantCode}', {'lang': '${pdict.locale}', 'widgetStyle': '${!empty(sitePref.smartGiftWidgetStyle) ? sitePref.smartGiftWidgetStyle : ''}'});
-            </script>
-        </isif>
-    </isif>
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />

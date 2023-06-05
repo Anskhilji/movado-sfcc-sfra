@@ -86,7 +86,6 @@ function getResources(pageContext) {
         INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
         FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
         FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
-        SMART_GIFT_ERROR_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
         CLYDE_WIDGET_DISPLAY_ENABLED: Site.current.preferences.custom.clydeWidgetDisplay ? true : false,
         CLYDE_WIDGET_ENABLED: Site.current.preferences.custom.isClydeEnabled ? true : false,
         OUT_OF_STOCK_LABEL: Resource.msg('label.out.of.stock', 'common', null),
