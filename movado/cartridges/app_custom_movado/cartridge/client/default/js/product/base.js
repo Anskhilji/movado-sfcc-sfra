@@ -1038,7 +1038,9 @@ function handlePostCartAdd(response) {
     var messageType = response.error ? 'text-danger' : 'text-success';
 
     if(response.error == false) {
+        $('#addToCartModal').addClass('addToCartRedesign')
         $('.recomendation-carousel-wrapper').removeClass('d-none');
+        $('#addToCartModal').removeClass('addToCartError');
     } else {
         $('#addToCartModal').addClass('addToCartError');
         $('#addToCartModal').removeClass('addToCartRedesign');
