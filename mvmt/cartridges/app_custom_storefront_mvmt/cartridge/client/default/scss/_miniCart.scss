@@ -783,6 +783,13 @@
 
             .minicart-footer {
                 position: static;
+                box-shadow: none;
+
+                .minicart-promo-container {
+                    margin: 0 rem(12) rem(12) rem(12);
+                    padding-bottom: rem(20);
+                    border-top: 1px solid $gray14;
+                }
             }
         }
 

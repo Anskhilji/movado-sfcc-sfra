@@ -223,11 +223,6 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
         marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
     }
 
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-    if (ABTestMgr.isParticipant('MVMTMinicartATC', 'render-new-design-minicart-ATC')) {
-        res.viewData.ABTestMiniCartATC = true;
-    }
-
     var quantityTotal;
 
     if (currentBasket) {
