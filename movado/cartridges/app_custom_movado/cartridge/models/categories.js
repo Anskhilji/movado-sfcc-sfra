@@ -83,8 +83,8 @@ function categoryToObject(category) {
         result.showColorSwatchForSubcategories = category.custom.showColorSwatchForSubcategories;
     }
     
-    if (!empty(category.custom.hideDesktopNavigation)) {
-        result.hideDesktopNavigation = category.custom.hideDesktopNavigation;
+    if (!empty(category.custom.isDesktopCategoryHidden)) {
+        result.isDesktopCategoryHidden = category.custom.isDesktopCategoryHidden;
     }
     var subCategories = category.hasOnlineSubCategories() ?
             category.getOnlineSubCategories() : null;

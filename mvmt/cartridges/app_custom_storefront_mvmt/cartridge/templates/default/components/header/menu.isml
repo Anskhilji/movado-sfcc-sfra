@@ -10,7 +10,7 @@
                   <isif condition="${headerRedesignSegment && abTestID == "header-redesign"}">
                   <isif condition="${category.subCategories || category.disableSubCategories}">
                   <iscomment> Custom: sub-dropdown class added</iscomment>
-                  <isif condition="${!category.hideDesktopNavigation}">
+                  <isif condition="${!category.isDesktopCategoryHidden}">
                     <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                       <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         ${category.name}
@@ -22,7 +22,7 @@
                     </li>
                   </isif>
                 <iselse/>
-                  <isif condition="${!category.hideDesktopNavigation}">
+                  <isif condition="${!category.isDesktopCategoryHidden}">
                     <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                       <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
                         ${category.name}

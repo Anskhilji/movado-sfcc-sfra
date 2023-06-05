@@ -26,7 +26,7 @@
                     <ul>
                         <isloop items="${categoryItem.subCategories}" var="category">
                             <isif condition="${category.gender && category.gender.equalsIgnoreCase('Women')}" >
-                                <isif condition="${!category.hideDesktopNavigation}">
+                                <isif condition="${!category.isDesktopCategoryHidden}">
                                     <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                                         <a href="${category.url}">
                                             <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
@@ -45,7 +45,7 @@
     <iselse/>
         <ul>
             <isloop items="${categoryItem.subCategories}" var="category">
-                <isif condition="${!category.hideDesktopNavigation}">
+                <isif condition="${!category.isDesktopCategoryHidden}">
                     <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                         <a href="${category.url}">
                             <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
