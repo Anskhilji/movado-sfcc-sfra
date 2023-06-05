@@ -88,7 +88,7 @@
             <isinclude template="beamWidgetMiniCart" />
         </isif>
         <isif condition="${mvmtMiniCartPromo}">
-            <div class="minicart-footer">
+            <div class="coupon-code-field-static">
                 <div class="minicart-promo-container">
                     <isif condition="${itemsLength > 0}">
                         <div class="mini-cart-promo-box">

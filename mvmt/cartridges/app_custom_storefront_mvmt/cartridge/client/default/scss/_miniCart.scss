@@ -781,7 +781,7 @@
                 }
             }
 
-            .minicart-footer {
+            .minicart-footer, .coupon-code-field-static {
                 position: static;
                 box-shadow: none;
 
@@ -793,7 +793,7 @@
             }
         }
 
-        .minicart-footer {
+        .minicart-footer,.coupon-code-field-static {
             overflow: hidden;
             padding: 0;
             bottom: 0;
