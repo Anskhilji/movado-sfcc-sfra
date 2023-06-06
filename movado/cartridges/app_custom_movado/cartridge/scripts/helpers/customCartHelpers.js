@@ -143,8 +143,16 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
 
         if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
-            var productModel = productFactory.get({pid: productID});
-            var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+            var productPrice;
+            
+            if (!empty(pli.basePrice.decimalValue) && !empty(pli.adjustedPrice.decimalValue)) {
+                if (pli.basePrice.decimalValue !== pli.adjustedPrice.decimalValue) {
+                    productPrice = pli.adjustedPrice && pli.adjustedPrice.decimalValue ? pli.adjustedPrice.decimalValue.toString() : '0.0';
+                } else {
+                    productPrice = pli.basePrice && pli.basePrice.decimalValue ? pli.basePrice.decimalValue.toString() : '0.0';
+                }
+            }
+            
             var category = pli.product && pli.product.primaryCategory
             ? pli.product.primaryCategory
             : '';
