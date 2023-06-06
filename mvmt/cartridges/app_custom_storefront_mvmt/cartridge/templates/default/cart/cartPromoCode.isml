@@ -1,41 +1,8 @@
-<iscomment>Custom Start: Add Client side Js in cart page</iscomment>
-<isscript>
-    var assets = require('*/cartridge/scripts/assets.js');
-    assets.addJs('/js/swell.js');
-</isscript>
-<iscomment>Custom End</iscomment>
 <div class="row">
     <div class="col-12 d-none">
         <p class="optional-promo">${Resource.msg('action.enter.promo.code','cart',null)}</p>
     </div>
 </div>
-<iscomment>Custom Start: Adding Swell widget conent slot to render points dropdown</iscomment>
-<isset name="isSwellAllowedCountry" value="${require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry()}" scope="page" />
-<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
-    <div class="row swell-redemption-containar d-none">
-        <div class="col-12">
-            <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
-            <p class="optional-promo swell-discount" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}">${Resource.msg('label.swell.promo.code', 'cart', null)}</p>
-            <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.have', 'cart', null)}</span>
-            <span class="swell-point-balance swell-points-total"></span>
-            <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.use', 'cart', null)}</span>
-            <section class="swell-redemption">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <select id="swell-redemption-dropdown">
-                            <option>${Resource.msg('msg.swell.option.select', 'cart', null)}</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="button" id="coupon-code-submit-btn" class="btn btn-primary btn-block">${Resource.msg('button.apply.swell.points', 'cart', null)}</button>
-                    </div>
-                </div>
-            </section>
-            <div class="redemption-point-error-message d-none" id="error">${Resource.msg('error.msg.swell.point', 'cart', null)}</div>
-        </div>
-    </div>
-</isif>
-<iscomment>Custom End</iscomment>
 <div class="row">
     <div class="col-12 collapsible-promo-wrapper mb-2" tabindex="0">
         <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="promo-code-form" method="GET" name="promo-code-form">

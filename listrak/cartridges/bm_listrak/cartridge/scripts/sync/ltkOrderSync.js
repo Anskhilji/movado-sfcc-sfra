@@ -48,14 +48,39 @@ function orderSync(args) {
         lastExportDate = maxHistoryDate;
     }
 
+    lastExportDate = lastExportDate.toISOString();
 
     // Get the orders ready for export
     var products = [];
-
     // var products : List = new dw.util.List(Product);
-    var orders = dw.order.OrderMgr.queryOrders('lastModified >= {1}', 'orderNo', false, lastExportDate);
 
-    if (orders.hasNext()) {
+    var salesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+    var somOrders = salesforceModel.getOrders(lastExportDate, currentExportStartTime);
+    var ordersArray = [];
+    var orderQuery = '';
+    var orders = null;
+
+    if (!empty(somOrders) && somOrders.status == 'OK') {
+        if (!empty(somOrders) && !empty(somOrders.object) && !empty(somOrders.object.records)) {
+            var orderNumbers = somOrders.object.records.forEach(function (items, index) {
+                ordersArray.push(items.OrderNumber);
+                if (orderQuery === '') {
+                    orderQuery += 'orderNo = {' + index + '}'
+                } else {
+                    orderQuery += ' OR orderNo = {' + index + '}'
+                }
+            });
+
+            try {
+                orders = dw.order.OrderMgr.searchOrders(orderQuery, 'orderNo DESC', ordersArray);
+            } catch (error) {
+                Logger.error('Error Occured While Getting the Orders From OMS: {0}, Error: {1}', orders, error);
+            }
+        }
+    }
+
+
+    if (!empty(orders) && orders.hasNext()) {
         // //////// Prepare order files //////////
         var orderfile = new ExportFile('orders_DW.txt');
         var itemfile = new ExportFile('orderItems_DW.txt');

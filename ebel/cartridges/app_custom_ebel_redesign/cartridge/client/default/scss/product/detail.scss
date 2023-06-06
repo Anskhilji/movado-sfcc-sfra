@@ -68,9 +68,12 @@
     }
 
     .promotions {
+        color: $danger;
 
         .callout {
             font-family: $font-HelveticaNeueLT-book;
+            color: $dark-green;
+
         }
     }
 
