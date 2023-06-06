@@ -6,6 +6,7 @@
 @import "utilities/swatch";
 @import "components/categoryTiles";
 @import "components/yotpoStarsRattingRefinements";
+@import "components/loader";
 
 .filter-and-count {
     visibility: hidden;
@@ -469,25 +470,4 @@
     &.button-search-result {
       bottom: rem(41);
     }
-}
-
-.loader {
-    padding: rem(15);
-    margin: rem(25) auto rem(30);
-    width: 100%;
-    justify-content: center;
-
-    .loader-icon {
-      border: rem(2) solid $grey18;
-      border-top: rem(2) solid $black;
-      border-radius: 50%;
-      width: rem(30);
-      height: rem(30);
-      animation: spin 0.5s linear infinite;
-    }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
