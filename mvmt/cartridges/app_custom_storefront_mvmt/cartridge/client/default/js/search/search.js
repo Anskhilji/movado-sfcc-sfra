@@ -1881,7 +1881,7 @@ module.exports = {
                                     $('.grid-footer').removeClass('d-none');
                                 }
                             }
-                            // bulidLifeStyleCarousel();
+                            bulidLifeStyleCarousel();
                             $loaderIcon.addClass('d-none');
                         }
                     });
