@@ -403,17 +403,17 @@ footer {
                     margin-right: rem(4);
                 }
 
-                .tick-icon {
+                .tick-icon,.copyed-code {
                     display: none;
                 }
 
                 &.active {
 
-                    .link-icon {
+                    .link-icon,.copy-code {
                         display: none;
                     }
 
-                    .tick-icon {
+                    .tick-icon,.copyed-code {
                         display: inline-block;
                     }
                 }
