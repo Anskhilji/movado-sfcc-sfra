@@ -1033,7 +1033,7 @@ function chooseBonusProducts(data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
-function handlePostCartAdd(response) {
+function handlePostCartAdd(response, addToCartRecommendationAtc) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
 
@@ -1072,6 +1072,11 @@ function handlePostCartAdd(response) {
         var priceTitle = 'Estimate total:';
         if ($('#addToCartModal').find('.total-price').length > 0 && response && response.cart && response.cart.totals && response.cart.totals.grandTotal) {
             $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
+        }
+        if (addToCartRecommendationAtc) {
+            $('#addToCartModal').find('.add-to-cart-plp').addClass('active');
+        } else {
+            $('#addToCartModal').find('.add-to-cart-plp').removeClass('active');
         }
         $('#addToCartModal').modal('show');
         $('.slick-slider').slick('refresh');
@@ -1283,6 +1288,7 @@ module.exports = {
             var setPids;
             var giftPid;
             var $this = $(this);
+            var addToCartRecommendationAtc = $this.data('recommendation-atc');
             var productQuantity = null;
             if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
                 productQuantity = $('.quantity-selector > .quantity').val();
@@ -1396,7 +1402,7 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data);
+                        handlePostCartAdd(data, addToCartRecommendationAtc);
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
                         //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart

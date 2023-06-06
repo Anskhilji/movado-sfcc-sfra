@@ -1,6 +1,162 @@
+.addToCartModal {
+
+    &.addToCartError {
+
+        .modal-dialog {
+
+            .modal-content {
+
+                .modal-header, .modal-footer, .close {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .modal-dialog {
+        height: 100vh;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1.7rem 0;
+    }
+
+    .modal-body {
+        padding: rem(20) rem(10);
+    }
+
+    p {
+        font-weight: bold;
+        line-height: rem(25);
+        letter-spacing: rem(1);
+        margin-bottom: rem(30);
+    }
+    
+    .btn:last-child {
+        text-decoration: underline;
+        margin-top: rem(20);
+    }
+}
+// new
 .addToCartRedesign {
 
     &.addToCartModal {
+
+        .modal-header {
+            all: unset;
+
+            p {
+                margin-top: rem(30);
+                margin-bottom: 0;
+                font-size: rem(18);
+                color: $apple;
+                font-weight: bold;
+                text-align: center;
+            }
+        }
+
+        .recomendation-carousel-wrapper {
+
+            .modal-footer {
+               
+                @include media-breakpoint-down(md) {
+                    margin-top: rem(7);
+                }
+            }
+
+            .cs-carousel-wrapper {
+
+                .slick-arrow {
+
+                    &.slick-next {
+                        right: 0;
+                    }
+
+                    &.slick-prev {
+                        left: 0;
+                    }
+                }
+            }
+        }
+
+        &.show {
+
+           .modal-dialog {
+
+                @include media-breakpoint-down(md) {
+                    transform: translate(0,0);
+                }
+           }
+        }
+
+        .modal-footer {
+            display: none;
+
+            @include media-breakpoint-down(md) {
+                display: block;
+                padding: 0;
+
+                .modal-inner {
+
+                    .checkmarks {
+                        display: none;
+                    }
+
+                    .total-price {
+                        display: none;
+                    }
+                }
+
+                .top-sec {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 0;
+
+                    .btn-primary {
+                        max-width: rem(240);
+                        width: 100%;
+                        padding: rem(10) 0;
+                        padding-bottom: rem(9);
+                        color: $white;
+                        font-size: rem(15);
+                        font-weight: 500;
+                        letter-spacing: 0;
+                        line-height: rem(21);
+                        text-align: center;
+                        max-width: 100%;
+                        border: rem(1) solid $grey26;
+                        border-radius: rem(23);
+                        
+                        &:hover {
+                            background: $black;
+                        }
+                    }
+
+                    .btn-link {
+                        max-width: 100%;
+                        padding: rem(10) 0;
+                        padding-bottom: rem(9);
+                        width: 100%;
+                        max-width: rem(240);
+                        border: rem(1) solid $black;
+                        color: $grey8;
+                        font-size: rem(15);
+                        font-weight: 500;
+                        letter-spacing: 0;
+                        line-height: rem(21);
+                        text-align: center;
+                        margin-left: rem(20);
+                        margin-top: 0;
+                        text-decoration: none;
+                        max-width: 100%;
+                        margin-left: 0;
+                        margin-top: rem(13);
+                        border-radius: rem(23);
+                    }
+                }
+            }
+        }
 
         .cta-add-to-cart {
             display: block;
@@ -28,15 +184,72 @@
 
                             .cta-add-to-cart {
                                 display: block;
+
+                                .add-to-cart {
+                                    border: rem(1) solid $border-color;
+                                    border-radius: rem(15);
+                                    padding: rem(7.5) 0;
+                                    color: $black;
+                                    font-size: rem(12);
+                                    font-weight: 500;
+                                    letter-spacing: 0;
+                                    line-height: rem(16);
+                                    text-align: center;
+                                    text-decoration: none;
+                                    max-width: rem(131);
+                                    width: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    height: rem(31);
+                                    
+                                    &:hover {
+                                        background-color: $green-progress1;
+                                        border-color: $green-progress1;
+                                        color: $white;
+                                    }
+
+                                    &::before {
+                                        content: 'x';
+                                        position: absolute;
+                                        left: rem(11);
+                                        width: rem(10);
+                                        height: rem(7);
+                                        display: flex;
+                                        align-items: center;
+                                        display: none;
+                                    }
+
+                                    &.active {
+                                        background-color: $green-progress1;
+                                        border-color: $green-progress1;
+                                        color: $white;
+
+                                        &::before {
+                                            display: block;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                     
                     .mcs-product-carousel-container {
                         margin: 0;
+
+                        @include media-breakpoint-down(md) {
+                            padding: 0;
+                        }
                         
                         @include media-breakpoint-up(lg) {
                             padding: 0 rem(42);
+                        }
+
+                        .cs-carousel-wrapper {
+
+                            @include media-breakpoint-down(md) {
+                                margin-bottom: rem(23);
+                            }
                         }
 
                         .carousel-title {
@@ -46,33 +259,26 @@
                             letter-spacing: 0;
                             line-height: rem(26);
                             margin-bottom: rem(30);
+
+                            @include media-breakpoint-down(md) {
+                                font-size: rem(16);
+                                font-weight: 500;
+                                line-height: rem(21);
+
+                            }
                         }
 
                         .cs-carousel {
                             margin: 0;
                             padding: 0;
 
-                            // .slick-dots {
-                            //     max-width: rem(159);
-                            //     height: rem(3);
-                
-                            //     li {
-                            //         background: $grey-dark-6;
-                            //         height: rem(3);
-                
-                            //         &.slick-active {
-                                    
-                            //             button {
-                            //                 background-color: $black;
-                            //             }
-                            //         }
-                
-                            //         button {
-                            //             background: $grey-dark-6;
-                            //             border-radius: 0;
-                            //         }
-                            //     }
-                            // }
+                            .slick-dots {
+                               margin-top: rem(23);
+
+                                @include media-breakpoint-down(md) {
+                                    margin-top: rem(30);
+                                }
+                            }
                         }
                     }
                 }
@@ -83,6 +289,10 @@
             margin-top: rem(40);
             margin-bottom: rem(30);
             padding: 0 rem(12);
+
+            @include media-breakpoint-down(md) {
+                margin-top: rem(0);
+            }
             
             .carousel-title {
                 color: $black;
@@ -91,6 +301,14 @@
                 letter-spacing: 0;
                 line-height: rem(26);
                 margin-bottom: rem(30);
+
+                @include media-breakpoint-down(md) {
+                    font-size: rem(16);
+                    font-weight: 500;
+                    line-height: rem(21);
+                    margin-bottom: rem(20)
+
+                }
             }
     
             .container {
@@ -105,6 +323,30 @@
                 margin: 0;
                 margin-top: rem(40);
                 padding: 0 rem(42);
+
+                @include media-breakpoint-down(md) {
+                    margin-top: 0;
+                    padding: 0;
+
+                    .modal-footer {
+                        margin-top: rem(7);
+                    }
+                }
+
+                ul {
+
+                    &.slick-dots {
+                        bottom: rem(-7);
+    
+                        @include media-breakpoint-down(md) {
+                            bottom: rem(-14);
+                        }
+    
+                        @include media-breakpoint-down(sm) {
+                            bottom: rem(-14);
+                        }
+                    }
+                }
 
                 .cta-add-to-cart {
                     display: block;
@@ -127,6 +369,13 @@
                     letter-spacing: 0;
                     line-height: rem(26);
                     margin-bottom: rem(30);
+
+                    @include media-breakpoint-down(md) {
+                        font-size: rem(16);
+                        font-weight: 500;
+                        line-height: rem(21);
+
+                    }
                 }
 
                 .cs-carousel {
@@ -146,30 +395,19 @@
     
             &.cs-carousel-update {
     
-                // .slick-dots {
-                //     max-width: rem(159);
-                //     height: rem(3);
-    
-                //     li {
-                //         background: $grey-dark-6;
-                //         height: rem(3);
-    
-                //         &.slick-active {
-                        
-                //             button {
-                //                 background-color: $black;
-                //             }
-                //         }
-    
-                //         button {
-                //             background: $grey-dark-6;
-                //             border-radius: 0;
-                //         }
-                //     }
-                // }
-    
                 .cs-carousel {
                     padding-bottom: rem(11);
+
+                    @include media-breakpoint-down(md) {
+                        padding-bottom: rem(12);
+                    }
+                }
+
+                ul {
+
+                    &.slick-dots {
+                        bottom: rem(-7);
+                    }
                 }
             }
         }
@@ -181,6 +419,13 @@
             flex-direction: column;
             justify-content: center;
             padding: 1.7rem 0;
+
+            @include media-breakpoint-down(md) {
+                transform: translate(0, 25%);
+                padding-bottom: 0;
+                justify-content: flex-end;
+                height: 100vh;
+            }
     
             &.modal-sm {
                 max-width: rem(1043);
@@ -190,7 +435,8 @@
                 border-radius: 0;
     
                 @include media-breakpoint-down(md) {
-                    flex-direction: column-reverse;
+                    border: none;
+                    padding: rem(20) rem(10);
                 }
     
                 .close {
@@ -206,6 +452,11 @@
                     opacity: 1;
                     outline: none;
                     border-radius: 100%;
+
+                    @include media-breakpoint-down(md) {
+                        top: rem(20);
+                        right: rem(15);
+                    }
     
                     span {
                         width: rem(13);
@@ -220,9 +471,8 @@
                             font-size: rem(13);
                             position: absolute;
                             transform: translate(-50%, -50%);
-                            left: 50%;
-                            top: 0;
-                            margin: rem(8) 0;
+                            left: 52%;
+                            top: rem(11);
                         }
                     }
     
@@ -243,7 +493,6 @@
             @include media-breakpoint-down(md) {
                 position: unset;
                 padding: 0;
-                margin-bottom: rem(20);
             }
     
             .modal-inner {
@@ -270,6 +519,11 @@
                     width: rem(25);
                     height: rem(25);
                     margin-right: rem(12);
+
+                    @include media-breakpoint-down(md) {
+                        width: rem(16);
+                        height: rem(16);
+                    }
                 }
     
                 .add-to-cart-title {
@@ -288,9 +542,10 @@
     
             .top-sec {
                 justify-content: center;
-    
+                display: flex;
+
                 @include media-breakpoint-down(md) {
-                    flex-direction: column;
+                    display: none;
                 }
     
                 .btn-primary {
@@ -303,6 +558,8 @@
                     letter-spacing: 0;
                     line-height: rem(21);
                     text-align: center;
+                    border: none;
+                    border-radius: rem(23);
                     
                     &:hover {
                         background: $black;
@@ -331,6 +588,7 @@
                     margin-left: rem(20);
                     margin-top: 0;
                     text-decoration: none;
+                    border-radius: rem(23);
     
                     &.btn {
                         
