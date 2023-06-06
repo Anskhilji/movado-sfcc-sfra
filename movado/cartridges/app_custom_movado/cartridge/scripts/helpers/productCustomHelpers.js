@@ -1035,6 +1035,17 @@ function setProductAvailability(product) {
 }
 
 /**
+ * Function all string convert to capitalize formate
+ * @param value
+ * @returns capitallize value
+ */
+function capitalizeString(value) {
+    return value.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+        return letter.toUpperCase();
+    });
+}
+
+/**
  * It is used to get productCustomAttribute for Details and Specs Sections on PDP
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @returns {Object} - detailAndSpecAttributes object
@@ -1089,9 +1100,10 @@ function setProductAvailability(product) {
                             }
                         }
                         if (!empty(value)) {
+                            var strCapitalizeVal = capitalizeString(value);
                             var attribute = {
                                 displayName: displayName,
-                                value: value,
+                                value: strCapitalizeVal,
                                 section: section,
                                 image: image
                             };
