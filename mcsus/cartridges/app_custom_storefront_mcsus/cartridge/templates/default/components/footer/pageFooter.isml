@@ -153,8 +153,7 @@
                         </g>
                     </g>
                 </g>
-            </svg>
-            ${Resource.msg('close.modal', 'homePage', null)}
+            </svg>${Resource.msg('close.modal', 'homePage', null)}
         </div>
         
         <isslot id="sc-subscription-successful-modal" context="global" description="subscription successful Coupon code modal" />
