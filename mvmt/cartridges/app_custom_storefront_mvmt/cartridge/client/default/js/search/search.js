@@ -1857,8 +1857,9 @@ module.exports = {
                     e.preventDefault();
                     e.stopPropagation();
                     var showMoreUrl = $('.show-more button').data('url');
-                    $.spinner().start();
+                    var $loaderIcon = $('.loader');
                     $(this).trigger('search:loadMoreProductsOnScroll', e);
+                    $loaderIcon.removeClass('d-none');
                     $.ajax({
                         url: showMoreUrl,
                         data: { selectedUrl: showMoreUrl },
@@ -1880,17 +1881,13 @@ module.exports = {
                                     $('.grid-footer').removeClass('d-none');
                                 }
                             }
-                            bulidLifeStyleCarousel();
-                            $.spinner().stop();
-                        },
-                        error: function () {
-                            $.spinner().stop();
+                            // bulidLifeStyleCarousel();
+                            $loaderIcon.addClass('d-none');
                         }
                     });
                 } else {
                     loadMoreInProcessing = false;
                 }
-
             });
         }
     },
