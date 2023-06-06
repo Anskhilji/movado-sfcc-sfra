@@ -1100,10 +1100,9 @@ function capitalizeString(value) {
                             }
                         }
                         if (!empty(value)) {
-                            var strCapitalizeVal = capitalizeString(value);
                             var attribute = {
                                 displayName: displayName,
-                                value: strCapitalizeVal,
+                                value: capitalizeString(value),
                                 section: section,
                                 image: image
                             };

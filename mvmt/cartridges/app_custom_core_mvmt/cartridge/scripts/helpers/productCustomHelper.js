@@ -223,10 +223,9 @@ function capitalizeString(value) {
                             value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
                         }
                         if (!empty(value)) {
-                            var strCapitalizeVal = capitalizeString(value);
                             var attribute = {
                                 displayName: displayName,
-                                value: strCapitalizeVal,
+                                value: capitalizeString(value),
                                 section: section
                             };
 
