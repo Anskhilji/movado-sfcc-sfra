@@ -37,7 +37,7 @@
                     <form role="form" name="newsletterSubscribe" id="newsletterSubscribe"
                         action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
                         <iscomment> Custom Start: Email footer description </iscomment>
-                         <isslot id="cs-newsletter-subscribe-description" context="global" description="Satisfaction Guaranteed, Free Shipping, Secure Payment, Free Returns" />
+                         <isslot id="cs-newsletter-subscribe-description" context="global" description="Email footer description" />
                         <iscomment> Custom End </iscomment>
 
                         <div class="input-group">
@@ -126,14 +126,13 @@
         </isif>
         <iscomment> Custom End: </iscomment>
 
-        <iscomment>Listrak Cartridge Integration</iscomment>
-        <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom
-                                             .Listrak_Cartridge_Enabled : false}" scope="page" />
-        <isif condition="${isListrakEnable}">
-            <isinclude url="${URLUtils.url('ltkInclude-Start')}" />
-        </isif>
-        <iscomment> One trust html script </iscomment>
-        <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
+    <iscomment>Listrak Cartridge Integration</iscomment>
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.url('ltkInclude-Start')}" />
+    </isif>
+    <iscomment> One trust html script </iscomment>
+    <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 </footer>
 <isinclude template="storeLocator/storeLocator" />
 
