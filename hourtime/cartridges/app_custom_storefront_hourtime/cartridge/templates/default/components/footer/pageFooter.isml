@@ -73,7 +73,4 @@
 
     <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
     <isinclude template="resources/appresources"/>
-
-    <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
-    <isinclude template="include/yotpofooter"/>
 </footer>

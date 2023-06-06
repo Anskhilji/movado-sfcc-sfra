@@ -2273,8 +2273,6 @@ function generateOrderXML(order) {
     var shippingLineItemSKU = Site.getCurrent().getCustomPreferenceValue('shippingLineItemSKU');
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? 
             Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ?
-            Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
     var isRoundingAmountEnabled = !empty(Site.getCurrent().preferences.custom.roundingAmountEnabled) ? 
             Site.getCurrent().preferences.custom.roundingAmountEnabled : false;
     var fxRates = parseFloat(crossBorderUtils.getFXRates(order)).toFixed(TWO_DECIMAL_PLACES);

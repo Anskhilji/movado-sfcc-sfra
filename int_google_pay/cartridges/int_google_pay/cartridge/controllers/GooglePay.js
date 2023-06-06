@@ -440,20 +440,6 @@ server.post('ProcessPayments',
             }
         }
 
-        // Swell Loyalty Call
-        if (!COCustomHelpers.isRiskified(paymentInstrument)) {
-            Transaction.wrap(function () {
-                order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
-                if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
-                    var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-                    SwellExporter.exportOrder({
-                        orderNo: orderNumber,
-                        orderState: 'created'
-                    });
-                }
-            });
-        }
-
         Transaction.wrap(function () {
             var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
             if(currentSessionPaymentParams) {
