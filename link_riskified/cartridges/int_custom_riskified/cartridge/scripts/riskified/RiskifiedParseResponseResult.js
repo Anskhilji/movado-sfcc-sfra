@@ -15,6 +15,8 @@ var PaymentMgr = require('dw/order/PaymentMgr');
 var Site = require('dw/system/Site');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 function parseRiskifiedResponse(order, reqBody) {
     var body = reqBody || request.httpParameterMap.requestBodyAsString;
@@ -29,15 +31,21 @@ function parseRiskifiedResponse(order, reqBody) {
     var RESP_SUCCESS ='SUCCESS';
     session.custom.currencyCode = order.currencyCode;
 
-    checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Inside parseRiskifiedResponse to check riskified status and order number is: ' + order.orderNo);
+    var message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Inside parseRiskifiedResponse to check riskified status and order number is: ' + order.orderNo;
+    checkoutLogger.info(message);
+    checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
 
     if (riskifiedStatus.displayValue === 'Declined') {
-         checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo);
+        message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo;
+        checkoutLogger.info(message);
+        checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
     	// void or reverse the payment if card payment or not paid
 		// (Order.PAYMENT_STATUS_NOTPAID) else refund the payment if already
 		// captured and send mail to customer
         if (order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID || (paymentMethod.ID == 'CREDIT_CARD' && order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID)) {
-            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentReversal param and order number is: ' + order.orderNo);
+            message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentReversal param and order number is: ' + order.orderNo;
+            checkoutLogger.info(message);
+            checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
         	responseObject = hooksHelper(
 					'app.riskified.paymentreversal',
 					'paymentReversal',
@@ -46,7 +54,9 @@ function parseRiskifiedResponse(order, reqBody) {
 					false,
 					require('*/cartridge/scripts/hooks/paymentProcessHook').paymentReversal);
         } else {
-            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + order.orderNo);
+            message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + order.orderNo;
+            checkoutLogger.info(message);
+            checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
             responseObject = hooksHelper(
 					'app.riskified.paymentrefund',
 					'paymentRefund',
@@ -58,7 +68,9 @@ function parseRiskifiedResponse(order, reqBody) {
 
         /* Reject in OMS - Do not process to fulfillment status */
         if (Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
-            checkoutLogger.info('(RiskifiedParseResponseResult) -> Riskified status is declined.  Sending to SOM queue and order number is: ' + order.orderNo);
+            message = '(RiskifiedParseResponseResult) -> Riskified status is declined.  Sending to SOM queue and order number is: ' + order.orderNo;
+            checkoutLogger.info(message);
+            checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
             try {
                 var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
@@ -77,18 +89,24 @@ function parseRiskifiedResponse(order, reqBody) {
                 Transaction.wrap(function () {
                     //if order status is CREATED
                     if (order.getStatus() == Order.ORDER_STATUS_CREATED){
-                        checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
+                        message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo;
+                        checkoutLogger.error(message);
+                        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
                         // MSS-1169 Passed true as param to fix deprecated method usage
                         OrderMgr.failOrder(order, true);  //Order must be in status CREATED
                         order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
                     } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
-                        checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
+                        message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo;
+                        checkoutLogger.error(message);
+                        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
                         OrderMgr.cancelOrder(order);
                         order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
                     }
                 });
             } catch (ex) {
                 checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
+                checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex.fileName, ex.lineNumber, ex.stack);
+
             }
         }
 
@@ -97,11 +115,15 @@ function parseRiskifiedResponse(order, reqBody) {
                 YotpoHelper.deleteOrder(order);
             } catch (ex) {
                 checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to delete order from Yotpo against order number: ' + order.orderNo + ' and exception is: ' + ex);
+                checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex.fileName, ex.lineNumber, ex.stack);
+
             }
         }
         /* Send Cancellation Email*/
         if(responseObject.decision == RESP_SUCCESS){
-            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Order is cancelled and going to send cancellation email for order number: ' + order.orderNo);
+            message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Order is cancelled and going to send cancellation email for order number: ' + order.orderNo;
+            checkoutLogger.info(message);
+            checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
         	var orderObj = {
         			customerEmail :order.customerEmail,
         			firstName  :order.billingAddress.firstName,
@@ -114,17 +136,12 @@ function parseRiskifiedResponse(order, reqBody) {
             COCustomHelpers.sendCancellationEmail(orderObj, customerLocale);
         }
     } else {
-        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
-            var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-            SwellExporter.exportOrder({
-                orderNo: order.orderNo,
-                orderState: 'created'
-            });
-        }
 
         //[MSS-1257] Removed 3DS order check as we are not holding 3DS status any more and calling the Riskified order creation API after customer redirects back from 3DS
         // riskifiedStatus as approved then mark as confirmed
-        checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
+        message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo;
+        checkoutLogger.info(message);
+        checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
         if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
             Transaction.wrap(function () {
                 order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
@@ -136,6 +153,8 @@ function parseRiskifiedResponse(order, reqBody) {
             COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
         } catch (error) {
             checkoutLogger.error('RiskifiedParseResponseResult.js -> COCustomHelpers.sendOrderConfirmationEmail() -> throw error on sending confirmation email, Error: ' + error);
+            checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, error.message, 'RiskifiedParseResponseResult', error.fileName, error.lineNumber, error.stack);
+
         }
         
         /* Accept in OMS */

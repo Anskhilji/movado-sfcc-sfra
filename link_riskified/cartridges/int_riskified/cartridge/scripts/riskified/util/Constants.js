@@ -34,3 +34,7 @@ exports.BAD_PAYLOAD = 'BAD_PAYLOAD';
 exports.BAD_JSON = 'BAD_JSON';
 exports.BAD_CALL = 'BAD_CALL';
 
+exports.RISKIFIED = 'Riskified Integration';
+exports.ADYEN = 'Adyen Integration';
+
+exports.RISKIFIED_AUTO_APPROVED = 'This Order Was Auto Approved';

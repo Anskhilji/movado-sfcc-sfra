@@ -1,0 +1,40 @@
+.cs-carousel-update {
+    
+    .cs-carousel {
+        
+        .carousel-tile {
+            
+            .product-tile {
+                
+                .promotions {
+                    
+                    .callout {
+                        
+                        &.promo-msg {
+                            color: $black;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+header {
+    
+    &.new-header {
+
+        .top-search-update {
+
+            .product {
+
+                .product-tile {
+
+                    .promo-msg {
+                        color: $black;
+                    }
+                }
+            }
+        }
+    }
+}

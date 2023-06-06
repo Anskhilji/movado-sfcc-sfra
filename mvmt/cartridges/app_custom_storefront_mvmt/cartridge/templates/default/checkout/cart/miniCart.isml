@@ -21,7 +21,7 @@
 </div>
 <isinclude template="cart/switchToCountryMessage" />
 
-<isif condition="${itemsLength === 0}">
+<isif condition="${itemsLength === 0 || itemsLength === null}">
 <iscomment> Wraped content asset into empty-min-cart div </iscomment>
     <div class="empty-mini-cart">
         <iscomment>Custom Start: Adding empty mini cart content assets </iscomment>
@@ -145,8 +145,6 @@
             <isslot id="esw-cart-message" description="esw cart message" context="global" />
         </isif>
     </div>
-    <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
-    <isinclude template="include/yotpofooter"/>
 </isif>
 
 <!-- Modal -->

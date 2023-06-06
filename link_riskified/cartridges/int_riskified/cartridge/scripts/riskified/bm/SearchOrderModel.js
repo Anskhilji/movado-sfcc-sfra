@@ -12,6 +12,8 @@ var Calendar = require('dw/util/Calendar');
 var PagingModel = require('dw/web/PagingModel');
 
 /* Script Modules */
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 var RCLogger = require('~/cartridge/scripts/riskified/util/RCLogger');
 
 /**
@@ -27,9 +29,12 @@ var RCLogger = require('~/cartridge/scripts/riskified/util/RCLogger');
  */
 function searchOrders(orderNo, startDateString, endDateString, pageSizeIn, moduleName) {
     var logLocation = moduleName + 'SearchOrderModel~searchOrders';
+    var message;
 
-    RCLogger.logMessage('SearchOrders: The search parameters are : ' + 'Order No - ' + orderNo + ' Start Date - ' + startDateString + ' End Date - ' + endDateString
-        , 'debug', logLocation);
+    message = 'SearchOrders: The search parameters are : ' + 'Order No - ' + orderNo + ' Start Date - ' + startDateString + ' End Date - ' + endDateString
+    , 'debug', logLocation;
+    RCLogger.logMessage(message);
+    checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
 
     var queryString;
     var	startDate = null;
@@ -72,7 +77,9 @@ function searchOrders(orderNo, startDateString, endDateString, pageSizeIn, modul
         orders = OrderMgr.searchOrders(queryString, sortString, startDate, endDate);
     }
 
-    RCLogger.logMessage('The total number of orders found : ' + orders.count, 'debug', logLocation);
+    message = 'The total number of orders found : ' + orders.count, 'debug', logLocation;
+    RCLogger.logMessage(message);
+    checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
 
     var pageSize = empty(pageSizeIn) ? 10 : parseInt(pageSizeIn);
 
