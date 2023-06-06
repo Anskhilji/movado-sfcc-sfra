@@ -1033,28 +1033,28 @@ function chooseBonusProducts(data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
-function handlePostCartAdd(response, $recomendationAddToCartMessage) {
+function handlePostCartAdd(response) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
 
-    if(response.error == false) {
-        $('#addToCartModal').addClass('addToCartRedesign')
-        $('.recomendation-carousel-wrapper').removeClass('d-none');
-        $('#addToCartModal').removeClass('addToCartError');
-    } else {
-        $('#addToCartModal').addClass('addToCartError');
-        $('#addToCartModal').removeClass('addToCartRedesign');
-        $('.recomendation-carousel-wrapper').addClass('d-none');
+    if ($('#addToCartModal').hasClass('addToCartModal-wrapper')) {
+        if(response.error == false) {
+            $('#addToCartModal').addClass('addToCartRedesign')
+            $('.recomendation-carousel-wrapper').removeClass('d-none');
+            $('#addToCartModal').removeClass('addToCartError');
+        } else {
+            $('#addToCartModal').addClass('addToCartError');
+            $('#addToCartModal').removeClass('addToCartRedesign');
+            $('.recomendation-carousel-wrapper').addClass('d-none');
+        }
     }
 
     // show add to cart modal
     $('#addToCartModal .modal-body').html(response.message);
-    $('#addToCartModal .modal-footer').html(response.footerContent);
-    $('#addToCartModal .modal-body p').addClass(messageType);
-
-    if ($recomendationAddToCartMessage) {
-        $('#addToCartModal .modal-header p').text($recomendationAddToCartMessage);
+    if (response && response.footerContent) {
+        $('#addToCartModal .modal-footer').html(response.footerContent);
     }
+    $('#addToCartModal .modal-body p').addClass(messageType);
 
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {
@@ -1070,7 +1070,9 @@ function handlePostCartAdd(response, $recomendationAddToCartMessage) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
         var priceTitle = 'Estimate total:';
-        $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
+        if ($('#addToCartModal').find('.total-price').length > 0 && response && response.cart && response.cart.totals && response.cart.totals.grandTotal) {
+            $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
+        }
         $('#addToCartModal').modal('show');
         $('.slick-slider').slick('refresh');
     }
@@ -1281,17 +1283,12 @@ module.exports = {
             var setPids;
             var giftPid;
             var $this = $(this);
-            var $recomendationAddToCartMessage;
             var productQuantity = null;
             if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
                 productQuantity = $('.quantity-selector > .quantity').val();
                 if (productQuantity == "") {
                     productQuantity = null;
                 }
-            }
-
-            if ($this.data('recommendation-message') !== '' && $this.data('recommendation-message') !== undefined) {
-                $recomendationAddToCartMessage = $this.data('recommendation-message');
             }
 
             $('body').trigger('product:beforeAddToCart', this);
@@ -1399,7 +1396,7 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data, $recomendationAddToCartMessage);
+                        handlePostCartAdd(data);
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
                         //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart

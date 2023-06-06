@@ -1,1 +1,0 @@
-<button  class='add-to-cart tile-quick-view-btn plpToCart <isif condition="${product.isProductRestricted}">d-none</isif>' data-recommendation-message='${Resource.msg('label.recommendations.product.add.to.cart.message', 'common', null)}' aria-label="Add to Cart" data-pid="${product.id}" ${!pdict.readyToOrder ? "disabled" : ""} ></button>

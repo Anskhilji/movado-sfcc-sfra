@@ -44,8 +44,7 @@
                         which means you need to put privacy information into another remote include
         </iscomment>
         ${dw.system.HookMgr.callHook('app.template.afterFooter', 'afterFooter') || ''}
-        <isinclude template="product/components/addToCartModal"/>
-
+        <isinclude template="product/components/old/addToCartModal"/>  
     </body>
 </html>
 
