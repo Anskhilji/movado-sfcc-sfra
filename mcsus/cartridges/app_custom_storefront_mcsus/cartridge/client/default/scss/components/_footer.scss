@@ -1,182 +1,603 @@
 @import "../variables";
-@import "~movado/components/_footer";
-@import "components/collapsibleItem";
 
 footer {
+    background-color: $white;
+    padding: 0;
 
-    .home-email-signup {
+    .footer-above-sec {
+        background-color: $beige;
+        padding: rem(35) rem(0);
 
-        .email-description {
-            font-size: rem(12);
+        @include media-breakpoint-down(sm) {
+            padding: rem(37) rem(0);
         }
 
-        .input-group {
-          display: flex;
+        .value-propositions {
+            max-width: rem(1024);
 
-          @include media-breakpoint-down(sm) {
-            flex-direction: column;
-            margin-top: rem(10);
-            width: 100% !important; // here is coming some inline css therfore i need to overwrite this
-          }
+            .info-box {
+                font-family: $font-book;
+                margin: 0;
 
-          .form-control {
-            border: none;
-            padding-right: rem(140);
-            
-            &:focus {
-                box-shadow: none;
-                z-index: 0;
+                @include media-breakpoint-down(sm) {
+                    max-width: rem(190);
+                    margin: 0 auto;
+                }
+
+                li {
+                    @include media-breakpoint-down(sm) {
+                        &:not(:last-of-type) {
+                            margin-bottom: rem(25);
+                        }
+                    }
+
+                    svg {
+                        margin-right: rem(15);
+                        max-width: 100%;
+                        height: auto;
+
+                        @include media-breakpoint-down(sm) {
+                            width: rem(25);
+                        }
+                    }
+
+                    span {
+                        color: $black;
+                        font-size: rem(14);
+                        font-weight: 400;
+                        letter-spacing: rem(0);
+                        line-height: rem(17);
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-container {
+        font-family: $font-book;
+        padding: rem(47) rem(49) rem(0);
+
+        @include media-breakpoint-down(sm) {
+            padding: rem(36) rem(20) rem(0);
+        }
+
+        .footer-logo {
+
+            img {
+                max-width: rem(179);
+
+                @include media-breakpoint-down(sm) {
+                    margin: 0 auto;
+                }
             }
 
             @include media-breakpoint-down(sm) {
                 width: 100%;
+                max-width: 100%;
+                border-bottom: rem(1) solid $grey-transparent-9;
+                padding-bottom: rem(22);
+                text-align: center;
             }
-          }
+        }
 
-          .input-group-btn {
-            display: flex;
-            align-items: center;
-            background: transparent;
-            border: none;
-            position: absolute;
-            right: rem(-1);
-
-            .btn-primary {
+        .footer-store-Location {
+            @include media-breakpoint-down(sm) {
                 width: 100%;
-                border: 0;
-                height: rem(36);
-                margin-top: 0;
+                padding: rem(22) rem(0);
+                border-bottom: rem(1) solid $grey-transparent-9;
+                text-align: center;
+            }
+
+            h3,
+            .menu-footer {
+                color: $black;
                 font-size: rem(16);
                 font-weight: 600;
+                letter-spacing: rem(0);
+                line-height: rem(17);
 
-                &:focus {
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(14);
+                }
+            }
+
+            .seleced-store {
+                margin-top: rem(10);
+
+                img {
+                    height: rem(13);
+                    width: rem(13);
+                    margin-right: rem(10);
+                }
+
+                span {
+                    font-family: $font-book;
+                    font-size: rem(14);
+                    color: $black;
+                    letter-spacing: rem(1.4);
+                    line-height: rem(17);
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .footer-newsletter {
+            font-family: $font-book;
+            max-width: rem(334.96);
+
+            @include media-breakpoint-down(md) {
+                max-width: rem(234.96);
+            }
+
+            @include media-breakpoint-down(sm) {
+                max-width: 100%;
+                padding-top: rem(22);
+                text-align: center;
+            }
+
+            h3 {
+                color: $black;
+                font-size: rem(16);
+                font-weight: 600;
+                letter-spacing: rem(0);
+                line-height: rem(20);
+                margin-bottom: rem(10);
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(14);
+                    color: $grey-light15;
+                    margin-bottom: rem(8);
+                }
+            }
+
+            p {
+                color: $black;
+                font-size: rem(12);
+                letter-spacing: 0;
+                line-height: rem(19);
+                margin-bottom: rem(10);
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(14);
+                    margin-bottom: rem(15);
+                }
+            }
+
+            form {
+                font-family: $font-book;
+
+                .form-control {
+                    height: rem(45);
+                    border-color: $black;
+                    font-size: rem(14);
+                    letter-spacing: 0;
+                    line-height: rem(17);
+                    color: $black;
+                    padding-left: rem(20);
+                    outline: none;
                     box-shadow: none;
-                }
-            }
-          }
-        }
-      }
 
-    .store {
-
-        .selectors {
-
-            .collapsible-xl {
-
-
-                .title {
-
-                    @include media-breakpoint-up(sm) {
-                        font-size: rem(12);
-
-                    }
-
-                    @include media-breakpoint-up(lg) {
-                        font-size: rem(16);
-                    }
-
-                    &:after {
-                        font-size: 1.5625rem;
-                        font-family: $font-awesome;
+                    @include media-breakpoint-down(sm) {
+                        color: $grey-light6;
+                        border-color: $grey-light6;
                     }
                 }
-            }
 
-            .esw-country-selector {
+                .input-group-btn {
 
+                    .btn {
+                        height: rem(45);
+                        width: rem(45);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        outline: none;
+                        box-shadow: none;
 
-
-                .dropdown {
-
-                    &-item {
-
-                        @include media-breakpoint-up(sm) {
-                            font-size: rem(12);
-                        }
-
-                        @include media-breakpoint-up(md) {
-                            font-size: rem(14);
+                        &:active,
+                        &:focus {
+                            box-shadow: none;
                         }
                     }
                 }
-            }
 
-            &.footerDropdown {
+                .submission-status {
+                    margin-top: rem(10);
 
-                .dropdown {
-
-                    &-toggle {
-
-                        @include media-breakpoint-down(xs) {
-
-                            &::after {
-                                font-size: rem(25);
-                                font-family: $font-awesome;
-                            }
-                        }
+                    .error {
+                        color: $red;
+                        font-size: rem(14);
+                        letter-spacing: 0;
+                        line-height: rem(17);
                     }
-
                 }
             }
         }
     }
 
-    h3 {
-        font-size: rem(16);
+    .footer-copyright {
         font-family: $font-book;
-        font-weight: 500;
-    }
-    .footer-item {
-        a {
-            &:hover {
-                text-decoration: none;
-            }
+        border-top: rem(1) solid $border-color1;
+        margin-top: rem(33);
+        padding-top: rem(20);
+
+        @include media-breakpoint-down(sm) {
+            margin-top: rem(22);
+            border-color: $grey-transparent-9;
+            padding-top: rem(22);
         }
-    }
 
-    .social-links {
+        .footer-links {
 
-        a {
-            font-size: 2.25em;
+            .menu-footer {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: rem(20);
 
-        }
-    }
-    .content {
-        font-size: rem(14);
-        li {
-            a {
-                font-family: $font-regular;
-                font-weight: 400;
-                &:hover {
-                    text-decoration: none;
+                @include media-breakpoint-down(sm) {
+                    margin-bottom: rem(22);
+                    gap: rem(16) rem(22);
+                }
+
+                li {
+                    padding: rem(0) rem(18);
+                    position: relative;
+                    line-height: normal;
+                    height: auto;
+
+                    @include media-breakpoint-down(sm) {
+                        padding: rem(0) rem(0);
+                    }
+
+                    &::after {
+                        content: '';
+                        height: rem(24);
+                        width: rem(1);
+                        background-color: $border-color;
+                        opacity: 0.22;
+                        display: block;
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        right: 0;
+
+                        @include media-breakpoint-down(sm) {
+                            display: none;
+                        }
+                    }
+
+                    &:first-of-type {
+                        padding-left: 0;
+                    }
+
+                    &:last-of-type {
+                        padding-right: 0;
+                        border-right: none;
+
+                        &::after {
+                            display: none;
+                        }
+                    }
+
+                    a {
+                        color: $grey-transparent-6;
+                        font-size: rem(12);
+                        letter-spacing: rem(0);
+                        line-height: rem(14);
+                        text-decoration: underline;
+                    }
                 }
             }
         }
-    }
-    .copyright {
-        font-size: rem(13);
-        font-weight: 400;
-    }
-}
 
-@include media-breakpoint-down(xs) {
+        .copyright-text {
+            padding-bottom: rem(34);
 
-    .store {
-        h3 {
-            &::after {
-                font-family: $font-awesome;
+            @include media-breakpoint-down(sm) {
+                border-top: rem(1) solid $grey-transparent-9;
+                padding: rem(22) rem(0) rem(40);
+            }
+
+            .copyright {
+                color: $grey-transparent-6;
+                font-size: rem(12);
+                letter-spacing: rem(0);
+                line-height: rem(14);
+                text-align: center;
+                margin: 0;
             }
         }
     }
-    .footer-item {
-        &.collapsible-xs {
-            .title:after {
-                font-size: rem(25);
+}
+
+.subscription-successful-modal {
+    position: fixed;
+    inset: 0;
+    font-family: $font-book;
+    z-index: 1105;
+    width: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+
+    .modal-overlayer {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        background-color: $grey-transparent-10;
+    }
+
+    .modal-box {
+        text-align: center;
+        height: rem(248);
+        background-color: $white;
+        padding: rem(56) rem(0);
+        width: 100%;
+        position: relative;
+        z-index: 1;
+
+        .modal {
+
+            &-close {
+                position: absolute;
+                top: rem(21);
+                right: rem(23);
+                font-size: rem(14);
+                letter-spacing: 0;
+                line-height: rem(17);
+                color: $black;
+                cursor: pointer;
+
+                svg {
+                    height: rem(9);
+                    width: rem(9);
+                    margin-right: rem(10);
+                }
+            }
+
+            &-heading {
+                color: $black;
+                font-size: rem(24);
+                font-weight: 600;
+                letter-spacing: 0;
+                line-height: rem(30);
+                margin-bottom: rem(22);
+            }
+
+            &-detail {
+                color: $black;
+                font-size: rem(14);
+                letter-spacing: 0;
+                line-height: rem(17);
+                margin-bottom: rem(22);
+                strong {
+                    font-weight: 500;
+                }
+            }
+
+            &-btn {
+                font-family: "Proxima Nova";
+                font-size: rem(14);
+                letter-spacing: 0;
+                line-height: rem(17);
+                color: $white;
+                background: $black;
+                width: rem(199);
+                height: rem(45);
+                text-align: center;
+                cursor: pointer;
+                border: none;
+                outline: none;
+                box-shadow: none;
+                border-radius: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto;
+
+                .link-icon, .tick-icon {
+                    margin-right: rem(4);
+                }
+
+                .tick-icon {
+                    display: none;
+                }
+
+                &.active {
+
+                    .link-icon {
+                        display: none;
+                    }
+
+                    .tick-icon {
+                        display: inline-block;
+                    }
+                }
+                
             }
         }
-        h3 {
-          font-family: $font-medium;
-          font-weight: 500;
-        }
     }
+
 }
+
+
+// footer {
+
+//     .home-email-signup {
+
+//         .email-description {
+//             font-size: rem(12);
+//         }
+
+//         .input-group {
+//           display: flex;
+
+//           @include media-breakpoint-down(sm) {
+//             flex-direction: column;
+//             margin-top: rem(10);
+//             width: 100% !important; // here is coming some inline css therfore i need to overwrite this
+//           }
+
+//           .form-control {
+//             border: none;
+//             padding-right: rem(140);
+
+//             &:focus {
+//                 box-shadow: none;
+//                 z-index: 0;
+//             }
+
+//             @include media-breakpoint-down(sm) {
+//                 width: 100%;
+//             }
+//           }
+
+//           .input-group-btn {
+//             display: flex;
+//             align-items: center;
+//             background: transparent;
+//             border: none;
+//             position: absolute;
+//             right: rem(-1);
+
+//             .btn-primary {
+//                 width: 100%;
+//                 border: 0;
+//                 height: rem(36);
+//                 margin-top: 0;
+//                 font-size: rem(16);
+//                 font-weight: 600;
+
+//                 &:focus {
+//                     box-shadow: none;
+//                 }
+//             }
+//           }
+//         }
+//       }
+
+//     .store {
+
+//         .selectors {
+
+//             .collapsible-xl {
+
+
+//                 .title {
+
+//                     @include media-breakpoint-up(sm) {
+//                         font-size: rem(12);
+
+//                     }
+
+//                     @include media-breakpoint-up(lg) {
+//                         font-size: rem(16);
+//                     }
+
+//                     &:after {
+//                         font-size: 1.5625rem;
+//                         font-family: $font-awesome;
+//                     }
+//                 }
+//             }
+
+//             .esw-country-selector {
+
+
+
+//                 .dropdown {
+
+//                     &-item {
+
+//                         @include media-breakpoint-up(sm) {
+//                             font-size: rem(12);
+//                         }
+
+//                         @include media-breakpoint-up(md) {
+//                             font-size: rem(14);
+//                         }
+//                     }
+//                 }
+//             }
+
+//             &.footerDropdown {
+
+//                 .dropdown {
+
+//                     &-toggle {
+
+//                         @include media-breakpoint-down(xs) {
+
+//                             &::after {
+//                                 font-size: rem(25);
+//                                 font-family: $font-awesome;
+//                             }
+//                         }
+//                     }
+
+//                 }
+//             }
+//         }
+//     }
+
+//     h3 {
+//         font-size: rem(16);
+//         font-family: $font-book;
+//         font-weight: 500;
+//     }
+//     .footer-item {
+//         a {
+//             &:hover {
+//                 text-decoration: none;
+//             }
+//         }
+//     }
+
+//     .social-links {
+
+//         a {
+//             font-size: 2.25em;
+
+//         }
+//     }
+//     .content {
+//         font-size: rem(14);
+//         li {
+//             a {
+//                 font-family: $font-regular;
+//                 font-weight: 400;
+//                 &:hover {
+//                     text-decoration: none;
+//                 }
+//             }
+//         }
+//     }
+//     .copyright {
+//         font-size: rem(13);
+//         font-weight: 400;
+//     }
+// }
+
+// @include media-breakpoint-down(xs) {
+
+//     .store {
+//         h3 {
+//             &::after {
+//                 font-family: $font-awesome;
+//             }
+//         }
+//     }
+//     .footer-item {
+//         &.collapsible-xs {
+//             .title:after {
+//                 font-size: rem(25);
+//             }
+//         }
+//         h3 {
+//           font-family: $font-medium;
+//           font-weight: 500;
+//         }
+//     }
+// }

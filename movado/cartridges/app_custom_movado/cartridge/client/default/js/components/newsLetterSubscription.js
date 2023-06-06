@@ -13,6 +13,29 @@ function triggerEmailSubscription(response) {
     }
 }
 
+var $subscriptionSuccessfulModal;
+if($('.subscription-successful-modal').length > 0){
+    $subscriptionSuccessfulModal = $('.subscription-successful-modal');
+}
+
+function subscriptionCouponCodeModal() {
+    $subscriptionSuccessfulModal.removeClass('d-none').addClass('d-flex');
+}
+
+// footer submit success modal clicked modal backdrop 
+$('#subscriptionCouponCode').on('click', function() {
+    var element = $('#copiedText');
+    var elementText = element.text();
+
+    navigator.clipboard.writeText(elementText);
+    $(this).addClass('active');
+});
+
+ //Custom:MSS-2290 close modal 
+$('.modal-overlayer,.modal-close').on('click', function() {
+    $subscriptionSuccessfulModal.removeClass('d-flex').addClass('d-none');
+});
+
 var wrapperContainer = $('.submission-status');
 var $innerWrapperContainer = $('.submission-status div');
 function processSubscription(response) {
@@ -23,8 +46,12 @@ function processSubscription(response) {
         if (!response.error) {
             if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS) {
                 $innerWrapperContainer.attr('class', 'success');
+                //Custom:MSS-2290 subscription-successful-modal
+                subscriptionCouponCodeModal();
             } else {
                 $innerWrapperContainer.attr('class', 'error');
+                //Custom:MSS-2290 subscription-successful-modal
+                subscriptionCouponCodeModal();
             }
             triggerEmailSubscription(response);
         } else {
@@ -87,7 +114,7 @@ function processSubscriptionPDP(response) {
 }
 
 // copy coupon code on click
-$('#newsLetterCouponCode').on('click', function() {
+$('#newsLetterCouponCode, #subscriptionCouponCode').on('click', function() {
     var element = $('#copiedText');
     var elementText = element.text();
 
