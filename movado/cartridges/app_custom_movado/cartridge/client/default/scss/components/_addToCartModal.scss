@@ -97,6 +97,10 @@
                 display: block;
                 padding: 0;
 
+                @include media-breakpoint-down(md) {
+                    margin-top: rem(7);
+                }
+
                 .modal-inner {
 
                     .checkmarks {
@@ -126,7 +130,8 @@
                         text-align: center;
                         max-width: 100%;
                         border: rem(1) solid $grey26;
-                        border-radius: rem(23);
+                        height: rem(40);
+                        border-radius: rem(3);
                         
                         &:hover {
                             background: $black;
@@ -152,21 +157,7 @@
                         max-width: 100%;
                         margin-left: 0;
                         margin-top: rem(13);
-                        border-radius: rem(23);
-                    }
-                }
-            }
-        }
-
-        .cta-add-to-cart {
-            display: block;
-
-            .btn {
-
-                &.btn-primary {
-
-                    &.add-to-cart-plp-redesign {
-                        display: block;
+                        height: rem(40);
                     }
                 }
             }
@@ -186,47 +177,33 @@
                                 display: block;
 
                                 .add-to-cart {
-                                    border: rem(1) solid $border-color;
-                                    border-radius: rem(15);
-                                    padding: rem(7.5) 0;
-                                    color: $black;
-                                    font-size: rem(12);
-                                    font-weight: 500;
-                                    letter-spacing: 0;
-                                    line-height: rem(16);
-                                    text-align: center;
+                                    position: relative;
                                     text-decoration: none;
-                                    max-width: rem(131);
-                                    width: 100%;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    height: rem(31);
-                                    
-                                    &:hover {
-                                        background-color: $green-progress1;
-                                        border-color: $green-progress1;
-                                        color: $white;
-                                    }
 
                                     &::before {
-                                        content: 'x';
+                                        content: '';
                                         position: absolute;
-                                        left: rem(11);
-                                        width: rem(10);
-                                        height: rem(7);
+                                        left: 28%;
+                                        top: 50%;
+                                        transform: translate(-50%,-50%);
+                                        width: rem(15);
+                                        height: rem(15);
                                         display: flex;
                                         align-items: center;
-                                        display: none;
+                                        opacity: 0;
+                                        background: url(../images/check_black.svg) center center no-repeat;
+
+                                        @include media-breakpoint-down(md) {
+                                            left: 22%;
+                                        }
                                     }
 
                                     &.active {
-                                        background-color: $green-progress1;
-                                        border-color: $green-progress1;
+                                        background: $black;
                                         color: $white;
 
                                         &::before {
-                                            display: block;
+                                            opacity: 1
                                         }
                                     }
                                 }
@@ -351,12 +328,89 @@
                 .cta-add-to-cart {
                     display: block;
 
+                    margin-top: rem(8);
+
+                    @include media-breakpoint-up(lg) {
+                        margin-top: rem(15);
+                    }
+
                     .btn {
 
                         &.btn-primary {
 
                             &.add-to-cart-plp-redesign {
-                                display: block;
+                                width: 100%;
+                                background: transparent;
+                                border: rem(1) solid $black;
+                                border-radius: rem(3);
+                                font-size: rem(13);
+                                color: $grey8;
+                                font-weight: 600;
+                                font-style: normal;
+                                letter-spacing: rem(0.5);
+                                padding: rem(5) rem(3);
+                                position: relative;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                line-height: rem(22.5);
+                                text-decoration: none;
+                                box-shadow: none;
+
+                                @include media-breakpoint-up(lg) {
+                                    font-size: rem(15);
+                                }
+
+                                @include media-breakpoint-down(md) {
+                                    line-height: inherit;
+                                }
+
+                                
+                                &:not(.out-of-stock-btn) {
+
+                                    &:hover {
+                                        background-color: $grey8;
+                                        color: $white;
+                                        border-color: $grey8;
+                                    }
+                                }
+
+                                &.out-of-stock-btn {
+                                    cursor: default;
+                                }
+        
+                                &::before {
+                                    content: '';
+                                    position: absolute;
+                                    left: 25%;
+                                    top: 50%;
+                                    transform: translate(-50%, -50%);
+                                    width: rem(15);
+                                    height: rem(15);
+                                    display: flex;
+                                    align-items: center;
+                                    opacity: 0;
+                                    background: url(../images/check_black.svg) center center no-repeat;
+
+                                    @include media-breakpoint-down(md) {
+                                        left: 14%;
+                                    }
+                                }
+
+                                &:hover {
+                                    background-color: $grey8;
+                                    color: $white;
+                                    border-color: $grey8;
+                                }
+        
+                                &.active {
+                                    background: $grey8;
+                                    color: $white;
+        
+                                    &::before {
+                                        opacity: 1;
+                                    }
+                                }
                             }
                         }
                     }
@@ -413,7 +467,7 @@
         }
     
         .modal-dialog {
-            height: 100vh;
+            height: auto;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -464,15 +518,15 @@
                         font-size: rem(20);
                         display: flex;
                         align-items: center;
+                        justify-content: center;
     
                         @include media-breakpoint-down(md) {
                             width: rem(9);
                             height: rem(9);
-                            font-size: rem(13);
                             position: absolute;
                             transform: translate(-50%, -50%);
-                            left: 52%;
-                            top: rem(11);
+                            left: 50%;
+                            top: 50%;
                         }
                     }
     
@@ -559,7 +613,7 @@
                     line-height: rem(21);
                     text-align: center;
                     border: none;
-                    border-radius: rem(23);
+                    border-radius: rem(3);
                     
                     &:hover {
                         background: $black;
@@ -588,7 +642,6 @@
                     margin-left: rem(20);
                     margin-top: 0;
                     text-decoration: none;
-                    border-radius: rem(23);
     
                     &.btn {
                         
