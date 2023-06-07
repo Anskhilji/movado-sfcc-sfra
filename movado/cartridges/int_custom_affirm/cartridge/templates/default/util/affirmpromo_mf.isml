@@ -102,7 +102,7 @@
                 </isif>
             </isif>
 
-            data-amount="${(price * 100).toFixed()}" data-affirm-color="black"  data-sku="${Product.ID}"></p>
+            data-amount="${(price * 100).toFixed()}" data-affirm-color="blue"  data-sku="${Product.ID}"></p>
     <iselse/>
         <p style="padding-bottom: 49px"></p>
     </isif>
