@@ -638,7 +638,7 @@ header~.container .promotions .callout a{
                 background-color: transparent;
                 margin-bottom: rem(10);
 
-                &:has(.coupon-not-applied) { 
+                &:has(.coupon-not-applied) {
                     border: rem(1) solid $danger;
 
                     .coupon-code {
@@ -646,7 +646,7 @@ header~.container .promotions .callout a{
 
                         .clear-icon-btn {
                           background-image: url("../images/clear_red_icon.svg");
-                      }
+                        }
                     }
                 }
 
