@@ -104,7 +104,7 @@ function run() {
                             xsw.writeEndElement();
                             xsw.writeEndElement();
                         } else {
-                            Logger.error('zero results for ' + store.ID + ' : ' + address + components + ' => ' + result.errorMessage);
+                            Logger.error('zero results for ' + store.ID + ' : ' + address + components + ' => ' + result.errorMessage + 'Error: ' + response.error_message + 'Status: ' + response.status);
                         }
                     } else {
                         Logger.error('failed to get geolocation results: ' + address + components + ' => ' + result.errorMessage);
