@@ -784,6 +784,22 @@ function handlePostCartAdd(response) {
     }
 }
 
+function slickSliderReinitialize() {
+    var $slickCarouselSlider = $('.recomendation-carousel-wrapper .js-carousel');
+    // Get the data value from the data-carousel-config attribute
+    var $slickCarouselConfig = $slickCarouselSlider.data('carousel-config');
+
+     // Unslick the slider to reset the configuration
+     $slickCarouselSlider.slick('unslick');
+     $slickCarouselSlider.addClass('d-none');
+     
+     setTimeout(() => {
+         // Reinitialize the slider to reset the configuration
+         $slickCarouselSlider.slick($slickCarouselConfig);
+        $slickCarouselSlider.removeClass('d-none');
+     }, 2000);
+}
+
 /**
  * Retrieves the bundle product item ID's for the Controller to replace bundle master product
  * items with their selected variants
@@ -1287,6 +1303,10 @@ module.exports = {
             var $this = $(this);
 
             $('body').trigger('product:beforeAddToCart', this);
+
+            if($('.recomendation-carousel-wrapper .js-carousel').length > 0) {
+                slickSliderReinitialize();
+            }
 
             addToCartUrl = getAddToCartUrl();
             if ($this.data('product-set') == true) {

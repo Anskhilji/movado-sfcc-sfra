@@ -1093,6 +1093,22 @@ function handlePostCartAdd(response, addToCartRecommendationAtc) {
     }
 }
 
+function slickSliderReinitialize() {
+    var $slickCarouselSlider = $('.recomendation-carousel-wrapper .js-carousel');
+    // Get the data value from the data-carousel-config attribute
+    var $slickCarouselConfig = $slickCarouselSlider.data('carousel-config');
+
+     // Unslick the slider to reset the configuration
+     $slickCarouselSlider.slick('unslick');
+     $slickCarouselSlider.addClass('d-none');
+     
+     setTimeout(() => {
+        $slickCarouselSlider.removeClass('d-none');
+        // Reinitialize the slider to reset the configuration
+        $slickCarouselSlider.slick($slickCarouselConfig);
+     }, 300);
+}
+
 /**
  * Retrieves the bundle product item ID's for the Controller to replace bundle master product
  * items with their selected variants
@@ -1414,6 +1430,11 @@ module.exports = {
                         updateCartPage(data);
                         handlePostCartAdd(data, addToCartRecommendationAtc);
                         $('body').trigger('product:afterAddToCart', data);
+
+                        if($('.recomendation-carousel-wrapper .js-carousel').length > 0) {
+                            slickSliderReinitialize();
+                        }
+
                         $.spinner().stop();
                         //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
                         if (window.Resources.LISTRAK_ENABLED) {
