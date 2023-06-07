@@ -1069,14 +1069,24 @@ function handlePostCartAdd(response, addToCartRecommendationAtc) {
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
-        var priceTitle = 'Estimate total:';
+        var priceTitle = 'Estimated Cart Total: ';
         if ($('#addToCartModal').find('.total-price').length > 0 && response && response.cart && response.cart.totals && response.cart.totals.grandTotal) {
             $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
         }
-        if (addToCartRecommendationAtc) {
-            $('#addToCartModal').find('.add-to-cart-plp').addClass('active');
-        } else {
-            $('#addToCartModal').find('.add-to-cart-plp').removeClass('active');
+        if (addToCartRecommendationAtc !== undefined && addToCartRecommendationAtc === true) {
+            var $currentProduct = response && response.addCartGtmArray ? response.addCartGtmArray.id : '';
+            var $productIds = [];
+
+            $('#addToCartModal .add-to-cart-plp').each(function () {
+                var $pid = $(this).data('pid');
+                $productIds.push($pid);
+            });
+
+                if ($productIds.indexOf(parseInt($currentProduct)) !== -1) {
+                    var $currentAddedProduct = $('#addToCartModal').find('[data-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp');
+                    $currentAddedProduct.addClass('active');
+                    $currentAddedProduct.text('Added To Cart');
+                }
         }
         $('#addToCartModal').modal('show');
         $('.slick-slider').slick('refresh');
