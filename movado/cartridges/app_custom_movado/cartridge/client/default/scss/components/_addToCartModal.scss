@@ -397,7 +397,7 @@
                                 &::before {
                                     content: '';
                                     position: absolute;
-                                    left: 25%;
+                                    left: 20%;
                                     top: 50%;
                                     transform: translate(-50%, -50%);
                                     width: rem(15);
@@ -408,7 +408,7 @@
                                     background: url(../images/check_black.svg) center center no-repeat;
 
                                     @include media-breakpoint-down(md) {
-                                        left: 14%;
+                                        left: 6%;
                                     }
                                 }
 
