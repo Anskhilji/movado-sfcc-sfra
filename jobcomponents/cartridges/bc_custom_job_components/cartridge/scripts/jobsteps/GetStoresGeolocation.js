@@ -14,12 +14,12 @@ var Logger = require('dw/system/Logger');
 var StepUtil = require('*/cartridge/scripts/util/StepUtil');
 var GoogleMapService = require('app_custom_movado/cartridge/scripts/googleMapService');
 
-/**
- * This function will get list of stores from system and write the Lat and long. of stores in file.
- *
- * @returns
- */
-function run() {
+var stores = null;
+
+
+
+
+exports.beforeStep = function() {
     var args = arguments[0];
 
     // Disabled step check
@@ -27,17 +27,51 @@ function run() {
         return new Status(Status.OK, 'OK', 'Step disabled, skip it...');
     }
 
+        // Load input Parameters
+        var serviceID = args.ServiceID;
+        var targetFolder = args.TargetFolder;
+        var filePrefix = 'GeolocateStores';
+    
+        // Test mandatory parameters
+        if (empty(serviceID) || empty(targetFolder)) {
+            return new Status(Status.ERROR, 'ERROR', 'One or more mandatory parameters are missing.');
+        }
+
+        stores = SystemObjectMgr.querySystemObjects('Store', '(latitude = NULL OR longitude = NULL OR latitude = 0 OR longitude = 0)', null);
+}
+
+exports.read = function() {
+    if (stoes.hasNext()) {
+        return stores.next();
+    }
+}
+
+
+
+/**
+ * This function will get list of stores from system and write the Lat and long. of stores in file.
+ *
+ * @returns
+ */
+function run() {
+    // var args = arguments[0];
+
+    // // Disabled step check
+    // if (StepUtil.isDisabled(args)) {
+    //     return new Status(Status.OK, 'OK', 'Step disabled, skip it...');
+    // }
+
     // Load input Parameters
-    var serviceID = args.ServiceID;
-    var targetFolder = args.TargetFolder;
-    var filePrefix = 'GeolocateStores';
+    // var serviceID = args.ServiceID;
+    // var targetFolder = args.TargetFolder;
+    // var filePrefix = 'GeolocateStores';
 
     // Test mandatory parameters
-    if (empty(serviceID) || empty(targetFolder)) {
-        return new Status(Status.ERROR, 'ERROR', 'One or more mandatory parameters are missing.');
-    }
+    // if (empty(serviceID) || empty(targetFolder)) {
+    //     return new Status(Status.ERROR, 'ERROR', 'One or more mandatory parameters are missing.');
+    // }
 
-    var stores = SystemObjectMgr.querySystemObjects('Store', '(latitude = NULL OR longitude = NULL OR latitude = 0 OR longitude = 0)', null);
+    // var stores = SystemObjectMgr.querySystemObjects('Store', '(latitude = NULL OR longitude = NULL OR latitude = 0 OR longitude = 0)', null);
 
     try {
         if (stores.count >= 0) {
