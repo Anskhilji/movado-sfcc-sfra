@@ -59,7 +59,7 @@
         <p class="tile-discription" tabindex="0">
            <isprint value="${dw.catalog.ProductMgr.getProduct(product.id).shortDescription}"  encoding="off"/>
         </p>
-        <div class="tile-btns">    
+        <div class="tile-btns">
             <a href="${pdict.urls.product}" class="tile-detail-btn">${Resource.msg('label.product.tile.details', 'product', null)}</a>
             <div class="plp-botton-text">
                 <isif condition="${preOrder}">
@@ -69,7 +69,7 @@
                 </isif>
                 <div class="${(pdict.display && pdict.display.isTopSearch) ? 'top-search-product-detail' : 'product-detail'}" data-isplp="true" data-pid="${product.id}" itemscope
                     itemtype="http://schema.org/Product">
-                        <isinclude template="product/components/showCartButtonProduct" />
+                    <isinclude template="product/components/showCartButtonProduct" />
                 </div>
             </div>
         </div>
