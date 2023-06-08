@@ -43,6 +43,19 @@
 
     &.addToCartModal {
 
+        .recommendation-add-to-cart-error {
+            text-align: center;
+            color: $invalid-red;
+            margin-top: rem(19);
+            font-weight: 500;
+
+            @include media-breakpoint-down(md) {
+                margin-top: 0;
+                margin-bottom: rem(19);
+                font-size: rem(12);
+            }
+        }
+
         .modal-header {
             all: unset;
 
@@ -242,6 +255,7 @@
                                 font-size: rem(16);
                                 font-weight: 500;
                                 line-height: rem(21);
+                                margin-top: rem(11);
 
                             }
                         }
@@ -429,6 +443,7 @@
                         font-size: rem(16);
                         font-weight: 500;
                         line-height: rem(21);
+                        margin-top: rem(11);
 
                     }
                 }
