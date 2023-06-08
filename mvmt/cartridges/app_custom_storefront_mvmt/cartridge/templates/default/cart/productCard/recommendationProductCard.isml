@@ -1,5 +1,5 @@
 <isset name="items" value="${pdict.items}" scope="page"/>
-<isset name="StickyMiniCartPromoTest" value="${dw.campaign.ABTestMgr.isParticipant('StickyMiniCartPromoTest', 'render-static-promo-field')}" scope="page" />
+<isset name="stickyMiniCartPromoTest" value="${dw.campaign.ABTestMgr.isParticipant('StickyMiniCartPromoTest', 'render-static-promo-field')}" scope="page" />
 
 <isloop items="${items}" var="lineItem" status="loopStatus">
     <isif condition="${!empty(lineItem)} ">
@@ -20,7 +20,7 @@
         </div>
     </isif>
 </isloop>
-<isif condition="${StickyMiniCartPromoTest}">
+<isif condition="${stickyMiniCartPromoTest}">
     <div class="coupon-code-field-static">
         <div class="minicart-promo-container">
             <isif condition="${items.length > 0}">
