@@ -182,9 +182,62 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
  * @returns capitallize value
  */
 function capitalizeString(value) {
-    return value.toLowerCase().replace(/\b[a-z]/g, function (letter) {
-        return letter.toUpperCase();
-    });
+    var nameCapitalized = [];
+    var strArr = value.toString().split(' ');
+
+    for (var i = 0; i < strArr.length; i++) {
+        var word = strArr[i].toLowerCase();
+        var isString = word[0].match(/[a-z]/i);
+
+        if (isString) {
+            var isCharDash = word.match(/[,\-]/);
+
+            if (isCharDash) {
+                var splitDashArr = word.split('-');
+                var dashCharCapital = [];
+
+                for (var j = 0; j < splitDashArr.length; j++) {
+                    var dashWord = splitDashArr[j];
+                    dashCharCapital.push(dashWord.replace(dashWord[0], dashWord[0].toUpperCase()))
+                }
+                var dashCharCapitalStr = dashCharCapital.join('-');
+                nameCapitalized.push(dashCharCapitalStr);
+            }
+
+            var isUnderScore = word.match(/[,\_]/);
+            if (isUnderScore) {
+                var splitUnderScoreArr = word.split('_');
+                var underScoreCharCapital = [];
+
+                for (var k = 0; k < splitUnderScoreArr.length; k++) {
+                    var underScoreWord = splitUnderScoreArr[k];
+                    underScoreCharCapital.push(underScoreWord.replace(underScoreWord[0], underScoreWord[0].toUpperCase()))
+                }
+                var UnderScoreCharCapitalStr = underScoreCharCapital.join('_');
+                nameCapitalized.push(UnderScoreCharCapitalStr);
+            }
+
+            var isBackSlash = word.match(/[/]/);
+            if (isBackSlash) {
+                var splitSlashArr = word.split('/');
+                var slashCharCapital = [];
+
+                for (var l = 0; l < splitSlashArr.length; l++) {
+                    var slashWord = splitSlashArr[l];
+                    slashCharCapital.push(slashWord.replace(slashWord[0], slashWord[0].toUpperCase()))
+                }
+                var slashCharCapitalStr = slashCharCapital.join('/');
+                nameCapitalized.push(slashCharCapitalStr); 
+            }
+
+            if (!isCharDash && !isUnderScore && !isBackSlash) {
+                nameCapitalized.push(word.replace(word[0], word[0].toUpperCase()));
+            }
+        } else {
+            nameCapitalized.push(word.toUpperCase());
+        }
+    }
+    return nameCapitalized.join(' ');
 }
 
 /**
