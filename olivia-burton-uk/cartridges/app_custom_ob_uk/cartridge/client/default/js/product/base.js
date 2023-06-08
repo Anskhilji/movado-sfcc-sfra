@@ -727,7 +727,7 @@ function chooseBonusProducts(data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
-function handlePostCartAdd(response, addToCartRecommendationAtc) {
+function handlePostCartAdd(response, addToCartRecommendationButton) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
     var pliuuid = response.pliUUID;
@@ -744,7 +744,7 @@ function handlePostCartAdd(response, addToCartRecommendationAtc) {
             $('#addToCartModal').addClass('addToCartError');
             $('#addToCartModal').removeClass('addToCartRedesign');
             $('.recomendation-carousel-wrapper').addClass('d-none');
-            if (addToCartRecommendationAtc === true && response.error == true) {
+            if (addToCartRecommendationButton === true && response.error == true) {
                 $('#addToCartModal').addClass('addToCartRedesign')
                 $('.recomendation-carousel-wrapper').removeClass('d-none');
                 $('#addToCartModal').removeClass('addToCartError');
@@ -760,7 +760,7 @@ function handlePostCartAdd(response, addToCartRecommendationAtc) {
     }
 
     // show add to cart modal
-    if (addToCartRecommendationAtc !== true) {
+    if (addToCartRecommendationButton !== true) {
         $('#addToCartModal .modal-body').html(response.message);
         $('#addToCartModal .modal-body p').addClass(messageType);
     }
@@ -786,7 +786,7 @@ function handlePostCartAdd(response, addToCartRecommendationAtc) {
         if ($('#addToCartModal').find('.total-price').length > 0 && response && response.cart && response.cart.totals && response.cart.totals.grandTotal) {
             $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
         }
-        if (addToCartRecommendationAtc !== undefined && addToCartRecommendationAtc === true) {
+        if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
             var $currentProduct = response && response.addCartGtmArray ? response.addCartGtmArray.id : '';
             var $productIds = [];
             $('#addToCartModal .add-to-cart-plp-redesign').each(function () {
@@ -1023,7 +1023,7 @@ module.exports = {
             var pidsObj;
             var setPids;
             var giftPid;
-            var addToCartRecommendationAtc = $(this).data('recommendation-atc');
+            var addToCartRecommendationButton = $(this).data('recommendation-atc');
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -1115,7 +1115,7 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data, addToCartRecommendationAtc);
+                        handlePostCartAdd(data, addToCartRecommendationButton);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
@@ -1321,12 +1321,12 @@ module.exports = {
             var pidsObj;
             var setPids;
             var $this = $(this);
-            var addToCartRecommendationAtc = $this.data('recommendation-atc');
+            var addToCartRecommendationButton = $this.data('recommendation-atc');
 
 
             $('body').trigger('product:beforeAddToCart', this);
 
-            if($('.recomendation-carousel-wrapper .js-carousel').length > 0) {
+            if($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
                 slickSliderReinitialize();
             }
 
@@ -1360,7 +1360,7 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data, addToCartRecommendationAtc);
+                        handlePostCartAdd(data, addToCartRecommendationButton);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
