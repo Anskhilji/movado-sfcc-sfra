@@ -1442,7 +1442,7 @@ module.exports = {
                         handlePostCartAdd(data, addToCartRecommendationAtc);
                         $('body').trigger('product:afterAddToCart', data);
 
-                        if($('.recomendation-carousel-wrapper .js-carousel').length > 0) {
+                        if($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationAtc === undefined) {
                             slickSliderReinitialize();
                         }
 

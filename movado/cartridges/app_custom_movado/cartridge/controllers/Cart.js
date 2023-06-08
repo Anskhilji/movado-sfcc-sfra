@@ -282,7 +282,8 @@ server.append('AddProduct', function (req, res, next) {
         res.setViewData({
             quantityTotal: quantityTotal,
             recommendedProductCardHtml: recommendedProductCardHtml,
-            giftProductCardHtml: giftProductCardHtml
+            giftProductCardHtml: giftProductCardHtml,
+            pliUUID: res.viewData.pliUUID
         });
     }
     return next();

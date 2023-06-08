@@ -29,7 +29,8 @@
                 data-pid="${product.id}"
                 data-product-set="${!empty(product.individualProducts) ? true : false}"
                 data-add-to-cart-text="${addtoCart}"
-                 data-uuid="${product.uuid}"
+                data-recommendation-atc="true"
+                data-rec-pid="${product.id}"
                 ${outOfStock || !product.available ? "disabled" : ""}>
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
@@ -48,8 +49,9 @@
 	    <iselse/>
             <button class='btn btn-primary add-to-cart-plp-redesign ${outOfStock || !product.available ? "out-of-stock-btn2" : ""}' data-avalibility="${!outOfStock}"
                 data-pid="${product.defaultVariant ? product.defaultVariant.ID : ''}"
+                data-rec-pid="${product.id}"
                 data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
-                data-uuid="${product.uuid}"
+                data-recommendation-atc="true"
                 ${outOfStock || !product.available ? "disabled" : ""}>
 
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
