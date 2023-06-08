@@ -1043,18 +1043,29 @@ function handlePostCartAdd(response, addToCartRecommendationAtc) {
             $('.recomendation-carousel-wrapper').removeClass('d-none');
             $('#addToCartModal').removeClass('addToCartError');
         } else {
-            $('#addToCartModal').addClass('addToCartError');
-            $('#addToCartModal').removeClass('addToCartRedesign');
-            $('.recomendation-carousel-wrapper').addClass('d-none');
+            if (addToCartRecommendationAtc === true && response.error == true) {
+                $('#addToCartModal').addClass('addToCartRedesign')
+                $('.recomendation-carousel-wrapper').removeClass('d-none');
+                $('#addToCartModal').removeClass('addToCartError');
+                $('#addToCartModal .recommendation-add-to-cart-error').html(response.message);
+                $('#addToCartModal .recommendation-add-to-cart-error  p').addClass(messageType);
+                $('.recommendation-add-to-cart-error').removeClass('d-none');
+            } else {
+                $('#addToCartModal').addClass('addToCartError');
+                $('#addToCartModal').removeClass('addToCartRedesign');
+                $('.recomendation-carousel-wrapper').addClass('d-none');
+            }
         }
     }
 
     // show add to cart modal
-    $('#addToCartModal .modal-body').html(response.message);
+    if (addToCartRecommendationAtc !== true) {
+        $('#addToCartModal .modal-body').html(response.message);
+        $('#addToCartModal .modal-body p').addClass(messageType);
+    }
     if (response && response.footerContent) {
         $('#addToCartModal .modal-footer').html(response.footerContent);
     }
-    $('#addToCartModal .modal-body p').addClass(messageType);
 
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {
