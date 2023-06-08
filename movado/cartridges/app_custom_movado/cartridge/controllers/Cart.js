@@ -282,8 +282,7 @@ server.append('AddProduct', function (req, res, next) {
         res.setViewData({
             quantityTotal: quantityTotal,
             recommendedProductCardHtml: recommendedProductCardHtml,
-            giftProductCardHtml: giftProductCardHtml,
-            pliUUID: res.viewData.pliUUID
+            giftProductCardHtml: giftProductCardHtml
         });
     }
     return next();

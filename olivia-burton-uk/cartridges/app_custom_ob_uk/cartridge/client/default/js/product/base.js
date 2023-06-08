@@ -730,7 +730,6 @@ function chooseBonusProducts(data) {
 function handlePostCartAdd(response, addToCartRecommendationButton) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
-    var pliuuid = response.pliUUID;
 
     if ($('#addToCartModal').hasClass('addToCartModal-wrapper')) {
         if(response.error == false) {
@@ -749,7 +748,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton) {
                 $('.recomendation-carousel-wrapper').removeClass('d-none');
                 $('#addToCartModal').removeClass('addToCartError');
                 $('#addToCartModal .recommendation-add-to-cart-error').html(response.message);
-                $('#addToCartModal .recommendation-add-to-cart-error  p').addClass(messageType);
+                $('#addToCartModal .recommendation-add-to-cart-error p').addClass(messageType);
                 $('.recommendation-add-to-cart-error').removeClass('d-none');
             } else {
                 $('#addToCartModal').addClass('addToCartError');

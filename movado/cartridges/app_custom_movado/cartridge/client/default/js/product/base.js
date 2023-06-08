@@ -1051,7 +1051,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton) {
                 $('.recomendation-carousel-wrapper').removeClass('d-none');
                 $('#addToCartModal').removeClass('addToCartError');
                 $('#addToCartModal .recommendation-add-to-cart-error').html(response.message);
-                $('#addToCartModal .recommendation-add-to-cart-error  p').addClass(messageType);
+                $('#addToCartModal .recommendation-add-to-cart-error p').addClass(messageType);
                 $('.recommendation-add-to-cart-error').removeClass('d-none');
             } else {
                 $('#addToCartModal').addClass('addToCartError');
