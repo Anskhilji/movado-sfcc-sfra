@@ -1057,6 +1057,9 @@ function handlePostCartAdd(response, addToCartRecommendationButton) {
                 $('#addToCartModal').addClass('addToCartError');
                 $('#addToCartModal').removeClass('addToCartRedesign');
                 $('.recomendation-carousel-wrapper').addClass('d-none');
+                if (!$('.recommendation-add-to-cart-error').hasClass('d-none')) {
+                    $('.recommendation-add-to-cart-error').addClass('d-none');
+                }
             }
         }
     }
