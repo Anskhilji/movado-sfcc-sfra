@@ -1032,6 +1032,18 @@
 
                     .carousel-tile {
                         overflow: visible !important;
+                        
+                        &.poster-frame-video {
+                            @include media-breakpoint-down(xs) { 
+                                height: rem(392);
+                                max-width: rem(544);
+                            }
+                      
+                            @media (max-width:$small-screen-width375) {
+                                height: rem(342);
+                                max-width: rem(375);
+                            }
+                        }
                  
 
                         &.active {
