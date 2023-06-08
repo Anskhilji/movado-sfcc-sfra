@@ -38,7 +38,7 @@
         margin-top: rem(20);
     }
 }
-// new
+// AddTocartModalRedesign
 .addToCartRedesign {
 
     &.addToCartModal {
@@ -98,7 +98,7 @@
            .modal-dialog {
 
                 @include media-breakpoint-down(md) {
-                    transform: translate(0,0);
+                    transform: translate(0, 0);
                 }
            }
         }
@@ -131,7 +131,6 @@
                     margin: 0;
 
                     .btn-primary {
-                        max-width: rem(240);
                         width: 100%;
                         padding: rem(10) 0;
                         padding-bottom: rem(9);
@@ -152,11 +151,9 @@
                     }
 
                     .btn-link {
-                        max-width: 100%;
                         padding: rem(10) 0;
                         padding-bottom: rem(9);
                         width: 100%;
-                        max-width: rem(240);
                         border: rem(1) solid $black;
                         color: $grey8;
                         font-size: rem(15);
@@ -165,7 +162,6 @@
                         line-height: rem(21);
                         text-align: center;
                         margin-left: rem(20);
-                        margin-top: 0;
                         text-decoration: none;
                         max-width: 100%;
                         margin-left: 0;
