@@ -1039,7 +1039,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton) {
 
     if ($('#addToCartModal').hasClass('addToCartModal-wrapper')) {
         if(response.error == false) {
-            $('#addToCartModal').addClass('addToCartRedesign')
+            $('#addToCartModal').addClass('add-to-cart-redesign')
             $('.recomendation-carousel-wrapper').removeClass('d-none');
             $('#addToCartModal').removeClass('addToCartError');
             if (!$('.recommendation-add-to-cart-error').hasClass('d-none')) {
@@ -1047,7 +1047,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton) {
             }
         } else {
             if (addToCartRecommendationButton === true && response.error == true) {
-                $('#addToCartModal').addClass('addToCartRedesign')
+                $('#addToCartModal').addClass('add-to-cart-redesign')
                 $('.recomendation-carousel-wrapper').removeClass('d-none');
                 $('#addToCartModal').removeClass('addToCartError');
                 $('#addToCartModal .recommendation-add-to-cart-error').html(response.message);
@@ -1055,7 +1055,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton) {
                 $('.recommendation-add-to-cart-error').removeClass('d-none');
             } else {
                 $('#addToCartModal').addClass('addToCartError');
-                $('#addToCartModal').removeClass('addToCartRedesign');
+                $('#addToCartModal').removeClass('add-to-cart-redesign');
                 $('.recomendation-carousel-wrapper').addClass('d-none');
                 if (!$('.recommendation-add-to-cart-error').hasClass('d-none')) {
                     $('.recommendation-add-to-cart-error').addClass('d-none');
