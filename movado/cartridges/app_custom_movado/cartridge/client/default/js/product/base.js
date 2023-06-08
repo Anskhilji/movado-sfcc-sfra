@@ -1042,6 +1042,9 @@ function handlePostCartAdd(response, addToCartRecommendationAtc) {
             $('#addToCartModal').addClass('addToCartRedesign')
             $('.recomendation-carousel-wrapper').removeClass('d-none');
             $('#addToCartModal').removeClass('addToCartError');
+            if (!$('.recommendation-add-to-cart-error').hasClass('d-none')) {
+                $('.recommendation-add-to-cart-error').addClass('d-none');
+            }
         } else {
             if (addToCartRecommendationAtc === true && response.error == true) {
                 $('#addToCartModal').addClass('addToCartRedesign')
