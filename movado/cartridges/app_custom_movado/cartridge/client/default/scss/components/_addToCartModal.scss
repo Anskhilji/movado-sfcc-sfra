@@ -50,8 +50,7 @@
             font-weight: 500;
 
             @include media-breakpoint-down(md) {
-                margin-top: 0;
-                margin-bottom: rem(19);
+                margin: 0 0 rem(19) 0;
                 font-size: rem(12);
             }
         }
@@ -60,8 +59,7 @@
             all: unset;
 
             p {
-                margin-top: rem(30);
-                margin-bottom: 0;
+                margin: rem(30) 0 0 0;
                 font-size: rem(18);
                 color: $apple;
                 font-weight: bold;
@@ -132,8 +130,7 @@
 
                     .btn-primary {
                         width: 100%;
-                        padding: rem(10) 0;
-                        padding-bottom: rem(9);
+                        padding: rem(10) 0 rem(9) 0;
                         color: $white;
                         font-size: rem(15);
                         font-weight: 500;
@@ -151,8 +148,7 @@
                     }
 
                     .btn-link {
-                        padding: rem(10) 0;
-                        padding-bottom: rem(9);
+                        padding: rem(10) 0 rem(9) 0;
                         width: 100%;
                         border: rem(1) solid $black;
                         color: $grey8;
@@ -161,11 +157,9 @@
                         letter-spacing: 0;
                         line-height: rem(21);
                         text-align: center;
-                        margin-left: rem(20);
                         text-decoration: none;
                         max-width: 100%;
-                        margin-left: 0;
-                        margin-top: rem(13);
+                        margin: rem(13) 0 0 0;
                         height: rem(40);
                         border-radius: rem(3);
                     }
@@ -252,7 +246,6 @@
                                 font-weight: 500;
                                 line-height: rem(21);
                                 margin-top: rem(11);
-
                             }
                         }
 
@@ -308,8 +301,7 @@
             }
 
             &.recommendation-carousel-pdp {
-                margin: 0;
-                margin-top: rem(40);
+                margin: rem(40) rem(0) rem(0) rem(0);
                 padding: 0 rem(42);
 
                 @include media-breakpoint-down(md) {
@@ -338,7 +330,6 @@
 
                 .cta-add-to-cart {
                     display: block;
-
                     margin-top: rem(8);
 
                     @include media-breakpoint-up(lg) {
