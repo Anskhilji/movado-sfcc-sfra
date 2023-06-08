@@ -240,6 +240,7 @@
                             letter-spacing: 0;
                             line-height: rem(26);
                             margin-bottom: rem(30);
+                            margin-top: rem(40);
 
                             @include media-breakpoint-down(md) {
                                 font-size: rem(16);
@@ -267,8 +268,7 @@
         }
 
         .cs-carousel-wrapper {
-            margin-top: rem(40);
-            margin-bottom: rem(30);
+            margin-top: rem(40) 0 rem(30) 0;
             padding: 0 rem(12);
 
             @include media-breakpoint-down(md) {
