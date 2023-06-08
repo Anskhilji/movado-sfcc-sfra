@@ -59,7 +59,7 @@ server.get('ShowAddProductButton',
 });
 
 // Added custom code for personalization text for Engraving and Embossing
-server.append('AddProduct', function (req, res, next) {
+server.append('AddProduct', csrfProtection.generateToken, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var ContentMgr = require('dw/content/ContentMgr');
     var CartModel = require('*/cartridge/models/cart');
@@ -171,6 +171,7 @@ server.append('AddProduct', function (req, res, next) {
 
         if (req.form.isCartRecommendation && !empty(req.form.isCartRecommendation)) {
             basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
+            basketModel.csrf = viewData.csrf;
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
