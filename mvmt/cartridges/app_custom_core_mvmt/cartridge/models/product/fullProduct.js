@@ -28,6 +28,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
     var isCategory = productCustomHelper.getProductCategory(apiProduct, product);
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
+    var pdpVariationUrls = productCustomHelper.getPdpVariationUrls(product, apiProduct);
     var masterProductID;
 
     if (!empty(apiProduct)) {
@@ -165,6 +166,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'posterFrame', {
             enumerable: true,
             value: product.images.posterFrame[0] ? product.images.posterFrame[0] : ''
+        });
+    }
+
+    if (!empty(pdpVariationUrls)) {
+        Object.defineProperty(product, 'pdpVariationsUrl', {
+            enumerable: true,
+            value: pdpVariationUrls
         });
     }
 

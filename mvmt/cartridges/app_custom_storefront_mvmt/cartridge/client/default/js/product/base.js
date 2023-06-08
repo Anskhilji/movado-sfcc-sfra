@@ -1252,6 +1252,24 @@ function handleVariantResponse(response, $productContainer) {
     })
 }
 
+function updateUrl(response) {
+    var $updatedUrl;
+
+    if (response && response.pdpVariationsUrl && response.pdpVariationsUrl.values.length > 0) {
+        var $variationsObject = response.pdpVariationsUrl.values;
+
+        $variationsObject.forEach(function(el, index) {
+            if (el.selected == true) {
+                $updatedUrl = el.pdpURL;
+            }
+        });
+
+        if ($updatedUrl) {
+            window.location.href = $updatedUrl;
+        }
+    }
+}
+
 /**
  * Updates the quantity DOM elements post Ajax call
  * @param {UpdatedQuantity[]} quantities -
@@ -1285,6 +1303,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
             method: 'GET',
             success: function (data) {
                 handleVariantResponse(data, $productContainer);
+                updateUrl(data.product);
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);

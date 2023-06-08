@@ -14,4 +14,5 @@ exports.SLICING_GROUP = 'slicing_group';
 exports.ROOT_CATEGORY = 'root';
 exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
 exports.CLYDE_WARRANTY = 'clydeWarranty';
+exports.COLOR_WATCH = 'colorWatch';
 exports.NO_APPLICABLE_PROMOTION = 'NO_APPLICABLE_PROMOTION';
