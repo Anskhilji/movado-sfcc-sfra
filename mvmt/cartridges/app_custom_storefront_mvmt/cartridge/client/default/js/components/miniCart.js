@@ -17,7 +17,7 @@ function setMiniCartProductSummaryHeight () {
     var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
     $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
     var $productSummaryHeight = $miniCartFooterHeight + $miniCartHeaderHeight;
-    var $miniCartPromoFiledHeight = $('.mini-cart-data .coupon-code-field-static .collapsible-promo-wrapper [aria-expanded="false"]').length > 0 ? $('.mini-cart-data .coupon-code-field-static .collapsible-promo-wrapper').height() : 0;
+    var $miniCartPromoFieldHeight = $('.mini-cart-data .coupon-code-field-static .collapsible-promo-wrapper [aria-expanded="false"]').length > 0 ? $('.mini-cart-data .coupon-code-field-static .collapsible-promo-wrapper').height() : 0;
     $('.mini-cart-data .product-summary').css('max-height', '');
     var screenSize = $(window).width();
     var mediumScreenSize = 992; // mobile break point
@@ -25,7 +25,7 @@ function setMiniCartProductSummaryHeight () {
     // check screen size for mobile and desktop
     if (screenSize != null) {
         if (screenSize <= mediumScreenSize) {
-            $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight + $miniCartPromoFiledHeight + $miniCartGiftBoxHeight - 5);
+            $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight + $miniCartPromoFieldHeight + $miniCartGiftBoxHeight - 5);
         } else {
             $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight + $miniCartGiftBoxHeight);
         }
