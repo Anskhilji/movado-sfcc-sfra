@@ -701,32 +701,32 @@ $stored-payment-spacing: rem(16);
 
     .affirm-logo-blue {
 
-      .nav-link {
-        outline: none;
+        .nav-link {
+            outline: none;
 
-        &:focus {
-          outline: none;
+            &:focus {
+                outline: none;
+            }
         }
-      }
     
       .form-check-label {
-        height: rem(22.78);
-        display: flex;
-        justify-content: center;
-    
-        @include media-breakpoint-down(xs) {
-          height: rem(21.86);
-        }
-    
-        .affirm-panel-image {
-          height: 100%;
-          object-fit: contain;
-          width: rem(75);
-          vertical-align: inherit;
+          height: rem(22.78);
+          display: flex;
+          justify-content: center;
     
           @include media-breakpoint-down(xs) {
-            width: rem(72);
+              height: rem(21.86);
           }
+    
+        .affirm-panel-image {
+            height: 100%;
+            object-fit: contain;
+            width: rem(75);
+            vertical-align: inherit;
+    
+            @include media-breakpoint-down(xs) {
+                width: rem(72);
+            }
         }
       }
     }
@@ -1789,4 +1789,3 @@ $stored-payment-spacing: rem(16);
        }
     }
 }
-
