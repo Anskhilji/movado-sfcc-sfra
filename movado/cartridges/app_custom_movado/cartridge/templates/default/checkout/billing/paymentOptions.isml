@@ -101,7 +101,6 @@
                         <div class="affirm-logo-blue">
                             <isinclude template="affirm/affirmpaymethodli" />
                         </div>
-                            
                         </li>
                     </isif>
                     <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
