@@ -7,7 +7,7 @@
     <div class="footer-container container-fluid">
         <div class="row">
             <div
-                class="col-12 d-flex align-items-center align-items-md-start justify-content-md-between flex-column flex-md-row">
+                class="col-12 footer-box">
                 <iscomment> footer logo </iscomment>
                 <div class="footer-logo">
                     <iscontentasset aid="ca-footer-logo" />
@@ -18,7 +18,7 @@
                     <iscontentasset aid="ca-footer-locate-store" />
 
                     <isif condition="${session.privacy.storeAddress}">
-                        <div class="d-flex align-items-center seleced-store">
+                        <div class="seleced-store">
                             <img src="${URLUtils.staticURL('/images/map-pin.svg')}" alt="">
                             <span class="store-address">${(session.privacy.storeAddress) || ''}</span>
                         </div>
@@ -56,7 +56,6 @@
                                     <?xml version="1.0" encoding="UTF-8"?>
                                     <svg width="19.9976779px" height="20px" viewBox="0 0 19.9976779 20" version="1.1"
                                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                        <title>30C17B4F-73EA-4249-8187-DB642D79E29F</title>
                                         <g id="Fourth-Iteration" stroke="none" stroke-width="1" fill="none"
                                             fill-rule="evenodd">
                                             <g id="19" transform="translate(-1358.003599, -718.000000)">
@@ -142,7 +141,6 @@
         <div class="modal-close">
            <?xml version="1.0" encoding="UTF-8"?>
             <svg width="9px" height="9px" viewBox="0 0 9 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>56EDDC5F-4103-4754-9E9E-8F896430F4FA</title>
                 <g id="Fourth-Iteration" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g id="20" transform="translate(-1362.000000, -677.000000)" fill="#000000">
                         <g id="Stacked-Group-2" transform="translate(1362.000000, 673.000000)">

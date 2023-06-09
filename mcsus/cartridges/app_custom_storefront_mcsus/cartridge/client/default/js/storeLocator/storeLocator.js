@@ -79,7 +79,7 @@ function selectStoreIcon() {
             var storeCity = storePickup.city;
             var storeCountryCode = storePickup.countryCode;
             $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_AVAILABLE_TEXT);
-            $('.set-your-store').text(storePickup.address1);
+            $('.set-your-store, .store-address').text(storePickup.address1);
             $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
             $('.pick-up-store-change-store').text('Change');
             closeStoreLocator();

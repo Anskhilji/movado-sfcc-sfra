@@ -34,6 +34,8 @@ $('#subscriptionCouponCode').on('click', function() {
  //Custom:MSS-2290 close modal 
 $('.modal-overlayer,.modal-close').on('click', function() {
     $subscriptionSuccessfulModal.removeClass('d-flex').addClass('d-none');
+    $('#hpEmailSignUp').val('');
+    $('.submission-status').addClass('d-none');
 });
 
 var wrapperContainer = $('.submission-status');
