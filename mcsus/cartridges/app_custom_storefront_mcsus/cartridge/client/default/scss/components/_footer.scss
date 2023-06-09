@@ -131,6 +131,7 @@ footer {
                     width: rem(13);
                     margin-right: rem(10);
                     transform: translateY(-1px);
+
                     @include media-breakpoint-down(sm) {
                         margin-right: rem(5);
                     }
@@ -193,7 +194,8 @@ footer {
             form {
                 font-family: $font-book;
 
-                .form-control,input {
+                .form-control,
+                input {
                     height: rem(45);
                     border-color: $black;
                     font-size: rem(14);
