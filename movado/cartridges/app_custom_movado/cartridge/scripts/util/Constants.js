@@ -15,3 +15,4 @@ exports.ROOT_CATEGORY = 'root';
 exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
 exports.CLYDE_WARRANTY = 'clydeWarranty';
 exports.NO_APPLICABLE_PROMOTION = 'NO_APPLICABLE_PROMOTION';
+exports.APPLIED_COUPON = 'APPLIED';

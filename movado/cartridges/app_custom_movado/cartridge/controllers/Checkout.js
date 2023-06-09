@@ -161,18 +161,23 @@ server.append(
             }
         });
     }
-        // Custom Start: Add email for Amazon Pay
-        res.setViewData({
-            order: orderModel,
-            actionUrls: actionUrls,
-            totals: totals,
-            customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
-            expirationYears: creditCardExpirationYears,
-            countryCode: countryCode,
-            couponLineItems: currentBasket.couponLineItems
-        });
 
-        next();
+    var appliedCouponLineItems = currentBasket.couponLineItems.toArray().filter(function (couponLineItem) {
+        return couponLineItem.statusCode == Constants.APPLIED_COUPON;
+    });
+
+    // Custom Start: Add email for Amazon Pay
+    res.setViewData({
+        order: orderModel,
+        actionUrls: actionUrls,
+        totals: totals,
+        customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
+        expirationYears: creditCardExpirationYears,
+        countryCode: countryCode,
+        couponLineItems: appliedCouponLineItems
+    });
+
+    next();
 });
 
 server.get('Declined', function (req, res, next) {
