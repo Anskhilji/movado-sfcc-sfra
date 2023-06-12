@@ -24,6 +24,7 @@ var server = require('server');
 
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
+var PULSEID_ENGRAVING = 'pulseIdEngraving'
 var NEWLINE = '\n';
 
 
@@ -427,6 +428,22 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
                             }
                         }
                     }
+                } else if (option.optionID === PULSEID_ENGRAVING) { // PulseID Engraving
+                    if (engraveOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(PULSEID_ENGRAVING);
+                        var optionValue = optionModel.getOptionValue(getOption, engraveOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (engravedMessage) {
+                            // code to split the message based on newline character
+                            engravedMessage = engravedMessage.split(NEWLINE);
+                            pli.custom.engraveMessageLine1 = engravedMessage[0];
+                            if (engravedMessage[1]) {
+                                pli.custom.engraveMessageLine2 = engravedMessage[1];
+                            }
+                        }
+                    }
                 }
             });
         }); // end of Trasaction
@@ -438,10 +455,18 @@ exports.beforeAuthorization = function (order, payment, custom) {
     var Status = require('dw/system/Status');
     var orderLineItems = order.getAllProductLineItems();
     var orderLineItemsIterator = orderLineItems.iterator();
+    var pulseIdEngraving = 'pulseIdEngraving';
     var productLineItem;
-    /**~    
+    var pulseIdConstants;
+    /**~
      * Custom Start: Clyde Integration
      */
+
+    var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+    if (enablePulseIdEngraving) {
+        pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
+    }
+
     if (Site.current.preferences.custom.isClydeEnabled) {
         var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
         Transaction.wrap(function () {
@@ -449,12 +474,20 @@ exports.beforeAuthorization = function (order, payment, custom) {
                 productLineItem = orderLineItemsIterator.next();
                 if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
                     order.removeProductLineItem(productLineItem);
+                } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
+                    order.removeProductLineItem(productLineItem);
                 }
             }
             order.custom.isContainClydeContract = false;
             order.custom.clydeContractProductMapping = '';
         });
         addClydeContract.createOrderCustomAttr(order);
+        //custom : PulseID engraving
+        if (enablePulseIdEngraving) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            pulseIdAPIHelper.setPulseJobID(order);
+        }
+        // custom end
     }
     /**
      * Custom: End

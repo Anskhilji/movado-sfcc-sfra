@@ -49,6 +49,13 @@
                             <isinclude template="cart/productCard/cartProductCardAvailability" />
                         </div>
                         <isinclude template="cart/productCard/cartProductCardProductPrice" />
+                        <isif condition="${dw.system.Site.current.preferences.custom.enablePulseIdEngraving}">
+                            <isloop items="${lineItem.options}" var="option">
+                                <isif condition="${option && option.optionId == 'pulseIdEngraving'}">
+                                    <isinclude template="cart/productCard/productCardPulseIdEngraving" />
+                                </isif>
+                            </isloop>
+                        </isif>
                         <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
                             <div class="product-edit">
                                 <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
