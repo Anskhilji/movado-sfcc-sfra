@@ -34,7 +34,7 @@ $('#subscriptionCouponCode').on('click', function() {
  //Custom:MSS-2290 close modal 
 $('.modal-overlayer,.modal-close').on('click', function() {
     $subscriptionSuccessfulModal.removeClass('d-flex').addClass('d-none');
-    $('#hpEmailSignUpFooter').val('');
+    $('input').val('');
     $('.submission-status').addClass('d-none');
 });
 
@@ -116,21 +116,14 @@ function processSubscriptionPDP(response) {
 }
 
 // copy coupon code on click (Footer)
-$('#newsLetterCouponCode').on('click', function() {
-    var element = $('#copiedText');
-    var elementText = element.text();
-
-    navigator.clipboard.writeText(elementText);
-    $(this).addClass('active');
-
-    setTimeout(() => {
-        $(this).removeClass('active');
-    }, 3000);
-});
-
-// copy coupon code on click (PDP)
-$('#subscriptionCouponCode').on('click', function() {
+$('#newsLetterCouponCode, #subscriptionCouponCode').on('click', function(e) {
+    var targetId = e.target.id;
     var element = $('#copiedTextFooter');
+
+    if(targetId == 'newsLetterCouponCode') {
+        element = $('#copiedText');
+    }
+
     var elementText = element.text();
 
     navigator.clipboard.writeText(elementText);
@@ -140,6 +133,7 @@ $('#subscriptionCouponCode').on('click', function() {
         $(this).removeClass('active');
     }, 3000);
 });
+
 
 // close email signup modal after clicked on close icon and continue to shoping button
 $('#continueShopping, .close.close-icon').on('click', function () {
