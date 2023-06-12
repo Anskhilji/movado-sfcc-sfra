@@ -133,25 +133,4 @@
 </footer>
 <isinclude template="storeLocator/storeLocator" />
 
-<div class="subscription-successful-modal d-none">
-    <div class="modal-overlayer"></div>
-    <div class="modal-box">
-        <div class="modal-close">
-           <?xml version="1.0" encoding="UTF-8"?>
-            <svg width="9px" height="9px" viewBox="0 0 9 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Fourth-Iteration" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="20" transform="translate(-1362.000000, -677.000000)" fill="#000000">
-                        <g id="Stacked-Group-2" transform="translate(1362.000000, 673.000000)">
-                            <g id="x" transform="translate(0.000000, 4.000000)">
-                                <path d="M8.81171138,1.09742582 L1.09742582,8.81171138 C0.846374503,9.06276308 0.439339821,9.06276308 0.188288506,8.81171138 C-0.062762848,8.56066029 -0.062762848,8.15362542 0.188288506,7.90257433 L7.90257433,0.188288506 C8.15362542,-0.062762848 8.56066029,-0.062762848 8.81171138,0.188288506 C9.06276308,0.439339821 9.06276308,0.846374503 8.81171138,1.09742582 Z" id="Vector-(Stroke)"></path>
-                                <path d="M1.09742582,0.188288506 L8.81171138,7.90257433 C9.06276308,8.15362542 9.06276308,8.56066029 8.81171138,8.81171138 C8.56066029,9.06276308 8.15362542,9.06276308 7.90257433,8.81171138 L0.188288506,1.09742582 C-0.062762848,0.846374503 -0.062762848,0.439339821 0.188288506,0.188288506 C0.439339821,-0.062762848 0.846374503,-0.062762848 1.09742582,0.188288506 Z" id="Vector-(Stroke)"></path>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>${Resource.msg('close.modal', 'homePage', null)}
-        </div>
-        
-        <isslot id="sc-subscription-successful-modal" context="global" description="subscription successful Coupon code modal" />
-    </div>
-</div>
+<isslot id="sc-subscription-successful-modal" context="global" description="subscription successful Coupon code modal" />
