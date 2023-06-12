@@ -1057,7 +1057,7 @@ function capitalizeString(value) {
 
                 for (var j = 0; j < splitDashArr.length; j++) {
                     var dashWord = splitDashArr[j];
-                    dashCharCapital.push(dashWord.replace(dashWord[0], dashWord[0].toUpperCase()))
+                    dashCharCapital.push(dashWord.replace(dashWord[0], dashWord[0].toUpperCase()));
                 }
                 var dashCharCapitalStr = dashCharCapital.join('-');
                 nameCapitalized.push(dashCharCapitalStr);
@@ -1070,7 +1070,7 @@ function capitalizeString(value) {
 
                 for (var k = 0; k < splitUnderScoreArr.length; k++) {
                     var underScoreWord = splitUnderScoreArr[k];
-                    underScoreCharCapital.push(underScoreWord.replace(underScoreWord[0], underScoreWord[0].toUpperCase()))
+                    underScoreCharCapital.push(underScoreWord.replace(underScoreWord[0], underScoreWord[0].toUpperCase()));
                 }
                 var UnderScoreCharCapitalStr = underScoreCharCapital.join('_');
                 nameCapitalized.push(UnderScoreCharCapitalStr);
@@ -1083,7 +1083,7 @@ function capitalizeString(value) {
 
                 for (var l = 0; l < splitSlashArr.length; l++) {
                     var slashWord = splitSlashArr[l];
-                    slashCharCapital.push(slashWord.replace(slashWord[0], slashWord[0].toUpperCase()))
+                    slashCharCapital.push(slashWord.replace(slashWord[0], slashWord[0].toUpperCase()));
                 }
                 var slashCharCapitalStr = slashCharCapital.join('/');
                 nameCapitalized.push(slashCharCapitalStr); 
@@ -1096,7 +1096,7 @@ function capitalizeString(value) {
 
                 for (var m = 0; m < splitColonArr.length; m++) {
                     var colonWord = splitColonArr[m];
-                    colonCharCapital.push(colonWord.replace(colonWord, colonWord.toUpperCase()))
+                    colonCharCapital.push(colonWord.replace(colonWord, colonWord.toUpperCase()));
                 }
                 var colonCharCapitalStr = colonCharCapital.join(':');
                 nameCapitalized.push(colonCharCapitalStr); 
@@ -1109,7 +1109,7 @@ function capitalizeString(value) {
 
                 for (var n = 0; n < splitAndArr.length; n++) {
                     var andWord = splitAndArr[n];
-                    andCharCapital.push(andWord.replace(andWord[0], andWord[0].toUpperCase()))
+                    andCharCapital.push(andWord.replace(andWord[0], andWord[0].toUpperCase()));
                 }
                 var andCharCapitalStr = andCharCapital.join('&');
                 nameCapitalized.push(andCharCapitalStr); 
@@ -1122,7 +1122,7 @@ function capitalizeString(value) {
 
                 for (var o = 0; o < splitPipeArr.length; o++) {
                     var pipeWord = splitPipeArr[o];
-                    pipeCharCapital.push(pipeWord.replace(pipeWord[0], pipeWord[0].toUpperCase()))
+                    pipeCharCapital.push(pipeWord.replace(pipeWord[0], pipeWord[0].toUpperCase()));
                 }
                 var pipeCharCapitalStr = pipeCharCapital.join('|');
                 nameCapitalized.push(pipeCharCapitalStr); 
