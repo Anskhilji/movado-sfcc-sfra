@@ -182,8 +182,10 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
  * @returns capitallize value
  */
 function capitalizeString(value) {
+    var Site = require('dw/system/Site');
+
     var nameCapitalized = [];
-    var strArr = value.toString().split(' ');
+    var strArr = value.trim().toString().split(' ');
 
     for (var i = 0; i < strArr.length; i++) {
         var word = strArr[i].toLowerCase();
@@ -191,7 +193,6 @@ function capitalizeString(value) {
 
         if (isString) {
             var isCharDash = word.match(/[,\-]/);
-
             if (isCharDash) {
                 var splitDashArr = word.split('-');
                 var dashCharCapital = [];
@@ -230,11 +231,92 @@ function capitalizeString(value) {
                 nameCapitalized.push(slashCharCapitalStr); 
             }
 
-            if (!isCharDash && !isUnderScore && !isBackSlash) {
-                nameCapitalized.push(word.replace(word[0], word[0].toUpperCase()));
+            var isColon = word.match(/[:]/);
+            if (isColon) {
+                var splitColonArr = word.split(':');
+                var colonCharCapital = [];
+
+                for (var m = 0; m < splitColonArr.length; m++) {
+                    var colonWord = splitColonArr[m];
+                    colonCharCapital.push(colonWord.replace(colonWord, colonWord.toUpperCase()))
+                }
+                var colonCharCapitalStr = colonCharCapital.join(':');
+                nameCapitalized.push(colonCharCapitalStr); 
             }
+            
+            var isAndOperator = word.match(/[&]/);
+            if (isAndOperator) {
+                var splitAndArr = word.split('&');
+                var andCharCapital = [];
+
+                for (var n = 0; n < splitAndArr.length; n++) {
+                    var andWord = splitAndArr[n];
+                    andCharCapital.push(andWord.replace(andWord[0], andWord[0].toUpperCase()))
+                }
+                var andCharCapitalStr = andCharCapital.join('&');
+                nameCapitalized.push(andCharCapitalStr); 
+            }
+
+            var isPipeOperator = word.match(/[|]/);
+            if (isPipeOperator) {
+                var splitPipeArr = word.split('|');
+                var pipeCharCapital = [];
+
+                for (var o = 0; o < splitPipeArr.length; o++) {
+                    var pipeWord = splitPipeArr[o];
+                    pipeCharCapital.push(pipeWord.replace(pipeWord[0], pipeWord[0].toUpperCase()))
+                }
+                var pipeCharCapitalStr = pipeCharCapital.join('|');
+                nameCapitalized.push(pipeCharCapitalStr); 
+            }
+
+            if (!isCharDash && !isUnderScore && !isBackSlash & !isColon & !isAndOperator & !isPipeOperator) {
+                var strUpperCaseArr = !empty(Site.current.preferences.custom.stringUppercase) ? Site.current.preferences.custom.stringUppercase : false;
+
+                var isUpperCase = false;
+
+                if (strUpperCaseArr) {
+
+                    strUpperCaseArr.forEach(function(el) {
+                        var wordToLower = el.toLowerCase();
+
+                        if (wordToLower === word) {
+                            isUpperCase = true;
+                            nameCapitalized.push(word.toUpperCase());
+                        }
+                    });
+                } 
+
+                if (!isUpperCase) {
+                    nameCapitalized.push(word.replace(word[0], word[0].toUpperCase()));
+                }
+            }
+
         } else {
-            nameCapitalized.push(word.toUpperCase());
+            var strLowerCaseArr = !empty(Site.current.preferences.custom.stringLowercase) ? Site.current.preferences.custom.stringLowercase : false;
+
+            var isLowerCase = false;
+
+            if (strLowerCaseArr) {
+                // matching all alphabetic characters
+                var characters = word.split(/[\W\d]+/).join('');
+                // matching all numbers
+                var numbers = word.replace(/[^\d.-]/g, '');
+
+                strLowerCaseArr.forEach(function(el) {
+                    var wordToLower = el.toLowerCase();
+    
+                    if (wordToLower === characters) {
+                        isLowerCase = true;
+                        var completeWordToLower = numbers + '' + characters;
+                        nameCapitalized.push(completeWordToLower);
+                    }
+                });
+            }
+
+            if (!isLowerCase) {
+                nameCapitalized.push(word.toUpperCase());
+            }
         }
     }
     return nameCapitalized.join(' ');
