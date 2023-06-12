@@ -18,7 +18,7 @@
                     <iscontentasset aid="ca-footer-locate-store" />
 
                     <div class="seleced-store">
-                        <img src="${URLUtils.staticURL('/images/map-pin.svg')}" alt="" class="d-none">
+                        <img src="${URLUtils.staticURL('/images/map-pin.svg')}" alt="" class="${(session.privacy.storeAddress) ? '' : 'd-none'}">
                         <span class="store-address">${(session.privacy.storeAddress) || ''}</span>
                     </div>
 
