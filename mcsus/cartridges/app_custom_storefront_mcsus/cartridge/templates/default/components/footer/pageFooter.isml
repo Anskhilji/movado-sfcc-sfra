@@ -17,12 +17,10 @@
                 <div class="footer-store-Location">
                     <iscontentasset aid="ca-footer-locate-store" />
 
-                    <isif condition="${session.privacy.storeAddress}">
-                        <div class="seleced-store">
-                            <img src="${URLUtils.staticURL('/images/map-pin.svg')}" alt="">
-                            <span class="store-address">${(session.privacy.storeAddress) || ''}</span>
-                        </div>
-                    </isif>
+                    <div class="seleced-store">
+                        <img src="${URLUtils.staticURL('/images/map-pin.svg')}" alt="" class="d-none">
+                        <span class="store-address">${(session.privacy.storeAddress) || ''}</span>
+                    </div>
 
                     <iscomment> Custom Start: Adding ESW Logic </iscomment>
                     <isif condition="${isEswEnabled}">
