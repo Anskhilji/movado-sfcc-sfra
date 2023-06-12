@@ -134,7 +134,6 @@ $('#newsLetterCouponCode, #subscriptionCouponCode').on('click', function(e) {
     }, 3000);
 });
 
-
 // close email signup modal after clicked on close icon and continue to shoping button
 $('#continueShopping, .close.close-icon').on('click', function () {
     $('.email-signup-modal').removeClass('d-none');
