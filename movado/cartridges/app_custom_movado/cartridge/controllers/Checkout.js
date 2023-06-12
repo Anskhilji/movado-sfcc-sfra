@@ -160,6 +160,14 @@ server.append(
                 productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
             }
         });
+
+        //custom : PulseID engraving
+        if (Site.current.preferences.custom.enablePulseIdEngraving) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            var items = orderModel.items;
+            pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
+        }
+        // custom end
     }
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
