@@ -32,9 +32,9 @@ $('#subscriptionCouponCode').on('click', function() {
 });
 
  //Custom:MSS-2290 close modal 
-$('.modal-overlayer,.modal-close').on('click', function() {
+$('.modal-overlayer, .modal-close').on('click', function() {
     $subscriptionSuccessfulModal.removeClass('d-flex').addClass('d-none');
-    $('input').val('');
+    $('.email-signUp, .email-verification').val('');
     $('.submission-status').addClass('d-none');
 });
 

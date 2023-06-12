@@ -39,7 +39,7 @@
                         <iscomment> Custom End </iscomment>
 
                         <div class="input-group">
-                            <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp"
+                            <input type="text" class="form-control email-signUp" id="hpEmailSignUp" name="hpEmailSignUp"
                                 placeholder="${Resource.msg('placeholdertext.form.emailsignups', 'homePage', null)}">
                             <isif
                                 condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('isEmailVerificationEnabled') === true}">
