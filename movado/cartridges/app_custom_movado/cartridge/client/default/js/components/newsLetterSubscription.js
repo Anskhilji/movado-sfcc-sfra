@@ -34,7 +34,7 @@ $('#subscriptionCouponCode').on('click', function() {
  //Custom:MSS-2290 close modal 
 $('.modal-overlayer,.modal-close').on('click', function() {
     $subscriptionSuccessfulModal.removeClass('d-flex').addClass('d-none');
-    $('#hpEmailSignUp').val('');
+    $('#hpEmailSignUp, input').val('');
     $('.submission-status').addClass('d-none');
 });
 
@@ -115,17 +115,29 @@ function processSubscriptionPDP(response) {
     }
 }
 
-// copy coupon code on click
-$('#newsLetterCouponCode, #subscriptionCouponCode').on('click', function() {
+// copy coupon code on click (Footer)
+$('#newsLetterCouponCode').on('click', function() {
     var element = $('#copiedText');
     var elementText = element.text();
-    var $this = $(this);
 
     navigator.clipboard.writeText(elementText);
-    $($this).addClass('active');
+    $(this).addClass('active');
 
     setTimeout(() => {
-        $($this).removeClass('active');
+        $(this).removeClass('active');
+    }, 3000);
+});
+
+// copy coupon code on click (PDP)
+$('#subscriptionCouponCode').on('click', function() {
+    var element = $('#copiedTextFooter');
+    var elementText = element.text();
+
+    navigator.clipboard.writeText(elementText);
+    $(this).addClass('active');
+
+    setTimeout(() => {
+        $(this).removeClass('active');
     }, 3000);
 });
 
