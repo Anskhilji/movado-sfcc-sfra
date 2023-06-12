@@ -116,11 +116,11 @@ function processSubscriptionPDP(response) {
 }
 
 // copy coupon code on click
-$('#newsLetterCouponCode, #subscriptionCouponCode').on('click', function() { 
+$('#newsLetterCouponCode, #subscriptionCouponCode').on('click', function() {
     var element = $('#copiedText');
     var elementText = element.text();
     var $this = $(this);
-    
+
     navigator.clipboard.writeText(elementText);
     $($this).addClass('active');
 
