@@ -82,7 +82,7 @@ function selectStoreIcon() {
             $('.set-your-store, .store-address').text(storePickup.address1);
             $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
             $('.pick-up-store-change-store').text('Change');
-            $('.seleced-store img').removeClass('d-none')
+            $('.seleced-store img').removeClass('d-none');
             closeStoreLocator();
             if (storePickup.inventory && storePickup.inventory[0].records[0].ato > 0) {
                 $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available');
