@@ -115,7 +115,7 @@ function processSubscriptionPDP(response) {
     }
 }
 
-// copy coupon code on click (Footer)
+// copy coupon code on click
 $('#newsLetterCouponCode, #subscriptionCouponCode').on('click', function(e) {
     var targetId = e.target.id;
     var element = $('#copiedTextFooter');
