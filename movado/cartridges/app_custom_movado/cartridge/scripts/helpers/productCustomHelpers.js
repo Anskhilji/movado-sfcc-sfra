@@ -1035,149 +1035,168 @@ function setProductAvailability(product) {
 }
 
 /**
- * Function all string convert to capitalize formate
- * @param value
- * @returns capitallize value
+ * Function all string transformation
+ * @param array, value
+ * @returns string to uppercase, lowercase, titlecase
  */
-function capitalizeString(value) {
-    var Site = require('dw/system/Site');
 
-    var nameCapitalized = [];
-    var strArr = value.trim().toString().split(' ');
+function stringTransformation(textTransformRulesArr, value) {
+    if (textTransformRulesArr) {
+        var testTransformObj = textTransformRulesArr[0];
 
-    for (var i = 0; i < strArr.length; i++) {
-        var word = strArr[i].toLowerCase();
-        var isString = word[0].match(/[a-z]/i);
-
-        if (isString) {
-            var isCharDash = word.match(/[,\-]/);
-            if (isCharDash) {
-                var splitDashArr = word.split('-');
-                var dashCharCapital = [];
-
-                for (var j = 0; j < splitDashArr.length; j++) {
-                    var dashWord = splitDashArr[j];
-                    dashCharCapital.push(dashWord.replace(dashWord[0], dashWord[0].toUpperCase()));
-                }
-                var dashCharCapitalStr = dashCharCapital.join('-');
-                nameCapitalized.push(dashCharCapitalStr);
-            }
-
-            var isUnderScore = word.match(/[,\_]/);
-            if (isUnderScore) {
-                var splitUnderScoreArr = word.split('_');
-                var underScoreCharCapital = [];
-
-                for (var k = 0; k < splitUnderScoreArr.length; k++) {
-                    var underScoreWord = splitUnderScoreArr[k];
-                    underScoreCharCapital.push(underScoreWord.replace(underScoreWord[0], underScoreWord[0].toUpperCase()));
-                }
-                var UnderScoreCharCapitalStr = underScoreCharCapital.join('_');
-                nameCapitalized.push(UnderScoreCharCapitalStr);
-            }
-
-            var isBackSlash = word.match(/[/]/);
-            if (isBackSlash) {
-                var splitSlashArr = word.split('/');
-                var slashCharCapital = [];
-
-                for (var l = 0; l < splitSlashArr.length; l++) {
-                    var slashWord = splitSlashArr[l];
-                    slashCharCapital.push(slashWord.replace(slashWord[0], slashWord[0].toUpperCase()));
-                }
-                var slashCharCapitalStr = slashCharCapital.join('/');
-                nameCapitalized.push(slashCharCapitalStr); 
-            }
-
-            var isColon = word.match(/[:]/);
-            if (isColon) {
-                var splitColonArr = word.split(':');
-                var colonCharCapital = [];
-
-                for (var m = 0; m < splitColonArr.length; m++) {
-                    var colonWord = splitColonArr[m];
-                    colonCharCapital.push(colonWord.replace(colonWord, colonWord.toUpperCase()));
-                }
-                var colonCharCapitalStr = colonCharCapital.join(':');
-                nameCapitalized.push(colonCharCapitalStr); 
-            }
-            
-            var isAndOperator = word.match(/[&]/);
-            if (isAndOperator) {
-                var splitAndArr = word.split('&');
-                var andCharCapital = [];
-
-                for (var n = 0; n < splitAndArr.length; n++) {
-                    var andWord = splitAndArr[n];
-                    andCharCapital.push(andWord.replace(andWord[0], andWord[0].toUpperCase()));
-                }
-                var andCharCapitalStr = andCharCapital.join('&');
-                nameCapitalized.push(andCharCapitalStr); 
-            }
-
-            var isPipeOperator = word.match(/[|]/);
-            if (isPipeOperator) {
-                var splitPipeArr = word.split('|');
-                var pipeCharCapital = [];
-
-                for (var o = 0; o < splitPipeArr.length; o++) {
-                    var pipeWord = splitPipeArr[o];
-                    pipeCharCapital.push(pipeWord.replace(pipeWord[0], pipeWord[0].toUpperCase()));
-                }
-                var pipeCharCapitalStr = pipeCharCapital.join('|');
-                nameCapitalized.push(pipeCharCapitalStr); 
-            }
-
-            if (!isCharDash && !isUnderScore && !isBackSlash & !isColon & !isAndOperator & !isPipeOperator) {
-                var strUpperCaseArr = !empty(Site.current.preferences.custom.stringUppercase) ? Site.current.preferences.custom.stringUppercase : false;
-
-                var isUpperCase = false;
-
-                if (strUpperCaseArr) {
-
-                    strUpperCaseArr.forEach(function(el) {
-                        var wordToLower = el.toLowerCase();
-
-                        if (wordToLower === word) {
-                            isUpperCase = true;
-                            nameCapitalized.push(word.toUpperCase());
-                        }
-                    });
-                } 
-
-                if (!isUpperCase) {
-                    nameCapitalized.push(word.replace(word[0], word[0].toUpperCase()));
-                }
-            }
-
+        if (testTransformObj.hasOwnProperty('textTransform') &&  testTransformObj.textTransform == 'uppercase') {
+            return value.trim().toUpperCase();
+        } else if (testTransformObj.hasOwnProperty('textTransform') &&  testTransformObj.textTransform == 'lowercase') {
+            return value.trim().toLowerCase();
         } else {
-            var strLowerCaseArr = !empty(Site.current.preferences.custom.stringLowercase) ? Site.current.preferences.custom.stringLowercase : false;
+            var transformedArr = [];
+            var strArr = value.trim().toString().split(' ');
+        
+            for (var i = 0; i < strArr.length; i++) {
+                var word = strArr[i].toLowerCase();
+                var isString = word[0].match(/[a-z]/i);
 
-            var isLowerCase = false;
-
-            if (strLowerCaseArr) {
-                // matching all alphabetic characters
-                var characters = word.split(/[\W\d]+/).join('');
-                // matching all numbers
-                var numbers = word.replace(/[^\d.-]/g, '');
-
-                strLowerCaseArr.forEach(function(el) {
-                    var wordToLower = el.toLowerCase();
-    
-                    if (wordToLower === characters) {
-                        isLowerCase = true;
-                        var completeWordToLower = numbers + '' + characters;
-                        nameCapitalized.push(completeWordToLower);
+                if (isString) {
+                    var isCharDash = word.match(/[,\-]/);
+                    if (isCharDash) {
+                        var splitDashArr = word.split('-');
+                        var dashCharCapital = [];
+        
+                        for (var j = 0; j < splitDashArr.length; j++) {
+                            var dashWord = splitDashArr[j];
+                            dashCharCapital.push(dashWord.replace(dashWord[0], dashWord[0].toUpperCase()));
+                        }
+                        var dashCharCapitalStr = dashCharCapital.join('-');
+                        transformedArr.push(dashCharCapitalStr);
                     }
-                });
+        
+                    var isUnderScore = word.match(/[,\_]/);
+                    if (isUnderScore) {
+                        var splitUnderScoreArr = word.split('_');
+                        var underScoreCharCapital = [];
+        
+                        for (var k = 0; k < splitUnderScoreArr.length; k++) {
+                            var underScoreWord = splitUnderScoreArr[k];
+                            underScoreCharCapital.push(underScoreWord.replace(underScoreWord[0], underScoreWord[0].toUpperCase()));
+                        }
+                        var UnderScoreCharCapitalStr = underScoreCharCapital.join('_');
+                        transformedArr.push(UnderScoreCharCapitalStr);
+                    }
+        
+                    var isBackSlash = word.match(/[/]/);
+                    if (isBackSlash) {
+                        var splitSlashArr = word.split('/');
+                        var slashCharCapital = [];
+        
+                        for (var l = 0; l < splitSlashArr.length; l++) {
+                            var slashWord = splitSlashArr[l];
+                            slashCharCapital.push(slashWord.replace(slashWord[0], slashWord[0].toUpperCase()));
+                        }
+                        var slashCharCapitalStr = slashCharCapital.join('/');
+                        transformedArr.push(slashCharCapitalStr); 
+                    }
+        
+                    var isColon = word.match(/[:]/);
+                    if (isColon) {
+                        var splitColonArr = word.split(':');
+                        var colonCharCapital = [];
+        
+                        for (var m = 0; m < splitColonArr.length; m++) {
+                            var colonWord = splitColonArr[m];
+                            colonCharCapital.push(colonWord.replace(colonWord, colonWord.toUpperCase()));
+                        }
+                        var colonCharCapitalStr = colonCharCapital.join(':');
+                        transformedArr.push(colonCharCapitalStr); 
+                    }
+                    
+                    var isAndOperator = word.match(/[&]/);
+                    if (isAndOperator) {
+                        var splitAndArr = word.split('&');
+                        var andCharCapital = [];
+        
+                        for (var n = 0; n < splitAndArr.length; n++) {
+                            var andWord = splitAndArr[n];
+                            andCharCapital.push(andWord.replace(andWord[0], andWord[0].toUpperCase()));
+                        }
+                        var andCharCapitalStr = andCharCapital.join('&');
+                        transformedArr.push(andCharCapitalStr); 
+                    }
+        
+                    var isPipeOperator = word.match(/[|]/);
+                    if (isPipeOperator) {
+                        var splitPipeArr = word.split('|');
+                        var pipeCharCapital = [];
+        
+                        for (var o = 0; o < splitPipeArr.length; o++) {
+                            var pipeWord = splitPipeArr[o];
+                            pipeCharCapital.push(pipeWord.replace(pipeWord[0], pipeWord[0].toUpperCase()));
+                        }
+                        var pipeCharCapitalStr = pipeCharCapital.join('|');
+                        transformedArr.push(pipeCharCapitalStr); 
+                    }
+            
+                    if (!isCharDash && !isUnderScore && !isBackSlash & !isColon & !isAndOperator & !isPipeOperator) {
+                        var strUpperCaseArr = testTransformObj.hasOwnProperty('upperCaseUnitArray') ? testTransformObj.upperCaseUnitArray : false;
+                        var strLowerCaseArr = testTransformObj.hasOwnProperty('lowerCaseArray') ? testTransformObj.lowerCaseArray : false;
+        
+                        var isUpperCase = false;
+                        var isLowerCase = false;
+        
+                        if (strUpperCaseArr) {
+                            strUpperCaseArr.forEach(function(el) {
+                                var wordToLower = el.toLowerCase();
+        
+                                if (wordToLower == word) {
+                                    isUpperCase = true;
+                                    transformedArr.push(word.toUpperCase());
+                                }
+                            });
+                        }
+    
+                        if (strLowerCaseArr) {
+                            strLowerCaseArr.forEach(function(el) {
+                                var wordToLower = el.toLowerCase();
+        
+                                if (wordToLower == word) {
+                                    isLowerCase = true;
+                                    transformedArr.push(word.toLowerCase());
+                                }
+                            });
+                        }
+        
+                        if (!isUpperCase && !isLowerCase) {
+                            transformedArr.push(word.replace(word[0], word[0].toUpperCase()));
+                        }
+                    } 
+                } else {
+                    var strLowerCaseArr = testTransformObj.hasOwnProperty('lowerCaseArray') ? testTransformObj.lowerCaseArray : false;
+                    var isLowerCase = false;
+        
+                    if (strLowerCaseArr) {
+                        // matching all alphabetic characters
+                        var characters = word.split(/[\W\d]+/).join('');
+                        // matching all numbers
+                        var numbers = word.replace(/[^\d.-]/g, '');
+        
+                        strLowerCaseArr.forEach(function(el) {
+                            var wordToLower = el.toLowerCase();
+            
+                            if (wordToLower == characters) {
+                                isLowerCase = true;
+                                var completeWordToLower = numbers + '' + characters.toLowerCase();
+                                transformedArr.push(completeWordToLower);
+                            }
+                        });
+                    }
+        
+                    if (!isLowerCase) {
+                        transformedArr.push(word.toUpperCase());
+                    }
+                }
             }
-
-            if (!isLowerCase) {
-                nameCapitalized.push(word.toUpperCase());
-            }
+            return transformedArr.join(' ');
         }
     }
-    return nameCapitalized.join(' ');
 }
 
 /**
@@ -1213,6 +1232,8 @@ function capitalizeString(value) {
                         var image = attributes[attributesIndex].image;
                         var type = attributes[attributesIndex].type;
                         var value = '';
+                        var textTransformRulesArr = attributes[attributesIndex].textTransformRules;
+                        
                         if (id == 'ringSize') {
                             var ringSizes = !empty(Site.getCurrent().getCustomPreferenceValue('ringSize')) ? Site.getCurrent().getCustomPreferenceValue("ringSize") : '';
                             if (ringSizes) {
@@ -1235,9 +1256,10 @@ function capitalizeString(value) {
                             }
                         }
                         if (!empty(value)) {
+                            var transformedStr = stringTransformation(textTransformRulesArr, value);
                             var attribute = {
                                 displayName: displayName,
-                                value: capitalizeString(value),
+                                value: transformedStr ? transformedStr : value,
                                 section: section,
                                 image: image
                             };
