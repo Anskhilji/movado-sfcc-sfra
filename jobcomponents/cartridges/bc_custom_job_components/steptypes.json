@@ -497,40 +497,6 @@
                     ]
                 }
             },
-
-            {
-			"@type-id": "custom.CSComponents.GetStoresGeolocation",
-			"@supports-site-context": true,
-			"@supports-organization-context": true,
-			"module": "bc_custom_job_components/cartridge/scripts/jobsteps/GetStoresGeolocation.js",
-			"function": "run",
-			"parameters": {
-				"parameters": [
-					{
-						"@name": "ServiceID",
-						"@type": "string",
-						"@required": true,
-						"@trim": true,
-						"default-value": "GoogleMapService"
-					},
-					{
-						"@name": "TargetFolder",
-						"@type": "string",
-						"@required": true,
-						"description": "Local folder where to store file will be generated with Lat and Long, relative to IMPEX/",
-						"@trim": true,
-						"default-value": "src/stores/geolocate"
-					},
-                    {
-                        "@name": "IsDisabled",
-                        "description": "Mark the step as disabled. This will skip the step and returns a OK status",
-                        "@type": "boolean",
-                        "@required": false,
-                        "@trim": true
-                    }
-				]
-			}
-		    },
             {
                 "@type-id": "custom.CSComponents.ExportPICatalog",
                 "@supports-site-context": true,
@@ -823,6 +789,48 @@
                         {
                             "@code": "NO_FILES_FOUND",
                             "description": "Used when no files could be found in the source directory."
+                        }
+                    ]
+                }
+            }
+        ],
+        "chunk-script-module-step": [
+            {
+                "@type-id":"custom.CSComponents.GetStoresGeolocation",
+                "@supports-site-context": true,
+                "@supports-organization-context": true,
+                "description":"My custom chunk script step type",
+                "module":"bc_custom_job_components/cartridge/scripts/jobsteps/GetStoresGeolocation.js",
+                "before-step-function":"beforeStep",
+                "read-function":"read",
+                "process-function":"process",
+                "write-function":"write",
+                "after-step-function":"afterStep",
+                "chunk-size":10,
+                "transactional":"true",
+                "parameters": {
+                    "parameters": [
+                        {
+                            "@name": "ServiceID",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "GoogleMapService"
+                        },
+                        {
+                            "@name": "TargetFolder",
+                            "@type": "string",
+                            "@required": true,
+                            "description": "Local folder where to store file will be generated with Lat and Long, relative to IMPEX/",
+                            "@trim": true,
+                            "default-value": "src/stores/geolocate"
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
                         }
                     ]
                 }
