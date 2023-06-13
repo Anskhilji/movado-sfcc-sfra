@@ -26,6 +26,8 @@ module.exports = function (object, apiProduct) {
         	
         	engravingPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.engraving', 'product', null),
             engravingPlaceholderRedesign: Resource.msg('pdict.product.resources.placeholdertext.text.engraving.redesign', 'product', null),
+            engravingInputPlaceHolder: Resource.msg('label.product.resources.engravingInputPlaceHolder', 'product', null),
+            engravingInputOptionalPlaceHolder: Resource.msg('label.product.resources.engravingInputOptionalPlaceHolder', 'product', null),
         	Free: Resource.msg('label.product.option.personalization.Free', 'product', null),
             errorEmptyEmbossText: Resource.msg('label.product.personalization.mandatory.embossing.message', 'product', null),
             errorMaxlengthEmbossText: Resource.msg('label.product.personalization.maxlength.embossing.message', 'product', null),

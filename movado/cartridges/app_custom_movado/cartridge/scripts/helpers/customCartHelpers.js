@@ -427,6 +427,6 @@ module.exports = {
     getGiftTransactionATC: getGiftTransactionATC,
     getCountrySwitch: getCountrySwitch,
     removeClydeWarranty: removeClydeWarranty,
-    removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem,
+    removeNullClydeWarrantyLineItemAndEngraving: removeNullClydeWarrantyLineItemAndEngraving,
     removeGiftMessaging: removeGiftMessaging
 };
