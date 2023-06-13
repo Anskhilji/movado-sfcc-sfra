@@ -130,7 +130,7 @@ exports.write = function (response, parameters, stepExecution) {
                 xsw.writeEndElement();
                 xsw.writeEndElement();
             } else {
-                Logger.error('zero results for ' + response[j].store.ID + ' : ' + response[j].address + response[j].components + ' => ' + response[j].serviceResult.errorMessage);
+                Logger.error('GetStoresGeolocation-write ' + response[j].store.ID + ' : ' + response[j].address + response[j].components + 'Error: ' + response[j].serviceResult.errorMessage + 'Status: ' + response[j].serviceResponse.status);
             }
         }
     } catch (e) {
