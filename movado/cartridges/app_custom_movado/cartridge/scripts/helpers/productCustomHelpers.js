@@ -1042,11 +1042,11 @@ function setProductAvailability(product) {
 
 function stringTransformation(textTransformRulesArr, value) {
     if (textTransformRulesArr) {
-        var testTransformObj = textTransformRulesArr[0];
+        var textTransformObj = textTransformRulesArr[0];
 
-        if (testTransformObj.hasOwnProperty('textTransform') &&  testTransformObj.textTransform == 'uppercase') {
+        if (textTransformObj.hasOwnProperty('textTransform') &&  textTransformObj.textTransform == 'uppercase') {
             return value.trim().toUpperCase();
-        } else if (testTransformObj.hasOwnProperty('textTransform') &&  testTransformObj.textTransform == 'lowercase') {
+        } else if (textTransformObj.hasOwnProperty('textTransform') &&  textTransformObj.textTransform == 'lowercase') {
             return value.trim().toLowerCase();
         } else {
             var transformedArr = [];
@@ -1136,8 +1136,8 @@ function stringTransformation(textTransformRulesArr, value) {
                     }
             
                     if (!isCharDash && !isUnderScore && !isBackSlash & !isColon & !isAndOperator & !isPipeOperator) {
-                        var strUpperCaseArr = testTransformObj.hasOwnProperty('upperCaseUnitArray') ? testTransformObj.upperCaseUnitArray : false;
-                        var strLowerCaseArr = testTransformObj.hasOwnProperty('lowerCaseArray') ? testTransformObj.lowerCaseArray : false;
+                        var strUpperCaseArr = textTransformObj.hasOwnProperty('upperCaseUnitArray') ? textTransformObj.upperCaseUnitArray : false;
+                        var strLowerCaseArr = textTransformObj.hasOwnProperty('lowerCaseUnitArray') ? textTransformObj.lowerCaseUnitArray : false;
         
                         var isUpperCase = false;
                         var isLowerCase = false;
@@ -1169,7 +1169,7 @@ function stringTransformation(textTransformRulesArr, value) {
                         }
                     } 
                 } else {
-                    var strLowerCaseArr = testTransformObj.hasOwnProperty('lowerCaseArray') ? testTransformObj.lowerCaseArray : false;
+                    var strLowerCaseArr = textTransformObj.hasOwnProperty('lowerCaseUnitArray') ? textTransformObj.lowerCaseUnitArray : false;
                     var isLowerCase = false;
         
                     if (strLowerCaseArr) {
@@ -1233,7 +1233,7 @@ function stringTransformation(textTransformRulesArr, value) {
                         var type = attributes[attributesIndex].type;
                         var value = '';
                         var textTransformRulesArr = attributes[attributesIndex].textTransformRules;
-                        
+
                         if (id == 'ringSize') {
                             var ringSizes = !empty(Site.getCurrent().getCustomPreferenceValue('ringSize')) ? Site.getCurrent().getCustomPreferenceValue("ringSize") : '';
                             if (ringSizes) {

@@ -181,13 +181,14 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
  * @param array, value
  * @returns string to uppercase, lowercase, titlecase
  */
-function stringTransformation(textTransformRulesArr, value) {
-    if (textTransformRulesArr.length > 0) {
-        var testTransformObj = textTransformRulesArr[0];
 
-        if (testTransformObj.hasOwnProperty('textTransform') &&  testTransformObj.textTransform == 'uppercase') {
+function stringTransformation(textTransformRulesArr, value) {
+    if (textTransformRulesArr) {
+        var textTransformObj = textTransformRulesArr[0];
+
+        if (textTransformObj.hasOwnProperty('textTransform') &&  textTransformObj.textTransform == 'uppercase') {
             return value.trim().toUpperCase();
-        } else if (testTransformObj.hasOwnProperty('textTransform') &&  testTransformObj.textTransform == 'lowercase') {
+        } else if (textTransformObj.hasOwnProperty('textTransform') &&  textTransformObj.textTransform == 'lowercase') {
             return value.trim().toLowerCase();
         } else {
             var transformedArr = [];
@@ -277,8 +278,8 @@ function stringTransformation(textTransformRulesArr, value) {
                     }
             
                     if (!isCharDash && !isUnderScore && !isBackSlash & !isColon & !isAndOperator & !isPipeOperator) {
-                        var strUpperCaseArr = testTransformObj.hasOwnProperty('upperCaseUnitArray') ? testTransformObj.upperCaseUnitArray : false;
-                        var strLowerCaseArr = testTransformObj.hasOwnProperty('lowerCaseArray') ? testTransformObj.lowerCaseArray : false;
+                        var strUpperCaseArr = textTransformObj.hasOwnProperty('upperCaseUnitArray') ? textTransformObj.upperCaseUnitArray : false;
+                        var strLowerCaseArr = textTransformObj.hasOwnProperty('lowerCaseUnitArray') ? textTransformObj.lowerCaseUnitArray : false;
         
                         var isUpperCase = false;
                         var isLowerCase = false;
@@ -310,7 +311,7 @@ function stringTransformation(textTransformRulesArr, value) {
                         }
                     } 
                 } else {
-                    var strLowerCaseArr = testTransformObj.hasOwnProperty('lowerCaseArray') ? testTransformObj.lowerCaseArray : false;
+                    var strLowerCaseArr = textTransformObj.hasOwnProperty('lowerCaseUnitArray') ? textTransformObj.lowerCaseUnitArray : false;
                     var isLowerCase = false;
         
                     if (strLowerCaseArr) {
@@ -341,168 +342,75 @@ function stringTransformation(textTransformRulesArr, value) {
 }
 
 /**
- * Function all string transformation
- * @param array, value
- * @returns string to uppercase, lowercase, titlecase
+ * It is used to get productCustomAttribute for Details and Specs Sections on PDP
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Object} - detailAndSpecAttributes object
  */
 
-function stringTransformation(textTransformRulesArr, value) {
-    if (textTransformRulesArr) {
-        var testTransformObj = textTransformRulesArr[0];
+ function getPdpDetailAndSpecsAttributes(apiProduct) {
+    var category = null;
+    var pdpDetailAttributes = [];
+    var pdpSpecAttributes = [];
+    try {
+        var categoriesConfig = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
+        if (!empty(categoriesConfig) && !empty(apiProduct)) {
+            category = getCategoryConfig(apiProduct, categoriesConfig);
+        }
 
-        if (testTransformObj.hasOwnProperty('textTransform') &&  testTransformObj.textTransform == 'uppercase') {
-            return value.trim().toUpperCase();
-        } else if (testTransformObj.hasOwnProperty('textTransform') &&  testTransformObj.textTransform == 'lowercase') {
-            return value.trim().toLowerCase();
-        } else {
-            var transformedArr = [];
-            var strArr = value.trim().toString().split(' ');
-        
-            for (var i = 0; i < strArr.length; i++) {
-                var word = strArr[i].toLowerCase();
-                var isString = word[0].match(/[a-z]/i);
+        if (empty(category) && apiProduct.variant) {
+            category = getCategoryConfig(apiProduct.variationModel.master, categoriesConfig);
+        }
 
-                if (isString) {
-                    var isCharDash = word.match(/[,\-]/);
-                    if (isCharDash) {
-                        var splitDashArr = word.split('-');
-                        var dashCharCapital = [];
-        
-                        for (var j = 0; j < splitDashArr.length; j++) {
-                            var dashWord = splitDashArr[j];
-                            dashCharCapital.push(dashWord.replace(dashWord[0], dashWord[0].toUpperCase()));
+        if (!empty(category)) {
+            var attributes = category.attributes;
+            if (!empty(attributes)) {
+                for (var attributesIndex = 0; attributesIndex < attributes.length; attributesIndex++) {
+                    try {
+                        var id = attributes[attributesIndex].ID;
+                        var displayName = attributes[attributesIndex].displayName;
+                        var isCustom =  attributes[attributesIndex].custom;
+                        var section = attributes[attributesIndex].section;
+                        var value = null;
+                        var textTransformRulesArr = attributes[attributesIndex].textTransformRules;
+                        
+                        if (isCustom) {
+                            value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
+                        } else {
+                            value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
                         }
-                        var dashCharCapitalStr = dashCharCapital.join('-');
-                        transformedArr.push(dashCharCapitalStr);
-                    }
-        
-                    var isUnderScore = word.match(/[,\_]/);
-                    if (isUnderScore) {
-                        var splitUnderScoreArr = word.split('_');
-                        var underScoreCharCapital = [];
-        
-                        for (var k = 0; k < splitUnderScoreArr.length; k++) {
-                            var underScoreWord = splitUnderScoreArr[k];
-                            underScoreCharCapital.push(underScoreWord.replace(underScoreWord[0], underScoreWord[0].toUpperCase()));
-                        }
-                        var UnderScoreCharCapitalStr = underScoreCharCapital.join('_');
-                        transformedArr.push(UnderScoreCharCapitalStr);
-                    }
-        
-                    var isBackSlash = word.match(/[/]/);
-                    if (isBackSlash) {
-                        var splitSlashArr = word.split('/');
-                        var slashCharCapital = [];
-        
-                        for (var l = 0; l < splitSlashArr.length; l++) {
-                            var slashWord = splitSlashArr[l];
-                            slashCharCapital.push(slashWord.replace(slashWord[0], slashWord[0].toUpperCase()));
-                        }
-                        var slashCharCapitalStr = slashCharCapital.join('/');
-                        transformedArr.push(slashCharCapitalStr); 
-                    }
-        
-                    var isColon = word.match(/[:]/);
-                    if (isColon) {
-                        var splitColonArr = word.split(':');
-                        var colonCharCapital = [];
-        
-                        for (var m = 0; m < splitColonArr.length; m++) {
-                            var colonWord = splitColonArr[m];
-                            colonCharCapital.push(colonWord.replace(colonWord, colonWord.toUpperCase()));
-                        }
-                        var colonCharCapitalStr = colonCharCapital.join(':');
-                        transformedArr.push(colonCharCapitalStr); 
-                    }
-                    
-                    var isAndOperator = word.match(/[&]/);
-                    if (isAndOperator) {
-                        var splitAndArr = word.split('&');
-                        var andCharCapital = [];
-        
-                        for (var n = 0; n < splitAndArr.length; n++) {
-                            var andWord = splitAndArr[n];
-                            andCharCapital.push(andWord.replace(andWord[0], andWord[0].toUpperCase()));
-                        }
-                        var andCharCapitalStr = andCharCapital.join('&');
-                        transformedArr.push(andCharCapitalStr); 
-                    }
-        
-                    var isPipeOperator = word.match(/[|]/);
-                    if (isPipeOperator) {
-                        var splitPipeArr = word.split('|');
-                        var pipeCharCapital = [];
-        
-                        for (var o = 0; o < splitPipeArr.length; o++) {
-                            var pipeWord = splitPipeArr[o];
-                            pipeCharCapital.push(pipeWord.replace(pipeWord[0], pipeWord[0].toUpperCase()));
-                        }
-                        var pipeCharCapitalStr = pipeCharCapital.join('|');
-                        transformedArr.push(pipeCharCapitalStr); 
-                    }
-            
-                    if (!isCharDash && !isUnderScore && !isBackSlash & !isColon & !isAndOperator & !isPipeOperator) {
-                        var strUpperCaseArr = testTransformObj.hasOwnProperty('upperCaseUnitArray') ? testTransformObj.upperCaseUnitArray : false;
-                        var strLowerCaseArr = testTransformObj.hasOwnProperty('lowerCaseArray') ? testTransformObj.lowerCaseArray : false;
-        
-                        var isUpperCase = false;
-                        var isLowerCase = false;
-        
-                        if (strUpperCaseArr) {
-                            strUpperCaseArr.forEach(function(el) {
-                                var wordToLower = el.toLowerCase();
-        
-                                if (wordToLower == word) {
-                                    isUpperCase = true;
-                                    transformedArr.push(word.toUpperCase());
+                        if (!empty(value)) {
+                            var transformedStr = stringTransformation(textTransformRulesArr, value);
+                            var attribute = {
+                                displayName: displayName,
+                                value: transformedStr ? transformedStr : value;
+                                section: section
+                            };
+
+                            for (var sectionIndex = 0; sectionIndex < section.length; sectionIndex++) {
+                                var currentSection = section[sectionIndex];
+                                if (currentSection == 'details') {
+                                    pdpDetailAttributes.push(attribute);
                                 }
-                            });
-                        }
-    
-                        if (strLowerCaseArr) {
-                            strLowerCaseArr.forEach(function(el) {
-                                var wordToLower = el.toLowerCase();
-        
-                                if (wordToLower == word) {
-                                    isLowerCase = true;
-                                    transformedArr.push(word.toLowerCase());
+                                if (currentSection == 'specs') {
+                                    pdpSpecAttributes.push(attribute);
                                 }
-                            });
-                        }
-        
-                        if (!isUpperCase && !isLowerCase) {
-                            transformedArr.push(word.replace(word[0], word[0].toUpperCase()));
-                        }
-                    } 
-                } else {
-                    var strLowerCaseArr = testTransformObj.hasOwnProperty('lowerCaseArray') ? testTransformObj.lowerCaseArray : false;
-                    var isLowerCase = false;
-        
-                    if (strLowerCaseArr) {
-                        // matching all alphabetic characters
-                        var characters = word.split(/[\W\d]+/).join('');
-                        // matching all numbers
-                        var numbers = word.replace(/[^\d.-]/g, '');
-        
-                        strLowerCaseArr.forEach(function(el) {
-                            var wordToLower = el.toLowerCase();
-            
-                            if (wordToLower == characters) {
-                                isLowerCase = true;
-                                var completeWordToLower = numbers + '' + characters.toLowerCase();
-                                transformedArr.push(completeWordToLower);
                             }
-                        });
-                    }
-        
-                    if (!isLowerCase) {
-                        transformedArr.push(word.toUpperCase());
+                        }
+                    } catch (e) {
+                        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object  . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+                        apiProduct.ID, e.stack, e.message, e.lineNumber, e.fileName);
                     }
                 }
             }
-            return transformedArr.join(' ');
         }
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getPdpDetailAndSpecsAttributes) Error occured while reading json from site preferences: ' + e);
     }
+    return detailAndSpecAttributes = {
+        pdpDetailAttributes: pdpDetailAttributes,
+        pdpSpecAttributes: pdpSpecAttributes
+    };
+
 }
 
 /**
