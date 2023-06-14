@@ -130,17 +130,6 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         })
     }
 
-    if (session.custom.klarnaRiskifiedFlag && !detailReulstVerification.error) {
-        //Custom Start: Send order to swell
-        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
-            var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-            SwellExporter.exportOrder({
-                orderNo: orderNumber,
-                orderState: 'created'
-            });
-        }
-    }
-
     var orderNumber = order.orderNo;
     var paymentInstrument = order.paymentInstrument;
     if (session.custom.klarnaRiskifiedFlag) {
@@ -174,13 +163,6 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 }
                 order.setExportStatus(Order.EXPORT_STATUS_READY);
                 order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
-                if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
-                    var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-                    SwellExporter.exportOrder({
-                        orderNo: orderNumber,
-                        orderState: 'created'
-                    });
-                }
             }
             order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
                 ? klarnaPaymentStatus.toUpperCase()

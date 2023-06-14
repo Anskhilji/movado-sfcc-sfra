@@ -879,14 +879,6 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 }
             }
 
-            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
-                var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-                SwellExporter.exportOrder({
-                    orderNo: order.orderNo,
-                    orderState: 'created'
-                });
-            }
-
             // Custom Start: Change email helper to trigger confirmation email
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 
@@ -947,15 +939,8 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
 
-            // Custom Start: Change email helper to trigger confirmation email, Also add Swell Integration
+            // Custom Start: Change email helper to trigger confirmation email
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
-                var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-                SwellExporter.exportOrder({
-                    orderNo: order.orderNo,
-                    orderState: 'created'
-                });
-            }
             // Custom End 
 
             var email = order.customerEmail;
