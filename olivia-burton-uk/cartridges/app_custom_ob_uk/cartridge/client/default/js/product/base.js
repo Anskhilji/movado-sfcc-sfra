@@ -761,11 +761,27 @@ function handlePostCartAdd(response, addToCartRecommendationButton) {
         }
     }
 
+    var $html = $('.add-to-cart-modal-content');
+    var $carouselContent = $('.new-rec-carosel');
+    var $addToCartPopup = $('add-to-cart-popup');
+
     // show add to cart modal
     if (addToCartRecommendationButton !== true) {
-        $('#addToCartModal .modal-body').html(response.message);
-        $('#addToCartModal .modal-body p').addClass(messageType);
+        if (response.error === true) {
+            $addToCartPopup.removeClass('d-none');
+            $('#addToCartModal .modal-body').html(response.message);
+            $('#addToCartModal .modal-body p').addClass(messageType);
+        } else {
+            $addToCartPopup.removeClass('d-none');
+            $('#addToCartModal .modal-body').html($html);
+            $('#addToCartModal .modal-body p').addClass(messageType);
+
+            if ($('#addToCartModal').hasClass('addToCartModal-wrapper')) {
+                $('.recomendation-carousel-wrapper').html($carouselContent);
+            }
+        }
     }
+
     if (response && response.footerContent) {
         $('#addToCartModal .modal-footer').html(response.footerContent);
     }

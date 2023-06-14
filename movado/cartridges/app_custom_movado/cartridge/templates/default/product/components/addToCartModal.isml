@@ -1,16 +1,7 @@
-<div class="modal fade addToCartModal addToCartModal-wrapper" id="addToCartModal" role="dialog" tabindex="-1">
+<div class="modal fade addToCartModal" id="addToCartModal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
             <div class="modal-body text-center">
-            </div>
-            <div class="recommendation-add-to-cart-error d-none"></div>
-            <div class="recomendation-carousel-wrapper d-none">
-                <isslot id="recommendation-carousel" description="recommendation-carousel" context="global" />
-            </div>
-            <div class="modal-footer">
             </div>
         </div>
     </div>

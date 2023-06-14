@@ -1,8 +1,0 @@
-<div class="modal fade addToCartModal" id="addToCartModal" role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-            </div>
-        </div>
-    </div>
-</div>

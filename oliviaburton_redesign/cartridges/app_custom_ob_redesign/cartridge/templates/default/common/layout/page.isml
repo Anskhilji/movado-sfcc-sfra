@@ -54,12 +54,7 @@
                         which means you need to put privacy information into another remote include
         </iscomment>
         ${dw.system.HookMgr.callHook('app.template.afterFooter', 'afterFooter') || ''}
-        <isset name="addToCartModelAbTest" value="${dw.campaign.ABTestMgr.isParticipant('AddToCartModelAbTest', 'render-new-design')}" scope="page" />
-        <isif condition="${addToCartModelAbTest}">
-            <isinclude template="product/components/addToCartModal"/>
-        <iselse/>
-            <isinclude template="product/components/old/addToCartModal"/>  
-        </isif>
+        <isinclude template="product/components/addToCartModal"/>
 
     </body>
 </html>

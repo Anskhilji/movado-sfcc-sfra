@@ -60,7 +60,6 @@ server.get('ShowAddProductButton',
 
 // Added custom code for personalization text for Engraving and Embossing
 server.append('AddProduct', function (req, res, next) {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
     var BasketMgr = require('dw/order/BasketMgr');
     var ContentMgr = require('dw/content/ContentMgr');
     var CartModel = require('*/cartridge/models/cart');
@@ -160,27 +159,11 @@ server.append('AddProduct', function (req, res, next) {
             customCartHelpers.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
         }
 
-        var content;
-        var footerContent;
-
-        if (ABTestMgr.isParticipant('AddToCartModelAbTest','Control')) {
-            content = ContentMgr.getContent('product-successfully-added');
-        } else if (ABTestMgr.isParticipant('AddToCartModelAbTest','render-new-design')) {
-            content = ContentMgr.getContent('product-successfully-added-redesign');
-            footerContent = ContentMgr.getContent('product-successfully-added-footer');
-        } else {
-            content = ContentMgr.getContent('product-successfully-added');
-        }
-
         // update the success message from content
-
+        var content = ContentMgr.getContent('product-successfully-added');
 
         if (content) {
             viewData.message = content.custom.body.markup;
-        }
-
-        if (footerContent) {
-            viewData.footerContent = content.custom.body.markup;
         }
 
         if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
