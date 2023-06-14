@@ -57,7 +57,7 @@ exports.beforeStep = function (parameters, stepExecution) {
         xsw.writeStartElement('stores');
         xsw.writeNamespace('xmlns', 'http://www.demandware.com/xml/impex/store/2007-04-30');
     }
-    Logger.info('(GetStoresGeolocation) -> write The total no of stores: ' + stores.count);
+    Logger.info('(GetStoresGeolocation) -> write, The total no of stores: ' + stores.count);
 };
 
 exports.read = function (parameters, stepExecution) {
@@ -105,7 +105,7 @@ exports.process = function (store, parameters, stepExecution) {
                 responseCollection.serviceResponse = result.object;
                 responseCollection.serviceResult = result;
             } else {
-                Logger.error('(GetStoresGeolocation) -> process Failed to get geolocation results: ' + address + components + ' => ' + result.errorMessage);
+                Logger.error('(GetStoresGeolocation) -> process, Failed to get geolocation results: ' + address + components + ' => ' + result.errorMessage);
                 throw 'failed to get geolocation results: Error=>' + result.errorMessage;
             }
         }
