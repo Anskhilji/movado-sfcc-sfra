@@ -1120,15 +1120,15 @@ function stringTransformation(textTransformRulesArray, value) {
                         var strUppercaseArray = textTransformObj.hasOwnProperty('uppercaseUnitArray') ? textTransformObj.uppercaseUnitArray : false;
                         var strLowercaseArray = textTransformObj.hasOwnProperty('lowercaseUnitArray') ? textTransformObj.lowercaseUnitArray : false;
         
-                        var isUpperCase = false;
-                        var isLowerCase = false;
+                        var isUppercase = false;
+                        var isLowercase = false;
         
                         if (strUppercaseArray && strUppercaseArray.length > 0) {
                             strUppercaseArray.forEach(function(el) {
                                 var wordToLower = el.toLowerCase();
         
                                 if (wordToLower == word) {
-                                    isUpperCase = true;
+                                    isUppercase = true;
                                     transformedArray.push(word.toUpperCase());
                                 }
                             });
@@ -1139,19 +1139,19 @@ function stringTransformation(textTransformRulesArray, value) {
                                 var wordToLower = el.toLowerCase();
         
                                 if (wordToLower == word) {
-                                    isLowerCase = true;
+                                    isLowercase = true;
                                     transformedArray.push(word.toLowerCase());
                                 }
                             });
                         }
         
-                        if (!isUpperCase && !isLowerCase) {
+                        if (!isUppercase && !isLowercase) {
                             transformedArray.push(word.replace(word[0], word[0].toUpperCase()));
                         }
                     } 
                 } else {
                     var strLowercaseArray = textTransformObj.hasOwnProperty('lowercaseUnitArray') ? textTransformObj.lowercaseUnitArray : false;
-                    var isLowerCase = false;
+                    var isLowercase = false;
         
                     if (strLowercaseArray && strLowercaseArray.length > 0) {
                         // matching all alphabetic characters
@@ -1163,14 +1163,14 @@ function stringTransformation(textTransformRulesArray, value) {
                             var wordToLower = el.toLowerCase();
             
                             if (wordToLower == characters) {
-                                isLowerCase = true;
+                                isLowercase = true;
                                 var completeWordToLower = numbers + '' + characters.toLowerCase();
                                 transformedArray.push(completeWordToLower);
                             }
                         });
                     }
         
-                    if (!isLowerCase) {
+                    if (!isLowercase) {
                         transformedArray.push(word.toUpperCase());
                     }
                 }
