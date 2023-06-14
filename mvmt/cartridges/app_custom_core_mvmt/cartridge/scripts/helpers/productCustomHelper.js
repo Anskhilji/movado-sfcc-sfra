@@ -177,11 +177,11 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
 }
 
 function wordTitleCase(word, separator) {
-    var splitDashArray = word.split(separator);
+    var splitArray = word.split(separator);
     var dashCharCapital = [];
 
-    for (var i = 0; i < splitDashArray.length; i++) {
-        var dashWord = splitDashArray[i];
+    for (var i = 0; i < splitArray.length; i++) {
+        var dashWord = splitArray[i];
         dashCharCapital.push(dashWord.replace(dashWord[0], dashWord[0].toUpperCase()));
     }
     return dashCharCapital.join(separator);
