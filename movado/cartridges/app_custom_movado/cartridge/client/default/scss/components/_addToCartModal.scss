@@ -96,7 +96,7 @@
            .modal-dialog {
 
                 @include media-breakpoint-down(md) {
-                    transform: translate(0, 0);
+                    transform: translate(0, 0%);
                 }
            }
         }
@@ -143,6 +143,10 @@
                         border-radius: rem(3);
                         
                         &:hover {
+                            background: $black;
+                        }
+
+                        &:focus {
                             background: $black;
                         }
                     }
@@ -247,6 +251,7 @@
                                 font-weight: 500;
                                 line-height: rem(21);
                                 margin-top: rem(11);
+                                margin-bottom: rem(20);
                             }
                         }
 
@@ -359,6 +364,10 @@
                                 text-decoration: none;
                                 box-shadow: none;
 
+                                &:focus {
+                                    background: $black;
+                                }
+
                                 @include media-breakpoint-up(lg) {
                                     font-size: rem(15);
                                 }
@@ -431,6 +440,7 @@
                         font-weight: 500;
                         line-height: rem(21);
                         margin-top: rem(11);
+                        margin-bottom: rem(10);
 
                     }
                 }
@@ -481,11 +491,12 @@
                 transform: translate(0, 25%);
                 padding-bottom: 0;
                 justify-content: flex-end;
-                height: 100vh;
+                height: 100%;
+                padding-top: 0;
             }
     
             &.modal-sm {
-                max-width: rem(1043);
+                max-width: rem(1024);
             }
     
             .modal-content {
@@ -494,6 +505,7 @@
                 @include media-breakpoint-down(md) {
                     border: none;
                     padding: rem(20) rem(10);
+                    overflow-y: auto;
                 }
     
                 .close {
@@ -615,12 +627,16 @@
                     letter-spacing: 0;
                     line-height: rem(21);
                     text-align: center;
-                    border: none;
+                    border: $grey26;
                     border-radius: rem(3);
                     
                     &:hover {
                         background: $black;
                         border: none;
+                    }
+                    
+                    &:focus {
+                        background: $black;
                     }
     
                     &.btn {
