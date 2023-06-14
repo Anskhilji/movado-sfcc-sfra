@@ -363,7 +363,7 @@ function stringTransformation(textTransformRulesArray, value) {
                             var transformedStr = stringTransformation(textTransformRulesArray, value);
                             var attribute = {
                                 displayName: displayName,
-                                value: transformedStr ? transformedStr : value;
+                                value: transformedStr ? transformedStr : value,
                                 section: section
                             };
 
