@@ -15,7 +15,7 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 
-    var emailSubmitLocation = !empty(req.querystring) ? req.querystring.pageType : 'footer';
+    var emailSubmitLocation = !empty(request.httpParameterMap.pageType.value) ? request.httpParameterMap.pageType.value : !empty(req.querystring) ? req.querystring.pageType : 'footer'; 
     var geolocation = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
 
     var requestParams = {
@@ -36,9 +36,16 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
         var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
         var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
-        requestParams.source = ltkConstants.Source.Footer;
-        requestParams.event = ltkConstants.Event.Footer;
-        requestParams.subscribe = ltkConstants.Subscribe.Footer;
+        if(emailSubmitLocation == 'pdp') {
+            requestParams.source = ltkConstants.Source.PDP;
+            requestParams.event = ltkConstants.Event.PDP;
+            requestParams.subscribe = ltkConstants.Subscribe.PDP;
+        } else {
+            requestParams.source = ltkConstants.Source.Footer;
+            requestParams.event = ltkConstants.Event.Footer;
+            requestParams.subscribe = ltkConstants.Subscribe.Footer;
+        }    
+
         requestParams.country = !empty(requestParams.country) ? requestParams.country : geolocation;
         result = ltkApi.sendSubscriberToListrak(requestParams);
     } else {
