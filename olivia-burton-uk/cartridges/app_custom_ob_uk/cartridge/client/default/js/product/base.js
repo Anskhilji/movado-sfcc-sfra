@@ -1317,17 +1317,15 @@ module.exports = {
     getQuantitySelected: getQuantitySelected,
     addToCartPLP : function() {
         $(document).on('click', '.add-to-cart-plp-redesign', function (e) {
-            $.spinner().start();
             var addToCartUrl;
             var pid;
             var pidsObj;
             var setPids;
             var $this = $(this);
             var addToCartRecommendationButton = $this.data('recommendation-atc');
-
-
             $('body').trigger('product:beforeAddToCart', this);
-
+            $.spinner().stop();
+            $.spinner().start();
             if($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
                 slickSliderReinitialize();
             }
