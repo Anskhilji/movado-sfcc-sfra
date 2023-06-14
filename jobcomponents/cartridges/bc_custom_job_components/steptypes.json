@@ -799,7 +799,7 @@
                 "@type-id":"custom.CSComponents.GetStoresGeolocation",
                 "@supports-site-context": true,
                 "@supports-organization-context": true,
-                "description":"My custom chunk script step type",
+                "description":"Get Stores Geolocation via Google Map API",
                 "module":"bc_custom_job_components/cartridge/scripts/jobsteps/GetStoresGeolocation.js",
                 "before-step-function":"beforeStep",
                 "read-function":"read",
