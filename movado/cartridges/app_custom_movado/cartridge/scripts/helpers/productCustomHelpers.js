@@ -1117,60 +1117,60 @@ function stringTransformation(textTransformRulesArray, value) {
                     }
             
                     if (!isCharDash && !isUnderScore && !isBackSlash & !isColon & !isAndOperator & !isPipeOperator) {
-                        var strUppercaseArray = textTransformObj.hasOwnProperty('uppercaseUnitArray') ? textTransformObj.uppercaseUnitArray : false;
-                        var strLowercaseArray = textTransformObj.hasOwnProperty('lowercaseUnitArray') ? textTransformObj.lowercaseUnitArray : false;
+                        var strUpperCaseArray = textTransformObj.hasOwnProperty('upperCaseUnitArray') ? textTransformObj.upperCaseUnitArray : false;
+                        var strLowerCaseArray = textTransformObj.hasOwnProperty('lowerCaseUnitArray') ? textTransformObj.lowerCaseUnitArray : false;
         
-                        var isUppercase = false;
-                        var isLowercase = false;
+                        var isUpperCase = false;
+                        var isLowerCase = false;
         
-                        if (strUppercaseArray && strUppercaseArray.length > 0) {
-                            strUppercaseArray.forEach(function(el) {
+                        if (strUpperCaseArray && strUpperCaseArray.length > 0) {
+                            strUpperCaseArray.forEach(function(el) {
                                 var wordToLower = el.toLowerCase();
         
                                 if (wordToLower == word) {
-                                    isUppercase = true;
+                                    isUpperCase = true;
                                     transformedArray.push(word.toUpperCase());
                                 }
                             });
                         }
     
-                        if (strLowercaseArray && strLowercaseArray.length > 0) {
-                            strLowercaseArray.forEach(function(el) {
+                        if (strLowerCaseArray && strLowerCaseArray.length > 0) {
+                            strLowerCaseArray.forEach(function(el) {
                                 var wordToLower = el.toLowerCase();
         
                                 if (wordToLower == word) {
-                                    isLowercase = true;
+                                    isLowerCase = true;
                                     transformedArray.push(word.toLowerCase());
                                 }
                             });
                         }
         
-                        if (!isUppercase && !isLowercase) {
+                        if (!isUpperCase && !isLowerCase) {
                             transformedArray.push(word.replace(word[0], word[0].toUpperCase()));
                         }
                     } 
                 } else {
-                    var strLowercaseArray = textTransformObj.hasOwnProperty('lowercaseUnitArray') ? textTransformObj.lowercaseUnitArray : false;
-                    var isLowercase = false;
+                    var strLowerCaseArray = textTransformObj.hasOwnProperty('lowerCaseUnitArray') ? textTransformObj.lowerCaseUnitArray : false;
+                    var isLowerCase = false;
         
-                    if (strLowercaseArray && strLowercaseArray.length > 0) {
+                    if (strLowerCaseArray && strLowerCaseArray.length > 0) {
                         // matching all alphabetic characters
                         var characters = word.split(/[\W\d]+/).join('');
                         // matching all numbers
                         var numbers = word.replace(/[^\d.-]/g, '');
         
-                        strLowercaseArray.forEach(function(el) {
+                        strLowerCaseArray.forEach(function(el) {
                             var wordToLower = el.toLowerCase();
             
                             if (wordToLower == characters) {
-                                isLowercase = true;
+                                isLowerCase = true;
                                 var completeWordToLower = numbers + '' + characters.toLowerCase();
                                 transformedArray.push(completeWordToLower);
                             }
                         });
                     }
         
-                    if (!isLowercase) {
+                    if (!isLowerCase) {
                         transformedArray.push(word.toUpperCase());
                     }
                 }
