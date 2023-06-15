@@ -1265,7 +1265,7 @@ function updateUrl(response) {
         });
 
         if ($updatedUrl) {
-            window.location.href = $updatedUrl;
+            history.pushState({}, null, $updatedUrl);
         }
     }
 }

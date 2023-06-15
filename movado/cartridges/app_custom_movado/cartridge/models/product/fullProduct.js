@@ -29,7 +29,6 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var isGiftBoxAllowed = productCustomHelper.isGiftBoxAllowed(apiProduct);
     var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
-    var pdpVariationUrls = productCustomHelper.getPdpVariationUrls(product, apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -153,13 +152,6 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'posterFrame', {
             enumerable: true,
             value: product.images.posterFrame[0] ? product.images.posterFrame[0] : ''
-        });
-    }
-
-    if (!empty(pdpVariationUrls)) {
-        Object.defineProperty(product, 'pdpVariationsUrl', {
-            enumerable: true,
-            value: pdpVariationUrls
         });
     }
 

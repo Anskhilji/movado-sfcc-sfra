@@ -454,8 +454,8 @@ function getPdpVariationUrls(product, apiProduct) {
                 otherVariantValues = product.variationAttributes[key].values;
                 if (!empty(defaultVariant) && !empty(defaultVariant.custom)) {
                     Object.keys(otherVariantValues).forEach(function (value) {
-                        if (defaultVariant.custom[product.variationAttributes[key].id] === otherVariantValues[value].id) {
-                            variationParam = product.variationAttributes[key].id;
+                        variationParam = product.variationAttributes[key].id;
+                        if (otherVariantValues[value].selected == true) {
                             variationParamValue = otherVariantValues[value].id;
                         }
                     });
