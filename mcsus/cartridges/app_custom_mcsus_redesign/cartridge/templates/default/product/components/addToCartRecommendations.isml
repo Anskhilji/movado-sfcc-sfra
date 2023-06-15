@@ -26,13 +26,15 @@
                         </g>
                     </g>
                 </svg>
-                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
-                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
-                <iselseif condition="${product.available}"/>
-                    ${Resource.msg('button.addtocart', 'common', null)}
-                <iselse/>
-                    ${Resource.msg('label.not.available', 'common', null)}
-                </isif>
+                <span class="updated-text">
+                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                        ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                    <iselseif condition="${product.available}"/>
+                        ${Resource.msg('button.addtocart', 'common', null)}
+                    <iselse/>
+                        ${Resource.msg('label.not.available', 'common', null)}
+                    </isif>
+                </span>
                 <isloop items="${product.individualProducts}" var="productItem" status="loopState">
                     <div class="product-sets product-id d-none">${productItem.id}</div>
                 </isloop>

@@ -807,7 +807,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
             if ($productIds.indexOf($currentProduct) > -1) {
                 var $currentAddedProduct = $('#addToCartModal').find('[data-rec-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp-redesign');
                 $currentAddedProduct.addClass('active');
-                $currentAddedProduct.text('Added To Cart');
+                $('#addToCartModal .updated-text').text('Added To Cart');
             }
         }
         $('.slick-slider').slick('refresh');
