@@ -1072,14 +1072,14 @@ function stringTransformation(textTransformRulesArray, value) {
                 var isString = word[0].match(/[a-z]/i);
 
                 if (isString) {
-                    var isCharDash = word.match(/[,\-]/);
+                    var isCharDash = word.match(/[-]/);
                     if (isCharDash) {
                         var separator = '-';
                         var dashCharCapitalStr = wordTitleCase(word, separator);
                         transformedArray.push(dashCharCapitalStr);
                     }
         
-                    var isUnderScore = word.match(/[,\_]/);
+                    var isUnderScore = word.match(/[_]/);
                     if (isUnderScore) {
                         var separator = '_';
                         var underScoreCharCapitalStr = wordTitleCase(word, separator);
