@@ -218,7 +218,6 @@
         font-weight: 600;
         letter-spacing: rem(1.6);
         line-height: rem(12);
-        text-transform: capitalize;
         letter-spacing: rem(1.5);
 
         &.attribute-name {
@@ -3112,10 +3111,6 @@
             padding: 0;
         }
     }
-
-    .attribute-value {
-        text-transform: capitalize;
-    }
 }
 
 .description-container {
@@ -3360,7 +3355,7 @@
                         font-weight: 500;
                         letter-spacing: rem(1.6);
                         line-height: rem(12);
-                        text-transform: capitalize;
+
                         &.attribute-name {
                             text-transform: uppercase;
                         }
@@ -4394,7 +4389,6 @@
                                     font-weight: 300;
                                     letter-spacing: rem(0);
                                     line-height: rem(22);
-                                    text-transform: capitalize;
             
                                     &.attribute-name {
                                         text-transform: capitalize;
