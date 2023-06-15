@@ -69,6 +69,16 @@
 
         .recomendation-carousel-wrapper {
 
+            .new-rec-carosel {
+
+                .cs-carousel {
+
+                    @include media-breakpoint-down(md) {
+                        padding: 0 rem(10);
+                    }
+                }
+            }
+
             .modal-footer {
                
                 @include media-breakpoint-down(md) {
@@ -224,6 +234,10 @@
 
                         @include media-breakpoint-down(md) {
                             padding: 0;
+
+                            .mcs-product-carousel-column {
+                                padding: 0 rem(11);
+                            }
                         }
                         
                         @include media-breakpoint-up(lg) {
@@ -440,7 +454,7 @@
                         font-weight: 500;
                         line-height: rem(21);
                         margin-top: rem(11);
-                        margin-bottom: rem(10);
+                        margin-bottom: rem(20);
 
                     }
                 }
@@ -634,7 +648,7 @@
                         background: $black;
                         border: none;
                     }
-                    
+
                     &:focus {
                         background: $black;
                     }
