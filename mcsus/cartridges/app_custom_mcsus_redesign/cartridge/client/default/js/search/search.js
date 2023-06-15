@@ -314,9 +314,17 @@ function getTileHeight() {
     }, 100);
 }
 
-$( document ).ready(function() {
-    if($(window).width() > 991) {
-        getTileHeight()
+$(document).ready(function () {
+    $('.product-tiles-wrapper .slot-column').each(function () {
+      if ($(this).children('div').length > 0) {
+        $(this).addClass('d-block');
+      } else {
+        $(this).remove();
+      }
+    });
+
+    if ($(window).width() > 991) {
+      getTileHeight()
     }
 });
 
