@@ -1061,7 +1061,11 @@ function stringTransformation(textTransformRulesArray, value) {
             return value.trim().toLowerCase();
         } else {
             var transformedArray = [];
-            var strArray = value.trim().toString().split(' ');
+            var strSplitArray = value.trim().toString().split(' ');
+
+            var strArray = strSplitArray.filter(function (str) {
+                return str.trim().length > 0;
+            });
         
             for (var i = 0; i < strArray.length; i++) {
                 var word = strArray[i].toLowerCase();
