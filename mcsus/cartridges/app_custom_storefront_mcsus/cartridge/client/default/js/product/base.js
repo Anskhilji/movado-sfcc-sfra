@@ -1078,8 +1078,8 @@ function clydeAddProductToCart() {
     var form = {
         pid: pid,
         pidsObj: pidsObj,
-        // childProducts: getChildProducts(),
-        // quantity: getQuantitySelected($(this)),
+        childProducts: getChildProducts(),
+        quantity: getQuantitySelected($(this)),
         giftPid: giftPid ? giftPid : ''
     };
 
@@ -1090,7 +1090,7 @@ function clydeAddProductToCart() {
         form = {
             pid: pid,
             pidsObj: pidsObj,
-            // childProducts: getChildProducts(),
+            childProducts: getChildProducts(),
             quantity: quantity,
             giftPid: giftPid ? giftPid : ''
         };
@@ -1219,8 +1219,8 @@ function clydeAddProductSetToCart($this) {
     var form = {
         pid: pid,
         pidsObj: pidsObj,
-        // childProducts: getChildProducts(),
-        // quantity: getQuantitySelected($(this)),
+        childProducts: getChildProducts(),
+        quantity: getQuantitySelected($(this)),
         giftPid: giftPid ? giftPid : ''
     };
 
@@ -1231,7 +1231,7 @@ function clydeAddProductSetToCart($this) {
         form = {
             pid: pid,
             pidsObj: pidsObj,
-            // childProducts: getChildProducts(),
+            childProducts: getChildProducts(),
             quantity: quantity,
             giftPid: giftPid ? giftPid : ''
         };
@@ -1360,8 +1360,8 @@ function addProductToCartPlp($this) {
     var form = {
         pid: pid,
         pidsObj: pidsObj,
-        // childProducts: getChildProducts(),
-        // quantity: getQuantitySelected($this),
+        childProducts: getChildProducts(),
+        quantity: getQuantitySelected($this),
         giftPid: giftPid ? giftPid : ''
     };
 
@@ -1372,7 +1372,7 @@ function addProductToCartPlp($this) {
         form = {
             pid: pid,
             pidsObj: pidsObj,
-            // childProducts: getChildProducts(),
+            childProducts: getChildProducts(),
             quantity: quantity,
             giftPid: giftPid ? giftPid : ''
         };
@@ -1459,6 +1459,65 @@ function addProductToCartPlp($this) {
  */
  function getAddToCartUrl() {
     return $('.add-to-cart-url').val();
+}
+
+/**
+ * Retrieve product options
+ *
+ * @param {jQuery} $productContainer - DOM element for current product
+ * @return {string} - Product options and their selected values
+ */
+ function getOptions($productContainer) {
+    var options = $productContainer
+        .find('.product-option')
+        .map(function () {
+            var $elOption = $(this).find('.options-select, input[type="radio"]:checked');
+            var urlValue = $elOption.val();
+            var selectedValueId;
+            if ($elOption.is("input")) {
+                selectedValueId = $elOption.data('value-id');
+            } else {
+                selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
+                .data('value-id');
+            }
+            return {
+                optionId: $(this).data('option-id'),
+                selectedValueId: selectedValueId
+            };
+        }).toArray();
+
+    return JSON.stringify(options);
+}
+
+/**
+* Retrieves the value associated with the Quantity pull-down menu
+* @param {jquery} $el - DOM container for the relevant quantity
+* @return {string} - value found in the quantity input
+*/
+function getQuantitySelected($el) {
+    if ($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt tile
+        return 1;
+    } else {
+        return getQuantitySelector($el).val();
+    }
+}
+
+/**
+* Retrieves the bundle product item ID's for the Controller to replace bundle master product
+* items with their selected variants
+*
+* @return {string[]} - List of selected bundle product item ID's
+*/
+function getChildProducts() {
+    var childProducts = [];
+    $('.bundle-item').each(function () {
+        childProducts.push({
+            pid: $(this).find('.product-id').text(),
+            quantity: parseInt($(this).find('label.quantity').data('quantity'), 10)
+        });
+    });
+
+    return childProducts.length ? JSON.stringify(childProducts) : [];
 }
 
 movadoBase.colorAttribute = function () {
