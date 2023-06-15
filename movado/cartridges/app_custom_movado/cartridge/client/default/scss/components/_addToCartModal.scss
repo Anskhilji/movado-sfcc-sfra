@@ -195,33 +195,25 @@
                                 display: block;
 
                                 .add-to-cart {
-                                    position: relative;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
                                     text-decoration: none;
+                                    gap: rem(2);
 
-                                    &::before {
-                                        content: '';
-                                        position: absolute;
-                                        left: 25%;
-                                        top: 50%;
-                                        transform: translate(-50%,-50%);
+                                    .tick-icon {
                                         width: rem(15);
                                         height: rem(15);
                                         display: flex;
                                         align-items: center;
-                                        opacity: 0;
-                                        background: url(../images/check_black.svg) center center no-repeat;
-
-                                        @include media-breakpoint-down(md) {
-                                            left: 18%;
-                                        }
                                     }
 
                                     &.active {
                                         background: $black;
                                         color: $white;
 
-                                        &::before {
-                                            opacity: 1
+                                        .tick-icon {
+                                            display: block;
                                         }
                                     }
                                 }
@@ -404,22 +396,12 @@
                                     cursor: default;
                                 }
         
-                                &::before {
-                                    content: '';
-                                    position: absolute;
-                                    left: 20%;
-                                    top: 50%;
-                                    transform: translate(-50%, -50%);
+                                .tick-icon {
                                     width: rem(15);
                                     height: rem(15);
                                     display: flex;
                                     align-items: center;
                                     opacity: 0;
-                                    background: url(../images/check_black.svg) center center no-repeat;
-
-                                    @include media-breakpoint-down(md) {
-                                        left: 6%;
-                                    }
                                 }
 
                                 &:hover {
@@ -432,8 +414,9 @@
                                     background: $grey8;
                                     color: $white;
         
-                                    &::before {
+                                    .tick-icon {
                                         opacity: 1;
+                                        display: block;
                                     }
                                 }
                             }
@@ -702,4 +685,8 @@
         }
     
     }
+}
+
+.tick-icon {
+    display: none;
 }
