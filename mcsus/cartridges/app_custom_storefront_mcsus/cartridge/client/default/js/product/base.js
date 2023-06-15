@@ -939,17 +939,19 @@ var updateCartPage = function (data) {
         }
     }
 
-    var $html = $('.add-to-cart-modal-content');
+    var $modalContent = $('.add-to-cart-modal-content');
     var $carouselContent = $('.new-rec-carosel');
+    var $footerContent = $('.add-to-cart-modal-content-footer');
 
     // show add to cart modal
     if (addToCartRecommendationButton !== true) {
-        if (response.error === true) {
+        if (response.error === true || response.error.errorText) {
             $('#addToCartModal .modal-body').html(response.message);
             $('#addToCartModal .modal-body p').addClass(messageType);
         } else {
-            $('#addToCartModal .modal-body').html($html);
+            $('#addToCartModal .modal-body').html($modalContent);
             $('.recomendation-carousel-wrapper').html($carouselContent);
+            $('#addToCartModal .modal-footer').html($footerContent);
             $('#addToCartModal .modal-body p').addClass(messageType);
         }
     }
@@ -1116,7 +1118,7 @@ function clydeAddProductToCart() {
     });
 
     if (!$('.bundle-item').length) {
-        // form.options = getOptions($productContainer);
+        form.options = getOptions($productContainer);
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
     $(this).trigger('updateAddToCartFormData', form);
@@ -1131,10 +1133,10 @@ function clydeAddProductToCart() {
                 $('body').trigger('product:afterAddToCart', data);
                 $.spinner().stop();
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
-                // if (window.Resources.LISTRAK_ENABLED) {
-                //     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
-                //     ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
-                // }
+                if (window.Resources.LISTRAK_ENABLED) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                }
                 //Custom End
 
                 if ($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
@@ -1257,7 +1259,7 @@ function clydeAddProductSetToCart($this) {
     });
 
     if (!$('.bundle-item').length) {
-        // form.options = getOptions($productContainer);
+        form.options = getOptions($productContainer);
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
     $(this).trigger('updateAddToCartFormData', form);
@@ -1272,10 +1274,10 @@ function clydeAddProductSetToCart($this) {
                 $('body').trigger('product:afterAddToCart', data);
                 $.spinner().stop();
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
-                // if (window.Resources.LISTRAK_ENABLED) {
-                //     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
-                //     ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
-                // }
+                if (window.Resources.LISTRAK_ENABLED) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                }
                 //Custom End
 
                 if ($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
@@ -1398,7 +1400,7 @@ function addProductToCartPlp($this) {
     });
 
     if (!$('.bundle-item').length) {
-        // form.options = getOptions($productContainer);
+        form.options = getOptions($productContainer);
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
     $this.trigger('updateAddToCartFormData', form);
@@ -1413,10 +1415,10 @@ function addProductToCartPlp($this) {
                 $('body').trigger('product:afterAddToCart', data);
                 $.spinner().stop();
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
-                // if (window.Resources.LISTRAK_ENABLED) {
-                //     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
-                //     ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
-                // }
+                if (window.Resources.LISTRAK_ENABLED) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                }
                 //Custom End
 
                 if ($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {

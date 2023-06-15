@@ -761,29 +761,22 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
         }
     }
 
-    var $html = $('.add-to-cart-modal-content');
+    var $modalContent = $('.add-to-cart-modal-content');
     var $carouselContent = $('.new-rec-carosel');
-    var $addToCartPopup = $('add-to-cart-popup');
+    var $footerContent = $('.add-to-cart-modal-content-footer');
 
     // show add to cart modal
     if (addToCartRecommendationButton !== true) {
-        if (response.error === true) {
+        if (response.error === true || response.error.errorText) {
             $addToCartPopup.removeClass('d-none');
             $('#addToCartModal .modal-body').html(response.message);
             $('#addToCartModal .modal-body p').addClass(messageType);
         } else {
-            $addToCartPopup.removeClass('d-none');
-            $('#addToCartModal .modal-body').html($html);
+            $('#addToCartModal .modal-body').html($modalContent);
+            $('.recomendation-carousel-wrapper').html($carouselContent);
+            $('#addToCartModal .modal-footer').html($footerContent);
             $('#addToCartModal .modal-body p').addClass(messageType);
-
-            if ($('#addToCartModal').hasClass('addToCartModal-wrapper')) {
-                $('.recomendation-carousel-wrapper').html($carouselContent);
-            }
         }
-    }
-
-    if (response && response.footerContent) {
-        $('#addToCartModal .modal-footer').html(response.footerContent);
     }
 
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
