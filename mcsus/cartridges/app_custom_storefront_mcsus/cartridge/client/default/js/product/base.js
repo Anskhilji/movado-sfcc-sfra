@@ -980,7 +980,7 @@ var updateCartPage = function (data) {
                 $productIds.push($pid);
             });
 
-                if ($productIds.indexOf(parseInt($currentProduct)) !== -1) {
+                if ($productIds.indexOf($currentProduct) > -1) {
                     var $currentAddedProduct = $('#addToCartModal').find('[data-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp');
                     $currentAddedProduct.addClass('active');
                     $currentAddedProduct.text('Added To Cart');

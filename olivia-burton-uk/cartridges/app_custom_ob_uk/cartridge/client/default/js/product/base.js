@@ -811,7 +811,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton) {
                 var $pid = $(this).data('rec-pid');
                 $productIds.push($pid);
             });
-            if ($productIds.indexOf(parseInt($currentProduct)) !== -1) {
+            if ($productIds.indexOf($currentProduct) > -1) {
                 var $currentAddedProduct = $('#addToCartModal').find('[data-rec-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp-redesign');
                 $currentAddedProduct.addClass('active');
                 $currentAddedProduct.text('Added To Cart');
