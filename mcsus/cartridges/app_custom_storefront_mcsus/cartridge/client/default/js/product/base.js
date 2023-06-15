@@ -908,7 +908,7 @@ var updateCartPage = function (data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
- function handlePostCartAdd(response, addToCartRecommendationButton, currentRecommendedProduct) {
+ function handlePostCartAdd(response, addToCartRecommendationButton) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
 
@@ -974,7 +974,7 @@ var updateCartPage = function (data) {
             $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
         }
         if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
-            var $currentProduct = currentRecommendedProduct ? currentRecommendedProduct : '';
+            var $currentProduct = response && response.addCartGtmArray ? response.addCartGtmArray.id : '';
             var $productIds = [];
 
             $('#addToCartModal .add-to-cart-plp').each(function () {
@@ -982,7 +982,7 @@ var updateCartPage = function (data) {
                 $productIds.push($pid);
             });
 
-                if ($productIds.indexOf($currentProduct) > -1) {
+                if ($productIds.indexOf(parseInt($currentProduct)) > -1) {
                     var $currentAddedProduct = $('#addToCartModal').find('[data-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp');
                     $currentAddedProduct.addClass('active');
                     $currentAddedProduct.text('Added To Cart');
@@ -1063,7 +1063,7 @@ function clydeAddProductToCart() {
         if ($('.gift-allowed-checkbox').is(":checked")) {
             giftPid = $('.gift-allowed-checkbox').val();
         }
-    }
+    } 
     var $productContainer = $this.closest('.product-detail');
     if (!$productContainer.length) {
         $productContainer = $this.closest('.quick-view-dialog').find('.product-detail');
@@ -1558,8 +1558,7 @@ movadoBase.selectAttribute = function () {
 movadoBase.addToCart = function () {
     $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
         var $this = $(this);
-        var currentRecommendedProduct = $this.data('data-pid');
-        if (!$(this).data('plp-addtocart')) {
+        if (!$(this).data('plp-addtocart') && !$(this).data('recommendation-atc')) {
             if (!$(this).data('pdp-product-set')) {
                 var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
                 var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
