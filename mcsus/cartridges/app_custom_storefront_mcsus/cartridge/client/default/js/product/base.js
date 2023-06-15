@@ -908,7 +908,7 @@ var updateCartPage = function (data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
- function handlePostCartAdd(response, addToCartRecommendationButton) {
+ function handlePostCartAdd(response, addToCartRecommendationButton, $currentRecommendedProduct) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
 
@@ -974,12 +974,12 @@ var updateCartPage = function (data) {
             $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
         }
         if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
-            var $currentProduct = response && response.addCartGtmArray ? response.addCartGtmArray.id : '';
+            var $currentProduct = $currentRecommendedProduct ? $currentRecommendedProduct : '';
             var $productIds = [];
 
             $('#addToCartModal .add-to-cart-plp').each(function () {
                 var $pid = $(this).data('pid');
-                $productIds.push($pid);
+                $productIds.push(parseInt($pid));
             });
 
                 if ($productIds.indexOf(parseInt($currentProduct)) > -1) {
@@ -1402,18 +1402,20 @@ function addProductToCartPlp($this) {
     if (!$('.bundle-item').length) {
         form.options = getOptions($productContainer);
     }
+
+    var $currentRecommendedProduct = $this.data('pid');
     form.currentPage = $('.page[data-action]').data('action') || '';
     $this.trigger('updateAddToCartFormData', form);
     if (addToCartUrl) {
+        $.spinner().start();
         $.ajax({
             url: addToCartUrl,
             method: 'POST',
             data: form,
             success: function (data) {
                 updateCartPage(data);
-                handlePostCartAdd(data, addToCartRecommendationButton);
+                handlePostCartAdd(data, addToCartRecommendationButton, $currentRecommendedProduct);
                 $('body').trigger('product:afterAddToCart', data);
-                $.spinner().stop();
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
                 if (window.Resources.LISTRAK_ENABLED) {
                     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
@@ -1422,7 +1424,9 @@ function addProductToCartPlp($this) {
                 //Custom End
 
                 if ($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
-                    slickSliderReinitialize();                }
+                    slickSliderReinitialize();
+                }
+                $.spinner().stop();
             },
             error: function () {
                 $.spinner().stop();
@@ -1563,7 +1567,7 @@ movadoBase.addToCart = function () {
                 var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
                 var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
                 var clydeWidgetDisplayPDP = Resources.CLYDE_WIDGET_DISPLAY_PDP_ENABLED;
-
+                
                 if (clydeWidgets && clydeWidgetsDisplay) {
                     var selectedContract = Clyde.getSelectedContract();
                     var clydeSettings = Clyde.getSettings();
