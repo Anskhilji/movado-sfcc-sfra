@@ -204,8 +204,6 @@
                                     .tick-icon {
                                         width: rem(15);
                                         height: rem(15);
-                                        display: flex;
-                                        align-items: center;
                                     }
 
                                     &.active {
@@ -399,9 +397,6 @@
                                 .tick-icon {
                                     width: rem(15);
                                     height: rem(15);
-                                    display: flex;
-                                    align-items: center;
-                                    opacity: 0;
                                 }
 
                                 &:hover {
@@ -415,7 +410,6 @@
                                     color: $white;
         
                                     .tick-icon {
-                                        opacity: 1;
                                         display: block;
                                     }
                                 }
