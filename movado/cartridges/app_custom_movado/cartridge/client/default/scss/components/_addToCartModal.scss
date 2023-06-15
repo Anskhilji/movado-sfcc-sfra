@@ -367,6 +367,7 @@
                                 line-height: rem(22.5);
                                 text-decoration: none;
                                 box-shadow: none;
+                                gap: rem(2);
 
                                 &:focus {
                                     background: $black;
