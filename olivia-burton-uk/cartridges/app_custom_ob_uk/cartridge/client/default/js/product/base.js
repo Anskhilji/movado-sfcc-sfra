@@ -727,7 +727,7 @@ function chooseBonusProducts(data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
-function handlePostCartAdd(response, addToCartRecommendationButton) {
+function handlePostCartAdd(response, addToCartRecommendationButton, currentRecommendedProduct) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
 
@@ -805,7 +805,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton) {
             $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
         }
         if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
-            var $currentProduct = response && response.addCartGtmArray ? response.addCartGtmArray.id : '';
+            var $currentProduct = currentRecommendedProduct ? currentRecommendedProduct : '';
             var $productIds = [];
             $('#addToCartModal .add-to-cart-plp-redesign').each(function () {
                 var $pid = $(this).data('rec-pid');
@@ -1368,7 +1368,7 @@ module.exports = {
                 childProducts: getChildProducts(),
                 quantity: 1
             };
-
+            var currentRecommendedProduct = $(this).data('rec-pid');
             if (addToCartUrl) {
                 $.ajax({
                     url: addToCartUrl,
@@ -1376,7 +1376,7 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data, addToCartRecommendationButton);
+                        handlePostCartAdd(data, addToCartRecommendationButton, currentRecommendedProduct);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');

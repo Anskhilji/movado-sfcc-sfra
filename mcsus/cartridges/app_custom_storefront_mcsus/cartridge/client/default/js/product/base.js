@@ -908,7 +908,7 @@ var updateCartPage = function (data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
- function handlePostCartAdd(response, addToCartRecommendationButton) {
+ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecommendedProduct) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
 
@@ -972,7 +972,7 @@ var updateCartPage = function (data) {
             $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
         }
         if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
-            var $currentProduct = response && response.addCartGtmArray ? response.addCartGtmArray.id : '';
+            var $currentProduct = currentRecommendedProduct ? currentRecommendedProduct : '';
             var $productIds = [];
 
             $('#addToCartModal .add-to-cart-plp').each(function () {
@@ -1497,6 +1497,7 @@ movadoBase.selectAttribute = function () {
 movadoBase.addToCart = function () {
     $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
         var $this = $(this);
+        var currentRecommendedProduct = $this.data('data-pid');
         if (!$(this).data('plp-addtocart')) {
             if (!$(this).data('pdp-product-set')) {
                 var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
