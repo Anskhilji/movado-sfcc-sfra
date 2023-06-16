@@ -35,11 +35,11 @@
             display: inline-block;
 
             p {
+                font-family: $font-brandon-grotesque;
                 font-size: rem(14);
                 margin: 0;
                 color: $white;
                 text-transform: uppercase;
-                font-family: $font-book;
             }
 
             svg, img {
@@ -161,7 +161,7 @@
             line-height: rem(24);
             margin-bottom: rem(20);
             text-transform: uppercase;
-            @include font-bold;
+            font-family: $font-ivypresto-headline;
 
             @include media-breakpoint-up(lg) {
                 font-size: rem(60);
@@ -169,7 +169,7 @@
                 max-width: 50%;
                 letter-spacing: rem(5.62);
                 margin-bottom: rem(10);
-                @include font-medium;
+                font-family: $font-ivypresto-headline;
             }
         }
 
@@ -266,8 +266,8 @@
     &-slot-container {
 
         h2 {
+            font-family: $font-ivypresto-headline;
             font-size: rem(14);
-            font-family: $font-medium;
             font-weight: 500;
             letter-spacing: rem(1);
             line-height: rem(20);
@@ -357,7 +357,7 @@
 
                 h3 {
                     color: $black;
-                    font-family: $font-medium;
+                    font-family: $font-brandon-grotesque;
                     font-size: rem(12);
                     font-weight: 500;
                     text-transform: uppercase;
@@ -394,9 +394,9 @@
         }
 
         h3 {
-            font-family: $font-medium;
-            font-weight: 500;
+            font-family: $font-brandon-grotesque;
             font-size: rem(14);
+            font-weight: 500;
             line-height: rem(20);
             max-width: rem(300);
             margin-left: auto;
@@ -460,8 +460,8 @@
 
             h3 {
                 color: $black;
+                font-family: $font-brandon-grotesque;
                 font-size: rem(12);
-                font-family: $font-medium;
                 font-weight: 500;
                 text-transform: uppercase;
                 padding-bottom: rem(15);

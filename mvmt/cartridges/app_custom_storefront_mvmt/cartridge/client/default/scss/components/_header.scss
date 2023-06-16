@@ -268,7 +268,7 @@ header.new-header {
       .button {
         text-transform: uppercase;
         font-size: rem(11);
-        @include font-medium;
+        font-family: $font-medium;
         color: $grey8;
         background-color: $white;
         margin: 0;
@@ -441,6 +441,7 @@ header.new-header {
   .header-logo {
 
     p {
+      font-family: $font-brandon-grotesque;
       margin: 0;
     }
 
@@ -858,6 +859,7 @@ header.new-header {
     width: 100%;
 
     p {
+      font-family: $font-brandon-grotesque;
       margin: 0;
     }
 
@@ -1186,6 +1188,7 @@ header.new-header {
       .featured-promotion {
 
         p {
+          font-family: $font-brandon-grotesque;
 
           span {
             font-size: rem(14);
@@ -1219,6 +1222,7 @@ header.new-header {
       .featured-promotion {
 
         p {
+          font-family: $font-brandon-grotesque;
 
           span {
             font-size: rem(12);
@@ -1252,6 +1256,7 @@ header.new-header.mvmt-header-design {
     }
     .mvmt-mobile-header-logo {
         p {
+          font-family: $font-brandon-grotesque;
           margin: 0;
           display: flex;
           justify-content: center;
@@ -1269,6 +1274,7 @@ header.new-header.mvmt-header-design {
 
         &.left {
           p {
+            font-family: $font-brandon-grotesque;
             justify-content: left;
           }
         }
@@ -1453,13 +1459,11 @@ header {
                   left: 0;
                   right: auto;
                 }
-
               }
 
               @include media-breakpoint-down(md) {
 
                 .dropdown-menu {
-
                   right: auto;
                   overflow-x: hidden;
                   left: rem(-355);

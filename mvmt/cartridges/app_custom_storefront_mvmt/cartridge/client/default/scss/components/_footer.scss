@@ -78,6 +78,10 @@ footer {
                 }
             }
 
+            p {
+                font-family: $font-brandon-grotesque;  
+            }
+
             &:last-child {
 
                  p {
@@ -98,6 +102,7 @@ footer {
                 padding-top: rem(10);
 
                 > p {
+                    font-family: $font-brandon-grotesque;
                     font-size: rem(11);
                     text-transform: uppercase;
                     max-width: rem(173);

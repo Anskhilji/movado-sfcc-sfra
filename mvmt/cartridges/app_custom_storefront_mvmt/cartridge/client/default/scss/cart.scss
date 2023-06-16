@@ -117,7 +117,7 @@
         margin: 0;
         padding: rem(10);
         text-transform: uppercase;
-        font-family: $font-medium;
+        font-family: $font-ivypresto-headline;
         font-weight: 500;
         font-size: rem(14);
         line-height: rem(42);
@@ -179,6 +179,7 @@
 
                 .grand-total-label {
                     margin: 0;
+                    font-family: $font-brandon-grotesque;
                 }
 
                 @include media-breakpoint-down(xs) {
@@ -187,7 +188,7 @@
             }
 
             .grand-total-label, .grand-total {
-                font-family: $font-medium;
+                font-family: $font-brandon-grotesque;
                 font-size: rem(14);
                 letter-spacing: rem(1.17);
                 font-weight: 500;
@@ -292,6 +293,7 @@
 
                 p {
                     margin: 0;
+                    font-family:$font-brandon-grotesque;
                     font-size: rem(14);
                     color: $gray1;
                     letter-spacing: 0;
@@ -304,7 +306,7 @@
                     padding: 0;
 
                     p {
-                        font-family: $font-book;
+                        font-family:$font-brandon-grotesque;
                         font-size: rem(11);
                         text-transform: none;
                     }
@@ -439,7 +441,7 @@
                      .line-item-attributes, .item-model, .item-options, .price, 
                      .total-amount, .item-personalization, .line-item-pricing-info,
                      .personalize-price, .personalize-msg {
-                         font-family: $font-book;
+                         font-family: $font-brandon-grotesque;
                          font-size: rem(12);
                          letter-spacing: 0;
                          color: $black;

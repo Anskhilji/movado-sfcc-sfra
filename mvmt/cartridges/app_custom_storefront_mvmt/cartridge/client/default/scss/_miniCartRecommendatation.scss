@@ -48,7 +48,10 @@
         background-color: $white;
 
         .upsell {
-
+            p {
+                font-family:$font-brandon-grotesque;
+            }
+            
             &-collection {
                 width: 100%;
                 letter-spacing: rem(1.5);

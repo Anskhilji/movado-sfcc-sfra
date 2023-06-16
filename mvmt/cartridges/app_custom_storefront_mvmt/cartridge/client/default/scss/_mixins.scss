@@ -3,7 +3,7 @@
 
 @mixin collection-title-font {
     color: $light-black;
-    font-family: $font-medium;
+    font-family: $font-ivypresto-headline;
     font-weight: 400;
     letter-spacing: rem(0.7);
     font-size: rem(34);
@@ -12,7 +12,7 @@
 
 @mixin collection-subtitle-font {
     color: $light-black;
-    font-family: $font-medium;
+    font-family: $font-ivypresto-headline;
     font-weight: 400;
     letter-spacing: rem(0.7);
     font-size: rem(16);
@@ -21,7 +21,7 @@
 
 @mixin collection-subtitle-font-2 {
     color: $light-black;
-    font-family: $font-medium;
+    font-family: $font-ivypresto-headline;
     font-weight: 400;
     letter-spacing: rem(0.7);
     font-size: rem(16);
