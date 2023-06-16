@@ -762,7 +762,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
     }
 
     var $modalContent = $('.add-to-cart-modal-content');
-    var $carouselContent = $('.new-rec-carosel');
+    var $carouselContent = $('.new-rec-carosel-modal');
     var $footerContent = $('.add-to-cart-modal-content-footer');
     var $popUpContent = $('#addToCartModal .modal-success-text');
 
@@ -807,13 +807,13 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
-        var priceTitle = 'Estimated Cart Total: ';
-        var addToCartText = window.Resources.BUTTON_ADD_TO_CART ? window.Resources.BUTTON_ADD_TO_CART : '';
-        var addedToCartText = window.Resources.BUTTON_ADDED_TO_CART ? window.Resources.BUTTON_ADDED_TO_CART : '';
-        var addedToBagText = window.Resources.BUTTON_ADDED_TO_BAG ? window.Resources.BUTTON_ADDED_TO_BAG : '';
+        var $priceTitle = 'Estimated Cart Total: ';
+        var $addToCartText = window.Resources.BUTTON_ADD_TO_CART ? window.Resources.BUTTON_ADD_TO_CART : '';
+        var $addedToCartText = window.Resources.BUTTON_ADDED_TO_CART ? window.Resources.BUTTON_ADDED_TO_CART : '';
+        var $addedToBagText = window.Resources.BUTTON_ADDED_TO_BAG ? window.Resources.BUTTON_ADDED_TO_BAG : '';
 
         if ($('#addToCartModal').find('.total-price').length > 0 && response && response.cart && response.cart.totals && response.cart.totals.grandTotal) {
-            $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
+            $('#addToCartModal').find('.total-price').text($priceTitle + response.cart.totals.grandTotal);
         }
         if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
             var $currentProduct = currentRecommendedProduct ? currentRecommendedProduct : '';
@@ -825,10 +825,10 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
             if ($productIds.indexOf($currentProduct) > -1) {
                 var $currentAddedProduct = $('#addToCartModal').find('[data-rec-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp-redesign');
                 $currentAddedProduct.addClass('active');
-                if (addToCartButtonText === addToCartText) {
-                    $('#addToCartModal .updated-text').text(addedToCartText);
+                if (addToCartButtonText === $addToCartText) {
+                    $('#addToCartModal .updated-text').text($addedToCartText);
                 } else {
-                    $('#addToCartModal .updated-text').text(addedToBagText);
+                    $('#addToCartModal .updated-text').text($addedToBagText);
                 }
             }
         }
@@ -1154,6 +1154,10 @@ module.exports = {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                             ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
                         }
+                        
+                        if ($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
+                            slickSliderReinitialize();
+                        }
                         $.spinner().stop();
                     },
                     error: function () {
@@ -1357,9 +1361,6 @@ module.exports = {
             $('body').trigger('product:beforeAddToCart', this);
             $.spinner().stop();
             $.spinner().start();
-            if($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
-                slickSliderReinitialize();
-            }
 
             addToCartUrl = getAddToCartUrl();
             if ($this.data('product-set') == true) {
@@ -1383,8 +1384,8 @@ module.exports = {
                 childProducts: getChildProducts(),
                 quantity: 1
             };
-            var currentRecommendedProduct = $(this).data('rec-pid');
-            var addToCartButtonText = $(this).data('add-to-cart-text')
+            var $currentRecommendedProduct = $(this).data('rec-pid');
+            var $addToCartButtonText = $(this).data('add-to-cart-text')
             if (addToCartUrl) {
                 $.ajax({
                     url: addToCartUrl,
@@ -1392,11 +1393,15 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data, addToCartRecommendationButton, currentRecommendedProduct, addToCartButtonText);
+                        handlePostCartAdd(data, addToCartRecommendationButton, $currentRecommendedProduct, $addToCartButtonText);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                             ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
+
+                        if ($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
+                            slickSliderReinitialize();
                         }
                         $.spinner().stop();
                     },

@@ -910,10 +910,10 @@ var updateCartPage = function (data) {
  */
  function handlePostCartAdd(response, addToCartRecommendationButton, $currentRecommendedProduct) {
     $('.minicart').trigger('count:update', response);
-    var messageType = response.error ? 'text-danger' : 'text-success';
+    var $messageType = response.error ? 'text-danger' : 'text-success';
 
     if ($('#addToCartModal').hasClass('addToCartModal-wrapper')) {
-        if(response.error == false) {
+        if (response.error == false) {
             $('#addToCartModal').addClass('add-to-cart-redesign')
             $('.recomendation-carousel-wrapper').removeClass('d-none');
             $('#addToCartModal').removeClass('addToCartError');
@@ -926,7 +926,7 @@ var updateCartPage = function (data) {
                 $('.recomendation-carousel-wrapper').removeClass('d-none');
                 $('#addToCartModal').removeClass('addToCartError');
                 $('#addToCartModal .recommendation-add-to-cart-error').html(response.message);
-                $('#addToCartModal .recommendation-add-to-cart-error p').addClass(messageType);
+                $('#addToCartModal .recommendation-add-to-cart-error p').addClass($messageType);
                 $('.recommendation-add-to-cart-error').removeClass('d-none');
             } else {
                 $('#addToCartModal').addClass('addToCartError');
@@ -952,7 +952,7 @@ var updateCartPage = function (data) {
                 $($popUpContent).addClass('d-none');
             }
             $('#addToCartModal .modal-body').html(response.message);
-            $('#addToCartModal .modal-body p').addClass(messageType);
+            $('#addToCartModal .modal-body p').addClass($messageType);
         } else {
             if ($modalContent.length > 0) {
                 var $popUpContent = $modalContent;
@@ -967,7 +967,7 @@ var updateCartPage = function (data) {
             $modalContent.removeClass('d-none');
             $('.recomendation-carousel-wrapper').html($carouselContent);
             $('#addToCartModal .modal-footer').html($footerContent);
-            $('#addToCartModal .modal-body p').addClass(messageType);
+            $('#addToCartModal .modal-body p').addClass($messageType);
         }
     }
 
@@ -984,11 +984,11 @@ var updateCartPage = function (data) {
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
-        var priceTitle = 'Estimated Cart Total: ';
-        var addedToCartText = window.Resources.BUTTON_ADDED_TO_CART ? window.Resources.BUTTON_ADDED_TO_CART : '';
+        var $priceTitle = 'Estimated Cart Total: ';
+        var $addedToCartText = window.Resources.BUTTON_ADDED_TO_CART ? window.Resources.BUTTON_ADDED_TO_CART : '';
 
         if ($('#addToCartModal').find('.total-price').length > 0 && response && response.cart && response.cart.totals && response.cart.totals.grandTotal) {
-            $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
+            $('#addToCartModal').find('.total-price').text($priceTitle + response.cart.totals.grandTotal);
         }
         if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
             var $currentProduct = $currentRecommendedProduct ? $currentRecommendedProduct : '';
@@ -1002,7 +1002,7 @@ var updateCartPage = function (data) {
                 if ($productIds.indexOf(parseInt($currentProduct)) > -1) {
                     var $currentAddedProduct = $('#addToCartModal').find('[data-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp');
                     $currentAddedProduct.addClass('active');
-                    $('#addToCartModal .updated-text').text(addedToCartText);
+                    $('#addToCartModal .updated-text').text($addedToCartText);
                 }
         }
         $('#addToCartModal').modal('show');
