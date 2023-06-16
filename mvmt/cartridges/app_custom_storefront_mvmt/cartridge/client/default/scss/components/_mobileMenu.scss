@@ -324,8 +324,20 @@ header.new-header {
 	margin: 0 auto;
     display: block;
 
+    @include media-breakpoint-down(md) {
+        max-width: fit-content;
+    }
+
     .esw-country-selector {
         min-width: rem(235);
+        
+        .btn {
+            padding: 0;
+        }
+        
+        @include media-breakpoint-down(md) {
+            min-width: auto;
+        }
     }
 }
 
