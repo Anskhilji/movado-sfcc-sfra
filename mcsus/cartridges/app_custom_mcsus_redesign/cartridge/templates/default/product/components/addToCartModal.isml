@@ -1,3 +1,4 @@
 <isslot id="add-to-cart-modal" context="global" description="To Show Add to Cart Success Message"  />
-<isslot id="recommendation-carousel" context="global" description=" To Show Recommendations on Add to Cart Modal"  />
-<div class="add-to-cart-popup"></div>
+<div class="add-to-cart-popup d-none">
+    <isslot id="recommendation-carousel" context="global" description=" To Show Recommendations on Add to Cart Modal"  />
+</div>
