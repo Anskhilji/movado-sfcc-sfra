@@ -98,7 +98,8 @@ function getResources(pageContext) {
         CLYDE_WARRANTY: Constants.CLYDE_WARRANTY,
         CLYDE_WIDGET_DISPLAY_PDP_ENABLED: Site.current.preferences.custom.clydeWidgetDisplayPDP ? true : false,
         BUTTON_ADDED_TO_CART: Resource.msg('button.addedtocart', 'common', null),
-        BUTTON_ADDED_TO_BAG: Resource.msg('button.addedtobag', 'common', null)
+        BUTTON_ADDED_TO_BAG: Resource.msg('button.addedtobag', 'common', null),
+        BUTTON_ADD_TO_BAG: Resource.msg('button.addtobag', 'common', null)
     };
     return resources;
 }

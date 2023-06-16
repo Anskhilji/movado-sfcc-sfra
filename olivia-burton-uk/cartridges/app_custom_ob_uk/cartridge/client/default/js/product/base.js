@@ -808,7 +808,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
         var $priceTitle = 'Estimated Cart Total: ';
-        var $addToCartText = window.Resources.BUTTON_ADD_TO_CART ? window.Resources.BUTTON_ADD_TO_CART : '';
+        var $addToBagText = window.Resources.BUTTON_ADD_TO_BAG ? window.Resources.BUTTON_ADD_TO_BAG : '';
         var $addedToCartText = window.Resources.BUTTON_ADDED_TO_CART ? window.Resources.BUTTON_ADDED_TO_CART : '';
         var $addedToBagText = window.Resources.BUTTON_ADDED_TO_BAG ? window.Resources.BUTTON_ADDED_TO_BAG : '';
 
@@ -816,19 +816,25 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
             $('#addToCartModal').find('.total-price').text($priceTitle + response.cart.totals.grandTotal);
         }
         if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
-            var $currentProduct = currentRecommendedProduct ? currentRecommendedProduct : '';
-            var $productIds = [];
-            $('#addToCartModal .add-to-cart-plp-redesign').each(function () {
-                var $pid = $(this).data('rec-pid');
-                $productIds.push($pid);
-            });
-            if ($productIds.indexOf($currentProduct) > -1) {
-                var $currentAddedProduct = $('#addToCartModal').find('[data-rec-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp-redesign');
-                $currentAddedProduct.addClass('active');
-                if (addToCartButtonText === $addToCartText) {
-                    $('#addToCartModal .updated-text').text($addedToCartText);
-                } else {
-                    $('#addToCartModal .updated-text').text($addedToBagText);
+            if (response.error !== true && !response.error.errorText) {
+                var $currentProduct = currentRecommendedProduct ? currentRecommendedProduct : '';
+                var $productIds = [];
+
+                $('#addToCartModal .add-to-cart-plp-redesign').each(function () {
+                    var $pid = $(this).data('rec-pid');
+                    $productIds.push($pid);
+                });
+                
+                if ($productIds.indexOf($currentProduct) > -1) {
+                    var $currentAddedProduct = $('#addToCartModal').find('[data-rec-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp-redesign');
+                    $currentAddedProduct.addClass('active');
+                    var $currentAddedProductText = $currentAddedProduct.find('.updated-text');
+
+                    if (addToCartButtonText === $addToBagText) {
+                        $currentAddedProductText.text($addedToBagText);
+                    } else {
+                        $currentAddedProductText.text($addedToCartText);
+                    }
                 }
             }
         }
