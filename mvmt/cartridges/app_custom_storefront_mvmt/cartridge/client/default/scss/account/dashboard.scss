@@ -132,6 +132,11 @@
                 text-transform: uppercase;
                 float: left;
                 line-height: 1.5;
+                color: $dark-gray2; 
+
+                &:hover {
+                    color: $dark-blue-btn;
+                }
 
                 &.order-label {
                     padding-left: rem(15);
@@ -171,6 +176,7 @@
 
                 &:hover {
                     text-decoration: underline;
+                    color: $dark-blue-btn;
                 }
             }
         }

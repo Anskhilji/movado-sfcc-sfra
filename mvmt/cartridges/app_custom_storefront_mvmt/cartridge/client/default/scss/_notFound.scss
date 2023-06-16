@@ -1,0 +1,14 @@
+.page-not-found {
+
+  .continue-shopping {
+    background-color: $dark-gray2;
+    box-shadow: none;
+    border-radius: rem(64.5);
+
+    &:hover {
+      background-color: $dark-blue-btn;
+      border-color: $dark-blue-btn;
+      box-shadow: none;
+    }
+  }
+}

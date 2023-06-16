@@ -383,7 +383,7 @@
     
     &-btn-email {
         color: $white;
-        background: $black;
+        background: $dark-gray2;
         font-weight: 500;
         text-transform: uppercase;
         font-style: normal;
@@ -391,16 +391,17 @@
         text-align: center;
         line-height: 1;
         font-size: rem(11);
-        border-radius: rem(1);
+        border-radius: rem(64.5);
         transition: all .25s ease-in-out;
         letter-spacing: rem(3);
         position: relative;
-        border: rem(2) solid $black;
+        border: rem(1) solid $dark-gray2;
         padding: rem(16);
         margin-top: rem(20);
         
         &:hover {
-            background: $green;
+            background: $dark-blue-btn;
+            border-color: $dark-blue-btn;
         }
     }
     
@@ -642,7 +643,7 @@
             font-family: $font-primary;
             font-weight: 500;
             font-style: normal;
-            border: rem(2) solid $black;
+            border: rem(1) solid $dark-gray2;
             font-size: rem(11);
             letter-spacing: rem(1.5);
             display: inline-block;
@@ -664,10 +665,13 @@
             padding: rem(16) rem(28);
             min-width: rem(200);
             background-color: transparent;
+            border-radius: rem(64.5);
+            color: $dark-gray2;
             
             &:hover {
                 color: $white;
-                background-color: $black;
+                background-color: $dark-blue-btn;
+                border-color: $dark-blue-btn;
             }
         }
     }
@@ -682,12 +686,13 @@
             color: $light-gray;
             font-size: rem(14);
             letter-spacing: rem(.5);
+            color: $dark-gray2;
 
             a {
                 font-weight: 600;
                 &:hover {
-                    color: $dark-red;
-                    text-decoration: none;
+                    color: $dark-blue-btn;
+                    text-decoration: underline;
                 }
             }
         }
@@ -761,16 +766,22 @@
 
     &-btn-save {
         background: transparent;
-        border: rem(1) solid $black;
-        color: $black;
+        border: rem(1) solid $dark-gray2;
+        color: $dark-gray2;
         font-size: rem(10.8);
         height: rem(45);
         white-space: nowrap;
+        border-radius: rem(64.5);
+        box-shadow: none;
 
         &:hover, &:focus {
             color: $white;
-            background-color: $black;
-            border-color: $black;
+            background-color: $dark-blue-btn;
+            border-color: $dark-blue-btn;
+            box-shadow: none;
+        }
+
+        &:not(:disabled):not(.disabled):active:focus {
             box-shadow: none;
         }
     }
@@ -812,6 +823,7 @@
     
         &:hover {
             text-decoration: underline;
+            color: $dark-blue-btn;
         }
     }
 }

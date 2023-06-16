@@ -180,6 +180,17 @@ footer {
                     ul {
                         margin-top: rem(16);
                         margin-bottom: 0rem;
+
+                        li {
+
+                            a {
+                                color: $dark-gray2;
+                                
+                                &:hover {
+                                    color: $dark-blue-btn;
+                                }
+                            }
+                        }
                     }
 
                     .title {
@@ -235,7 +246,11 @@ footer {
 
                         > a {
                             text-transform: lowercase;
-                            color: $light-gray;
+                            color: $dark-gray2;
+
+                            &:hover {
+                                color: $dark-blue-btn;
+                            }
                         }
                     }
                 }
@@ -381,6 +396,11 @@ footer {
                 display: block;
 
                 &.selectCurrency {
+
+                    .flag-icon {
+                        border-radius: 100%;
+                        border: rem(1) solid $dark-gray2;
+                    }
 
                     .dropdown {
 

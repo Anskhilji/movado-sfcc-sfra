@@ -5,6 +5,10 @@
 
     .nav-link {
       text-transform: capitalize;
+
+      @include media-breakpoint-down(md) {
+        color: $black;
+      }
     }
 
     &.show {
@@ -124,6 +128,7 @@
     }
 
     &:hover {
+
       .dropdown-menu {
         z-index: 0;
         opacity: 0;
@@ -190,6 +195,7 @@
           &::after {
             transform: rotateY(0);
             opacity: 1;
+            background-color: $dark-blue-btn;
           }
         }
       }
@@ -247,8 +253,22 @@
           text-align: left;
           display: inline-block;
 
+          &:hover {
+            
+            a {
+              color: $dark-blue-btn;
+            }
+          }
+
           @include media-breakpoint-up(lg) {
             width: 50%;
+          }
+
+          &:hover {
+
+            .dropdown-menu-item-text {
+              color: $dark-blue-btn;
+            }
           }
 
           a {
@@ -281,6 +301,12 @@
               line-height: 1.4;
               letter-spacing: normal;
               text-transform: uppercase;
+              color: $dark-gray2;
+
+              &:hover {
+                color: $dark-blue-btn;
+                text-decoration: underline;
+              }
             }
           }
         }
@@ -304,6 +330,7 @@
                 margin-right: 0;
               }
             }
+
             @include media-breakpoint-up(xl) {
               margin-right: rem(50);
               margin-bottom: rem(50);
@@ -316,6 +343,7 @@
       + .featured-promotion {
 
         .header-tiles {
+          
           > div:not(.no-margin) {
             margin-top: rem(31);
           }
@@ -412,12 +440,24 @@
         white-space: nowrap;
         width: auto;
 
+       &:hover {
+
+        .dropdown-link {
+          color: $dark-blue-btn;
+
+          &::before {
+            background-color: $dark-blue-btn !important; // i'm using important to overwrite inline css
+          }
+        }
+       }
+
         .dropdown-link {
           @include font-medium;
           font-size: rem(12);
           transition: transform .24s ease 0s;
           display: inline-block;
           position: relative;
+          color: $dark-gray2;
 
           &::before {
             content: "";
@@ -434,9 +474,12 @@
           }
 
           &:hover {
+            color: $dark-blue-btn;
+            text-decoration: none;
 
             &::before {
               opacity: 1;
+              background-color: $dark-blue-btn;
             }
           }
         }
@@ -586,12 +629,14 @@
     width: auto;
     padding: 0 rem(30);
     min-width: auto;
-    background-color: $black;
+    background-color: $dark-gray2;
     color: $white;
+    border-color: $dark-gray2;
+    border-radius: rem(64.5);
 
     &:hover, &:focus {
-      border-color: $dark-red;
-      background-color: $dark-red;
+      border-color: $dark-blue-btn;
+      background-color: $dark-blue-btn;
       color: $white;
     }
   }
@@ -620,6 +665,18 @@
     li {
       line-height: rem(20);
 
+      &:hover {
+        
+        .category-custom-link {
+          color: $dark-blue-btn;
+ 
+          &::before {
+            background-color: $dark-blue-btn;
+            opacity: 1;
+          }
+        }
+      }
+
       &:last-child {
         a {
           margin-bottom: rem(5);
@@ -635,6 +692,14 @@
     
     .category-custom-link {
       margin: 0;
+      color: $dark-gray2;
+      &:hover {
+        color: $dark-blue-btn;
+
+        &::before {
+          background: $dark-blue-btn;
+        }
+      }
     }
   }
 
@@ -645,9 +710,18 @@
     display: inline-block;
     position: relative;
     text-transform: capitalize;
-    letter-spacing: 0.82px;
+    letter-spacing: rem(0.82);
     margin-bottom: rem(20);
     line-height: normal;
+    color: $dark-gray2;
+
+     &:hover {
+      color: $dark-blue-btn;
+
+      &::before {
+        background: $dark-blue-btn;
+      }
+     }
   
     &::before {
       content: "";
@@ -678,7 +752,7 @@
       &:hover {
 
         .category-custom-link {
-
+         
           &::before {
             opacity: 1;
           }

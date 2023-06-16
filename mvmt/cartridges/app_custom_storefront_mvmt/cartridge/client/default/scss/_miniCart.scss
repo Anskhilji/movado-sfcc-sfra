@@ -38,6 +38,17 @@
             overflow-x: hidden;
             overflow-y: auto;
         }
+
+        .cart-country-selector {
+
+            .text-info {
+                color: $dark-gray2 !important; // i'm using important to overwrite inline css
+
+                &:hover {
+                    color: $dark-blue-btn !important; // i'm using important to overwrite inline css
+                }
+            }
+        }
         
         &.afterSticky {
             @include media-breakpoint-down(md) {
@@ -538,25 +549,23 @@
 
                                 .quantity {
                                     overflow: visible;
-                                    padding: rem(2) rem(15) rem(2) rem(2);
-                                    box-shadow: inset 0 0 rem(2) rem(1) $light-gray4;
+                                    padding: 0 rem(14);
                                     outline: 0;
-                                    border: 0;
+                                    border: rem(1) solid $border-gray1;
                                     line-height: 1.15;
                                     margin: 0;
-                                    width: rem(76);
-                                    height: rem(50);
-                                    border-radius: rem(1);
+                                    width: rem(82);
+                                    height: rem(30);
+                                    border-radius: rem(64.5);
                                     font-size: rem(14);
                                     letter-spacing: rem(1);
                                     font-weight: 400;
-                                    text-indent: rem(15);
+                                    text-indent: rem(23);
                                     margin-right: rem(20);
                                     -moz-appearance: textfield;
 
                                     @include media-breakpoint-down(sm) {
                                         font-size: rem(16);
-                                        padding: 0;
                                     }
 
                                     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
@@ -571,41 +580,41 @@
                                 display: flex;
                                 flex-direction: column;
                                 position: absolute;
-                                right: rem(35);
-                                top: 50%;
-                                transform: translateY(-50%);
-
-                                @include media-breakpoint-down(md) {
-                                    right: rem(21);
-                                }
+                                right: rem(0);
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
 
                                 button {
-                                    width: rem(12);
-                                    height: rem(10);
-                                    position: relative;
                                     border: none;
                                     outline: none;
-                                    background-color: $grey2;
-                                    color: $grey3;
-
-                                    @include media-breakpoint-down(md) {
-                                        width: rem(18);
-                                        height: rem(24);
-                                    }
+                                    padding: 0;
 
                                     &:hover {
                                         background-color: $light-silver;
                                     }
 
-                                    svg {
-                                        position: absolute;
-                                        width: rem(8);
-                                        top: 50%;
-                                        left: 50%;
-                                        transform: translate(-50%, -50%);
+                                    &.up-qty-btn {
+                                        
+                                        svg {
+                                            position: absolute;
+                                            width: rem(9);
+                                            height: rem(9);
+                                            top: 50%;
+                                            right: rem(33);
+                                            transform: translateY(-50%);
+                                        }
+                                    }
 
-                                        @include media-breakpoint-down(md) {
-                                            width: rem(13);
+                                    &.down-qty-btn {
+                                        
+                                        svg {
+                                            position: absolute;
+                                            width: rem(9);
+                                            height: rem(0.93);
+                                            top: 50%;
+                                            left: rem(14);
+                                            transform: translateY(-50%);
                                         }
                                     }
                                 }
@@ -828,13 +837,13 @@
                     }
 
                     .promo-code-btn {
-                        background-color: $black;
-                        border-radius: rem(4);
+                        background-color: $dark-gray2;
+                        border-radius: rem(64.5);
 
                         &:hover, &:focus {
-                            background-color: $black;
-                            background-image: linear-gradient($black, $black);
-                            border-color: $black;
+                            background-color: $dark-blue-btn;
+                            background-image: linear-gradient($dark-blue-btn, $dark-blue-btn);
+                            border-color: $dark-blue-btn;
                         }
                     }
 
@@ -1069,6 +1078,24 @@
 
                         .checkout-btn {
                             margin-bottom: rem(10);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: row-reverse;
+                            background-color: $dark-gray2;
+                            border-color: $dark-gray2;
+                            border-radius: rem(64.5);
+
+                            svg {
+                                margin-right: rem(10);
+                            }
+
+                            &:hover,&:focus {
+                                background-color: $dark-blue-btn;
+                                border-color: $dark-blue-btn;
+                                box-shadow: none;
+                                background-image: linear-gradient($dark-blue-btn, $dark-blue-btn);
+                            }
                         }
 
                         .apple-pay-btn {
@@ -1509,8 +1536,8 @@
             font-style: normal;
             font-size: rem(11);
             letter-spacing: rem(1.5);
-            color: $black;
-            border: rem(2) solid $black;
+            color: $dark-gray2;
+            border: rem(1) solid $dark-gray2;
             margin-bottom: rem(15);
             width: 48%;
             max-width: rem(190);
@@ -1518,12 +1545,14 @@
             line-height: rem(49);
             padding: 0;
             display: inline-block;
+            border-radius: rem(64.5);
 
             &:hover, &:focus {
-                background-color: $black;
+                background-color: $dark-blue-btn;
                 color: $white;
                 text-decoration: none;
                 outline: 0;
+                border-color: $dark-blue-btn;
             }
         }
     }
@@ -1565,7 +1594,7 @@
         line-height: rem(16);
     }
     &-link {
-        color: $curious-light-blue;
+        color: $dark-gray2;
         font-family: $font-medium;
         font-size: rem(12);
         font-weight: 500;
@@ -1573,9 +1602,12 @@
         line-height: rem(16);
         text-transform: capitalize;
         padding-top: 0;
+
         &:hover {
-            color: $curious-light-blue;
+            color: $dark-blue-btn;
+            text-decoration: underline;
         }
+
         &:focus {
             box-shadow: none;
         }
@@ -1732,6 +1764,12 @@
                     padding-right: rem(20);
                     font-weight: 300;
                     text-transform: uppercase;
+                    color: $dark-gray2;
+
+                    &:hover {
+                        color: $dark-blue-btn;
+                        text-decoration: underline;
+                    }
                 }
                 &-textarea-container {
                     text-align: left;
@@ -1780,7 +1818,8 @@
             }
             &-save-button {
                 border-radius: rem(3);
-                background-color: $light-green2;
+                background-color: $dark-blue-btn;
+                border-radius: rem(64.5);
                 color: $white;
                 font-family: $font-medium;
                 font-size: rem(15);
@@ -1791,7 +1830,13 @@
                 max-width: rem(271);
                 width: 100%;
                 margin: auto;
-                height: rem(45); 
+                height: rem(45);
+
+                &:disabled {
+                    background-color: $dark-gray2;
+                    border-color: $dark-gray2;
+                    opacity: 0.3;
+                }
             }
             .close {
                 opacity: 1;
@@ -1832,6 +1877,12 @@
         }
         .gift-box-container-link {
             padding: rem(0) rem(0) rem(0) rem(15);
+            color: $dark-gray2;
+            text-decoration: underline;
+
+            &:hover {
+                color: $dark-blue-btn;
+            }
         }
     }
 }

@@ -10,6 +10,27 @@
         padding-bottom: 0;
     }
 
+    .card-button {
+        color: $dark-gray2;
+        border-color: $dark-gray2;
+        border-radius: rem(64.5);
+        margin-top: rem(16);
+
+        &:hover,:focus,:active {
+            background-color: $dark-blue-btn;
+            border-color: $dark-blue-btn;
+            box-shadow: none;
+            color: $white;
+        }
+
+        &:not(:disabled):not(.disabled):active {
+            background-color: $dark-blue-btn;
+            border-color: $dark-blue-btn;
+            box-shadow: none;
+            color: $white;
+        }
+    }
+
     .search-form {
         padding: rem(25) 0 rem(40);
         box-shadow: inherit;
@@ -160,7 +181,7 @@
                     font-family: $font-bold;
                     font-size: rem(13);
                     color: $white;
-                    background-color: $black;
+                    background-color: $dark-gray2;
                     border-radius: 0;
                     padding: 0 rem(16);
                     line-height: rem(50);
@@ -168,6 +189,7 @@
                     margin: 0;
                     width: rem(230);
                     box-shadow: inherit;
+                    border-radius: rem(64.5);
                 }
 
                 .btn-outline-secondary:not(:disabled):not(.disabled):active:focus {
@@ -205,6 +227,17 @@
 
                     > p {
                         margin-top: 0;
+                        
+                        > span {
+
+                            > a {
+                                color: $dark-gray2;
+
+                                &:hover {
+                                    color: $dark-blue-btn;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -248,6 +281,11 @@
 
                         .store-name, .get-direction a {
                             color: $white;
+
+                            &:hover {
+                                color: $dark-blue-btn;
+                                text-decoration: underline;
+                            }
                         }
 
                         .get-direction a {
@@ -307,7 +345,7 @@
                         .storelocator-phone {
 
                             &:hover {
-                                color: $black;
+                                color: $dark-blue-btn;
                             }
                         }
                     }
@@ -389,7 +427,7 @@
                 font-weight: 700;
                 font-size: rem(11.5);
                 line-height: 1;
-                color: $black;
+                color: $dark-gray2;
                 text-transform: uppercase;
                 padding: 0;
                 border: none;
@@ -398,6 +436,7 @@
 
                 &:hover {
                     text-decoration: underline;
+                    color: $dark-blue-btn;
                 }
 
                 &:after {
