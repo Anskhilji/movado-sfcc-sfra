@@ -942,14 +942,29 @@ var updateCartPage = function (data) {
     var $modalContent = $('.add-to-cart-modal-content');
     var $carouselContent = $('.new-rec-carosel');
     var $footerContent = $('.add-to-cart-modal-content-footer');
+    var $popUpContent = $('#addToCartModal .modal-success-text');
 
     // show add to cart modal
     if (addToCartRecommendationButton !== true) {
         if (response.error === true || response.error.errorText) {
+            if ($modalContent.length > 0) {
+                $($popUpContent).html($modalContent);
+                $($popUpContent).addClass('d-none');
+            }
             $('#addToCartModal .modal-body').html(response.message);
             $('#addToCartModal .modal-body p').addClass(messageType);
         } else {
-            $('#addToCartModal .modal-body').html($modalContent);
+            if ($modalContent.length > 0) {
+                var $popUpContent = $modalContent;
+            }
+            
+            if ($modalContent.length > 0) {
+                $('#addToCartModal .modal-body').html($modalContent);
+            } else {
+                $('#addToCartModal .modal-body').html($popUpContent);
+            }
+            
+            $modalContent.removeClass('d-none');
             $('.recomendation-carousel-wrapper').html($carouselContent);
             $('#addToCartModal .modal-footer').html($footerContent);
             $('#addToCartModal .modal-body p').addClass(messageType);
@@ -1048,18 +1063,18 @@ function clydeAddProductToCart() {
             setPids.push({
                 pid: $(this).text(),
                 qty: 1,
-                options: getOptions($(this))
+                options: movadoBase.getOptions($(this))
             });
         });
         pidsObj = JSON.stringify(setPids);
-        pid = getPidValue($(this));
+        pid = movadoBase.getPidValue($(this));
     } else if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
         pid = $(this).data('pid');
         if ($('.gift-allowed-checkbox').is(":checked")) {
             giftPid = $('.gift-allowed-checkbox').val();
         }
     } else {
-        pid = getPidValue($(this));
+        pid = movadoBase.getPidValue($(this));
         if ($('.gift-allowed-checkbox').is(":checked")) {
             giftPid = $('.gift-allowed-checkbox').val();
         }
@@ -1069,7 +1084,7 @@ function clydeAddProductToCart() {
         $productContainer = $this.closest('.quick-view-dialog').find('.product-detail');
     }
 
-    addToCartUrl = getAddToCartUrl();
+    addToCartUrl = movadoBase.getAddToCartUrl();
     var quantity = 1;
     if (window.Resources.IS_PDP_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
         quantity = productQuantity;
@@ -1078,8 +1093,8 @@ function clydeAddProductToCart() {
     var form = {
         pid: pid,
         pidsObj: pidsObj,
-        childProducts: getChildProducts(),
-        quantity: getQuantitySelected($(this)),
+        childProducts: movadoBase.getChildProducts(),
+        quantity: movadoBase.getQuantitySelected($(this)),
         giftPid: giftPid ? giftPid : ''
     };
 
@@ -1090,7 +1105,7 @@ function clydeAddProductToCart() {
         form = {
             pid: pid,
             pidsObj: pidsObj,
-            childProducts: getChildProducts(),
+            childProducts: movadoBase.getChildProducts(),
             quantity: quantity,
             giftPid: giftPid ? giftPid : ''
         };
@@ -1118,7 +1133,7 @@ function clydeAddProductToCart() {
     });
 
     if (!$('.bundle-item').length) {
-        form.options = getOptions($productContainer);
+        form.options = movadoBase.getOptions($productContainer);
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
     $(this).trigger('updateAddToCartFormData', form);
@@ -1175,7 +1190,7 @@ function clydeAddProductSetToCart($this) {
                 setPids.push({
                     pid: $(this).find('.product-id').text(),
                     qty: 1,
-                    options: getOptions($(this))
+                    options: movadoBase.getOptions($(this))
                 });
             }
         });
@@ -1188,18 +1203,18 @@ function clydeAddProductSetToCart($this) {
             setPids.push({
                 pid: $this.text(),
                 qty: 1,
-                options: getOptions($this)
+                options: movadoBase.getOptions($this)
             });
         });
         pidsObj = JSON.stringify(setPids);
-        pid = getPidValue($this);
+        pid = movadoBase.getPidValue($this);
     } else if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
         pid = $(this).data('pid');
         if ($('.gift-allowed-checkbox').is(":checked")) {
             giftPid = $('.gift-allowed-checkbox').val();
         }
     } else {
-        pid = getPidValue($(this));
+        pid = movadoBase.getPidValue($(this));
         if ($('.gift-allowed-checkbox').is(":checked")) {
             giftPid = $('.gift-allowed-checkbox').val();
         }
@@ -1210,7 +1225,7 @@ function clydeAddProductSetToCart($this) {
         $productContainer = $(this).closest('.quick-view-dialog').find('.product-detail');
     }
 
-    addToCartUrl = getAddToCartUrl();
+    addToCartUrl = movadoBase.getAddToCartUrl();
     var quantity = 1;
     if (window.Resources.IS_PDP_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
         quantity = productQuantity;
@@ -1219,8 +1234,8 @@ function clydeAddProductSetToCart($this) {
     var form = {
         pid: pid,
         pidsObj: pidsObj,
-        childProducts: getChildProducts(),
-        quantity: getQuantitySelected($(this)),
+        childProducts: movadoBase.getChildProducts(),
+        quantity: movadoBase.getQuantitySelected($(this)),
         giftPid: giftPid ? giftPid : ''
     };
 
@@ -1231,7 +1246,7 @@ function clydeAddProductSetToCart($this) {
         form = {
             pid: pid,
             pidsObj: pidsObj,
-            childProducts: getChildProducts(),
+            childProducts: movadoBase.getChildProducts(),
             quantity: quantity,
             giftPid: giftPid ? giftPid : ''
         };
@@ -1259,7 +1274,7 @@ function clydeAddProductSetToCart($this) {
     });
 
     if (!$('.bundle-item').length) {
-        form.options = getOptions($productContainer);
+        form.options = movadoBase.getOptions($productContainer);
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
     $(this).trigger('updateAddToCartFormData', form);
@@ -1316,7 +1331,7 @@ function addProductToCartPlp($this) {
                 setPids.push({
                     pid: $(this).find('.product-id').text(),
                     qty: 1,
-                    options: getOptions($(this))
+                    options: movadoBase.getOptions($(this))
                 });
             }
         });
@@ -1329,18 +1344,18 @@ function addProductToCartPlp($this) {
             setPids.push({
                 pid: $(this).text(),
                 qty: 1,
-                options: getOptions($(this))
+                options: movadoBase.getOptions($(this))
             });
         });
         pidsObj = JSON.stringify(setPids);
-        pid = getPidValue($(this));
+        pid = movadoBase.getPidValue($(this));
     } else if ($this.closest('.product-detail') && $this.closest('.product-detail').data('isplp') == true) {
         pid = $this.data('pid');
         if ($('.gift-allowed-checkbox').is(":checked")) {
             giftPid = $('.gift-allowed-checkbox').val();
         }
     } else {
-        pid = getPidValue($this);
+        pid = movadoBase.getPidValue($this);
         if ($('.gift-allowed-checkbox').is(":checked")) {
             giftPid = $('.gift-allowed-checkbox').val();
         }
@@ -1351,7 +1366,7 @@ function addProductToCartPlp($this) {
         $productContainer = $this.closest('.quick-view-dialog').find('.product-detail');
     }
 
-    addToCartUrl = getAddToCartUrl();
+    addToCartUrl = movadoBase.getAddToCartUrl();
     var quantity = 1;
     if (window.Resources.IS_PDP_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
         quantity = productQuantity;
@@ -1360,8 +1375,8 @@ function addProductToCartPlp($this) {
     var form = {
         pid: pid,
         pidsObj: pidsObj,
-        childProducts: getChildProducts(),
-        quantity: getQuantitySelected($this),
+        childProducts: movadoBase.getChildProducts(),
+        quantity: movadoBase.getQuantitySelected($this),
         giftPid: giftPid ? giftPid : ''
     };
 
@@ -1372,7 +1387,7 @@ function addProductToCartPlp($this) {
         form = {
             pid: pid,
             pidsObj: pidsObj,
-            childProducts: getChildProducts(),
+            childProducts: movadoBase.getChildProducts(),
             quantity: quantity,
             giftPid: giftPid ? giftPid : ''
         };
@@ -1400,7 +1415,7 @@ function addProductToCartPlp($this) {
     });
 
     if (!$('.bundle-item').length) {
-        form.options = getOptions($productContainer);
+        form.options = movadoBase.getOptions($productContainer);
     }
 
     var $currentRecommendedProduct = $this.data('pid');
@@ -1433,95 +1448,6 @@ function addProductToCartPlp($this) {
             }
         });
     }
-}
-
-/**
- * Retrieves the relevant pid value
- * @param {jquery} $el - DOM container for a given add to cart button
- * @return {string} - value to be used when adding product to cart
- */
- function getPidValue($el) {
-    var pid;
-
-    if ($('#quickViewModal').hasClass('show') && !$('.product-set').length) {
-        pid = $($el).closest('.modal-content').find('.product-quickview').data('pid');
-    } else if ($('.product-set-detail').length || $('.product-set').length) {
-        pid = $($el).closest('.product-detail').find('.product-id').text();
-    } else if($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt tile
-        pid = $($el).data('pid');
-    } else {
-        pid = $('.product-detail:not(".bundle-item")').data('pid');
-    }
-
-    return pid;
-}
-
-/**
- * Retrieves url to use when adding a product to the cart
- *
- * @return {string} - The provided URL to use when adding a product to the cart
- */
- function getAddToCartUrl() {
-    return $('.add-to-cart-url').val();
-}
-
-/**
- * Retrieve product options
- *
- * @param {jQuery} $productContainer - DOM element for current product
- * @return {string} - Product options and their selected values
- */
- function getOptions($productContainer) {
-    var options = $productContainer
-        .find('.product-option')
-        .map(function () {
-            var $elOption = $(this).find('.options-select, input[type="radio"]:checked');
-            var urlValue = $elOption.val();
-            var selectedValueId;
-            if ($elOption.is("input")) {
-                selectedValueId = $elOption.data('value-id');
-            } else {
-                selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
-                .data('value-id');
-            }
-            return {
-                optionId: $(this).data('option-id'),
-                selectedValueId: selectedValueId
-            };
-        }).toArray();
-
-    return JSON.stringify(options);
-}
-
-/**
-* Retrieves the value associated with the Quantity pull-down menu
-* @param {jquery} $el - DOM container for the relevant quantity
-* @return {string} - value found in the quantity input
-*/
-function getQuantitySelected($el) {
-    if ($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt tile
-        return 1;
-    } else {
-        return getQuantitySelector($el).val();
-    }
-}
-
-/**
-* Retrieves the bundle product item ID's for the Controller to replace bundle master product
-* items with their selected variants
-*
-* @return {string[]} - List of selected bundle product item ID's
-*/
-function getChildProducts() {
-    var childProducts = [];
-    $('.bundle-item').each(function () {
-        childProducts.push({
-            pid: $(this).find('.product-id').text(),
-            quantity: parseInt($(this).find('label.quantity').data('quantity'), 10)
-        });
-    });
-
-    return childProducts.length ? JSON.stringify(childProducts) : [];
 }
 
 movadoBase.colorAttribute = function () {

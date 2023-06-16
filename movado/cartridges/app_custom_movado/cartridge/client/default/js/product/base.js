@@ -1867,4 +1867,8 @@ module.exports = {
 
     getPidValue: getPidValue,
     getQuantitySelected: getQuantitySelected,
+    getOptions: getOptions,
+    updateCartPage: updateCartPage,
+    getChildProducts: getChildProducts,
+    getAddToCartUrl: getAddToCartUrl,
 };
