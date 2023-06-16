@@ -646,6 +646,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             var engravedOptions = addEngraveContract.getEngravingSelectedOptionProduct(productId);
             var engravedSKU = '';
             var optionValue = '';
+
             if (!empty(engravedOptions.optionProduct)) {
                 engravedSKU = engravedOptions.engravedSKUID;
                 optionValue = engravedOptions.optionValue;
@@ -730,14 +731,15 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                     var addEngraveContract = require('*/cartridge/scripts/engravingAddContracts');
                     var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
 
-                    Transaction.wrap(function () {
-
+                    var test = 'hello world';
+                    Transaction.wrap(function () {  
+                        
                         if (productLineItem) {
-                            var optionProductLineItems = productLineItem.getOptionProductLineItems().iterator();
-
-                            while (optionProductLineItems.hasNext()) {
-                                var optionLineItem = optionProductLineItems.next();
-
+                            var optoionProductLineItems = productLineItem.getOptionProductLineItems().iterator();
+    
+                            while (optoionProductLineItems.hasNext()) {
+                                var optionLineItem = optoionProductLineItems.next();
+            
                                 if (optionLineItem.optionID === pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID) {
                                     optionLineItem.updateOptionValue(optionValue);
                                 }
@@ -745,8 +747,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                         }
                         addEngraveContract.addEngravingContractAttributes(engravedSKU, currentBasket, productId, form);
                     });
-                }
-
+                }    
                 result.uuid = productLineItem.UUID;
             } catch (e) {
                 var msg = e;

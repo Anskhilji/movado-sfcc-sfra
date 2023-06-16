@@ -449,6 +449,12 @@ server.append(
             var productLineItem = productLineItems.next();
             var quantity = productLineItem.getQuantity().value;
             var apiProduct = productLineItem.getProduct();
+             //custom : PulseID engraving
+             if (Site.current.preferences.custom.enablePulseIdEngraving) {
+                var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+                var setPulseJobID = pulseIdAPIHelper.setOptionalLineItemUUID(viewData, productLineItem);
+            }
+            // custom end
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
         }
         marketingProductsData = JSON.stringify(marketingProductsData);

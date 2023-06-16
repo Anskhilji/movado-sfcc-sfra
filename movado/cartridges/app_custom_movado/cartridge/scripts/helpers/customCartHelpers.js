@@ -3,6 +3,7 @@
 var ProductLineItem = require('dw/order/ProductLineItem');
 var Logger = require('dw/system/Logger');
 var productFactory = require('*/cartridge/scripts/factories/product');
+var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var collections = require('*/cartridge/scripts/util/collections');
 var EMBOSSED = 'Embossed';
@@ -313,7 +314,6 @@ function getcartPageHtml (req) {
 function getCountrySwitch() {
     
     var Logger = require('dw/system/Logger');
-    var Site = require('dw/system/Site');
 
     var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
     if (isEswEnabled) {
