@@ -11,6 +11,7 @@
     .login-background {
 
         p {
+            font-family: $font-brandon-grotesque;
             margin: 0;
         }
 
@@ -96,7 +97,7 @@
                         font-weight: 500;
                         line-height: rem(23);
                         margin: rem(10) 0;
-                        font-family: $font-medium;
+                        font-family: $font-ivypresto-headline;
                         text-transform: uppercase;
                     }
                 }
@@ -160,9 +161,9 @@
             }
 
             h1 {
-                font-size: rem(36);
                 letter-spacing: rem(3.38);
-                font-family: $font-medium;
+                font-family: $font-ivypresto-headline;
+                font-size: rem(36);
                 font-weight: 500;
                 line-height: 1.2;
                 text-transform: uppercase;
@@ -170,11 +171,11 @@
             }
 
             p {
+                font-family: $font-brandon-grotesque;
                 font-size: rem(16);
                 font-weight: 500;
                 line-height: rem(23);
                 color: $light-gray;
-                font-family: $font-medium;
                 letter-spacing: rem(0.5);
             }
         }
@@ -211,6 +212,7 @@
 
                 p {
                     color: $black;
+                    font-family: $font-brandon-grotesque;
                     font-size: rem(12);
                     font-weight: 500;
                     line-height: rem(20);
@@ -233,17 +235,17 @@
             font-size: rem(36);
             letter-spacing: rem(3.38);
             text-transform: uppercase;
-            font-family: $font-medium;
+            font-family: $font-ivypresto-headline;
         }
 
         p {
+            font-family: $font-brandon-grotesque;
             font-size: rem(16);
             font-weight: 500;
             line-height: rem(23);
             color: $light-gray;
             letter-spacing: rem(0.5);
             margin: 0;
-            font-family: $font-medium;
         }
     }
 
@@ -254,7 +256,7 @@
             font-weight: 500;
             line-height: rem(23);
             text-align: center;
-            font-family: $font-medium;
+            font-family: $font-ivypresto-headline;
             text-transform: uppercase;
             letter-spacing: rem(2.5);
         }
@@ -312,7 +314,7 @@
                         font-size: rem(36);
                         letter-spacing: rem(3.38);
                         text-transform: uppercase;
-                        font-family: $font-medium;
+                        font-family: $font-brandon-grotesque;
                         text-align: center;
                         border: 0;
                     }
@@ -322,7 +324,7 @@
                         font-weight: 500;
                         line-height: rem(23);
                         color: $light-gray;
-                        font-family: $font-medium;
+                        font-family: $font-brandon-grotesque;
                         letter-spacing: rem(0.5);
                         text-align: center;
                         display: inline;

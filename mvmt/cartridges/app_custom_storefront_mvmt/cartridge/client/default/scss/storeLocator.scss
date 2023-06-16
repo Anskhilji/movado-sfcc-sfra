@@ -226,6 +226,7 @@
                 > address {
 
                     > p {
+                        font-family: $font-brandon-grotesque;
                         margin-top: 0;
                         
                         > span {
@@ -411,6 +412,7 @@
             div, span, p {
                 color: $black;
                 padding-left: 0;
+                font-family: $font-brandon-grotesque;
                 font-size: rem(12);
                 line-height: 1.8;
                 color: $black;

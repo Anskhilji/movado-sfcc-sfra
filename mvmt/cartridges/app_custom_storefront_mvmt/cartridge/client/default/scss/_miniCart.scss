@@ -113,7 +113,7 @@
             }
 
             h4 {
-                font-family: $font-medium;
+                font-family:$font-brandon-grotesque;
                 font-size: rem(16);
                 text-align: center;
                 letter-spacing: rem(1.6);
@@ -493,7 +493,6 @@
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
             padding-top: rem(25);
-
             .mini-cart-fixed {
                 margin: 0 rem(12) rem(12) rem(12);
                 padding-bottom: rem(20);
@@ -646,6 +645,7 @@
                         .line-item-promo {
 
                             p {
+                                font-family:$font-brandon-grotesque;
                                 margin-bottom: 0;
                             }
                         }
@@ -660,6 +660,7 @@
                             overflow: hidden;
 
                             p {
+                                font-family:$font-brandon-grotesque;
                                 margin-bottom: 0;
                             }
 
@@ -1474,6 +1475,7 @@
     &-image {
 
         p {
+            font-family:$font-brandon-grotesque;
             margin-bottom: 0;
         }
 
@@ -1492,7 +1494,7 @@
 
         p {
             margin-bottom: 0;
-            font-size: rem(12);
+            font-family:$font-brandon-grotesque;
             text-transform: uppercase;
             text-align: center;
             color: $grey7;
@@ -1525,6 +1527,7 @@
         }
 
         p {
+            font-family:$font-brandon-grotesque;
             margin-bottom: 0;
         }
 
@@ -1906,7 +1909,7 @@
 .cart-message {
     
     p {
-        font-family: $font-book;
+        font-family:$font-brandon-grotesque;
         font-size: rem(11);
         text-transform: none;
     }
@@ -1971,7 +1974,6 @@
                             del {
 
                                 .strike-through {
-
                                     span {
                                         color: $black;
                                         font-family: $font-medium;
@@ -1986,7 +1988,6 @@
                         }
             
                     }
-
                     .cart-and-ipay {
                         @include media-breakpoint-up(lg) {
                             opacity: 1;

@@ -148,6 +148,7 @@
         color: $light-gray12;
 
         h4 {
+            font-family: $font-brandon-grotesque;
             font-size: rem(20);
             letter-spacing: rem(1.02);
             line-height: rem(20);
@@ -324,8 +325,20 @@ header.new-header {
 	margin: 0 auto;
     display: block;
 
+    @include media-breakpoint-down(md) {
+        max-width: fit-content;
+    }
+
     .esw-country-selector {
         min-width: rem(235);
+
+        .btn {
+            padding: 0;
+        }
+
+        @include media-breakpoint-down(md) {
+            min-width: auto;
+        }
     }
 }
 

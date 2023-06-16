@@ -40,7 +40,7 @@
     .menu-pane {
 
       > h3 {
-        @include font-medium;
+        font-family: $font-brandon-grotesque;
         font-size: rem(12);
         text-transform: uppercase;
         letter-spacing: .8px;
@@ -76,6 +76,7 @@
   .html-slot-container {
 
     p {
+      font-family: $font-brandon-grotesque;
       margin: 0;
     }
   }
@@ -215,7 +216,7 @@
     }
 
     .sub-menu-title {
-      font-family: $font-medium;
+      font-family: $font-brandon-grotesque;
       font-weight: 500;
       font-size: rem(12);
       text-transform: uppercase;
@@ -296,7 +297,7 @@
             }
 
             .dropdown-menu-item-text {
-              @include font-medium;
+             font-family: $font-brandon-grotesque;
               font-size: rem(12);
               line-height: 1.4;
               letter-spacing: normal;
@@ -421,6 +422,7 @@
                 }
 
                 p {
+                  font-family: $font-brandon-grotesque;
                   position: relative;
                   text-align: left;
                   bottom: rem(-20);
@@ -452,7 +454,7 @@
        }
 
         .dropdown-link {
-          @include font-medium;
+          font-family: $font-brandon-grotesque;
           font-size: rem(12);
           transition: transform .24s ease 0s;
           display: inline-block;
@@ -704,7 +706,7 @@
   }
 
   &-link {
-    @include font-medium;
+    font-family: $font-brandon-grotesque;
     font-size: rem(12);
     transition: transform .24s ease 0s;
     display: inline-block;

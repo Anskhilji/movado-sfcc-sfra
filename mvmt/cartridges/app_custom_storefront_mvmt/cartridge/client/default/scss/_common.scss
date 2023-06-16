@@ -70,6 +70,7 @@
         width: 100%;
 
         p {
+            font-family:$font-brandon-grotesque;
             margin: 0;
             width: 100%;
         }
@@ -368,8 +369,13 @@
     }
 }
 
+.heading-two {
+    font-family: $font-ivypresto-headline;
+}
+
 .heading-three {
     text-transform: uppercase;
+    font-family: $font-ivypresto-headline;
 }
 
 .custom-select-wrapper {
@@ -934,6 +940,7 @@ div {
                                 .start-lines {
 
                                     p {
+                                        font-family:$font-brandon-grotesque;
                                         margin: rem(0);
                                     }
                                     .order-receipt-label {
@@ -1075,6 +1082,7 @@ div {
 .site-map {
 
     h5 {
+        font-family:$font-brandon-grotesque;
         a {
             color: $dark-gray2;
 
@@ -1161,4 +1169,7 @@ div {
             }
         }
     }
+}
+.body-text {
+    font-family: $font-brandon-grotesque;
 }

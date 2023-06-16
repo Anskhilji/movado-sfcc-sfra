@@ -7,16 +7,17 @@
 .receipt {
     .card-header {
         h4 {
-            font-family: $font-book;
-            font-weight: 500;
+            font-family: $font-brandon-grotesque;
             font-size: rem(18);
+            font-weight: 500;
             letter-spacing: normal;
             letter-spacing: 1.5px;
         }
     }
 
     .order-thank-you-msg {
-        font-family: $font-medium;
+        font-family: $font-ivypresto-headline;
+        font-size: rem(48);
         font-weight: 500;
         letter-spacing: normal;
         letter-spacing: 1.5px;
@@ -28,7 +29,7 @@
     
     .shipping-method-block {
         .ship-method-header {
-            font-family: $font-book;
+            font-family: $font-brandon-grotesque;
             font-weight: 500;
             font-size: rem(18);
             letter-spacing: normal;
@@ -39,7 +40,8 @@
     .summary-section-label {
         letter-spacing: normal;
         text-transform: capitalize;
-        font-family: $font-book;
+        font-family: $font-brandon-grotesque;
+        font-size: rem(16);
     }
 
     .form-group {
@@ -53,7 +55,7 @@
             color: $light-gray7;
             background-color: $white;
             padding: 0 rem(10);
-            transition: all 0.2s ease-out;
+            transition: none;
 
             @include media-breakpoint-down(sm) {
                 font-size: rem(16);
@@ -67,8 +69,7 @@
             }
 
             &.is-invalid {
-                border-width: rem(2);
-                border-color: $red1;
+                border: rem(2.4) solid $invalid-red;
                 padding-left: rem(9);
             }
 
@@ -106,7 +107,7 @@
         .invalid-feedback {
             color: $red1;
             font-weight: 500;
-            font-size: rem(14);
+            font-size: rem(16);
             letter-spacing: 0;
         }
 
@@ -148,48 +149,9 @@
 .billing-address,
 .shipping-form {
     .form-group {
-        .form-control {
-            transition: none;
-
-            &.is-invalid {
-                border: rem(1) solid $invalid-red;
-                border-width: rem(1);
-                background: url("../../images/invalid.svg") center right no-repeat;
-                background-position-x: 97%;
-                @include media-breakpoint-down(sm) {
-                    background: none;
-                }
-            }
-
-            &#shippingState,
-            &#shippingCountrydefault,
-            &#billingState,
-            &#billingCountry {
-                &.form-control {
-                    &.is-invalid {
-                        background-position-x: 82%;
-                    }
-                }
-            }
-
-            &#shippingZipCode,
-            &#shippingLastName,
-            &#shippingFirstName,
-            &#shippingAddressCity,
-            &#billingZipCode,
-            &#billingAddressCity,
-            &#billingFirstName,
-            &#billingLastName {
-                &.form-control {
-                    &.is-invalid {
-                        background-position-x: 93.5%;
-                    }
-                }
-            }
-        }
 
         .invalid-feedback {
-            font-size: rem(11);
+            font-size: rem(16);
             font-weight: 500;
             letter-spacing: rem(0.33);
             line-height: rem(24);
@@ -268,6 +230,10 @@
         &-list,
         &-list span {
             letter-spacing: normal;
+
+            .display-name {
+                font-family: $font-medium;
+            }
         }
     }
 
@@ -276,9 +242,9 @@
             span,
             p {
                 letter-spacing: normal;
-                font-family: $font-book;
-                text-transform: uppercase;
+                font-family: $font-brandon-grotesque;
                 font-size: rem(14);
+                text-transform: uppercase;
                 letter-spacing: rem(1);
             }
         }
@@ -325,14 +291,14 @@
         span,
         p {
             letter-spacing: normal;
-            font-family: $font-book;
+            font-family: $font-brandon-grotesque;
         }
     }
 
     .edit-button,
     .order-thank-you-email-msg {
         letter-spacing: normal;
-        font-family: $font-book;
+        font-family: $font-brandon-grotesque;
         color: $dark-gray2;
 
         &:hover {
@@ -477,8 +443,8 @@ header {
 
             .checkout-text {
                 h5 {
+                    font-family: $font-brandon-grotesque;
                     font-size: rem(15);
-                    font-family: $font-medium;
                     color: $dark-gray;
                     opacity: 1;
                     text-transform: uppercase;
@@ -543,9 +509,10 @@ header {
             }
 
             p {
+                font-family:$font-brandon-grotesque;
+                font-size: rem(12);
                 display: flex;
                 align-items: center;
-                font-size: rem(12);
                 text-transform: uppercase;
                 text-decoration: none;
                 margin-bottom: rem(0);
@@ -616,6 +583,7 @@ header {
         li {
             &.active {
                 p {
+                    font-family:$font-brandon-grotesque;
                     .step {
                         &-text {
                             color: $black;
@@ -634,6 +602,7 @@ header {
 
             &.completed {
                 p {
+                    font-family:$font-brandon-grotesque;
                     &:after {
                         color: $black;
                         opacity: 1;
@@ -1000,6 +969,7 @@ header {
             
                     h4 {
                         color: $light-black4;
+                        font-family: $font-brandon-grotesque;
                         font-size: rem(15);
                         font-weight: 500;
                         letter-spacing: rem(0.7);
@@ -1024,6 +994,7 @@ header {
                         
                                 .start-lines {
                                     p {
+                                        font-family: $font-brandon-grotesque;
                                         margin: rem(0);
                                     }
                                     .order-receipt-label {
@@ -1227,9 +1198,10 @@ header {
 
                     
                     &.is-invalid {
+                        border: rem(2.4) solid $invalid-red;
 
                         &:focus {
-                            border: rem(1) solid $invalid-red;
+                            border: rem(2.4) solid $invalid-red;
                         }
                     }
                 }    
@@ -1259,17 +1231,19 @@ header {
                             }
 
                             &.is-invalid {
+                                border: rem(2.4) solid $invalid-red;
 
                                 &:focus {
-                                    border: rem(1) solid $invalid-red;
+                                    border: rem(2.4) solid $invalid-red;
                                 }
                             }
                         }
 
                         &.is-invalid {
+                            border: rem(2.4) solid $invalid-red;
 
                             &:focus {
-                                border: rem(1) solid $invalid-red;
+                                border: rem(2.4) solid $invalid-red;
                             }
                         }
 

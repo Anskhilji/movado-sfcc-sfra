@@ -5,6 +5,13 @@
     margin: rem(20px) auto;
     padding: 0;
 
+    .address-book-header {
+
+        .address-book-header-title {
+            font-family: $font-brandon-grotesque;
+        }
+    }
+   
     .back-link {
         color: $dark-gray2;
 
@@ -84,6 +91,17 @@
                 outline: 0;
                 line-height: normal;
             }
+        }
+    }
+
+    .card-header {
+        
+        h3 {
+            font-family: $font-brandon-grotesque;
+        }
+
+        .address-heading {
+            font-family: $font-brandon-grotesque;
         }
     }
 }
