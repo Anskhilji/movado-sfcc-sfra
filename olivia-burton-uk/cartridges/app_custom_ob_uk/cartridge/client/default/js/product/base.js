@@ -787,10 +787,13 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
             }
             
             $modalContent.removeClass('d-none');
+            $footerContent.removeClass('d-none');
             $('.recomendation-carousel-wrapper').html($carouselContent);
             $('#addToCartModal .modal-footer').html($footerContent);
             $('#addToCartModal .modal-body p').addClass(messageType);
         }
+    } else {
+        $footerContent.removeClass('d-none');
     }
 
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
@@ -824,7 +827,7 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
                     var $pid = $(this).data('rec-pid');
                     $productIds.push($pid);
                 });
-                
+
                 if ($productIds.indexOf($currentProduct) > -1) {
                     var $currentAddedProduct = $('#addToCartModal').find('[data-rec-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp-redesign');
                     $currentAddedProduct.addClass('active');
