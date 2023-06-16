@@ -19,12 +19,7 @@
                 <div class="header-wrapper">
                     <div class="row overlay"></div>
                     <div class="row header-container order-1 order-lg-2">
-                        <div class="justify-content-start navbar-header header-logo">
-                            <div class="d-none d-lg-inline-block">
-                                <isslot id="brand-logo" description="Brand Logo" context="global" />
-                            </div>
-                        </div>
-                        <div class="p-0 nav-left justify-content-center main-menu desktop-menu">
+                        <div class="p-0 nav-left  main-menu desktop-menu">
                             <div class="d-none d-lg-inline-block">
                                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
                                 <iscomment>Custom Start: Here it is not needed
@@ -38,6 +33,11 @@
                                 <div class="navbar-toggler menu-icon-mvmt-hamburger">
                                     <iscontentasset aid="mvmt-redesign-hamburger-icon" />
                                 </div>
+                            </div>
+                        </div>
+                        <div class="justify-content-start navbar-header header-logo">
+                            <div class="d-none d-lg-inline-block">
+                                <isslot id="brand-logo" description="Brand Logo" context="global" />
                             </div>
                         </div>
                         <div class="center-align nav-center mvmt-mobile-header-logo d-lg-none d-block">
@@ -98,13 +98,6 @@
                                             </svg>
                                         </span>
                                     </button>
-                                </div>
-                                <div class="main-level-item header-nav-dots-icon">
-                                    <span class="header-dots">
-                                        <svg width="1" height="16" viewBox="0 0 1 16" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0 3h1v1H0zM0 0h1v1H0zM0 6h1v1H0zM0 9h1v1H0zM0 12h1v1H0zM0 15h1v1H0z"></path>
-                                        </svg>
-                                    </span>
                                 </div>
                                 <a href="javascript:void(0);" class="search-icon header-icon" ></a>
                                 <div class="main-level-item navbar-header account-wrapper search">
