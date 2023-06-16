@@ -548,7 +548,6 @@ footer {
 footer {
     background-color: $dark-pink1;
     margin: 0;
-
     .terms-and-conditions {
         height: rem(54);
         max-width: rem(1280);
@@ -560,28 +559,23 @@ footer {
         border-top: rem(1) solid $transparent-gray-3;
         box-shadow: none;
         padding: rem(20) 0;
-
         @include media-breakpoint-down(sm) {
             border: 0;
             height: auto;
             padding: 0 rem(20);
         }
-
         .content-asset {
             width: 100%;
-
             .copyright {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 margin: 0;
                 width: 100%;
-
                 @include media-breakpoint-down(sm) {
                     flex-direction: column-reverse;
                     align-items: initial;
                 }
-
                 .copy-rights {
                     font-weight: 390;
                     font-size: rem(12);
@@ -589,7 +583,6 @@ footer {
                     line-height: rem(14.4);
                     letter-spacing: unset;
                     font-family: $font-brandon-grotesque;
-
                     @include media-breakpoint-down(sm) {
                         width: 100%;
                         text-align: initial;
@@ -598,22 +591,18 @@ footer {
                         border-top: rem(1) solid $border-gray1;
                     }
                 }
-
                 .policy-copyright-list {
                     padding: 0;
                     margin: 0;
-
                     @include media-breakpoint-down(sm) {
                         text-align: initial;
                         flex-wrap: wrap;
                         justify-content: inherit;
                     }
-
                     .policy {
                         border: none;
                         margin-right: rem(20);
                         padding: 0;
-
                         @include media-breakpoint-down(sm) {
                             width: 50%;
                             flex-basis: 48%;
@@ -621,11 +610,9 @@ footer {
                             margin-right: 0;
                             margin-bottom: rem(12);
                         }
-
                         &:last-child {
                             margin-right: 0;
                         }
-
                         a {
                             font-weight: 390;
                             font-size: rem(12);
@@ -634,7 +621,6 @@ footer {
                             color: $dark-gray2;
                             text-transform: capitalize;
                             font-family: $font-brandon-grotesque;
-
                             @include media-breakpoint-down(sm) {
                                 font-weight: 390;
                                 font-size: rem(12);
@@ -651,47 +637,45 @@ footer {
 
     .container-fluid {
         padding: 0 rem(50);
-
         @media (min-width:$container-max-width) {
             max-width: rem(1280);
             margin: 0 auto;
             padding: 0;
         }
-
         @include media-breakpoint-down(sm) {
             padding: 0; 
         }
-
         .footer-container {
             margin: rem(40) 0 rem(20) 0;
             width: 100%;
             flex-wrap: nowrap;
 
+            .submission-status {
+                &.success {
+                    display: none;
+                }
+            }
+
             @include media-breakpoint-down(sm) {
                 margin-top: 0;
             }
-
             .desktop-esw-country {
                 
                 @include media-breakpoint-down(sm) {
                     display: none;
                 }
             }
-
             .mobile-esw-contury {
                 display: none;
-
                 @include media-breakpoint-down(sm) {
                     display: block;
                     padding: 0 rem(20);
                     margin-top: rem(20);
                 }
             }
-
             @include media-breakpoint-down(md) {
                 flex-wrap: wrap;
             }
-
             .btn-primary {
                 background-color: unset;
                 border: unset;
@@ -702,31 +686,32 @@ footer {
                 letter-spacing: 0.02em;
                 padding: rem(15) rem(20);
                 font-family: $font-brandon-grotesque;
-
                 &:hover {
                     opacity: 1;
+                }
+
+                &:active {
+                    background-color: transparent;
+                    border: none;
+                    color: $dark-gray2;
                 }
 
                 @include media-breakpoint-down(sm) {
                     padding: rem(16) rem(20);
                 }
             }
-
             .home-email-signup {
                 padding: 0;
                 background: transparent;
                 min-width: auto;
-
                 @media (min-width:$container-max-width) {
                     min-width: rem(400);
                 }
-
                 @include media-breakpoint-down(sm) {
                     background-color: $cyan-blue2;
                     padding: 0 rem(20);
                     padding-bottom: rem(16);
                 }
-
                 .email-description {
                     color: $dark-gray2;
                     font-weight: 400;
@@ -735,15 +720,7 @@ footer {
                     letter-spacing: 0.02em;
                     margin-bottom: rem(8);
                     text-transform: unset;
-                    font-family: $font-brandon-grotesque;
-
-                    @include media-breakpoint-down(sm) {
-                      display: none;
-                    }
-                }
-
-                .mobile-desc {
-                    display: none;
+                    font-family: $font-ivypresto-headline;
 
                     @include media-breakpoint-down(sm) {
                         font-weight: 400;
@@ -752,10 +729,8 @@ footer {
                         text-align: center;
                         letter-spacing: 0.02em;
                         margin-top: rem(20);
-                        display: block;
                     }
                 }
-
                 .email-desc {
                     font-weight: 390;
                     font-size: rem(16);
@@ -764,32 +739,27 @@ footer {
                     margin-bottom: rem(20);
                     letter-spacing: inherit;
                     font-family: $font-brandon-grotesque;
-
                     @include media-breakpoint-down(sm) {
                         line-height: rem(19.6);
                         text-align: center;
                         font-size: rem(14);
                         margin-bottom: rem(16);
                     }
-
                     > div {
                         font-family: $font-brandon-grotesque;
                     }
                 }
-
                 .input-group {
                     max-width: 100%;
                     border-radius: rem(130);
-                    background-color: $gray94;
+                    background-color: $gray95;
                     overflow: hidden;
                     flex-wrap: nowrap;
-
                     @include media-breakpoint-down(sm) {
                         background-color: $dark-pink1;
                     }
-
                     input {
-                        background-color: $gray94;
+                        background-color: $gray95;
                         color: $dark-gray2;
                         font-weight: 390;
                         font-size: rem(12);
@@ -797,20 +767,54 @@ footer {
                         height: auto;
                         font-family: $font-brandon-grotesque;
                         width: 100%;
+                        padding: rem(15) rem(20);
 
                         &::placeholder {
                             color: $dark-gray2;
                         }
+                        
+                        &:-webkit-autofill {
+                            -webkit-box-shadow: 0 0 0 rem(30) $gray95 inset !important; // i'm using important to overwrite inline css
+                        }
 
                         @include media-breakpoint-down(sm) {
                             background-color: $dark-pink1;
+                            padding: rem(16) rem(20);
+
+                            &:-webkit-autofill {
+                                -webkit-box-shadow: 0 0 0 rem(30) $dark-pink1 inset !important; // i'm using important to overwrite inline css
+                            }
                         }    
                     }
-                }
 
+                    .success-method {
+                        display: flex;
+                        align-items: center;
+                        height: rem(44);
+                        @include media-breakpoint-down(sm) {
+                            height: rem(46);
+                        }
+                        .email-subscription-loader {
+                            animation: rotation 1s linear infinite;
+                            min-width: rem(17);
+                            height: rem(17);
+                            margin: rem(15) rem(20);
+                            @include media-breakpoint-down(sm) {
+                                margin-top: rem(16);
+                            }
+                        }
+                        .email-subscription-success {
+                            min-width: rem(17);
+                            height: rem(17);
+                            margin: rem(15) rem(20);
+                            @include media-breakpoint-down(sm) {
+                                margin-top: rem(16);
+                            }
+                        }
+                    }
+                }
                 .business-info {
                     display: none;
-
                     @include media-breakpoint-down(sm) {
                         display: block;
                         font-weight: 450;
@@ -822,35 +826,35 @@ footer {
                         letter-spacing: inherit;
                     }
                 }
-
                 .footer-social-links {
                     display: block;
                     margin: rem(40) 0;
-
                     @include media-breakpoint-down(sm) {
                         display: none;
                     }
                  }
-
                  .social-links {
-
                     @include media-breakpoint-up(md) {
-
                         li {
                             margin-right: rem(14);
-
                             &:last-child {
                                 margin-right: 0;
                             }
                         }
                     }
 
+                    @include media-breakpoint-down(md-down) {
+                        li {
+                            margin-right: rem(14);
+                            &:last-child {
+                                margin-right: 0;
+                            }
+                        }
+                    }
                     @include media-breakpoint-up(sm) {
                             display: flex;
                             align-items: center;
-
                             li {
-
                                 a {
                                     padding: 0;
                                 
@@ -872,30 +876,23 @@ footer {
                 margin-left: rem(80);
                 padding: 0;
                 width: 100%;
-
                 @include media-breakpoint-down(sm) {
                     padding: 0 rem(20);
                 }
-
                 .mobile-view {
-
                     .menu-footer {
                         
                         @include media-breakpoint-down(sm) {
                             background: transparent;
-
                             li {
                                 padding-top: rem(14);
-
                                 &:first-child {
                                     padding-top: rem(0);
                                 }
-
                                 &:last-child {
                                     padding-bottom: rem(20);
                                     border-bottom: rem(1) solid $transparent-gray-3;
                                 }
-
                                 a {
                                     padding: 0;
                                     font-family: $font-brandon-grotesque;
@@ -909,7 +906,6 @@ footer {
                             }
                         }
                     }
-
                     .title {
                         padding-top: rem(20);
                         padding-bottom: rem(16);
@@ -925,7 +921,6 @@ footer {
                         text-transform: capitalize;
                         font-family: $font-brandon-grotesque;
                         letter-spacing: 0;
-
                         &::after {
                             background-image: url(../images/minus-icons.svg);
                             right: 0;
@@ -934,7 +929,6 @@ footer {
                             top: 54%;
                             transform: translate(0, -50%);
                         }
-
                         &.collapsed {
                             
                             @include media-breakpoint-down(sm) {
@@ -947,7 +941,6 @@ footer {
                                 line-height: rem(17);
                                 color: $dark-gray2;
                                 border-bottom: rem(1) solid $transparent-gray-3;
-
                                 &::after {
                                     background-image: url(../images/plus-icons.svg);
                                     right: 0;
@@ -960,14 +953,11 @@ footer {
                         }
                     }
                 }
-
                 .mobile-social-link {
                     display: none;
-
                     @include media-breakpoint-down(sm) {
                         display: block;
                     } 
-
                     .social-links {
                         max-width: rem(227);
                         width: 100%;
@@ -975,11 +965,8 @@ footer {
                         display: flex;
                         margin-bottom: rem(30);
 
-
                         @include media-breakpoint-down(sm) {
-
                             .facebook {
-
                                 a {
     
                                     i {
@@ -1012,7 +999,6 @@ footer {
     
                             }
                         }
-
                         .yotube {
                             
                             a {
@@ -1036,7 +1022,6 @@ footer {
                                 @include media-breakpoint-down(sm) {
                                     padding: 0;
                                 }
-
                                 i {
                                     
                                     @include media-breakpoint-down(sm) {
@@ -1050,44 +1035,34 @@ footer {
                         }
                     }
                 }
-
                 @include media-breakpoint-down(md) {
                     margin-left: 0;
                     margin-top: rem(30);
                 }
-
                 .brands-name {
                     display: flex;
                     font-family: $font-brandon-grotesque;
-
                     .hidden-md-up {
-
                         @include media-breakpoint-down(md) {
                             display: none;
                         }
-
                         @include media-breakpoint-down(sm) {
                             display: block;
                         }
                     }
-
                     @include media-breakpoint-down(sm) {
                         flex-wrap: wrap;
                     }
-
                     .desktop-view {
                         min-width: auto;
                         width: 100%;
                         margin-left: rem(40);
-
                         &:first-child {
                             margin-left: 0;
                         }
-
                         @media (min-width:$container-max-width) {
                             min-width: rem(240);
                         }
-
                         .title {
                             font-weight: 450;
                             font-size: rem(16);
@@ -1097,18 +1072,14 @@ footer {
                             font-family: $font-brandon-grotesque;
                             letter-spacing: 0;
                         }
-
                         .menu-footer {
                             margin-top: rem(22);
-
                             li {
                                 height: auto;
                                 margin-bottom: rem(21);
-
                                 &:last-child {
                                     margin-bottom: 0;
                                 }
-
                                 a {
                                     font-weight: 390;
                                     font-size: rem(16);
@@ -1125,4 +1096,9 @@ footer {
             }
         }
     }
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
 }
