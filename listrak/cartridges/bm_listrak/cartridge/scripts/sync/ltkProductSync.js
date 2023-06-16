@@ -237,7 +237,7 @@ function productSync() {
                 }
 
                 // Custom Start: Adding Sales info [MSS-1473]
-                productFile.AddRowItem(!empty(prd.salePrice) && prd.onSale ? true : false, true);
+                productFile.AddRowItem(!empty(prd.salePrice) && prd.salePrice < prd.price && prd.onSale ? true : false, true);
                 // Custom End
 
                 // Custom Start: Adding Category Value [MSS-1473]

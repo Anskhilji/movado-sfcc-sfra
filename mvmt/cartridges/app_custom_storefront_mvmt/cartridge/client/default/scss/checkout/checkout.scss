@@ -470,7 +470,7 @@ header {
             }
 
             .cart-icon {
-                background: url(../../images/cart-icon-black.svg) center center no-repeat;
+                background: url(../../images/cart-empty.svg) center center no-repeat;
                 width: rem(20);
                 height: rem(20);
             }
@@ -850,6 +850,10 @@ header {
             @include custom-media-query-1440($large-screen-width-1440) {
                 max-width: 100%;
             }
+        }
+
+        .minicart-quantity {
+            opacity: 0;
         }
     }
 }

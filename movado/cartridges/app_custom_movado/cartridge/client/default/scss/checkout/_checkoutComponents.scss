@@ -1358,6 +1358,7 @@ $stored-payment-spacing: rem(16);
                                         letter-spacing: rem(0.7);
                                         line-height: rem(22);
                                         color: $light-black2;
+                                        flex-direction: column;
                           
                                         .line-item-name {
                                             font-size: rem(16);
@@ -1372,7 +1373,33 @@ $stored-payment-spacing: rem(16);
                                                 line-height: rem(22);
                                             }
                                         }
-                                      
+
+                                        .line-item-brand-name {
+                                            margin-bottom: rem(11);
+
+                                            span {
+                                                font-family: $font-medium;
+                                                font-size: rem(16);
+                                                letter-spacing: rem(0.7);
+                                                line-height: rem(22);
+                                                font-weight: 600;
+                                                color: $light-black2;
+                                                text-transform: uppercase;
+                                                text-decoration: none;
+                                                position: relative;
+
+                                                &::before {
+                                                    content: '';
+                                                    display: block;
+                                                    position: absolute;
+                                                    height: rem(2);
+                                                    width: 100%;
+                                                    background-color: $black;
+                                                    bottom: rem(3);
+                                                }
+                                            }
+                                        }
+
                                         .item-options {
                 
                                             .line-item-option {

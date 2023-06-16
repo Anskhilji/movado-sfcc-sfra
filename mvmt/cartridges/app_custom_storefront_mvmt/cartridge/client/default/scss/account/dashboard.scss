@@ -182,16 +182,3 @@
         }
     }
 }
-
-.redeem-point-label {
-    font-size: rem(12);
-    text-transform: uppercase;
-    text-decoration: underline;
-    padding-top: rem(10);
-    padding-bottom: rem(20);
-    color: $dark-gray2;
-
-    &:hover {
-        color: $dark-blue-btn;
-    }
-}

@@ -3,6 +3,7 @@
         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}"/>
         <button class='add-to-cart btn btn-primary add-to-cart-plp ${!product.available ? "out-of-stock-btn" : ""} ${!pdict.readyToOrder ? "disabled" : ""}'
             data-pid="${product.id}"
+            data-plp-addtocart="true"
             data-product-set="${!empty(product.individualProducts) ? true : false}"
             data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
             ${!product.available ? "disabled" : ""} >
