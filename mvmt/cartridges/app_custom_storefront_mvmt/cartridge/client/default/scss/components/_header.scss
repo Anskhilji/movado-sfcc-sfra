@@ -129,7 +129,7 @@ header.new-header {
 
     .minicart-quantity {
       top: auto;
-      bottom: rem(0.7px);
+      bottom: rem(2);
       right: auto;
       left:50%;
       transform:translateX(-50%);
@@ -140,6 +140,8 @@ header.new-header {
       height: auto;
       width: 100%;
       background: none;
+      padding-left: rem(1);
+      opacity: 0;
     }
 
     .cart-icon.fill-cart-icon +span.minicart-quantity {
@@ -1363,6 +1365,7 @@ header.new-header.mvmt-header-design {
             top: auto;
             bottom: rem(1);
             right: auto;
+            opacity: 0;
           }
 
           .cart-icon.fill-cart-icon + div.minicart span.minicart-quantity {
