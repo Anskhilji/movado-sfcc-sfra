@@ -1,7 +1,7 @@
 <iscomment> Custom: HTML Structure change, added dropdowns for login button</iscomment>
 <isif condition="${pdict.name === null}">
   <div class="user user-not-login hidden-md-down" tabindex="0" aria-label="dropdownMenu Account" role="button">
-    <a href="${URLUtils.https('Login-Show')}"> ${Resource.msg('title.header.account', 'account', null)}
+    <a href="${URLUtils.https('Login-Show')}">
       <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="10.9531" cy="6" r="5" stroke="#1A1818" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M20.4906 18C19.2164 13.9429 15.4261 11 10.9484 11C6.47081 11 2.68051 13.9429 1.40625 18" stroke="#1A1818" stroke-linecap="round" stroke-linejoin="round"/>
@@ -14,11 +14,12 @@
   </div>
 <iselse/>
   <div class="user user-login hidden-md-down" tabindex="0" aria-label="dropdownMenu Account" role="button">
-    <a href="${URLUtils.https('Account-Show')}"> ${Resource.msg('title.header.account', 'account', null)} (${pdict.name})
+    <a href="${URLUtils.https('Account-Show')}">
       <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="10.9531" cy="6" r="5" stroke="#1A1818" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M20.4906 18C19.2164 13.9429 15.4261 11 10.9484 11C6.47081 11 2.68051 13.9429 1.40625 18" stroke="#1A1818" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
+      <div class="user-nam">${pdict.name}</div>
     </a>
     <ul class="popover popover-bottom">
       <li><a class="button button__outline button__outline--white" tabindex="0" href="${URLUtils.https('Account-Show')}">${Resource.msg('link.header.myaccount', 'account', null)}</a></li>
