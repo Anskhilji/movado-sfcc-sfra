@@ -727,7 +727,7 @@ function chooseBonusProducts(data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
-function handlePostCartAdd(response, addToCartRecommendationButton, currentRecommendedProduct) {
+function handlePostCartAdd(response, addToCartRecommendationButton, currentRecommendedProduct, addToCartButtonText) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
 
@@ -764,15 +764,29 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
     var $modalContent = $('.add-to-cart-modal-content');
     var $carouselContent = $('.new-rec-carosel');
     var $footerContent = $('.add-to-cart-modal-content-footer');
+    var $popUpContent = $('#addToCartModal .modal-success-text');
 
     // show add to cart modal
     if (addToCartRecommendationButton !== true) {
         if (response.error === true || response.error.errorText) {
-            $addToCartPopup.removeClass('d-none');
+            if ($modalContent.length > 0) {
+                $($popUpContent).html($modalContent);
+                $($popUpContent).addClass('d-none');
+            }
             $('#addToCartModal .modal-body').html(response.message);
             $('#addToCartModal .modal-body p').addClass(messageType);
         } else {
-            $('#addToCartModal .modal-body').html($modalContent);
+            if ($modalContent.length > 0) {
+                var $popUpContent = $modalContent;
+            }
+            
+            if ($modalContent.length > 0) {
+                $('#addToCartModal .modal-body').html($modalContent);
+            } else {
+                $('#addToCartModal .modal-body').html($popUpContent);
+            }
+            
+            $modalContent.removeClass('d-none');
             $('.recomendation-carousel-wrapper').html($carouselContent);
             $('#addToCartModal .modal-footer').html($footerContent);
             $('#addToCartModal .modal-body p').addClass(messageType);
@@ -794,6 +808,10 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
         var priceTitle = 'Estimated Cart Total: ';
+        var addToCartText = window.Resources.BUTTON_ADD_TO_CART ? window.Resources.BUTTON_ADD_TO_CART : '';
+        var addedToCartText = window.Resources.BUTTON_ADDED_TO_CART ? window.Resources.BUTTON_ADDED_TO_CART : '';
+        var addedToBagText = window.Resources.BUTTON_ADDED_TO_BAG ? window.Resources.BUTTON_ADDED_TO_BAG : '';
+
         if ($('#addToCartModal').find('.total-price').length > 0 && response && response.cart && response.cart.totals && response.cart.totals.grandTotal) {
             $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
         }
@@ -807,7 +825,11 @@ function handlePostCartAdd(response, addToCartRecommendationButton, currentRecom
             if ($productIds.indexOf($currentProduct) > -1) {
                 var $currentAddedProduct = $('#addToCartModal').find('[data-rec-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp-redesign');
                 $currentAddedProduct.addClass('active');
-                $('#addToCartModal .updated-text').text('Added To Cart');
+                if (addToCartButtonText === addToCartText) {
+                    $('#addToCartModal .updated-text').text(addedToCartText);
+                } else {
+                    $('#addToCartModal .updated-text').text(addedToBagText);
+                }
             }
         }
         $('.slick-slider').slick('refresh');
@@ -820,15 +842,15 @@ function slickSliderReinitialize() {
     // Get the data value from the data-carousel-config attribute
     var $slickCarouselConfig = $slickCarouselSlider.data('carousel-config');
 
-     // Unslick the slider to reset the configuration
-     $slickCarouselSlider.slick('unslick');
-     $slickCarouselSlider.addClass('d-none');
-     
-     setTimeout(() => {
-         // Reinitialize the slider to reset the configuration
-         $slickCarouselSlider.slick($slickCarouselConfig);
-        $slickCarouselSlider.removeClass('d-none');
-     }, 2000);
+    // Unslick the slider to reset the configuration
+    $slickCarouselSlider.slick('unslick');
+    $slickCarouselSlider.addClass('d-none');
+    
+    setTimeout(() => {
+        // Reinitialize the slider to reset the configuration
+        $slickCarouselSlider.slick($slickCarouselConfig);
+       $slickCarouselSlider.removeClass('d-none');
+    }, 2000);
 }
 
 /**
@@ -1362,6 +1384,7 @@ module.exports = {
                 quantity: 1
             };
             var currentRecommendedProduct = $(this).data('rec-pid');
+            var addToCartButtonText = $(this).data('add-to-cart-text')
             if (addToCartUrl) {
                 $.ajax({
                     url: addToCartUrl,
@@ -1369,7 +1392,7 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data, addToCartRecommendationButton, currentRecommendedProduct);
+                        handlePostCartAdd(data, addToCartRecommendationButton, currentRecommendedProduct, addToCartButtonText);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');

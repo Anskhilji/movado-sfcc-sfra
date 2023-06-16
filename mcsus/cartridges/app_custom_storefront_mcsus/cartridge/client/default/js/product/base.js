@@ -985,6 +985,8 @@ var updateCartPage = function (data) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
         var priceTitle = 'Estimated Cart Total: ';
+        var addedToCartText = window.Resources.BUTTON_ADDED_TO_CART ? window.Resources.BUTTON_ADDED_TO_CART : '';
+
         if ($('#addToCartModal').find('.total-price').length > 0 && response && response.cart && response.cart.totals && response.cart.totals.grandTotal) {
             $('#addToCartModal').find('.total-price').text(priceTitle + response.cart.totals.grandTotal);
         }
@@ -1000,7 +1002,7 @@ var updateCartPage = function (data) {
                 if ($productIds.indexOf(parseInt($currentProduct)) > -1) {
                     var $currentAddedProduct = $('#addToCartModal').find('[data-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp');
                     $currentAddedProduct.addClass('active');
-                    $('#addToCartModal .updated-text').text('Added To Cart');
+                    $('#addToCartModal .updated-text').text(addedToCartText);
                 }
         }
         $('#addToCartModal').modal('show');
