@@ -1,4 +1,4 @@
-<div class="new-rec-carosel-modal">
+<div class="new-rec-carosel new-rec-carosel-modal">
     <isif condition="${!empty(slotcontent) && !!slotcontent.content.length}">
         <div class="cs-carousel-wrapper recommendation-carousel-pdp">
             <isif condition="${!empty(slotcontent.custom.carouselTitle)}">

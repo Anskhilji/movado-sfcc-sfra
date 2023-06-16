@@ -4,7 +4,7 @@
             window.slickSlider.initCarousel($('.recommendation-carousel-pdp'));
         });
     </script>
-    <div class="new-rec-carosel-modal">
+    <div class="new-rec-carosel-modal new-rec-carosel">
         <div class="cs-carousel-wrapper recommendation-carousel-pdp">
             <isif condition="${!empty(slotcontent.custom.carouselTitle)}">
                 <h3 class="carousel-title ${slotcontent.custom.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${slotcontent.custom.carouselTitle}</h3>
