@@ -1,0 +1,227 @@
+@import '../variables';
+@import '../mixins';
+@import "bootstrap/scss/mixins/breakpoints";
+
+header {
+
+    &.new-header {
+        
+        &.transparent-header {
+
+            // Custom:MSS-2234  this style only works when the header transparent
+            &.home-header-transparent {
+
+                .overlay {
+                    height: auto;
+                }
+
+                // Custom:MSS-2234 text white class
+                &.header-white-text{
+
+                    .sticky-header-wrapper {
+
+                        .header-menu-wrapper {
+
+                            &.non-sticky{
+
+                                &.sticky-header {
+
+                                    &:hover {
+                                        background-color: $white;
+                                    }
+                                }
+
+                                .header-wrapper {
+                                    border-color: $transparent-gray-2;
+                                    
+                                    .header-container {
+                                        box-shadow: none;
+    
+                                        // Css Filter Apply
+                                        .header-logo,
+                                        .mvmt-mobile-header-logo,
+                                        .nav-left,
+                                        .main-level-item,
+                                        .minicart-text,
+                                        .cart-icon,
+                                        .mobile-cart-close-icon {
+                                            @include filter;
+                                        }
+    
+                                        .nav-left {
+                                            background: transparent;
+                                        } 
+
+                                        // Css Filter remove
+                                        .main-level-item {
+
+                                            &.minicart {
+                                                @include filterRemove;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Custom:MSS-2234 text black class
+                &.header-black-text{
+
+                    .sticky-header-wrapper {
+
+                        .header-menu-wrapper {
+
+                            &.non-sticky{
+
+                                .header-wrapper {
+                                    border-color: $transparent-gray-3;
+                                    
+                                    .header-container {
+
+                                        // css Filter remove
+                                        .header-logo,
+                                        .mvmt-mobile-header-logo,
+                                        .nav-left,
+                                        .main-level-item,
+                                        .minicart-text,
+                                        .cart-icon,
+                                        .mobile-cart-close-iconn {
+                                            @include filterRemove;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Custom:MSS-2234 when search open than the header solid
+                &.solid-header {
+
+                    .sticky-header-wrapper {
+
+                        .header-menu-wrapper {
+
+                            &.non-sticky{
+                                background-color: $white;
+
+                                @include media-breakpoint-down(xs) {
+                                    z-index: 1124;
+                                }
+    
+                                &.sticky-header {
+                                    background-color: $white;
+                                }
+    
+                                .header-wrapper {
+                                   background-color: $white;
+                                   border-color: $gray94;
+    
+                                    .header-container {
+                                        box-shadow: none;
+
+                                        // Css Filter remove
+                                        .header-logo,
+                                        .mvmt-mobile-header-logo,
+                                        .nav-left,
+                                        .main-level-item,
+                                        .minicart-text,
+                                        .cart-icon,
+                                        .mobile-cart-close-icon {
+                                            @include filterRemove;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Custom:MSS-2234 when header transparent active
+                .sticky-header-wrapper {
+                    min-height: auto;
+
+                    .header-menu-wrapper {
+
+                        &.non-sticky{
+                            background-color: transparent;
+                            position: absolute;
+                            width: 100%;
+                            z-index: 1005;
+                           
+                            &:hover {
+                                background-color: $white;
+
+                                .header-wrapper {
+                                    border-color: $gray94;
+                                    background-color: $white;
+                                }
+                            }
+                            
+                            &.sticky-header {
+                                position: fixed;
+                                background-color: transparent;
+                                
+                                &:hover {
+                                    background-color: $white;
+                                }
+                            }
+
+                            .header-wrapper {
+                                background-color: transparent;
+                                height: auto;
+                                border-color: transparent;
+
+                                .header-container {
+                                    box-shadow: none;
+
+                                    // Css Filter Apply
+                                    .header-logo,
+                                    .mvmt-mobile-header-logo,
+                                    .nav-left,
+                                    .main-level-item,
+                                    .minicart-text,
+                                    .cart-icon,
+                                    .mobile-cart-close-icon {
+                                        @include filter;
+                                    }
+
+                                    .nav-left {
+                                        background: transparent;
+                                    }
+
+                                    // Css Filter remove
+                                    .main-level-item {
+                                        
+                                        &.minicart {
+                                            @include filterRemove;
+                                        }
+                                    }
+                                }
+
+                                &:hover {
+
+                                    .header-container {
+
+                                        // css Filter remove
+                                        .header-logo,
+                                        .mvmt-mobile-header-logo,
+                                        .nav-left,
+                                        .main-level-item,
+                                        .minicart-text,
+                                        .cart-icon,
+                                        .mobile-cart-close-icon {
+                                            @include filterRemove;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

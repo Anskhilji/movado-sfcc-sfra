@@ -57,6 +57,9 @@ $('.desktop-search-icon').click(function() {
         showShortText();
     }
     $('.desktop-side-search .header-search-field').focus();
+
+    // Custom:MSS-2034 add class when open search
+    $('.home-header-transparent').addClass('solid-header');
 });
 
 $('.header-mobile-categories .header-mobile-category').click(function() {
@@ -87,6 +90,12 @@ $('#overlay, .search-modal-open').click(function() {
     $('.desktop-side-search').removeClass('desktop-search-active');
     $('.search-modal-open').removeClass('active');
     $('.search-modal-open').removeClass('color-or-family');
+    
+    // Custom:MSS-2234 
+    setTimeout(function() {
+        $('.home-header-transparent').removeClass('solid-header'); 
+    }, 300);
+
     $('.search-field').val('');
     if ($stickyHeader.hasClass('fixed-header')){
         $(".search-input-field").removeClass('search-input-field-remove');
@@ -112,6 +121,11 @@ $('.mobile-search-close-text').click(function() {
     $('.search-modal-open').removeClass('active');
     $('.search-modal-open').removeClass('color-or-family');
     $('.content-show').removeClass('d-none');
+
+    // Custom:MSS-2234 
+    setTimeout(function() {
+        $('.home-header-transparent').removeClass('solid-header'); 
+    }, 300);
 });
 
 $('.mobile-nav .mobile-subnav-btn').click(function() {
@@ -137,6 +151,11 @@ $('.desktop-search-close-text').click(function() {
     } else {
         $(".search-input-field").removeClass('search-input-field-add');
     }
+
+    // Custom:MSS-2234 
+    setTimeout(function() {
+        $('.home-header-transparent').removeClass('solid-header'); 
+    }, 400);
 });
 
 $('.header-search-field').focusout(function() {
@@ -259,4 +278,39 @@ $(window).scroll(function (event) {
             }
         });
  
+    // Custom:MSS-2234 Header tranparent
+    var $bannerViewPort = $('.banner-view-port');
+    
+    if($bannerViewPort.length > 0 ) {
+
+        var $divOffsetTop = $bannerViewPort.offset().top;
+        if (!$bannerViewPort.isOnScreen()) { // if on load banner is not in viewPort show 
+            if ($(window).scrollTop() > $divOffsetTop) {
+                $('.home-header-transparent').removeClass('transparent-header');
+            }
+        }
+
+        $(window).scroll(function () {
+            var $headerViewPort = $bannerViewPort.isOnScreen();
+            if ($headerViewPort) { // check if  banner is on screen
+                $('.home-header-transparent').addClass('transparent-header');// both bottom and top will hidde
+            } else {
+                $('.home-header-transparent').removeClass('transparent-header');
+            }
+        });
+    }    
 });
+
+$.fn.isOnScreen = function () {
+    var $win = $(window);
+    var $viewport = {
+        top: $win.scrollTop(),
+        left: $win.scrollLeft()
+    };
+    $viewport.right = $viewport.left + $win.width();
+    $viewport.bottom = $viewport.top + $win.height();
+    var $bounds = this.offset();
+    $bounds.right = $bounds.left + this.outerWidth();
+    $bounds.bottom = $bounds.top + this.outerHeight();
+    return (!($viewport.right < $bounds.left || $viewport.left > $bounds.right || $viewport.bottom < $bounds.top || $viewport.top > $bounds.bottom));
+};

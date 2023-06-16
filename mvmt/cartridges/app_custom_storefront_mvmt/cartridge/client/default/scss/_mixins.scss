@@ -27,3 +27,13 @@
     font-size: rem(16);
     line-height: rem(41);
 }
+
+@mixin filter {
+    filter: brightness(0.5) invert(1);
+    -webkit-filter: brightness(0.5) invert(1);
+}
+
+@mixin filterRemove {
+    filter: unset;
+    -webkit-filter: unset;
+}
