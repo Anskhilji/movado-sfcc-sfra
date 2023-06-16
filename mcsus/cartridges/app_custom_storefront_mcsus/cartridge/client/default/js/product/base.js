@@ -965,10 +965,13 @@ var updateCartPage = function (data) {
             }
             
             $modalContent.removeClass('d-none');
+            $footerContent.removeClass('d-none');
             $('.recomendation-carousel-wrapper').html($carouselContent);
             $('#addToCartModal .modal-footer').html($footerContent);
             $('#addToCartModal .modal-body p').addClass($messageType);
         }
+    } else {
+        $footerContent.removeClass('d-none');
     }
 
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
@@ -991,19 +994,22 @@ var updateCartPage = function (data) {
             $('#addToCartModal').find('.total-price').text($priceTitle + response.cart.totals.grandTotal);
         }
         if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
-            var $currentProduct = $currentRecommendedProduct ? $currentRecommendedProduct : '';
-            var $productIds = [];
-
-            $('#addToCartModal .add-to-cart-plp').each(function () {
-                var $pid = $(this).data('pid');
-                $productIds.push(parseInt($pid));
-            });
-
+            if (response.error !== true && !response.error.errorText) {
+                var $currentProduct = $currentRecommendedProduct ? $currentRecommendedProduct : '';
+                var $productIds = [];
+    
+                $('#addToCartModal .add-to-cart-plp').each(function () {
+                    var $pid = $(this).data('pid');
+                    $productIds.push(parseInt($pid));
+                });
+    
                 if ($productIds.indexOf(parseInt($currentProduct)) > -1) {
                     var $currentAddedProduct = $('#addToCartModal').find('[data-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp');
                     $currentAddedProduct.addClass('active');
-                    $('#addToCartModal .updated-text').text($addedToCartText);
-                }
+                    var $currentAddedProductText = $currentAddedProduct.find('.updated-text');
+                    $currentAddedProductText.text($addedToCartText);
+                } 
+            }
         }
         $('#addToCartModal').modal('show');
         $('.slick-slider').slick('refresh');
