@@ -83,9 +83,9 @@
                 </isif>
             </div>
             <iscomment> Custom End </iscomment>
-            <div class="terms-and-conditions justify-content-center row">
-                <iscontentasset aid="ca-footer-copy" />
-            </div>
+        </div>
+        <div class="terms-and-conditions justify-content-center row">
+            <iscontentasset aid="ca-footer-copy" />
         </div>
     
     <iscomment>Slot for Snackbar Popup</iscomment>

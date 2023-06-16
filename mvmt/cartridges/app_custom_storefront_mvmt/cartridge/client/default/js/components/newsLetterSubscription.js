@@ -99,7 +99,6 @@ $('#newsletterSubscribe').off('submit').on('submit', function (e) {
                 $emailSubmitBtn.removeClass('d-none');
                 $emailSubscriptionLoader.addClass('d-none');
             } else {
-                $.spinner().start();
                 $.ajax({
                     url: endPointUrl,
                     method: 'POST',
