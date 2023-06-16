@@ -151,10 +151,6 @@
     </nav>
 </header>
 
-<div class="header-banner lower-header-banner">
-    <isslot id="lower-header-banner" description="Slot below the site header" context="global" />
-</div>
-
 <div class="mini-cart-data">
     <div class="popover popover-bottom"></div>
 </div>

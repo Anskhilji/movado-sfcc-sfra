@@ -299,6 +299,31 @@ $(window).scroll(function (event) {
             }
         });
     }    
+    
+    // Custom:MSS-2260 Mobile Quick Shop Links
+    var $categoryViewPort = $('.shop-link-view-port');
+    var $termsAndConditions = $('.terms-and-conditions');
+    
+    if($categoryViewPort.length > 0 ) {
+        var $divOffsetTop = $categoryViewPort.offset().top;
+        if (!$categoryViewPort.isOnScreen()) { // if on load banner is not in viewPort show 
+            if ($(window).scrollTop() > $divOffsetTop) {
+                $('.bottom-header-sticky').addClass('bottom-header-fixed');
+            }
+        }
+        $(window).scroll(function () {
+            var $headerViewPort = $categoryViewPort.isOnScreen();
+            var $bottomHeaderHeight = $('.bottom-header-sticky').outerHeight();
+            if ($headerViewPort) { // check if  banner is on screen
+                $('.bottom-header-sticky').removeClass('bottom-header-fixed');
+            } else {
+                $('.bottom-header-sticky').addClass('bottom-header-fixed');
+            }
+            if($(window).width() < 992) {
+                $('.terms-and-conditions').css('padding-bottom', $bottomHeaderHeight+'px' )
+            }
+        });
+    }  
 });
 
 $.fn.isOnScreen = function () {
