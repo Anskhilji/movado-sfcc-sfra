@@ -391,7 +391,9 @@ function addGooglePayButton() {
         var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill-new-style');
         if ($googlePayButton.length === 0) {
             button = paymentsClient.createButton(buttonConfigs);
-            document.getElementById('google-pay-container-mini-cart').appendChild(button);
+            var googlePayMiniCart = document.getElementById('google-pay-container-mini-cart');
+            googlePayMiniCart.innerHTML = "";
+            googlePayMiniCart.appendChild(button);
         }
     }
 }
@@ -505,7 +507,6 @@ function onGooglePaymentButtonClicked() {
  */
 function processPayment(paymentData) {
     // show returned data in developer console for debugging
-    console.log(paymentData);
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
         setTimeout(function () {
