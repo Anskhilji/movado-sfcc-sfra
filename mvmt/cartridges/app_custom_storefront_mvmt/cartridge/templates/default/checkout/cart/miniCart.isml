@@ -50,7 +50,7 @@
             </isif>
         </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
-
+    <isinclude template="common/progressMeter" sf-toolkit="on" />
 
     <div class="product-summary">
         <div class="mini-cart-product">
