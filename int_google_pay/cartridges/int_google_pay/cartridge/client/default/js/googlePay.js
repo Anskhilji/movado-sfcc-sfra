@@ -506,8 +506,6 @@ function onGooglePaymentButtonClicked() {
  * @see {@link https://developers.google.com/pay/api/web/reference/response-objects#PaymentData|PaymentData object reference}
  */
 function processPayment(paymentData) {
-    // show returned data in developer console for debugging
-    console.log(paymentData);
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
         setTimeout(function () {
