@@ -469,7 +469,7 @@ function getPdpVariationUrls(product, apiProduct) {
                 colorVariations = product.variationAttributes[key];
             }
 
-            if (!empty(colorVariations) && !empty(colorVariations.values)) {
+            if (!empty(colorVariations) && !empty(colorVariations.values) && !empty(productVariants)) {
                 if (colorVariations.id === ATTRIBUTE_NAME) {
                     Object.keys(colorVariations.values).forEach(function (key) {
                         productVariants.filter(function (variant) {
