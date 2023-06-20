@@ -11,19 +11,48 @@
 
     <div class="container-fluid">
         <div class="footer-container row">
-            <div class="footer-left-contents footer-item col-sm-4 col-lg-3">
+            <div class="col-lg-3 col-md-12 footer-item footer-right-contents home-email-signup">
+                <h4 class="email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</h4>
+                <div class="email-desc">
+                    <iscontentasset aid="news-letter-subscribe-footer-redesign"/>
+                </div>
+                <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
+                    ${Resource.msg('newsletter.email.error', 'common', null)}
+                </div>
+                <isinclude template="components/newsLetter.isml">
+                <div class="footer-social-links">
+                    <div class="d-flex">
+                        <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
+                    </div>
+                </div>
+                <iscomment> Custom Start: Adding ESW Logic </iscomment>
+                <div class="desktop-esw-country">
+                    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+                    <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
+                        <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
+                        !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                    </isif>
+                </div>
+                <iscomment> Custom End </iscomment>
+            </div>
+            <div class="footer-left-contents footer-item col-sm-4 col-lg-3 d-none">
                 <iscontentasset aid="company-info" />
                 <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
             </div>
-            <div class="footer-center-contents col-lg-6 col-sm-8">
-                <div class="row">
-                    <div class="footer-item col-sm-4 desktop-view">
+            <div class="footer-center-contents">
+                <div class="footer-social-links mobile-social-link">
+                    <div class="d-flex">
+                        <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
+                    </div>
+                </div>
+                <div class="brands-name">
+                    <div class="footer-item  desktop-view">
                         <iscontentasset aid="mvmt-shop" />
                     </div>
                     <div class="footer-item col-sm-4 desktop-view">
                         <iscontentasset aid="ca-footer-account" />
                     </div>
-                    <div class="footer-item col-sm-4 desktop-view">
+                    <div class="footer-item desktop-view">
                         <iscontentasset aid="join-the-mvmt" />
                     </div>
                     <isif condition="${enableUsablenetAccessibility}">
@@ -45,31 +74,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-12 footer-item footer-right-contents home-email-signup">
-                <h4 class="email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</h4>
-                <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
-                    ${Resource.msg('newsletter.email.error', 'common', null)}
-                </div>
-                <isinclude template="components/newsLetter.isml">
-                <div class="footer-social-links">
-                    <div class="justify-content-center row">
-                        <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
-                    </div>
-                </div>
-                <iscomment> Custom Start: Adding ESW Logic </iscomment>
+            <iscomment> Custom Start: Adding ESW Logic </iscomment>
+            <div class="mobile-esw-contury">
                 <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
                 <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
                     <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                 </isif>
-                <iscomment> Custom End </iscomment>
             </div>
+            <iscomment> Custom End </iscomment>
         </div>
-    </div>
-
-    <div class="terms-and-conditions justify-content-center row">
-        <iscontentasset aid="ca-footer-copy" />
-    </div>
+        <div class="terms-and-conditions justify-content-center row">
+            <iscontentasset aid="ca-footer-copy" />
+        </div>
     
     <iscomment>Slot for Snackbar Popup</iscomment>
     <isslot id="snackbar-popup-slot" description="Snackbar Popup content Slot" context="global" />

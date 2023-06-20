@@ -1,7 +1,17 @@
 <isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addCss('/css/components/header-transparent.css');
+    </isscript>
+
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.home', 'eum', null))}"/>
     </isif>
+
+    <div class="header-banner lower-header-banner">
+        <isslot id="lower-header-banner" description="Slot below the site header" context="global" />
+    </div>
+
     <div class="content-slot-wrapper home-slots">
         <isslot id="cs-homepage-slot1" description="Homepage content Slot 1." context="global" />
         <isslot id="cs-homepage-slot2" description="Homepage content Slot 2." context="global" />
