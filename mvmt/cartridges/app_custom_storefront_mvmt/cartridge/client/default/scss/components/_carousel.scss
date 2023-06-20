@@ -1,0 +1,21 @@
+@import '~movado/components/carousel';
+
+@include media-breakpoint-up(md) {
+
+    .cs-carousel-wrapper {
+
+        .carousel-title {
+            font-family: $font-brandon-grotesque;
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    
+    .cs-carousel-wrapper {
+
+        .carousel-title {
+            font-family: $font-brandon-grotesque;
+        }
+    }
+}

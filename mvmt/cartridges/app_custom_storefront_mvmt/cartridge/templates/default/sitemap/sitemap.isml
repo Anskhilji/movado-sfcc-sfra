@@ -1,0 +1,36 @@
+<isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+  <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.misc', 'eum', null))}"/>
+</isif>
+<isdecorate template="common/layout/page">
+  <div class="container mb-5 mt-4 site-map">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="page-title mb-4">${Resource.msg('label.header.sitemap','common',null)}</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <isif condition="${pdict.categories}">
+          <isloop items="${pdict.categories}" var="category">
+            <h5>
+              <a href="<isprint value=" ${category.url}" encoding="htmldoublequote" />" title="${category.name}">
+                <isprint value="${category.name}" />
+              </a>
+            </h5>
+            <isif condition="${category.subCategories}">
+              <ul>
+                <isloop items="${category.subCategories}" var="subCat" status="stat">
+                  <li>
+                    <a href="<isprint value=" ${subCat.url}" encoding="htmldoublequote" />" title="${subCat.name}">
+                      <isprint value="${subCat.name}"/>
+                    </a>
+                  </li>
+                </isloop>
+              </ul>
+            </isif>
+          </isloop>
+        </isif>
+      </div>
+    </div>
+  </div>
+</isdecorate>
