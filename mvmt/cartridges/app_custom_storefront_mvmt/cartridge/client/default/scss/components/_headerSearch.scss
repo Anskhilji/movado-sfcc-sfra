@@ -93,6 +93,13 @@
         > a {
           font-size: rem(15);
 
+          @include media-breakpoint-down(md) {
+            
+            &:hover {
+              color: $dark-blue-btn;
+            }
+          }
+
           @include media-breakpoint-down(sm) {
             color: $black;
             font-family: $font-medium;
@@ -292,9 +299,9 @@
       h3 {
           @include media-breakpoint-down(md) {
               color: $night-rider;
-              font-family: $font-medium;
-              font-weight: 500;
+              font-family: $font-brandon-grotesque;
               font-size: rem(15);
+              font-weight: 500;
               line-height: rem(16);
               letter-spacing: rem(0.82);
               margin-bottom: rem(5);
@@ -396,8 +403,15 @@
                     border-radius: rem(2);
                     padding: 0 rem(17);
 
+                    &:hover {
+                      
+                      a {
+                        color: $dark-blue-btn;
+                      }
+                    }
+
                     a {
-                        color: $black;
+                        color: $dark-gray2;
                         padding: rem(10) 0;
                         font-family: $font-medium;
                         font-size: rem(12);
@@ -422,6 +436,11 @@
     font-size: rem(12);
     line-height: rem(16);
     letter-spacing: rem(0.82);
+    color: $dark-gray2;
+
+    &:hover {
+      color: $dark-blue-btn;
+    }
 
     .mobile-search-icon {
       padding: rem(17);
@@ -490,9 +509,9 @@
 
     h3 {
         color: $night-rider;
-        font-family: $font-medium;
-        font-weight: 500;
+        font-family: $font-brandon-grotesque;
         font-size: rem(13);
+        font-weight: 500;
         line-height: rem(16);
         letter-spacing: rem(0.82);
         margin-bottom: rem(5);
@@ -571,13 +590,17 @@
     float: right;
     font-family: $font-medium;
     padding-top: rem(20);
-    color: $light-gray12;
+    color: $dark-gray2;
     font-size: rem(15);
     font-weight: 500;
     letter-spacing: rem(1.02);
     line-height: rem(20);
     text-align: center;
     text-decoration: underline;
+
+    &:hover {
+      color: $dark-blue-btn;
+    }
 }
 
 .search-input-field {
