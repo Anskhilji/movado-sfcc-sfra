@@ -1,0 +1,46 @@
+@import "~movado/components/progressMeter";
+.mini-cart-data {
+    .progress-meter-container {
+        background: $light-blue3;
+        padding: rem(15) rem(40);
+        height: rem(60);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .got-free-shipping {
+            margin-bottom: rem(0);
+         }
+    }
+}
+.progress-meter-container {
+    margin-top: rem(20);
+
+    .progress-meter {
+        margin-bottom: 0;
+
+        &-free-shipping {
+            color: $dark-gray2;
+            font-size: rem(12);
+            line-height: rem(14);
+            margin-bottom: rem(8);
+        }
+
+        &-box {
+            border-radius: rem(4);
+            background-color: $transparent-gray-2;
+
+            &-bar {
+                border-radius: rem(4);
+
+                &.bar-green {
+                    background-color: $light-blue1;
+                }
+
+                &.bar-grey {
+                    background-color: $light-blue1;
+                }
+            }
+        }
+    }
+}
