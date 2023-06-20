@@ -62,6 +62,12 @@
             a {
                 text-transform: uppercase;
             }
+
+            .address-title {
+                font-family: $font-brandon-grotesque;
+                margin-top: rem(20);
+                margin-bottom: 0;
+            }
         }
 
         &-body {
@@ -91,7 +97,7 @@
         border: 0;
 
         h4 {
-            font-family: $font-book;
+            font-family: $font-brandon-grotesque;
             font-size: rem(20);
             line-height: rem(20);
             font-weight: 400;
@@ -120,4 +126,5 @@
     font-size: rem(10.8);
     height: rem(45);
     white-space: nowrap;
+    box-shadow: none;
 }

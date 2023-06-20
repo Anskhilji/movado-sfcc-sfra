@@ -38,6 +38,7 @@
     }
 
     h2 {
+        font-family: $font-ivypresto-headline;
         font-size: rem(18);
         letter-spacing: rem(2.5);
         margin-bottom: rem(20);
@@ -46,9 +47,8 @@
     p {
         margin: rem(9.44) 0;
         line-height: 2em;
-        font-family: $font-primary;
+        font-family: $font-brandon-grotesque;
         color: $dark-orange1;
-        font-size: rem(12);
         font-weight: 500;
         letter-spacing: rem(1);
     }
@@ -68,7 +68,7 @@
 
     &-title {
         text-transform: uppercase;
-        font-family: $font-medium;
+        font-family: $font-ivypresto-headline;
         font-size: rem(36);
         font-weight: 500;
         letter-spacing: rem(3.38);

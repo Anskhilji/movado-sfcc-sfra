@@ -206,8 +206,10 @@ function openMiniCart() {
 function updateCartIcons() {
     var $cartItems = $('.cart-quantity-items').data('quantity-id');
     var $cartIcon = $('.cart-icon');
+    var $cartCounter = $('.cart-counter');
     if ($cartItems !== undefined && $cartItems !== 0) {
         $cartIcon.addClass('fill-cart-icon');
+        $cartCounter.addClass('fill-cart-count');
     }
 }
 
