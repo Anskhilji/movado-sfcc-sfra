@@ -1,3 +1,4 @@
+@import '../variables';
 .product-tile-redesign {
   margin: 0 0 rem(20);
 
@@ -529,21 +530,41 @@
 }
 
 .cart-icon {
-  width: rem(17);
+  width: rem(14.17);
   height: rem(17);
-  background: url("../../images/Empty.svg") center center no-repeat;
+  background: url("../../images/cart-empty.svg") center center no-repeat;
   background-size: contain;
 
   &.fill-cart-icon {
-    width: rem(17);
+    width: rem(14.17);
     height: rem(17);
-    background: url("../../images/Full.svg") center center no-repeat;
+    background: url("../../images/cart-empty.svg") center center no-repeat;
     background-size: contain;
 
     span.minicart-quantity {
       color: $white;
     }
-  }
+  }  
+}
+
+.cart-quantity-items {
+
+    .cart-counter {
+        left: 50.82%;
+        right: 0%;
+        top: 0%;
+        bottom: 57.89%;
+        width: rem(8);
+        height: rem(8);
+        background-color: $red3;
+        position: absolute;
+        border-radius: 100%;
+        display: none;
+
+        &.fill-cart-count {
+            display: block;
+        }
+    }
 }
 
 .mvmt-plp-redesign {
@@ -617,10 +638,16 @@
       }
 
       .add-to-cart {
-        border-color: $light-green;
-        border-radius: rem(2.33008);
-        background-color: $emerald2;
+        border-color: $dark-gray2;
+        border-radius: rem(64.5);
+        background-color: $dark-gray2;
         color: $white;
+
+        &:hover,:focus {
+          background-color: $dark-blue-btn;
+          border-color: $dark-blue-btn;
+          color: $white;
+        }
 
         @include media-breakpoint-down(xs) {
           line-height: 0;
@@ -629,17 +656,20 @@
           max-height: rem(35);
           width: 100%;
           display: block;
-          background-color: $emerald2;
+          background-color: $dark-gray2;
+          border-color: $dark-gray2;
         }
     
         &:hover {
-          background: $light-green;
+          background: $dark-blue-btn;
+          box-shadow: none;
+          border-color: $dark-blue-btn;
         }
     
         &.out-of-stock-btn {
-          background: $light-grey10;
-          opacity: 0.5;
-          color: $black;
+          background: $dark-gray2;
+          opacity: 0.3;
+          color: $white;
           font-family: $font-bold;
           font-size: rem(12);
           font-weight: 500;
@@ -648,8 +678,8 @@
           border: none;
   
           &:hover {
-            background: $light-grey10;
-            border-color: $light-grey10;
+            background: $dark-gray2;
+            border-color: $dark-gray2;
           }
         }
       }

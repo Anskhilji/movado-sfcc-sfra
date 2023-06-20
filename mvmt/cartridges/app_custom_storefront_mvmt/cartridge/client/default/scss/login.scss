@@ -11,6 +11,7 @@
     .login-background {
 
         p {
+            font-family: $font-brandon-grotesque;
             margin: 0;
         }
 
@@ -96,7 +97,7 @@
                         font-weight: 500;
                         line-height: rem(23);
                         margin: rem(10) 0;
-                        font-family: $font-medium;
+                        font-family: $font-ivypresto-headline;
                         text-transform: uppercase;
                     }
                 }
@@ -160,9 +161,9 @@
             }
 
             h1 {
-                font-size: rem(36);
                 letter-spacing: rem(3.38);
-                font-family: $font-medium;
+                font-family: $font-ivypresto-headline;
+                font-size: rem(36);
                 font-weight: 500;
                 line-height: 1.2;
                 text-transform: uppercase;
@@ -170,11 +171,11 @@
             }
 
             p {
+                font-family: $font-brandon-grotesque;
                 font-size: rem(16);
                 font-weight: 500;
                 line-height: rem(23);
                 color: $light-gray;
-                font-family: $font-medium;
                 letter-spacing: rem(0.5);
             }
         }
@@ -211,6 +212,7 @@
 
                 p {
                     color: $black;
+                    font-family: $font-brandon-grotesque;
                     font-size: rem(12);
                     font-weight: 500;
                     line-height: rem(20);
@@ -233,17 +235,17 @@
             font-size: rem(36);
             letter-spacing: rem(3.38);
             text-transform: uppercase;
-            font-family: $font-medium;
+            font-family: $font-ivypresto-headline;
         }
 
         p {
+            font-family: $font-brandon-grotesque;
             font-size: rem(16);
             font-weight: 500;
             line-height: rem(23);
             color: $light-gray;
             letter-spacing: rem(0.5);
             margin: 0;
-            font-family: $font-medium;
         }
     }
 
@@ -254,7 +256,7 @@
             font-weight: 500;
             line-height: rem(23);
             text-align: center;
-            font-family: $font-medium;
+            font-family: $font-ivypresto-headline;
             text-transform: uppercase;
             letter-spacing: rem(2.5);
         }
@@ -312,7 +314,7 @@
                         font-size: rem(36);
                         letter-spacing: rem(3.38);
                         text-transform: uppercase;
-                        font-family: $font-medium;
+                        font-family: $font-brandon-grotesque;
                         text-align: center;
                         border: 0;
                     }
@@ -322,7 +324,7 @@
                         font-weight: 500;
                         line-height: rem(23);
                         color: $light-gray;
-                        font-family: $font-medium;
+                        font-family: $font-brandon-grotesque;
                         letter-spacing: rem(0.5);
                         text-align: center;
                         display: inline;
@@ -333,9 +335,12 @@
                         letter-spacing: rem(0.5);
                         text-transform: uppercase;
                         font-size: rem(11);
-                        color: $black;
+                        color: $dark-gray2;
                         cursor: pointer;
-	 
+
+                        &:hover {
+                            color: $dark-blue-btn;
+                        }
                    }
                 }
             }
@@ -380,8 +385,9 @@
                     padding: rem(16);
                     line-height: 1;
                     margin-right: 26%;
-                    color: $black;
+                    color: $dark-gray2;
                     background: $white;
+                    border-color: $dark-gray2;
 
                     @include media-breakpoint-down(sm) {
                         width: 50%;
@@ -399,8 +405,8 @@
                         box-shadow: none;
                         transition: opacity 0.25s ease-in-out;
                         color: $white;
-                        background: $black;
-                        border: rem(1) solid $black;
+                        background: $dark-blue-btn;
+                        border: rem(1) solid $dark-blue-btn;
                     }
                 }
 
@@ -420,6 +426,14 @@
 
                 button {
                     width: 45%;
+                    background-color: $dark-gray2;
+                    border-color: $dark-gray2;
+                    border-radius: rem(64.5);
+
+                    &:hover,&:focus,&:active {
+                        background-color: $dark-blue-btn;
+                        border-color: $dark-blue-btn;
+                    }
 
                     @include media-breakpoint-down(sm) {
                         width: 100%;
@@ -430,17 +444,17 @@
             .btn {
                 font-size: rem(14);
                 transition: all 0.25s ease-in-out;
-                border-radius: rem(1);
+                border-radius: rem(64.5);
                 letter-spacing: rem(1.6);
                 padding: rem(16) 0;
                 line-height: 1;
-                border-width: rem(2);
+                border-width: rem(1);
 
                 &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
                     box-shadow: none;
                     transition: opacity 0.25s ease-in-out;
-                    background: $light-green;
-                    border: rem(2) solid $black;
+                    background: $dark-blue-btn;
+                    border: rem(1) solid $dark-blue-btn;
                 }
             }
 
@@ -462,8 +476,12 @@
                     letter-spacing: rem(1);
                     text-transform: uppercase;
                     font-size: rem(11);
-                    color: $black;
+                    color: $dark-gray2;
                     cursor: pointer;
+
+                    &:hover {
+                        color: $dark-blue-btn;
+                    }
                 }
             }
 
@@ -531,6 +549,7 @@
         .oauth-facebook {
             margin-right: 2%;
             background-color: $dark-blue;
+            border-radius: rem(64.5);
 
             &:hover {
                 background-color: $light-blue;
@@ -539,6 +558,7 @@
 
         .oauth-google {
             background-color: $dark-red2;
+            border-radius: rem(64.5);
 
             &:hover {
                 background-color: $light-red;
