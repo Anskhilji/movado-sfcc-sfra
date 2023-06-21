@@ -43,10 +43,12 @@ server.post('SetSession', function (req, res, next) {
     var line1Text = req.form.line1Text;
     var line2Text = req.form.line2Text;
     var productId = req.form.productId;
+    var previewUrl = req.form.previewUrl
     // set session for apple pay
     req.session.raw.custom.appleProductId = productId ? productId : '';
     req.session.raw.custom.appleEngraveOptionId = pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID;
     req.session.raw.custom.appleEngravedMessage = (line1Text ? line1Text : '') + '\n' + (line2Text ? line2Text : '');
+    req.session.raw.custom.pulseIDPreviewURL = previewUrl ? previewUrl : '';
 });
 
 module.exports = server.exports();

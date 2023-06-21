@@ -69,6 +69,7 @@ $('.engraving-save.save').on('click', function (e) {
     if ($('.engraving-input-one').val().trim().length > 0) {
         var $engravingText1 = $('.engraving-input-one').val();
         var $engravingText2 = $('.engraving-input-two').val();
+        var $previewUrl = $('.preview-btn').attr('preview-url');
         $('.add-engraving').addClass('d-none');
         $('.remove-engraving').removeClass('d-none');
         $('.engraved-text-one').text($engravingText1);
@@ -83,7 +84,8 @@ $('.engraving-save.save').on('click', function (e) {
         var $form = {
             line1Text: $engravingText1,
             line2Text: $engravingText2,
-            productId: $productId
+            productId: $productId,
+            previewUrl: $previewUrl
         }
         $.spinner().start();
         $.ajax({
@@ -122,7 +124,8 @@ $(document).on('click', '.remove-engraving', function (e) {
     var $form = {
         line1Text: '',
         line2Text: '',
-        productId: ''
+        productId: '',
+        previewUrl: ''
     }
     $.spinner().start();
     $.ajax({

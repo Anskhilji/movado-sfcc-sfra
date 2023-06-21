@@ -427,6 +427,7 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
         var $engravingPrice = $('.engraving-price').first();
         var $engravingTextOne = $('.engraved-text-one');
         var $engravingTextTwo = $('.engraved-text-two');
+        var $previewUrl = $('.preview-btn').attr('preview-url');
         data.pulseIdEngraving = false;
 
         if ($engravingPrice.length > 0 && $engravingTextOne.length > 0 && $engravingTextTwo.length > 0) {
@@ -440,6 +441,7 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
                 data.engravingPrice = $engravingPrice;
                 data.engravingTextOne = $engravingTextOne;
                 data.engravingTextTwo = $engravingTextTwo;
+                data.previewUrl = $previewUrl
             }
         }
         //custom end : ulseID Engraving

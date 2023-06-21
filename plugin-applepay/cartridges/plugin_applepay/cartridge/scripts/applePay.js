@@ -365,14 +365,15 @@ exports.prepareBasket = function (basket, parameters) {
             session.custom.StorePickUp = true;
         }
     }
-    
+
     if (parameters.sku && parameters.sku === session.custom.appleProductId) {
         var appleEngraveOptionId = session.custom.appleEngraveOptionId;
         var appleEmbossOptionId = session.custom.appleEmbossOptionId;
         var appleEmbossedMessage = session.custom.appleEmbossedMessage;
         var appleEngravedMessage = session.custom.appleEngravedMessage;
+        var pulseIDPreviewURL = session.custom.pulseIDPreviewURL;
 
-        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage);
+        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL);
         // sample data for testing
         // updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
     }
@@ -394,7 +395,7 @@ exports.prepareBasket = function (basket, parameters) {
  * @param engravedMessage
  * @returns
  */
-function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage) {
+function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
     // since there will be only on Product from PDP/ Quick view
     var pli = lineItemCtnr.productLineItems[0];
@@ -436,11 +437,12 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
                         option.updateOptionValue(optionValue);
                         option.updateOptionPrice();
                         if (engravedMessage) {
+                            option.custom.pulseIDPreviewURL = pulseIDPreviewURL;
                             // code to split the message based on newline character
                             engravedMessage = engravedMessage.split(NEWLINE);
-                            pli.custom.engraveMessageLine1 = engravedMessage[0];
+                            option.custom.engraveMessageLine1 = engravedMessage[0];
                             if (engravedMessage[1]) {
-                                pli.custom.engraveMessageLine2 = engravedMessage[1];
+                                option.custom.engraveMessageLine2 = engravedMessage[1];
                             }
                         }
                     }

@@ -97,6 +97,7 @@ server.replace(
                 req.session.raw.custom.appleProductId = '';
                 req.session.raw.custom.appleEngraveOptionId = '';
                 req.session.raw.custom.appleEngravedMessage = '';
+                req.session.raw.custom.pulseIDPreviewURL = '';
             }
             // custom en
         }
