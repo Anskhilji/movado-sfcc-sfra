@@ -100,6 +100,7 @@ server.post('ProcessPayments',
         var referralUrl = req.referer;
         var googlePayEntryPoint = referralUrl && (referralUrl.indexOf('Cart-Show') > -1) || (referralUrl.indexOf('shopping-bag') > -1) ? false : true;
         var productID = (!empty(currentBasket)) ? currentBasket.productLineItems[0].productID : '';
+
         if (!currentBasket) {
             res.json({
                 error: true,
@@ -117,10 +118,21 @@ server.post('ProcessPayments',
             });
         }
 
-         // Added Smart Gift Logic
-         if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
-             session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
-         }
+        // Added Smart Gift Logic
+        if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
+            session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
+        }
+
+        // Basket level custom attribute set to true for shopperRecovery redirection in case of express payment
+        if (req.form.isGooglePayExpress == 'true' && currentBasket) {
+            Transaction.wrap(function () {
+                currentBasket.custom.isExpressPayment = true;
+            });
+        } else {
+            Transaction.wrap(function () {
+                currentBasket.custom.isExpressPayment = false;
+            });
+        }
 
         var validatedProducts = validationHelpers.validateProducts(currentBasket);
 

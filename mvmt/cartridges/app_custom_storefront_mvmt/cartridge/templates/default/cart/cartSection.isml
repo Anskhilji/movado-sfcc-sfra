@@ -22,7 +22,16 @@
         </isif>
     </div>
 </isif>
-
+<isif condition="${!empty(request.httpParameterMap.get('shopperRecoverySuccess').value)}">
+    <div class="container cart-error-messaging cart-error mt-2">
+        <div class="alert card alert-dismissible text-success valid-cart-error fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="shopper-recovery-carmsg">${request.httpParameterMap.get('shopperRecoverySuccess').value}</span>
+        </div>
+    </div>
+</isif>
 <isif condition="${pdict.lastNameError}">
     <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">
         ${Resource.msg('error.last.name', 'checkout', null)}

@@ -121,7 +121,9 @@ function orderDeclined(order, riskifiedOrderStatus) {
         
         var riskApproved = URLUtils.https('Checkout-RiskApproved').toString();
         var riskDeclined = URLUtils.https('Checkout-Declined').toString();
-        var successUrl = encodedUrl(order, riskApproved);
+        var expressPaymentRiskApproved = URLUtils.https('Checkout-ExpressPaymentRiskApproved').toString();
+
+        var successUrl = order.custom.isExpressPayment ? encodedUrl(order, expressPaymentRiskApproved) : encodedUrl(order, riskApproved);
         var failureUrl = encodedUrl(order, riskDeclined);
         
         riskifiedPaymentReversal(order, paymentMethod);

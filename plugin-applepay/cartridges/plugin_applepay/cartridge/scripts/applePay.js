@@ -363,7 +363,7 @@ exports.prepareBasket = function (basket, parameters) {
 
     var currentCountry = productCustomHelper.getCurrentCountry();
 
-    if (!empty(parameters.sku)) {
+    if (!empty(parameters.sku) && parameters.sku !== 'checkoutApplePay') {
         if (!basket.custom.storePickUp) {
             session.custom.StorePickUp = false;
             session.custom.applePayCheckout = true;
@@ -399,6 +399,17 @@ exports.prepareBasket = function (basket, parameters) {
     if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
         session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
     }
+    
+    if (parameters.sku == 'checkoutApplePay') {
+        Transaction.wrap(function () {
+            currentBasket.custom.isExpressPayment = false;
+        });
+    } else {
+        Transaction.wrap(function () {
+            currentBasket.custom.isExpressPayment = true;
+        });
+    }
+
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
     return result;
