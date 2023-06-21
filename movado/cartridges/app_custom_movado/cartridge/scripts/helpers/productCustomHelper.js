@@ -461,7 +461,7 @@ function getPdpVariationUrls(product, apiProduct) {
                     });
                 } else {
                     variationParam = product.variationAttributes[key].id;
-                    variationParamValue = product.variationAttributes[key].values[0].id;
+                    variationParamValue = product.variationAttributes[key].values[0] && product.variationAttributes[key].values[0].id ? product.variationAttributes[key].values[0].id : '';
                 }
             }
 
