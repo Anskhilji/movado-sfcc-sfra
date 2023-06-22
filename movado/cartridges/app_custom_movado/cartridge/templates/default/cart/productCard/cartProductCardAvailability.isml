@@ -1,7 +1,25 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+<isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+
 <div class="line-item-availability mb-2 availability-${lineItem.UUID}">
-    <isloop items="${lineItem.availability.messages}" var="message">
-        <p class="line-item-attributes <isif condition="${!lineItem.available}"> out-of-stock </isif>">${message}</p>
-    </isloop>
+    <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+        <isif condition="${lineItem.productATSValue <= lowStockThreshold}">
+            <p class="line-item-attributes">
+                <iscontentasset aid="ca-low-stock-message" />
+            </p>
+        <iselse/>
+            <isloop items="${lineItem.availability.messages}" var="message">
+                <p class="line-item-attributes <isif condition="${!lineItem.available}"> out-of-stock </isif>">${message}</p>
+            </isloop>
+        </isif>
+    <iselse/>
+        <isloop items="${lineItem.availability.messages}" var="message">
+            <p class="line-item-attributes <isif condition="${!lineItem.available}"> out-of-stock </isif>">${message}</p>
+        </isloop>
+    </isif>
+    
     <isif condition="${lineItem.availability.inStockDate}">
         <p class="line-item-attributes d-none line-item-instock-date">
             ${lineItem.availability.inStockDate}

@@ -1,5 +1,6 @@
 <iscomment> Custom: divs repositioned </iscomment>
 <isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
 
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
@@ -141,6 +142,14 @@
 	                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
+
+                            <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+                            <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+                            <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                                <div class="low-stock-message ${product.productATSValue <= lowStockThreshold ? '' : 'd-none'}">
+                                    <iscontentasset aid="ca-low-stock-message" />
+                                </div>
+                            </isif>
 
                             <!-- Product Availability -->
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>

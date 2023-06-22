@@ -96,7 +96,8 @@ function getResources(pageContext) {
         BUTTON_ADD_TO_CART: Resource.msg('button.addtocart', 'common', null),
         BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null),
         CLYDE_WARRANTY: Constants.CLYDE_WARRANTY,
-        CLYDE_WIDGET_DISPLAY_PDP_ENABLED: Site.current.preferences.custom.clydeWidgetDisplayPDP ? true : false
+        CLYDE_WIDGET_DISPLAY_PDP_ENABLED: Site.current.preferences.custom.clydeWidgetDisplayPDP ? true : false,
+        LOW_STOCK_THRESHOLD: !empty(Site.current.preferences.custom.lowStockThreshold) ? Site.current.preferences.custom.lowStockThreshold : false
     };
     return resources;
 }
