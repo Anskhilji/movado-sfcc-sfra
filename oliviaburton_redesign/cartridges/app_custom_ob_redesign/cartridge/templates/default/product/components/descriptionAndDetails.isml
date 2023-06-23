@@ -3,7 +3,7 @@
     <iscomment> Custom Comment: Long Description added here</iscomment>
     <isif condition="${product.longDescription}">
         <div class="bottom-description">
-            <p><isprint value="${product.longDescription}" encoding="off"/> </p>
+            <p class="long-description-text"><isprint value="${product.longDescription}" encoding="off"/> </p>
         </div>
     </isif>
     <isif condition="${!pdict.isCompareableDisabled}">

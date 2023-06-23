@@ -108,6 +108,7 @@
            
             .callout.promo-msg {
                 font-family: $font-HelveticaNeueLT-medium;
+                color: $dark-blue2;
             }
         }
 
@@ -182,15 +183,6 @@
 
     .nav-link {
         font-family: $font-HelveticaNeueLT-medium;
-    }
-}
-
-.listrak-persistent-popup {
-    display: none !important;
-}
-.button-floting {
-    &.button-search-result {
-        bottom: rem(41);
     }
 }
 

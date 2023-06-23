@@ -82,6 +82,10 @@ function categoryToObject(category) {
     if (!empty(category.custom.showColorSwatchForSubcategories)) {
         result.showColorSwatchForSubcategories = category.custom.showColorSwatchForSubcategories;
     }
+    
+    if (!empty(category.custom.isDesktopCategoryHidden)) {
+        result.isDesktopCategoryHidden = category.custom.isDesktopCategoryHidden;
+    }
     var subCategories = category.hasOnlineSubCategories() ?
             category.getOnlineSubCategories() : null;
 

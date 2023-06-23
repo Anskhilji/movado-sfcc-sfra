@@ -53,6 +53,7 @@ $negative-spacer: -0.625rem;
 .product-info {
   .remove-btn {
     font-size: 1.625em;
+    z-index: 2;
   }
 }
 
@@ -119,6 +120,11 @@ $negative-spacer: -0.625rem;
   }
 }
 
+.line-item-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
 
 
 .estimated-price {
