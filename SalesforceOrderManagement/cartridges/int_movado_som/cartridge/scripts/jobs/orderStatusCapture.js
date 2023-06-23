@@ -95,6 +95,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             var engravingFulfillmentLineItem = _.find(fulfillmentOrderLineItems, function (foMatch) {
                 return (foMatch.OrderItemSummary.Id === foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id);
             });
+
             if(engravingFulfillmentLineItem != null) {
                 pendingFOLineItems.push(
                     SalesforceModel.buildCompositeFulfillmentOrderLineItemUpdateRequest({
@@ -104,7 +105,6 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 );
             }
         }
-
 
 
         // Short Ship - Move additional quantity out of FO allocation and back to OrderSummary
