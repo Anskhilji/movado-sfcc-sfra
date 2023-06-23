@@ -290,7 +290,6 @@ server.append('UpdateGrid', function (req, res, next) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
-    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
     var marketingProductsData = [];
@@ -299,7 +298,6 @@ server.append('UpdateGrid', function (req, res, next) {
     var marketingProductData;
     var isEnableSingleProductRow;
     var isEyewearTile = false;
-    var categoryTemplate;
     var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(res.viewData.productSearch);
 
     if (res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {

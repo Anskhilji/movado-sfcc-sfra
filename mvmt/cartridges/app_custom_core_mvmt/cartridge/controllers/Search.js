@@ -285,7 +285,6 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
     var marketingProductData;
     var isEnableSingleProductRow;
     var isEyewearTile = false;
-    var categoryTemplate;
     var isNonWatchesTileEnable;
 
     var apiProductSearch = new ProductSearchModel();

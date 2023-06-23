@@ -138,6 +138,9 @@
                             <isinclude template="search/showMore" />
                         </isif>
                     </div>
+                    <div class="row loader d-none">
+                        <div class="loader-icon"></div>
+                    </div>
                 </div>
             </isif>
         </div>
