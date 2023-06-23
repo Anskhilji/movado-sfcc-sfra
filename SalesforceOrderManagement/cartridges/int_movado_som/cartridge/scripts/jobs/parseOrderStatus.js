@@ -162,7 +162,9 @@ function processStatusOrder(SAPOrderStatus, fileName) {
                 'OrderItemSummary.Id,OrderItemSummary.LineNumber,' +
                 'OrderItemSummary.ProductCode,' +
                 'OrderItemSummary.WarrantyParentOrderItemSummary__r.Id,' +
-                'OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity+' +
+                'OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity,' +
+                'OrderItemSummary.EngraveParentOrderItemSummary__r.Id,' +
+                'OrderItemSummary.EngraveChildOrderItemSummary__r.Id,OrderItemSummary.EngraveChildOrderItemSummary__r.Quantity+' +
                 'FROM+FulfillmentOrderLineItems)+' +
                 'FROM+FulfillmentOrder+WHERE+FulfillmentOrderNumber=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'' +
                 ''+ checkTransactionStatus +' ',

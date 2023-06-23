@@ -57,6 +57,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var isEmbossEnabled;
     var isEngraveEnabled;
     var isGiftWrapEnabled;
+    var isPulseIDEngraveEnabled;
     var isPdpStorePickup = true;
     var collectionName;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
@@ -118,6 +119,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEmbossEnabled = product.custom.Emboss;
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
+        isPulseIDEngraveEnabled = product.custom.enablepulseIDEngraving;
         viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, product.ID);
         var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
         var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
@@ -158,7 +160,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         smartGiftAddToCartURL : smartGiftAddToCartURL,
-        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
+        isPulseIDEngraveEnabled: isPulseIDEngraveEnabled
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);

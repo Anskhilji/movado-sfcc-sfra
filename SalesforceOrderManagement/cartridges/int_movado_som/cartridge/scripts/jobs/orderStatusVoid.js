@@ -32,9 +32,15 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
         var qtyWarranty = 0;
         var qtyWarrantyCancelled = 0;
         var warrantyParentIdList = [];
+        var qtyEngraving = 0;
+        var qtyEngravingCancelled = 0;
+        var engravingParentIdList = [];
         fulfillmentOrderLineItems.forEach(function (foLineItem) {
             if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r != null) {
                 qtyWarranty += foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity;
+            }
+            if(foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r != null) {
+                qtyEngraving += foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Quantity;
             }
         });
 
@@ -107,6 +113,32 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
                 // Increment the counter of cancelled warranties
                 qtyWarrantyCancelled += warrantyCancelQuantity;
                 warrantyParentIdList.push(foLineItem.Id);
+            }
+
+            // Engraving
+            if (foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r != null) {
+                var engravingCancelQuantity = Math.min(cancelQuantity, foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Quantity);
+                var engravingFulfillmentLineItem = _.find(fulfillmentOrderLineItems, function (foMatch) {
+                    return (foMatch.OrderItemSummary.Id === foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id);
+                });
+
+                // Cancel from Fulfillment Order
+                pendingFOCancelChangeItems.push({
+                    fulfillmentOrderLineItemId: engravingFulfillmentLineItem.Id,
+                    quantity: engravingCancelQuantity
+                });
+
+                // Cancel from Order Summary
+                pendingOSCancelChangeItems.push(
+                    SalesforceModel.buildOrderSummaryCancelRequestItem({
+                        orderItemSummaryId: engravingFulfillmentLineItem.OrderItemSummary.Id,
+                        quantity: engravingCancelQuantity
+                    })
+                );
+
+                // Increment the counter of cancelled warranties
+                qtyEngravingCancelled += engravingCancelQuantity;
+                engravingParentIdList.push(foLineItem.Id);
             }
 
             // Cancel the original order line summary.
