@@ -115,18 +115,19 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
                 warrantyParentIdList.push(foLineItem.Id);
             }
 
-
             // Engraving
             if (foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r != null) {
                 var engravingCancelQuantity = Math.min(cancelQuantity, foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Quantity);
                 var engravingFulfillmentLineItem = _.find(fulfillmentOrderLineItems, function (foMatch) {
                     return (foMatch.OrderItemSummary.Id === foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id);
                 });
+
                 // Cancel from Fulfillment Order
                 pendingFOCancelChangeItems.push({
                     fulfillmentOrderLineItemId: engravingFulfillmentLineItem.Id,
                     quantity: engravingCancelQuantity
                 });
+
                 // Cancel from Order Summary
                 pendingOSCancelChangeItems.push(
                     SalesforceModel.buildOrderSummaryCancelRequestItem({
@@ -134,6 +135,7 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
                         quantity: engravingCancelQuantity
                     })
                 );
+
                 // Increment the counter of cancelled warranties
                 qtyEngravingCancelled += engravingCancelQuantity;
                 engravingParentIdList.push(foLineItem.Id);
