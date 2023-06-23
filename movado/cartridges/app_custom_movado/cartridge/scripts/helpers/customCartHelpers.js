@@ -364,6 +364,12 @@ function removeNullClydeWarrantyLineItemAndEngraving(currentBasket) {
                 currentBasket.removeProductLineItem(productLineItem);
             } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
                 currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == EMBOSSED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == ENGRAVED && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE)) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == GIFTWRAPPED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
+                currentBasket.removeProductLineItem(productLineItem);
             }
         }
     });

@@ -2,14 +2,18 @@
 
 var server = require('server');
 
+var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
+
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
-var Transaction = require('dw/system/Transaction');
+var revokeCheckout = require('*/cartridge/scripts/middleware/revokeCheckout');
 
 var page = module.superModule;
 server.extend(page);
+
+server.prepend('Login', revokeCheckout);
 
 server.append(
     'Login',
@@ -53,7 +57,6 @@ server.append(
         return next();
     }
 );
-
 
 server.append(
 	'Begin',
