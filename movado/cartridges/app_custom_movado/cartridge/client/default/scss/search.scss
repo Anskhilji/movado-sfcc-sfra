@@ -461,12 +461,3 @@
 .content-tile:not(:has(div)) {
     display: none;
 }
-.listrak-persistent-popup {
-    display: none !important;
-}
-
-.button-floting {
-    &.button-search-result {
-      bottom: rem(41);
-    }
-}
