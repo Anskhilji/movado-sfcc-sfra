@@ -9,7 +9,7 @@
             <div class="form-group collapsible-xl">
                 <label class="title" data-toggle="collapse" data-target="#miniCartCouponCode" aria-expanded="false">${Resource.msg('label.promo.code','cart',null)}</label>
                 <div class="row collapse value" id="miniCartCouponCode" name="miniCartCouponCode">
-                    <div class="col-9">
+                    <div class="col-9 mini-cart-coupon-field">
                         <input type="text" class="form-control coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('label.promo.code','cart',null)}">
                         <div class="coupon-error">
                             <span class="coupon-missing-error coupon-required">${Resource.msg('error.missing.coupon.code', 'cart', null)}</span>
