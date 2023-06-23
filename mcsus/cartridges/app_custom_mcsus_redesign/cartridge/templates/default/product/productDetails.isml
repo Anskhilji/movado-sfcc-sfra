@@ -91,9 +91,9 @@
                     </div>
                 </div>
             <iscomment> product detail redesign section start here </iscomment>
-            <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
+            <div class="col-12 d-flex justify-content-between flex-column flex-sm-row pdp-images-addition">
                     <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarouselPdp" />
+                <isinclude template="product/components/imageCarousel" />
 
                 <div class="product-detail-right-box">
                     <div class="d-none d-sm-block">
@@ -140,7 +140,7 @@
                             <div class="prices prices-redesign">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-                                    <isif condition="${product.productType === 'set'}">
+                                    <isif condition="${product.productType === Resource.msg('product.set', 'product', null)}">
                                         <isinclude template="product/components/pricing/setPrice" />
                                     <iselse/>
                                         <isinclude template="product/components/pricing/main" />
@@ -161,6 +161,21 @@
                             <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
                         </isif>
                     </div>
+                    <iscomment> email newsletter modal start </iscomment>
+                    <div class="newsletter-modal">
+                        <div class="modal fade" id="signupModalCenter" tabindex="-1" role="dialog" aria-labelledby="signupModalCenter" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <isslot id="cs-pdp-email-signup" description="email signup content Slot." context="global" />
+                                        <isslot id="cs-pdp-email-signup-thank-you" description="coupon code content Slot." context="global" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <iscomment> email newsletter modal end </iscomment>
+
                     <hr class="d-block d-sm-none line-mobile mt-0">
                     <div class="row">
                         <!-- Attributes and Quantity -->
@@ -189,11 +204,12 @@
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
+
                         <iscomment> Custom Start: Clyde Integration </iscomment>
-                            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-                                <div class="col-md-10 col-12" id="clyde-cta" >
-                                </div>
-                            </isif>
+                        <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+                            <div class="col-md-10 col-12 ${sitePref.clydeWidgetDisplayPDP == false ? 'd-none' : ''}" id="clyde-cta" >
+                            </div>
+                        </isif>                        
 
                         <isif condition="${isPickupStoreEnabled}">
                             <div class="pickup-store">
@@ -203,16 +219,14 @@
                             </div>
                         </isif>
                         <iscomment> Custom End: </iscomment>
-                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
+                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available ? "d-none" : ""}">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
                             <div class="smart-gift-box-new smart-gift-box-new-mcs smart-gift-box-new-mcs-new-design">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
-                                    </isif>    
+                                    <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
                                 </isif> 
                             </div>
                         </div>
@@ -280,7 +294,7 @@
             <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
             <!-- Start: Listrak persistent popup -->
-    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled}">
         <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
         <span class="listrak-popup-product-detail"></span>
         <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />

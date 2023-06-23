@@ -1035,6 +1035,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 // Custom End
                 if (!empty(productLineItem.product.shortDescription)) {
                     produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
+                    produtObj.description = stringUtils.removeLineBreak(produtObj.description);
                 }
                 produtObj.productType = productHelper.getProductType(productLineItem.product);
                 produtObj.imageURL = productLineItem.product.image.absURL;

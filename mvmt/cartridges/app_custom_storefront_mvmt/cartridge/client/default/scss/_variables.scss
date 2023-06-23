@@ -103,14 +103,18 @@ $white-shadow: rgba(214,214,214,0.5);
 $gift-message-border: rgba(170, 174, 181, 0.45);
 $dots-gray: #DADADA;
 $border-gray: #DBDBDB;
+$border-gray1: rgba(26, 24, 24, 0.3);
 
 $white: #ffffff;
 $dark-gray: #222222;
 $dark-gray1: #212121;
+$dark-gray2: #1A1818;
 $cyan-blue: #f7f8f9;
 $cyan-blue1: #ced4da;
+$cyan-blue2: #CAB99D;
 $red: #a40000;
 $red2: #941e14;
+$red3: #D64308;
 $green: #53c563;
 $gray94: #f0f0f0 !default;
 $white-grey: #eaeaea !default;
@@ -119,6 +123,7 @@ $regent-grey: #787A8A !default;
 $gray90: #E5E5E5 !default;
 $gray91: #e8e8e8 !default;
 $gray93: #ededed;
+$gray95: #FCFBF8;
 $gull-gray-light: rgba(160, 169, 186, 0.1) !default;
 $parrot-green: #99CB7F !default;
 $gray-green: rgba(102,152,76,0.1) !default;
@@ -126,6 +131,7 @@ $dark-green: #66984C !default;
 $white-smoke: #F2F2F2 !default;
 $gray-overlay: rgba(242,242,242,0.89) !default;
 $dark-pink: #ead7dc !default;
+$dark-pink1: #ECE6DB !default;
 $grey9-light:  #d6d7d8 !default;
 $gray98: #fafafa !default;
 $zircon: #eaebeb;
@@ -140,6 +146,7 @@ $alice-dark: #f9f9f9;
 $emerald: #4BC760;
 $nobel: #B7B7B7;
 $light-blue-icons: #1D9ED9;
+$dark-blue-btn:#2775BA;
 $gray88: rgba(224, 224, 224, 0.89);
 $silver-extra-light: rgba(198,198,198,0.39);
 $gainsboro-light: rgba(216,216,216,0.39);
@@ -147,34 +154,37 @@ $gray88-solid: #E0E0E0;
 $badge-bg: rgba(238,238,238,0.69);
 $emerald2: #53C56F;
 $transparent-gray-1: rgba(211, 211, 211, 0);
+$transparent-gray-2: rgba(225, 225, 225, 0.3);
+$transparent-gray-3: rgba(26, 24, 24, 0.3);
 $klarna-pink: #FFBBCE;
 $star-light: #F6DC4D;
+$star: #F6DC4D;
 
 @mixin font-bold {
-    font-family: "futura-pt-bold", sans-serif;
+    font-family: "brandon-grotesque", sans-serif;
     font-weight: 700;
     font-style: normal;
 }
 
 @mixin font-medium {
-    font-family: "futura-pt", "sans-serif";
+    font-family: "brandon-grotesque", sans-serif;
     font-weight: 500;
     font-style: normal;
 }
 
 @mixin font-light {
-    font-family: "futura-pt", "sans-serif";
+    font-family: "brandon-grotesque", sans-serif;
     font-weight: 300;
     font-style: normal;
 }
 
 @mixin font-book {
-    font-family: "futura-pt", "Arial", "sans-serif";
+    font-family: "brandon-grotesque", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 @font-face {
-    font-family: 'futura-pt';
+    font-family: "brandon-grotesque", sans-serif;
     font-display: block;
     src: url('fonts/38DBC0_1_0.eot'); src: url('fonts/38DBC0_1_0.eot?#iefix') format('embedded-opentype'),url('fonts/38DBC0_1_0.woff2') format('woff2'),url('fonts/38DBC0_1_0.woff') format('woff'),url('fonts/38DBC0_1_0.ttf') format('truetype');
   }
@@ -184,22 +194,24 @@ $blue: #0051b2;
 
 
 //font Families:
-$font-medium : "futura-pt", Arial, sans-serif !default;
-$font-book : "futura-pt", Arial, sans-serif !default;
-$font-bold : "futura-pt-bold", Arial, sans-serif !default;
-$font-primary: "futura-pt", Arial, sans-serif !default;
-$font-sans-serif: "sans-serif", "futura-pt", Arial;
+$font-medium : "brandon-grotesque", sans-serif !default;
+$font-book : "brandon-grotesque", sans-serif !default;
+$font-bold : "brandon-grotesque", sans-serif !default;
+$font-primary: "brandon-grotesque", sans-serif!default;
+$font-sans-serif: "sans-serif", "brandon-grotesque", Arial;
 $font-GaramondPro: "Adobe Garamond Pro", Arial, sans-serif;
-$Adobe-Gramond-Pro-Italic: 'Adobe-Garamond-Pro-Italic';
-
-$font-oswald-regular: "oswald", "futura-pt", Arial !default;
-$font-oswald-bold: "oswald", "futura-pt", Arial !default;
-$font-oswald-semi-bold: "oswald", "futura-pt", Arial !default;
-$font-oswald-medium: "oswald", "futura-pt", Arial !default;
-$font-oswald-light: "oswald", "futura-pt", Arial !default;
-$font-oswald-extra-light: "oswald", "futura-pt", Arial !default;
+$Adobe-Gramond-Pro-Italic: "Adobe-Garamond-Pro-Itali";
+$font-ivypresto-headline: "ivypresto-headline", serif;
+$font-brandon-grotesque: "brandon-grotesque", sans-serif;
+$font-oswald-regular: "oswald", "brandon-grotesque", Arial !default;
+$font-oswald-bold: "oswald", "brandon-grotesque", Arial !default;
+$font-oswald-semi-bold: "oswald", "brandon-grotesque", Arial !default;
+$font-oswald-medium: "oswald", "brandon-grotesque", Arial !default;
+$font-oswald-light: "oswald", "brandon-grotesque", Arial !default;
+$font-oswald-extra-light: "oswald", "brandon-grotesque", Arial !default;
 $custom-xl: 1440px;
-$font-futura-pt: "futura-pt", Arial , sans-serif !default;
+$font-futura-pt: "brandon-grotesque",  Arial , sans-serif !default;
+
 
 $grid-breakpoints: (
     xss: 0,

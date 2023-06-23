@@ -5,6 +5,7 @@
 @import "bootstrap/scss/mixins/breakpoints";
 @import "utilities/swatch";
 @import "components/categoryTiles";
+@import "components/yotpoStarsRattingRefinements";
 
 .filter-and-count {
     visibility: hidden;
@@ -459,13 +460,4 @@
 
 .content-tile:not(:has(div)) {
     display: none;
-}
-.listrak-persistent-popup {
-    display: none !important;
-}
-
-.button-floting {
-    &.button-search-result {
-      bottom: rem(41);
-    }
 }

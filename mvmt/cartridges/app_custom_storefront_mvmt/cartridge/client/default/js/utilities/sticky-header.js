@@ -26,6 +26,7 @@ var customScrollValue = $(window).scrollTop();
             var prevOffset = $thisInstance.prev(opts.stickyPlaceholder).length ? $thisInstance.prev(opts.stickyPlaceholder).offset().top : 0;
             var top = parseInt(prevOffset - opts.offsetTop),
             scroll = parseInt(opts.$stickyParent.scrollTop());
+            var $accessibleLink = $('.accessible-link')
             if (scroll > 0 && parseInt(opts.$stickyParent.scrollTop()) >= top) {
                 $thisInstance.addClass('sticky-header').css({
                     top: 0 + (opts.offsetTop || 0)
@@ -36,6 +37,7 @@ var customScrollValue = $(window).scrollTop();
                 $('.custom-clp-social').addClass('sticky');
                 $('.mini-cart-data .popover').addClass('afterSticky');
                 $thisInstance.parent().addClass('fixed-header');
+                $accessibleLink.addClass('d-none');
                 if (typeof $lowerHeaderBanner !== 'undefined'  && ($lowerHeaderBanner !== '' || $lowerHeaderBanner.length > 0)) {
                     $lowerHeaderBanner.addClass('lower-header-banner-tuck');
                 }
@@ -57,6 +59,7 @@ var customScrollValue = $(window).scrollTop();
                 $('.custom-clp-social').removeClass('sticky');
                 $('.mini-cart-data .popover').removeClass('afterSticky');
                 $thisInstance.parent().removeClass('fixed-header');
+                $accessibleLink.removeClass('d-none');
                 if (typeof $lowerHeaderBanner !== 'undefined'  && ($lowerHeaderBanner !== '' || $lowerHeaderBanner.length > 0)) {
                     $lowerHeaderBanner.removeClass('lower-header-banner-tuck');
                 }

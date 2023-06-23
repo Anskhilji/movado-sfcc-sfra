@@ -23,7 +23,7 @@ body {
   }
 
   .clear-all {
-    font-family: $font-museo-light;
+    font-family: $font-gill-std;
     font-size: $font-size-text-heading1;
     letter-spacing: rem(0.9);
     font-weight: $font-light;
@@ -31,7 +31,7 @@ body {
 }
 
 .btn {
-  font-family: $font-museo-std;
+  font-family: $font-gill-std-medium;
   font-size: $font-size-text-heading1;
   font-weight: $font-semi-bold;
   letter-spacing: rem(2);
@@ -328,7 +328,7 @@ form {
 @include media-breakpoint-up(md) {
   .hero {
     h1.page-title {
-      font-size: $font-size-title-heading1;
+      font-size: $font-size-title5;
       letter-spacing: rem(3);
     }
   }

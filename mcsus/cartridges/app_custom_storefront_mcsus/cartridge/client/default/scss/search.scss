@@ -1,5 +1,6 @@
 @import "~movado/search";
 @import "variables";
+@import "components/yotpoStarsRattingRefinements";
 @import "./mixins";
 
 .header-bar {
@@ -447,13 +448,4 @@
 }
 .secondary-bar-mt {
   margin-top: rem(19.5);
-}
-
-.listrak-persistent-popup {
-  display: none !important;
-}
-.button-floting {
-  &.button-search-result {
-    bottom: rem(41);
-  }
 }

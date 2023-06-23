@@ -18,39 +18,6 @@ function getCountryVATEntity(countryCode) {
 }
 
 /**
-* calculate swell discount amount
-* @param {Order} order Order
-* @return {Number} Loyalty RetailerDiscountAmount.
-*/
-function getSwellDiscountAmount(order) {
-    try {
-        var eswRetailerCurrencyRoundingDigits = Site.current.getCustomPreferenceValue('eswRetailerCurrencyRoundingDigits');
-        var fxRate = parseFloat(getFXRates(order)).toFixed(eswRetailerCurrencyRoundingDigits);
-        var discountAmountShopperCurrency = 0.00;
-        var PriceAdjustmentsItr = order.getPriceAdjustments().iterator();
-        var calculatedRetailerDiscountAmount = 0.00;
-        var loyaltyRetailerDiscountAmount = 0.00;
-        while (PriceAdjustmentsItr.hasNext()) {
-            var currentPriceAdjustment = PriceAdjustmentsItr.next();
-            discountAmountShopperCurrency += currentPriceAdjustment.netPrice.decimalValue;
-            if (!empty(currentPriceAdjustment.custom.swellPointsUsed) && !empty(currentPriceAdjustment.custom.swellRedemptionId)) {
-                loyaltyRetailerDiscountAmount += currentPriceAdjustment.netPrice.decimalValue;
-            } else {
-                calculatedRetailerDiscountAmount += currentPriceAdjustment.netPrice.decimalValue;
-            }
-        }
-        var retailerDiscountAmount = (discountAmountShopperCurrency * -1) * fxRate;
-        var totalCalculatedRetailerAmount = ((loyaltyRetailerDiscountAmount * -1) * fxRate) + ((calculatedRetailerDiscountAmount * -1) * fxRate);
-        
-        if (retailerDiscountAmount === totalCalculatedRetailerAmount) {
-            return (loyaltyRetailerDiscountAmount * -1) * fxRate;
-        }
-    } catch (e) {
-        Logger.error('(crossborderUtils.js -> getSwellDiscountAmount) Error occured while getting the swell discount amount: ' + e);
-    }
-}
-
-/**
  * To get fx rates of an order
  * @param {Order} order Order container.
  * @returns calculated fx rates
@@ -64,6 +31,5 @@ function getFXRates(order) {
 
 module.exports = {
     getCountryVATEntity: getCountryVATEntity,
-    getSwellDiscountAmount : getSwellDiscountAmount,
     getFXRates : getFXRates
 };

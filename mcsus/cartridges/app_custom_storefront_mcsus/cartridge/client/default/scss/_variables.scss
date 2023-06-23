@@ -25,6 +25,7 @@ $border-color: #979797 !default;
 // Consolidated values
 $black1: #212529 !default;
 $silver: #C6C4C4 !default;
+$star-light-brown: #C7B299 !default;
 
 $light-grey: #d8d8d8 !default;
 $light-grey2: #f8f8f8 !default;
@@ -106,6 +107,19 @@ $light-gray1: rgba(205,205,205,0.5);
 $white1: #FFFFFF;
 $black2: #060606;
 $dark-gray1: #343A40;
+$gray5: #EEEDEC;
+$gray6: #0D0D0D;
+$gray7: #909090;
+$gray8: #ECECEC;
+$black6: #060004;
+$light-grey6: #F8f8f8;
+$light-gray3: #C4C1C1;
+$grey-light10: rgba(255,255,255,0.89);
+$grey-light11: rgba(0,0,0,0.89);
+$grey-light12: rgba(187,189,191,0.3);
+$grey-light13: rgba(196,193,193,0.45);
+$grey-light14: rgba(0,0,0,0.6) !default;
+$grey-light6: rgba(0,0,0,0.5) !default;
 $font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
 
 $grid-breakpoints: (
@@ -188,3 +202,4 @@ $font-std-medium: "FuturaStd-Medium", Arial, sans-serif !default;
 $width: 100%;
 $spaceLeft: rem(20);
 $marginLeftlg : 60%;
+$futura-book : "FuturaStd-Book", Arial, sans-serif !default;

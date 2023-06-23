@@ -46,10 +46,10 @@ function getStores(radius, lat, long, geolocation, countryCodeFromRequest, showM
 
     if (status !== ZERO_RESULTS) {
         var countryCode = countryCodeFromRequest || geolocation.countryCode;
-        var distanceUnit = countryCode === 'US' ? Resource.msg('storelocator.distance.unit.miles', 'storeLocator', null) : Resource.msg('storelocator.distance.unit.kilometers', 'storeLocator', null);
+        var distanceUnit = countryCode === 'US' ? Resource.msg('storelocator.radius.unit.miles', 'storeLocator', null) : Resource.msg('storelocator.distance.unit.kilometers', 'storeLocator', null);
         location.lat = lat && long ? parseFloat(lat) : geolocation.latitude;
         location.long = long && lat ? parseFloat(long) : geolocation.longitude;
-        searchKey = { lat: location.lat, long: location.long };
+        searchKey = { lat: location.lat, long: location.long, distanceUnit: distanceUnit};
         storeMgrResult = StoreMgr.searchStoresByCoordinates(location.lat, location.long, distanceUnit, resolvedRadius, 'custom.divisionCode={0}', divisionCode);
         stores = new StoresModel(storeMgrResult.keySet(), searchKey, resolvedRadius, actionUrl, apiKey);
         if (stores.stores.length > 99) {

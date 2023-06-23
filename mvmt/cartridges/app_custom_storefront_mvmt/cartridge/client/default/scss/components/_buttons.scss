@@ -161,15 +161,17 @@
   padding: 0 rem(12);
   line-height: rem(30);
   text-align: center;
-  border: rem(1) solid $black;
-  color: $black;
+  border: rem(1) solid $dark-gray2;
+  color: $dark-gray2;
   transition: all .25s ease-in-out;
   font-size: rem(12);
+  border-radius: rem(64.5);
 }
 
 .button.button--black-skeleton:hover {
-  background: $black;
-  color: $white
+  background: $dark-blue-btn;
+  color: $white;
+  border-color: $dark-blue-btn;
 }
 
 .button.button--reset,

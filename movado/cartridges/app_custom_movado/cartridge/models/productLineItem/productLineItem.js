@@ -39,7 +39,7 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.orderable(product, apiProduct, options.quantity);
     productLineItemDecorators.shipment(product, options.lineItem);
     productLineItemDecorators.bonusProductLineItem(product, options.lineItem);
-    productLineItemDecorators.priceTotal(product, options.lineItem);
+    productLineItemDecorators.priceTotal(product, options.lineItem, options.quantity);
     productLineItemDecorators.quantityOptions(product, options.lineItem, options.quantity);
     productLineItemDecorators.options(product, options.lineItemOptions);
     productLineItemDecorators.bonusProductLineItemUUID(product, options.lineItem);
@@ -48,6 +48,7 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
 
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
+    var plpCustomUrl = productCustomHelper.getPLPCustomURL(apiProduct);
 
     /**
      * Custom Start:  Clyde Integration
@@ -90,6 +91,19 @@ module.exports = function productLineItem(product, apiProduct, options) {
             value: isWatchTile
         });
     }
-    
+
+    if (!empty(product)) {
+        Object.defineProperty(product, 'isPulseIDEngravingEnabled', {
+            enumerable: true,
+            value: !empty(apiProduct.custom.enablepulseIDEngraving) ? apiProduct.custom.enablepulseIDEngraving : ''
+        });
+    }
+
+    if (!empty(plpCustomUrl)) {
+        Object.defineProperty(product, 'plpCustomUrl', {
+            enumerable: true,
+            value: plpCustomUrl
+        });
+    }
     return product;
 };
