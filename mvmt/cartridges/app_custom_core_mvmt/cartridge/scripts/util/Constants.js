@@ -21,6 +21,7 @@ exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.COLOR_WATCH = 'colorWatch';
 exports.SLICING_GROUP = 'slicing_group';
+exports.VARIATION_GROUP = 'variation_group';
 exports.ROOT_CATEGORY = 'root';
 exports.YOTPO_REFINEMENT_ID = 'yotpoAverageScore';
 exports.NO_APPLICABLE_PROMOTION = 'NO_APPLICABLE_PROMOTION';
