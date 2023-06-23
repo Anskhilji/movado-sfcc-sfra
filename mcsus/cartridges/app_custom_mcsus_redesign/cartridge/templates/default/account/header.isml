@@ -10,7 +10,13 @@
     </isif>
   </div>
 <iselse/>
-  <div class="user hidden-md-down" tabindex="0">
+
+<div class="set-store-login">
+  <isif condition="${isPickupStoreEnabled}">
+    <isinclude template="modalpopup/modelPopUpButton"/>
+  </isif>
+</div>
+  <div class="user hidden-md-down set-login" tabindex="0">
     <i class="login-icon"></i>
     <span class="user-message user-name">${pdict.name}</span>
     <div class="popover popover-bottom">
@@ -22,7 +28,4 @@
       <a href="${URLUtils.url('Login-Logout')}">${Resource.msg('link.header.logout', 'account', null)}</a>
     </div>
   </div>
-  <isif condition="${isPickupStoreEnabled}">
-    <isinclude template="modalpopup/modelPopUpButton"/>
-  </isif>
 </isif>

@@ -287,7 +287,8 @@
         </div>
         <!-- The Modal: Ends-->
         <!-- sticky ATC -->
-        <div class="top-sticky-card scroll-hidden">
+        <isset name="mcsHeaderABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSHeaderRedesign','render-new-design')}" scope="page" />
+        <div class="${mcsHeaderABTest ? 'top-header-redesign' : 'top-sticky-card'} scroll-hidden">
             <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
         <div class="bottom-sticky-card ${mcsPdpATCABTest ? 'sticky-test-wrapper' : ''} scroll-hidden">
