@@ -1317,6 +1317,8 @@
                                     width: 100%;
                                     background-color: $black;
                                     bottom: rem(3);
+                                    left: 0;
+                                    right: 0;
                                 }
 
                                 &:hover {
@@ -2566,18 +2568,6 @@
 
 // CSS End: isPick up store pdp redesign
 
-// CSS Start: listrak persistent popup
-.listrak-persistent-popup {
-    display: none !important;
-}
-
-.button-floting {
-    &.button-product-detail {
-        bottom: rem(160);
-    }
-}
-
-// CSS End: listrak persistent popup
 .main-variation-attribute-mcs {
 
     .attribute {

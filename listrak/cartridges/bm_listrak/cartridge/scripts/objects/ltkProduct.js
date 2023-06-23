@@ -74,6 +74,7 @@ function ltkProduct() {
     // Custom Start: [MSS-1987 Movado - Listrak Product Feed Change]
     this.jewelryType = '';
     // Custom End:
+    this.familyName = '';
 }
 
 /* Method to load product URLs only. */
@@ -189,6 +190,7 @@ ltkProduct.prototype.LoadProduct = function (product) {
         this.jewelryType = this.getJewelryType(product);
     }
     // Custom End
+    this.familyName = this.getFamilyName(product);
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {

@@ -1,0 +1,75 @@
+@import '~movado/components/productTiles';
+
+.product-tile {
+
+    .tile-body {
+
+        .plp-swatches-wrapper {
+            margin-bottom: rem(8);
+            min-height: rem(20);
+        }
+
+        .color-swatches {
+
+            .swatch-plus-box {
+
+                a {
+                    &.square-swatch {
+                        margin-right: rem(10);
+                        display: inline-block;
+
+                        .swatch-counter {
+                            font-size: rem(10);
+                            font-weight: 400;
+                            color: $black;
+                            font-family: $font-gill-std-semibold;
+                            margin-right: 0;
+                            width: rem(20);
+                            min-width: rem(20);
+                            height: rem(20);
+                            border: rem(1) solid $gray-light-4;
+                            box-sizing: border-box;
+                            border-radius: 100%;
+                            color: $gray20;
+                            display: inline-block;
+                            cursor: pointer;
+                            letter-spacing: rem(0.5);
+                            line-height: 19px;
+                            text-align: center;
+                        }
+
+                        .disabled {
+                            position: relative;
+                            
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                left: rem(10);
+                                top: rem(0);
+                                width: rem(1);
+                                height: rem(20);
+                                background-color: $black;
+                                transform: rotate(45deg);
+                                z-index: 2;
+                            }
+                        }
+
+                        .swatch-circle {
+                            border: none;
+                            width: rem(20);
+                            min-width: rem(20);
+                            height: rem(20);
+                            margin-right: 0;
+                            box-sizing: border-box;
+                            cursor: pointer;
+
+                            &.is-active {
+                                border: rem(1) solid $black;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

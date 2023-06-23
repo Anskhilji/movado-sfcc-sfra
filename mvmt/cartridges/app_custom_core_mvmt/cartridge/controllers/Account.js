@@ -177,7 +177,6 @@ server.replace('SaveProfile', server.middleware.https, csrfProtection.validateAj
 	        var URLUtils = require('dw/web/URLUtils');
             var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
             var customAccountHelper = require('*/cartridge/scripts/helpers/customAccountHelpers');
-            var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
 
 	        var formErrors = require('*/cartridge/scripts/formErrors');
 
@@ -289,17 +288,6 @@ server.replace('SaveProfile', server.middleware.https, csrfProtection.validateAj
 	                        fields: formErrors.getFormErrors(profileForm)
 	                    });
 	                }
-	             // Custom Start: Yotpo Swell Integration 
-	                if (isYotpoSwellLoyaltyEnabled) {
-	                    var viewData = res.getViewData();
-	                    if (viewData.success) {
-	                        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-	                        SwellExporter.exportCustomer({
-	                            customerNo: req.currentCustomer.profile.customerNo
-	                        });
-	                    }
-	                }
-	                // Custom End: Yotpo Swell Integration 
 	            });
 	        } else {
 	            res.json({

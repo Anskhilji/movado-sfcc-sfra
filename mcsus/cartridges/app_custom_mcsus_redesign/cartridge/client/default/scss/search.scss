@@ -58,6 +58,28 @@
             .searech-results-wrapper {
                 margin-top: rem(0);
 
+                .result-count {
+
+                    &.pull-left {
+                        display: none;
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                       position: unset;
+                    }
+                    span {
+
+                        @include media-breakpoint-up(sm) {
+                            font-size: rem(16);
+                            margin-top: rem(7);
+
+                            &:has(+ p) {
+                                margin-top: rem(0);
+                            }
+                        }
+                    }
+                }
+
                 @include media-breakpoint-down(sm) {
                     padding: 0 rem(15);
                 }
@@ -67,7 +89,7 @@
                 }
 
                 .tab-pane {
-                    margin: rem(50) rem(0) rem(54) rem(0);
+                    margin: rem(50) rem(0) rem(20) rem(0);
                     top: 0;
                     position: relative;
 
@@ -162,6 +184,7 @@
                     .grid-header {
                         margin-bottom: rem(0);
                         margin-top: rem(0);
+                        position: relative;
 
                         .sort-col {
                             
@@ -482,13 +505,17 @@
                             font-size: rem(11);
                         }
 
-                        &::after {
-                            content: "\00d7";
-                            font-family: FontAwesome;
-                            font-size: rem(12);
-                            margin-left: rem(8);
-                            transform: translateY(1px);
-                            display: inline-block;
+                        a {
+                            text-decoration: none;
+
+                            &::after {
+                                content: "\00d7";
+                                font-family: FontAwesome;
+                                font-size: rem(12);
+                                margin-left: rem(8);
+                                transform: translateY(1px);
+                                display: inline-block;
+                            }
                         }
                     }
                 }
@@ -521,7 +548,11 @@
                             margin: 0;
                             opacity: 0.25;
                             height: auto;
-                            padding-bottom: rem(20);
+                            padding-bottom: 0;
+
+                            @include media-breakpoint-down(xs) {
+                                padding-bottom: rem(20);
+                            }
 
                             .reset {
                                 border: none;
@@ -684,15 +715,6 @@
         &.close {
             display: none;
         }
-    }
-}
-
-.listrak-persistent-popup {
-    display: none !important;
-}
-.button-floting {
-    &.button-search-result {
-        bottom: rem(41);
     }
 }
 

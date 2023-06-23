@@ -9,7 +9,8 @@ var HashMap = require('dw/util/HashMap');
 var Site = require('dw/system/Site');
 var Template = require('dw/util/Template');
 
-var shippingMethodHelper = require('*/cartridge/scripts/helpers/shippingMethodHelper'); 
+var shippingMethodHelper = require('*/cartridge/scripts/helpers/shippingMethodHelper');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 /**
 * extend is use to extend super module
@@ -68,6 +69,7 @@ function createDiscountObject(collection, discounts) {
 function getDiscounts(lineItemContainer) {
     var discounts = {};
     var priceAdjustments;
+    var excludeProductLevelMessage;
 
     collections.forEach(lineItemContainer.couponLineItems, function (couponLineItem) {
         priceAdjustments = collections.map(
@@ -76,6 +78,13 @@ function getDiscounts(lineItemContainer) {
                     callOutMsg: priceAdjustment.promotion.calloutMsg
                 };
             });
+
+            if (!couponLineItem.applied && couponLineItem.promotion.custom.excludeProductLevelPromotion == true && couponLineItem.statusCode == Constants.NO_APPLICABLE_PROMOTION) {
+                var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
+                var errorCodes = JSON.parse(couponErrorMessages);
+                var localeErrorCodes = errorCodes[request.locale] || errorCodes['default'];
+                excludeProductLevelMessage = localeErrorCodes['EXCLUDE_PRODUCT_LEVEL_PROMOTION'] || localeErrorCodes.DEFAULT;
+            }
         discounts[couponLineItem.UUID] = {
             type: 'coupon',
             UUID: couponLineItem.UUID,
@@ -83,6 +92,7 @@ function getDiscounts(lineItemContainer) {
             applied: couponLineItem.applied,
             valid: couponLineItem.valid,
             relationship: priceAdjustments,
+            excludeProductLevelMessage: excludeProductLevelMessage
         };
     });
 
@@ -126,6 +136,7 @@ function totals(lineItemContainer) {
     var KlarnaGrandTotal = lineItemContainer.totalGrossPrice;
     var progressBarGrandTotal = lineItemContainer.totalGrossPrice;
     var discountArray = getDiscounts(lineItemContainer);
+    var isFree = false;
 
     if (KlarnaGrandTotal.available) {
         KlarnaGrandTotal = AdyenHelpers.getCurrencyValueForApi(KlarnaGrandTotal).toString();
@@ -148,7 +159,8 @@ function totals(lineItemContainer) {
             deliveryDate : deliveryDate,
             deliveryTime : deliveryTime,
             beamGrandTotal : lineItemContainer.totalGrossPrice.decimalValue,
-            progressBarGrandTotal: progressBarGrandTotal
+            progressBarGrandTotal: progressBarGrandTotal,
+            isFree: isFree
 	    });
     }
 

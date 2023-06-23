@@ -39,15 +39,15 @@
                     <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
                 </div>
 
-                <div class="row align-items-center-wrapper">
+                <div class="row align-items-center-wrapper pdp-images-carousel-addition">
                     <!-- Product Images Carousel -->
-                    <isinclude template="product/components/imageCarouselPdp" />
+                    <isinclude template="product/components/imageCarousel" />
 
                     <div class="col-12 col-sm-6 product-top-detail">
 
                         <!-- Family Name -->
                         <isif condition="${pdict.plpProductFamilyName}">
-                            <h1 class="family-name">${pdict.collectionName}</h1>
+                            <h1 class="family-name">${product.collectionName}</h1>
                         </isif>
                         <!-- Product Name -->
                         <h2 class="product-name text-uppercase">${product.productName}</h2>
@@ -71,6 +71,10 @@
                                 </isif>
                             </div>
                         </div>
+
+                        <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                            <isinclude template="product/components/variationAttributes" />
+                        </isif>
                         <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                         <isif condition="${isEswEnabled}" >
@@ -252,7 +256,7 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled}">
             <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
             <span class="listrak-popup-product-detail"></span>
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />

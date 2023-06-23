@@ -98,8 +98,10 @@ function productSync() {
 
             // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
             var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
-            if (!empty(productFeedJson)) {
-                productFile.AddRowItem('Gender');
+            if (Site.current.ID !== 'MCSUS') {
+                if (!empty(productFeedJson)) {
+                    productFile.AddRowItem('Gender');
+                }
             }
             // Custom End
 
@@ -174,16 +176,24 @@ function productSync() {
                 // Brand
                 productFile.AddRowItem(prd.brand, true);
 
-                // Category
-                productFile.AddRowItem(prd.categories[0], true); // Category
-                if (!empty(productFeedJewelryJson)) {
-                    productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
+                if (Site.current.ID === 'MCSUS') {
+                    if (!empty(productFeedJson)) {
+                        productFile.AddRowItem(prd.watchGender, true);
+                    }
+                    productFile.AddRowItem(prd.familyName, true);
                 } else {
-                    productFile.AddRowItem(prd.categories[1], true); // Sub-category
-                    for (i = 2; i <= subCategoryLevels; i++) {
-                        productFile.AddRowItem(prd.categories[i], true);
+                    // Category
+                    productFile.AddRowItem(prd.categories[0], true); // Category
+                    if (!empty(productFeedJewelryJson)) {
+                        productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
+                    } else {
+                        productFile.AddRowItem(prd.categories[1], true); // Sub-category
+                        for (i = 2; i <= subCategoryLevels; i++) {
+                            productFile.AddRowItem(prd.categories[i], true);
+                        }
                     }
                 }
+                
                 // CategoryTree
                 var tree = '';
                 var index = 0;
@@ -237,7 +247,7 @@ function productSync() {
                 }
 
                 // Custom Start: Adding Sales info [MSS-1473]
-                productFile.AddRowItem(!empty(prd.salePrice) && prd.onSale ? true : false, true);
+                productFile.AddRowItem(!empty(prd.salePrice) && prd.salePrice < prd.price && prd.onSale ? true : false, true);
                 // Custom End
 
                 // Custom Start: Adding Category Value [MSS-1473]
@@ -249,8 +259,10 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-                if (!empty(productFeedJson)) {
-                    productFile.AddRowItem(prd.watchGender, true);
+                if (categoryLevelAttributes) {
+                    if (!empty(productFeedJson)) {
+                        productFile.AddRowItem(prd.watchGender, true);
+                    }
                 }
                 // Custom End
 
