@@ -423,6 +423,29 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
             quantityPDP: $pdpQuantityValue && $pdpQuantityValue > 0 && $pdpQuantityValue != null ? $pdpQuantityValue : 1
         };
 
+        //custom start : PulseID Engraving [2213]
+        var $engravingPrice = $('.engraving-price').first();
+        var $engravingTextOne = $('.engraved-text-one');
+        var $engravingTextTwo = $('.engraved-text-two');
+        var $previewUrl = $('.preview-btn').attr('preview-url');
+        data.pulseIdEngraving = false;
+
+        if ($engravingPrice.length > 0 && $engravingTextOne.length > 0 && $engravingTextTwo.length > 0) {
+
+            var $engravingPrice = $engravingPrice.text().substring(1);
+            var $engravingTextOne = $engravingTextOne.text().trim();
+            var $engravingTextTwo = $engravingTextTwo.text().trim();
+
+            if ($engravingPrice && ($engravingTextOne || $engravingTextTwo) && $engravingPrice) {
+                data.pulseIdEngraving = true;
+                data.engravingPrice = $engravingPrice;
+                data.engravingTextOne = $engravingTextOne;
+                data.engravingTextTwo = $engravingTextTwo;
+                data.previewUrl = $previewUrl
+            }
+        }
+        //custom end : ulseID Engraving
+
         if (window.Resources.IS_CLYDE_ENABLED && typeof Clyde !== 'undefined') {
             var clydeContract = Clyde.getSelectedContract();
             if (clydeContract) {

@@ -1258,6 +1258,29 @@ function clydeAddProductToCart() {
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
     $(this).trigger('updateAddToCartFormData', form);
+
+    var $engravingPrice = $('.engraving-price').first();
+    var $engravingTextOne = $('.engraved-text-one');
+    var $engravingTextTwo = $('.engraved-text-two');
+
+    form.pulseIdEngraving = false;
+
+    if ($engravingPrice.length > 0 && $engravingTextOne.length > 0 && $engravingTextTwo.length > 0) {
+
+        var $engravingPrice = $engravingPrice.text().substring(1);
+        var $engravingTextOne = $engravingTextOne.text().trim();
+        var $engravingTextTwo = $engravingTextTwo.text().trim();
+        var $previewUrl = $('.preview-btn').attr('preview-url');
+
+        if ($engravingPrice && $engravingTextOne && $previewUrl) {
+            form.pulseIdEngraving = true;
+            form.engravingPrice = $engravingPrice;
+            form.engravingTextOne = $engravingTextOne;
+            form.engravingTextTwo = $engravingTextTwo;
+            form.previewUrl = $previewUrl;
+        }
+    }
+
     if (addToCartUrl) {
         $.ajax({
             url: addToCartUrl,

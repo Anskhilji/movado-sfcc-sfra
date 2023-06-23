@@ -217,7 +217,7 @@ server.append('AddProduct', function (req, res, next) {
             quantityTotal = 0;
         }
 
-        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
+        customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
 
         // Custom Start MSS-1930 Added code for Listrak Cart Tracking
         if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
@@ -449,6 +449,12 @@ server.append(
             var productLineItem = productLineItems.next();
             var quantity = productLineItem.getQuantity().value;
             var apiProduct = productLineItem.getProduct();
+             //custom : PulseID engraving
+             if (Site.current.preferences.custom.enablePulseIdEngraving) {
+                var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+                var setPulseJobID = pulseIdAPIHelper.setOptionalLineItemUUID(viewData, productLineItem);
+            }
+            // custom end
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
@@ -469,7 +475,7 @@ server.append(
         });
 
         customCartHelpers.removeClydeWarranty(viewData);
-        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
+        customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
 
         if (!empty(req.querystring.lastNameError)) {
             res.setViewData({ 
