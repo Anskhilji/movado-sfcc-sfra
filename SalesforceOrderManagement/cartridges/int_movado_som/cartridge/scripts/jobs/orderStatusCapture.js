@@ -89,6 +89,23 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             }
         }
 
+        // Engraving
+        if(foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r != null) {
+            var engravingShippedQuantity = Math.min(orderQuantity, foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Quantity);
+            var engravingFulfillmentLineItem = _.find(fulfillmentOrderLineItems, function (foMatch) {
+                return (foMatch.OrderItemSummary.Id === foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id);
+            });
+            if(engravingFulfillmentLineItem != null) {
+                pendingFOLineItems.push(
+                    SalesforceModel.buildCompositeFulfillmentOrderLineItemUpdateRequest({
+                        Id: engravingFulfillmentLineItem.Id,
+                        ShippedQuantity: engravingShippedQuantity
+                    })
+                );
+            }
+        }
+
+
 
         // Short Ship - Move additional quantity out of FO allocation and back to OrderSummary
         if (shippedQuantity < foLineItem.Quantity) {
@@ -103,6 +120,15 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 pendingFOCancelChangeItems.push({
                     fulfillmentOrderLineItemId: foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,
                     quantity: warrantyShortShipQuantity
+                });
+            }
+
+            // Attached Engraving
+            if (foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r != null && foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id != null) {
+                var engravingShortShipQuantity = Math.min(shippedQuantity, foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Quantity);
+                pendingFOCancelChangeItems.push({
+                    fulfillmentOrderLineItemId: foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id,
+                    quantity: engravingShortShipQuantity
                 });
             }
         }
@@ -154,6 +180,15 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 });
             }
 
+            // Attached Engraving
+            if (foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id != null) {
+                var engravingRejectedQuantity = Math.min(rejectedQuantity, foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Quantity);
+                pendingFOCancelChangeItems.push({
+                    fulfillmentOrderLineItemId: foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id,
+                    quantity: engravingRejectedQuantity
+                });
+            }            
+
             // Cancel the original order line summary.  Note: Shipping charges are never cancelled from the OrderSummary.
             // Cancellation calculation assumes refunding shipping for the items cancelled
             if (foLineItem.Type.toUpperCase() !== 'DELIVERY CHARGE') {
@@ -178,7 +213,8 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     // Find fulfillment order items missing from SAP XML.  Cancel them to move them back to the OrderSummary
     for (let i = 0; i < fulfillmentOrderLineItems.length; i++) {
         var isWarranty = (fulfillmentOrderLineItems[i].OrderItemSummary.WarrantyParentOrderItemSummary__r != null);
-        if (!isWarranty) {
+        var isEngraving = (fulfillmentOrderLineItems[i].OrderItemSummary.EngraveParentOrderItemSummary__r != null);
+        if (!isWarranty && !isEngraving) {
             var found = false;
             for (let j = 0; j < SAPOrderStatus.EcommerceOrderStatusItem.length; j++) {
                 var foLineNumber = parseInt(fulfillmentOrderLineItems[i].OrderItemSummary.LineNumber);
