@@ -3,6 +3,7 @@
 var ProductLineItem = require('dw/order/ProductLineItem');
 var Logger = require('dw/system/Logger');
 var productFactory = require('*/cartridge/scripts/factories/product');
+var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var collections = require('*/cartridge/scripts/util/collections');
 var EMBOSSED = 'Embossed';
@@ -313,7 +314,6 @@ function getcartPageHtml (req) {
 function getCountrySwitch() {
     
     var Logger = require('dw/system/Logger');
-    var Site = require('dw/system/Site');
 
     var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
     if (isEswEnabled) {
@@ -341,18 +341,28 @@ function getCountrySwitch() {
 
 };
 
-function removeNullOptionLineItems(currentBasket) {
+function removeNullClydeWarrantyLineItemAndEngraving(currentBasket) {
     var Transaction = require('dw/system/Transaction');
 
     var Constants = require('*/cartridge/utils/Constants');
+
+    var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
     var orderLineItems = currentBasket.allProductLineItems;
     var orderLineItemsIterator = orderLineItems.iterator();
+    var pulseIdEngraving = 'pulseIdEngraving';
     var productLineItem;
+    var pulseIdConstants;
+
+    if (enablePulseIdEngraving) {
+        pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
+    }
 
     Transaction.wrap(function () {
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
-            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+            if (productLineItem instanceof dw.order.ProductLineItem && (productLineItem.optionID == Constants.ENGRAVING || productLineItem.optionID == Constants.CLYDE_WARRANTY) && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
                 currentBasket.removeProductLineItem(productLineItem);
             } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == EMBOSSED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
                 currentBasket.removeProductLineItem(productLineItem);
@@ -423,6 +433,6 @@ module.exports = {
     getGiftTransactionATC: getGiftTransactionATC,
     getCountrySwitch: getCountrySwitch,
     removeClydeWarranty: removeClydeWarranty,
-    removeNullOptionLineItems: removeNullOptionLineItems,
+    removeNullClydeWarrantyLineItemAndEngraving: removeNullClydeWarrantyLineItemAndEngraving,
     removeGiftMessaging: removeGiftMessaging
 };

@@ -5,6 +5,21 @@
     margin: rem(20px) auto;
     padding: 0;
 
+    .address-book-header {
+
+        .address-book-header-title {
+            font-family: $font-brandon-grotesque;
+        }
+    }
+   
+    .back-link {
+        color: $dark-gray2;
+
+        &:hover {
+            color: $dark-blue-btn;
+        }
+    }
+
     .card-body.card-body-positioning {
         > div {
             font-size: rem(14);
@@ -38,18 +53,30 @@
             span {
                 margin-right: rem(5);
             }
+
+            &:hover {
+                color: $dark-blue-btn;
+
+                span {
+                    color: $dark-blue-btn;
+                }
+            }
         }
     }
 
     .btn-save {
+        background-color: $dark-gray2;
+        border-color: $dark-gray2;
+        border-radius: rem(64.5);
+
         &:hover {
-            background-color: $light-green;
-            border: 0.125rem solid $black;
+            background-color: $dark-blue-btn;
+            border: 0.125rem solid $dark-blue-btn;
         }
 
         &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
-            background-color: $light-green;
-            border: 0.125rem solid $black;
+            background-color: $dark-blue-btn;
+            border: 0.125rem solid $dark-blue-btn;
             box-shadow: none;
             outline: 0;
             line-height: normal;
@@ -58,12 +85,23 @@
         &.btn-primary {
 
             &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
-                background-color: $light-green;
-                border: 0.125rem solid $black;
+                background-color: $dark-blue-btn;
+                border: 0.125rem solid $dark-blue-btn;
                 box-shadow: none;
                 outline: 0;
                 line-height: normal;
             }
+        }
+    }
+
+    .card-header {
+        
+        h3 {
+            font-family: $font-brandon-grotesque;
+        }
+
+        .address-heading {
+            font-family: $font-brandon-grotesque;
         }
     }
 }

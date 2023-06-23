@@ -38,6 +38,17 @@
             overflow-x: hidden;
             overflow-y: auto;
         }
+
+        .cart-country-selector {
+
+            .text-info {
+                color: $dark-gray2 !important; // i'm using important to overwrite inline css
+
+                &:hover {
+                    color: $dark-blue-btn !important; // i'm using important to overwrite inline css
+                }
+            }
+        }
         
         &.afterSticky {
             @include media-breakpoint-down(md) {
@@ -102,7 +113,7 @@
             }
 
             h4 {
-                font-family: $font-medium;
+                font-family:$font-brandon-grotesque;
                 font-size: rem(16);
                 text-align: center;
                 letter-spacing: rem(1.6);
@@ -482,7 +493,6 @@
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
             padding-top: rem(25);
-
             .mini-cart-fixed {
                 margin: 0 rem(12) rem(12) rem(12);
                 padding-bottom: rem(20);
@@ -538,25 +548,23 @@
 
                                 .quantity {
                                     overflow: visible;
-                                    padding: rem(2) rem(15) rem(2) rem(2);
-                                    box-shadow: inset 0 0 rem(2) rem(1) $light-gray4;
+                                    padding: 0 rem(14);
                                     outline: 0;
-                                    border: 0;
+                                    border: rem(1) solid $border-gray1;
                                     line-height: 1.15;
                                     margin: 0;
-                                    width: rem(76);
-                                    height: rem(50);
-                                    border-radius: rem(1);
+                                    width: rem(82);
+                                    height: rem(30);
+                                    border-radius: rem(64.5);
                                     font-size: rem(14);
                                     letter-spacing: rem(1);
                                     font-weight: 400;
-                                    text-indent: rem(15);
+                                    text-indent: rem(23);
                                     margin-right: rem(20);
                                     -moz-appearance: textfield;
 
                                     @include media-breakpoint-down(sm) {
                                         font-size: rem(16);
-                                        padding: 0;
                                     }
 
                                     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
@@ -571,41 +579,41 @@
                                 display: flex;
                                 flex-direction: column;
                                 position: absolute;
-                                right: rem(35);
-                                top: 50%;
-                                transform: translateY(-50%);
-
-                                @include media-breakpoint-down(md) {
-                                    right: rem(21);
-                                }
+                                right: rem(0);
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
 
                                 button {
-                                    width: rem(12);
-                                    height: rem(10);
-                                    position: relative;
                                     border: none;
                                     outline: none;
-                                    background-color: $grey2;
-                                    color: $grey3;
-
-                                    @include media-breakpoint-down(md) {
-                                        width: rem(18);
-                                        height: rem(24);
-                                    }
+                                    padding: 0;
 
                                     &:hover {
                                         background-color: $light-silver;
                                     }
 
-                                    svg {
-                                        position: absolute;
-                                        width: rem(8);
-                                        top: 50%;
-                                        left: 50%;
-                                        transform: translate(-50%, -50%);
+                                    &.up-qty-btn {
+                                        
+                                        svg {
+                                            position: absolute;
+                                            width: rem(9);
+                                            height: rem(9);
+                                            top: 50%;
+                                            right: rem(33);
+                                            transform: translateY(-50%);
+                                        }
+                                    }
 
-                                        @include media-breakpoint-down(md) {
-                                            width: rem(13);
+                                    &.down-qty-btn {
+                                        
+                                        svg {
+                                            position: absolute;
+                                            width: rem(9);
+                                            height: rem(0.93);
+                                            top: 50%;
+                                            left: rem(14);
+                                            transform: translateY(-50%);
                                         }
                                     }
                                 }
@@ -637,6 +645,7 @@
                         .line-item-promo {
 
                             p {
+                                font-family:$font-brandon-grotesque;
                                 margin-bottom: 0;
                             }
                         }
@@ -651,6 +660,7 @@
                             overflow: hidden;
 
                             p {
+                                font-family:$font-brandon-grotesque;
                                 margin-bottom: 0;
                             }
 
@@ -780,9 +790,56 @@
                     }
                 }
             }
+
+            .minicart-footer, .coupon-code-field-static {
+                position: static;
+                box-shadow: none;
+
+                .minicart-promo-container {
+                    margin: 0 rem(12) rem(12) rem(12);
+                    padding-bottom: rem(20);
+                    border-top: 1px solid $gray14;
+                }
+            }
+
+            .coupon-code-field-static {
+
+                .minicart-promo-container {
+
+                    .mini-cart-promo-box {
+
+                        .promo-box {
+
+                            .collapsible-promo-wrapper {
+
+                                .minicart-promo-code-form {
+
+                                    .form-group {
+
+                                        .title {
+                                            padding: rem(16) rem(0);
+                                        }
+
+                                        .value {
+
+                                            .mini-cart-coupon-field {
+                                                padding-left: rem(0);
+                                            }
+
+                                            .promo-code-submit {
+                                                transform: translateX(8px);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        .minicart-footer {
+        .minicart-footer, .coupon-code-field-static {
             overflow: hidden;
             padding: 0;
             bottom: 0;
@@ -810,57 +867,7 @@
 
                 .coupons-and-promos {
                     width: 100%;
-
-                    .redeem-rewards-promos {
-                        padding: 0;
-                    }
-                    .swell-promotion-information {
-                        margin-bottom: rem(10);
-                        margin-top: rem(10);
-
-                            .promotion-price-adjustment {
-                                margin: rem(6);
-                                box-shadow: rem(0) rem(2) rem(2) rem(0) $light-black-shadow;
-                                border-radius: rem(3);
-                                border: rem(1) solid $grey3;
-                                background-color: $white;
-                                padding: rem(10);
-                                height: rem(55);
-
-                                .promotion-adjustment {
-                                    font-size: rem(16);
-                                    letter-spacing: rem(2);
-                                    text-transform: uppercase;
-                                    font-weight: 600;
-                                }
-                            }
-
-                            .applied-promotion-discount {
-                                font-family: $font-medium;
-                                font-size: rem(12);
-                                letter-spacing: rem(1);
-                                line-height: rem(14);
-                                text-transform: uppercase;
-                                position: relative;
-                                left: rem(14);
-                                top: rem(5);
-                            }
-
-                            .swell-remove-redeem-rewards {
-                                border: none;
-                                background: transparent;
-                                padding: 0;
-                                position: relative;
-                                bottom: rem(10);
-                                font-size: rem(23);
-                                color: $black;
-                                font-weight: 600;
-                            }
-                            .redeem-discount-promotion {
-                                position: relative;
-                                top: rem(15);
-                            }
-                    }
+                    
                     .coupon-price-adjustment {
                         margin: rem(6);
                     }
@@ -868,48 +875,6 @@
 
                 .promo-code-inner-div {
                     border-bottom: rem(1) solid $light-gray4;
-
-                    .swell-redemption {
-
-                        .swell-point-balance {
-                            padding: 0 rem(4);
-                        }
-
-                        &-text {
-
-                            &.content {
-                                margin-left: 0;
-                            }
-                        }
-
-                        .swell-redemption-text {
-                            padding: 0 0 rem(8) rem(16);     
-                        }
-
-                        &-dropdown {
-                            width: 100%;
-                            padding: rem(8.32) rem(12);
-                            border-radius: rem(4);
-                            border: rem(1) solid $light-gray4;
-                            padding: rem(9) rem(5);
-                            outline: 0;
-                        }
-
-                        &-btn {
-                            background-color: $black;
-                            border-radius: rem(4);
-                            font-weight: 600;
-                            font-size: rem(14);
-                            padding: rem(9) rem(5);
-                            box-shadow: none;
-
-                            &:hover, &:focus {
-                                background-color: $black;
-                                background-image: linear-gradient($black, $black);
-                                border-color: $black;
-                            }
-                        }
-                    }
 
                     .coupon-code-field {
                         line-height: 1;
@@ -920,13 +885,13 @@
                     }
 
                     .promo-code-btn {
-                        background-color: $black;
-                        border-radius: rem(4);
+                        background-color: $dark-gray2;
+                        border-radius: rem(64.5);
 
                         &:hover, &:focus {
-                            background-color: $black;
-                            background-image: linear-gradient($black, $black);
-                            border-color: $black;
+                            background-color: $dark-blue-btn;
+                            background-image: linear-gradient($dark-blue-btn, $dark-blue-btn);
+                            border-color: $dark-blue-btn;
                         }
                     }
 
@@ -1161,6 +1126,24 @@
 
                         .checkout-btn {
                             margin-bottom: rem(10);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: row-reverse;
+                            background-color: $dark-gray2;
+                            border-color: $dark-gray2;
+                            border-radius: rem(64.5);
+
+                            svg {
+                                margin-right: rem(10);
+                            }
+
+                            &:hover,&:focus {
+                                background-color: $dark-blue-btn;
+                                border-color: $dark-blue-btn;
+                                box-shadow: none;
+                                background-image: linear-gradient($dark-blue-btn, $dark-blue-btn);
+                            }
                         }
 
                         .apple-pay-btn {
@@ -1539,6 +1522,7 @@
     &-image {
 
         p {
+            font-family:$font-brandon-grotesque;
             margin-bottom: 0;
         }
 
@@ -1557,7 +1541,7 @@
 
         p {
             margin-bottom: 0;
-            font-size: rem(12);
+            font-family:$font-brandon-grotesque;
             text-transform: uppercase;
             text-align: center;
             color: $grey7;
@@ -1590,6 +1574,7 @@
         }
 
         p {
+            font-family:$font-brandon-grotesque;
             margin-bottom: 0;
         }
 
@@ -1601,8 +1586,8 @@
             font-style: normal;
             font-size: rem(11);
             letter-spacing: rem(1.5);
-            color: $black;
-            border: rem(2) solid $black;
+            color: $dark-gray2;
+            border: rem(1) solid $dark-gray2;
             margin-bottom: rem(15);
             width: 48%;
             max-width: rem(190);
@@ -1610,12 +1595,14 @@
             line-height: rem(49);
             padding: 0;
             display: inline-block;
+            border-radius: rem(64.5);
 
             &:hover, &:focus {
-                background-color: $black;
+                background-color: $dark-blue-btn;
                 color: $white;
                 text-decoration: none;
                 outline: 0;
+                border-color: $dark-blue-btn;
             }
         }
     }
@@ -1657,7 +1644,7 @@
         line-height: rem(16);
     }
     &-link {
-        color: $curious-light-blue;
+        color: $dark-gray2;
         font-family: $font-medium;
         font-size: rem(12);
         font-weight: 500;
@@ -1665,9 +1652,12 @@
         line-height: rem(16);
         text-transform: capitalize;
         padding-top: 0;
+
         &:hover {
-            color: $curious-light-blue;
+            color: $dark-blue-btn;
+            text-decoration: underline;
         }
+
         &:focus {
             box-shadow: none;
         }
@@ -1824,6 +1814,12 @@
                     padding-right: rem(20);
                     font-weight: 300;
                     text-transform: uppercase;
+                    color: $dark-gray2;
+
+                    &:hover {
+                        color: $dark-blue-btn;
+                        text-decoration: underline;
+                    }
                 }
                 &-textarea-container {
                     text-align: left;
@@ -1872,7 +1868,8 @@
             }
             &-save-button {
                 border-radius: rem(3);
-                background-color: $light-green2;
+                background-color: $dark-blue-btn;
+                border-radius: rem(64.5);
                 color: $white;
                 font-family: $font-medium;
                 font-size: rem(15);
@@ -1883,7 +1880,13 @@
                 max-width: rem(271);
                 width: 100%;
                 margin: auto;
-                height: rem(45); 
+                height: rem(45);
+
+                &:disabled {
+                    background-color: $dark-gray2;
+                    border-color: $dark-gray2;
+                    opacity: 0.3;
+                }
             }
             .close {
                 opacity: 1;
@@ -1924,6 +1927,12 @@
         }
         .gift-box-container-link {
             padding: rem(0) rem(0) rem(0) rem(15);
+            color: $dark-gray2;
+            text-decoration: underline;
+
+            &:hover {
+                color: $dark-blue-btn;
+            }
         }
     }
 }
@@ -1947,7 +1956,7 @@
 .cart-message {
     
     p {
-        font-family: $font-book;
+        font-family:$font-brandon-grotesque;
         font-size: rem(11);
         text-transform: none;
     }
@@ -2012,7 +2021,6 @@
                             del {
 
                                 .strike-through {
-
                                     span {
                                         color: $black;
                                         font-family: $font-medium;
@@ -2027,7 +2035,6 @@
                         }
             
                     }
-
                     .cart-and-ipay {
                         @include media-breakpoint-up(lg) {
                             opacity: 1;

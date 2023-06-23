@@ -98,7 +98,9 @@
                     </isif>
                     <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
                         <li class="nav-item" role="presentation">
+                        <div class="affirm-logo-blue">
                             <isinclude template="affirm/affirmpaymethodli" />
+                        </div>
                         </li>
                     </isif>
                     <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">

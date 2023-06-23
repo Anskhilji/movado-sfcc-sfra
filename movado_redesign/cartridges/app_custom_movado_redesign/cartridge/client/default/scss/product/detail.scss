@@ -96,13 +96,15 @@ $arrow-height: 1.25em;
 
     .clyde-bottom-border {
         height: rem(1);
-        margin-bottom: rem(30);
-        margin-top: rem(20);
+        margin:rem(20) rem(0) rem(30);
         border-color: $border-gray;
+        max-width: rem(376);
+        width: 100%;
 
         @include media-breakpoint-down (md) {
+            max-width: 100%;
             margin-bottom: rem(20);
-            margin-top: rem(-15); 
+            margin-top: rem(-15);
         } 
     }
 
@@ -161,6 +163,7 @@ $arrow-height: 1.25em;
             max-width: rem(275);
             margin-right: auto;
             margin-left: auto;
+            margin-bottom: rem(20);
         }
 
         #clyde-cta {
@@ -419,7 +422,7 @@ $arrow-height: 1.25em;
             font-weight: normal;
             font-size: rem(13);
             padding-top: rem(0);
-            color: $dark-green;
+            color: $black;
             letter-spacing: normal;
             margin-top: rem(3);
             width: 100%;
@@ -554,7 +557,6 @@ $arrow-height: 1.25em;
             font-size: rem(16);
             letter-spacing: normal;
             color: $grey8;
-            text-transform: capitalize;
         }
 
         .title {
@@ -803,6 +805,16 @@ $arrow-height: 1.25em;
 
             .tile-discription, .tile-btns {
                 display: none;
+            }
+
+            .promotions {
+                margin: 0 0 0 rem(15);
+
+                .callout {
+                    margin-top: 0;
+                    text-align: left;
+                    line-height: rem(15);
+                }
             }
         }
     }
@@ -2088,6 +2100,7 @@ body {
 
     .promotions {
         text-align: left;
+        color: $black;
 
         @include media-breakpoint-down(md) {
             text-align: center;

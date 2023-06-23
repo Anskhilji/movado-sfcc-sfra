@@ -12,6 +12,9 @@ var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger'
 var RCUtilities = require('int_riskified/cartridge/scripts/riskified/util/RCUtilities');
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
 var Site = require('dw/system/Site');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
+
 /**
  * This method parse Riskified and Deco response and returns either data is successfully submited or not
  *
@@ -58,6 +61,7 @@ function parseResponse(callerModule, responseFromRiskified, action) {
         parsingResponse.errorCode = Constants.BAD_CALL;
         parsingResponse.recoveryNeeded = RCUtilities.getRecoverySetting(action);
         parsingResponse.message = 'Riskified API Service Error';
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, parseError.message, logLocation, parsingResponse.message);
         return parsingResponse;
     }
 
@@ -66,6 +70,7 @@ function parseResponse(callerModule, responseFromRiskified, action) {
         parsingResponse.errorCode = Constants.BAD_CALL;
         parsingResponse.recoveryNeeded = RCUtilities.getRecoverySetting(action);
         parsingResponse.message = apiResponse.error.message || 'Riskified API Service Error';
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, parsingResponse.message, logLocation, parsingResponse.errorCode);
     }
 
     if ('order' in apiResponse) {
@@ -104,9 +109,12 @@ function post(serviceType, callerModule, payload, action) {
         service,
         result,
         params = {};
+        var message;
 
     if (empty(payload)) {
-        RCLogger.logMessage('Payload is missing, therefore cannot proceed further.', 'error', logLocation);
+        message = 'Payload is missing, therefore cannot proceed further.', 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, Constants.BAD_PAYLOAD);
         return {
             error          : true,
             errorCode      : Constants.BAD_PAYLOAD,
@@ -116,7 +124,9 @@ function post(serviceType, callerModule, payload, action) {
     }
 
     if (empty(action)) {
-        RCLogger.logMessage('Action is missing, therefore cannot proceed further.', 'error', logLocation);
+        message = 'Action is missing, therefore cannot proceed further.', 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, Constants.BAD_ACTION);
         return {
             error          : true,
             errorCode      : Constants.BAD_ACTION,
@@ -125,20 +135,25 @@ function post(serviceType, callerModule, payload, action) {
         };
     }
 
-    switch (serviceType) {
-    case 'async':
-        service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedRestService');
-        service.setCredentialID('riskified.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
-        break;
-    case 'sync':
-        service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedSyncRestService');
-        service.setCredentialID('riskified.sync.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
-        break;
-    case 'deco':
-        service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/DecoRestService');
-        break;
-    default:
-        break;
+    try {
+        switch (serviceType) {
+            case 'async':
+                service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedRestService');
+                service.setCredentialID('riskified.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
+                break;
+            case 'sync':
+                service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedSyncRestService');
+                service.setCredentialID('riskified.sync.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
+                break;
+            case 'deco':
+                service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/DecoRestService');
+                break;
+            default:
+                break;
+        }
+    } catch (e) {
+        RCLogger.logMessage(e.message, 'error', logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
     }
 
     // convert to json string before calculating the hashes
@@ -153,7 +168,9 @@ function post(serviceType, callerModule, payload, action) {
     params.hmac = RCUtilities.calculateRFC2104HMAC(payload, authCode);
 
     if (empty(params.hmac)) {
-        RCLogger.logMessage('Error calculating hash map, therefore cannot proceed further.', 'error', logLocation);
+        message = 'Error calculating hash map, therefore cannot proceed further.', 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, Constants.BAD_HMAC);
         return {
             error          : true,
             errorCode      : Constants.BAD_HMAC,
@@ -170,7 +187,8 @@ function post(serviceType, callerModule, payload, action) {
     if (result.ok) {
         svcResponse = parseResponse(callerModule, result.object, action);
     } else {
-        RCLogger.logMessage('Riskified API Call failed.\nHTTP Status Code: ' + result.error + ',\nError Text is: ' + result.errorMessage, 'error', logLocation);
+        message = 'Riskified API Call failed.\nHTTP Status Code: ' + result.error + ',\nError Text is: ' + result.errorMessage, 'error', logLocation;
+        RCLogger.logMessage(message);
 
         // try to get message out of riskified api response
         try {

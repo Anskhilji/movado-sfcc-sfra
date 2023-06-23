@@ -136,6 +136,7 @@ function totals(lineItemContainer) {
     var KlarnaGrandTotal = lineItemContainer.totalGrossPrice;
     var progressBarGrandTotal = lineItemContainer.totalGrossPrice;
     var discountArray = getDiscounts(lineItemContainer);
+    var isFree = false;
 
     if (KlarnaGrandTotal.available) {
         KlarnaGrandTotal = AdyenHelpers.getCurrencyValueForApi(KlarnaGrandTotal).toString();
@@ -158,7 +159,8 @@ function totals(lineItemContainer) {
             deliveryDate : deliveryDate,
             deliveryTime : deliveryTime,
             beamGrandTotal : lineItemContainer.totalGrossPrice.decimalValue,
-            progressBarGrandTotal: progressBarGrandTotal
+            progressBarGrandTotal: progressBarGrandTotal,
+            isFree: isFree
 	    });
     }
 

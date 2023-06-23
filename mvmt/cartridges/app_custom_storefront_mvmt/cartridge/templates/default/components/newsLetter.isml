@@ -11,9 +11,13 @@
             <button id="emailSubcriberBtn" type="button" class="btn btn-primary">
         </iscomment>
         <iscomment> Custom End </iscomment>
-        <button type="submit" class="btn btn-primary">
-            <img src="${URLUtils.staticURL('/images/newsLetterButtonSvg.svg')}" alt="${Resource.msg('button.form.emailsignup', 'homePage', null)}" />
+        <button type="submit" class="btn btn-primary email-submit-btn">
+            ${Resource.msg('button.form.emailsignup', 'homePage', null)}
         </button>
+        <span class="success-method">
+            <img class="email-subscription-loader d-none" src="${URLUtils.staticURL('/images/email-subscription-loader.svg')}"/>
+            <img class="email-subscription-success d-none" src="${URLUtils.staticURL('/images/email-subscription-success.svg')}"/>
+        </span>
     </div>
     <div class="footer-more-fields">
         <button class="close-footer-more" type="button" aria-label="close form modal"><img src="${URLUtils.staticURL('/images/cross.svg')}"/></button>
