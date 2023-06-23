@@ -3,6 +3,7 @@
 @import "../components/backInStockNotification";
 @import "../components/primaryImagesCarousel";
 @import "../components/productCommon";
+@import "../components/swatches";
 
 .custom-bg {
     .gpay-error {
@@ -728,7 +729,7 @@
                 margin: rem(30) rem(0) rem(40);
 
                 @include media-breakpoint-up(lg) {
-                    margin-top: rem(40);
+                    margin-top: rem(30);
                     margin-bottom: rem(40);
                     display: block;
                 }
@@ -1736,7 +1737,6 @@
                             @include font-gill($font-weight: 600);
                             color: $gray20;
                             line-height: rem(21);
-                            text-transform: capitalize;
                             margin: 0;
                             letter-spacing: rem(0);
                         }
@@ -2193,15 +2193,6 @@
     }
 }
 
-.listrak-persistent-popup {
-    display: none !important;
-}
-.button-floting {
-    &.button-product-detail {
-        bottom: rem(160);
-    }
-}
-
 .promotions {
     text-align: left;
 }
@@ -2225,3 +2216,4 @@
        
     }
 }
+

@@ -36,6 +36,7 @@
             <a class="minicart-link header-icon m-0" href="${URLUtils.https('Cart-Show')}">
                 <span class="header-nav-cart-icon cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
                     <div class="cart-icon"></div>
+                    <span class="cart-counter fill-cart-count"></span>
                     <span data-item-count="" data-cart-render="item_count"
                         class="minicart-quantity header-nav-cart-count" aria-label="cart count">
                         <isprint value="${pdict.quantityTotal !== 0 ? pdict.quantityTotal : '0'}" formatter="##" />

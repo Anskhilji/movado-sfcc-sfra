@@ -1,7 +1,7 @@
 .mini-cart {
 
     &-show-recommendations { 
-        background-color: $nobel;
+        background-color: $dark-blue-btn;
         font-family: $font-book;
         font-size: rem(14);
         display: block;
@@ -10,6 +10,8 @@
         padding: 0;
         margin: 0;
         border: none;
+        border-color: $dark-blue-btn;
+        border-radius: rem(64.5);
 
         &:focus {
             outline: none;
@@ -46,7 +48,10 @@
         background-color: $white;
 
         .upsell {
-
+            p {
+                font-family:$font-brandon-grotesque;
+            }
+            
             &-collection {
                 width: 100%;
                 letter-spacing: rem(1.5);
@@ -172,7 +177,9 @@
     }
 
     &-add-to-cart {
-        background-color: $emerald; 
+        background-color: $dark-blue-btn;
+        border-color: $dark-blue-btn;
+        border-radius: rem(64.5); 
         width: 100%;
         color: $white;
 

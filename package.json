@@ -126,7 +126,8 @@
     "custom_backinstock": "./int_custom_backinstock",
     "omnichannel": "./omnichannel",
     "beam": "./beam",
-    "link_clyde": "./link_clyde"
+    "link_clyde": "./link_clyde",
+    "pulseid": "./pulseid"
   },
   "jsAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/js",
@@ -157,7 +158,8 @@
     "bootstrap": "./node_modules/bootstrap",
     "lodash": "./node_modules/lodash",
     "jquery": "./node_modules/jquery",
-    "beam": "./beam/cartridges/int_beam/cartridge/client/default/js"
+    "beam": "./beam/cartridges/int_beam/cartridge/client/default/js",
+    "pulseid": "./pulseid/cartridges/int_pulseid_engraving/cartridge/client/default/js"
 	
   },
   "scssAliases": {
@@ -183,6 +185,7 @@
     "product_compare": "./plugin_productcompare/cartridges/plugin_productcompare/cartridge/client/default/scss",
     "wishlist": "./plugin_wishlists/cartridges/plugin_wishlists/cartridge/client/default/scss",
     "adyen": "./link_adyen/cartridges/int_adyen_SFRA/cartridge/client/default/scss",
+    "pulseid": "./pulseid/cartridges/int_pulseid_engraving/cartridge/client/default/scss",
     "bootstrap": "./node_modules/bootstrap"
   },
   "scssIncludePaths": [

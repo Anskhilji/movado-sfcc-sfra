@@ -13,34 +13,63 @@
                                 ${product.productName} <span class="plus-minus-icon"></span>
                             </div>
                         </div>
-                    
+
                         <div id="collapseOne${product.id}" class="collapse">
                             <div class="container-fluid product-detail product-wrapper product-detail1-wrapper mcs-product-detail-section-redesign"
                                 data-pid="${product.id}" itemscope itemtype="http://schema.org/Product">
-                    
+
                                 <isif condition="${pdict.lastNameError}">
                                     <div
                                         class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
                                         ${Resource.msg('error.last.name', 'checkout', null)}
                                     </div>
                                 </isif>
-                    
+
                                 <div class="row">
                                     <iscomment> product detail redesign section start here </iscomment>
                                     <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
+                                        <iscomment> mobile veiw design start </iscomment>
+                                        <div class="product-detail-right-box mobile-detail-redsign d-block d-sm-none">
+                                             <iscomment> product family name </iscomment>
+                                            <h2 class="product-family-name-redesign text-center text-sm-left">
+                                                <isloop items="${pdict.customIndividualItemURL}" var="customIndividualItemURL" status="loopstatus">
+                                                    <isset name="customIndividualItemURL" value="${customIndividualItemURL}" scope="page" />
+                                                    <isset name="currentSetItemID" value="${customIndividualItemURL.split('|')[1]}" scope="page" />
+                                                    <isset name="currentSetItemURL" value="${customIndividualItemURL.split('|')[0]}" scope="page" />
+                                                    <isif condition="${currentSetItemID === product.id}">
+                                                        <isbreak/>
+                                                    </isif>
+                                                </isloop>
+                                                <isif condition="${product.brand}">
+                                                    <a href="${currentSetItemID == product.id && currentSetItemURL ? currentSetItemURL : ''}">${product.brand}</a>
+                                                </isif>
+                                            </h2>
+                                            <!-- Product Name -->
+                                            <h2 class="product-name prdouct-name-gtm d-sm-block text-center text-sm-left">
+                                                <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
+                                                    ${product.productName}
+                                                </a>
+                                            </h2>
+                                            <isif condition="${product.yotpoIndividualProductData && product.yotpoIndividualProductData.isRatingEnabled}">
+                                                <div class="d-block rating-box-redisgn">
+                                                    <isinclude template="product/components/productSet/pidIndividualRating" />
+                                                </div>
+                                            </isif>
+                                        </div>
+                                        <iscomment> mobile veiw design end </iscomment>
                                         <!-- Product Images Carousel -->
                                         <isinclude template="product/components/productSet/setProductImageCarousel" />
-                    
+
                                         <div class="product-detail-right-box">
-                                            <div class="d-sm-block">
+                                            <div class="d-none d-sm-block">
                                                 <iscomment> product family name </iscomment>
-                                                <h2 class="product-family-name-redesign">
+                                                <h2 class="product-family-name-redesign text-center text-sm-left">
                                                     <isloop items="${pdict.customIndividualItemURL}" var="customIndividualItemURL" status="loopstatus">
                                                         <isset name="customIndividualItemURL" value="${customIndividualItemURL}" scope="page" />
                                                         <isset name="currentSetItemID" value="${customIndividualItemURL.split('|')[1]}" scope="page" />
                                                         <isset name="currentSetItemURL" value="${customIndividualItemURL.split('|')[0]}" scope="page" />
                                                         <isif condition="${currentSetItemID === product.id}">
-                                                            <isbreak/>                                           
+                                                            <isbreak/>
                                                         </isif>
                                                     </isloop>
                                                     <isif condition="${product.brand}">
@@ -48,17 +77,17 @@
                                                     </isif>
                                                 </h2>
                                                 <!-- Product Name -->
-                                                <h2 class="product-name prdouct-name-gtm d-sm-block text-left">
+                                                <h2 class="product-name prdouct-name-gtm d-sm-block text-center text-sm-left">
                                                     <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
                                                         ${product.productName}
                                                     </a>
                                                 </h2>
                                             </div>
-                    
+
                                             <div class="w-100 price-promotions-box">
                                                 <!-- Applicable Promotions -->
                                                 <div
-                                                    class="promotions promotions-redesign mt-sm-3 mt-lg-0 d-flex align-align-items-center justify-content-sm-start flex-wrap">
+                                                    class="promotions promotions-redesign mt-sm-3 mt-lg-0 d-flex align-align-items-center justify-content-center justify-content-sm-start flex-wrap">
                                                     <!-- Prices -->
                                                     <div class="prices prices-redesign">
                                                         <isset name="price" value="${product.price}" scope="page" />
@@ -74,26 +103,21 @@
                                                 </div>
                                             </div>
 
-                                            <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
-                                                <iscomment> product rating </iscomment>
-                                                <div class="d-block rating-box-redisgn">
-                                                    <isinclude template="product/components/pidRating" />
+                                            <isif condition="${product.yotpoIndividualProductData && product.yotpoIndividualProductData.isRatingEnabled}">
+                                                <div class="d-none d-sm-block rating-box-redisgn">
+                                                    <isinclude template="product/components/productSet/pidIndividualRating" />
                                                 </div>
                                             </isif>
 
-                                            <div class="description-redesign setitem-description  pdp-short-detail pdp-short-detail-main">
-                                               <isinclude template="/product/components/description" />
-                                            </div>
-                    
                                            <iscomment> accordion start here </iscomment>
                                             <div class="row">
-                                                <isinclude template="product/components/productSet/accordion" />
+                                                <isinclude template="product/components/setItemAccordion" />
                                             </div>
                                             <iscomment> accordion end here </iscomment>
                                         </div>
                                     </div>
                                 </div>
-                    
+
                                 <div class="d-none">
                                     <isinclude template="/product/components/productNumber" />
                                 </div>
