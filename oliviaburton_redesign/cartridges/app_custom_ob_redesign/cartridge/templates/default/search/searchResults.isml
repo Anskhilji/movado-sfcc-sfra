@@ -6,6 +6,7 @@
 		assets.addJs('/js/search-redesign.js');
 		assets.addCss('/css/search.css');
 	</isscript>
+	<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
     <isset name="plpTileSlotPosition" value="${!empty(dw.system.Site.current.preferences.custom.plpTileSlotPosition) ? JSON.parse(dw.system.Site.current.preferences.custom.plpTileSlotPosition) : false}" scope="page" />
 	<isif condition=${false}>
 		<isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
@@ -30,7 +31,7 @@
 		</div>
 	</div>
 
-	<div class="container container-fluid search-results plp-redesign">
+	<div class="container container-fluid search-results plp-redesign" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
 		<isif condition="${!pdict.productSearch.isCategorySearch}">
 			<div class="row">
 				<div class="search-nav">
@@ -92,7 +93,7 @@
 					<div class="col-sm-12">
 						<div class="container-fluid">
 							<!--- Product Grid --->
-							<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
+							<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product" data-initial-products="${sitePref.pageSize}" data-desktop-infinite-sroll="${sitePref.desktopInfiniteScrollSize}" data-mobile-infinite-scroll="${sitePref.mobileInfiniteScrollSize}">
 								<isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
                                     <isif condition="${plpTileSlotPosition}">
                                         <isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
@@ -125,19 +126,15 @@
                                             </isif>
                                         </isloop>
                                     </isif>
-
-									<isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
-									<iselse>
-										<div class="col-6 col-sm-4 col-lg-3 custom-col" data-gtm-refinements='${product.productSearchHit.productID}'>
-											<isobject object="${product.productSearchHit}" view="searchhit">
-												<isif condition="${pdict.productSearch.category}">
-													<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name, 'plpTile', true)}" />
-												<iselse>
-													<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'plpTile', true)}" />
-												</isif>
-											</isobject>
-										</div>
-									</isif>
+									<div class="col-6 col-sm-4 col-lg-3 custom-col" data-gtm-refinements='${product.productSearchHit.productID}'>
+										<isobject object="${product.productSearchHit}" view="searchhit">
+											<isif condition="${pdict.productSearch.category}">
+												<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name, 'plpTile', true)}" />
+											<iselse>
+												<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'plpTile', true)}" />
+											</isif>
+										</isobject>
+									</div>
 								</isloop>
 
 								<isif condition="${pdict.productSearch.enablePagination}">

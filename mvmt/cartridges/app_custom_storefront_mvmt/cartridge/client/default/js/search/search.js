@@ -6,9 +6,13 @@ var isInfiniteScrollEnabled = $('.mvmt-plp.container-fluid').data('infinte-scrol
 var isPaginationEnabled = $('.mvmt-plp.container-fluid').data('enable-pagination');
 var loadMoreIndex = parseInt(initiallyLoadedProducts / 2) - 1;
 var totalProductCount = $('.total-product-count').data('total-product-count');
-
 var loadMoreInProcessing = false;
 var filterLoadInProgress = false;
+var $desktopInfiniteScrollSize = $('.product-grid').data('desktop-infinite-sroll');
+var $mobileInfiniteScrollSize = $('.product-grid').data('mobile-infinite-scroll');
+var $mediumWidth = 992;
+var $windowWidth = $(window).width();
+var $isLoadOnScroll = false;
 
 /**
  * Update DOM elements with Ajax results
@@ -1823,13 +1827,33 @@ module.exports = {
 
                 var productTileHeigth = $('#product-search-results .product-tile').outerHeight();
                 var scrollPostion = $(window).scrollTop() + productTileHeigth;
-                var isLoadOnScroll = ($('#product-search-results .product-tile').length % (3 * initiallyLoadedProducts)) != 0 ? true : false;
                 var nextLoadMorePosition = $('#product-search-results .product-tile').eq(loadMoreIndex).offset().top;
 
-                if (($('#product-search-results .product-tile').length % (3 * initiallyLoadedProducts)) == 0) {
-                    $('.grid-footer').removeClass('d-none');
+                if ($windowWidth < $mediumWidth) {
+                    if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) != 0) {
+                        $isLoadOnScroll = true;
+                    } else {
+                        $isLoadOnScroll = false;
+                    }
+                } else {
+                    if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * initiallyLoadedProducts)) != 0) {
+                        $isLoadOnScroll = true;
+                    } else {
+                        $isLoadOnScroll = false;
+                    }
                 }
-                if ((scrollPostion >= nextLoadMorePosition) && loadMoreInProcessing && isLoadOnScroll && (($('#product-search-results .product-tile').length % initiallyLoadedProducts) == 0)) {
+
+                if ($windowWidth < $mediumWidth) {
+                    if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                        $('.grid-footer').removeClass('d-none');
+                    }
+                } else {
+                    if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                        $('.grid-footer').removeClass('d-none');
+                    }
+                }
+
+                if ((scrollPostion >= nextLoadMorePosition) && loadMoreInProcessing && $isLoadOnScroll && (($('#product-search-results .product-tile').length % initiallyLoadedProducts) == 0)) {
                     e.preventDefault();
                     e.stopPropagation();
                     var showMoreUrl = $('.show-more button').data('url');
@@ -1847,8 +1871,14 @@ module.exports = {
                             updateSortOptions(response);
                             updatePageURLForShowMore(showMoreUrl);
                             loadMoreInProcessing = false;
-                            if (($('#product-search-results .product-tile').length % (3 * initiallyLoadedProducts)) == 0) {
-                                $('.grid-footer').removeClass('d-none');
+                            if ($windowWidth < $mediumWidth) {
+                                if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                                    $('.grid-footer').removeClass('d-none');
+                                }
+                            } else {
+                                if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                                    $('.grid-footer').removeClass('d-none');
+                                }
                             }
                             bulidLifeStyleCarousel();
                             $.spinner().stop();
