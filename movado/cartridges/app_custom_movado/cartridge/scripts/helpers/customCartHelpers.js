@@ -187,8 +187,17 @@ function getCartForAnalyticsTracking(lineItemCtnr){
 	var analyticsTrackingCartItems = [];
 	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
             var productID = pli.product.ID;
-            var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
             var quantity = pli.quantity.decimalValue ? pli.quantity.decimalValue.toString() : '0.0';
+            var productPrice;
+
+            if (!empty(pli.basePrice.decimalValue) && !empty(pli.adjustedPrice.decimalValue)) {
+                if (pli.basePrice.decimalValue !== pli.adjustedPrice.decimalValue) {
+                    productPrice = pli.adjustedPrice && pli.adjustedPrice.decimalValue ? pli.adjustedPrice.decimalValue.toString() : '0.0';
+                } else {
+                    productPrice = pli.basePrice && pli.basePrice.decimalValue ? pli.basePrice.decimalValue.toString() : '0.0';
+                }
+            }
+
             productDetail = {
                 item : productID,
                 quantity: quantity,
@@ -207,7 +216,15 @@ function removeFromCartGTMObj(productLineItems){
 	var variant='';
 	 collections.forEach(productLineItems, function (pli) {
 		variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
-		var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+		var price;
+
+        if (!empty(pli.basePrice.decimalValue) && !empty(pli.adjustedPrice.decimalValue)) {
+            if (pli.basePrice.decimalValue !== pli.adjustedPrice.decimalValue) {
+                price = pli.adjustedPrice && pli.adjustedPrice.decimalValue ? pli.adjustedPrice.decimalValue.toString() : '0.0';
+            } else {
+                price = pli.basePrice && pli.basePrice.decimalValue ? pli.basePrice.decimalValue.toString() : '0.0';
+            }
+        }
 
      	cartItemObj.push({
      		'id':pli.product.ID,
