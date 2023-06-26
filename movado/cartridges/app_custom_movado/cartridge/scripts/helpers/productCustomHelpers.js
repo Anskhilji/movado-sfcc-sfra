@@ -337,21 +337,30 @@ function getPersonalizationAssets(apiProduct) {
     var engravingReturnText = ContentMgr.getContent('EngravingDescriptionText2');
     var embossingTitleText = ContentMgr.getContent('EmbossingDescriptionText');
     var embossingReturnText = ContentMgr.getContent('EmbossingDescriptionText2');
+    var pulseIdEngravingText = ContentMgr.getContent('pulseIdEngravingText');
     var pdvideoAssetID = apiProduct.custom.videoContentAssetID;
     var pdp_video_asset;
 
     if (embossingTitleText && embossingTitleText.custom && embossingTitleText.custom.body) {
         assets.embossingTop = embossingTitleText.custom.body.markup;
     }
+
     if (embossingReturnText && embossingReturnText.custom && embossingReturnText.custom.body) {
         assets.embossingBottom = embossingReturnText.custom.body.markup;
     }
+
     if (engravingTitleText && engravingTitleText.custom && engravingTitleText.custom.body) {
         assets.engravingTop = engravingTitleText.custom.body.markup;
     }
+
     if (engravingReturnText && engravingReturnText.custom && engravingReturnText.custom.body) {
         assets.engravingBottom = engravingReturnText.custom.body.markup;
     }
+
+    if (pulseIdEngravingText && pulseIdEngravingText.custom && pulseIdEngravingText.custom.body) {
+        assets.pulseIdEngravingTop = pulseIdEngravingText.custom.body.markup;
+    }
+
     if (pdvideoAssetID) {
         pdp_video_asset = ContentMgr.getContent(pdvideoAssetID);
         if (pdp_video_asset && pdp_video_asset.custom && pdp_video_asset.custom.body) {
