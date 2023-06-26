@@ -105,7 +105,7 @@ function setOptionalLineItemUUID(modelItems, product) {
 
                         item.options.forEach(function (option) {
 
-                            if (option.optionId == pulseIdConstants.ENGRAVING_ID && optionProduct.optionID == pulseIdConstants.ENGRAVING_ID) {
+                            if (option.optionId == pulseIdConstants.ENGRAVING_ID && optionProduct.optionID == pulseIdConstants.ENGRAVING_ID && product.UUID == item.UUID) {
                                 var engraveMessageLine1 = !empty(optionProduct.custom.engraveMessageLine1) ? optionProduct.custom.engraveMessageLine1 : product.custom.engraveMessageLine1 ? product.custom.engraveMessageLine1 : '';
                                 var engraveMessageLine2 = !empty(optionProduct.custom.engraveMessageLine2) ? optionProduct.custom.engraveMessageLine2 : product.custom.engraveMessageLine2 ? product.custom.engraveMessageLine2 : '';
 
