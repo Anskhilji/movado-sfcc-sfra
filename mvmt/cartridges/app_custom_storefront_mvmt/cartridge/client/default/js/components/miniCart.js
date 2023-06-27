@@ -1043,7 +1043,9 @@ module.exports = function () {
                 } else {
                     $('.mini-cart-data .product-summary .mini-cart-product').empty();
                     $('.mini-cart-data .product-summary .mini-cart-product').append(response.recommendedProductCardHtml);
-                    $('.mini-cart-product .coupon-code-field-static').remove();
+                    if ($('.mini-cart-product .coupon-code-field-static').length > 0) {
+                        $('.mini-cart-product .coupon-code-field-static').remove();
+                    }
                 }
 
                 updateCartTotals(response.cart);
