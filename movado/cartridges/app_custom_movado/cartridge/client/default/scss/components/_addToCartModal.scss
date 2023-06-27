@@ -111,75 +111,6 @@
            }
         }
 
-        .modal-footer {
-            display: none;
-
-            @include media-breakpoint-down(md) {
-                display: block;
-                padding: 0;
-
-                @include media-breakpoint-down(md) {
-                    margin-top: rem(7);
-                }
-
-                .modal-inner {
-
-                    .checkmarks {
-                        display: none;
-                    }
-
-                    .total-price {
-                        display: none;
-                    }
-                }
-
-                .top-sec {
-                    display: flex;
-                    flex-direction: column;
-                    margin: 0;
-
-                    .btn-primary {
-                        width: 100%;
-                        padding: rem(10) 0 rem(9) 0;
-                        color: $white;
-                        font-size: rem(15);
-                        font-weight: 500;
-                        letter-spacing: 0;
-                        line-height: rem(21);
-                        text-align: center;
-                        max-width: 100%;
-                        border: rem(1) solid $grey26;
-                        height: rem(40);
-                        border-radius: rem(3);
-                        
-                        &:hover {
-                            background: $black;
-                        }
-
-                        &:focus {
-                            background: $black;
-                        }
-                    }
-
-                    .btn-link {
-                        padding: rem(10) 0 rem(9) 0;
-                        width: 100%;
-                        border: rem(1) solid $black;
-                        color: $grey8;
-                        font-size: rem(15);
-                        font-weight: 500;
-                        letter-spacing: 0;
-                        line-height: rem(21);
-                        text-align: center;
-                        text-decoration: none;
-                        max-width: 100%;
-                        margin: rem(13) 0 0 0;
-                        height: rem(40);
-                        border-radius: rem(3);
-                    }
-                }
-            }
-        }
 
         .mcs-product-carousel {
 
@@ -540,9 +471,7 @@
                     @include media-breakpoint-down(md) {
                         height: rem(24);
                         width: rem(24);
-                        background-color: $white;
-                        box-shadow: 0 rem(1) rem(7) 0 $grey-transparent-9;
-                    }
+                     }
                 }
             }
         }
@@ -550,6 +479,7 @@
         .modal-body {
             padding: rem(30) 0;
             padding-bottom: 0;
+            height: rem(195);
     
             @include media-breakpoint-down(md) {
                 position: unset;
@@ -606,7 +536,8 @@
                 display: flex;
 
                 @include media-breakpoint-down(md) {
-                    display: none;
+                    display: flex;
+                    justify-content: center;
                 }
     
                 .btn-primary {
@@ -634,7 +565,18 @@
                     &.btn {
                         
                         @include media-breakpoint-down(md) {
-                            max-width: 100%;
+                            max-width: rem(167);
+                            width: 100%;
+                            height: rem(30);
+                            padding: 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: rem(12);
+                            font-weight: rem(500);
+                            letter-spacing: 0;
+                            line-height: rem(21);
+                            text-align: center;
                         }
                     }
                 }
@@ -654,13 +596,30 @@
                     margin-top: 0;
                     text-decoration: none;
                     border-radius: rem(3);
+
+                    @include media-breakpoint-down(md) {
+                        max-width: rem(88);
+                        width: 100%;
+                        height: rem(30);
+                        padding: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: rem(12);
+                        font-weight: rem(500);
+                        letter-spacing: 0;
+                        line-height: rem(21);
+                        text-align: center;
+                        margin-left: rem(20);
+                        margin-top: 0;
+                    }
     
                     &.btn {
                         
                         @include media-breakpoint-down(md) {
                             max-width: 100%;
-                            margin-left: 0;
-                            margin-top: rem(13);
+                            margin-left: rem(20);
+                            margin-top: 0;
                         }
                     }
                 }

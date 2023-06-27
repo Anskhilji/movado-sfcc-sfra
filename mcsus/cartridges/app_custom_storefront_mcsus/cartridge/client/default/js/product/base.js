@@ -1442,7 +1442,10 @@ function addProductToCartPlp($this) {
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
                 if (window.Resources.LISTRAK_ENABLED) {
                     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
-                    ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                    if (data && data.SCACart) {
+                        ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                    }
+                   
                 }
                 //Custom End
 
