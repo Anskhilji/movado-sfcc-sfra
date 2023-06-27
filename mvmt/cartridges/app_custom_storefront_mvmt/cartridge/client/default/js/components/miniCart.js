@@ -1041,9 +1041,9 @@ module.exports = function () {
                     $quantitySelector.siblings('.quantity-btn-group').children('.quantity-btn-down').prop('disabled', false);
                     $quantitySelector.val($quantity);
                 } else {
-                    var $staticPromoCodeField = $('.mini-cart-product .coupon-code-field-static');
                     $('.mini-cart-data .product-summary .mini-cart-product').empty();
                     $('.mini-cart-data .product-summary .mini-cart-product').append(response.recommendedProductCardHtml);
+                    var $staticPromoCodeField = $('.mini-cart-product .coupon-code-field-static');
                     if ($staticPromoCodeField.length > 0) {
                         $staticPromoCodeField.remove();
                     }
