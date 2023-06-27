@@ -642,6 +642,7 @@ module.exports = function () {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
          var $homeHeaderTransparent = $('.home-header-transparent');
+         $('body').addClass('scroll-remove');
 
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
@@ -742,6 +743,7 @@ module.exports = function () {
         $('.mini-cart-data .popover').removeClass('show');
         $('.mobile-cart-icon').show();
         $('.mobile-cart-close-icon').hide();
+        $('body').removeClass('scroll-remove');
         // Custom:MSS-2034 add class when close miniCart
         if ($homeHeaderTransparent.length > 0) {
             $homeHeaderTransparent.removeClass('solid-header');
@@ -758,6 +760,7 @@ module.exports = function () {
             $('.mobile-cart-close-icon').hide();
             $('.mobile-cart-icon').show();
             $('.mini-cart-data .popover').removeClass('show');
+            $('body').removeClass('scroll-remove');
             // Custom:MSS-2034 add class when close miniCart
             if ($homeHeaderTransparent.length > 0) {
                 $homeHeaderTransparent.removeClass('solid-header');
@@ -888,6 +891,7 @@ module.exports = function () {
         $('.mobile-cart-icon').show();
         $('.mini-cart-data .popover').removeClass('show');
         $('#footer-overlay').removeClass('footer-form-overlay');
+        $('body').removeClass('scroll-remove');
         // Custom:MSS-2034 add class when close miniCart
         if ($homeHeaderTransparent.length > 0) {
             $homeHeaderTransparent.removeClass('solid-header');

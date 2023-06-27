@@ -1397,6 +1397,8 @@ movadoBase.addToCart = function () {
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
 
+        $('body').addClass('scroll-remove');
+
         if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
             setPids = [];
 
