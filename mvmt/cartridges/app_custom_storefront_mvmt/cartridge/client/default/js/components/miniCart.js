@@ -1041,10 +1041,11 @@ module.exports = function () {
                     $quantitySelector.siblings('.quantity-btn-group').children('.quantity-btn-down').prop('disabled', false);
                     $quantitySelector.val($quantity);
                 } else {
+                    var $staticPromoCodeField = $('.mini-cart-product .coupon-code-field-static');
                     $('.mini-cart-data .product-summary .mini-cart-product').empty();
                     $('.mini-cart-data .product-summary .mini-cart-product').append(response.recommendedProductCardHtml);
-                    if ($('.mini-cart-product .coupon-code-field-static').length > 0) {
-                        $('.mini-cart-product .coupon-code-field-static').remove();
+                    if ($staticPromoCodeField.length > 0) {
+                        $staticPromoCodeField.remove();
                     }
                 }
 
