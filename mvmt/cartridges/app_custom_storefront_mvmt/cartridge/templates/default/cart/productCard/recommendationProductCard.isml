@@ -1,4 +1,6 @@
 <isset name="items" value="${pdict.items}" scope="page"/>
+<isset name="stickyMiniCartPromoTest" value="${dw.campaign.ABTestMgr.isParticipant('StickyMiniCartPromoTest', 'render-static-promo-field')}" scope="page" />
+
 <isloop items="${items}" var="lineItem" status="loopStatus">
     <isif condition="${!empty(lineItem)} ">
         <div class="row">
@@ -18,3 +20,16 @@
         </div>
     </isif>
 </isloop>
+<isif condition="${stickyMiniCartPromoTest}">
+    <div class="coupon-code-field-static">
+        <div class="minicart-promo-container">
+            <isif condition="${items.length > 0}">
+                <div class="mini-cart-promo-box">
+                    <div class="promo-box">
+                        <isinclude template="checkout/cart/miniCartPromoCode" />
+                    </div>
+                </div>
+            </isif>
+        </div>
+    </div>
+</isif>

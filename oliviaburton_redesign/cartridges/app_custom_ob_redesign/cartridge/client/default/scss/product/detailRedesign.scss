@@ -1737,7 +1737,6 @@
                             @include font-gill($font-weight: 600);
                             color: $gray20;
                             line-height: rem(21);
-                            text-transform: capitalize;
                             margin: 0;
                             letter-spacing: rem(0);
                         }
@@ -2191,15 +2190,6 @@
                 }
             }
         }
-    }
-}
-
-.listrak-persistent-popup {
-    display: none !important;
-}
-.button-floting {
-    &.button-product-detail {
-        bottom: rem(160);
     }
 }
 

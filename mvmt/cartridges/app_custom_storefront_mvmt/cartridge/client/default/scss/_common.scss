@@ -653,6 +653,19 @@ div {
                 display: flex;
                 margin-bottom: rem(20);
 
+                &:has(.coupon-not-applied) {
+                    border: rem(1) solid $danger;
+
+                    .coupon-code {
+                        order: 1;
+                        color: $danger;
+
+                        .remove-coupon {
+                            color: $danger;
+                        }
+                    }
+                }
+
                 .flex-box-promo-code {
                     display: flex;
                     align-items: center;
@@ -676,7 +689,6 @@ div {
                     line-height: rem(24);
                     text-transform: capitalize;
                     margin-right: rem(10);
-                    display: none;
                 }
 
                 .coupon-code {

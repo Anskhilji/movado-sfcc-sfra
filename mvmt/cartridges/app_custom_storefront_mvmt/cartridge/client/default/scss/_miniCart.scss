@@ -790,9 +790,56 @@
                     }
                 }
             }
+
+            .minicart-footer, .coupon-code-field-static {
+                position: static;
+                box-shadow: none;
+
+                .minicart-promo-container {
+                    margin: 0 rem(12) rem(12) rem(12);
+                    padding-bottom: rem(20);
+                    border-top: 1px solid $gray14;
+                }
+            }
+
+            .coupon-code-field-static {
+
+                .minicart-promo-container {
+
+                    .mini-cart-promo-box {
+
+                        .promo-box {
+
+                            .collapsible-promo-wrapper {
+
+                                .minicart-promo-code-form {
+
+                                    .form-group {
+
+                                        .title {
+                                            padding: rem(16) rem(0);
+                                        }
+
+                                        .value {
+
+                                            .mini-cart-coupon-field {
+                                                padding-left: rem(0);
+                                            }
+
+                                            .promo-code-submit {
+                                                transform: translateX(8px);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        .minicart-footer {
+        .minicart-footer, .coupon-code-field-static {
             overflow: hidden;
             padding: 0;
             bottom: 0;

@@ -24,7 +24,7 @@
             <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
         </isif>
 
-        <isif condition="${product.productType != 'master'}">
+        <isif condition="${product.productType != 'master' && product.productType != 'variationGroup'}">
 	        <button class='btn btn-primary add-to-cart-plp-redesign ${outOfStock || !product.available ? "out-of-stock-btn1" : ""}'
                 data-pid="${product.id}"
                 data-product-set="${!empty(product.individualProducts) ? true : false}"
