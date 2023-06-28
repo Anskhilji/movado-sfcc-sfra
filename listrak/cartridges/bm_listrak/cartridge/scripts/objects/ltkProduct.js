@@ -631,6 +631,6 @@ ltkProduct.prototype.getDialColor = function (product) {
 
         return dialColor;
     } catch (error) {
-        Logger.error('Listrak Product Processing Failed while getting Material Attribute for Product: {0}, Error: {1}', product.ID, error);
+        Logger.error('Listrak Product Processing Failed while getting Dial Color Attribute for Product: {0}, Error: {1}', product.ID, error);
     }
 }
