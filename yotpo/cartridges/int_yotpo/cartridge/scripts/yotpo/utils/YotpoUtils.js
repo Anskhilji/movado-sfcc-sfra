@@ -301,11 +301,13 @@ function getCategoryPath(product, separator) {
     var cat = theCategory;
     var path = new ArrayList();
 
-    while (cat.parent != null) {
-        if (cat.online) {
-            path.addAt(0, cat.getDisplayName());
+    if (!empty(cat) && !empty(cat.parent)) {
+        while (cat.parent != null) {
+            if (cat.online) {
+                path.addAt(0, cat.getDisplayName());
+            }
+            cat = cat.parent;
         }
-        cat = cat.parent;
     }
 
     categoryPath = separator ? path.join(separator) : path.join();

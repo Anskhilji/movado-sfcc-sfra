@@ -1,0 +1,25 @@
+<isif condition="${!topCat.disableSubCategories}">
+    <div class="dropdown-menu" role="menu" aria-hidden="true">
+        <div class="menu-pane">
+            <ul>
+                <isloop items="${menuItem.subCategories}" var="category">
+                    <isif condition="${category.subCategories}">
+                        <li class="dropdown-item dropdown d-none <isif condition="${category.subCategories}"> third-level-category</isif>" role="menuitem">
+                            <isset name="categoryItem" value="${category}" scope="page"/>
+                            <isinclude template="components/header/old/menuItemList"/>
+                        </li>
+                    <iselse/>
+                        <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                            <a href="${category.url}" role="button" class="dropdown-link" >${category.name}</a>
+                        </li>
+                    </isif>
+                </isloop>
+            </ul>
+        </div>
+        <isif condition="${topCat.headerMenuBanner}">
+            <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
+                <isprint value="${topCat.headerMenuBanner}" encoding="off" />
+            </div>
+        </isif>
+    </div>
+</isif>

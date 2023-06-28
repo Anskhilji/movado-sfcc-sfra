@@ -1,0 +1,35 @@
+<isscript>
+    var assets = require('*/cartridge/scripts/assets');
+    assets.addJs('/js/pulseIdEngraving.js');
+    assets.addJs('/js/cart.js');
+    assets.addCss('/css/pulseIdEngraving.css');
+</isscript>
+
+<div class="engraving-box engraving-box-${option.UUID}">
+    <div class="engraving-inner">
+        <form>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="engraving-sec">
+                    <div class="engraving-info d-flex">
+                        ${Resource.msg('label.product.cart.engraving', 'product', 'null')}
+                        <iscontentasset aid="pulseidEngravingPrice" />
+                    </div>
+                </div>
+                <div class="engraving-btn">
+                    <div class="remove-engraved" data-engraving-uuid="${option.UUID}"
+                        data-engraving-url="${URLUtils.url('Cart-RemoveEngraving')}">
+                        ${Resource.msg('label.product.add.engraving-remove', 'product', 'null')}
+                    </div>
+                </div>
+            </div>
+            <div class="engraved-action w-100">
+                <span class="engraved-text-one d-block">
+                    ${option.custom && option.custom.engraveMessageLine1 ? option.custom.engraveMessageLine1 : ''}
+                </span>
+                <span class="engraved-text-two">
+                    ${option.custom && option.custom.engraveMessageLine2 ? option.custom.engraveMessageLine2 : ''}
+                </span>
+            </div>
+        </form>
+    </div>
+</div>

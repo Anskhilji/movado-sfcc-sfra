@@ -1,5 +1,6 @@
 <isset name="miniCart" value="${false}" scope="page" />
 <isset name="currentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 
 <div class="order-product-summary">
         <iscomment> This grand total duplicates in order summary.  </iscomment>

@@ -1,0 +1,67 @@
+<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
+<isif condition="${pdict.name === null}">
+  <li class="nav-item d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Login-Show')}" class="nav-link">
+      <i class="login-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
+    </a>
+  </li>
+
+  <isif condition="${isPickupStoreEnabled}">
+    <li class="nav-item d-flex align-items-center d-lg-none" role="menuitem">
+      <span class="store-pickup-button js-store-modal nav-link d-flex align-items-center" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>
+          <span class="pickup-store-popup-button mr-3" ></span>
+          <span class="set-your-store">${(session.privacy.storeAddress) || Resource.msg('store.pickup.set.your.store.home.btn', 'storePickUp', null)}</span>
+      </span>
+    </li>
+  </isif>
+
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <div data-action = "${URLUtils.url('Stores-FindStores')}" class="nav-link store-sidebar-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </div>
+  </li>
+
+<iselse/>
+  <iscomment> Custom: Change [just added mcs-account-name class in following li tag] </iscomment>
+  <li class="nav-item d-lg-none dropdown mcs-account-name" role="menuitem">
+    <span class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <span class="user-message">${pdict.name}</span>
+    </span>
+    <ul class="dropdown-menu my-account-wrapper" role="menu" aria-hidden="true">
+      <li class="dropdown-item my-account" role="menuitem">
+        <a href="${URLUtils.https('Account-Show')}" class="dropdown-link" role="button">${Resource.msg('link.header.myaccount', 'account', null)}</a>
+      </li>
+      <li class="dropdown-item my-wishlist" role="menuitem">
+        <a href="${URLUtils.https('Wishlist-Show')}" class="dropdown-link" role="button">
+            <i class="fa fa-heart" aria-hidden="true"></i>
+            <span class="user-message">${Resource.msg('link.wishlist.login', 'account', null)}</span>
+        </a>
+      </li>
+      <li class="dropdown-item logout-login" role="menuitem">
+        <a href="${URLUtils.url('Login-Logout')}" class="dropdown-link" role="button">
+          <i class="login-icon" aria-hidden="true"></i>
+          ${Resource.msg('link.header.logout', 'account', null)}
+        </a>
+      </li>
+    </ul>
+  </li>
+  <isif condition="${isPickupStoreEnabled}">
+    <li class="nav-item d-flex align-items-center d-lg-none" role="menuitem">
+      <span class="store-pickup-button js-store-modal nav-link d-flex align-items-center" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>
+          <span class="pickup-store-popup-button mr-3" ></span>
+          <span class="set-your-store">${(session.privacy.storeAddress) || Resource.msg('store.pickup.set.your.store.home.btn', 'storePickUp', null)}</span>
+      </span>
+    </li>
+  </isif>
+
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </a>
+  </li>
+
+</isif>

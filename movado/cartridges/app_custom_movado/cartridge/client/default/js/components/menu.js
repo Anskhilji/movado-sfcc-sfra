@@ -193,7 +193,7 @@ module.exports = function () {
         clearSelection(this);
     });
 
-    $('.navbar-nav').on('click', '.close-button', function (e) {
+    $('.navbar-nav, .mobile-bottom').on('click', '.close-button', function (e) {
         e.preventDefault();
         $('.navbar-nav').find('.top-category').detach();
         $('.navbar-nav').find('.nav-menu').detach();
