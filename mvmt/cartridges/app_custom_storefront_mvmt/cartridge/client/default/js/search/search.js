@@ -6,9 +6,13 @@ var isInfiniteScrollEnabled = $('.mvmt-plp.container-fluid').data('infinte-scrol
 var isPaginationEnabled = $('.mvmt-plp.container-fluid').data('enable-pagination');
 var loadMoreIndex = parseInt(initiallyLoadedProducts / 2) - 1;
 var totalProductCount = $('.total-product-count').data('total-product-count');
-
 var loadMoreInProcessing = false;
 var filterLoadInProgress = false;
+var $desktopInfiniteScrollSize = $('.product-grid').data('desktop-infinite-sroll');
+var $mobileInfiniteScrollSize = $('.product-grid').data('mobile-infinite-scroll');
+var $mediumWidth = 992;
+var $windowWidth = $(window).width();
+var $isLoadOnScroll = false;
 
 /**
  * Update DOM elements with Ajax results
@@ -1823,18 +1827,39 @@ module.exports = {
 
                 var productTileHeigth = $('#product-search-results .product-tile').outerHeight();
                 var scrollPostion = $(window).scrollTop() + productTileHeigth;
-                var isLoadOnScroll = ($('#product-search-results .product-tile').length % (3 * initiallyLoadedProducts)) != 0 ? true : false;
                 var nextLoadMorePosition = $('#product-search-results .product-tile').eq(loadMoreIndex).offset().top;
 
-                if (($('#product-search-results .product-tile').length % (3 * initiallyLoadedProducts)) == 0) {
-                    $('.grid-footer').removeClass('d-none');
+                if ($windowWidth < $mediumWidth) {
+                    if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) != 0) {
+                        $isLoadOnScroll = true;
+                    } else {
+                        $isLoadOnScroll = false;
+                    }
+                } else {
+                    if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * initiallyLoadedProducts)) != 0) {
+                        $isLoadOnScroll = true;
+                    } else {
+                        $isLoadOnScroll = false;
+                    }
                 }
-                if ((scrollPostion >= nextLoadMorePosition) && loadMoreInProcessing && isLoadOnScroll && (($('#product-search-results .product-tile').length % initiallyLoadedProducts) == 0)) {
+
+                if ($windowWidth < $mediumWidth) {
+                    if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                        $('.grid-footer').removeClass('d-none');
+                    }
+                } else {
+                    if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                        $('.grid-footer').removeClass('d-none');
+                    }
+                }
+
+                if ((scrollPostion >= nextLoadMorePosition) && loadMoreInProcessing && $isLoadOnScroll && (($('#product-search-results .product-tile').length % initiallyLoadedProducts) == 0)) {
                     e.preventDefault();
                     e.stopPropagation();
                     var showMoreUrl = $('.show-more button').data('url');
-                    $.spinner().start();
+                    var $loaderIcon = $('.loader');
                     $(this).trigger('search:loadMoreProductsOnScroll', e);
+                    $loaderIcon.removeClass('d-none');
                     $.ajax({
                         url: showMoreUrl,
                         data: { selectedUrl: showMoreUrl },
@@ -1847,20 +1872,22 @@ module.exports = {
                             updateSortOptions(response);
                             updatePageURLForShowMore(showMoreUrl);
                             loadMoreInProcessing = false;
-                            if (($('#product-search-results .product-tile').length % (3 * initiallyLoadedProducts)) == 0) {
-                                $('.grid-footer').removeClass('d-none');
+                            if ($windowWidth < $mediumWidth) {
+                                if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                                    $('.grid-footer').removeClass('d-none');
+                                }
+                            } else {
+                                if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
+                                    $('.grid-footer').removeClass('d-none');
+                                }
                             }
                             bulidLifeStyleCarousel();
-                            $.spinner().stop();
-                        },
-                        error: function () {
-                            $.spinner().stop();
+                            $loaderIcon.addClass('d-none');
                         }
                     });
                 } else {
                     loadMoreInProcessing = false;
                 }
-
             });
         }
     },
@@ -2908,78 +2935,4 @@ module.exports = {
         });
     },
     // Custom End
-    // Custom start: Listrak persistent popup
-listrakPersistentApply: function () {
-    $(document).on('click','.listrak-popup', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var isContainListrakPopup = e.target.closest('.listrak-popup');
-        var targetEl = e.target;
-        var isTargetContain = targetEl.classList.contains('close-icon-popup');
-        if (isContainListrakPopup && !isTargetContain) {
-            var listrakPersistenPopupUrl = document.querySelector('.listrak-persistent-url');
-            var url = listrakPersistenPopupUrl.dataset.listrakUrl;
-            $.ajax({
-                url: url,
-                method: 'GET',
-                success: function (response) {
-                    if (response.success == true) {
-                        var interval = setInterval(function() {
-                            if (typeof _ltk != "undefined" && typeof _ltk.Popup != "undefined") {
-                                _ltk.Popup.openManualByName(response.popupID);
-                                clearInterval(interval);
-                            }
-                        }, 1000);
-                    }
-                },
-                error: function () {
-                    $.spinner().stop();
-                }
-            });
-        }
-    });
-},
-listrakPersistentClose: function () {
-    $(document).on('click','.close-icon-popup', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var isContainListrakPopup = e.target.closest('.listrak-popup');
-        var targetEl = e.target;
-        var isTargetContain = targetEl.classList.contains('close-icon-popup');
-        if (isContainListrakPopup && isTargetContain) {
-            sessionStorage.setItem("listrakPersistenPopup", "false");
-            isContainListrakPopup.remove();
-        }
-    });
-},
-listrakPersistentCheckLoad: function () {
-    window.onload = () => {
-        var listrakPopup = document.querySelector('.listrak-popup');
-        var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
-        var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
-        var data = sessionStorage.getItem("listrakPersistenPopup");
-        if (data == null) {
-            var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
-        
-            if (isListrakPopupContain) {
-                listrakPopup.classList.remove('listrak-persistent-popup');
-            }
-        }
-        if (listrakPopupSearchResult) {
-            var mediumWidth = 992;
-            var $windowWidth = $(window).width();
-            if ($windowWidth < mediumWidth) {
-                listrakPopup.classList.add('button-search-result');
-            }
-        }
-        if (listrakPopupProductDetail) {
-            var mediumWidth = 992;
-            var $windowWidth = $(window).width();
-            if ($windowWidth < mediumWidth) {
-                listrakPopup.classList.add('button-product-detail');
-            }
-        }
-    };
-}
-// Custom End: Listrak persistent popup
 };

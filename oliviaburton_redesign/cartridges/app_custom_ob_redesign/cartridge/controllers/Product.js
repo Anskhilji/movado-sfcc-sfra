@@ -34,8 +34,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
 
-   var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
-
    var collectionContentList;
    var moreStyleGtmArray = [];
    var klarnaProductPrice = '0';
@@ -149,7 +147,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    //Custom End
 
-   var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
    viewData = {
        isEmbossEnabled: isEmbossEnabled,
        isEngraveEnabled: isEngraveEnabled,
@@ -176,8 +173,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        collectionName: collectionName,
        addToCartUrl: showProductPageHelperResult.addToCartUrl,
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
-       smartGiftAddToCartURL : smartGiftAddToCartURL,
-       popupID: listrakPersistentPopup
+       smartGiftAddToCartURL : smartGiftAddToCartURL
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
    res.setViewData(smartGift);
