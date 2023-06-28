@@ -74,6 +74,13 @@ function ltkProduct() {
     // Custom Start: [MSS-1987 Movado - Listrak Product Feed Change]
     this.jewelryType = '';
     // Custom End:
+
+    this.meta2 = '';
+    this.meta3 = '';
+    this.meta4 = '';
+    this.strapColor = '';
+    this.dialColor = '';
+    this.familyName = ''; 
 }
 
 /* Method to load product URLs only. */
@@ -189,6 +196,14 @@ ltkProduct.prototype.LoadProduct = function (product) {
         this.jewelryType = this.getJewelryType(product);
     }
     // Custom End
+
+    this.meta2 = this.getMaterial(product);
+    this.meta3 = this.getAttachmentType(product);
+    this.meta4 = this.getMovement(product);
+    this.strapColor = this.getStrapColor(product);
+    this.dialColor = this.getDialColor(product);
+    this.caseDiameter = this.getCaseDiameter(product);
+    this.familyName = this.getFamilyName(product);
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {
@@ -562,3 +577,60 @@ ltkProduct.prototype.getJewelryType = function (product) {
     }
 };
 // Custom End
+
+ltkProduct.prototype.getAttachmentType = function (product) {
+    var attachmentType = !empty(product.custom.attachmentType) ? product.custom.attachmentType : '';
+    return attachmentType;
+}
+
+ltkProduct.prototype.getMovement = function (product) {
+    var movement = !empty(product.custom.movement) ? product.custom.movement : '';
+    return movement;
+}
+
+ltkProduct.prototype.getStrapColor = function (product) {
+    var strapColor = !empty(product.custom.strapColor) ? product.custom.strapColor : '';
+    return strapColor;
+}
+
+ltkProduct.prototype.getMaterial = function (product) {
+    var material = '';
+    var productFeedMaterialJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute : '';
+
+    try {
+        productFeedMaterialJson = JSON.parse(productFeedMaterialJson);
+        var materialAttr = !empty(product.custom.material) ? product.custom.material : '';
+
+        if (!empty(materialAttr)) {
+            var materialArray = materialAttr.split(',');
+        }
+        if (!empty(productFeedMaterialJson) && !empty(materialArray[0])) {
+            material = productFeedMaterialJson[materialArray[0]];
+        }
+
+        return material;
+    } catch (error) {
+        Logger.error('Listrak Product Processing Failed while getting Material Attribute for Product: {0}, Error: {1}', product.ID, error);
+    }
+}
+
+ltkProduct.prototype.getDialColor = function (product) {
+    var dialColor = '';
+    var productFeedDialColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedDialColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedDialColorAttribute : '';
+
+    try {
+        productFeedDialColorJson = JSON.parse(productFeedDialColorJson);
+        var dialColorAttr = !empty(product.custom.dialColor) ? product.custom.dialColor : '';
+
+        if (!empty(dialColorAttr)) {
+            var dialColorArray = dialColorAttr.split(',');
+        }
+        if (!empty(productFeedDialColorJson) && !empty(dialColorArray[0])) {
+            dialColor = productFeedDialColorJson[dialColorArray[0]];
+        }
+
+        return dialColor;
+    } catch (error) {
+        Logger.error('Listrak Product Processing Failed while getting Material Attribute for Product: {0}, Error: {1}', product.ID, error);
+    }
+}
