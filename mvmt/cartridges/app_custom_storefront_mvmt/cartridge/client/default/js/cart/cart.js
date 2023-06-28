@@ -84,23 +84,10 @@ function validateBasket(data) {
 }
 
 /**
- * re-renders the order totals and the number of items in the cart
+ * This Method is used to update the progress meter
  * @param {Object} data - AJAX response from the server
  */
-function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
-    if (data.numItems) {
-        $('.minicart .minicart-quantity').text(data.numItems);
-    }
-    var $fullCart = $('.main-cart-block');
-    var $miniCartSelector = $('.mini-cart-data .product-summary').length > 0 ? $('.mini-cart-data') : $fullCart;
-    var $noOfItems = $miniCartSelector.find('.mini-cart-data .number-of-items'); 
-    var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
-    var $totalTaxSelector = $miniCartSelector.find('.tax-total');
-    var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total-sum');
-    var $subTotalSelector = $miniCartSelector.find('.sub-total');
-    var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
-    var $orderDiscountSelector = $miniCartSelector.find('.order-discount');
-
+function updateProgressMeter(data) {
     if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
         
         var $promoProgressBarHtml = '<div class="progress-meter d-flex flex-column align-items-center">'+
@@ -128,6 +115,27 @@ function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
         $progressMeterMain.empty();
         $progressMeterMain.append($applicablePromoMessageHtml);
     }
+}
+
+/**
+ * re-renders the order totals and the number of items in the cart
+ * @param {Object} data - AJAX response from the server
+ */
+function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
+    if (data.numItems) {
+        $('.minicart .minicart-quantity').text(data.numItems);
+    }
+    var $fullCart = $('.main-cart-block');
+    var $miniCartSelector = $('.mini-cart-data .product-summary').length > 0 ? $('.mini-cart-data') : $fullCart;
+    var $noOfItems = $miniCartSelector.find('.mini-cart-data .number-of-items'); 
+    var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
+    var $totalTaxSelector = $miniCartSelector.find('.tax-total');
+    var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total-sum');
+    var $subTotalSelector = $miniCartSelector.find('.sub-total');
+    var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
+    var $orderDiscountSelector = $miniCartSelector.find('.order-discount');
+
+    updateProgressMeter(data);
 
     if ($noOfItems.length > 0) {
         $noOfItems.empty().append(data.resources.numberOfItems);
@@ -253,34 +261,8 @@ function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     } else {
         $('.delivery-time').addClass('d-none');
     }
-
-    if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
-        
-        var $promoProgressBarHtml = '<div class="progress-meter d-flex flex-column align-items-center">'+
-        '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
-        '<div class="progress-meter-box">'+
-        '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
-        '</div>'+
-        '</div>';
-
-        var $progressMeterMain = $('.progress-meter-container');
-        $progressMeterMain.empty();
-        $progressMeterMain.append($promoProgressBarHtml);
-    } else {
-        var $freeShippingIcon = $('.progress-meter-container').data('shipping-image');
-        var $progressBarSuccessMsg = data.progressBarSuccessMsg;
-        var $progressMeterMain = $('.progress-meter-container');
-
-        if ($freeShippingIcon && $freeShippingIcon.length > 0 && $progressBarSuccessMsg) {
-            var $applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
-            '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
-            '<p>'+ data.progressBarSuccessMsg +'</p>'+
-            '</div>';
-        }
-
-        $progressMeterMain.empty();
-        $progressMeterMain.append($applicablePromoMessageHtml);
-    }
+    
+    updateProgressMeter(data);
 
     var $grandCartTotalSelector = $('.main-cart-block').find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
     $('.delivery-date').empty().append(data.totals.deliveryDate);
