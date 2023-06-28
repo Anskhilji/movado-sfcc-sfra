@@ -301,7 +301,7 @@ function productSync() {
                 if (Site.current.ID === 'MovadoUS') {
                     productFile.AddRowItem(prd.meta2, true);
                     productFile.AddRowItem(prd.meta3, true);
-                    productFile.AddRowItem(prd.meta4, true);
+                    productFile.AddRowItem(prd.movement, true);
                     productFile.AddRowItem(prd.strapColor, true);
                     productFile.AddRowItem(prd.dialColor, true);
                     productFile.AddRowItem(prd.caseDiameter, true);

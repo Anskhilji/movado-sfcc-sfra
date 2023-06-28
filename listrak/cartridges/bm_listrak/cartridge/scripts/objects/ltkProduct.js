@@ -77,7 +77,7 @@ function ltkProduct() {
 
     this.meta2 = '';
     this.meta3 = '';
-    this.meta4 = '';
+    this.movement = '';
     this.strapColor = '';
     this.dialColor = '';
     this.familyName = ''; 
@@ -199,7 +199,7 @@ ltkProduct.prototype.LoadProduct = function (product) {
 
     this.meta2 = this.getMaterial(product);
     this.meta3 = this.getAttachmentType(product);
-    this.meta4 = this.getMovement(product);
+    this.movement = this.getMovement(product);
     this.strapColor = this.getStrapColor(product);
     this.dialColor = this.getDialColor(product);
     this.caseDiameter = this.getCaseDiameter(product);
