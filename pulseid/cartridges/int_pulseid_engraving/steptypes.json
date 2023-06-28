@@ -1,0 +1,15 @@
+{
+    "step-types": {
+        "script-module-step": [
+            {
+                "@type-id":"custom.pulseIdOrderExports",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Submit order to pulseID",
+                "module": "int_pulseid_engraving/cartridge/scripts/jobs/pulseIdOrders.js",
+                "function": "execute"
+            }
+        ]
+    }
+}

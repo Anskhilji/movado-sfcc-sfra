@@ -39,7 +39,7 @@ function getProductSearchHit(apiProduct) {
             var tempHit = searchHits.next();
             if (tempHit.firstRepresentedProductID === apiProduct.ID) {
                 hit = tempHit;
-            } else if (!empty(apiProduct) && !empty(apiProduct.variants) && apiProduct.variants.length > 0 && tempHit.hitType == Constants.SLICING_GROUP) {
+            } else if (!empty(apiProduct) && !empty(apiProduct.variants) && apiProduct.variants.length > 0 && tempHit.hitType == Constants.SLICING_GROUP || tempHit.hitType == Constants.VARIATION_GROUP) {
                 allVariantProducts = apiProduct.variants.toArray();
                 variantProduct = allVariantProducts.filter(function (data) { return data.ID === tempHit.firstRepresentedProductID });
                 hit = variantProduct ? tempHit : null;

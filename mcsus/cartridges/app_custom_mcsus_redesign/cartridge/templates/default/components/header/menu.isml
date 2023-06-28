@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg movado-desktop-header bg-inverse">
+    <div class="close-menu clearfix hidden-lg-up">
+      <a class="back" href="${'#'}" role="button">
+            <span class="caret-left"></span>
+            ${Resource.msg('link.header.menu.back', 'common', null)}
+          </a>
+            <a class="close-button" href="${'#'}" role="button">
+              <iscomment> ${Resource.msg('link.header.menu.close', 'common', null)} </iscomment>
+              <span class="close-icon"></span>
+              <isslot id="brand-logo" description="Brand Logo" context="global" />
+            </a>
+    </div>
+    <div class="mobile-menu-search">
+        <div class="hidden-sm-down search">
+           <isinclude template="components/header/menuSearch" />
+        </div>
+    </div>
+
+    <div class="menu-group" aria-label="Main menu" role="navigation">
+        <ul class="nav navbar-nav level-one" role="menu">
+            <isif condition="${pdict.categories}">
+                <isloop items="${pdict.categories}" var="category">
+                    <isif condition="${category.subCategories}">
+                        <li class="nav-item dropdown gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                            <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" <isif condition="${!category.disableSubCategories}"> data-toggle="dropdown"</isif> aria-haspopup="true" aria-expanded="false">
+                              ${category.name}
+                            </a>
+                            <isset name="topCat" value="${category}" scope="page"/>
+                            <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
+                            <isset name="menuItem" value="${category}" scope="page" />
+                            <isinclude template="components/header/menuItem" />
+                        </li>
+                    <iselse/>
+                        <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                            <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
+                              ${category.name}
+                            </a>
+                      </li>
+                    </isif>
+                </isloop>
+            </isif>
+          <iscomment>Custom Start: Removing old country logic </iscomment>
+          <iscomment>
+          <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
+          </iscomment>
+          <iscomment> Custom End </iscomment>
+        </ul>
+      <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
+    </div>
+</nav>
