@@ -123,7 +123,7 @@ function productSync() {
             }
             // Custom End:
 
-            // Custom Start: [Movado - Listrak - New Product Feed]
+            // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
             if (Site.current.ID === 'MovadoUS') {
                 productFile.AddRowItem('Meta2');
                 productFile.AddRowItem('Meta3');
@@ -133,7 +133,7 @@ function productSync() {
                 productFile.AddRowItem('Size');
             }
             // Custom End
-            
+
             productFile.WriteRow();
 
             // //////// Write product rows //////////
@@ -186,7 +186,7 @@ function productSync() {
                 productFile.AddRowItem(prd.price == null ? 0.00 : prd.price, true);
 
                 // Brand
-                // Custom Start: [Movado - Listrak - New Product Feed]
+                // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
                 if (Site.current.ID === 'MovadoUS') {
                     productFile.AddRowItem(prd.familyName, true);
                 } else {
@@ -302,7 +302,7 @@ function productSync() {
                 }
                 // Custom End
 
-                // Custom Start: [Movado - Listrak - New Product Feed]
+                // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
                 if (Site.current.ID === 'MovadoUS') {
                     productFile.AddRowItem(prd.meta2, true);
                     productFile.AddRowItem(prd.meta3, true);

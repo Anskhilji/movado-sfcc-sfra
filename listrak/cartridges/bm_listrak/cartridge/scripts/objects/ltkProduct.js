@@ -75,7 +75,7 @@ function ltkProduct() {
     this.jewelryType = '';
     // Custom End:
 
-    // Custom Start: [Movado - Listrak - New Product Feed]
+    // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
     this.meta2 = '';
     this.meta3 = '';
     this.movement = '';
@@ -199,7 +199,7 @@ ltkProduct.prototype.LoadProduct = function (product) {
     }
     // Custom End
     
-    // Custom Start: [Movado - Listrak - New Product Feed]
+    // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
     this.meta2 = this.getMaterial(product);
     this.meta3 = this.getAttachmentType(product);
     this.movement = this.getMovement(product);
@@ -582,7 +582,7 @@ ltkProduct.prototype.getJewelryType = function (product) {
 };
 // Custom End
 
-// Custom Start: [Movado - Listrak - New Product Feed]
+// Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
 ltkProduct.prototype.getAttachmentType = function (product) {
     var attachmentType = !empty(product.custom.attachmentType) ? product.custom.attachmentType : '';
     return attachmentType;
