@@ -388,12 +388,31 @@ function updateAttrs(attrs, $productContainer) {
 function updateAvailability(response, $productContainer) {
     var availabilityValue = '';
     var availabilityMessages = response.product.availability.messages;
+    var $productATSValue = response.product.productATSValue;
+    var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
+    var inStockText = window.Resources.LABEL_IN_STOCK;
+    var preOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_PREORDER;
+    var backOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_BACK_ORDER;
+    var lowStockMessage = window.Resources.LOW_STOCK_MESSAGE;
+    
     if (!response.product.readyToOrder) {
         availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
     } else {
-        availabilityMessages.forEach(function (message) {
-            availabilityValue += '<div>' + message + '</div>';
-        });
+        if ($productATSValue && $lowStockThreshold && $productATSValue <= $lowStockThreshold) {
+            availabilityMessages.forEach(function (message) {
+                if (message === inStockText || message === preOrderText || message === backOrderText) {
+                    availabilityValue += '<div>' + lowStockMessage + '</div>';
+                } else {
+                    availabilityMessages.forEach(function (message) {
+                        availabilityValue += '<div>' + message + '</div>';
+                    });
+                }
+            });
+        } else {
+            availabilityMessages.forEach(function (message) {
+                availabilityValue += '<div>' + message + '</div>';
+            });
+        }
     }
 
     $($productContainer).trigger('product:updateAvailability', {
@@ -870,23 +889,6 @@ function handleVariantResponse(response, $productContainer) {
             }
         }
     });
-    
-    var $lowStockMessage = $('.low-stock-message');
-    if (response && response.product && response.product.productATSValue) {
-        var $productATSValue = response.product.productATSValue;
-        var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
-        if ($lowStockMessage.length > 0) {
-            if ($productATSValue <= $lowStockThreshold) {
-                $lowStockMessage.removeClass('d-none');
-            } else {
-                $lowStockMessage.addClass('d-none');
-            }
-        }
-    } else {
-        if ($lowStockMessage.length > 0 && (!$lowStockMessage.hasClass('d-none'))) {
-            $lowStockMessage.addClass('d-none');
-        }
-    }
 }
 
 /**
