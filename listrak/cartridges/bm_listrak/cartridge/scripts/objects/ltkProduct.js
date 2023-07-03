@@ -83,7 +83,6 @@ function ltkProduct() {
     this.dialColor = '';
     // Custom End:
     this.familyName = '';
-
 }
 
 /* Method to load product URLs only. */
@@ -207,8 +206,8 @@ ltkProduct.prototype.LoadProduct = function (product) {
     this.strapColor = this.getStrapColor(product);
     this.dialColor = this.getDialColor(product);
     this.caseDiameter = this.getCaseDiameter(product);
-    this.familyName = this.getFamilyName(product);
     // Custom End
+    this.familyName = this.getFamilyName(product);
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {
