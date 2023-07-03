@@ -1254,6 +1254,7 @@ function handleVariantResponse(response, $productContainer) {
             $lowStockMessage.addClass('d-none');
         }
     }
+    $('.ats-value').text($productATSValue)
 }
 
 /**

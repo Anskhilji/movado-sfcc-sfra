@@ -4928,3 +4928,10 @@
         bottom: rem(160);
     }
 }
+
+.low-stock-message {
+    
+    @include media-breakpoint-up(lg) {
+        margin-bottom: rem(10);
+    }
+}

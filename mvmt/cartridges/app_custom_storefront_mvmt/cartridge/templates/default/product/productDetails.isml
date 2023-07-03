@@ -160,14 +160,6 @@
                             </isif>
                         </isif>
 
-                        <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
-                        <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
-                        <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
-                            <div class="low-stock-message ${product.productATSValue <= lowStockThreshold ? '' : 'd-none'}">
-                                <iscontentasset aid="ca-low-stock-message" />
-                            </div>
-                        </isif>
-
                         <!-- Product Availability -->
                         <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>
                         <iscomment> 
@@ -232,6 +224,17 @@
                             </div>
                         </isif>
                         <iscomment> Custom End </iscomment>
+
+                        <div class="d-block d-md-none">
+                            <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+                            <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+                            <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                                <div class="low-stock-message ${product.productATSValue <= lowStockThreshold ? '' : 'd-none'}">
+                                    <iscontentasset aid="ca-low-stock-message" />
+                                </div>
+                            </isif>
+                        </div>
+                        
                         <div class="show-cart-button-below-price">
                             <div class="row">
                                 <div class="col-12 prices-add-to-cart-actions-top">
@@ -339,6 +342,16 @@
                                 </div>
                             </isif>
                         <iscomment> Custom End: </iscomment>
+                        <div class="d-none d-md-block">
+                            <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+                            <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+                            <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                                <div class="low-stock-message ${product.productATSValue <= lowStockThreshold ? '' : 'd-none'}">
+                                    <iscontentasset aid="ca-low-stock-message" />
+                                </div>
+                            </isif>
+                        </div>
+                        
 
                         <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
                         <div class="show-cart-button-desktop">

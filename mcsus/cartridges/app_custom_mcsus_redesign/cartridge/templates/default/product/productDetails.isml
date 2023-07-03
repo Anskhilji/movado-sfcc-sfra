@@ -1,5 +1,4 @@
 <isdecorate template="common/layout/page">
-<isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 <isset name="mcsPdpATCABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSPdpATCTest','render-new-design')}" scope="page" />
 
@@ -209,15 +208,7 @@
                         <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
                             <div class="col-md-10 col-12 ${sitePref.clydeWidgetDisplayPDP == false ? 'd-none' : ''}" id="clyde-cta" >
                             </div>
-                        </isif>  
-                        
-                        <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
-                        <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
-                        <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
-                            <div class="low-stock-message ${product.productATSValue <= lowStockThreshold ? '' : 'd-none'}">
-                                <iscontentasset aid="ca-low-stock-message" />
-                            </div>
-                        </isif>                      
+                        </isif>
 
                         <isif condition="${isPickupStoreEnabled}">
                             <div class="pickup-store">

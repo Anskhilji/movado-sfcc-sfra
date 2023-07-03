@@ -165,14 +165,6 @@
                     </iscomment>
                     <iscomment>Custom End</iscomment>
 
-                    <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
-                    <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
-                    <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
-                        <div class="low-stock-message ${product.productATSValue <= lowStockThreshold ? '' : 'd-none'}">
-                            <iscontentasset aid="ca-low-stock-message" />
-                        </div>
-                    </isif>
-
                     <div class="prices price-mobile">
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
@@ -271,6 +263,14 @@
                             <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                         </isif>
                     </div>
+
+                    <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+                    <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+                    <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                        <div class="text-left low-stock-message ${product.productATSValue <= lowStockThreshold ? '' : 'd-none'}">
+                            <iscontentasset aid="ca-low-stock-message" />
+                        </div>
+                    </isif>
 
                     <div class="row">
                         <div class="col-12 prices-add-to-cart-actions">

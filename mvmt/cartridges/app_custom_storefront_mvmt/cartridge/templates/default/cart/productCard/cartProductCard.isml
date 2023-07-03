@@ -2,6 +2,10 @@
 <isset name="bonusproductlineitem" value="${hasEmbeddedBonusProducts ? 'bonus-product-line-item' : ''}" scope="page"/>
 <isset name="bonuslineitemrow" value="${hasEmbeddedBonusProducts ? 'bonus-line-item-row' : ''}" scope="page"/>
 <isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
+<isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+<isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
 
 <div class="card ${JSON.stringify(lineItem)} product-info pb-0 ${bonusproductlineitem} uuid-${lineItem.UUID} product-card-wrapper">
     <!--- name and remove buttons --->
@@ -91,6 +95,13 @@
             <isset name="price" value="${lineItem.price}" scope="page"/>
             <isinclude template="/product/components/pricing/main" />
         </div>
+
+        <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+            <isif condition="${lineItem.productATSValue <= lowStockThreshold}">
+                <iscontentasset aid="ca-low-stock-message-cart" />
+            </isif>
+        </isif>
+        
         <div class="col-3 col-sm-2 hidden-md-down">
             <isif condition="${!lineItem.isBonusProductLineItem}"/>
                 <div class="remove-line-item">

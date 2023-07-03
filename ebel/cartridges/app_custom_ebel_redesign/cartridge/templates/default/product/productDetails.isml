@@ -152,14 +152,6 @@
 	                            <isinclude template="product/components/options" />
 	                        </isif>
 
-                            <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
-                            <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
-                            <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
-                                <div class="low-stock-message ${product.productATSValue <= lowStockThreshold ? '' : 'd-none'}">
-                                    <iscontentasset aid="ca-low-stock-message" />
-                                </div>
-                            </isif>
-
                             <!-- Product Availability -->
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
                             <div class="availability mb-3 product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
@@ -289,7 +281,7 @@
         <!-- The Modal: Ends-->
 
         <!-- Start: Listrak persistent popup -->
-        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled}">
             <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
             <span class="listrak-popup-product-detail"></span>
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
