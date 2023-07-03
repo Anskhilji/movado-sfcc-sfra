@@ -901,8 +901,63 @@ var updateCartPage = function (data) {
           affirm.ui.ready(function() {
             affirm.ui.refresh();
         });
-    } 
+    }
 };
+
+/**
+ * Retrieve product options
+ *
+ * @param {jQuery} $productContainer - DOM element for current product
+ * @return {string} - Product options and their selected values
+ */
+function getOptions($productContainer) {
+    var options = $productContainer
+        .find('.product-option')
+        .map(function () {
+            var $elOption = $(this).find('.options-select, input[type="radio"]:checked');
+            var urlValue = $elOption.val();
+            var selectedValueId;
+            if ($elOption.is("input")) {
+                selectedValueId = $elOption.data('value-id');
+            } else {
+                selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
+                .data('value-id');
+            }
+            return {
+                optionId: $(this).data('option-id'),
+                selectedValueId: selectedValueId
+            };
+        }).toArray();
+
+    return JSON.stringify(options);
+}
+
+/**
+ * Retrieves the bundle product item ID's for the Controller to replace bundle master product
+ * items with their selected variants
+ *
+ * @return {string[]} - List of selected bundle product item ID's
+ */
+function getChildProducts() {
+    var childProducts = [];
+    $('.bundle-item').each(function () {
+        childProducts.push({
+            pid: $(this).find('.product-id').text(),
+            quantity: parseInt($(this).find('label.quantity').data('quantity'), 10)
+        });
+    });
+
+    return childProducts.length ? JSON.stringify(childProducts) : [];
+}
+
+/**
+ * Retrieves url to use when adding a product to the cart
+ *
+ * @return {string} - The provided URL to use when adding a product to the cart
+ */
+function getAddToCartUrl() {
+    return $('.add-to-cart-url').val();
+}
 
 /**
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
@@ -1071,7 +1126,7 @@ function clydeAddProductToCart() {
             setPids.push({
                 pid: $(this).text(),
                 qty: 1,
-                options: movadoBase.getOptions($(this))
+                options: getOptions($(this))
             });
         });
         pidsObj = JSON.stringify(setPids);
@@ -1092,7 +1147,7 @@ function clydeAddProductToCart() {
         $productContainer = $this.closest('.quick-view-dialog').find('.product-detail');
     }
 
-    addToCartUrl = movadoBase.getAddToCartUrl();
+    addToCartUrl = getAddToCartUrl();
     var quantity = 1;
     if (window.Resources.IS_PDP_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
         quantity = productQuantity;
@@ -1101,7 +1156,7 @@ function clydeAddProductToCart() {
     var form = {
         pid: pid,
         pidsObj: pidsObj,
-        childProducts: movadoBase.getChildProducts(),
+        childProducts: getChildProducts(),
         quantity: movadoBase.getQuantitySelected($(this)),
         giftPid: giftPid ? giftPid : ''
     };
@@ -1113,7 +1168,7 @@ function clydeAddProductToCart() {
         form = {
             pid: pid,
             pidsObj: pidsObj,
-            childProducts: movadoBase.getChildProducts(),
+            childProducts: getChildProducts(),
             quantity: quantity,
             giftPid: giftPid ? giftPid : ''
         };
@@ -1141,7 +1196,7 @@ function clydeAddProductToCart() {
     });
 
     if (!$('.bundle-item').length) {
-        form.options = movadoBase.getOptions($productContainer);
+        form.options = getOptions($productContainer);
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
     $(this).trigger('updateAddToCartFormData', form);
@@ -1198,7 +1253,7 @@ function clydeAddProductSetToCart($this) {
                 setPids.push({
                     pid: $(this).find('.product-id').text(),
                     qty: 1,
-                    options: movadoBase.getOptions($(this))
+                    options: getOptions($(this))
                 });
             }
         });
@@ -1211,7 +1266,7 @@ function clydeAddProductSetToCart($this) {
             setPids.push({
                 pid: $this.text(),
                 qty: 1,
-                options: movadoBase.getOptions($this)
+                options: getOptions($this)
             });
         });
         pidsObj = JSON.stringify(setPids);
@@ -1233,7 +1288,7 @@ function clydeAddProductSetToCart($this) {
         $productContainer = $(this).closest('.quick-view-dialog').find('.product-detail');
     }
 
-    addToCartUrl = movadoBase.getAddToCartUrl();
+    addToCartUrl = getAddToCartUrl();
     var quantity = 1;
     if (window.Resources.IS_PDP_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
         quantity = productQuantity;
@@ -1242,7 +1297,7 @@ function clydeAddProductSetToCart($this) {
     var form = {
         pid: pid,
         pidsObj: pidsObj,
-        childProducts: movadoBase.getChildProducts(),
+        childProducts: getChildProducts(),
         quantity: movadoBase.getQuantitySelected($(this)),
         giftPid: giftPid ? giftPid : ''
     };
@@ -1254,7 +1309,7 @@ function clydeAddProductSetToCart($this) {
         form = {
             pid: pid,
             pidsObj: pidsObj,
-            childProducts: movadoBase.getChildProducts(),
+            childProducts: getChildProducts(),
             quantity: quantity,
             giftPid: giftPid ? giftPid : ''
         };
@@ -1282,7 +1337,7 @@ function clydeAddProductSetToCart($this) {
     });
 
     if (!$('.bundle-item').length) {
-        form.options = movadoBase.getOptions($productContainer);
+        form.options = getOptions($productContainer);
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
     $(this).trigger('updateAddToCartFormData', form);
@@ -1339,7 +1394,7 @@ function addProductToCartPlp($this) {
                 setPids.push({
                     pid: $(this).find('.product-id').text(),
                     qty: 1,
-                    options: movadoBase.getOptions($(this))
+                    options: getOptions($(this))
                 });
             }
         });
@@ -1352,7 +1407,7 @@ function addProductToCartPlp($this) {
             setPids.push({
                 pid: $(this).text(),
                 qty: 1,
-                options: movadoBase.getOptions($(this))
+                options: getOptions($(this))
             });
         });
         pidsObj = JSON.stringify(setPids);
@@ -1374,7 +1429,7 @@ function addProductToCartPlp($this) {
         $productContainer = $this.closest('.quick-view-dialog').find('.product-detail');
     }
 
-    addToCartUrl = movadoBase.getAddToCartUrl();
+    addToCartUrl = getAddToCartUrl();
     var quantity = 1;
     if (window.Resources.IS_PDP_QUANTITY_SELECTOR && productQuantity !== undefined && productQuantity !== null && productQuantity > 0) {
         quantity = productQuantity;
@@ -1383,7 +1438,7 @@ function addProductToCartPlp($this) {
     var form = {
         pid: pid,
         pidsObj: pidsObj,
-        childProducts: movadoBase.getChildProducts(),
+        childProducts: getChildProducts(),
         quantity: movadoBase.getQuantitySelected($this),
         giftPid: giftPid ? giftPid : ''
     };
@@ -1395,7 +1450,7 @@ function addProductToCartPlp($this) {
         form = {
             pid: pid,
             pidsObj: pidsObj,
-            childProducts: movadoBase.getChildProducts(),
+            childProducts: getChildProducts(),
             quantity: quantity,
             giftPid: giftPid ? giftPid : ''
         };
@@ -1423,7 +1478,7 @@ function addProductToCartPlp($this) {
     });
 
     if (!$('.bundle-item').length) {
-        form.options = movadoBase.getOptions($productContainer);
+        form.options = getOptions($productContainer);
     }
 
     var $currentRecommendedProduct = $this.data('pid');
