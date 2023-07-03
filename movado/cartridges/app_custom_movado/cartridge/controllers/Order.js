@@ -524,5 +524,49 @@ server.post('FBConversion', function (req, res, next) {
         success: result.success,
     });
     return next();
-})
+});
+
+server.get('OrderTracking', function (req, res, next) {
+    res.render('/order/orderTracking', {});
+    return next();
+});
+
+server.post('OrderDetail', function (req, res, next) {
+    var Locale = require('dw/util/Locale');
+    var OrderMgr = require('dw/order/OrderMgr');
+
+    var OrderModel = require('*/cartridge/models/order');
+    var order;
+    if (req.form.trackOrderEmail && req.form.trackOrderPostal && req.form.trackOrderNumber) {
+        order = OrderMgr.getOrder('dev-12-00006101');
+
+        var config = {
+            numberOfLineItems: '*'
+        };
+
+        var currentLocale = Locale.getLocale(req.locale.id);
+
+        var orderModel = new OrderModel(
+            order, {
+                config: config,
+                countryCode: currentLocale.country,
+                containerView: 'order'
+            }
+        );
+
+        res.render('account/orderDetails', {
+            order: orderModel,
+            isCancelOrder: true
+        });
+
+        next();
+    }
+});
+
+server.post('CancelOrder', function (req, res, next) {
+    var OrderMgr = require('dw/order/OrderMgr');
+    var a = req.from;
+    OrderMgr.getOrder(req.from.orderId);
+    next();
+});
 module.exports = server.exports();

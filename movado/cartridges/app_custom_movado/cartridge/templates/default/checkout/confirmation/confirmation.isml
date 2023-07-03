@@ -46,6 +46,7 @@
                 <a href="${URLUtils.url('Home-Show')}" class="btn btn-primary btn-block order-confirmation-continue-shopping" role="button" aria-pressed="true">
                     ${Resource.msg('button.continue.shopping','confirmation',null)}
                 </a>
+                <a href="${URLUtils.url('Order-OrderTracking')}">Cancelation Order Tracking</a>
             </div>
         </div>
     </div>
