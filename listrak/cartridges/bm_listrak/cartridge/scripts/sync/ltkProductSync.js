@@ -123,6 +123,7 @@ function productSync() {
             }
             // Custom End:
 
+            // Custom Start: [Movado - Listrak - New Product Feed]
             if (Site.current.ID === 'MovadoUS') {
                 productFile.AddRowItem('Meta2');
                 productFile.AddRowItem('Meta3');
@@ -131,6 +132,7 @@ function productSync() {
                 productFile.AddRowItem('Style');
                 productFile.AddRowItem('Size');
             }
+            // Custom End
             
             productFile.WriteRow();
 
@@ -184,11 +186,13 @@ function productSync() {
                 productFile.AddRowItem(prd.price == null ? 0.00 : prd.price, true);
 
                 // Brand
+                // Custom Start: [Movado - Listrak - New Product Feed]
                 if (Site.current.ID === 'MovadoUS') {
                     productFile.AddRowItem(prd.familyName, true);
                 } else {
                     productFile.AddRowItem(prd.brand, true);
                 }
+                // Custom End
 
                 if (Site.current.ID === 'MCSUS') {
                     if (!empty(productFeedJson)) {
@@ -298,6 +302,7 @@ function productSync() {
                 }
                 // Custom End
 
+                // Custom Start: [Movado - Listrak - New Product Feed]
                 if (Site.current.ID === 'MovadoUS') {
                     productFile.AddRowItem(prd.meta2, true);
                     productFile.AddRowItem(prd.meta3, true);
@@ -306,6 +311,7 @@ function productSync() {
                     productFile.AddRowItem(prd.dialColor, true);
                     productFile.AddRowItem(prd.caseDiameter, true);
                 }
+                // Custom End
 
                 productFile.WriteRow();
             }
