@@ -915,17 +915,17 @@ function getOptions($productContainer) {
         .find('.product-option')
         .map(function () {
             var $elOption = $(this).find('.options-select, input[type="radio"]:checked');
-            var urlValue = $elOption.val();
-            var selectedValueId;
+            var $urlValue = $elOption.val();
+            var $selectedValueId;
             if ($elOption.is("input")) {
-                selectedValueId = $elOption.data('value-id');
+                $selectedValueId = $elOption.data('value-id');
             } else {
-                selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
+                $selectedValueId = $elOption.find('option[value="' + $urlValue + '"]')
                 .data('value-id');
             }
             return {
                 optionId: $(this).data('option-id'),
-                selectedValueId: selectedValueId
+                selectedValueId: $selectedValueId
             };
         }).toArray();
 
@@ -939,15 +939,15 @@ function getOptions($productContainer) {
  * @return {string[]} - List of selected bundle product item ID's
  */
 function getChildProducts() {
-    var childProducts = [];
+    var $childProducts = [];
     $('.bundle-item').each(function () {
-        childProducts.push({
+        $childProducts.push({
             pid: $(this).find('.product-id').text(),
             quantity: parseInt($(this).find('label.quantity').data('quantity'), 10)
         });
     });
 
-    return childProducts.length ? JSON.stringify(childProducts) : [];
+    return $childProducts.length ? JSON.stringify($childProducts) : [];
 }
 
 /**
