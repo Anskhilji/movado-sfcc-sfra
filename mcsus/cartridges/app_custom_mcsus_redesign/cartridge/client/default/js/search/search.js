@@ -13,6 +13,18 @@ function updateDom($results, selector) {
     $(selector).empty().html($updates.html());
 }
 
+// Custom Start: [MSS-1348 Fix for not applying price filters]
+function plpGrid () {
+    $('.product-tiles-wrapper .slot-column').each(function () {
+        if ($(this).children('div').length > 0) {
+          $(this).addClass('d-block');
+        } else {
+          $(this).remove();
+        }
+    });
+}
+// custom end
+
 /**
  * Keep refinement panes expanded/collapsed after Ajax refresh
  *
@@ -315,14 +327,7 @@ function getTileHeight() {
 }
 
 $(document).ready(function () {
-    $('.product-tiles-wrapper .slot-column').each(function () {
-      if ($(this).children('div').length > 0) {
-        $(this).addClass('d-block');
-      } else {
-        $(this).remove();
-      }
-    });
-
+    plpGrid ();
     if ($(window).width() > 991) {
       getTileHeight()
     }
@@ -364,6 +369,7 @@ module.exports = {
     filter: function () {
         // Display refinements bar when Menu icon clicked
         $('.filter-container').on('click', 'button.filter-results', function () {
+            plpGrid ();
             $('.refinement-bar, .movado-modal').show();
             $('.modal-background').addClass('filter-modal-background');
             var $refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
@@ -432,14 +438,7 @@ module.exports = {
                 	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                 	$('body').trigger('facet:success', [gtmFacetArray]);
                     $('.product-grid').empty().html(response);
-                    $('.product-tiles-wrapper .slot-column').each(function () {
-                        if ($(this).children('div').length > 0) {
-                          $(this).addClass('d-block');
-                        } else {
-                          $(this).remove();
-                        }
-                    });
-                      
+                    plpGrid ();
                     // edit
                     updatePageURLForSortRule(url);
                     if (window.Resources.IS_YOTPO_ENABLED) {
@@ -497,6 +496,7 @@ module.exports = {
                 	$('body').trigger('facet:success', [gtmFacetArray]);
                     $('.grid-footer').replaceWith(response);
                     updateSortOptions(response);
+                    plpGrid ();
                     // edit
                     updatePageURLForShowMore(showMoreUrl);
                     if (window.Resources.IS_YOTPO_ENABLED) {
