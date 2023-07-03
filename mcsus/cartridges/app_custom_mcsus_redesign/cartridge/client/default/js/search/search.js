@@ -432,6 +432,14 @@ module.exports = {
                 	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                 	$('body').trigger('facet:success', [gtmFacetArray]);
                     $('.product-grid').empty().html(response);
+                    $('.product-tiles-wrapper .slot-column').each(function () {
+                        if ($(this).children('div').length > 0) {
+                          $(this).addClass('d-block');
+                        } else {
+                          $(this).remove();
+                        }
+                    });
+                      
                     // edit
                     updatePageURLForSortRule(url);
                     if (window.Resources.IS_YOTPO_ENABLED) {
