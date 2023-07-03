@@ -69,6 +69,10 @@
 
         .recomendation-carousel-wrapper {
 
+            &:not(:has(.mcs-product-carousel)) {
+                margin-bottom: rem(31);
+            }
+
             .new-rec-carosel {
 
                 .cs-carousel {
@@ -168,7 +172,7 @@
                         .cs-carousel-wrapper {
 
                             @include media-breakpoint-down(md) {
-                                margin-bottom: rem(23);
+                                margin-bottom: rem(10);
                             }
                         }
 
@@ -479,11 +483,12 @@
         .modal-body {
             padding: rem(30) 0;
             padding-bottom: 0;
-            height: rem(195);
-    
+
+       
             @include media-breakpoint-down(md) {
                 position: unset;
                 padding: 0;
+                height: rem(149);
             }
     
             .modal-inner {
