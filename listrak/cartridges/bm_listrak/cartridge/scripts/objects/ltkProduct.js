@@ -601,42 +601,46 @@ ltkProduct.prototype.getStrapColor = function (product) {
 ltkProduct.prototype.getMaterial = function (product) {
     var material = '';
     var productFeedMaterialJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute : '';
+    productFeedMaterialJson = !empty(productFeedMaterialJson) ? JSON.parse(productFeedMaterialJson) : '';
 
-    try {
-        productFeedMaterialJson = !empty(productFeedMaterialJson) ? JSON.parse(productFeedMaterialJson) : '';
-        var materialAttr = !empty(product.custom.material) ? product.custom.material : '';
-
-        if (!empty(materialAttr)) {
-            var materialArray = materialAttr.split(',');
-        }
-        if (!empty(productFeedMaterialJson) && !empty(materialArray[0])) {
-            material = productFeedMaterialJson[materialArray[0]];
-        }
-
-        return material;
-    } catch (error) {
-        Logger.error('Listrak Product Processing Failed while getting Material Attribute for Product: {0}, Error: {1}', product.ID, error);
+    if (productFeedMaterialJson) {
+        try {
+            var materialAttr = !empty(product.custom.material) ? product.custom.material : '';
+    
+            if (!empty(materialAttr)) {
+                var materialArray = materialAttr.split(',');
+            }
+            if (!empty(productFeedMaterialJson) && !empty(materialArray[0])) {
+                material = productFeedMaterialJson[materialArray[0]];
+            }
+    
+            return material;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Material Attribute for Product: {0}, Error: {1}', product.ID, error);
+        } 
     }
 }
 
 ltkProduct.prototype.getDialColor = function (product) {
     var dialColor = '';
     var productFeedDialColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedDialColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedDialColorAttribute : '';
+    productFeedDialColorJson = !empty(productFeedDialColorJson) ? JSON.parse(productFeedDialColorJson) : '';
 
-    try {
-        productFeedDialColorJson = !empt(productFeedDialColorJson) ? JSON.parse(productFeedDialColorJson) : '';
-        var dialColorAttr = !empty(product.custom.dialColor) ? product.custom.dialColor : '';
-
-        if (!empty(dialColorAttr)) {
-            var dialColorArray = dialColorAttr.split(',');
+    if (productFeedDialColorJson) {
+        try {
+            var dialColorAttr = !empty(product.custom.dialColor) ? product.custom.dialColor : '';
+    
+            if (!empty(dialColorAttr)) {
+                var dialColorArray = dialColorAttr.split(',');
+            }
+            if (!empty(productFeedDialColorJson) && !empty(dialColorArray[0])) {
+                dialColor = productFeedDialColorJson[dialColorArray[0]];
+            }
+    
+            return dialColor;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Dial Color Attribute for Product: {0}, Error: {1}', product.ID, error);
         }
-        if (!empty(productFeedDialColorJson) && !empty(dialColorArray[0])) {
-            dialColor = productFeedDialColorJson[dialColorArray[0]];
-        }
-
-        return dialColor;
-    } catch (error) {
-        Logger.error('Listrak Product Processing Failed while getting Dial Color Attribute for Product: {0}, Error: {1}', product.ID, error);
     }
 }
 // Custom End
