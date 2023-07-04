@@ -730,14 +730,19 @@ function handleVariantResponse(response, $productContainer) {
     });
 
     // Updating promo messages
+    var $promotionsCallOut = $('.promotions .callout');
     if (response && response.product && response.product.promotions) {
         var $promotions = $('.promotions');
-        var $promotionsCallOut = $('.promotions .callout');
         $promotionsCallOut.remove();
         var $productPromotions = response.product.promotions;
         $productPromotions.forEach(function(promotion) {
             $promotions.append('<div class="callout" title="' + promotion.details + '">' + promotion.calloutMsg + '</div>');
         });
+    }
+    else {
+        if ($promotionsCallOut.length) {
+            $promotionsCallOut.remove();
+        }
     }
 
     // Update pricing
