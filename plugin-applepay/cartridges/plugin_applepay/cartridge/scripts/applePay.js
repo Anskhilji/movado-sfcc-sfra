@@ -330,7 +330,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
  exports.failOrder = function (order, status) {
     var URLUtils = require('dw/web/URLUtils');
-    
+
     if (session.privacy.riskifiedDeclined) {
         var declinedUrl = session.privacy.riskifiedShoppperRecoveryEndURL;
         delete session.privacy.riskifiedDeclined;
@@ -363,7 +363,7 @@ exports.prepareBasket = function (basket, parameters) {
 
     var currentCountry = productCustomHelper.getCurrentCountry();
 
-    if (!empty(parameters.sku) && parameters.sku !== 'checkoutApplePay') {
+    if (!empty(parameters.sku)) {
         if (!basket.custom.storePickUp) {
             session.custom.StorePickUp = false;
             session.custom.applePayCheckout = true;
@@ -399,16 +399,10 @@ exports.prepareBasket = function (basket, parameters) {
     if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
         session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
     }
-    
-    if (parameters.sku == 'checkoutApplePay') {
-        Transaction.wrap(function () {
-            currentBasket.custom.isExpressPayment = false;
-        });
-    } else {
-        Transaction.wrap(function () {
-            currentBasket.custom.isExpressPayment = true;
-        });
-    }
+
+    Transaction.wrap(function () {
+        currentBasket.custom.isExpressPayment = true;
+    });
 
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
