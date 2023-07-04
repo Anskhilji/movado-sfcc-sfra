@@ -5,22 +5,20 @@ function pulseIdPayload(templateCode, productCode, location, elementName1, eleme
     var payLoad = {
         "TemplateCode": templateCode,
         "ProductCode": productCode,
-        "Location":  location,
+        "Location": location,
         "RenderOnProduct": true,
-        "Personalizations":
-          [
-              {
-                  "ElementName": elementName1,
-                  "Text": line1Text,
-                  "IsText": true
-              },
-              {
-                  "ElementName": elementName2,
-                  "Text": line2Text,
-                  "IsText": true
-              }
-          ]
-      };
+        "Personalizations": [{
+                "ElementName": elementName1,
+                "Text": line1Text,
+                "IsText": true
+            },
+            {
+                "ElementName": elementName2,
+                "Text": line2Text,
+                "IsText": true
+            }
+        ]
+    };
 
     return JSON.stringify(payLoad);
 }
@@ -44,18 +42,31 @@ function generatePulseIdOrderPayload(order, jobs) {
     return JSON.stringify(payload);
 }
 
-function setProductLineItemObj(lineItem, optionItem) {
+function setProductLineItemObj(lineItem, optionItem, elementName1, elementName2) {
     var obj = {
         Job: optionItem.custom.pulseIDJobId,
         Design: lineItem.productName,
         ProductCode: lineItem.productID,
         ProductPreviewURL: optionItem.custom.pulseIDPreviewURL,
-        OrderType: '',
+        OrderType: lineItem.product.custom.OrderType,
+        TemplateCode: lineItem.product.custom.pulseIDTemplateId,
+        TemplateFile: lineItem.product.custom.TemplateFile,
+        ProductLocation: lineItem.product.custom.ProductLocation,
         Quantity: 1,
+        Personalizations: [{
+                ElementName: elementName1,
+                Text: optionItem.custom.engraveMessageLine1,
+                IsText: true
+            },
+            {
+                ElementName: elementName2,
+                Text: optionItem.custom.engraveMessageLine2,
+                IsText: true
+            }
+        ]
     }
     return obj;
 }
-
 module.exports = {
     pulseIdPayload: pulseIdPayload,
     generatePulseIdOrderPayload: generatePulseIdOrderPayload,

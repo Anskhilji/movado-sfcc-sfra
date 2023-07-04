@@ -12,12 +12,15 @@ function execute() {
 
     try {
         var pulseObj;
-        var jobs = [];
         var pulseObjs = pulseIdAPIHelper.getPulseObjs();
+        var elementName1 = pulseIdConstants.PULSEID_SERVICE_ID.LINE1;
+        var elementName2 = pulseIdConstants.PULSEID_SERVICE_ID.LINE2;
 
         while (pulseObjs.hasNext()) {
             pulseObj = pulseObjs.next();
             var orderID = pulseObj.custom.orderId;
+            var jobs = [];
+
             if (!empty(orderID)) {
                 var order = OrderManager.getOrder(orderID);
                 var lineItemsItr = order.getAllProductLineItems().iterator();
@@ -26,7 +29,7 @@ function execute() {
                     var optionProductLineItems = lineItem.optionProductLineItems.toArray();
                     optionProductLineItems.filter(function (optionItem) {
                         if (!empty(optionItem.custom.pulseIDJobId)) {
-                            var ProductLineItemObj = pulseIdRequestGenerator.setProductLineItemObj(lineItem, optionItem);
+                            var ProductLineItemObj = pulseIdRequestGenerator.setProductLineItemObj(lineItem, optionItem, elementName1, elementName2);
                             jobs.push(ProductLineItemObj);
                         }
                     });
@@ -36,7 +39,7 @@ function execute() {
                 //create service
                 var result = pulseIdAPI.pulseIdEngravingApi(payload, pulseIdConstants.PULSEID_SERVICE_ID.PULSEID_SUBMIT_ORDER_API_ENDPOINT, pulseIdConstants.PULSEID_SERVICE_ID.PULSEID_REQUEST_METHOD);
                 if (result.success) {
-                    Logger.info('(pulseIdOrders Job) -> execute -> order has been submitted with order : ' + orderID + ' to PulseID. Response:' + result);
+                    Logger.info('(pulseIdOrders Job) -> execute -> order has been submitted with order : ' + orderID + ' to PulseID. Response:' + result.success);
                     pulseIdAPIHelper.removePulseObjs(pulseObj);
                 }
             }
