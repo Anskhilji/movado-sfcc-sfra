@@ -404,6 +404,11 @@
                         border-bottom: rem(1) solid $grey-light8;
                         border-right: rem(1) solid $grey-light8;
                         padding: rem(0) rem(10);
+                        overflow: hidden;
+                        
+                        &:hover {
+                            overflow: visible;
+                        }
 
                         @include media-breakpoint-up(lg) {
                             padding: rem(0);

@@ -22,13 +22,6 @@ function plpGrid() {
           $(this).remove();
         }
     });
-    
-    if ($('.product-tile-plp-container .tile-body').length > 0) {
-        $('.product-tile-plp-container .tile-body').each(function () {
-            $(this).css("padding-bottom", "16px")
-        });
-    }
-
 }
 // custom end
 
