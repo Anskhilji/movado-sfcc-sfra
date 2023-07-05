@@ -100,6 +100,10 @@ function updateProgressMeter(data) {
         var $progressMeterMain = $('.progress-meter-container');
         $progressMeterMain.empty();
         $progressMeterMain.append($promoProgressBarHtml);
+    } else if (data.numItems < 0) {
+        var $progressMeterMain = $('.progress-meter-container');
+        $progressMeterMain.empty();
+
     } else {
         var $freeShippingIcon = $('.progress-meter-container').data('shipping-image');
         var $progressBarSuccessMsg = data.progressBarSuccessMsg;
@@ -263,6 +267,7 @@ function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     }
     
     updateProgressMeter(data);
+
 
     var $grandCartTotalSelector = $('.main-cart-block').find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
     $('.delivery-date').empty().append(data.totals.deliveryDate);
@@ -877,6 +882,8 @@ module.exports = function () {
                         setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                         window.dispatchEvent(setAnalyticsTrackingByAJAX);
                     }
+                    var $progressMeterMain = $('.progress-meter-container');
+                    $progressMeterMain.empty();
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {

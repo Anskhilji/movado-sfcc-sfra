@@ -103,6 +103,10 @@ var updateCartPage = function(data) {
         var $progressMeterMain = $('.progress-meter-container');
         $progressMeterMain.empty();
         $progressMeterMain.append($promoProgressBarHtml);
+    } else if (data.numItems < 0) {
+        var $progressMeterMain = $('.progress-meter-container');
+        $progressMeterMain.empty();
+
     } else {
         var $freeShippingIcon = $('.progress-meter-container').data('shipping-image');
         var $progressBarSuccessMsg = data.progressBarSuccessMsg;
