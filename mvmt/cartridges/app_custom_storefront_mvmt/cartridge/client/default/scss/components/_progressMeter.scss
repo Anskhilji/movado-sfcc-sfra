@@ -17,18 +17,28 @@
                 margin-bottom: rem(10);
 
                 img {
-                    width: rem(28);
+                    width: rem(26);
                     height: rem(13);
                 }
             }
 
             p {
                 color: $white;
+                font-size: rem(12);
+                font-weight: 390;
+                line-height: rem(14.4);
             }
          }
 
          .progress-meter {
             width: 100%;
+
+            &-box {
+
+                &-bar {
+                    height: rem(8);
+                }
+            }
 
             &.progress-meter-text {
                 background: $light-blue4;
