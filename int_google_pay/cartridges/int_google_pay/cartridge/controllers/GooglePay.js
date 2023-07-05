@@ -124,16 +124,15 @@ server.post('ProcessPayments',
         }
 
         // Basket level custom attribute set to true for shopperRecovery redirection in case of express payment
+        var isExpressPayment = false;
         if (req.form.isGooglePayExpress == 'true' && currentBasket) {
-            Transaction.wrap(function () {
-                currentBasket.custom.isExpressPayment = true;
-            });
-        } else {
-            Transaction.wrap(function () {
-                currentBasket.custom.isExpressPayment = false;
-            });
+            isExpressPayment = true;
         }
 
+        Transaction.wrap(function () {
+            currentBasket.custom.isExpressPayment = isExpressPayment;
+        });
+        
         var validatedProducts = validationHelpers.validateProducts(currentBasket);
 
         if (validatedProducts.error) {
