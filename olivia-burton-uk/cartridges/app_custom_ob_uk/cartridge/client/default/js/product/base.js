@@ -202,9 +202,7 @@ function updateAvailability(response, $productContainer) {
                 if (message === inStockText || message === preOrderText || message === backOrderText) {
                     availabilityValue += '<div>' + lowStockMessage + '</div>';
                 } else {
-                    availabilityMessages.forEach(function (message) {
-                        availabilityValue += '<div>' + message + '</div>';
-                    });
+                    availabilityValue += '<div>' + message + '</div>';
                 }
             });
         } else {

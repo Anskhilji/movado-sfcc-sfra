@@ -821,14 +821,20 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     var $lowStockMessage = $('.low-stock-message');
+    var $inStockMessage = $('.pick-up-store-stock-for-deliver');
+    var $tickIcon = $('.pdp-store-pickup-display-inline-block-inventory-icon');
     if (response && response.product && response.product.productATSValue) {
         var $productATSValue = response.product.productATSValue;
         var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
         if ($lowStockMessage.length > 0) {
             if ($productATSValue <= $lowStockThreshold) {
                 $lowStockMessage.removeClass('d-none');
+                $inStockMessage.addClass('d-none');
+                $tickIcon.addClass('d-none');
             } else {
                 $lowStockMessage.addClass('d-none');
+                $inStockMessage.removeClass('d-none');
+                $tickIcon.removeClass('d-none');
             }
         }
     } else {
@@ -894,8 +900,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
 
-                var listrakTracking = require('movado/listrakActivityTracking.js');
-                listrakTracking.listrackProductTracking(data.product.id);
+                // var listrakTracking = require('movado/listrakActivityTracking.js');
+                // listrakTracking.listrackProductTracking(data.product.id);
 
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
