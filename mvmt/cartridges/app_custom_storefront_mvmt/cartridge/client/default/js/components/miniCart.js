@@ -93,7 +93,7 @@ var updateCartPage = function(data) {
 
     if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
         
-        var $promoProgressBarHtml = '<div class="progress-meter d-flex flex-column align-items-center">'+
+        var $promoProgressBarHtml = '<div class="progress-meter progress-meter-text d-flex flex-column align-items-center">'+
         '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
         '<div class="progress-meter-box">'+
         '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
@@ -113,7 +113,7 @@ var updateCartPage = function(data) {
         var $progressMeterMain = $('.progress-meter-container');
 
         if ($freeShippingIcon && $freeShippingIcon.length > 0 && $progressBarSuccessMsg) {
-            var $applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
+            var $applicablePromoMessageHtml = '<div class="got-free-shipping free-shipping-text d-flex align-items-center justify-content-center">'+
             '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
             '<p>'+ data.progressBarSuccessMsg +'</p>'+
             '</div>';
