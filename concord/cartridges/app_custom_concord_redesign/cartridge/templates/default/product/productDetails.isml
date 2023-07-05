@@ -1,6 +1,5 @@
 <iscomment> Custom: divs repositioned </iscomment>
 <isdecorate template="common/layout/page">
-<isinclude template="/components/modules" sf-toolkit="off" />
 
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
