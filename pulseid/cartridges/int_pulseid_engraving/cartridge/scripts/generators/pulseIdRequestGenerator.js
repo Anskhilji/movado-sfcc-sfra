@@ -1,19 +1,19 @@
 'use strict';
 var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
 
-function pulseIdPayload(templateCode, productCode, location, elementName1, elementName2, line1Text, line2Text) {
+function pulseIdPayload(templateCode, productCode, location, line1Text, line2Text) {
     var payLoad = {
         "TemplateCode": templateCode,
         "ProductCode": productCode,
         "Location": location,
         "RenderOnProduct": true,
         "Personalizations": [{
-                "ElementName": elementName1,
+                "ElementName": pulseIdConstants.PULSEID_SERVICE_ID.LINE1,
                 "Text": line1Text,
                 "IsText": true
             },
             {
-                "ElementName": elementName2,
+                "ElementName": pulseIdConstants.PULSEID_SERVICE_ID.LINE2,
                 "Text": line2Text,
                 "IsText": true
             }
@@ -42,10 +42,9 @@ function generatePulseIdOrderPayload(order, jobs) {
     return JSON.stringify(payload);
 }
 
-function setProductLineItemObj(lineItem, optionItem, elementName1, elementName2) {
+function setProductLineItemObj(lineItem, optionItem) {
     var obj = {
         Job: optionItem.custom.pulseIDJobId,
-        Design: lineItem.productName,
         ProductCode: lineItem.product.custom.pulseIDProductCode,
         ProductPreviewURL: optionItem.custom.pulseIDPreviewURL,
         OrderType: lineItem.product.custom.OrderType,
@@ -54,12 +53,12 @@ function setProductLineItemObj(lineItem, optionItem, elementName1, elementName2)
         ProductLocation: lineItem.product.custom.ProductLocation,
         Quantity: lineItem.quantity.value,
         Personalizations: [{
-                ElementName: elementName1,
+                ElementName: pulseIdConstants.PULSEID_SERVICE_ID.LINE1,
                 Text: optionItem.custom.engraveMessageLine1,
                 IsText: true
             },
             {
-                ElementName: elementName2,
+                ElementName: pulseIdConstants.PULSEID_SERVICE_ID.LINE2,
                 Text: optionItem.custom.engraveMessageLine2,
                 IsText: true
             }

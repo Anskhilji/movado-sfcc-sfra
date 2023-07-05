@@ -13,8 +13,6 @@ function execute() {
     try {
         var pulseObj;
         var pulseObjs = pulseIdAPIHelper.getPulseObjs();
-        var elementName1 = pulseIdConstants.PULSEID_SERVICE_ID.LINE1;
-        var elementName2 = pulseIdConstants.PULSEID_SERVICE_ID.LINE2;
 
         while (pulseObjs.hasNext()) {
             pulseObj = pulseObjs.next();
@@ -29,7 +27,7 @@ function execute() {
                     var optionProductLineItems = lineItem.optionProductLineItems.toArray();
                     optionProductLineItems.filter(function (optionItem) {
                         if (!empty(optionItem.custom.pulseIDJobId)) {
-                            var ProductLineItemObj = pulseIdRequestGenerator.setProductLineItemObj(lineItem, optionItem, elementName1, elementName2);
+                            var ProductLineItemObj = pulseIdRequestGenerator.setProductLineItemObj(lineItem, optionItem);
                             jobs.push(ProductLineItemObj);
                         }
                     });
