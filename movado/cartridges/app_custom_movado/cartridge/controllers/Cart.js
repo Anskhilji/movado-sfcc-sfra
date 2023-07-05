@@ -2,8 +2,9 @@
 
 var server = require('server');
 
+var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
 var cache = require('*/cartridge/scripts/middleware/cache');
-
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var collections = require('*/cartridge/scripts/util/collections');
@@ -69,8 +70,6 @@ server.append('AddProduct', function (req, res, next) {
     var basketModel = new CartModel(currentBasket);
     var viewData = res.getViewData();
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-    var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var recommendedProductCardHtml = '';
     var isCartPage = req.form.isCartPage;
@@ -318,12 +317,36 @@ server.prepend(
     csrfProtection.generateToken,
     function (req, res, next) {
     res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
+    
     var BasketMgr = require('dw/order/BasketMgr');
+    var Transaction = require('dw/system/Transaction');
+
     var CartModel = require('*/cartridge/models/cart');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var basketModel = new CartModel(currentBasket);
     var productLineItems = currentBasket.productLineItems.iterator();
+    var result;
 
+    if (session.privacy.applePayBasketReOpen) {
+        var productId = session.privacy.applePayBasketReOpen;
+
+        Transaction.wrap(function () {
+            result = cartHelper.addProductToCart(
+                currentBasket,
+                productId,
+                1,
+                [],
+                []
+            );
+
+            if (!result.error) {
+                cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+                basketCalculationHelpers.calculateTotals(currentBasket);
+            }
+        });
+        delete session.custom.applePaySku;
+        delete session.privacy.applePayBasketReOpen;
+    }
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
     }

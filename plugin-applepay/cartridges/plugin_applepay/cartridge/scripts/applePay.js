@@ -336,6 +336,10 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         delete session.privacy.riskifiedDeclined;
         delete session.privacy.riskifiedShoppperRecoveryEndURL;
 
+        if (session.custom.applePaySku) {
+            session.privacy.applePayBasketReOpen = session.custom.applePaySku;
+        }
+
         if (session.privacy.riskifiedShoppperRecovery) {
             delete session.privacy.riskifiedShoppperRecovery;
 
@@ -364,6 +368,8 @@ exports.prepareBasket = function (basket, parameters) {
     var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {
+        session.custom.applePaySku = parameters.sku;
+
         if (!basket.custom.storePickUp) {
             session.custom.StorePickUp = false;
             session.custom.applePayCheckout = true;
@@ -399,10 +405,6 @@ exports.prepareBasket = function (basket, parameters) {
     if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
         session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
     }
-
-    Transaction.wrap(function () {
-        currentBasket.custom.isExpressPayment = true;
-    });
 
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);

@@ -122,8 +122,14 @@ function orderDeclined(order, riskifiedOrderStatus) {
         var riskApproved = URLUtils.https('Checkout-RiskApproved').toString();
         var riskDeclined = URLUtils.https('Checkout-Declined').toString();
         var expressPaymentRiskApproved = URLUtils.https('Checkout-ExpressPaymentRiskApproved').toString();
+        var paymentMethod = order.paymentInstruments[0].paymentMethod;
+        var successUrl;
 
-        var successUrl = order.custom.isExpressPayment ? encodedUrl(order, expressPaymentRiskApproved) : encodedUrl(order, riskApproved);
+        if (paymentMethod == 'DW_APPLE_PAY') {
+            successUrl = encodedUrl(order, expressPaymentRiskApproved);
+        } else {
+            successUrl = order.custom.isExpressPayment ? encodedUrl(order, expressPaymentRiskApproved) : encodedUrl(order, riskApproved);
+        }
         var failureUrl = encodedUrl(order, riskDeclined);
         
         riskifiedPaymentReversal(order, paymentMethod);
