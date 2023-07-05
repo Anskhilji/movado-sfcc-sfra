@@ -209,14 +209,4 @@ server.get('RiskApproved', function (req, res, next) {
     next();
 });
 
-// Riskified shoperRecovery order approved with express payment methods
-server.get('ExpressPaymentRiskApproved', function (req, res, next) {
-    var Resource = require('dw/web/Resource');
-    res.setViewData({
-        carShopperRecovery: true
-    });
-    res.redirect(URLUtils.url('Cart-Show', 'shopperRecoverySuccess', Resource.msg('shopper.recovery.success', 'checkout', null)));
-    next();
-});
-
 module.exports = server.exports();

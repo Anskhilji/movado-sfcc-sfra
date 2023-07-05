@@ -378,7 +378,6 @@ server.append(
         var currentCountry = productCustomHelper.getCurrentCountry();
         var marketingProductsData = [];
 
-        
         // Custom Start: Adding ESW cartridge integration
         if (isEswEnabled) {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
@@ -470,6 +469,12 @@ server.append(
         if (!empty(req.querystring.lastNameError)) {
             res.setViewData({ 
                 lastNameError: req.querystring.lastNameError
+            });
+        }
+
+        if (!empty(req.querystring.shopperRecoverySuccess)) {
+            res.setViewData({ 
+                shopperRecoverySuccess: req.querystring.shopperRecoverySuccess
             });
         }
 

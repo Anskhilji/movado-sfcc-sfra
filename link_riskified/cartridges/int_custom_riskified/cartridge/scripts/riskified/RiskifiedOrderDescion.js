@@ -11,6 +11,7 @@
  var Transaction = require('dw/system/Transaction');
  var PaymentMgr = require('dw/order/PaymentMgr');
  var OrderMgr = require('dw/order/OrderMgr');
+ var Resource = require('dw/web/Resource');
  var Site = require('dw/system/Site');
  var URLUtils = require('dw/web/URLUtils');
 
@@ -121,14 +122,14 @@ function orderDeclined(order, riskifiedOrderStatus) {
         
         var riskApproved = URLUtils.https('Checkout-RiskApproved').toString();
         var riskDeclined = URLUtils.https('Checkout-Declined').toString();
-        var expressPaymentRiskApproved = URLUtils.https('Checkout-ExpressPaymentRiskApproved').toString();
-        var paymentMethod = order.paymentInstruments[0].paymentMethod;
+        var cartShow = URLUtils.https('Cart-Show', 'shopperRecoverySuccess', Resource.msg('shopper.recovery.success', 'checkout', null)).toString();
+        var paymentMethod = order.paymentInstruments.length > 0 ? order.paymentInstruments[0].paymentMethod : '';
         var successUrl;
 
         if (paymentMethod == 'DW_APPLE_PAY') {
-            successUrl = encodedUrl(order, expressPaymentRiskApproved);
+            successUrl = encodedUrl(order, cartShow);
         } else {
-            successUrl = order.custom.isExpressPayment ? encodedUrl(order, expressPaymentRiskApproved) : encodedUrl(order, riskApproved);
+            successUrl = order.custom.isExpressPayment ? encodedUrl(order, cartShow) : encodedUrl(order, riskApproved);
         }
         var failureUrl = encodedUrl(order, riskDeclined);
         
