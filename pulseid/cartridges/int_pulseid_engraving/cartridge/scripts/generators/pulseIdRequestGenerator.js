@@ -46,13 +46,13 @@ function setProductLineItemObj(lineItem, optionItem, elementName1, elementName2)
     var obj = {
         Job: optionItem.custom.pulseIDJobId,
         Design: lineItem.productName,
-        ProductCode: lineItem.productID,
+        ProductCode: lineItem.product.custom.pulseIDProductCode,
         ProductPreviewURL: optionItem.custom.pulseIDPreviewURL,
         OrderType: lineItem.product.custom.OrderType,
         TemplateCode: lineItem.product.custom.pulseIDTemplateId,
         TemplateFile: lineItem.product.custom.TemplateFile,
         ProductLocation: lineItem.product.custom.ProductLocation,
-        Quantity: 1,
+        Quantity: lineItem.quantity.value,
         Personalizations: [{
                 ElementName: elementName1,
                 Text: optionItem.custom.engraveMessageLine1,
