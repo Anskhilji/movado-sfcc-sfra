@@ -100,7 +100,7 @@ function updateProgressMeter(data) {
         var $progressMeterMain = $('.progress-meter-container');
         $progressMeterMain.empty();
         $progressMeterMain.append($promoProgressBarHtml);
-    } else if (data.numItems < 0) {
+    } else if (data.numItems == 0) {
         var $progressMeterMain = $('.progress-meter-container');
         $progressMeterMain.empty();
 
