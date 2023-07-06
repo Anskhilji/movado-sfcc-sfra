@@ -1,8 +1,8 @@
 <isif condition="${pdict.isPromoProgressBarEnabled}">
-    <div class="progress-meter-container" data-shipping-image="${pdict.isOrderLevelPromotion ? URLUtils.httpStatic('/images/circle-check-icon.svg') : URLUtils.httpStatic('/images/green_delivery.svg')}">
+    <div class="progress-meter-container" data-shipping-image="${pdict.isOrderLevelPromotion ? URLUtils.httpStatic('/images/circle-check-icon.svg') : (pdict.isMiniCart ? URLUtils.httpStatic('/images/delivery.svg') : URLUtils.httpStatic('/images/green_delivery.svg'))}">
         <isif condition="${pdict.totals.grandTotal >= pdict.conditionThreshold}">
             <div class="got-free-shipping ${pdict.isOrderLevelPromotion ? 'free-order-text' : 'free-shipping-text' } d-flex align-items-center justify-content-center">
-                <img src="${pdict.isOrderLevelPromotion ? URLUtils.httpStatic('/images/circle-check-icon.svg') : URLUtils.httpStatic('/images/green_delivery.svg')}" alt="${!empty(pdict.progressBarSuccessMsg) ? pdict.progressBarSuccessMsg : ''}">
+                <img src="${pdict.isOrderLevelPromotion ? URLUtils.httpStatic('/images/circle-check-icon.svg') : (pdict.isMiniCart ? URLUtils.httpStatic('/images/delivery.svg') : URLUtils.httpStatic('/images/green_delivery.svg') )}" alt="${!empty(pdict.progressBarSuccessMsg) ? pdict.progressBarSuccessMsg : ''}">
                 <isif condition="${!empty(pdict.progressBarSuccessMsg)}">
                     <p>${pdict.progressBarSuccessMsg}</p>
                 </isif>
@@ -24,5 +24,5 @@
         </isif>
     </div>
 <iselse/>
-    <div class="${pdict.isPromoProgressBarEnabled ? 'd-none' : ''} progress-meter-container" data-shipping-image="${pdict.isOrderLevelPromotion ? URLUtils.httpStatic('/images/circle-check-icon.svg') : URLUtils.httpStatic('/images/green_delivery.svg')}"> </div>
+    <div class="${pdict.isPromoProgressBarEnabled ? 'd-none' : ''} progress-meter-container" data-shipping-image="${pdict.isOrderLevelPromotion ? URLUtils.httpStatic('/images/circle-check-icon.svg') : (pdict.isMiniCart ? URLUtils.httpStatic('/images/delivery.svg') : URLUtils.httpStatic('/images/green_delivery.svg') )}"> </div>
 </isif>
