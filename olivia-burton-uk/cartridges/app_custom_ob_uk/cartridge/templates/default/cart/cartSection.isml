@@ -18,7 +18,7 @@
         </isif>
     </div>
 </isif>
-<isif condition="${!empty(request.httpParameterMap.get('shopperRecoverySuccess').value)}">
+<isif condition="${!empty(pdict.shopperRecoverySuccess)}">
     <isinclude template="cart/productCard/cartShopperRecoverySuccess" />
 </isif>
 <isif condition="${pdict.lastNameError}">
