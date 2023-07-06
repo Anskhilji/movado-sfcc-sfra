@@ -28,11 +28,23 @@
                 font-weight: 390;
                 line-height: rem(14.4);
             }
+
+            &.free-order-text {
+                margin-bottom: rem(15);
+                
+                p {
+                    color: $light-black;
+                    font-weight: bold;
+                }
+            }
          }
 
          .progress-meter {
             width: 100%;
 
+            &.progress-meter-order-text {
+                margin-bottom: rem(15);
+            }
             &-box {
 
                 &-bar {
