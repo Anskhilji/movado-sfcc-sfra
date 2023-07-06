@@ -90,12 +90,6 @@ var updateCartPage = function(data) {
     var $subTotalSelector = $miniCartSelector.find('.sub-total');
     var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
     var $orderDiscountSelector = $miniCartSelector.find('.order-discount');
-    var progressbarSelector;
-    // if (data.isOrderLevelPromotion) {
-    //     progressbarSelector = 'progress-meter-order-text'
-    // } else {
-    //     progressbarSelector = 'progress-meter-text'
-    // }
 
     if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
         var $promoProgressBarHtml = '<div class="progress-meter '+ (data.isOrderLevelPromotion ? 'progress-meter-order-text' : 'progress-meter-text') +' d-flex flex-column align-items-center">'+
