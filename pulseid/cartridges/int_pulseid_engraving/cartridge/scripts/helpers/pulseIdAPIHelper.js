@@ -88,10 +88,6 @@ function setPulseJobID(order) {
                 });
             }
         });
-
-        if (order.custom.IsPulseIDEngraved == true) {
-            savePulseObj(order.orderNo);
-        }
     }
 }
 

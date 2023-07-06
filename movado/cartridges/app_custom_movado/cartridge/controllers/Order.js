@@ -376,6 +376,9 @@ server.append('Confirm', function (req, res, next) {
         var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
         pulseIdAPIHelper.setPulseJobID(order);
     }
+    if (order.custom.IsPulseIDEngraved == true) {
+        pulseIdAPIHelper.savePulseObj(order.orderNo);
+    }
     // custom end
 
     res.setViewData({
