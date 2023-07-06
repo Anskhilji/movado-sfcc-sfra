@@ -92,13 +92,22 @@ var updateCartPage = function(data) {
     var $orderDiscountSelector = $miniCartSelector.find('.order-discount');
 
     if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
-        
-        var $promoProgressBarHtml = '<div class="progress-meter progress-meter-text d-flex flex-column align-items-center">'+
-        '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
-        '<div class="progress-meter-box">'+
-        '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
-        '</div>'+
-        '</div>';
+        var $promoProgressBarHtml;
+        if (data.isOrderLevelPromotion) {
+            $promoProgressBarHtml = '<div class="progress-meter progress-meter-order-text d-flex flex-column align-items-center">'+
+            '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
+            '<div class="progress-meter-box">'+
+            '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
+            '</div>'+
+            '</div>';
+        } else {
+            $promoProgressBarHtml = '<div class="progress-meter progress-meter-text d-flex flex-column align-items-center">'+
+            '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
+            '<div class="progress-meter-box">'+
+            '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
+            '</div>'+
+            '</div>';
+        }
 
         var $progressMeterMain = $('.progress-meter-container');
         $progressMeterMain.empty();
@@ -113,10 +122,18 @@ var updateCartPage = function(data) {
         var $progressMeterMain = $('.progress-meter-container');
 
         if ($freeShippingIcon && $freeShippingIcon.length > 0 && $progressBarSuccessMsg) {
-            var $applicablePromoMessageHtml = '<div class="got-free-shipping free-shipping-text d-flex align-items-center justify-content-center">'+
-            '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
-            '<p>'+ data.progressBarSuccessMsg +'</p>'+
-            '</div>';
+            var $applicablePromoMessageHtml;
+            if (data.isOrderLevelPromotion) {
+                $applicablePromoMessageHtml = '<div class="got-free-shipping free-order-text d-flex align-items-center justify-content-center">'+
+                '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
+                '<p>'+ data.progressBarSuccessMsg +'</p>'+
+                '</div>';
+            } else {
+                $applicablePromoMessageHtml = '<div class="got-free-shipping free-shipping-text d-flex align-items-center justify-content-center">'+
+                '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
+                '<p>'+ data.progressBarSuccessMsg +'</p>'+
+                '</div>';
+            }
         }
 
         $progressMeterMain.empty();
