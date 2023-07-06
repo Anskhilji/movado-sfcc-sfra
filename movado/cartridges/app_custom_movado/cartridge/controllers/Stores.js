@@ -24,9 +24,9 @@ server.replace('Find', server.middleware.https, cache.applyDefaultCache, consent
     var showMap = req.querystring.showMap;
     var horizontalView = req.querystring.horizontalView || false;
     var isForm = req.querystring.isForm || false;
-
     var viewData = res.getViewData();
     var countries = [];
+    var profileForm = server.forms.getForm('profile');
 
     for (var i = 0; i < data.length; i++) {
         countries[i] = data[i];
@@ -44,7 +44,8 @@ server.replace('Find', server.middleware.https, cache.applyDefaultCache, consent
         horizontalView: horizontalView,
         isForm: isForm,
         showMap: showMap,
-        countryCode :countryCode
+        countryCode :countryCode,
+        profileForm: profileForm
     };
     res.setViewData(viewData);
     res.render('storeLocator/storeLocator', viewData);
@@ -57,12 +58,43 @@ server.replace('Find', server.middleware.https, cache.applyDefaultCache, consent
  * It returns the store data as JSON.
  */
 server.replace('FindStores', function (req, res, next) {
+    var Resource = require('dw/web/Resource');
+    var Site = require('dw/system/Site');
+
+    var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+
     var radius = req.querystring.radius;
     var showMap = req.querystring.showMap;
     var queryCountryCode = req.querystring.countryCode;
     var queryAddress = req.querystring.address;
     var stores = null;
     var status = null;
+    var storeLocatorForm = null;
+
+    var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+
+    storeLocatorForm = server.forms.getForm('profile');
+
+    if (isGoogleRecaptchaEnabled) {
+        var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+        var googleRecaptchaToken = storeLocatorForm.customer.grecaptchatoken.value;
+        if (empty(googleRecaptchaToken)) {
+            res.json({
+                success: false,
+                errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+            });
+            return next(); 
+        }
+
+        var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+        if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
+            res.json({
+                success: false,
+                errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+            });
+            return next(); 
+        }
+    }
 
     if (queryAddress) {
         queryAddress = queryAddress.replace(' ', '+');

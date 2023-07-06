@@ -115,11 +115,21 @@ function maps() {
 function updateStoresResults(data) {
     var $resultsDiv = $('.results');
     var $mapDiv = $('.map-canvas');
-    var hasResults = data.stores.length > 0;
-    if (!hasResults) {
-        $('.store-locator-no-results').show();
-    } else {
+
+    if (data.hasOwnProperty('success') && data.success == false) {
         $('.store-locator-no-results').hide();
+        $('.store-locator-recaptcha-error').removeClass('d-none');
+        $('.store-locator-recaptcha-error').text(data.errorMessage);
+    } else {
+        $('.store-locator-recaptcha-error').addClass('d-none');
+        $('.store-locator-recaptcha-error').text('');
+        
+        var hasResults = data.stores.length > 0;
+        if (!hasResults) {
+            $('.store-locator-no-results').show();
+        } else {
+            $('.store-locator-no-results').hide();
+        }
     }
 
     $resultsDiv.empty()

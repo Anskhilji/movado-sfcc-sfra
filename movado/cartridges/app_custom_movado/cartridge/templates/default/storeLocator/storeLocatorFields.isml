@@ -1,3 +1,5 @@
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
 <div class="card-body find-store-form">
     <isif condition="${pdict.showMap === 'true'}">
         <p>${Resource.msg('msg.find.store','storeLocator',null)}</p>
@@ -30,7 +32,15 @@
             <input autofocus type="text" placeholder="${Resource.msg('storelocator.address.placeholder','storeLocator',null)}" class="form-control" id="store-postal-code" name="address"  value="" autocomplete="nofill" required/>
             <div class="invalid-feedback"></div>
         </div>
-        <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search" type="${pdict.isForm === 'true' ? 'submit' : 'button'}">
+        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" name="${pdict.profileForm.customer.grecaptchatoken.htmlName}" 
+            <isprint value=${pdict.profileForm.customer.grecaptchatoken.attributes} encoding="off" />
+        >
+        <isif condition="${isGoogleRecaptchaEnabled}">
+            <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search g-recaptcha" type="${pdict.isForm === 'true' ? 'submit' : 'button'}" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha'>
+            ${Resource.msg('button.find.stores','storeLocator',null)}
+            </button>
+        </isif>
+        <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search ${isGoogleRecaptchaEnabled ? 'd-none' : ''} form-submit" type="${pdict.isForm === 'true' ? 'submit' : 'button'}">
             ${Resource.msg('button.find.stores','storeLocator',null)}
         </button>
     </${pdict.isForm === 'true' ? 'form' : 'div'}>

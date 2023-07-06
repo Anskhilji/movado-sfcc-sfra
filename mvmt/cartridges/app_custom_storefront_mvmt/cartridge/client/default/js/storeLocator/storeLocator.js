@@ -118,13 +118,21 @@ function updateStoresResults(data) {
     //Custom Start: Checking the store locator page stage and updating the logic of conditions
     var $findPage = data.findPage == undefined ? false : data.findPage;
     //Custom End
-    var hasResults = data.stores.length > 0;
-    if (!hasResults && $findPage === false) {
-        $('.store-locator-no-results').show();
-    } else {
+    if (data.hasOwnProperty('success') && data.success == false) {
         $('.store-locator-no-results').hide();
-    }
+        $('.store-locator-recaptcha-error').removeClass('d-none');
+        $('.store-locator-recaptcha-error').text(data.errorMessage);
+    } else {
+        $('.store-locator-recaptcha-error').addClass('d-none');
+        $('.store-locator-recaptcha-error').text('');
 
+        var hasResults = data.stores.length > 0;
+        if (!hasResults && $findPage === false) {
+            $('.store-locator-no-results').show();
+        } else {
+            $('.store-locator-no-results').hide();
+        }
+    }
     $resultsDiv.empty()
         .data('has-results', hasResults)
         .data('radius', data.radius)

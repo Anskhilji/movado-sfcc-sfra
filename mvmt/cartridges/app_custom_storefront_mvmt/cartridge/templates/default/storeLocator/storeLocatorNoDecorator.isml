@@ -5,6 +5,7 @@
             <div class="card search-form">
                 <isinclude template="storeLocator/storeLocatorFields" /> 
                 <p class="text-center ${pdict.findPage ? 'store-locator-no-results' : '' }">${Resource.msg('error.no.results','storeLocator',null)}</p>
+                <p class="text-center store-locator-recaptcha-error mt-3 mb-3 d-none"></p>
             </div>
         </div>
         <div class="col-md-4 order-3 order-md-1 pl-lg-5">
