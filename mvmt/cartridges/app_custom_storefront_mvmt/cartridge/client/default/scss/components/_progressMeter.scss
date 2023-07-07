@@ -30,11 +30,19 @@
             }
 
             &.free-order-text {
-                margin-bottom: rem(15);
+                background: $light-blue1;
+                padding: rem(15) rem(40);
+                height: rem(60);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: rem(10);
                 
                 p {
-                    color: $light-black;
-                    font-weight: bold;
+                    color: $white;
+                    font-size: rem(12);
+                    font-weight: 390;
+                    line-height: rem(14.4);
                 }
             }
          }
@@ -43,7 +51,14 @@
             width: 100%;
 
             &.progress-meter-order-text {
-                margin-bottom: rem(15);
+                background: $light-blue4;
+                padding: rem(15) rem(40);
+                height: rem(60);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: rem(10);
+                margin-top: 0;  
             }
             &-box {
 

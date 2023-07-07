@@ -104,13 +104,19 @@ function updateProgressMeter(data) {
         $progressMeterMain.empty();
 
     } else {
-        var $freeShippingIcon = $('.progress-meter-container').data('shipping-image');
+        var $isMiniCart = $('.progress-meter-container').data('mini-cart');
+        var $promoImg;
+        if (data.isOrderLevelPromotion) {
+            $promoImg = data.orderLevelPromoImg;
+        } else {
+            $promoImg = $isMiniCart ? shippingLevelPromoImgMiniCart : data.shippingLevelPromoImg;
+        }
         var $progressBarSuccessMsg = data.progressBarSuccessMsg;
         var $progressMeterMain = $('.progress-meter-container');
 
-        if ($freeShippingIcon && $freeShippingIcon.length > 0 && $progressBarSuccessMsg) {
+        if ($promoImg && $progressBarSuccessMsg) {
             var $applicablePromoMessageHtml = '<div class="got-free-shipping '+ (data.isOrderLevelPromotion ? 'free-order-text' : 'free-shipping-text') +' d-flex align-items-center justify-content-center">'+
-                '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
+                '<img src="'+ $promoImg +'" alt="'+ data.progressBarSuccessMsg +'">'+
                 '<p>'+ data.progressBarSuccessMsg +'</p>'+
                 '</div>';
         }
