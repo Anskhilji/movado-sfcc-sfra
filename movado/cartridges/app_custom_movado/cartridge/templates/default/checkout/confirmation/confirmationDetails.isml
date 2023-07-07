@@ -68,7 +68,10 @@
     </div>
 
     <isif condition="${pdict.isCancelOrder}">
-        <button ${pdict.isCancelOrderEnable == false ? 'disabled' : ''} class="cancel-order btn"  data-cancel-order-url ="${URLUtils.url('Order-CancelOrder')}">Cancel My Order</button>
-        <iscontentasset aid="cancel-order-modal" />
+        <div class="order-cancel-container">
+            <button ${pdict.isCancelOrderEnable == false ? 'disabled' : ''} class="cancel-order-btn"  data-cancel-order-url="${URLUtils.url('Order-CancelOrder')}">${Resource.msg('label.order.cancel.btn.text', 'confirmation', null)}</button>
+            <iscomment> <button class="cancel-order-btn" data-cancel-order-url ="${URLUtils.url('Order-CancelOrder')}">${Resource.msg('label.order.cancel.btn.text', 'confirmation', null)}</button> </iscomment>
+            <iscontentasset aid="cancel-order-dropdown" />
+        </div>
     </isif>
 </div>
