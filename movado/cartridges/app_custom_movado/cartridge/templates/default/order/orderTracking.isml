@@ -1,52 +1,64 @@
 <isdecorate template="common/layout/page">
-    <h1>Tracking Page For Order Cancelation</h1>
-    <isif condition="${pdict.invalidOrder}">
-        <h1>We are unable to find your order</h1>
-    </isif>
-    <div class="card">
-        <isinclude template="/components/modules" sf-toolkit="off" />
-        <form action="${URLUtils.url('Order-OrderDetail')}" class="trackorder" method="POST" name="trackorder-form">
-            <h3 class="card-header heading-three">${Resource.msg('header.form.trackorder', 'login', null)}</h3>
-            <div class="card-body">
-                <isif condition="${pdict.orderTrackFormError}">
-                    <div class="form-group">
-                        <div class="alert alert-danger alert-custom" role="alert">
-                            <strong>${Resource.msg('error.message.trackorder.form', 'login', null)}</strong>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h1 class="p-2">${Resource.msg('order.cancellation.tracking.page.text', 'order', null)}</h1>
+            <isif condition="${pdict.invalidOrder}">
+                <div class="cart-error-messaging cart-error mt-2">
+                    <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        ${Resource.msg('order.cancellation.tracking.error', 'order', null)}
+                    </div>
+                </div>
+            </isif>
+            <div class="card">
+                <isinclude template="/components/modules" sf-toolkit="off" />
+                <form action="${URLUtils.url('Order-OrderDetail')}" class="trackorder" method="POST"
+                    name="trackorder-form">
+                    <h3 class="card-header heading-three">${Resource.msg('header.form.trackorder', 'login', null)}</h3>
+                    <div class="card-body">
+                        <isif condition="${pdict.orderTrackFormError}">
+                            <div class="form-group">
+                                <div class="alert alert-danger alert-custom" role="alert">
+                                    <strong>${Resource.msg('error.message.trackorder.form', 'login', null)}</strong>
+                                </div>
+                            </div>
+                        </isif>
+                        <iscomment> Add Content Asset for Track Order Link </iscomment>
+                        <iscontentasset aid="track-order-header-description" />
+
+                        <div class="form-group required">
+                            <label class="form-control-label" for="trackorder-form-number">
+                                ${Resource.msg('label.input.trackorder.ordernumber', 'login', null)}
+                            </label>
+                            <input type="text" required class="form-control" id="trackorder-form-number"
+                                name="trackOrderNumber" pattern="(^[^(\\'\\<\\>\\\\)]+$)">
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="form-group required">
+                            <label class="form-control-label" for="trackorder-form-email">
+                                ${Resource.msg('label.input.trackorder.orderemail', 'login', null)}
+                            </label>
+                            <input type="text" required class="form-control" id="trackorder-form-email"
+                                name="trackOrderEmail" pattern="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$" maxlength="50">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <!-- Billing Zip Code -->
+                        <isinclude template="account/components/trackOrderFormBillingZipCode" />
+
+                        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}" />
+
+                        <div class="form-group">
+                            <button class="btn btn-block btn-primary" type="submit" name="submit" value="submit">
+                                ${Resource.msg('button.text.trackorderform', 'login', null)}
+                            </button>
                         </div>
                     </div>
-                </isif>
-                <iscomment> Add Content Asset for Track Order Link </iscomment>
-                <iscontentasset aid="track-order-header-description" />
+                </form>
 
-                <div class="form-group required">
-                    <label class="form-control-label" for="trackorder-form-number">
-                        ${Resource.msg('label.input.trackorder.ordernumber', 'login', null)}
-                    </label>
-                    <input type="text" required class="form-control" id="trackorder-form-number" name="trackOrderNumber"
-                        pattern="(^[^(\\'\\<\\>\\\\)]+$)">
-                    <div class="invalid-feedback"></div>
-                </div>
-
-                <div class="form-group required">
-                    <label class="form-control-label" for="trackorder-form-email">
-                        ${Resource.msg('label.input.trackorder.orderemail', 'login', null)}
-                    </label>
-                    <input type="text" required class="form-control" id="trackorder-form-email" name="trackOrderEmail"
-                        pattern="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$" maxlength="50">
-                    <div class="invalid-feedback"></div>
-                </div>
-                <!-- Billing Zip Code -->
-                <isinclude template="account/components/trackOrderFormBillingZipCode" />
-
-                <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}" />
-
-                <div class="form-group">
-                    <button class="btn btn-block btn-primary" type="submit" name="submit" value="submit">
-                        ${Resource.msg('button.text.trackorderform', 'login', null)}
-                    </button>
-                </div>
             </div>
-        </form>
-
+        </div>
     </div>
 </isdecorate>
