@@ -7,7 +7,7 @@
     <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
         <isif condition="${lineItem.productATSValue <= lowStockThreshold}">
             <p class="line-item-attributes">
-                <iscontentasset aid="ca-low-stock-message" />
+                <iscontentasset aid="ca-low-stock-message-cart" />
             </p>
         <iselse/>
             <isloop items="${lineItem.availability.messages}" var="message">

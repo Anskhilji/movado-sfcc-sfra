@@ -73,6 +73,12 @@
                         </isif>
                     </div>
                     <div class="remove-line-item remove-line-item-mobile d-lg-none">
+                        <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                            <isif condition="${lineItem.productATSValue <= lowStockThreshold}">
+                                <iscontentasset aid="ca-low-stock-message-cart" />
+                            </isif>
+                        </isif>
+                        
                         <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
                                 data-target="#removeProductModal" data-pid="${lineItem.id}"
                                 data-name="${lineItem.productName}"
@@ -95,17 +101,18 @@
             <isset name="price" value="${lineItem.price}" scope="page"/>
             <isinclude template="/product/components/pricing/main" />
         </div>
-
-        <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
-            <isif condition="${lineItem.productATSValue <= lowStockThreshold}">
-                <iscontentasset aid="ca-low-stock-message-cart" />
-            </isif>
-        </isif>
         
-        <div class="col-3 col-sm-2 hidden-md-down">
+        <div class="col-3 col-sm-2 hidden-md-down text-left">
+
+            <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                <isif condition="${lineItem.productATSValue <= lowStockThreshold}">
+                    <iscontentasset aid="ca-low-stock-message-cart" />
+                </isif>
+            </isif>
+
             <isif condition="${!lineItem.isBonusProductLineItem}"/>
                 <div class="remove-line-item">
-                    <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
+                    <button type="button" class="remove-btn remove-product btn btn-light px-0" data-toggle="modal"
                             data-target="#removeProductModal" data-pid="${lineItem.id}"
                             data-name="${lineItem.productName}"
                             data-action="${pdict.actionUrls.removeProductLineItemUrl}"

@@ -4931,7 +4931,12 @@
 
 .low-stock-message {
     
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
         margin-bottom: rem(10);
+    }
+
+    @include media-breakpoint-down(sm) {
+        margin-top: rem(10);
+        margin-bottom: rem(-10);
     }
 }
