@@ -21,8 +21,7 @@
                 <isinclude template="checkout/confirmation/confirmationDetails" />
                 <div class="my-account">
                     <isif condition="${pdict.exitLinkUrl}">
-                        <a href="${pdict.exitLinkUrl}" class="profile-back-to-account-link"
-                            title="${Resource.msg('link.orderdetails.myaccount', 'account', null)}">
+                        <a href="${pdict.exitLinkUrl}" class="profile-back-to-account-link" title="${Resource.msg('link.orderdetails.myaccount', 'account', null)}">
                             ${pdict.exitLinkText}
                         </a>
                     </isif>
