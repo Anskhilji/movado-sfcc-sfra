@@ -409,6 +409,7 @@ server.post(
 
         var order;
         var validForm = true;
+        var cancelOrderEnable = false;
 
         var profileForm = server.forms.getForm('profile');
         profileForm.clear();
@@ -474,6 +475,10 @@ server.post(
                 var orderStatus = {
                     omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
                 }
+
+                if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Approved') {
+                    cancelOrderEnable = true;
+                }
                 /**
                  * Custom: End
                  */
@@ -493,7 +498,9 @@ server.post(
                     order: orderModel,
                     exitLinkText: exitLinkText,
                     exitLinkUrl: exitLinkUrl,
-                    orderStatus: orderStatus
+                    orderStatus: orderStatus,
+                    isCancelOrder: true,
+                    isCancelOrderEnable: cancelOrderEnable
                 });
             } else {
                 res.render('/account/login', {
