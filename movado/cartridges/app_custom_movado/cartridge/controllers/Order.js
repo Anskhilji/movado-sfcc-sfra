@@ -536,10 +536,15 @@ server.post('OrderDetail', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
 
     var OrderModel = require('*/cartridge/models/order');
+    var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
     var order;
-    if (req.form.trackOrderEmail && req.form.trackOrderPostal && req.form.trackOrderNumber) {
-        order = OrderMgr.getOrder('dev-12-00006101');
+    var cancelOrderEnable = false;
 
+    if (req.form.trackOrderEmail && req.form.trackOrderPostal && req.form.trackOrderNumber) {
+        order = OrderMgr.getOrder(req.form.trackOrderNumber);
+    }
+
+    if (order) {
         var config = {
             numberOfLineItems: '*'
         };
@@ -554,19 +559,134 @@ server.post('OrderDetail', function (req, res, next) {
             }
         );
 
-        res.render('account/orderDetails', {
-            order: orderModel,
-            isCancelOrder: true
+        var emailAddress = orderModel.orderEmail;
+
+        var orders = SalesforceModel.getOrdersByCustomerEmail({
+            emailAddress: emailAddress,
+            salesChannel: Site.getCurrent().getID()
         });
 
-        next();
-    }
-});
+        var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
+        var orderNumberParam = req.form.trackOrderNumber;
 
-server.post('CancelOrder', function (req, res, next) {
-    var OrderMgr = require('dw/order/OrderMgr');
-    var a = req.from;
-    OrderMgr.getOrder(req.from.orderId);
+        if (!empty(ordersArray) && !empty(orderNumberParam)) {
+            var filteredOrder = ordersArray.filter(function (orderObject) {
+                return orderObject.num == orderNumberParam
+            });
+        }
+        var orderStatus = {
+            omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
+        }
+
+        if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Approved') {
+            cancelOrderEnable = true;
+        }
+
+        if (req.form.trackOrderEmail.toLowerCase() == orderModel.orderEmail.toLowerCase() && req.form.trackOrderPostal == orderModel.billing.billingAddress.address.postalCode) {
+            res.render('account/orderDetails', {
+                order: orderModel,
+                isCancelOrder: true,
+                isCancelOrderEnable: cancelOrderEnable
+            });
+        } else {
+            res.render('/order/orderTracking', {
+                invalidOrder: true
+            });
+        }
+
+    } else {
+        res.render('/order/orderTracking', {
+            invalidOrder: true
+        });
+    }
+
     next();
 });
+
+// server.get('CancelOrderSummary', function (req, res, next) {
+//     res.render('/checkout/cancelOrderSummary', {});
+//     return next();
+// });
+
+server.post('CancelOrder', function (req, res, next) {
+    var Calendar = require('dw/util/Calendar');
+    var Locale = require('dw/util/Locale');
+    var OrderMgr = require('dw/order/OrderMgr');
+    var StringUtils = require('dw/util/StringUtils');
+    var ConversionLog = require('dw/system/Logger').getLogger('OrderConversion');
+
+    var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+    var OrderModel = require('*/cartridge/models/order');
+
+    // var orderCreationTime;
+    // var formatedOrderCreationTime;
+    // var formatedCurrentTime;
+    var order;
+
+    try {
+        order = OrderMgr.getOrder(req.form.orderId);
+        if (order) {
+
+            var config = {
+                numberOfLineItems: '*'
+            };
+
+            var currentLocale = Locale.getLocale(req.locale.id);
+
+            var orderModel = new OrderModel(
+                order, {
+                    config: config,
+                    countryCode: currentLocale.country,
+                    containerView: 'order'
+                }
+            );
+
+            var emailAddress = orderModel.orderEmail;
+
+            var orders = SalesforceModel.getOrdersByCustomerEmail({
+                emailAddress: emailAddress,
+                salesChannel: Site.getCurrent().getID()
+            });
+
+            var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
+            var orderNumberParam = req.form.orderId;
+            if (!empty(ordersArray) && !empty(orderNumberParam)) {
+                var filteredOrder = ordersArray.filter(function (orderObject) {
+                    return orderObject.num == orderNumberParam
+                });
+            }
+            var orderStatus = {
+                omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
+            }
+
+            // orderCreationTime = Calendar(order.getCreationDate());
+            // var calendar = Site.current.calendar;
+            // formatedOrderCreationTime = StringUtils.formatCalendar(orderCreationTime, 'yyyy/MM/dd\ HH:mm')
+            // formatedCurrentTime = StringUtils.formatCalendar(calendar, 'yyyy/MM/dd\ HH:mm')
+            // var differenceBwTimes = Math.abs(new Date(formatedOrderCreationTime) - new Date(formatedCurrentTime));
+            // var differenceInMinutes = Math.floor((differenceBwTimes/1000)/60);
+
+            if (!empty(orderStatus) && !empty(orderStatus.omsOrderStatus) && !empty(orderStatus.omsOrderStatus.status) && orderStatus.omsOrderStatus.status == 'Approved') {
+                // var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                //     orderSummaryNumber: req.form.orderId,
+                //     status: 'Cancelled'
+                // });
+
+                var responseFraudUpdateStatus = SalesforceModel.cancelOrder({
+                    orderSummaryNumber: req.form.orderId,
+                    CustomerCancellation__C: true
+                });
+            }
+            var k = responseFraudUpdateStatus;
+        }
+        // else {
+
+        // }
+    }
+    catch (error) {
+        ConversionLog.error('(Order.js -> CancelOrder) Error is occurred in SalesforceModel.updateOrderSummaryFraudStatus', error.toString());
+    }
+    next();
+});
+
 module.exports = server.exports();

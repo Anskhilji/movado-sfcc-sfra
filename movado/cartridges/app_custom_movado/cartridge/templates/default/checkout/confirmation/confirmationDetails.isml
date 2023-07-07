@@ -68,6 +68,7 @@
     </div>
 
     <isif condition="${pdict.isCancelOrder}">
-        <h1 data-cancel-order-url ="${URLUtils.url('Order-CancelOrder')}" class="cancel-order">Cancel My Order</h1>
+        <button ${pdict.isCancelOrderEnable == false ? 'disabled' : ''} class="cancel-order btn"  data-cancel-order-url ="${URLUtils.url('Order-CancelOrder')}">Cancel My Order</button>
+        <iscontentasset aid="cancel-order-modal" />
     </isif>
 </div>

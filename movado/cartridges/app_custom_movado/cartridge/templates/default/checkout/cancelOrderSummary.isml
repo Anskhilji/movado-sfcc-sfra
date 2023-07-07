@@ -1,0 +1,5 @@
+<isdecorate template="common/layout/page">
+
+<iscomment> <button ${pdict.isCancelOrderEnable == false ? 'disabled' : ''} class="cancel-order btn"  data-cancel-order-url ="${URLUtils.url('Order-CancelOrder')}">Cancel My Order</button> </iscomment>
+Hamza
+</isdecorate>

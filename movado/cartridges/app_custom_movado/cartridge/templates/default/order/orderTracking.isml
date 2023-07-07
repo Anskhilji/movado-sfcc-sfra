@@ -1,5 +1,8 @@
 <isdecorate template="common/layout/page">
     <h1>Tracking Page For Order Cancelation</h1>
+    <isif condition="${pdict.invalidOrder}">
+        <h1>We are unable to find your order</h1>
+    </isif>
     <div class="card">
         <isinclude template="/components/modules" sf-toolkit="off" />
         <form action="${URLUtils.url('Order-OrderDetail')}" class="trackorder" method="POST" name="trackorder-form">

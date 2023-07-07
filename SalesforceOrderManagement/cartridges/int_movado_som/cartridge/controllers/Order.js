@@ -98,10 +98,12 @@ server.replace(
         var OrderMgr = require('dw/order/OrderMgr');
         var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
+        var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
 
         var order = OrderMgr.getOrder(req.querystring.orderID);
         var orderCustomerNo = req.currentCustomer.profile.customerNo;
         var currentCustomerNo = !empty(order) ? order.customer.profile.customerNo : '';
+        var cancelOrderEnable = false;
         var breadcrumbs = [
             {
                 htmlValue: Resource.msg('global.home', 'common', null),
@@ -128,6 +130,30 @@ server.replace(
                 order,
                 { config: config, countryCode: currentLocale.country, containerView: 'order' }
             );
+
+            var emailAddress = orderModel.orderEmail;
+
+            var orders = SalesforceModel.getOrdersByCustomerEmail({
+                emailAddress: emailAddress,
+                salesChannel: Site.getCurrent().getID()
+            });
+
+            var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
+            var orderNumberParam = orderModel.orderNumber;
+
+            if (!empty(ordersArray) && !empty(orderNumberParam)) {
+                var filteredOrder = ordersArray.filter(function (orderObject) {
+                    return orderObject.num == orderNumberParam
+                });
+            }
+            var orderStatus = {
+                omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
+            }
+
+            if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Approved') {
+                cancelOrderEnable = true;
+            }
+
             var exitLinkText = Resource.msg('link.orderdetails.orderhistory', 'account', null);
             var exitLinkUrl =
                 URLUtils.https('Order-History', 'orderFilter', req.querystring.orderFilter);
@@ -135,7 +161,9 @@ server.replace(
                 order: orderModel,
                 exitLinkText: exitLinkText,
                 exitLinkUrl: exitLinkUrl,
-                breadcrumbs: breadcrumbs
+                breadcrumbs: breadcrumbs,
+                isCancelOrder: true,
+                isCancelOrderEnable: cancelOrderEnable
             });
         } else {
             res.redirect(URLUtils.url('Account-Show'));

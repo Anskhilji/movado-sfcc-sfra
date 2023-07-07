@@ -54,6 +54,14 @@ var SalesforceModel = ({
             requestMethod: 'GET'
         });
     },
+    cancelOrder: function(req) {
+        var requestData = {};
+        requestData.Status = req.status;
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.FRAUDSTATUS + '?ordersummarynumber=' + req.orderSummaryNumber + '&CustomerCancellation__C=' + req.CustomerCancellation__C,
+            requestMethod: 'GET'
+        });
+    },
     createOrderSummaryCancelRequest: function (req) {
         var requestData = {};
         requestData.changeItems = req.changeItems;
