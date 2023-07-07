@@ -730,9 +730,9 @@ function handleVariantResponse(response, $productContainer) {
     });
 
     // Updating promo messages
-    var $promotionsCallOut = $('.promotions .callout');
+    var $promotionsCallOut = $('.product-detail-right-box .promotions .callout');
     if (response && response.product && response.product.promotions) {
-        var $promotions = $('.promotions');
+        var $promotions = $('.product-detail-right-box .promotions');
         $promotionsCallOut.remove();
         var $productPromotions = response.product.promotions;
         $productPromotions.forEach(function(promotion) {
@@ -758,10 +758,6 @@ function handleVariantResponse(response, $productContainer) {
         $mobilePrice.replaceWith(response.product.price.html);
         $barSalePriceSelector.replaceWith(response.product.price.html);
     }
-
-    // Update promotions
-    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions .callout').remove();
-    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions').append(getPromotionsHtml(response.product.promotions));
 
     updateAvailability(response, $productContainer);
 

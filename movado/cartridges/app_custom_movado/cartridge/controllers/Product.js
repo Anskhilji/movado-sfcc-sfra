@@ -194,6 +194,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  */
 server.replace('Variation', function (req, res, next) {
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
+    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
+
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var priceHelper = require('*/cartridge/scripts/helpers/pricing');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
@@ -225,7 +227,13 @@ server.replace('Variation', function (req, res, next) {
 
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 
-    var attributeContext = { product: { attributes: product.attributes } };
+    var attributeContext = {
+        product: {
+            attributes: product.attributes,
+            pdpDetailedAttributes: product.pdpDetailedAttributes ? product.pdpDetailedAttributes : ''
+        },
+        isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.id)
+    };
     var attributeTemplate = 'product/components/attributesPre';
     product.attributesHtml = renderTemplateHelper.getRenderedHtml(
         attributeContext,

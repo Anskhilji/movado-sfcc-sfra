@@ -222,7 +222,7 @@
         </div>
 
         <div class="container">
-            <isinclude template="product/components/old/descriptionAndDetails" />
+            <isinclude template="product/components/attributesPre" />
         </div>
 
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
