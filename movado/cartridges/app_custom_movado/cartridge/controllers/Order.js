@@ -642,7 +642,7 @@ server.post('CancelOrder', function (req, res, next) {
         }
     }
     catch (error) {
-        ConversionLog.error('(Order.js -> CancelOrder) Error is occurred in SalesforceModel.updateOrderSummaryFraudStatus', error.toString());
+        ConversionLog.error('(Order.js -> CancelOrder) Error is occurred in SalesforceModel.updateOrderSummaryFraudStatus', error.toString(), error.lineNumber);
     }
     next();
 });
