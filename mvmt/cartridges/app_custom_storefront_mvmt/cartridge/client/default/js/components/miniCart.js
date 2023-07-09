@@ -112,7 +112,7 @@ var updateCartPage = function(data) {
         if (data.isOrderLevelPromotion) {
             $promoImg = data.orderLevelPromoImg;
         } else {
-            $promoImg = $isMiniCart ? shippingLevelPromoImgMiniCart : data.shippingLevelPromoImg;
+            $promoImg = $isMiniCart ? data.shippingLevelPromoImgMiniCart : data.shippingLevelPromoImg;
         }
         var $progressBarSuccessMsg = data.progressBarSuccessMsg;
         var $progressMeterMain = $('.progress-meter-container');
