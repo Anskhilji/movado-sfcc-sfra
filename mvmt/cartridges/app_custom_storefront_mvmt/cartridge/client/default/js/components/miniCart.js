@@ -106,7 +106,7 @@ var updateCartPage = function(data) {
         var $progressMeterMain = $('.progress-meter-container');
         $progressMeterMain.empty();
 
-    } else if (data.progressBarSuccessMsg !== undefined && data.progressBarSuccessMsg !== '' && data.isPromoProgressBarEnabled) {
+    } else if (data && data.progressBarSuccessMsg && data.isPromoProgressBarEnabled) {
         var $isMiniCart = $('.progress-meter-container-minicart').data('mini-cart');
         var $promoImg;
         var $promoImgMiniCart;
