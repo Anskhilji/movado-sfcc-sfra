@@ -123,7 +123,7 @@
                 }
             }
 
-            .button-search {
+            .button-search, .button-search-captcha {
                 cursor: pointer;
                 width: rem(32);
                 min-width: rem(32);
@@ -137,6 +137,11 @@
                 img {
                     transform: translateY(-1px);
                 }
+            }
+
+            .button-search-captcha {
+                background-image: url('../../images/seach-icon.svg');
+                background-repeat: no-repeat;
             }
         }
 

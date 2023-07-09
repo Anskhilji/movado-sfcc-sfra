@@ -1,3 +1,6 @@
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
+
 <div class="store-Locator-overlayer"></div>
 <isinclude template="storeLocator/radius" />
 <div class="store-sidebar">
@@ -15,9 +18,15 @@
             <div class="search-box d-flex align-items-center">
                 <input class="search-input" type="text" name=""
                     placeholder="${Resource.msg('locator.search.placeholder', 'search', null)}">
-                <div class="button-search" data-action = "${URLUtils.url('Stores-FindStores')}">
+                <div class="button-search ${isGoogleRecaptchaEnabled ? 'd-none' : ''}" data-action = "${URLUtils.url('Stores-FindStores')}">
                     <img src="${URLUtils.staticURL('/images/seach-icon.svg')}" alt="serach" />
                 </div>
+
+                <isif condition="${isGoogleRecaptchaEnabled}">
+                    <button type="submit" class="button-search-captcha g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptchaG'></button>
+                </isif>
+
+                <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" />
             </div>
             <div class="filter-button">
                 <img src="${URLUtils.staticURL('/images/filter-icon.svg')}" alt="filter" />

@@ -7,6 +7,8 @@ var data = require('*/cartridge/controllers/countries.json');
 var HashMap = require('dw/util/HashMap');
 var storeHelpers = require('*/cartridge/scripts/helpers/customStoreHelper');
 var Template = require('dw/util/Template');
+var Site = require('dw/system/Site');
+var Resource = require('dw/web/Resource');
 
 var googleService = require('*/cartridge/scripts/googleMapService');
 
@@ -29,12 +31,37 @@ server.replace('FindStores', function (req, res, next) {
     var showMap = req.querystring.showMap;
     var queryCountryCode = req.querystring.countryCode || request.geolocation.countryCode || COUNTRY_US;
     var queryAddress = req.querystring.address|| request.geolocation.postalCode || DEFAULT_POSTAL_CODE;
+    var test = req.querystring;
+    var googleRecaptchaToken = req.querystring.googleRecaptchaToken || '';
     var stores = null;
     var status = null;
     var path = '/storeLocator/storeCard.isml';
     var template = new Template(path);
     var map = new HashMap();
     var html = null;
+
+    var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+    var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+
+    if (isGoogleRecaptchaEnabled) {
+        var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+        if (empty(googleRecaptchaToken)) {
+            res.json({
+                success: false,
+                errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
+            });
+            return next(); 
+        }
+
+        var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+        if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
+            res.json({
+                success: false,
+                errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
+            });
+            return next(); 
+        }
+    }
 
     if (queryAddress) {
         queryAddress = queryAddress.replace(' ', '+');
