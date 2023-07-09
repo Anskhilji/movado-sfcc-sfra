@@ -107,12 +107,14 @@ var updateCartPage = function(data) {
         $progressMeterMain.empty();
 
     } else {
-        var $isMiniCart = $('.progress-meter-container').data('mini-cart');
+        var $isMiniCart = $('.progress-meter-container-minicart').data('mini-cart');
         var $promoImg;
+        var $promoImgMiniCart;
         if (data.isOrderLevelPromotion) {
             $promoImg = data.orderLevelPromoImg;
         } else {
-            $promoImg = $isMiniCart ? data.shippingLevelPromoImgMiniCart : data.shippingLevelPromoImg;
+            $promoImg = data.shippingLevelPromoImg;
+            $promoImgMiniCart = data.shippingLevelPromoImgMiniCart;
         }
         var $progressBarSuccessMsg = data.progressBarSuccessMsg;
         var $progressMeterMain = $('.progress-meter-container');
@@ -122,10 +124,21 @@ var updateCartPage = function(data) {
                 '<img src="'+ $promoImg +'" alt="'+ data.progressBarSuccessMsg +'">'+
                 '<p>'+ data.progressBarSuccessMsg +'</p>'+
                 '</div>';
+            $progressMeterMain.empty();
+            $progressMeterMain.append($applicablePromoMessageHtml);
         }
 
-        $progressMeterMain.empty();
-        $progressMeterMain.append($applicablePromoMessageHtml);
+        if ($promoImg || $promoImgMiniCart && $progressBarSuccessMsg && $isMiniCart) {
+            var $progressMeterMiniCart = $('.progress-meter-container-minicart');
+            var $applicablePromoMessageHtmlMiniCart = '<div class="got-free-shipping '+ (data.isOrderLevelPromotion ? 'free-order-text' : 'free-shipping-text') +' d-flex align-items-center justify-content-center">'+
+                '<img src="'+ (data.isOrderLevelPromotion ? $promoImg : $promoImgMiniCart) +'" alt="'+ data.progressBarSuccessMsg +'">'+
+                '<p>'+ data.progressBarSuccessMsg +'</p>'+
+                '</div>';
+
+            $progressMeterMiniCart.empty();
+            $progressMeterMiniCart.append($applicablePromoMessageHtmlMiniCart);
+        }
+
     }
 
     if ($noOfItems.length > 0) {

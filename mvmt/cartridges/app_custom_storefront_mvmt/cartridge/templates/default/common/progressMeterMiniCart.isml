@@ -1,0 +1,28 @@
+<isif condition="${pdict.isPromoProgressBarEnabled}">
+    <div class="progress-meter-container progress-meter-container-minicart" data-mini-cart="${pdict.isMiniCart ? true : false}">
+        <isif condition="${pdict.totals.progressBarGrandTotal >= pdict.conditionThresholdCurrencyValue}">
+            <div class="got-free-shipping ${pdict.isOrderLevelPromotion ? 'free-order-text' : 'free-shipping-text' } d-flex align-items-center justify-content-center">
+                <img src="${pdict.isOrderLevelPromotion ? pdict.orderLevelPromoImg : pdict.shippingLevelPromoImg}" alt="${!empty(pdict.progressBarSuccessMsg) ? pdict.progressBarSuccessMsg : ''}">
+                <isif condition="${!empty(pdict.progressBarSuccessMsg)}">
+                    <p>${pdict.progressBarSuccessMsg}</p>
+                </isif>
+            </div>
+        <iselse/>
+            <div class="progress-meter d-flex flex-column align-items-center ${pdict.isOrderLevelPromotion ? 'progress-meter-order-text' : 'progress-meter-text' }">
+                <isset name="PromoMsg" value="${pdict.progressBarPromoMsg}" scope="page" />
+                <isset name="progressBarPromoMsg" value="${PromoMsg.replace('price', pdict.approachingDiscountsTotal)}" scope="page" /> 
+                <isif condition="${!empty(progressBarPromoMsg)}">
+                    <div class="progress-meter-free-shipping">${progressBarPromoMsg}</div>
+                </isif>
+                <div class="progress-meter-box">
+                    <iscomment>if the progress meter is active then the class .bar-green will be added and then will be deactivated
+                        then
+                        the class .bar-grey will be added</iscomment>
+                    <div class="progress-meter-box-bar bar-grey" style="width:${pdict.progressBarpercentage}%" aria-valuenow="${pdict.approachingDiscountCurrencyValue}" aria-valuemin="0" aria-valuemax="${pdict.conditionThresholdCurrencyValue}"></div>
+                </div>
+            </div>
+        </isif>
+    </div>
+<iselse/>
+    <div class="${pdict.isPromoProgressBarEnabled ? 'd-none' : ''} progress-meter-container progress-meter-container-minicart"> </div>
+</isif>
