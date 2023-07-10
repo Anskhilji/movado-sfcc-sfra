@@ -126,15 +126,15 @@ function updateStoresResults(data) {
         $('.store-locator-recaptcha-error').addClass('d-none');
         $('.store-locator-recaptcha-error').text('');
 
-        var hasResults = data.stores.length > 0;
-        if (!hasResults && $findPage === false) {
+        var $hasResults = data.stores.length > 0;
+        if (!$hasResults && $findPage === false) {
             $('.store-locator-no-results').show();
         } else {
             $('.store-locator-no-results').hide();
         }
     }
     $resultsDiv.empty()
-        .data('has-results', hasResults)
+        .data('has-results', $hasResults)
         .data('radius', data.radius)
         .data('search-key', data.searchKey);
 
