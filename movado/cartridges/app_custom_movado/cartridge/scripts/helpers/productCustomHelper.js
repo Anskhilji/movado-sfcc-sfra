@@ -490,12 +490,10 @@ function getPdpVariationUrls(product, apiProduct) {
                                     ).toString();
 
                             colorVariations.values[key].pdpURL = URLUtils.https(
-                                    'Product-Show',
-                                    'pid',
-                                    productId,
-                                    'dwvar_' + productId + '_color',
-                                    colorVariations.values[key].id
-                                    ).toString();
+                                'Product-Show',
+                                'pid',
+                                productId
+                            ).toString();
 
                             if (!empty(variationParam) && !empty(variationParamValue)) {
                                 colorVariations.values[key].swatchesURL = URLUtils.https(
@@ -511,14 +509,10 @@ function getPdpVariationUrls(product, apiProduct) {
                                         ).toString();
 
                                 colorVariations.values[key].pdpURL = URLUtils.https(
-                                        'Product-Show',
-                                        'pid',
-                                        productId,
-                                        'dwvar_' + productId + '_color',
-                                        colorVariations.values[key].id,
-                                        'dwvar_' + productId + '_' + variationParam,
-                                        variationParamValue
-                                        ).toString();
+                                    'Product-Show',
+                                    'pid',
+                                    productId
+                                ).toString();
                             }
                         }
                     });
@@ -545,9 +539,7 @@ function getPdpVariationUrls(product, apiProduct) {
                             colorVariations.values[key].pdpURL = URLUtils.https(
                                 'Product-Show',
                                 'pid',
-                                productId,
-                                'dwvar_' + productId + '_colorWatch',
-                                colorVariations.values[key].id
+                                productId
                             ).toString();
 
                             if (!empty(variationParam) && !empty(variationParamValue)) {
@@ -566,11 +558,7 @@ function getPdpVariationUrls(product, apiProduct) {
                                 colorVariations.values[key].pdpURL = URLUtils.https(
                                     'Product-Show',
                                     'pid',
-                                    productId,
-                                    'dwvar_' + productId + '_colorWatch',
-                                    colorVariations.values[key].id,
-                                    'dwvar_' + productId + '_' + variationParam,
-                                    variationParamValue
+                                    productId
                                 ).toString();
                             }
                         }
