@@ -6,7 +6,7 @@ processInclude(require('movado/storeLocator/storeLocator'));
 'use strict';
 
 
-window.onSubmitCaptchaG = function(token) {
+window.onSubmitCaptchaG = function (token) {
     $(document).ready(function () {
         var $submitForm = $('.button-search');
         var $gCaptchaInput = $('.g-recaptcha-token')
@@ -54,9 +54,9 @@ function getFilterValues() {
     }
 
     if (googleRecaptchaToken) {
-        sessionStorage.setItem("googleRecaptchaToken", googleRecaptchaToken);
+        sessionStorage.setItem('googleRecaptchaToken', googleRecaptchaToken);
     } else {
-        googleRecaptchaToken = sessionStorage.getItem("googleRecaptchaToken");
+        googleRecaptchaToken = sessionStorage.getItem('googleRecaptchaToken');
     }
 
     return {
@@ -240,8 +240,8 @@ $('.store-sidebar-link').on('click', function () {
 $('.button-search').on('click', function () {
     var searchValue = $('.search-input').val().trim();
     var recaptchaToken = $('.g-recaptcha-token').val();
-    sessionStorage.setItem("address", searchValue);
-    sessionStorage.setItem("recaptchaToken", recaptchaToken);
+    sessionStorage.setItem('address', searchValue);
+    sessionStorage.setItem('recaptchaToken', recaptchaToken);
     var searchFilter = getFilterValues();
     var url = $(this).data('action');
     var urlParams = {};

@@ -31,7 +31,6 @@ server.replace('FindStores', function (req, res, next) {
     var showMap = req.querystring.showMap;
     var queryCountryCode = req.querystring.countryCode || request.geolocation.countryCode || COUNTRY_US;
     var queryAddress = req.querystring.address|| request.geolocation.postalCode || DEFAULT_POSTAL_CODE;
-    var test = req.querystring;
     var googleRecaptchaToken = req.querystring.googleRecaptchaToken || '';
     var stores = null;
     var status = null;
@@ -46,7 +45,7 @@ server.replace('FindStores', function (req, res, next) {
     if (isGoogleRecaptchaEnabled) {
         var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
         if (empty(googleRecaptchaToken)) {
-            res.json({
+            res.json ({
                 success: false,
                 errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
             });
@@ -55,7 +54,7 @@ server.replace('FindStores', function (req, res, next) {
 
         var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
         if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
-            res.json({
+            res.json ({
                 success: false,
                 errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
             });
