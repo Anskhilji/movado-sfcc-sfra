@@ -54,9 +54,9 @@ server.replace('FindStores', function (req, res, next) {
 
     if (isGoogleRecaptchaEnabled) {
         var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
-        var googleRecaptchaToken = storeLocatorForm.customer.grecaptchatoken.value;
+        var googleRecaptchaToken = storeLocatorForm && storeLocatorForm.customer && storeLocatorForm.customer.grecaptchatoken && storeLocatorForm.customer.grecaptchatoken.value;
         if (empty(googleRecaptchaToken)) {
-            res.json({
+            res.json ({
                 success: false,
                 errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
             });
@@ -65,7 +65,7 @@ server.replace('FindStores', function (req, res, next) {
 
         var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
         if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
-            res.json({
+            res.json ({
                 success: false,
                 errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
             });

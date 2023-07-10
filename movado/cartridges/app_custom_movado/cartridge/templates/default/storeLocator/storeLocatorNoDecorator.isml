@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body stores-list">
                     <p class="text-center store-locator-no-results">${Resource.msg('error.no.results','storeLocator',null)}</p>
-                    <p class="text-center store-locator-recaptcha-error mt-3 d-none "></p>
+                    <p class="text-center store-locator-recaptcha-error mt-3 d-none"></p>
                     <div id="markers" class="results striped" data-search-key='${JSON.stringify(pdict.stores.searchKey)}' data-radius="${pdict.stores.radius}" data-has-results="${pdict.stores.stores.length > 0}">
                         <isinclude template="storeLocator/storeLocatorResults" />
                     </div>
