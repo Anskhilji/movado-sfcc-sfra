@@ -28,7 +28,9 @@ $('#subscriptionCouponCode').on('click', function() {
     var elementText = element.text();
 
     navigator.clipboard.writeText(elementText);
-    $(this).addClass('active');
+    $subscriptionSuccessfulModal.removeClass('d-flex').addClass('d-none');
+    $('.email-signUp, .email-verification').val('');
+    $('.submission-status').addClass('d-none');
 });
 
  //Custom:MSS-2290 close modal 
@@ -120,18 +122,15 @@ $('#newsLetterCouponCode, #subscriptionCouponCode').on('click', function(e) {
     var targetId = e.target.id;
     var element = $('#copiedTextFooter');
 
-    if(targetId == 'newsLetterCouponCode') {
+    if (targetId == 'newsLetterCouponCode') {
         element = $('#copiedText');
     }
 
     var elementText = element.text();
-
     navigator.clipboard.writeText(elementText);
-    $(this).addClass('active');
-
-    setTimeout(() => {
-        $(this).removeClass('active');
-    }, 3000);
+    $subscriptionSuccessfulModal.removeClass('d-flex').addClass('d-none');
+    $('.email-signUp, .email-verification').val('');
+    $('.submission-status').addClass('d-none');
 });
 
 // close email signup modal after clicked on close icon and continue to shoping button
