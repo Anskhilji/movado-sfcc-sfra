@@ -60,7 +60,7 @@ server.get('ShowAddProductButton',
 });
 
 // Added custom code for personalization text for Engraving and Embossing
-server.append('AddProduct', function (req, res, next) {
+server.append('AddProduct', csrfProtection.generateToken, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var ContentMgr = require('dw/content/ContentMgr');
     var CartModel = require('*/cartridge/models/cart');
@@ -170,6 +170,7 @@ server.append('AddProduct', function (req, res, next) {
 
         if (req.form.isCartRecommendation && !empty(req.form.isCartRecommendation)) {
             basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
+            basketModel.csrf = viewData.csrf;
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
@@ -216,7 +217,7 @@ server.append('AddProduct', function (req, res, next) {
             quantityTotal = 0;
         }
 
-        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
+        customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
 
         // Custom Start MSS-1930 Added code for Listrak Cart Tracking
         if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
@@ -299,6 +300,33 @@ server.post('AddGiftMessage',
 
     if (currentBasket && prodUUID && isValidString) {
         cartHelpers.updateGiftMessaging(currentBasket, prodUUID, giftMessage);
+    } else {
+        result = { error: true };
+    }
+    var basketModel = new CartModel(currentBasket);
+    res.json({
+        basketModel: basketModel,
+        result: result
+    });
+    next();
+});
+
+server.post('RemoveGiftMessage',
+server.middleware.https,
+function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+
+    var cartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+    var CartModel = require('*/cartridge/models/cart');
+            
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var giftMessage = req.form.giftMessage;
+    var prodUUID = req.form.productUUID;
+                
+    var result = { error: false };
+        
+    if (currentBasket && prodUUID) {
+        cartHelpers.removeGiftMessaging(currentBasket, prodUUID, giftMessage);
     } else {
         result = { error: true };
     }
@@ -444,6 +472,12 @@ server.append(
             var productLineItem = productLineItems.next();
             var quantity = productLineItem.getQuantity().value;
             var apiProduct = productLineItem.getProduct();
+             //custom : PulseID engraving
+             if (Site.current.preferences.custom.enablePulseIdEngraving) {
+                var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+                var setPulseJobID = pulseIdAPIHelper.setOptionalLineItemUUID(viewData, productLineItem);
+            }
+            // custom end
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
@@ -464,7 +498,7 @@ server.append(
         });
 
         customCartHelpers.removeClydeWarranty(viewData);
-        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
+        customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
 
         if (!empty(req.querystring.lastNameError)) {
             res.setViewData({ 
@@ -475,6 +509,12 @@ server.append(
         if (!empty(req.querystring.shopperRecoverySuccess)) {
             res.setViewData({ 
                 shopperRecoverySuccess: req.querystring.shopperRecoverySuccess
+            });
+        }
+
+        if (!empty(req.querystring.cartOptionalProductError)) {
+            res.setViewData({ 
+                cartOptionalProductError: req.querystring.cartOptionalProductError
             });
         }
 

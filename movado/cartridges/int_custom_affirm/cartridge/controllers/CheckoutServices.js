@@ -25,10 +25,10 @@ server.append('SubmitPayment',
     viewData.phone = {
         value: paymentForm.creditCardFields.phone.value
     };
+
     viewData.email = {
         value: paymentForm.creditCardFields.email.value
     };
-
 
     if (status.error) {
         res.json({

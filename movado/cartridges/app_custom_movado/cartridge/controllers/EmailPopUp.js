@@ -57,21 +57,12 @@ server.get('Show', function (req, res, next) {
         }
     }
     
-    var isAjax = Object.hasOwnProperty.call(request.httpHeaders, 'x-requested-with')
-        && request.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
-    if(isAjax){
-        res.json({
-            success: true,
-            popupID: popupID,
-        });
-    } else {
-        res.render('common/emailOptInPopUp', {
-            isEmailPopUpEnabled : response.isEmailPopUpEnabled,
-            popUpSettings: response.popUpSettings,
-            popupID: popupID
-        });
-    }
-    return next();
+    res.render('common/emailOptInPopUp', {
+        isEmailPopUpEnabled : response.isEmailPopUpEnabled,
+        popUpSettings: response.popUpSettings,
+        popupID: popupID
+    });
+    next();
 });
 
 module.exports = server.exports();

@@ -391,7 +391,9 @@ function addGooglePayButton() {
         var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill-new-style');
         if ($googlePayButton.length === 0) {
             button = paymentsClient.createButton(buttonConfigs);
-            document.getElementById('google-pay-container-mini-cart').appendChild(button);
+            var $googlePayMiniCart = document.getElementById('google-pay-container-mini-cart');
+            $googlePayMiniCart.innerHTML = "";
+            $googlePayMiniCart.appendChild(button);
         }
     }
 }
@@ -405,14 +407,46 @@ function addGooglePayButton() {
 function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod, shippingAddress) {
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
+        var $pdpQuantityValue = null;
+        if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
+            $pdpQuantityValue = $('.quantity-selector > .quantity').val();
+            $pdpQuantityValue = $pdpQuantityValue;
+            if ($pdpQuantityValue == "") {
+                $pdpQuantityValue = null;
+            }
+        }
 
         var data = {
             googlePayEntryPoint: $selector.data('entry-point'),
             pid: $selector.data('pid') ? $selector.data('pid') : false,
             selectedShippingMethod: selectedShippingMethod,
             includeShippingDetails: includeShippingDetails,
-            shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
+            shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress,
+            quantityPDP: $pdpQuantityValue && $pdpQuantityValue > 0 && $pdpQuantityValue != null ? $pdpQuantityValue : 1
         };
+
+        //custom start : PulseID Engraving [2213]
+        var $engravingPrice = $('.engraving-price').first();
+        var $engravingTextOne = $('.engraved-text-one');
+        var $engravingTextTwo = $('.engraved-text-two');
+        var $previewUrl = $('.preview-btn').attr('preview-url');
+        data.pulseIdEngraving = false;
+
+        if ($engravingPrice.length > 0 && $engravingTextOne.length > 0 && $engravingTextTwo.length > 0) {
+
+            var $engravingPrice = $engravingPrice.text().substring(1);
+            var $engravingTextOne = $engravingTextOne.text().trim();
+            var $engravingTextTwo = $engravingTextTwo.text().trim();
+
+            if ($engravingPrice && ($engravingTextOne || $engravingTextTwo) && $engravingPrice) {
+                data.pulseIdEngraving = true;
+                data.engravingPrice = $engravingPrice;
+                data.engravingTextOne = $engravingTextOne;
+                data.engravingTextTwo = $engravingTextTwo;
+                data.previewUrl = $previewUrl
+            }
+        }
+        //custom end : ulseID Engraving
 
         if (window.Resources.IS_CLYDE_ENABLED && typeof Clyde !== 'undefined') {
             var clydeContract = Clyde.getSelectedContract();
@@ -420,6 +454,29 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
                 data.clydeContractSku = clydeContract.sku;
                 data.clydeContractPrice = clydeContract.recommendedPrice;
             }
+        }
+
+        var $applyButtton = $('.add-gift-message');
+        var $errorMsg = Resources.GIFT_MESSAGE_CART_ERROR;
+        var $giftMessageArray = [];
+
+        $applyButtton.each(function () {
+            var $giftMessageApply = $(this).find('.gift-message-apply').val();
+            $giftMessageArray.push($giftMessageApply);
+        });
+
+        if ($giftMessageArray && $giftMessageArray.indexOf('false') > -1) {
+            var $errorHtml = '<div class="alert card alert-dismissible gift-cart-error ' +
+            'fade show" role="alert">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">&times;</span>' +
+            '</button>' + $errorMsg + '</div>';
+
+            if ($errorMsg) {
+                $('.cart-error').empty().append($errorHtml);
+            }
+            e.stopPropagation();
+            e.preventDefault();
         }
 
         $.ajax({
@@ -472,8 +529,6 @@ function onGooglePaymentButtonClicked() {
  * @see {@link https://developers.google.com/pay/api/web/reference/response-objects#PaymentData|PaymentData object reference}
  */
 function processPayment(paymentData) {
-    // show returned data in developer console for debugging
-    console.log(paymentData);
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
         setTimeout(function () {

@@ -147,6 +147,7 @@ module.exports = {
 };
 $(document).ready(function () {
     refreshAffirmUI();
+    hideYotpoReviews();
 
     if ($(window).width() < 544) {
         var $stickyAddToCartObserver = document.querySelector('.add-to-cart-observer');
@@ -188,71 +189,30 @@ function refreshAffirmUI() {
     }
 };
 
-// Custom start: Listrak persistent popupnpm
-$(document).on('click','.listrak-popup', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    var isContainListrakPopup = e.target.closest('.listrak-popup');
-    var targetEl = e.target;
-    var isTargetContain = targetEl.classList.contains('close-icon-popup');
-    if (isContainListrakPopup && !isTargetContain) {
-        var listrakPersistenPopupUrl = document.querySelector('.listrak-persistent-url');
-        var url = listrakPersistenPopupUrl.dataset.listrakUrl;
-        $.ajax({
-            url: url,
-            method: 'GET',
-            success: function (response) {
-                if (response.success == true) {
-                    var interval = setInterval(function() {
-                        if (typeof _ltk != "undefined" && typeof _ltk.Popup != "undefined") {
-                            _ltk.Popup.openManualByName(response.popupID);
-                            clearInterval(interval);
-                        }
-                    }, 1000);
-                }
-            },
-            error: function () {
-                $.spinner().stop();
+function hideYotpoReviews() {
+    if (document.readyState === 'complete') {
+        var $yotpoMobileContainer = $('.ratings.d-none-mobile-rating');
+        var $yotpoEmptyStarContainer = $yotpoMobileContainer.find('.yotpo-stars > .yotpo-icon-empty-star');
+        var $yotpoEmptyStarContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-empty-star');
+        var $yotpoEmptyReviewContainer = $('.yotpo-stars-rating');
+
+        if ($yotpoMobileContainer.find('.yotpo-stars').length > 0) {
+            var $yotpoIconContainer = $yotpoMobileContainer.find('.yotpo-stars > .yotpo-icon-star');
+            var $yotpoIconContainerMobile = $('.ratings.ratings-mobile').find('.yotpo-stars > .yotpo-icon-star');
+
+            if ($yotpoIconContainer.length > 0 || $yotpoIconContainerMobile.length > 0) {
+                $yotpoEmptyStarContainer.removeClass('d-none').addClass('d-block');
+                $yotpoEmptyStarContainerMobile.removeClass('d-none').addClass('d-block');
+                $yotpoEmptyReviewContainer.removeClass('d-none').addClass('d-block');
+            } else {
+                $yotpoEmptyStarContainer.removeClass('d-block').addClass('d-none');
+                $yotpoEmptyStarContainerMobile.removeClass('d-block').addClass('d-none');
+                $yotpoEmptyReviewContainer.removeClass('d-block').addClass('d-none');
             }
-        });
-    }
-});
-$(document).on('click','.close-icon-popup', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    var isContainListrakPopup = e.target.closest('.listrak-popup');
-    var targetEl = e.target;
-    var isTargetContain = targetEl.classList.contains('close-icon-popup');
-    if (isContainListrakPopup && isTargetContain) {
-        sessionStorage.setItem("listrakPersistenPopup", "false");
-        isContainListrakPopup.remove();
-    }
-});
-window.onload = () => {
-    var listrakPopup = document.querySelector('.listrak-popup');
-    var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
-    var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
-    var data = sessionStorage.getItem("listrakPersistenPopup");
-    if (data == null) {
-        var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
-    
-        if (isListrakPopupContain) {
-            listrakPopup.classList.remove('listrak-persistent-popup');
+        } else {
+            setTimeout(hideYotpoReviews, 5000);
         }
+    } else {
+        setTimeout(hideYotpoReviews, 5000);
     }
-    if (listrakPopupSearchResult) {
-        var mediumWidth = 992;
-        var $windowWidth = $(window).width();
-        if ($windowWidth < mediumWidth) {
-            listrakPopup.classList.add('button-search-result');
-        }
-    }
-    if (listrakPopupProductDetail) {
-        var mediumWidth = 992;
-        var $windowWidth = $(window).width();
-        if ($windowWidth < mediumWidth) {
-            listrakPopup.classList.add('button-product-detail');
-        }
-    }
-};
-// Custom End: Listrak persistent popup
+}

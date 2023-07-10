@@ -1,0 +1,7 @@
+<iscomment>added d-none class and drop a hint link </iscomment>
+<div class="product-number-rating">
+    <!-- Product Rating -->
+    <div class="ratings">
+        <isinclude template="product/components/productSet/individualProductSetRating" />
+    </div>
+</div>

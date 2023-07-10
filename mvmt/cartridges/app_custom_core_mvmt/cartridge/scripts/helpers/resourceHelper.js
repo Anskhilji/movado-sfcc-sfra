@@ -55,14 +55,13 @@ function getResources(pageContext) {
         YOTPO_REVIEW_COUNT: Site.getCurrent().getCustomPreferenceValue('yotpoReviewsCount'),
         US_COUNTRY_CODE: Resource.msg('label.us.country.code', 'common', null),
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
-        LABEL_SWELL_POINTS_APPLIED: Resource.msg('label.swell.points.applied', 'cart', null),
         COUPON_LINE_ITEM_LENGTH: Resource.msg('coupon.applied.counter','cart', null),
         KLARNA_PDP_MESSAGES_ENABLED: !empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
         IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
-        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
+        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled || false,
         RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
         GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
         GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
@@ -79,9 +78,14 @@ function getResources(pageContext) {
         PHONE_NUMBER_INVALID: Resource.msg('listrak.invalid.phone', 'product', null),
         PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
+        LISTRAK_SMS_API_CLIENT_SECRET: !empty(Site.current.preferences.custom.Listrak_SMS_ClientSecret) ? Site.current.preferences.custom.Listrak_SMS_ClientSecret : '',
+        LISTRAK_ENABLE_BACK_IN_STOCK_SMS: !empty(Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? Site.current.preferences.custom.Listrak_EnableBackInStockSms : false,
         INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
         FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
-        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null)
+        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
+        INFO_PRODUCT_AVAILABILITY_PREORDER: Resource.msg('info.product.availability.preorder', 'common', null),
+        INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
+        BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null)
     };
     return resources;
 }

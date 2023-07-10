@@ -87,6 +87,19 @@ server.replace(
                     productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
                 }
             });
+
+            // custom : PulseID engraving
+            if (Site.current.preferences.custom.enablePulseIdEngraving) {
+                var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+                var items = orderModel.items;
+                pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
+                //unset session for Apple pay
+                req.session.raw.custom.appleProductId = '';
+                req.session.raw.custom.appleEngraveOptionId = '';
+                req.session.raw.custom.appleEngravedMessage = '';
+                req.session.raw.custom.pulseIDPreviewURL = '';
+            }
+            // custom en
         }
 
         // Custom Start: Save values in order custom attributes
@@ -357,7 +370,14 @@ server.append('Confirm', function (req, res, next) {
     if (session.custom.pickupFromStore) {
         session.custom.pickupFromStore = false;
     }
-    
+
+    //custom : PulseID engraving
+    if (Site.current.preferences.custom.enablePulseIdEngraving) {
+        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+        pulseIdAPIHelper.setPulseJobID(order);
+    }
+    // custom end
+
     res.setViewData({
         orderConfirmationObj: JSON.stringify(orderConfirmationObj)
     });
@@ -373,6 +393,122 @@ server.append('Confirm', function (req, res, next) {
     }
     next();
 });
+
+server.post(
+    'Lookup',
+    consentTracking.consent,
+    server.middleware.https,
+    csrfProtection.validateRequest,
+    csrfProtection.generateToken,
+    function (req, res, next) {
+        var Locale = require('dw/util/Locale');
+        var OrderMgr = require('dw/order/OrderMgr');
+
+        var OrderModel = require('*/cartridge/models/order');
+        var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+
+        var order;
+        var validForm = true;
+
+        var profileForm = server.forms.getForm('profile');
+        profileForm.clear();
+
+        if (req.form.trackOrderEmail
+            && req.form.trackOrderPostal
+            && req.form.trackOrderNumber) {
+            order = OrderMgr.getOrder(req.form.trackOrderNumber);
+        } else {
+            validForm = false;
+        }
+
+        if (!order) {
+            res.render('/account/login', {
+                navTabValue: 'login',
+                orderTrackFormError: validForm,
+                profileForm: profileForm,
+                userName: ''
+            });
+            next();
+        } else {
+            var config = {
+                numberOfLineItems: '*'
+            };
+
+            var currentLocale = Locale.getLocale(req.locale.id);
+
+            var orderModel = new OrderModel(
+                order,
+                { config: config, countryCode: currentLocale.country, containerView: 'order' }
+            );
+
+            // check the email and postal code of the form
+            if (req.form.trackOrderEmail.toLowerCase()
+                    !== orderModel.orderEmail.toLowerCase()) {
+                validForm = false;
+            }
+
+            if (req.form.trackOrderPostal
+                !== orderModel.billing.billingAddress.address.postalCode) {
+                validForm = false;
+            }
+
+            if (validForm) {
+
+                /**~
+                 * Custom Start: MSS-2166 Add SOM Logic
+                 */
+                var emailAddress = req.form.trackOrderEmail;
+
+                var orders = SalesforceModel.getOrdersByCustomerEmail({
+                    emailAddress: emailAddress,
+                    salesChannel: Site.getCurrent().getID()
+                });
+
+                var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
+                var orderNumberParam = req.form.trackOrderNumber;
+                if (!empty(ordersArray) && !empty(orderNumberParam)) {
+                    var filteredOrder = ordersArray.filter(function (orderObject) {
+                        return orderObject.num == orderNumberParam
+                    });
+                }
+                var orderStatus = {
+                    omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
+                }
+                /**
+                 * Custom: End
+                 */
+
+                var exitLinkText;
+                var exitLinkUrl;
+
+                exitLinkText = !req.currentCustomer.profile
+                    ? Resource.msg('link.continue.shop', 'order', null)
+                    : Resource.msg('link.orderdetails.myaccount', 'account', null);
+
+                exitLinkUrl = !req.currentCustomer.profile
+                    ? URLUtils.url('Home-Show')
+                    : URLUtils.https('Account-Show');
+
+                res.render('account/orderDetails', {
+                    order: orderModel,
+                    exitLinkText: exitLinkText,
+                    exitLinkUrl: exitLinkUrl,
+                    orderStatus: orderStatus
+                });
+            } else {
+                res.render('/account/login', {
+                    navTabValue: 'login',
+                    profileForm: profileForm,
+                    orderTrackFormError: !validForm,
+                    userName: ''
+                });
+            }
+
+            next();
+        }
+    }
+);
+
 server.post('FBConversion', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var ConversionLog = require('dw/system/Logger').getLogger('OrderConversion');

@@ -1,5 +1,9 @@
 'use strict';
 
+var Mail = require('dw/net/Mail');
+
+var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+
 /**
  * Helper that sends an email to a customer. This will only get called if hook handler is not registered
  * @param {obj} emailObj - An object that contains information about email that will be sent
@@ -12,8 +16,6 @@
  */
 function send(emailObj, template, context) {
     var Currency = require('dw/util/Currency');
-    var Mail = require('dw/net/Mail');
-    var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var messageType = '';
@@ -29,6 +31,7 @@ function send(emailObj, template, context) {
     var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
     var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
 
+    
     if (context && context.order && context.order.currencyCode) {
         zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
     }
@@ -95,8 +98,10 @@ function send(emailObj, template, context) {
                 requestParams.productLayout = productLayout(context);
                 if (!empty(context.order) && !empty(context.order.items) && !empty(context.order.items.totalQuantity > 0)) {
                     for (var i = 0; i < context.order.items.totalQuantity; i++) {
-                    productLevelDiscount = context.order.items.items[i].priceTotal.savingPrice.value;
-                    productLevelTotalDiscount = productLevelTotalDiscount + productLevelDiscount;
+                        if (context.order.items.items[i] && context.order.items.items[i].priceTotal && context.order.items.items[i].priceTotal.savingPrice && context.order.items.items[i].priceTotal.savingPrice.value) {
+                            productLevelDiscount = context.order.items.items[i].priceTotal.savingPrice.value;
+                            productLevelTotalDiscount = productLevelTotalDiscount + productLevelDiscount;
+                        }
                     }
                     if (productLevelTotalDiscount > 0) {
                         totalDiscount = productLevelTotalDiscount + context.order.totals.orderLevelDiscountTotal.value;
@@ -136,6 +141,7 @@ function send(emailObj, template, context) {
                 requestParams.firstName = context.firstName;
                 requestParams.lastName = context.lastName;
                 requestParams.email = context.email;
+                sendSFCCEmail(emailObj, template, context);
                 break;
             case 13:
                 if (context.currentOrder && context.currentOrder.totals && context.currentOrder.totals.totalTax === Constants.TOTAL_TAX) {
@@ -182,13 +188,27 @@ function send(emailObj, template, context) {
             ltkApi.sendTransactionalEmailToListrak(requestParams);
         }
     } else {
-        var email = new Mail();
-        email.addTo(emailObj.to);
-        email.setSubject(emailObj.subject);
-        email.setFrom(emailObj.from);
-        email.setContent(renderTemplateHelper.getRenderedHtml(context, template), 'text/html', 'UTF-8');
-        email.send();
+        sendSFCCEmail(emailObj, template, context);
     }
+}
+
+/**
+ * Helper that sends SFCC email
+ * @param {obj} emailObj - An object that contains information about email that will be sent
+ * @param {string} emailObj.to - Email address to send the message to (required)
+ * @param {string} emailObj.subject - Subject of the message to be sent (required)
+ * @param {string} emailObj.from - Email address to be used as a "from" address in the email (required)
+ * @param {int} emailObj.type - Integer that specifies the type of the email being sent out. See export from emailHelpers for values.
+ * @param {string} template - Location of the ISML template to be rendered in the email.
+ * @param {obj} context - Object with context to be passed as pdict into ISML template.
+ */
+function sendSFCCEmail(emailObj, template, context) {
+    var email = new Mail();
+    email.addTo(emailObj.to);
+    email.setSubject(emailObj.subject);
+    email.setFrom(emailObj.from);
+    email.setContent(renderTemplateHelper.getRenderedHtml(context, template), 'text/html', 'UTF-8');
+    email.send();
 }
 
 function productLayout(products) {

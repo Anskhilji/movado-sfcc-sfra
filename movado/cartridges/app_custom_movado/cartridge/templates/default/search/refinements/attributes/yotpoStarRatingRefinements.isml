@@ -1,0 +1,18 @@
+<li class="col-6" title="${refinementValue.title}">
+    <a href="${refinementValue.url}" class="selection-tab <isif condition=" ${refinementValue.selected && refinementValue.selectable}">selected</isif>">
+        <div class="star-rating-area">
+            <div class="rating-static clearfix" rel="${refinementValue.value}">
+                <label class="full"></label>
+                <label class="half"></label>
+                <label class="full"></label>
+                <label class="half"></label>
+                <label class="full"></label>
+                <label class="half"></label>
+                <label class="full"></label>
+                <label class="half"></label>
+                <label class="full"></label>
+                <label class="half"></label>
+            </div>
+        </div>
+    </a>
+</li>

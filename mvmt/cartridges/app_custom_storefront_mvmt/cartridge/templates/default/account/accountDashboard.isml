@@ -40,20 +40,6 @@
             </h1>
             <iscontentasset aid="dashboard-heading-box" />
         </section>
-        <iscomment>Custom Start: Adding content slot to render Swell compaign points in dashboard </iscomment>
-        <isset name="isSwellAllowedCountry" value="${require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry()}" scope="page" />
-        <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
-            <div class="row justify-content-center">
-                <h3>${Resource.msg('label.points', 'account', null)}</h3>
-            </div>
-            <div class="row justify-content-center">
-                <isslot id="swell-compaign-total-points" description="Total number of Swell points" context="global" />
-            </div>
-            <div class="row justify-content-center">
-                <a href="${URLUtils.url('Account-MvmtInsider')}" class="redeem-point-label">${Resource.msg('label.earn.redeem.points', 'account', null)}</a>
-            </div>
-        </isif>
-        <iscomment>Custom End </iscomment>
 
         <isinclude template="account/dashboardProfileCards"/>
     </div>

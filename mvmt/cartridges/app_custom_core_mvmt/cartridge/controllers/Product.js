@@ -25,19 +25,10 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-    var youMayLikeRecommendations = [];
-    var moreStyleRecommendations = [];
-    var explicitRecommendations = [];
-    var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
-    var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
     var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
-    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
-    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
-    var collectionContentList;
-    var moreStyleGtmArray = [];
+    var explicitRecommendations = [];
     var klarnaProductPrice = '0';
     var isEmbossEnabled;
     var isEngraveEnabled;
@@ -87,11 +78,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
             Logger.error('Product.js: Error occured while getting product price for Klarna and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
         // Custom End
-        youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
-        moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
-        collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
-        moreStyleGtmArray = productCustomHelpers.getMoreStyleGtmArray(product, moreStylesRecommendationTypeIds);
-        var wishlistGtmObj = productCustomHelpers.getWishlistGtmObjforPDP(product);
         isEmbossEnabled = product.custom.Emboss;
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
@@ -105,7 +91,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
 
-    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -114,28 +99,17 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         productDetailAttribute2: productDetailAttribute2,
         productDetailAttribute3: productDetailAttribute3,
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
-        moreStyleRecommendations: moreStyleRecommendations,
-        youMayLikeRecommendations: youMayLikeRecommendations,
-        collectionContentList: collectionContentList,
-        hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
         loggedIn: req.currentCustomer.raw.authenticated,
-        moreStyleGtmArray: moreStyleGtmArray,
-        wishlistGtmObj: wishlistGtmObj,
         klarnaProductPrice: klarnaProductPrice,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
-        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         productPrice: productPrice,
         eswModuleEnabled: eswModuleEnabled,
-        relativeURL: URLUtils.url('Product-Show','pid', product.ID),
         explicitRecommendations: explicitRecommendations,
         strapGuideText: strapGuideText,
         upsellHeadingText: upsellHeadingText,
         collectionName: collectionName,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
-        smartGiftAddToCartURL: smartGiftAddToCartURL,
-        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
-        popupID: listrakPersistentPopup
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
     };
 
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);

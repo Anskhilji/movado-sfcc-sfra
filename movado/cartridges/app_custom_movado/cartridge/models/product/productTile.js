@@ -1,5 +1,6 @@
 'use strict';
 
+var Constants = require('*/cartridge/scripts/util/Constants');
 var decorators = require('*/cartridge/models/product/decorators/index');
 var promotionCache = require('*/cartridge/scripts/util/promotionCache');
 var ProductSearchModel = require('dw/catalog/ProductSearchModel');
@@ -32,7 +33,7 @@ function getProductSearchHit(apiProduct) {
             var tempHit = searchHits.next();
             if (tempHit.firstRepresentedProductID === apiProduct.ID) {
                 hit = tempHit;
-            } else if (!empty(apiProduct) && !empty(apiProduct.variants) && apiProduct.variants.length > 0 && tempHit.hitType == 'slicing_group') {
+            } else if (!empty(apiProduct) && !empty(apiProduct.variants) && apiProduct.variants.length > 0 && tempHit.hitType == Constants.SLICING_GROUP || tempHit.hitType == Constants.VARIATION_GROUP) {
                 allVariantProducts = apiProduct.variants.toArray();
                 variantProduct = allVariantProducts.filter(function (data) { return data.ID === tempHit.firstRepresentedProductID });
                 hit = variantProduct ? tempHit : null;
@@ -55,6 +56,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var productSearchHit = getProductSearchHit(apiProduct);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
 
     if (!productSearchHit) {
@@ -105,6 +107,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         });
     }
     // Custom end
+
+    if (!empty(yotpoReviewsCustomAttribute)) {
+        Object.defineProperty(product, 'yotpoReviewsCustomAttribute', {
+            enumerable: true,
+            value: yotpoReviewsCustomAttribute
+        });
+    }
 
     if (!empty(ociPreOrderParameters)) {
         Object.defineProperty(product, 'ociPreOrderParameters', {

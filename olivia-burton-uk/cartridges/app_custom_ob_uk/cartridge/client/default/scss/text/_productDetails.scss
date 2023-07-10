@@ -24,7 +24,7 @@
 		height: rem(45);
 
 		a {
-			font-family: $font-museo-light;
+			font-family: $font-gill-std;
 			font-size: $font-size-text-heading1;
 			letter-spacing: rem(0.9);
 			font-weight: $font-light;
@@ -55,13 +55,13 @@
 				color: $white;
 				background: $black;
 				border: rem(1) solid $black;
-		
+
 				@include media-breakpoint-up(custom-md) {
-					width: rem(296);
+					width: rem(330);
 					height: rem(42.44);
 					padding: rem(10) rem(12) rem(10) rem(12);
 				}
-				
+
 				&:hover,
 				&:focus {
 					background-color: $white;
@@ -148,7 +148,7 @@
 		width: 100%;
 
 		a {
-			font-family: $font-museo-light;
+			font-family: $font-gill-std;
 			font-size: $font-size-text-heading1;
 			letter-spacing: rem(0.9);
 			font-weight: $font-light;
@@ -181,7 +181,7 @@
 		}
 
 		button {
-			font-family: $font-museo-std;
+			font-family: $font-gill-std-medium;
 			font-size: $font-size-text-heading1;
 			letter-spacing: rem(2);
 			font-weight: $font-semi-bold;
@@ -277,7 +277,7 @@
 	}
 
 	a.btn-primary {
-		font-family: $font-museo-std;
+		font-family: $font-gill-std-medium;
 		font-size: $font-size-text-heading1;
 		letter-spacing: rem(2);
 		font-weight: $font-semi-bold;
@@ -342,7 +342,7 @@
 			opacity: unset;
 
 			&-icon {
-				font-family: $font-museo-std;
+				font-family: $font-gill-std-medium;
 				color: $black;
 				font-size: $font-size-text-heading1;
 				letter-spacing: rem(1.4);
@@ -352,7 +352,7 @@
 
 		.full-pdp-link {
 			color: $extra-dark-grey;
-			font-family: $font-museo-light;
+			font-family: $font-gill-std;
 			font-size: $font-size-text-heading1;
 			letter-spacing: rem(0.9);
 		}
@@ -1118,13 +1118,14 @@
 			margin-left: rem(20);
 			line-height: rem(22);
 			margin-bottom: rem(5);
+			text-decoration: none;
 
 			.strike-through {
 				font-family: $font-gills-light;
 				font-size: rem(18);
 				font-weight: 300;
 				color: $black3;
-				text-decoration:none;
+				text-decoration: line-through;
 				@include media-breakpoint-down(sm) { 
 					font-size: rem(14);
 				}

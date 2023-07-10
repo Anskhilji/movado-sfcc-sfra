@@ -2,8 +2,20 @@
 @import "variables";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins/breakpoints";
+@import "~movado/mixins";
 
-.site-tophat-main-1 {
+.header-placeholder-sec {
+    height: rem(97);
+    display: block;
+    position: sticky;
+    top: 0;
+
+    &.header-transparent-active {
+        display: none;
+    }
+}
+
+.site-tophat-main-sec {
     margin-bottom: 0;
 }
 
@@ -13,6 +25,10 @@ header {
 
             .sticky-header-placeholder {
                 display: none;
+
+                &.header-transparent-active {
+                    display: block;
+                }
             }
 
             // Custom:MSS-2083  this style only works when the header transparent

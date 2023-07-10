@@ -119,8 +119,6 @@ server.replace(
                     htmlName: paymentForm.creditCardFields.expirationYear.htmlName
                 }
             };
-            
-            
 
             if (req.form.storedPaymentUUID) {
                 viewData.storedPaymentUUID = req.form.storedPaymentUUID;
@@ -130,7 +128,9 @@ server.replace(
                 value: paymentForm.creditCardFields.email.value
             };
 
-            viewData.phone = { value: paymentForm.creditCardFields.phone.value };
+            viewData.phone = { 
+                value: paymentForm.creditCardFields.phone.value
+            };
 
             viewData.saveCard = paymentForm.creditCardFields.saveCard.checked;
 

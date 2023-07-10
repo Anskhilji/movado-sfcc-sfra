@@ -43,8 +43,7 @@
                             ${Resource.msg('tooltip.email','creditCard',null)}
                         </div>
                     </span>
-                    <input type="text" class="form-control email billing-email" id="email" value="${pdict.order.orderEmail}" autocomplete="off"
-                        ${creditFields.email.attributes}>
+                    <input type="text" class="form-control email billing-email" id="email" value="${pdict.order.orderEmail}" autocomplete="off" readonly ${creditFields.email.attributes}>
                     <div class="invalid-feedback"></div>
                 </div>
             </div>
@@ -59,7 +58,7 @@
                             ${Resource.msg('tooltip.phone.number','creditCard',null)}
                         </div>
                     </span>
-                    <input type="tel" class="form-control phone billing-phone" id="phoneNumber" value="${pdict.order.billing.billingAddress.address
+                    <input type="tel" class="form-control phone billing-phone" id="phoneNumber" readonly value="${pdict.order.billing.billingAddress.address
                 ? pdict.order.billing.billingAddress.address.phone||''
                 : ''}"
                         ${creditFields.phone.attributes} autocomplete="off" >
@@ -98,7 +97,9 @@
                     </isif>
                     <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
                         <li class="nav-item" role="presentation">
+                        <div class="affirm-logo-blue">
                             <isinclude template="affirm/affirmpaymethodli" />
+                        </div>
                         </li>
                     </isif>
                     <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">

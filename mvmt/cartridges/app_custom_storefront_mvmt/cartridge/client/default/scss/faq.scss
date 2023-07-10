@@ -306,7 +306,7 @@
         line-height: rem(24);
         margin: rem(40) 0;
         text-transform: uppercase;
-        font-family: $font-medium;
+        font-family: $font-ivypresto-headline;
         font-weight: 500;
         padding: 0;
         
@@ -323,7 +323,7 @@
         line-height: rem(40);
         letter-spacing: rem(1.92);
         text-transform: uppercase;
-        font-family: $font-bold;
+        font-family: $font-ivypresto-headline;
         margin: rem(40) 0 rem(20);
         
         @media only screen and (min-width: 1024px) {
@@ -383,7 +383,7 @@
     
     &-btn-email {
         color: $white;
-        background: $black;
+        background: $dark-gray2;
         font-weight: 500;
         text-transform: uppercase;
         font-style: normal;
@@ -391,16 +391,17 @@
         text-align: center;
         line-height: 1;
         font-size: rem(11);
-        border-radius: rem(1);
+        border-radius: rem(64.5);
         transition: all .25s ease-in-out;
         letter-spacing: rem(3);
         position: relative;
-        border: rem(2) solid $black;
+        border: rem(1) solid $dark-gray2;
         padding: rem(16);
         margin-top: rem(20);
         
         &:hover {
-            background: $green;
+            background: $dark-blue-btn;
+            border-color: $dark-blue-btn;
         }
     }
     
@@ -411,6 +412,7 @@
     }
     
     &-section-header {
+        font-family: $font-ivypresto-headline;
         color: $light-gray;
         font-size: rem(16);
         line-height: rem(20);
@@ -498,8 +500,8 @@
         padding: rem(17) 0 rem(3) 0;
         p {
             letter-spacing: rem(.5);
+            font-family: $font-brandon-grotesque;
             font-size: rem(14);
-            font-family: $font-book;
             color: $light-gray;
 
             &:last-child {
@@ -520,8 +522,8 @@
         line-height: 1.5;
         font-weight: bold;
         margin-bottom: rem(15);
-        font-family: $font-primary;
         margin-top: rem(48);
+        font-family: $font-ivypresto-headline;
 
         @include media-breakpoint-down(md) {
             margin-top: 0;
@@ -550,11 +552,11 @@
 
         p {
             color: $black;
+            font-family: $font-brandon-grotesque;
             font-size: rem(16);
             font-weight: 500;
             line-height: rem(23);
             letter-spacing: rem(.6);
-            font-family: $font-medium;
         }
     }
     
@@ -588,14 +590,15 @@
             font-size: rem(18);
             letter-spacing: rem(2.5);
             margin-bottom: rem(20);
+            font-family: $font-ivypresto-headline;
         }
 
         p {
             margin: rem(9.44) 0;
             line-height: 2em;
-            font-family: $font-primary;
-            color: $dark-orange1;
+            font-family: $font-brandon-grotesque;
             font-size: rem(12);
+            color: $dark-orange1;
             font-weight: 500;
             letter-spacing: rem(1);
         }
@@ -625,10 +628,12 @@
             margin-bottom: rem(20);
             color: $black;
             line-height: 1;
+            font-family: $font-ivypresto-headline;
         }
         
         p {
             color: $dark-orange1;
+            font-family: $font-brandon-grotesque;
             font-size: rem(12);
             font-weight: 500;
             letter-spacing: rem(1);
@@ -642,7 +647,7 @@
             font-family: $font-primary;
             font-weight: 500;
             font-style: normal;
-            border: rem(2) solid $black;
+            border: rem(1) solid $dark-gray2;
             font-size: rem(11);
             letter-spacing: rem(1.5);
             display: inline-block;
@@ -664,10 +669,13 @@
             padding: rem(16) rem(28);
             min-width: rem(200);
             background-color: transparent;
+            border-radius: rem(64.5);
+            color: $dark-gray2;
             
             &:hover {
                 color: $white;
-                background-color: $black;
+                background-color: $dark-blue-btn;
+                border-color: $dark-blue-btn;
             }
         }
     }
@@ -676,18 +684,18 @@
         p {
             margin: rem(9.44) 0;
             line-height: 2em;
-            font-family: $font-primary;
+            font-family: $font-brandon-grotesque;
             font-weight: 400;
             font-style: normal;
             color: $light-gray;
-            font-size: rem(14);
             letter-spacing: rem(.5);
+            color: $dark-gray2;
 
             a {
                 font-weight: 600;
                 &:hover {
-                    color: $dark-red;
-                    text-decoration: none;
+                    color: $dark-blue-btn;
+                    text-decoration: underline;
                 }
             }
         }
@@ -761,16 +769,22 @@
 
     &-btn-save {
         background: transparent;
-        border: rem(1) solid $black;
-        color: $black;
+        border: rem(1) solid $dark-gray2;
+        color: $dark-gray2;
         font-size: rem(10.8);
         height: rem(45);
         white-space: nowrap;
+        border-radius: rem(64.5);
+        box-shadow: none;
 
         &:hover, &:focus {
             color: $white;
-            background-color: $black;
-            border-color: $black;
+            background-color: $dark-blue-btn;
+            border-color: $dark-blue-btn;
+            box-shadow: none;
+        }
+
+        &:not(:disabled):not(.disabled):active:focus {
             box-shadow: none;
         }
     }
@@ -801,7 +815,8 @@
     }
     
     .help-heading h3 {
-        font-size: 1.17em
+        font-family: $font-brandon-grotesque;
+        font-size: 1.17em;
     }
     
     .help-contact-box div a {
@@ -812,6 +827,7 @@
     
         &:hover {
             text-decoration: underline;
+            color: $dark-blue-btn;
         }
     }
 }
@@ -830,6 +846,7 @@
     display: none;
 
     .help-heading h3 {
+        font-family: $font-brandon-grotesque;
         font-size: rem(18.72);
     }
 

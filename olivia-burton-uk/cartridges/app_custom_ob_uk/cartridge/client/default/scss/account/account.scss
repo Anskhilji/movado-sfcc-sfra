@@ -1,0 +1,33 @@
+@import '~movado/account/account';
+@import '../variables';
+
+.account-pages {
+
+    .card {
+
+        .card-body {
+
+            dt,
+            .field-label {
+                font-family: $font-gill-std-medium;
+            }
+
+            & > div {
+
+                div {
+
+                    &.dashboard-cards-block-title {
+                        font-family: $font-gill-std-medium;
+                    }
+                }
+            }
+        }
+
+        .card-footer {
+
+            .field-label {
+                font-family: $font-gill-std-medium;
+            }
+        }
+    }
+}

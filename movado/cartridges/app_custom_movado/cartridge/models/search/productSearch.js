@@ -30,6 +30,17 @@ function getResetLink(search, httpParams) {
         : URLUtils.url(ACTION_ENDPOINT, 'q', httpParams.q);
 }
 
+function getYotpoMaximumScore(values) {
+    for (var i in values) {
+        var displayValue = values[i].displayValue;
+        var displayValueArray = displayValue.replace(/[A-Za-z]/g, '').split(' ').filter(function (x) {
+            return Boolean(x);
+        }).map(Number);
+        values[i].value = Math.max.apply(null, displayValueArray);
+    }
+    return values;
+}
+
 /**
  * Retrieves search refinements
  *
@@ -43,6 +54,9 @@ function getRefinements(productSearch, refinements, refinementDefinitions) {
     return collections.map(refinementDefinitions, function (definition) {
         var refinementValues = refinements.getAllRefinementValues(definition);
         var values = searchRefinementsFactory.get(productSearch, definition, refinementValues);
+        if (definition.attributeID == Constants.YOTPO_REFINEMENT_ID) {
+            values = getYotpoMaximumScore(values)
+        }
         return {
             displayName: definition.displayName,
             isCategoryRefinement: definition.categoryRefinement,
@@ -153,9 +167,6 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProduct
     } else {
         var endIdx = paging.getEnd();
         nextStart = endIdx + 1 < hitsCount ? endIdx + 1 : null;
-        if (enableGridSlot && paging.currentPage == 0) {
-        	nextStart -= 1;
-        }
 
         if (!nextStart) {
             return '';
@@ -409,7 +420,6 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
     }
     if (enableGridSlot) {
     	this.enableGridSlot = enableGridSlot;
-    	this.count = productSearch.count >=5 ? productSearch.count+1 : productSearch.count;
     }
     this.defaultPageSize = DEFAULT_PAGE_SIZE;
 }
