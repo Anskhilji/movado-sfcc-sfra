@@ -24,7 +24,7 @@ var server = require('server');
 
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
-var PULSEID_ENGRAVING = 'pulseIdEngraving'
+var PULSEID_ENGRAVING = 'pulseIdEngraving';
 var NEWLINE = '\n';
 
 

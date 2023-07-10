@@ -641,7 +641,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             }
         }
 
-        if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && form.pulseIdEngraving == 'true') {
+        if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && !empty(form) && form.pulseIdEngraving && form.pulseIdEngraving == 'true') {
             var addEngraveContract = require('*/cartridge/scripts/engravingAddContracts.js');
             var engravedOptions = addEngraveContract.getEngravingSelectedOptionProduct(productId);
             var engravedSKU = '';
@@ -727,7 +727,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                     addClydeContract.addClydeContractAttributes(clydeSKU, currentBasket, productId);
                 }
 
-                if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && form.pulseIdEngraving == 'true') {
+                if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && !empty(form) && form.pulseIdEngraving && form.pulseIdEngraving == 'true') {
                     var addEngraveContract = require('*/cartridge/scripts/engravingAddContracts');
                     var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
 

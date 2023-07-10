@@ -351,12 +351,16 @@ server.prepend(
 
     var CartModel = require('*/cartridge/models/cart');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
-    var basketModel = new CartModel(currentBasket);
     var productLineItems = currentBasket.productLineItems.iterator();
     var result;
 
     if (session.privacy.applePayBasketReOpen) {
         var productId = session.privacy.applePayBasketReOpen;
+        var appleEngraveOptionId = session.custom.appleEngraveOptionId;
+        var appleEmbossOptionId = session.custom.appleEmbossOptionId;
+        var appleEmbossedMessage = session.custom.appleEmbossedMessage;
+        var appleEngravedMessage = session.custom.appleEngravedMessage;
+        var pulseIDPreviewURL = session.custom.pulseIDPreviewURL;
 
         Transaction.wrap(function () {
             result = cartHelper.addProductToCart(
@@ -372,9 +376,13 @@ server.prepend(
                 basketCalculationHelpers.calculateTotals(currentBasket);
             }
         });
+        customCartHelpers.updateOptionLineItemAfterShopperRecovery(currentBasket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL);
+
         delete session.custom.applePaySku;
         delete session.privacy.applePayBasketReOpen;
     }
+    customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
+
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
     }
