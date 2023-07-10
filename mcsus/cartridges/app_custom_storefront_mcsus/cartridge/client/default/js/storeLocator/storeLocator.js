@@ -196,12 +196,14 @@ function searchWithin() {
         var url = $(this).data('action');
         var searchValue = $('.search-input').val().trim();
         var radius = $(this).data('radius-value');
+        var isForm = false;
         $('input[name="radio"]').prop('checked', true);
         $('input[name="radio"][value='+radius+']').prop('checked', true);
         if (radius) {
             urlParams = {
                 radius: radius,
-                address: searchValue
+                address: searchValue,
+                isForm: isForm
             };
             url = appendToUrl(url, urlParams);
         }
@@ -232,7 +234,7 @@ $('.store-sidebar-link').on('click', function () {
         $('.search-input').val(sessionStorage.getItem("address"));
     }
     searchFilter.radius ? urlParams.radius = searchFilter.radius : null;
-    searchFilter.googleRecaptchaToken ? urlParams.googleRecaptchaToken = searchFilter.googleRecaptchaToken : null;
+    urlParams.isForm = false;
     url = appendToUrl(url, urlParams);
     searchLocator(url);
 });
@@ -248,6 +250,7 @@ $('.button-search').on('click', function () {
     searchFilter.searchValue ? urlParams.address = searchFilter.searchValue : null;
     searchFilter.radius ? urlParams.radius = searchFilter.radius : null;
     searchFilter.googleRecaptchaToken ? urlParams.googleRecaptchaToken = searchFilter.googleRecaptchaToken : null;
+    urlParams.isForm = true;
     url = appendToUrl(url, urlParams);
     searchLocator(url);
 });
@@ -284,6 +287,7 @@ $('.miles-action-btn-apply').on('click', function () {
     searchFilter.searchValue ? urlParams.address = searchFilter.searchValue : null;
     searchFilter.radius ? urlParams.radius = searchFilter.radius : null;
     searchFilter.googleRecaptchaToken ? urlParams.googleRecaptchaToken = searchFilter.googleRecaptchaToken : null;
+    urlParams.isForm = false;
     url = appendToUrl(url, urlParams);
     searchLocator(url);
     $('.radius-sidebar').removeClass('show');

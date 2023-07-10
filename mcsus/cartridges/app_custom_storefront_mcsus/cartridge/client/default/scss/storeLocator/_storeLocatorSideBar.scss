@@ -51,6 +51,7 @@
     transform: translateX(100%);
     transition: all 0.4s;
     @include custom-scroll;
+    
 
     &.hide-scroll {
         overflow: hidden;
@@ -58,6 +59,12 @@
 
     &.show {
         transform: translateX(0);
+        overflow-x: hidden;
+    }
+
+    .grecaptcha-badge {
+        position: absolute !important;
+        top: rem(800) !important;
     }
 
     .side-header {
@@ -142,6 +149,7 @@
             .button-search-captcha {
                 background-image: url('../../images/seach-icon.svg');
                 background-repeat: no-repeat;
+                background-position: center;
             }
         }
 

@@ -21,7 +21,7 @@
                 <div class="button-search ${isGoogleRecaptchaEnabled ? 'd-none' : ''}" data-action = "${URLUtils.url('Stores-FindStores')}">
                     <img src="${URLUtils.staticURL('/images/seach-icon.svg')}" alt="serach" />
                 </div>
-
+                
                 <isif condition="${isGoogleRecaptchaEnabled}">
                     <button type="submit" class="button-search-captcha g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptchaG'></button>
                 </isif>

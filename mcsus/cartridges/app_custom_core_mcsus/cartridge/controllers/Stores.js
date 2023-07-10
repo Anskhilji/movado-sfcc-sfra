@@ -32,6 +32,7 @@ server.replace('FindStores', function (req, res, next) {
     var queryCountryCode = req.querystring.countryCode || request.geolocation.countryCode || COUNTRY_US;
     var queryAddress = req.querystring.address|| request.geolocation.postalCode || DEFAULT_POSTAL_CODE;
     var googleRecaptchaToken = req.querystring.googleRecaptchaToken || '';
+    var isSearched = req.querystring.isForm;
     var stores = null;
     var status = null;
     var path = '/storeLocator/storeCard.isml';
@@ -41,24 +42,25 @@ server.replace('FindStores', function (req, res, next) {
 
     var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
     var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+    if (isSearched == 'true') {
+        if (isGoogleRecaptchaEnabled) {
+            var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+            if (empty(googleRecaptchaToken)) {
+                res.json ({
+                    success: false,
+                    errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
+                });
+                return next(); 
+            }
 
-    if (isGoogleRecaptchaEnabled) {
-        var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
-        if (empty(googleRecaptchaToken)) {
-            res.json ({
-                success: false,
-                errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
-            });
-            return next(); 
-        }
-
-        var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
-        if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
-            res.json ({
-                success: false,
-                errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
-            });
-            return next(); 
+            var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+            if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
+                res.json ({
+                    success: false,
+                    errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
+                });
+                return next(); 
+            }
         }
     }
 
