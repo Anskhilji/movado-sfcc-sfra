@@ -196,14 +196,13 @@ function searchWithin() {
         var url = $(this).data('action');
         var searchValue = $('.search-input').val().trim();
         var radius = $(this).data('radius-value');
-        var isForm = false;
         $('input[name="radio"]').prop('checked', true);
         $('input[name="radio"][value='+radius+']').prop('checked', true);
         if (radius) {
             urlParams = {
                 radius: radius,
                 address: searchValue,
-                isForm: isForm
+                isForm: false
             };
             url = appendToUrl(url, urlParams);
         }
