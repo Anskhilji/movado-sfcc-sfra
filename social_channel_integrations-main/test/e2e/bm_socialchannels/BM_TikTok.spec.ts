@@ -1,0 +1,65 @@
+import { test, expect, chromium, type Page} from '@playwright/test';
+
+/** The imported chromiun object is related to the configuration projects section for the main browsers in the playwright.config.ts file, for other browsers both needs to be modified */
+test.describe('Setup', () => {
+    test('Try to setup TikTok for Business on Business Manager', async () => {
+        const browser = await chromium.launch();
+        const page = await browser.newPage();
+        await page.goto(process.env.BM_URL + '/on/demandware.store/Sites-Site');
+        await page.getByPlaceholder('User Name').click();
+        await page.getByPlaceholder('User Name').fill(String(process.env.BM_USERNAME));
+        await page.getByRole('button', { name: 'Log in' }).click();
+        await page.getByRole('button', { name: 'Log in with SFDC Okta' }).click();
+        await page.getByRole('textbox', { name: 'Username' }).click();
+        await page.getByRole('textbox', { name: 'Username' }).fill(String(process.env.BM_USERNAME));
+        await page.getByRole('button', { name: 'Next' }).click();
+        await page.getByRole('textbox', { name: 'Password' }).fill(String(process.env.BM_PASSWORD));
+        await page.getByRole('button', { name: 'Verify' }).click();
+        await page.getByRole('link', { name: 'Select' }).nth(1).click();
+        await page.waitForURL(process.env.BM_URL + '/on/demandware.store/Sites-Site/default/ViewApplication-DisplayWelcomePage');
+        console.log('Logged in on BM');
+        await page.getByText(/Select a SiteSelect a /).click();
+        await page.getByTitle(String(process.env.BM_SITE), { exact: true }).click();
+        console.log('Select ' + process.env.BM_SITE + ' site');
+        await page.getByRole('link', { name: 'Merchant Tools' }).click();
+        console.log('Click on Merchant Tools');
+        await page.getByRole('link').filter({ hasText: 'Social Channels Social Channels Setup and Manage integrations with social channe' }).click();
+        await page.getByRole('link').filter({ hasText: 'TikTok for Business' }).click();
+        console.log('Click on TikTokForBusiness');
+        page.getByRole('link').filter({ hasText: 'Accept Terms' }).click();
+        await page.getByLabel('Website URL*').click();
+        await page.getByLabel('Website URL*').fill(process.env.BM_URL + '/on/demandware.store/Sites-RefArch-Site');
+        await page.getByLabel('Account Manager Client Id*').click();
+        await page.getByLabel('Account Manager Client Id*').fill(String(process.env.ACCOUNTMANAGER_CLIENTID));
+        await page.getByLabel('Account Manager Client Secret*').click();
+        await page.getByLabel('Account Manager Client Secret*').fill(String(process.env.ACCOUNTMANAGER_CLIENTSECRET));
+        await page.getByLabel('Business Manager User Login').click();
+        await page.getByLabel('Business Manager User Login').fill(String(process.env.BM_USERNAME));
+        await page.getByLabel('Business Manager Access Key (Agent User Login and OCAPI)').click();
+        await page.getByLabel('Business Manager Access Key (Agent User Login and OCAPI)').fill(String(process.env.BM_USERACCESSKEY));
+        await page.getByLabel('WebDav Client Id').click();
+        await page.getByLabel('WebDav Client Id').fill(String(process.env.WEBDAV_CLIENTID));
+        await page.getByLabel('WebDav Client Secret').click();
+        await page.getByLabel('WebDav Client Secret').fill(String(process.env.WEBDAV_CLIENTSECRET));
+        await page.locator('#bm_content_column div').filter({ hasText: 'Please fill out this form to initialize the integration with TikTok. Fields mark' }).first().click();
+        await page.getByLabel('Org Id*').click();
+        await page.getByLabel('Org Id*').fill(String(process.env.BM_ORGID));
+        await page.getByLabel('Email*').click();
+        await page.getByLabel('Email*').fill(String(process.env.TIKTOK_EMAIL));
+        await page.getByLabel('Phone*').click();
+        await page.getByLabel('Phone*').fill(String(process.env.TIKTOK_PHONE));
+        console.log('Fill credential to TikTok for Business');
+        await page.getByRole('button', { name: 'Launch' }).click();
+        console.log('Launch for TikTok for Business');
+        await expect(page.getByText(/ˆtiktok.error.Unable to send credentials to TikTok$/i), 'Verify your TikTok credentials').not.toBeVisible()
+        const popupPromise = page.waitForEvent('popup');
+        console.log('Showing TikTok for Business site');
+        await page.getByRole('button', { name: 'Connect' }).first().click();
+        console.log('Try to connect to TikTok for Business');
+        const popup = await popupPromise;
+        await page.goto(process.env.BM_URL + '/on/demandware.store/Sites-Site/default/BM_TikTok-Start?success=setup');
+        console.log('Redirect to BM after success configuration');
+        await popup.close();
+        setTimeout(function () { page.close() }, 15000);
+    });
+});

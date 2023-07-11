@@ -1,0 +1,12 @@
+{
+    "name": "social_channels",
+    "scripts": {
+        "code:upload:tiktok:ads": "sgmf-scripts --uploadCartridge bm_socialchannels && sgmf-scripts --uploadCartridge int_tiktok",
+        "code:upload:tiktok:tracking": "sgmf-scripts --uploadCartridge int_tiktok_pixel",
+        "code:upload:social:pixel": "sgmf-scripts --uploadCartridge app_storefront_social",
+        "code:upload:google": "sgmf-scripts --uploadCartridge bm_socialchannels && sgmf-scripts --uploadCartridge int_google"
+    },
+    "devDependencies": {
+        "sgmf-scripts": "^2.4.2"
+    }
+}

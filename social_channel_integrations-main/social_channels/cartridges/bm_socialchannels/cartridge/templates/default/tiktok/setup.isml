@@ -1,0 +1,101 @@
+<isdecorate template="application/MenuFrame">
+    <iscontent type="text/html" charset="UTF-8" />
+    <isinclude template="inc/Modules" />
+    <isinclude template="common/head" />
+
+    <isinclude template="tiktok/breadcrumb" />
+
+    <div class="slds-grid slds-m-top_medium">
+        <div class="slds-col slds-size_1-of-1">
+            <div class="slds-row">
+                <isinclude template="tiktok/responses" />
+            </div>
+            <article class="slds-col slds-size_3-of-3 slds-card">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body"></div>
+                        <div class="slds-no-flex slds-m-right_x-small">
+                            <a href="${URLUtils.url('BM_TikTok-Disconnect')}" class="slds-button slds-button_destructive">
+                                <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                    <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#logout')}"></use>
+                                </svg>
+                                ${Resource.msg('tiktok.button.disconnect', 'tiktok', null)}
+                            </a>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner slds-m-top_large">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <div class="slds-tile__detail">
+                                <h2 class="slds-m-vertical_medium slds-text-heading_small">
+                                    <isif condition="${!empty(pdict.tikTokSettings.custom.pixelCode) && (!empty(pdict.tikTokSettings.custom.tikTokShopConnected) && pdict.tikTokSettings.custom.tikTokShopConnected == true)}">
+                                        <b>${Resource.msg('tiktok.connected.marketing.shop', 'tiktok', null)}</b>
+                                        <isset name="isDisplayDetails" value="${false}" scope="page" />
+                                    <iselseif condition="${!empty(pdict.tikTokSettings.custom.pixelCode)}" />
+                                        <b>${Resource.msg('tiktok.marketing.connected', 'tiktok', null)}</b>
+                                        <isset name="isDisplayDetails" value="${true}" scope="page" />
+                                    <iselse/>
+                                        <b>${Resource.msg('tiktok.shop.connected', 'tiktok', null)}</b>
+                                        <isset name="isDisplayDetails" value="${false}" scope="page" />
+                                    </isif>
+                                </h2>
+                                <div class="slds-form">
+                                    <isif condition="${isDisplayDetails==true}">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">${Resource.msg('tiktok.bcid.label', 'tiktok', null)}</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">${pdict.tikTokSettings.custom.bcId}</div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">${Resource.msg('tiktok.pixelid.label', 'tiktok', null)}</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">${pdict.tikTokSettings.custom.pixelCode}</div>
+                                            </div>
+                                        </div>
+                                    </isif>
+                                    <div class="slds-form-element slds-m-top_small">
+                                        <a href="${URLUtils.url('BM_TikTok-Manage')}" class="slds-button slds-button_brand" target="_blank">
+                                            <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                                <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#settings')}"></use>
+                                            </svg>
+                                            ${Resource.msg('tiktok.button.manage', 'tiktok', null)}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <div class="slds-tile__detail">
+                                <h2 class="slds-m-vertical_medium slds-text-heading_small"><strong>${Resource.msg('tiktok.manage.credentials.title', 'tiktok', null)}</strong></h2>
+                                <div class="slds-form">
+                                    <div class="slds-form-element slds-m-top_small">
+                                        <a href="${URLUtils.url('BM_TikTok-ManageCredentials')}" class="slds-button slds-button_brand">
+                                            <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                                <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#reset_password')}"></use>
+                                            </svg>
+                                            <isprint value="${Resource.msg('tiktok.manage.credentials.title', 'tiktok', null)}" encoding="off" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <div class="slds-tile__detail">
+                                <h2 class="slds-m-vertical_medium slds-text-heading_small"><strong>${Resource.msg('tiktok.shopper.activitiessync.title', 'tiktok', null)}</strong></h2>
+                                <p><isprint value="${Resource.msg('tiktok.shopper.activitiessync.message', 'tiktok', null)}" encoding="off" /></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</isdecorate>

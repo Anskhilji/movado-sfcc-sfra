@@ -1,0 +1,234 @@
+/**
+ * Demandware Script File
+ */
+importPackage( dw.system );
+importPackage( dw.io );
+importScript( 'export/handlers/AbstractExportHandler.ds' );
+importScript( 'export/ProductFieldMapper.ds' );
+
+var HashMap = require('dw/util/HashMap');
+var FeedTracker = require('../FeedTrackerUtils.js');
+
+// Hack, because vars cannot be imported in DW, only functions
+function getCSVExportHandler() {
+    return CSVExportHandler;
+}
+var AbstractExportHandler = getAbstractExportHandler();
+
+var CSVExportHandler = AbstractExportHandler.extend(
+        /** @lends CSVExportHandler.prototype */
+        {
+            /**
+             * Creates a new CSV export handler instance
+             *
+             * @constructs
+             * @augments AbstractExportHandler
+             * @param {dw.io.File} file The file to export to
+             * @param {String} encoding The file encoding
+             * @param {String} separator The separator to use
+             * @param {Array} fields An array with the fields to use
+             * @param {Array} header An array with the header to use
+             */
+            init : function(
+                writer : Writer,
+                separator,
+                fields : Array,
+                header : Array,
+                contextObject : String,
+                includeOfflineProducts : Boolean,
+                includeOutOfStockProducts : Boolean,
+                includeNoPriceProducts : Boolean,
+                includeSearchableIfUnavailableProducts : Boolean,
+                socialCategory: String,
+                googleShoppingCategories : String,
+                hostName: String,
+                file : File,
+                locale: String,
+                locales: String,
+                localizedCategories : Boolean,
+                deltaCatalogExportInDays : String,
+                generateDeleteFeed : Boolean,
+                exportCategoryId : String
+            ) {
+                if(separator == "\\t") {
+                    separator = "\t";
+                }
+
+                this.handlesMasters = false;
+                this.handlesProducts = true;
+
+                this.fileWriter = writer;
+                this.writer = new CSVStreamWriter(this.fileWriter, separator);
+                this.header = header || fields;
+                this.fields = fields;
+                this.separator = separator;
+                this.contextObject = contextObject;
+                this.includeOfflineProducts = includeOfflineProducts;
+                this.includeOutOfStockProducts = includeOutOfStockProducts;
+                this.includeNoPriceProducts = includeNoPriceProducts;
+                this.includeSearchableIfUnavailableProducts = includeSearchableIfUnavailableProducts;
+                this.socialCategory = socialCategory;
+                this.googleShoppingCategories = googleShoppingCategories;
+                this.hostName = hostName || null;
+                this.locale = locale;
+                this.file = file;
+                this.locales = locales;
+                this.localizedCategories = localizedCategories;
+                this.deltaCatalogExportInDays = deltaCatalogExportInDays;
+                this.generateDeleteFeed = generateDeleteFeed;
+                this.exportCategoryId = exportCategoryId;
+
+                this.tracker = new HashMap();
+                this.previousTracker = null;
+
+                if('Catalog' === contextObject) {
+                    this.initProductFieldCache();
+                    this.initPreviousTracker();
+                } else if ('Order' === contextObject) {
+                    this.initOrderFieldCache();
+                } else if ('Customer' === contextObject) {
+                    this.initProfileFieldCache();
+                }
+            },
+            /**
+             * Initialize the a field cache to avoid parsing the expressions for
+             * every product
+             *
+             * @param {dw.catalog.Product} product A product to get the attribute model (can be
+             *            any product)
+             */
+            initProductFieldCache :function(product : Product){
+                this.fieldCache = {};
+                for each(var field : String in this.fields){
+                    this.fieldCache[field] = ProductFieldMapper.parseField(field,product);
+                }
+                if (!empty(this.hostName)) {
+                    ProductFieldMapper.setCurrentHost(this.hostName);
+                }
+                if(!empty(this.locale)) {
+                    ProductFieldMapper.setCurrentLocale(this.locale);
+                }
+            },
+            initPreviousTracker : function() {
+                if (this.deltaCatalogExportInDays && this.deltaCatalogExportInDays > 0) {
+                    var dirPath = this.file.getFullPath().split('').join(''); //make copy of the string
+                    dirPath = dirPath.slice(0, dirPath.lastIndexOf('/'));
+                    this.previousTracker = FeedTracker.getPreviousTracker(dirPath, this.locale);
+                }
+            },
+            /**
+             * Get the values for all field as an array
+             *
+             * @param {dw.catalog.Product} product The product to export
+             * @returns {Array} An array with the defined values
+             */
+            getProductFields : function(product : dw.catalog.Product){
+                result = [];
+                for each(var field : String in this.fields){
+                    var f = this.fieldCache[field];
+                    result.push(ProductFieldMapper.getField(product, f.attribute, f.format, f.sep, f.type, f.sep2, f.postProcess, f.attributes, this.socialCategory, this.googleShoppingCategories));
+                }
+                return result;
+            },
+            getLocalizedAttributeValue : function (product : dw.catalog.Product){
+                var tmpl : dw.util.Template = new dw.util.Template('localizedproduct', this.locale),
+                    dict : dw.util.Map = new dw.util.HashMap();
+                dict.put('p', product);
+                dict.put('t', this);
+                var content : dw.value.MimeEncodedText = tmpl.render(dict);
+
+                return content.getText().trim().split(this.separator);
+            },
+            exportProduct : function (product : dw.catalog.Product, locales){
+                var line;
+                if (this.shouldExportProduct(product, locales, this.getPrice(product))) {
+                    if (this.locale && this.locale !== dw.system.Site.getCurrent().defaultLocale) {
+                        line = this.getLocalizedAttributeValue(product);
+                    } else {
+                        line = this.getProductFields(product);
+                    }
+                    this.writer.writeNext(line);
+                }
+            },
+            beginExport : function() {
+                this.writer.writeNext(this.header);
+            },
+            endExport: function () {
+                this.writer.close();
+                this.fileWriter.close();
+
+                if (typeof this.file !== 'undefined') {
+                    var fileFinalName = this.file.getFullPath();
+                    var n = fileFinalName.lastIndexOf("/TEMP_");
+                    fileFinalName = fileFinalName.substring(0,n) + fileFinalName.substring(n).replace("/TEMP_","/");
+
+                    var newFile = new File(fileFinalName);
+                    this.file.renameTo(newFile);
+                }
+
+            },
+            handlePostExportSteps: function() {
+                var fileGenereated = false;
+                var dirPath = this.file.getFullPath().split('').join(''); //make copy of the string
+                dirPath = dirPath.slice(0, dirPath.lastIndexOf('/'));
+                if(this.generateDeleteFeed || (this.deltaCatalogExportInDays && this.deltaCatalogExportInDays > 0)) {
+                    //save tracker into a file 
+                    var result = FeedTracker.storeTrackerDataToFile(this.tracker, dirPath, this.locale);
+
+                    //generate delete file
+                    if(result && this.generateDeleteFeed) {
+                        fileGenereated = FeedTracker.generateDeleteFile(this.tracker, dirPath);
+                    }
+                }
+
+                FeedTracker.trackJobRun(dirPath, fileGenereated, this.deltaCatalogExportInDays > 0);
+            },
+            exportStoreTransaction : function (transactionDeatils) {
+                let transactionTime = this.getTransactionTime();
+                let transactionExecutionTime = new Date(transactionDeatils.timestamp);
+                if (!empty(transactionTime) && transactionExecutionTime < transactionTime) {
+                    return '';
+                } else {
+                    this.writer.writeNext(this.getStoreTransactionDetailsField(transactionDeatils));
+                }
+            },
+            getStoreTransaction : function (transactionDeatils , field : String, format : String) {
+                // no field, can't do anything
+                if(empty(field) || transactionDeatils == null){
+                    return '';
+                }
+                try {
+                    field = field.indexOf('transactionTime') > -1 ? field.split('|')[0] : field;
+                    let result = transactionDeatils[field];
+                    return result;
+                } catch(e) {
+                    let Logger = require('dw/system/Logger');
+                    Logger.getLogger('GlobalFeedExport', 'GlobalFeedExport').error('Error occured while mapping field {0} for customer profile {1}', field, transactionDeatils.customerNo);
+                }
+                return null;
+            },
+            getTransactionTime : function () {
+                let length  = this.fields.length;
+                let transactionTime = null;
+                if (length > 0){
+                    let lastField = this.fields[length-1];
+                    let transactionAttribute = this.fieldCache[lastField].attribute;
+                    transactionAttribute = transactionAttribute.split('|'); 
+                    try {
+                        let regEx= /[-]/g;
+                        transactionTime = transactionAttribute.length > 1 ? new Date(transactionAttribute[1].replace(regEx, '/')) : null;
+                    } catch (e) {
+                        return null;
+                    }
+                }
+                return transactionTime;
+            },
+            getPrice : function (product) {
+                let price = ProductFieldMapper.getField(product, 'price');
+                return price;
+            }
+        });
+
+if(typeof exports !== 'undefined') {
+    exports.CSVExportHandler = CSVExportHandler;
+}

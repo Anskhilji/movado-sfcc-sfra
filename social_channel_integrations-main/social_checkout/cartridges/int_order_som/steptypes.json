@@ -1,0 +1,27 @@
+{
+    "step-types": {
+        "script-module-step": [
+            {
+                "@type-id": "custom.GetSOMOrderStatus",
+                "@supports-site-context":"true",
+                "@supports-organization-context":"false",
+                "description":"Get Order Statuses from SF OMS",
+                "module": "int_order_som/cartridge/scripts/jobs/GetOMSOrderStatus.js",
+                "function":"updateOrderStatus",
+                "transactional":"true",
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
