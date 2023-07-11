@@ -23,7 +23,7 @@
                 </div>
                 
                 <isif condition="${isGoogleRecaptchaEnabled}">
-                    <button type="submit" class="button-search-captcha g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptchaG'></button>
+                    <button type="submit" class="button-search-captcha g-recaptcha border-0" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptchaG'></button>
                 </isif>
 
                 <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" />

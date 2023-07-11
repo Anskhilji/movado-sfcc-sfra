@@ -58,7 +58,7 @@ server.replace('FindStores', function (req, res, next) {
         if (empty(googleRecaptchaToken)) {
             res.json ({
                 success: false,
-                errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+                errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
             });
             return next(); 
         }
@@ -67,7 +67,7 @@ server.replace('FindStores', function (req, res, next) {
         if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
             res.json ({
                 success: false,
-                errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+                errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
             });
             return next(); 
         }

@@ -83,6 +83,10 @@
             border: rem(1) solid $grey14;
             color: $grey14;
         }
+
+        .grecaptcha-badge {
+            z-index: 1 !important;
+        } 
     }
 
     .results-card {
