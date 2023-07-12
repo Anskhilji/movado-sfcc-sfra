@@ -1,27 +1,49 @@
+'use strict';
 
 $(document).ready(function () {
+    window.onSubmitCaptchaHeaderBopis = function (token) {
+        alert('Header bopis alert');
+        $(document).ready(function () {
+            var $submitBtn = $('.bopis-header-btn');
+            var $gCaptchaBopisHeaderInput = $('.g-recaptcha-token-bopis-header');
+            $($gCaptchaBopisHeaderInput).val(token);
+            console.log($gCaptchaBopisHeaderInput);
+
+            $($submitBtn).click();
+        });
+    }
+
     var $searchStore = $('#search-store');
     $searchStore.click(function () {
-        getStoreList($searchStore);
+        var $googleRecaptchaToken = $('.g-recaptcha-token-bopis-header').val();
+        var $isForm = true;
+        getStoreList($searchStore, $googleRecaptchaToken, $isForm);
     });
 
     $('.store-pickup-zip-code-field').on('keypress',function (event) {
+        var $googleRecaptchaToken = $('.g-recaptcha-token-bopis-header').val();
         var keycode = (event.keyCode ? event.keyCode : event.which);
+        var $isForm = false;
         if(keycode == '13'){
+            // var isGoogleRecaptchaEnanled = $('.isGoogleRecaptchaEnanled').data('recaptcha-enabled');
             var $searchStore = $('#search-store');
-            getStoreList($searchStore);
+            getStoreList($searchStore, $googleRecaptchaToken, $isForm);
         }
     });
 })
 
-function getStoreList($searchStore) {
+function getStoreList($searchStore, googleRecaptchaToken, isForm) {
     var $zipCode = $('#zip-code');
     var $radius = $('#store-pickup-radius');
-    url = $searchStore.data('url');
-    data = {
+    var $isForm = isForm ? isForm : false;
+    var url = $searchStore.data('url');
+    var recaptchaToken = googleRecaptchaToken ? googleRecaptchaToken : '';
+    var data = {
         zipCode: $zipCode.val(),
         radius: $radius.val(),
-        isSearch: true
+        isSearch: true,
+        isForm: $isForm,
+        googleRecaptchaToken: recaptchaToken
     }
     $('#pickupStoreModal').spinner().start();
     $.ajax({
@@ -29,7 +51,11 @@ function getStoreList($searchStore) {
         type: 'GET',
         data: data,
         success: function (response) {
-            $('#store-list').html(response.html);
+            if (!response.success) {
+                $('#store-list').html('<div class="no-store">' + response.errorMessage + '</div>');
+            } else {
+                $('#store-list').html(response.html);
+            }
             $.spinner().stop();
         },
         error: function (error) {

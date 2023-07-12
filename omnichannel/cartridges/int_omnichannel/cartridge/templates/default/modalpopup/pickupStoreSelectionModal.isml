@@ -3,6 +3,8 @@
     assets.addJs('/js/pickupStoreSelection.js');
 </isscript>
 <!-- Modal -->
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
 <div class="modal fade store-pickup-model" id="pickupStoreModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered store-pickup-model-container" role="document">
@@ -71,8 +73,19 @@
                                 <i class="fa fa-angle-down"></i>
                             </div>
                             <div class="store-pickup-search-store">
-                                <button class="store-pickup-search-store-btn" id="search-store"
-                                        data-pid="${!empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : ''}" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup, 'isSearch', true, 'pid', !empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : '')}'>Search</button>
+                                <button class="store-pickup-search-store-btn bopis-header-btn ${isGoogleRecaptchaEnabled ? 'd-none' : ''}" id="search-store"
+                                        data-pid="${!empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : ''}" 
+                                        data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup, 'isSearch', true, 'pid', !empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : '')}'>Search
+                                </button>
+                                <span class="isGoogleRecaptchaEnanled" data-recaptcha-enabled="${googeRecaptchaSiteKey}"></span>
+                                <isif condition="${isGoogleRecaptchaEnabled}">
+                                    <button class="store-pickup-search-store-btn g-recaptcha" 
+                                            type="submit"
+                                            data-sitekey="${googeRecaptchaSiteKey}" 
+                                            data-callback='onSubmitCaptchaHeaderBopis'>Search
+                                    </button>
+                                    <input type="hidden" class="g-recaptcha-token-bopis-header" />
+                                </isif>
                             </div>
                         </div>
                     </div>

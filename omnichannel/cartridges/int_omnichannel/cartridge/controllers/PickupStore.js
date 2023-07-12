@@ -12,16 +12,46 @@ var StringUtils = require('dw/util/StringUtils');
 var ContentMgr = require('dw/content/ContentMgr');
 
 server.get('GetStoresList', function (req, res, next) {
+    var Resource = require('dw/web/Resource');
+    var Site = require('dw/system/Site');
+
     var radius = req.querystring.radius;
     var pid = req.querystring.pid;
     var zipCode = req.querystring.zipCode;
     var isSearch = req.querystring.isSearch;
     var geolocation = req.geolocation;
+    var isSearched = req.querystring.isForm;
+    var googleRecaptchaToken = req.querystring.googleRecaptchaToken || '';
     var productInventoryInStore = null;
     var productIds = [];
     var path = '/modalpopup/pickupStoreList.isml';
     var tmplate = new Template(path);
     var map = new HashMap();
+
+    var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+    var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+
+    if (isSearched == 'true') {
+        if (isGoogleRecaptchaEnabled) {
+            var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+            if (empty(googleRecaptchaToken)) {
+                res.json ({
+                    success: false,
+                    errorMessage: Resource.msg('store.pickup.search.result.error', 'storePickUp', null)
+                });
+                return next(); 
+            }
+
+            var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+            if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
+                res.json ({
+                    success: false,
+                    errorMessage: Resource.msg('store.pickup.search.result.error', 'storePickUp', null)
+                });
+                return next(); 
+            }
+        }
+    }
 
     if (isSearch) {
         session.privacy.pickupStoreRadius = radius;
