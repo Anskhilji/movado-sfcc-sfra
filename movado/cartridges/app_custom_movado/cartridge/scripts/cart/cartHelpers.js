@@ -734,10 +734,10 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                     Transaction.wrap(function () {
 
                         if (productLineItem) {
-                            var optoionProductLineItems = productLineItem.getOptionProductLineItems().iterator();
+                            var optionProductLineItems = productLineItem.getOptionProductLineItems().iterator();
 
-                            while (optoionProductLineItems.hasNext()) {
-                                var optionLineItem = optoionProductLineItems.next();
+                            while (optionProductLineItems.hasNext()) {
+                                var optionLineItem = optionProductLineItems.next();
 
                                 if (optionLineItem.optionID === pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID) {
                                     optionLineItem.updateOptionValue(optionValue);
