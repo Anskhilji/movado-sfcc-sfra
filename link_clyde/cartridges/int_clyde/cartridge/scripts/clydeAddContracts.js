@@ -117,10 +117,6 @@ function updateClydeProductOption(productId, basket) {
  * @returns {Object} result - The result containg information
  */
 function setClydeCartContracts(productId, clydeSKU, basket) {
-    var engraveMessageLine1;
-    var engraveMessageLine2;
-    var pulseIDAssociatedProductId;
-    var pulseIDPreviewURL;
     var params = {
         clydeContractSku: clydeSKU
     };
@@ -138,52 +134,12 @@ function setClydeCartContracts(productId, clydeSKU, basket) {
                         var clydeWarrantyOption = clydeOptionProduct.optionProduct;
                         var quantity = productLineItem.quantityValue;
                         var position = productLineItem.position;
-                        // basket.removeProductLineItem(productLineItem);
-                        // // Creating new line item
+                        basket.removeProductLineItem(productLineItem);
+                        // Creating new line item
                         var product = ProductMgr.getProduct(productId);
                         var newLineItem = basket.createProductLineItem(product, clydeWarrantyOption, basket.getDefaultShipment());
                         newLineItem.setQuantityValue(quantity);
                         newLineItem.setPosition(position);
-                        //custom Start : PulseID Engraving
-                        var enablePulseIdEngraving = !empty(dw.site.current.preferences.custom.enablePulseIdEngraving) ? dw.site.current.preferences.custom.enablePulseIdEngraving : false;
-                        if (enablePulseIdEngraving) {
-                            pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
-                            var addEngraveContract = require('*/cartridge/scripts/engravingAddContracts.js');
-                            var optionItem;
-                            var optionLineItem = productLineItem.optionProductLineItems.toArray();
-                            optionLineItem.filter(function (items) {
-                                if (items.optionID == pulseIdConstants.ENGRAVING_ID) {
-                                    optionItem = items;
-                                    return;
-                                }
-                            })
-                        }
-                        if (newLineItem && enablePulseIdEngraving && productLineItem.optionProductLineItems && productLineItem.optionProductLineItems.length > 0 && optionItem.optionID == pulseIdConstants.ENGRAVING_ID) {
-                            var optionProductLineItems = newLineItem.getOptionProductLineItems().iterator();
-                            while (optionProductLineItems.hasNext()) {
-                                var optionLineItem = optionProductLineItems.next();
-                                if (optionLineItem.optionID !== clydeConstants.CLYDE_OPTION_PRODUCT_ID) {
-                                    engraveMessageLine1 = optionItem.custom.engraveMessageLine1 ? optionItem.custom.engraveMessageLine1 : '';
-                                    engraveMessageLine2 = optionItem.custom.engraveMessageLine2 ? optionItem.custom.engraveMessageLine2 : '';
-                                    pulseIDAssociatedProductId = optionItem.custom.pulseIDAssociatedProductId ? optionItem.custom.pulseIDAssociatedProductId : '';
-                                    pulseIDPreviewURL = optionItem.custom.pulseIDPreviewURL ? optionItem.custom.pulseIDPreviewURL : '';
-                                    var engravedOptions = addEngraveContract.getEngravingSelectedOptionProduct(productId);
-                                    var optionValue = '';
-                                    if (!empty(engravedOptions.optionProduct)) {
-                                        optionValue = engravedOptions.optionValue;
-                                    }
-                                    if (optionItem) {
-                                        optionLineItem.updateOptionValue(optionValue);
-                                        optionLineItem.custom.engraveMessageLine1 = engraveMessageLine1;
-                                        optionLineItem.custom.engraveMessageLine2 = engraveMessageLine2;
-                                        optionLineItem.custom.pulseIDAssociatedProductId = pulseIDAssociatedProductId;
-                                        optionLineItem.custom.pulseIDPreviewURL = pulseIDPreviewURL
-                                    }
-                                }
-                            }
-                        }
-                        //custom End : PulseID Engraving
-                        basket.removeProductLineItem(productLineItem);
                     });
                 } else {
                     result.error = true;
