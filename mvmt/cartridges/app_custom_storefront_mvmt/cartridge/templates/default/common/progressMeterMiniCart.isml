@@ -2,7 +2,7 @@
     <div class="progress-meter-container progress-meter-container-minicart" data-mini-cart="${pdict.isMiniCart ? true : false}">
         <isif condition="${pdict.totals.progressBarGrandTotal >= pdict.conditionThresholdCurrencyValue}">
             <div class="got-free-shipping ${pdict.isOrderLevelPromotion ? 'free-order-text' : 'free-shipping-text' } d-flex align-items-center justify-content-center">
-                <img src="${pdict.isOrderLevelPromotion ? pdict.orderLevelPromoImg : pdict.shippingLevelPromoImg}" alt="${!empty(pdict.progressBarSuccessMsg) ? pdict.progressBarSuccessMsg : ''}">
+                <img src="${pdict.isOrderLevelPromotion ? pdict.orderLevelPromoImg : pdict.shippingLevelPromoImgMiniCart}" alt="${!empty(pdict.progressBarSuccessMsg) ? pdict.progressBarSuccessMsg : ''}">
                 <isif condition="${!empty(pdict.progressBarSuccessMsg)}">
                     <p>${pdict.progressBarSuccessMsg}</p>
                 </isif>
