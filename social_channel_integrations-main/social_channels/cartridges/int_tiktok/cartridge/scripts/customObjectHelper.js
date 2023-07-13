@@ -134,7 +134,7 @@ function fillFormFromCustomObject(tikTokSettings, tenantId, fillCredentials) {
         website_url: 'website'
     };
 
-    Object.keys(externalValuesToSet).forEach((key) => {
+    Object.keys(externalValuesToSet).forEach(function (key) {
         if (!Array.isArray(externalValuesToSet[key]) && !(typeof externalValuesToSet[key] === 'object')) {
             var formKey = externalValuesToSet[key];
             if (externalData && Object.hasOwnProperty.call(externalData, key)) {
@@ -144,7 +144,8 @@ function fillFormFromCustomObject(tikTokSettings, tenantId, fillCredentials) {
             }
         }
     });
-    Object.keys(externalValuesToSet.extra).forEach((key) => {
+
+    Object.keys(externalValuesToSet.extra).forEach(function (key) {
         var formKey = externalValuesToSet.extra[key];
         if (externalData && Object.hasOwnProperty.call(externalData.extra, key)) {
             form[formKey].value = externalData.extra[key] || '';

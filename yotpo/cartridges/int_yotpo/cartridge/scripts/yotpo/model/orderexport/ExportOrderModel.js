@@ -459,26 +459,28 @@ function exportOrder() {
                 '\n Total Orders to Process - ' + ordersIterator.count, 'debug', logLocation);
 
             while (ordersIterator.hasNext()) {
-                payload = prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig);
-                if (!empty(payload)) {
-                    authenticationError = sendOrdersToYotpo(payload, yotpoAppKey);
-
-                    if (authenticationError) {
-                        authenticationResult = AuthenticationModel.authenticate(yotpoConfiguration);
-                        utokenAuthCode = authenticationResult.updatedUTokenAuthCode;
-                        updateUToken(currentLocaleID, utokenAuthCode);
-                        payload = updateUTokenInOrderJSON(utokenAuthCode, payload);
-
-                        // retry export
+                if (ordersIterator.getChannelType() != ordersIterator.CHANNEL_TYPE_TIKTOK) {
+                    payload = prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig);
+                    if (!empty(payload)) {
                         authenticationError = sendOrdersToYotpo(payload, yotpoAppKey);
 
-                        // If the error persist then should terminate here
                         if (authenticationError) {
-                            throw Constants.EXPORT_ORDER_RETRY_ERROR;
+                            authenticationResult = AuthenticationModel.authenticate(yotpoConfiguration);
+                            utokenAuthCode = authenticationResult.updatedUTokenAuthCode;
+                            updateUToken(currentLocaleID, utokenAuthCode);
+                            payload = updateUTokenInOrderJSON(utokenAuthCode, payload);
+
+                            // retry export
+                            authenticationError = sendOrdersToYotpo(payload, yotpoAppKey);
+
+                            // If the error persist then should terminate here
+                            if (authenticationError) {
+                                throw Constants.EXPORT_ORDER_RETRY_ERROR;
+                            }
                         }
                     }
                 }
-            }// end of while
+            } // end of while
         }
     }// end of for
 
