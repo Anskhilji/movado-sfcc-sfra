@@ -167,11 +167,13 @@ function search(element) {
     var url = $form.attr('action');
     var countryCode = $form.find('[name="countryCode"]').val();
     var address = $form.find('[name="address"]').val();
+    var isForm = true;
 
     var urlParams = {
         radius: radius,
         countryCode: countryCode,
-        address: address
+        address: address,
+        isForm: isForm
     };
 
     var payload = $form.is('form') ? $form.serialize() : {
@@ -267,18 +269,21 @@ module.exports = {
             var radius = $(this).val();
             var searchKeys = $('.results').data('search-key');
             var url = $('.radius').data('action-url');
+            var isForm = false;
             var urlParams = {};
 
             if (searchKeys.postalCode) {
                 urlParams = {
                     radius: radius,
-                    postalCode: searchKeys.postalCode
+                    postalCode: searchKeys.postalCode,
+                    isForm: isForm
                 };
             } else if (searchKeys.lat && searchKeys.long) {
                 urlParams = {
                     radius: radius,
                     lat: searchKeys.lat,
-                    long: searchKeys.long
+                    long: searchKeys.long,
+                    isForm: isForm
                 };
             }
 
