@@ -372,8 +372,9 @@ exports.prepareBasket = function (basket, parameters) {
         var appleEmbossedMessage = session.custom.appleEmbossedMessage;
         var appleEngravedMessage = session.custom.appleEngravedMessage;
         var pulseIDPreviewURL = session.custom.pulseIDPreviewURL;
+        var appleProductId = session.custom.appleProductId;
 
-        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL);
+        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL, appleProductId);
         // sample data for testing
         // updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
     }
@@ -395,7 +396,7 @@ exports.prepareBasket = function (basket, parameters) {
  * @param engravedMessage
  * @returns
  */
-function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL) {
+function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL, appleProductId) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
     // since there will be only on Product from PDP/ Quick view
     var pli = lineItemCtnr.productLineItems[0];
@@ -438,6 +439,7 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
                         option.updateOptionPrice();
                         if (engravedMessage) {
                             option.custom.pulseIDPreviewURL = pulseIDPreviewURL;
+                            option.custom.pulseIDAssociatedProductId = appleProductId;
                             // code to split the message based on newline character
                             engravedMessage = engravedMessage.split(NEWLINE);
                             option.custom.engraveMessageLine1 = engravedMessage[0];
