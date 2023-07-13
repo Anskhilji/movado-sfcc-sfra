@@ -1396,7 +1396,7 @@ movadoBase.addToCart = function () {
         var giftPid;
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
-        $('body').addClass('scroll-remove');
+        $('body,html').addClass('scroll-remove');
 
         if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
             setPids = [];

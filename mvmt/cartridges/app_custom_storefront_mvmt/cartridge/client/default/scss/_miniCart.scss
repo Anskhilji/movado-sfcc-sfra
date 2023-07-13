@@ -2055,5 +2055,7 @@
 }
 
 .scroll-remove {
+    position: relative;
     overflow: hidden;
+    height: 100%;
 }
