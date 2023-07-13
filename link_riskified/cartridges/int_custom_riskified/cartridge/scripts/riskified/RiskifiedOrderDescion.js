@@ -137,7 +137,7 @@ function orderDeclined(order, riskifiedOrderStatus) {
         
         var riskApproved = URLUtils.https('Checkout-RiskApproved').toString();
         var riskDeclined = URLUtils.https('Checkout-Declined').toString();
-        var cartShow = URLUtils.https('Cart-Show', 'shopperRecoverySuccess', Resource.msg('shopper.recovery.success', 'checkout', null)).toString();
+        var cartShow = URLUtils.https('Cart-Show', 'shopperRecoverySuccess', Resource.msg('shopper.recovery.success.cart', 'checkout', null)).toString();
         var paymentMethod = order.paymentInstruments.length > 0 ? order.paymentInstruments[0].paymentMethod : '';
         var successUrl;
 

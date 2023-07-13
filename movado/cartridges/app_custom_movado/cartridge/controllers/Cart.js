@@ -376,7 +376,7 @@ server.prepend(
                 basketCalculationHelpers.calculateTotals(currentBasket);
             }
         });
-        customCartHelpers.updateOptionLineItemAfterShopperRecovery(currentBasket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL);
+        customCartHelpers.updateOptionLineItemAfterShopperRecovery(currentBasket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL, productId);
 
         delete session.custom.applePaySku;
         delete session.privacy.applePayBasketReOpen;
