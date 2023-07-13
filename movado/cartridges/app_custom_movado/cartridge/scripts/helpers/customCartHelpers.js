@@ -431,7 +431,7 @@ var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
 var PULSEID_ENGRAVING = 'pulseIdEngraving';
 var NEWLINE = '\n';
-function updateOptionLineItemAfterShopperRecovery(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL, productId) {
+function updateOptionLineItemAfterShopperRecovery(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL) {
     // since there will be only on Product from PDP/ Quick view
     var pli = lineItemCtnr.productLineItems[0];
     if (pli.optionProductLineItems) {
@@ -473,7 +473,6 @@ function updateOptionLineItemAfterShopperRecovery(lineItemCtnr, embossOptionID, 
                         option.updateOptionPrice();
                         if (engravedMessage) {
                             option.custom.pulseIDPreviewURL = pulseIDPreviewURL;
-                            option.custom.pulseIDAssociatedProductId = productId;
                             // code to split the message based on newline character
                             engravedMessage = engravedMessage.split(NEWLINE);
                             option.custom.engraveMessageLine1 = engravedMessage[0];
