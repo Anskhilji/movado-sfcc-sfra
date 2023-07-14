@@ -52,7 +52,7 @@ $('#newsletterSubscribe').submit(function (e) {
                 $.ajax({
                     url: endPointUrl,
                     method: 'POST',
-                    data: { email: inputValue },
+                    data: { email: inputValue, pageType: 'footer' },
                     success: processSubscription,
                     error: function () { $.spinner().stop(); }
                 });
@@ -140,7 +140,7 @@ $('#newsletterSubscribePDP').submit(function (e) {
                 $.ajax({
                     url: $actionUrl,
                     method: 'POST',
-                    data: { email: $emailInputValue },
+                    data: { email: $emailInputValue, pageType: 'pdp' },
                     success: processSubscriptionPDP,
                     error: function () { $.spinner().stop(); }
                 });

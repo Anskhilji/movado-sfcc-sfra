@@ -16,3 +16,13 @@
 ## listrak/cartridges/bm_listrak/cartridge/scripts/sync/ltkOrderSync.js
     -Line 83: Added column with Meta 1 name for local price
     -Line 161: Get Local Price for product
+
+## listrak/cartridges/bm_listrak/cartridge/scripts/objects/ltkProduct.js
+    -Line 79-83: Created custom variables
+    -Line 204-210: Assigned Values to custom variables
+    -Line 587-642: Implemented Logic to get product attribute values 
+
+## listrak/cartridges/bm_listrak/cartridge/scripts/sync/ltkProductSync.js
+    -Line 127-134: Added column with name Meta2,Meta3,Meta4,Color,Style,Size
+    -Line 190-194: Updated brand column of product
+    -Line 306-314: Updated Meta2,Meta3,Meta4,Color,Style,Size columns of product

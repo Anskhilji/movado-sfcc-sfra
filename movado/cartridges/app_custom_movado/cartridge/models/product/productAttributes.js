@@ -61,8 +61,9 @@ function getAllAttrValues(
             if (isSwatchable(attr.attributeID)) {
                 processedAttr.images = new ImageModel(value, { types: ['swatch'], quantity: 'all' });
                 // Custom Start : getting large type image against each variant
-                var largeImages = new ImageModel(value, { types: ['tile150', 'tile640Xtile764', 'tile512Xtile640', 'tile640'], quantity: 'all' });
+                var largeImages = new ImageModel(value, { types: ['tile150', 'tile640Xtile764', 'tile512Xtile640', 'tile640', 'swatch300X300'], quantity: 'all' });
                 processedAttr.tileImage150 = !empty(largeImages.tile150[0]) ? largeImages.tile150[0] : '';
+                processedAttr.swatch300X300 = !empty(largeImages.swatch300X300[0]) ? largeImages.swatch300X300[0] : '';
                 processedAttr.tile640Xtile764 = !empty(largeImages.tile640Xtile764[0]) ? largeImages.tile640Xtile764[0] : '';
                 processedAttr.tile512Xtile640 = !empty(largeImages.tile512Xtile640[0]) ? largeImages.tile512Xtile640[0] : '';
                 processedAttr.tile640 = !empty(largeImages.tile640[0]) ? largeImages.tile640[0] : '';

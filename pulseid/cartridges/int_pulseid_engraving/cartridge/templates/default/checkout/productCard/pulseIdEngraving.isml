@@ -1,0 +1,29 @@
+<isscript>
+    var assets = require('*/cartridge/scripts/assets');
+    assets.addCss('/css/pulseIdEngraving.css');
+</isscript>
+<isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isloop items="${pdict.order.items.items}" var="item" status="loopstatus">
+    <isif condition="${item.isPulseIDEngravingEnabled && sitePref.enablePulseIdEngraving}">
+        <isloop items="${item.options}" var="option" status="loopstatus">
+            <isif
+                condition="${option.optionId === Resource.msg('label.product.pulseId.engraving', 'product', 'null') && item.UUID == lineItem.UUID}">
+                <div class="engraving-checkout">
+                    <div class="engraving-info-checkout d-flex">
+                        ${Resource.msg('label.product.engraving', 'product', 'null')}
+                        <iscontentasset aid="pulseidEngravingPrice" />
+                    </div>
+                </div>
+                <div class="engraved-action-checkout w-100">
+                    <span class="engraved-text-one d-block">
+                        ${option.custom.engraveMessageLine1 ? option.custom.engraveMessageLine1 : ''}
+                    </span>
+                    <span class="engraved-text-two">
+                        ${option.custom.engraveMessageLine2 ? option.custom.engraveMessageLine2 : ''}
+                    </span>
+                </div>
+            </isif>
+        </isloop>
+    </isif>
+</isloop>
