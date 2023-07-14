@@ -24,7 +24,6 @@ var URLUtils = require('dw/web/URLUtils');
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
-    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
 
@@ -91,7 +90,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
-    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
+
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -110,8 +109,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         collectionName: collectionName,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
-        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
-        popupID: listrakPersistentPopup
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
     };
 
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);

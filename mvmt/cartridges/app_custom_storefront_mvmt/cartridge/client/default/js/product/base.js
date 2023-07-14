@@ -158,20 +158,6 @@ function loadAmazonButton() {
     }, 200)
 }
 
-function renderSwellRedemptionOptions() {
-    if (typeof swellAPI !== 'undefined') {
-        $("#swell-redemption-dropdown").empty();
-        $("#swell-redemption-dropdown").append('<option>Please select an option</option>');
-        swellAPI.getActiveRedemptionOptions().forEach(option => {
-            if (option.discountType === "price_adjustment_fixed_amount") {
-                $("#swell-redemption-dropdown").append(
-                    $("<option>").val(option.id).text(`${option.name} = ${option.costText}`)
-                )
-            }
-        });
-    }
-}
-
 function hideMiniCartCheckbox() {
     if ($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
         $('.product-card-wrapper .gift-allowed-checkbox-mini').hide();
@@ -192,7 +178,6 @@ function openMiniCart() {
             setMiniCartProductSummaryHeight();
             giftMessageTooltip();
             checkGiftBoxItem();
-            renderSwellRedemptionOptions();
             $('.mini-cart-data .popover').addClass('show');
             $('body').trigger('miniCart:recommendations');
             updateMiniCart = false;
@@ -221,8 +206,10 @@ function openMiniCart() {
 function updateCartIcons() {
     var $cartItems = $('.cart-quantity-items').data('quantity-id');
     var $cartIcon = $('.cart-icon');
+    var $cartCounter = $('.cart-counter');
     if ($cartItems !== undefined && $cartItems !== 0) {
         $cartIcon.addClass('fill-cart-icon');
+        $cartCounter.addClass('fill-cart-count');
     }
 }
 
@@ -1252,6 +1239,24 @@ function handleVariantResponse(response, $productContainer) {
     })
 }
 
+function updateUrl(response) {
+    var $updatedUrl;
+
+    if (response && response.pdpVariationsUrl && response.pdpVariationsUrl.values.length > 0) {
+        var $variationsObject = response.pdpVariationsUrl.values;
+
+        $variationsObject.forEach(function(el, index) {
+            if (el.selected == true) {
+                $updatedUrl = el.pdpURL;
+            }
+        });
+
+        if ($updatedUrl) {
+            history.pushState({}, null, $updatedUrl);
+        }
+    }
+}
+
 /**
  * Updates the quantity DOM elements post Ajax call
  * @param {UpdatedQuantity[]} quantities -
@@ -1285,6 +1290,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
             method: 'GET',
             success: function (data) {
                 handleVariantResponse(data, $productContainer);
+                updateUrl(data.product);
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
@@ -1409,6 +1415,7 @@ movadoBase.addToCart = function () {
         var giftPid;
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
+        $('body, html').addClass('scroll-remove');
 
         if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
             setPids = [];

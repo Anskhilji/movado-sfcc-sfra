@@ -92,7 +92,7 @@ footer {
             @include media-breakpoint-down(sm) {
                 width: 100%;
                 max-width: 100%;
-                border-bottom: rem(1) solid $grey-transparent-9;
+                border-bottom: rem(1) solid $grey-transparent-11;
                 padding-bottom: rem(22);
                 text-align: center;
             }
@@ -105,7 +105,7 @@ footer {
             @include media-breakpoint-down(sm) {
                 width: 100%;
                 padding: rem(22) rem(0);
-                border-bottom: rem(1) solid $grey-transparent-9;
+                border-bottom: rem(1) solid $grey-transparent-11;
                 text-align: center;
                 max-width: 100%;
             }
@@ -253,7 +253,7 @@ footer {
 
         @include media-breakpoint-down(sm) {
             margin-top: rem(22);
-            border-color: $grey-transparent-9;
+            border-color: $grey-transparent-11;
             padding-top: rem(22);
         }
 
@@ -325,7 +325,7 @@ footer {
             padding-bottom: rem(34);
 
             @include media-breakpoint-down(sm) {
-                border-top: rem(1) solid $grey-transparent-9;
+                border-top: rem(1) solid $grey-transparent-11;
                 padding: rem(22) rem(0) rem(40);
             }
 
@@ -356,7 +356,7 @@ footer {
         inset: 0;
         height: 100%;
         width: 100%;
-        background-color: $grey-transparent-10;
+        background-color: $grey-transparent-12;
     }
 
     .modal-box {

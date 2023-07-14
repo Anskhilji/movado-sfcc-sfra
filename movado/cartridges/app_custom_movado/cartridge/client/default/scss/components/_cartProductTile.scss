@@ -90,6 +90,76 @@
             letter-spacing: rem(0.7);
             color: $grey18;
         }
+
+        .engraving-box {
+            padding-bottom: rem(20);
+            border-bottom: rem(1) solid transparent;
+            max-width: rem(376);
+            width: 100%;
+            margin-top: rem(12);
+
+            .engraving-form {
+
+                .engraving-btn {
+                    display: none;
+                }
+
+                .engraving {
+                    &-info {
+                        font-size: rem(16);
+                        font-weight: bold;
+                        letter-spacing: 0;
+                        line-height: rem(21);
+                        @include font-book;
+                        font-weight: 500
+                    }
+                }
+            }
+
+            .remove-engraved {
+                color: $black;
+                @include font-demi;
+                font-weight: 600;
+                font-size: rem(13);
+                background: none;
+                border: rem(1) solid $black;
+                padding: rem(4) rem(15);
+                border-radius: rem(20);
+                background: url("../../images/pulseid-remove-engraving.svg") left rem(12) center no-repeat;
+                background-size: rem(12);
+                outline: none;
+                padding-left: rem(30);
+                letter-spacing: normal;
+                box-shadow: none;
+                text-transform: capitalize;
+                line-height: rem(18);
+                cursor: pointer;
+
+                &:hover {
+                    background: $black url("../../images/pulseid-remove-white.svg") left rem(12) center no-repeat;
+                    background-size: rem(12);
+                    color: $white;
+                    transition: 0.3s;
+                }
+
+                &.focus {
+                    box-shadow: none;
+                }
+            }
+
+            .engraved-text {
+                @include font-demi;
+                font-size: rem(13);
+                line-height: rem(18);
+                letter-spacing: normal;
+                color: $black;
+                margin-top: rem(0);
+            }
+
+            .popup {
+                display: none;
+            }
+        }
       }
   }
 
