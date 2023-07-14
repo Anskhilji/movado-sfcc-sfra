@@ -2,7 +2,6 @@
 
 var server = require('server');
 
-
 var BasketMgr = require('dw/order/BasketMgr');
 var ContentMgr = require('dw/content/ContentMgr');
 var HashMap = require('dw/util/HashMap');
@@ -10,7 +9,6 @@ var OmniChannelLog = require('dw/system/Logger').getLogger('omniChannel');
 var StoreMgr = require('dw/catalog/StoreMgr');
 var StringUtils = require('dw/util/StringUtils');
 var Template = require('dw/util/Template');
-
 
 var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
 var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
@@ -34,7 +32,6 @@ server.get('GetStoresList', function (req, res, next) {
     var map = new HashMap();
 
     var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
-    
 
     if (isSearched == 'true') {
         if (isGoogleRecaptchaEnabled) {
