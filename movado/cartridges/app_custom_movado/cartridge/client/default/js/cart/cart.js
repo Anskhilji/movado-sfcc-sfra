@@ -254,8 +254,8 @@ function updateAvailability(data, uuid) {
 
             if (lineItem.availability.inStockDate) {
                 messages += '<p class="line-item-attributes line-item-instock-date">'
-                    + lineItem.availability.inStockDate
-                    + '</p>';
+                + lineItem.availability.inStockDate
+                + '</p>';
             }
         }
         lineItemAvailability.html(messages);
