@@ -81,7 +81,9 @@
     }
     
     .popover {
+
         .product-summary {
+            
             &:has(.progress-meter, .got-free-shipping ) {
                 padding-top: rem(0);
             }
