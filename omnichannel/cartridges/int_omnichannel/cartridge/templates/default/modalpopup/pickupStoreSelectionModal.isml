@@ -75,14 +75,13 @@
                             <div class="store-pickup-search-store">
                                 <button class="store-pickup-search-store-btn bopis-header-btn ${isGoogleRecaptchaEnabled ? 'd-none' : ''}" id="search-store"
                                         data-pid="${!empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : ''}" 
-                                        data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup, 'isSearch', true, 'pid', !empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : '')}'>Search
+                                        data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup, 'isSearch', true, 'pid', !empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : '')}'>${Resource.msg('store.pickup.search.button.text', 'storePickUp', null)}
                                 </button>
-                                <span class="isGoogleRecaptchaEnanled" data-recaptcha-enabled="${googeRecaptchaSiteKey}"></span>
                                 <isif condition="${isGoogleRecaptchaEnabled}">
                                     <button class="store-pickup-search-store-btn g-recaptcha" 
                                             type="submit"
                                             data-sitekey="${googeRecaptchaSiteKey}" 
-                                            data-callback='onSubmitCaptchaHeaderBopis'>Search
+                                            data-callback='onSubmitCaptchaHeaderBopis'>${Resource.msg('store.pickup.search.button.text', 'storePickUp', null)}
                                     </button>
                                     <input type="hidden" class="g-recaptcha-token-bopis-header" />
                                 </isif>

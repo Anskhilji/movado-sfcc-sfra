@@ -77,7 +77,7 @@ server.replace('FindStores', function (req, res, next) {
     if (isSearched == "true") {
         if (isGoogleRecaptchaEnabled) {
             var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
-            var googleRecaptchaToken = storeLocatorForm && storeLocatorForm.customer && storeLocatorForm.customer.grecaptchatoken && storeLocatorForm.customer.grecaptchatoken.value;
+            var googleRecaptchaToken = !empty(storeLocatorForm) && !empty(storeLocatorForm.customer) && !empty(storeLocatorForm.customer.grecaptchatoken) && !empty(storeLocatorForm.customer.grecaptchatoken.value) ? storeLocatorForm.customer.grecaptchatoken.value : '';
             if (empty(googleRecaptchaToken)) {
                 res.json ({
                     success: false,

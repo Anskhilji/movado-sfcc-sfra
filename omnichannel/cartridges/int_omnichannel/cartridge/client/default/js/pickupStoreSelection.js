@@ -1,27 +1,28 @@
 'use strict';
 
 $(document).ready(function () {
+    var $googleRecaptchaToken;
+    var $isForm = false;
+
     window.onSubmitCaptchaHeaderBopis = function (token) {
-        $(document).ready(function () {
-            var $submitBtn = $('.bopis-header-btn');
-            var $gCaptchaBopisHeaderInput = $('.g-recaptcha-token-bopis-header');
-            $($gCaptchaBopisHeaderInput).val(token);
-            $($submitBtn).click();
-        });
+        var $submitBtn = $('.bopis-header-btn');
+        var $gCaptchaBopisHeaderInput = $('.g-recaptcha-token-bopis-header');
+        $($gCaptchaBopisHeaderInput).val(token);
+        $($submitBtn).click();
     }
 
     var $searchStore = $('#search-store');
     $searchStore.click(function () {
-        var $googleRecaptchaToken = $('.g-recaptcha-token-bopis-header').val();
-        var $isForm = true;
+        $googleRecaptchaToken = $('.g-recaptcha-token-bopis-header').val();
+        $isForm = true;
         getStoreList($searchStore, $googleRecaptchaToken, $isForm);
     });
 
     $('.store-pickup-zip-code-field').on('keypress',function (event) {
-        var $googleRecaptchaToken = $('.g-recaptcha-token-bopis-header').val();
         var keycode = (event.keyCode ? event.keyCode : event.which);
-        var $isForm = false;
+
         if(keycode == '13') {
+            $googleRecaptchaToken = null;
             var $searchStore = $('#search-store');
             getStoreList($searchStore, $googleRecaptchaToken, $isForm);
         }
@@ -32,7 +33,7 @@ function getStoreList($searchStore, googleRecaptchaToken, isForm) {
     var $zipCode = $('#zip-code');
     var $radius = $('#store-pickup-radius');
     var $isForm = isForm ? isForm : false;
-    var url = $searchStore.data('url');
+    var $url = $searchStore.data('url');
     var recaptchaToken = googleRecaptchaToken ? googleRecaptchaToken : '';
     var data = {
         zipCode: $zipCode.val(),
@@ -43,7 +44,7 @@ function getStoreList($searchStore, googleRecaptchaToken, isForm) {
     }
     $('#pickupStoreModal').spinner().start();
     $.ajax({
-        url: url,
+        url: $url,
         type: 'GET',
         data: data,
         success: function (response) {
