@@ -6,7 +6,7 @@
 <div class="line-item-availability mb-2 availability-${lineItem.UUID}">
     <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
         <isif condition="${lineItem.productATSValue <= lowStockThreshold}">
-            <p class="line-item-attributes">
+            <p class="line-item-attributes low-stock-availability">
                 <iscontentasset aid="ca-low-stock-message-cart" />
             </p>
         <iselse/>
