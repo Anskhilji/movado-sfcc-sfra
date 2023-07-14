@@ -1,4 +1,3 @@
-
 'use strict';
 var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Logger = require('dw/system/Logger').getLogger('PulseID', 'PluseID');
@@ -9,12 +8,12 @@ var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
 
 function pulseIdAPICall(payLoad, service) {
     var responsePayload = null;
-    
+
     var result = {
         success: false,
         response: null
     }
-    
+
     try {
         responsePayload = service.call(payLoad);
     } catch (e) {
@@ -62,7 +61,7 @@ function savePulseObj(orderID) {
     var UUID = UUIDUtils.createUUID();
     try {
         if (!empty(orderID)) {
-            Transaction.wrap( function() {
+            Transaction.wrap(function () {
                 var pulseCustomObject = CustomObjectMgr.createCustomObject(pulseIdConstants.PULSE_ID_CUSTOM_OBJ, UUID);
                 pulseCustomObject.custom.orderId = orderID;
             });
@@ -75,6 +74,7 @@ function savePulseObj(orderID) {
 
 function setPulseJobID(order) {
     if (order && order.productLineItems.length > 0) {
+
         Transaction.wrap(function () {
             for (var i = 0; i < order.productLineItems.length; i++) {
                 var optionProductLineItems = order.productLineItems[i].optionProductLineItems.toArray();
@@ -83,7 +83,6 @@ function setPulseJobID(order) {
                     if (optionItem.optionID == pulseIdConstants.ENGRAVING_ID) {
                         order.custom.IsPulseIDEngraved = true;
                         optionItem.custom.pulseIDJobId = pulseIDJobId;
-                        savePulseObj(order.orderNo);
                         return;
                     }
                 });
