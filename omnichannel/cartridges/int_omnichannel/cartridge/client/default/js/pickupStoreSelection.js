@@ -29,12 +29,11 @@ $(document).ready(function () {
     });
 })
 
-function getStoreList($searchStore, googleRecaptchaToken, isForm) {
+function getStoreList($searchStore, $googleRecaptchaToken, $isForm) {
     var $zipCode = $('#zip-code');
     var $radius = $('#store-pickup-radius');
-    var $isForm = isForm ? isForm : false;
     var $url = $searchStore.data('url');
-    var $recaptchaToken = googleRecaptchaToken ? googleRecaptchaToken : '';
+    var $recaptchaToken = $googleRecaptchaToken ? $googleRecaptchaToken : '';
     var data = {
         zipCode: $zipCode.val(),
         radius: $radius.val(),
