@@ -1697,7 +1697,7 @@ module.exports = {
                     var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
                     var clydeWidgetDisplayPDP = Resources.CLYDE_WIDGET_DISPLAY_PDP_ENABLED;
                     if (clydeWidgets && clydeWidgetsDisplay) {
-                        try { // ADD
+                        try {
                             var selectedContract = Clyde.getSelectedContract();
                             var clydeSettings = Clyde.getSettings();
                             if (clydeSettings) {
@@ -1721,8 +1721,8 @@ module.exports = {
                             } else {
                                 clydeAddProductToCart();
                             }
-                        } catch (e) { // ADD
-                            clydeAddProductToCart(); // ADD
+                        } catch (e) {
+                            clydeAddProductToCart();
                         }
                     } else {
                         clydeAddProductToCart();
