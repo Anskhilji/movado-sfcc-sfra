@@ -75,6 +75,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
             var pid = apiProduct.variationModel.defaultVariant.getID();
             params.pid = pid;
             apiProduct = productMgr.getProduct(pid);
+            customURL = productCustomHelper.getPLPCustomURL(apiProduct);
         }
         var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
 
