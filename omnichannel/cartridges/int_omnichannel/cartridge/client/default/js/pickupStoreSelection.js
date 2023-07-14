@@ -6,8 +6,6 @@ $(document).ready(function () {
             var $submitBtn = $('.bopis-header-btn');
             var $gCaptchaBopisHeaderInput = $('.g-recaptcha-token-bopis-header');
             $($gCaptchaBopisHeaderInput).val(token);
-            console.log($gCaptchaBopisHeaderInput);
-
             $($submitBtn).click();
         });
     }
@@ -23,8 +21,7 @@ $(document).ready(function () {
         var $googleRecaptchaToken = $('.g-recaptcha-token-bopis-header').val();
         var keycode = (event.keyCode ? event.keyCode : event.which);
         var $isForm = false;
-        if(keycode == '13'){
-            // var isGoogleRecaptchaEnanled = $('.isGoogleRecaptchaEnanled').data('recaptcha-enabled');
+        if(keycode == '13') {
             var $searchStore = $('#search-store');
             getStoreList($searchStore, $googleRecaptchaToken, $isForm);
         }
@@ -50,7 +47,7 @@ function getStoreList($searchStore, googleRecaptchaToken, isForm) {
         type: 'GET',
         data: data,
         success: function (response) {
-            if (!response.success) {
+            if (data.hasOwnProperty('success') && response.success == false) {
                 $('#store-list').html('<div class="no-store">' + response.errorMessage + '</div>');
             } else {
                 $('#store-list').html(response.html);
