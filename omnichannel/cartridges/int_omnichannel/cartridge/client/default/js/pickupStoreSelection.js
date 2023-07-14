@@ -57,10 +57,11 @@ $(document).on('click', '.store-pickup-select', function () {
         var storeCity = storePickup.city;
         var storeCountryCode = storePickup.countryCode;
         
-        $('.set-your-store').text(storePickup.address1);
+        $('.set-your-store, .store-address').text(storePickup.address1);
         $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
         $('.pick-up-store-change-store').text('Change');
         $('#pickupStoreModal').modal('hide');
+        $('.seleced-store img').removeClass('d-none');
         if (storePickup.inventory && storePickup.inventory[0].records[0].ato > 0) {
             $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available');
             $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-inventory-icon InStock-icon-times');
