@@ -502,7 +502,6 @@
             overflow: auto;
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
-            padding-top: rem(25);
             width: 100%;
             padding-bottom: 0 !important; // i'm using important to overwrite inline css
             z-index: 1;
@@ -848,7 +847,6 @@
         }
 
         .minicart-footer, .coupon-code-field-static {
-            overflow: hidden;
             padding: 0;
             bottom: 0;
             width: 100%;
