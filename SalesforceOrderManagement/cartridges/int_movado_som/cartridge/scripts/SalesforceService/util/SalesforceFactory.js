@@ -40,7 +40,8 @@ var SalesforceFactory = {
         CUSTOMERORDERHISTORY: '/services/apexrest/orderhistory',
         ERROREMAIL: '/services/apexrest/parseOrderEmailRest',
         OPERATIONLOG: APIROOT + '/sobjects/Operation_Log__c',
-        UPDATEBEAMORDER: APIROOT + '/sobjects/OrderSummary/OrderNumber/'
+        UPDATEBEAMORDER: APIROOT + '/sobjects/OrderSummary/OrderNumber/',
+        QUERYURL: APIROOT + '/query?q={query}'
     },
 
     /**

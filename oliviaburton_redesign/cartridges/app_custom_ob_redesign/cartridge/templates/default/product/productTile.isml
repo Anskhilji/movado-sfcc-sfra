@@ -35,13 +35,13 @@
 
                 <isinclude template="product/components/productTileName" />
                 <div class="plp-swatches-wrapper">
-                    <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                    <isif condition="${pdict.display.swatches !== false && product.productType == 'master' || product.productType == 'variationGroup'}">
                         <isinclude template="product/components/productTileSwatch" />
                     </isif>
                 </div>
 
                 <div class="pricing-save">
-                    <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
+                    <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice) || product.productType == 'variationGroup'}">
                         <isset name="price" value="${product.defaultVariantPrice}" scope="page" />
                     <iselse/>
                         <isset name="price" value="${product.price}" scope="page" />

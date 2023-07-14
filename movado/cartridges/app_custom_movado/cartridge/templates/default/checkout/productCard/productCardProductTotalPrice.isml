@@ -18,8 +18,16 @@
     </isscript>
 </isif>
 <isif condition="${lineItem.priceTotal.savingPrice > 0}">
-    <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> mb-2 original-price" price-value="${lineItem && lineItem.priceTotal && lineItem.priceTotal.nonAdjustedPriceValue ? lineItem.priceTotal.nonAdjustedPriceValue : 0}">
-        ${Resource.msg('cart.label.price','cart',null)}
+    <isset name="pulseIdEngravingOption" value=${false} scope="page">
+    <isloop items="${lineItem.options}" var="option">
+        <isif condition="${option && option.optionId == 'pulseIdEngraving'}">
+            <isset name="pulseIdEngravingOption" value=${true} scope="page">
+        </isif>
+    </isloop>
+    <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> mb-2 original-price"
+        price-value="${pulseIdEngravingOption ? '' : lineItem && lineItem.priceTotal && lineItem.priceTotal.nonAdjustedPriceValue ? lineItem
+                        .priceTotal.nonAdjustedPriceValue : 0}">
+        ${Resource.msg('cart.label.price', 'cart', null)}
         <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>
             ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.nonAdjustedPrice}
         </isif>

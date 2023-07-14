@@ -1,4 +1,4 @@
-<div class="row cart-and-ipay ${!product.available ? "d-none" : ""}">
+<div class="row cart-and-ipay ${!product.available || !product.readyToOrder ? "d-none" : ""}">
     <div class="col-sm-12 sticky-button-container">
         <isset name="siteID" value="${dw.system.Site.current.ID}" scope="page" />
         <isif condition="${siteID == 'OliviaBurtonUS'}">

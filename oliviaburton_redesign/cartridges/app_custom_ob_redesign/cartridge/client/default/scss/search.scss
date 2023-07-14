@@ -7,6 +7,7 @@
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles";
 @import "~movado/components/yotpoStarsRattingRefinements";
+@import "~movado/components/loader";
 
 .filter-and-count-margin {
     margin-top: rem(20);
@@ -2019,16 +2020,6 @@
 
 .content-tile:not(:has(div)) {
     display: none;
-  }
-  
-.listrak-persistent-popup {
-    display: none !important;
-  }
-  
-.button-floting {
-    &.button-search-result {
-      bottom: rem(41);
-    }
   }
 
   .plp-recommendation-carousel {

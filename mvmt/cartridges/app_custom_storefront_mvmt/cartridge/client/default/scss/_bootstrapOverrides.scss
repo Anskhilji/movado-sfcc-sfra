@@ -1,0 +1,23 @@
+// Bootstrap button overrides
+.btn-primary {
+  background: $dark-gray2;
+  border-color: $dark-gray2;
+  color: $white;
+  border-radius: rem(64.5);
+}
+
+.btn-outline-primary {
+  border-color: $dark-gray2;
+  color: $dark-gray2;
+  border-radius: rem(64.5);
+
+  &.add-to-wish-list {
+    color: $white;
+  }
+
+  &:hover {
+    border-color: $primary;
+    background: $white;
+    color: $primary;
+  }
+}

@@ -98,8 +98,10 @@ function productSync() {
 
             // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
             var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
-            if (!empty(productFeedJson)) {
-                productFile.AddRowItem('Gender');
+            if (Site.current.ID !== 'MCSUS') {
+                if (!empty(productFeedJson)) {
+                    productFile.AddRowItem('Gender');
+                }
             }
             // Custom End
 
@@ -120,6 +122,18 @@ function productSync() {
                 productFile.AddRowItem('Meta5');
             }
             // Custom End:
+
+            // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
+            if (Site.current.ID === 'MovadoUS') {
+                productFile.AddRowItem('Meta2');
+                productFile.AddRowItem('Meta3');
+                productFile.AddRowItem('Meta4');
+                productFile.AddRowItem('Color');
+                productFile.AddRowItem('Style');
+                productFile.AddRowItem('Size');
+            }
+            // Custom End
+
             productFile.WriteRow();
 
             // //////// Write product rows //////////
@@ -172,18 +186,32 @@ function productSync() {
                 productFile.AddRowItem(prd.price == null ? 0.00 : prd.price, true);
 
                 // Brand
-                productFile.AddRowItem(prd.brand, true);
-
-                // Category
-                productFile.AddRowItem(prd.categories[0], true); // Category
-                if (!empty(productFeedJewelryJson)) {
-                    productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
+                // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
+                if (Site.current.ID === 'MovadoUS') {
+                    productFile.AddRowItem(prd.familyName, true);
                 } else {
-                    productFile.AddRowItem(prd.categories[1], true); // Sub-category
-                    for (i = 2; i <= subCategoryLevels; i++) {
-                        productFile.AddRowItem(prd.categories[i], true);
+                    productFile.AddRowItem(prd.brand, true);
+                }
+                // Custom End
+
+                if (Site.current.ID === 'MCSUS') {
+                    if (!empty(productFeedJson)) {
+                        productFile.AddRowItem(prd.watchGender, true);
+                    }
+                    productFile.AddRowItem(prd.familyName, true);
+                } else {
+                    // Category
+                    productFile.AddRowItem(prd.categories[0], true); // Category
+                    if (!empty(productFeedJewelryJson)) {
+                        productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
+                    } else {
+                        productFile.AddRowItem(prd.categories[1], true); // Sub-category
+                        for (i = 2; i <= subCategoryLevels; i++) {
+                            productFile.AddRowItem(prd.categories[i], true);
+                        }
                     }
                 }
+                
                 // CategoryTree
                 var tree = '';
                 var index = 0;
@@ -237,7 +265,7 @@ function productSync() {
                 }
 
                 // Custom Start: Adding Sales info [MSS-1473]
-                productFile.AddRowItem(!empty(prd.salePrice) && prd.onSale ? true : false, true);
+                productFile.AddRowItem(!empty(prd.salePrice) && prd.salePrice < prd.price && prd.onSale ? true : false, true);
                 // Custom End
 
                 // Custom Start: Adding Category Value [MSS-1473]
@@ -249,8 +277,10 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-                if (!empty(productFeedJson)) {
-                    productFile.AddRowItem(prd.watchGender, true);
+                if (Site.current.ID !== 'MCSUS') {
+                    if (!empty(productFeedJson)) {
+                        productFile.AddRowItem(prd.watchGender, true);
+                    }
                 }
                 // Custom End
 
@@ -269,6 +299,17 @@ function productSync() {
                 if (!empty(getAssignedCategories)) {
                     productFile.AddRowItem(prd.meta4, true);
                     productFile.AddRowItem(prd.meta5, true);
+                }
+                // Custom End
+
+                // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
+                if (Site.current.ID === 'MovadoUS') {
+                    productFile.AddRowItem(prd.meta2, true);
+                    productFile.AddRowItem(prd.meta3, true);
+                    productFile.AddRowItem(prd.movement, true);
+                    productFile.AddRowItem(prd.strapColor, true);
+                    productFile.AddRowItem(prd.dialColor, true);
+                    productFile.AddRowItem(prd.caseDiameter, true);
                 }
                 // Custom End
 

@@ -646,6 +646,18 @@ header~.container .promotions .callout a{
               background-color: transparent;
               margin: rem(-10) rem(0) rem(20) rem(0);
 
+              &:has(.coupon-not-applied) { 
+                  border: rem(1) solid $danger;
+
+                  .coupon-code {
+                      color: $danger;
+
+                      .clear-icon-btn {
+                          background-image: url("../images/clear_red_icon.svg");
+                      }
+                  }
+              }
+
               .flex-box-promo-code {
                   display: flex;
                   align-items: center;
@@ -669,7 +681,6 @@ header~.container .promotions .callout a{
                   line-height: rem(24);
                   text-transform: capitalize;
                   margin-right: rem(10);
-                  display: none;
               }
 
               .coupon-code {

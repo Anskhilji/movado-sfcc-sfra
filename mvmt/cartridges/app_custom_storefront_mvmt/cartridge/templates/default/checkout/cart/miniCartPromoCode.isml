@@ -3,46 +3,13 @@
         <p class="optional-promo">${Resource.msg('action.enter.promo.code','cart',null)}</p>
     </div>
 </div>
-<iscomment>Custom Start: Adding Swell widget conent slot to render points dropdown</iscomment>
-<isset name="isSwellAllowedCountry" value="${require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry()}" scope="page" />
-<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
-    <div class="row">
-        <div class="col-12 collapsible-promo-wrapper" tabindex="0">
-            <div class="promo-code-inner-div">
-                <div class="form-group collapsible-xl">
-                    <label class="title optional-promo swell-discount" data-toggle="collapse" data-target="#miniCartSwellCouponCode" aria-expanded="false" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}">${Resource.msg('label.swell.promo.code', 'cart', null)}</label>
-                    <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
-                    <section class="swell-redemption collapse" id="miniCartSwellCouponCode" name="miniCartSwellCouponCode">
-                        <div class="row value swell-redemption-text">
-                            <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.have', 'cart', null)} </span>
-                            <span class="swell-point-balance"></span>
-                            <span class="swell-points-balance-text"> ${Resource.msg('msg.swell.points.use', 'cart', null)}</span>
-                        </div>
-                        <div class="row value">
-                            <div class="col-9">
-                                <select id="swell-redemption-dropdown" class="swell-redemption-dropdown">
-                                    <option>${Resource.msg('msg.swell.option.select', 'cart', null)}</option>
-                                </select>
-                            </div>
-                            <div class="col-3 pl-2">
-                                <button type="button" class="btn btn-primary btn-block swell-redemption-btn">${Resource.msg('button.apply.swell.points', 'cart', null)}</button>
-                            </div>
-                        </div>
-                    </section>
-                    <div class="col-12 redemption-point-error-message d-none" id="error">${Resource.msg('error.msg.swell.point', 'cart', null)}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</isif>
-<iscomment>Custom End</iscomment>
 <div class="row">
     <div class="col-12 collapsible-promo-wrapper" tabindex="0">
         <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="minicart-promo-code-form promo-code-inner-div" method="GET" name="promo-code-form">
             <div class="form-group collapsible-xl">
                 <label class="title" data-toggle="collapse" data-target="#miniCartCouponCode" aria-expanded="false">${Resource.msg('label.promo.code','cart',null)}</label>
                 <div class="row collapse value" id="miniCartCouponCode" name="miniCartCouponCode">
-                    <div class="col-9">
+                    <div class="col-9 mini-cart-coupon-field">
                         <input type="text" class="form-control coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('label.promo.code','cart',null)}">
                         <div class="coupon-error">
                             <span class="coupon-missing-error coupon-required">${Resource.msg('error.missing.coupon.code', 'cart', null)}</span>
