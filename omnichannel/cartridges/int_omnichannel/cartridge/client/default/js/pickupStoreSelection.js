@@ -34,13 +34,13 @@ function getStoreList($searchStore, googleRecaptchaToken, isForm) {
     var $radius = $('#store-pickup-radius');
     var $isForm = isForm ? isForm : false;
     var $url = $searchStore.data('url');
-    var recaptchaToken = googleRecaptchaToken ? googleRecaptchaToken : '';
+    var $recaptchaToken = googleRecaptchaToken ? googleRecaptchaToken : '';
     var data = {
         zipCode: $zipCode.val(),
         radius: $radius.val(),
         isSearch: true,
         isForm: $isForm,
-        googleRecaptchaToken: recaptchaToken
+        googleRecaptchaToken: $recaptchaToken
     }
     $('#pickupStoreModal').spinner().start();
     $.ajax({
