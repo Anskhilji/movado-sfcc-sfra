@@ -481,6 +481,7 @@
             overflow: auto;
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
+            padding-top: rem(25);
 
             .mini-cart-fixed {
                 margin: 0 rem(12) rem(12) rem(12);

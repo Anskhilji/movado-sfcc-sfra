@@ -10,7 +10,7 @@
             &.free-shipping-text {
                 background: $light-blue1;
                 padding: rem(15) rem(40);
-                height: rem(60);
+                height: rem(43);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -25,14 +25,14 @@
             p {
                 color: $white;
                 font-size: rem(12);
-                font-weight: 390;
+                font-weight: 400;
                 line-height: rem(14.4);
             }
 
             &.free-order-text {
                 background: $light-blue1;
-                padding: rem(15) rem(40);
-                height: rem(60);
+                padding: rem(7) rem(40);
+                height: rem(43);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -41,7 +41,7 @@
                 p {
                     color: $white;
                     font-size: rem(12);
-                    font-weight: 390;
+                    font-weight: 400;
                     line-height: rem(14.4);
                 }
             }
@@ -79,6 +79,15 @@
             }
          }
     }
+    
+    .popover {
+        .product-summary {
+            &:has(.progress-meter, .got-free-shipping ) {
+                padding-top: rem(0);
+            }
+        }
+    }
+    
 }
 .progress-meter-container {
     margin-top: rem(20);
