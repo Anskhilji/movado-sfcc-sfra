@@ -2,7 +2,6 @@
 
 $(document).ready(function () {
     window.onSubmitCaptchaHeaderBopis = function (token) {
-        alert('Header bopis alert');
         $(document).ready(function () {
             var $submitBtn = $('.bopis-header-btn');
             var $gCaptchaBopisHeaderInput = $('.g-recaptcha-token-bopis-header');
