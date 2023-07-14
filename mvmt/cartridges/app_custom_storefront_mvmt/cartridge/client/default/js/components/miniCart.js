@@ -1067,9 +1067,12 @@ module.exports = function () {
                 } else {
                     $('.mini-cart-data .product-summary .mini-cart-product').empty();
                     $('.mini-cart-data .product-summary .mini-cart-product').append(response.recommendedProductCardHtml);
-                    
+                    var $staticPromoCodeField = $('.mini-cart-product .coupon-code-field-static');
+                    if ($staticPromoCodeField.length > 0) {
+                        $staticPromoCodeField.remove();
+                    }
                 }
-                
+
                 updateCartTotals(response.cart);
                 handlePostCartAdd(response);
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
