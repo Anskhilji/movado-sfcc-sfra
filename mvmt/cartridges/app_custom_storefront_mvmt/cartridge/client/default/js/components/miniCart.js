@@ -112,7 +112,7 @@ var updateCartPage = function(data) {
         var $promoImgMiniCart;
         if (data.isOrderLevelPromotion) {
             $promoImg = data.orderLevelPromoImg;
-            $promoImgMiniCart = data.shippingLevelPromoImgMiniCart;
+            $promoImgMiniCart = data.orderLevelPromoImgMiniCart;
         } else {
             $promoImg = data.shippingLevelPromoImg;
             $promoImgMiniCart = data.shippingLevelPromoImgMiniCart;

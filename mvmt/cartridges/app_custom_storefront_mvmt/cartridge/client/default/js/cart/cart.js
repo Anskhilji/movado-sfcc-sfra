@@ -109,7 +109,7 @@ function updateProgressMeter(data) {
         var $promoImgMiniCart;
         if (data.isOrderLevelPromotion) {
             $promoImg = data.orderLevelPromoImg;
-            $promoImgMiniCart = data.shippingLevelPromoImgMiniCart;
+            $promoImgMiniCart = data.orderLevelPromoImgMiniCart;
         } else {
             $promoImg = data.shippingLevelPromoImg;
             $promoImgMiniCart = data.shippingLevelPromoImgMiniCart;
@@ -902,7 +902,7 @@ module.exports = function () {
                         window.dispatchEvent(setAnalyticsTrackingByAJAX);
                     }
                     var $progressMeterMain = $('.progress-meter-container');
-                    $progressMeterMain.empty();
+                    $progressMeterMain.remove();
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
