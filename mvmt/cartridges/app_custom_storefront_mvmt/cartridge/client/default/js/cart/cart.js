@@ -109,6 +109,7 @@ function updateProgressMeter(data) {
         var $promoImgMiniCart;
         if (data.isOrderLevelPromotion) {
             $promoImg = data.orderLevelPromoImg;
+            $promoImgMiniCart = data.shippingLevelPromoImgMiniCart;
         } else {
             $promoImg = data.shippingLevelPromoImg;
             $promoImgMiniCart = data.shippingLevelPromoImgMiniCart;
@@ -125,10 +126,10 @@ function updateProgressMeter(data) {
             $progressMeterMain.append($applicablePromoMessageHtml);
         }
 
-        if ($promoImg || $promoImgMiniCart && $progressBarSuccessMsg && $isMiniCart) {
+        if ($promoImgMiniCart && $progressBarSuccessMsg && $isMiniCart) {
             var $progressMeterMiniCart = $('.progress-meter-container-minicart');
             var $applicablePromoMessageHtmlMiniCart = '<div class="got-free-shipping '+ (data.isOrderLevelPromotion ? 'free-order-text' : 'free-shipping-text') +' d-flex align-items-center justify-content-center">'+
-                '<img src="'+ (data.isOrderLevelPromotion ? $promoImg : $promoImgMiniCart) +'" alt="'+ data.progressBarSuccessMsg +'">'+
+                '<img src="'+ $promoImgMiniCart +'" alt="'+ data.progressBarSuccessMsg +'">'+
                 '<p>'+ data.progressBarSuccessMsg +'</p>'+
                 '</div>';
 

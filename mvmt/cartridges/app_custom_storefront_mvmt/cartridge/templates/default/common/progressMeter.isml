@@ -23,6 +23,4 @@
             </div>
         </isif>
     </div>
-<iselse/>
-    <div class="${pdict.isPromoProgressBarEnabled ? 'd-none' : ''} progress-meter-container"> </div>
 </isif>

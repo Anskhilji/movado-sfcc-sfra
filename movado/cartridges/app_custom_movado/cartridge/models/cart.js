@@ -338,7 +338,8 @@ function CartModel(basket) {
             var progressBarApproachingDiscounts = getApproachingDiscounts(basket, discountPlan);
             var progressBarDiscounts = getOrderDiscounts(basket, discountPlan);
             var progressBarBonusDiscounts = getBonusDiscounts(basket, discountPlan);
-            var orderLevelPromoImg = URLUtils.httpStatic('/images/circle-check-icon.svg').toString();
+            var orderLevelPromoImg = URLUtils.httpStatic('/images/checkwhite.svg').toString();
+            var orderLevelPromoImgMiniCart = URLUtils.httpStatic('/images/checkgreen.svg').toString();
             var shippingLevelPromoImg = URLUtils.httpStatic('/images/green_delivery.svg').toString();
             var shippingLevelPromoImgMiniCart = URLUtils.httpStatic('/images/delivery.svg').toString();
 
@@ -399,6 +400,7 @@ function CartModel(basket) {
         progressBarSuccessMsg: progressBarSuccessMsg,
         isOrderLevelPromotion : isOrderLevelPromotion,
         orderLevelPromoImg : orderLevelPromoImg,
+        orderLevelPromoImgMiniCart: orderLevelPromoImgMiniCart,
         shippingLevelPromoImg : shippingLevelPromoImg,
         shippingLevelPromoImgMiniCart : shippingLevelPromoImgMiniCart
         });
