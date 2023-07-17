@@ -128,6 +128,13 @@ $('#newsLetterCouponCode, #subscriptionCouponCode').on('click', function(e) {
 
     var elementText = element.text();
     navigator.clipboard.writeText(elementText);
+    
+    $(this).addClass('active');
+
+    setTimeout(() => {
+        $(this).removeClass('active');
+    }, 3000);
+
     $subscriptionSuccessfulModal.removeClass('d-flex').addClass('d-none');
     $('.email-signUp, .email-verification').val('');
     $('.submission-status').addClass('d-none');
