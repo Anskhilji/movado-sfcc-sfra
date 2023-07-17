@@ -68,16 +68,17 @@ server.replace('FindStores', function (req, res, next) {
     var queryCountryCode = req.querystring.countryCode;
     var queryAddress = req.querystring.address;
     var isSearched = req.querystring.isForm;
+    var googleRecaptchaToken = req.querystring.googleRecaptchaToken || ''
     var stores = null;
     var status = null;
     var storeLocatorForm = null;
-    var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+    var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false; 
 
     storeLocatorForm = server.forms.getForm('profile');
+
     if (isSearched == "true") {
         if (isGoogleRecaptchaEnabled) {
             var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
-            var googleRecaptchaToken = !empty(storeLocatorForm) && !empty(storeLocatorForm.customer) && !empty(storeLocatorForm.customer.grecaptchatoken) && !empty(storeLocatorForm.customer.grecaptchatoken.value) ? storeLocatorForm.customer.grecaptchatoken.value : '';
             if (empty(googleRecaptchaToken)) {
                 res.json ({
                     success: false,

@@ -168,12 +168,14 @@ function search(element) {
     var countryCode = $form.find('[name="countryCode"]').val();
     var address = $form.find('[name="address"]').val();
     var isForm = true;
+    var googleRecaptchaToken = $('.g-recaptcha-token').val();
 
     var urlParams = {
         radius: radius,
         countryCode: countryCode,
         address: address,
-        isForm: isForm
+        isForm: isForm,
+        googleRecaptchaToken: googleRecaptchaToken
     };
 
     var payload = $form.is('form') ? $form.serialize() : {
@@ -227,10 +229,12 @@ module.exports = {
                 var $detectLocationButton = $('.detect-location');
                 var url = $detectLocationButton.data('action');
                 var radius = $('.results').data('radius');
+                var googleRecaptchaToken = $('.g-recaptcha-token').val();
                 var urlParams = {
                     radius: radius,
                     lat: position.coords.latitude,
-                    long: position.coords.longitude
+                    long: position.coords.longitude,
+                    googleRecaptchaToken: googleRecaptchaToken
                 };
 
                 url = appendToUrl(url, urlParams);
@@ -269,6 +273,7 @@ module.exports = {
             var radius = $(this).val();
             var searchKeys = $('.results').data('search-key');
             var url = $('.radius').data('action-url');
+            var googleRecaptchaToken = $('.g-recaptcha-token').val();
             var isForm = false;
             var urlParams = {};
 
@@ -276,14 +281,16 @@ module.exports = {
                 urlParams = {
                     radius: radius,
                     postalCode: searchKeys.postalCode,
-                    isForm: isForm
+                    isForm: isForm,
+                    googleRecaptchaToken: googleRecaptchaToken
                 };
             } else if (searchKeys.lat && searchKeys.long) {
                 urlParams = {
                     radius: radius,
                     lat: searchKeys.lat,
                     long: searchKeys.long,
-                    isForm: isForm
+                    isForm: isForm,
+                    googleRecaptchaToken: googleRecaptchaToken
                 };
             }
 
