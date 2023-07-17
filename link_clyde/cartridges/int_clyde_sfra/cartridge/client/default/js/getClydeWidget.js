@@ -67,7 +67,7 @@ clydeWidget = {
                     return clydeForm;
                 }
             }
-        } catch (error) {
+        } catch (e) {
             return form;
         }
         return form;
@@ -80,7 +80,7 @@ clydeWidget = {
                 if (previousId && previousId !== variantId) {
                     Clyde.setActiveProduct(variantId);
                 }
-            } catch (error) {
+            } catch (e) {
                 return;
             }
         }
