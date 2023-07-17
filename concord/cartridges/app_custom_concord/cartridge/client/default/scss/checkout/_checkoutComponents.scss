@@ -1093,3 +1093,9 @@ header {
     }
   }
 }
+
+body:has(#checkout-main) #INDblindNotif, #INDWrap {
+
+  display:none !important;
+
+}

@@ -533,3 +533,9 @@ $receipt-font-size: rem(14);
     display: none;
   }
 }
+
+body:has(#checkout-main) #INDblindNotif, #INDWrap {
+
+  display:none !important;
+
+}
