@@ -169,12 +169,15 @@ function search(element) {
     var countryCode = $form.find('[name="countryCode"]').val();
     var address = $form.find('[name="address"]').val();
     var isForm = true;
+    var googleRecaptchaToken = $('.g-recaptcha-token').val();
+
 
     var urlParams = {
         radius: radius,
         countryCode: countryCode,
         address: address,
-        isForm: isForm
+        isForm: isForm,
+        googleRecaptchaToken: googleRecaptchaToken
     };
 
     var payload = $form.is('form') ? $form.serialize() : {
@@ -240,19 +243,22 @@ module.exports = {
             var url = $('.radius').data('action-url');
             var urlParams = {};
             var isForm = false;
+            var googleRecaptchaToken = $('.g-recaptcha-token').val();
 
             if (searchKeys.postalCode) {
                 urlParams = {
                     radius: radius,
                     postalCode: searchKeys.postalCode,
-                    isForm: isForm
+                    isForm: isForm,
+                    googleRecaptchaToken: googleRecaptchaToken
                 };
             } else if (searchKeys.lat && searchKeys.long) {
                 urlParams = {
                     radius: radius,
                     lat: searchKeys.lat,
                     long: searchKeys.long,
-                    isForm: isForm
+                    isForm: isForm,
+                    googleRecaptchaToken: googleRecaptchaToken
                 };
             }
 
