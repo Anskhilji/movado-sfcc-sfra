@@ -1402,6 +1402,7 @@
     
                 .product-colors {
                     @include collection-subtitle-font;
+                    font-family: $font-brandon-grotesque;
                 }
     
                 .uncategotized-product-name {
@@ -1472,7 +1473,7 @@
                    span {
                         color: $light-black;
                         font-size: rem(34);
-                        font-family: $font-ivypresto-headline;
+                        font-family: $font-brandon-grotesque;
                         letter-spacing: rem(0.7);
                         line-height: rem(41); 
                         margin: rem(0);
@@ -1604,6 +1605,7 @@
 
             .product-colors {
                 @include collection-subtitle-font-2;
+                font-family: $font-brandon-grotesque;
             }
 
             .uncategotized-product-name {
@@ -1612,6 +1614,7 @@
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
                 @include collection-title-font;
+                font-family: $font-brandon-grotesque;
             }
 
             .product-center-text {

@@ -143,12 +143,12 @@
                             </h1>
                         </div>
                         <iselseif condition="${(product.isCategory) == "strapguide"}">
-                            <h1 class="product-name product-name-strapguide text-truncate-wrapper product-title-for-gtm text-uppercase product-center-text">${product.productName}</h1>
+                            <h1 class="product-name product-name-strapguide text-truncate-wrapper product-title-for-gtm text-capitalize product-center-text">${product.productName}</h1>
                         <iselseif condition="${(product.isCategory) !== "watches" && (product.isCategory) !== "jewelry" && (product.isCategory) !== "eyewear" && (product.isCategory) !== "strapguide"}">
                             <h1>
-                                <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
+                                <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-capitalize">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="color product-colors text-uppercase" data-selected-variation-attr="color">${product.color}</span>
+                                    <span class="color product-colors text-capitalize" data-selected-variation-attr="color">${product.color}</span>
                                 </isif>
                             </h1>
                         </isif>
