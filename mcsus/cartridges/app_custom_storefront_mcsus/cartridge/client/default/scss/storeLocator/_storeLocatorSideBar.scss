@@ -64,7 +64,12 @@
 
     .grecaptcha-badge {
         position: absolute !important;
-        top: rem(800) !important;
+        top: rem(496) !important;
+
+        @include media-breakpoint-down(custom-md) {
+            top: rem(600) !important;
+        }
+        
     }
 
     .side-header {

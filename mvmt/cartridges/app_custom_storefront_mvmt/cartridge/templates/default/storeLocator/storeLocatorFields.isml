@@ -9,7 +9,7 @@
         <div class="form-group-2">
             <isinclude template="storeLocator/storeLocatorRadius" />
        </div>
-        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" name="${pdict.profileForm.customer.grecaptchatoken.htmlName}" 
+        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken"
             <isprint value=${pdict.profileForm.customer.grecaptchatoken.attributes} encoding="off" />
         >
        <div class="button-align">

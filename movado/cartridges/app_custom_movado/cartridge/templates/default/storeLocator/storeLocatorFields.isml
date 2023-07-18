@@ -32,7 +32,7 @@
             <input autofocus type="text" placeholder="${Resource.msg('storelocator.address.placeholder','storeLocator',null)}" class="form-control" id="store-postal-code" name="address"  value="" autocomplete="nofill" required/>
             <div class="invalid-feedback"></div>
         </div>
-        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" name="${pdict.profileForm.customer.grecaptchatoken.htmlName}" 
+        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" 
             <isprint value=${pdict.profileForm.customer.grecaptchatoken.attributes} encoding="off" />
         >
         <isif condition="${isGoogleRecaptchaEnabled}">
