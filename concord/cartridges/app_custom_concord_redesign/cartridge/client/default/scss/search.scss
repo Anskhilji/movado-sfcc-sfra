@@ -108,6 +108,7 @@
            
             .callout.promo-msg {
                 font-family: $font-raleway-medium;
+                color: $dark-blue2;
             }
         }
 
@@ -171,20 +172,6 @@
 
     .nav-link {
         font-family: $font-raleway-medium;
-    }
-}
-
-.refinements {
-
-    .card-body {
-
-        .innter-filter-heading {
-            display: none;
-
-            &.filter-menu-title {
-                display: none !important;
-            }
-        }
     }
 }
 

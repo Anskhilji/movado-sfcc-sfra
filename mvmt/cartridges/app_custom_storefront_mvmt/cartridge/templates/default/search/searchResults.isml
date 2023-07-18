@@ -88,7 +88,7 @@
                 <div class="col-sm-12">
 
                     <!--- Product Grid --->
-                    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product" data-initial-products="${sitePref.pageSize}" >
+                    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product" data-initial-products="${sitePref.pageSize}" data-desktop-infinite-sroll="${sitePref.desktopInfiniteScrollSize}" data-mobile-infinite-scroll="${sitePref.mobileInfiniteScrollSize}">
                         <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus" >
                             <isif condition="${plpTileSlotPosition}">
                                 <isloop items="${plpTileSlotPosition}" var="plpTileSlot" status ="slotStatus">
@@ -138,6 +138,9 @@
                             <isinclude template="search/showMore" />
                         </isif>
                     </div>
+                    <div class="row loader d-none">
+                        <div class="loader-icon"></div>
+                    </div>
                 </div>
             </isif>
         </div>
@@ -179,7 +182,7 @@
     </isif>
     
     <!-- Start: Listrak persistent popup -->
-    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled}">
         <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
         <span class="listrak-popup-search-result"></span>
         <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />

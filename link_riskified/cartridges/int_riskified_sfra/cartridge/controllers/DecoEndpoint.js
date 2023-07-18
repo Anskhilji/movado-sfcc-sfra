@@ -77,7 +77,6 @@ server.get('OptIn', function (req, res, next) {
         responseUtil,
         orderMgr;
     var message;
-    
     var HookMgr = require('dw/system/HookMgr');
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();

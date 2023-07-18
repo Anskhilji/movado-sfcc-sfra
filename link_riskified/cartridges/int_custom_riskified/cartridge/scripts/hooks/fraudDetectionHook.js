@@ -9,6 +9,8 @@ var OrderModelRiskified = require('int_riskified/cartridge/scripts/riskified/exp
 var OrderMgr = require('dw/order/OrderMgr');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
+var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var attemptCounter = 0;
 var maxAttempted = !empty(Site.current.preferences.custom.riskifiedTimeoutOrderTriesNo) ? Site.current.preferences.custom.riskifiedTimeoutOrderTriesNo : '';
 var sendErrorEmail = false;
@@ -69,7 +71,8 @@ function create(orderNumber, paymentInstrument) {
     var isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
     var isRiskifiedSyncIntegerationEnabled = !empty(Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled) ? Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled : false;
     var result = {status: 'success'};
-    if (isRiskifiedflag) {      
+    var logLocation = 'fraudDetectionHook~create';
+    if (isRiskifiedflag) {
         var serviceResult = RiskifiedService.sendCreateOrder(order, attemptCounter, sendErrorEmail);
         result.response = serviceResult;
         if (serviceResult.error) {
@@ -86,7 +89,9 @@ function create(orderNumber, paymentInstrument) {
                     };
                     Transaction.wrap(function () {
                         order.custom.riskifiedOrderAnalysis = Constants.ORDER_REVIEW_APPROVED_STATUS;
+                        order.custom.riskifedAutoApproved = true;
                     });
+                    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, Constant.RISKIFIED_AUTO_APPROVED, result.status, logLocation);
                 }
             } else {
                 result.status = 'fail';

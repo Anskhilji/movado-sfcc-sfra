@@ -32,14 +32,14 @@
                       <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
-              </div> 
+              </div>
           </isloop>
       </div>
       <iscomment>Added pagination slider</iscomment>
       <div class="carousel-nav" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isloop items="${product.images['tile150']}" var="image" status="loopStatus">
-          
-              <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+
+            <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
                   <div class="carousel-tile"> 
                       <picture>
                           <source media="(min-width: 992px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />

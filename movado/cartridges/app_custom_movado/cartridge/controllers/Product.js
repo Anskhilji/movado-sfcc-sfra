@@ -50,8 +50,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-
-    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
     
     var collectionContentList;
     var moreStyleGtmArray = [];
@@ -59,6 +57,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var isEmbossEnabled;
     var isEngraveEnabled;
     var isGiftWrapEnabled;
+    var isPulseIDEngraveEnabled;
     var isPdpStorePickup = true;
     var collectionName;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
@@ -120,6 +119,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEmbossEnabled = product.custom.Emboss;
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
+        isPulseIDEngraveEnabled = product.custom.enablepulseIDEngraving;
         viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, product.ID);
         var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
         var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
@@ -130,8 +130,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
-
-    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
 
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
@@ -163,7 +161,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         smartGiftAddToCartURL : smartGiftAddToCartURL,
         plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
-        popupID: listrakPersistentPopup
+        isPulseIDEngraveEnabled: isPulseIDEngraveEnabled
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);

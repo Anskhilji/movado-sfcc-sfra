@@ -460,12 +460,6 @@ $negative-spacer: -0.625rem;
             font-weight: 300;
       }
 }
-
-.clyde-cart-widget-control {
-  position:absolute;
-  left: -999em;
-}
-
 .cart-error {
 
     .gift-cart-error {
@@ -480,3 +474,8 @@ $negative-spacer: -0.625rem;
     }
 }
   
+
+.clyde-cart-widget-control {
+  position:absolute;
+  left: -999em;
+}

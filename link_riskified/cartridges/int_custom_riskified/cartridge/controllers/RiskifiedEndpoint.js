@@ -21,8 +21,6 @@ var decisionNotification = require('*/cartridge/scripts/helper/decisionNotificat
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
-
-
 /**
  * This function used to check if order is being placed then let Riskified
  * change the order status, otherwise send an error.
@@ -42,7 +40,6 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
         message = "riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further", "debug", logLocation;
         RCLogger.logMessage(message);
         checkoutNotificationHelpers.sendDebugNotification(constants.RISKIFIED, message, logLocation);
-		
         res.render('riskified/riskifiedorderanalysisresponse', {
             CartridgeDisabled: true
         });

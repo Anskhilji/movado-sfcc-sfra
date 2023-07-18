@@ -80,20 +80,11 @@ function orderDeclined(order) {
 
 function orderApproved(order) {
     var message;
-    if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
-        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-        SwellExporter.exportOrder({
-            orderNo: order.orderNo,
-            orderState: 'created'
-        });
-    }
-
     //[MSS-1257] Removed 3DS order check as we are not holding 3DS status any more and calling the Riskified order creation API after customer redirects back from 3DS
     // riskifiedStatus as approved then mark as confirmed
     message = '(RiskifiedOrderDescion.js) -> orderApproved: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo;
     checkoutLogger.info(message);
     checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
-    
     if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
         Transaction.wrap(function () {
             order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);

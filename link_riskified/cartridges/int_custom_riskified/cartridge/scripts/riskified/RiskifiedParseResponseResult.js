@@ -17,6 +17,8 @@ var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelper
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 function parseRiskifiedResponse(order, reqBody) {
     var body = reqBody || request.httpParameterMap.requestBodyAsString;
@@ -36,9 +38,9 @@ function parseRiskifiedResponse(order, reqBody) {
     checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
 
     if (riskifiedStatus.displayValue === 'Declined') {
-         message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo;
-         checkoutLogger.info(message);
-         checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
+        message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo;
+        checkoutLogger.info(message);
+        checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
     	// void or reverse the payment if card payment or not paid
 		// (Order.PAYMENT_STATUS_NOTPAID) else refund the payment if already
 		// captured and send mail to customer
@@ -134,13 +136,6 @@ function parseRiskifiedResponse(order, reqBody) {
             COCustomHelpers.sendCancellationEmail(orderObj, customerLocale);
         }
     } else {
-        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
-            var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-            SwellExporter.exportOrder({
-                orderNo: order.orderNo,
-                orderState: 'created'
-            });
-        }
 
         //[MSS-1257] Removed 3DS order check as we are not holding 3DS status any more and calling the Riskified order creation API after customer redirects back from 3DS
         // riskifiedStatus as approved then mark as confirmed

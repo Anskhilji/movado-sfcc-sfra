@@ -58,6 +58,28 @@
             .searech-results-wrapper {
                 margin-top: rem(0);
 
+                .result-count {
+
+                    &.pull-left {
+                        display: none;
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                       position: unset;
+                    }
+                    span {
+
+                        @include media-breakpoint-up(sm) {
+                            font-size: rem(16);
+                            margin-top: rem(7);
+
+                            &:has(+ p) {
+                                margin-top: rem(0);
+                            }
+                        }
+                    }
+                }
+
                 @include media-breakpoint-down(sm) {
                     padding: 0 rem(15);
                 }
@@ -67,9 +89,44 @@
                 }
 
                 .tab-pane {
-                    margin: rem(50) rem(0) rem(54) rem(0);
+                    margin: rem(50) rem(0) rem(20) rem(0);
                     top: 0;
                     position: relative;
+
+                    .filter-redesign {
+
+                        &.sticky-search-filter-bar {
+                            position: fixed;
+                            top: rem(70);
+                            z-index: 6;
+                            padding: rem(15) rem(31);
+                            background-color: $white;
+                            width: 100%;
+                            box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
+                            margin-left: rem(-47);
+
+                            @include media-breakpoint-down(lg) {
+                                margin-left: rem(-30);
+                            }
+
+                            .filter-col {
+                                padding: 0;
+                            }
+
+                            @include media-breakpoint-down(md) {
+                                margin: 0;
+                                width: 100%;
+                                margin-left: rem(-30);
+                                top: rem(67);
+                                z-index: 1;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                padding: rem(15) rem(15);
+                                top: rem(125);
+                            }
+                        }
+                    }
 
                     .search-filter-bar {
 
@@ -127,8 +184,10 @@
                     .grid-header {
                         margin-bottom: rem(0);
                         margin-top: rem(0);
+                        position: relative;
 
                         .sort-col {
+                            
                             &::before {
                                 display: none;
                             }
@@ -431,7 +490,7 @@
                     li {
                         height: rem(25);
                         padding: rem(6) rem(15);
-                        color: $grey-light10;
+                        color: $grey-light11;
                         font-family: $font-medium;
                         font-size: rem(14);
                         letter-spacing: 0;
@@ -446,13 +505,17 @@
                             font-size: rem(11);
                         }
 
-                        &::after {
-                            content: "\00d7";
-                            font-family: FontAwesome;
-                            font-size: rem(12);
-                            margin-left: rem(8);
-                            transform: translateY(1px);
-                            display: inline-block;
+                        a {
+                            text-decoration: none;
+
+                            &::after {
+                                content: "\00d7";
+                                font-family: FontAwesome;
+                                font-size: rem(12);
+                                margin-left: rem(8);
+                                transform: translateY(1px);
+                                display: inline-block;
+                            }
                         }
                     }
                 }
@@ -485,7 +548,11 @@
                             margin: 0;
                             opacity: 0.25;
                             height: auto;
-                            padding-bottom: rem(20);
+                            padding-bottom: 0;
+
+                            @include media-breakpoint-down(xs) {
+                                padding-bottom: rem(20);
+                            }
 
                             .reset {
                                 border: none;
@@ -688,4 +755,14 @@
 
 .filter-by-icon {
     display: none;
+}
+
+.sort-filters-button {
+
+    &.sort-col{
+
+        &::before {
+            display: none;
+        }
+    }
 }

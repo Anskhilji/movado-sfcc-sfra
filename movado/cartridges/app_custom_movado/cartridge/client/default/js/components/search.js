@@ -114,6 +114,7 @@ function processResponse(response) {
         if (isMobileSearch(this)) {
             applyModals(this);
         }
+        $('.search-slot').css('visibility', 'hidden');
     } else {
         $suggestionsWrapper.hide();
     }

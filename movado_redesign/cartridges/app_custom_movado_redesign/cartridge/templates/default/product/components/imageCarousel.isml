@@ -25,7 +25,6 @@
             }
         },
       ]
-
     }
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>
@@ -85,7 +84,6 @@
       </isif>
   </isif>
 </div>
-
 <iscomment> Zoom Modal </iscomment>
 <div class="modal fade zoom-modal" id="zoomProduct" role="dialog">
     <div class="modal-dialog">

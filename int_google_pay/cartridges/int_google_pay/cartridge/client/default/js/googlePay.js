@@ -391,7 +391,9 @@ function addGooglePayButton() {
         var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill-new-style');
         if ($googlePayButton.length === 0) {
             button = paymentsClient.createButton(buttonConfigs);
-            document.getElementById('google-pay-container-mini-cart').appendChild(button);
+            var $googlePayMiniCart = document.getElementById('google-pay-container-mini-cart');
+            $googlePayMiniCart.innerHTML = "";
+            $googlePayMiniCart.appendChild(button);
         }
     }
 }
@@ -429,6 +431,29 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
             shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress,
             quantityPDP: $pdpQuantityValue && $pdpQuantityValue > 0 && $pdpQuantityValue != null ? $pdpQuantityValue : 1
         };
+
+        //custom start : PulseID Engraving [2213]
+        var $engravingPrice = $('.engraving-price').first();
+        var $engravingTextOne = $('.engraved-text-one');
+        var $engravingTextTwo = $('.engraved-text-two');
+        var $previewUrl = $('.preview-btn').attr('preview-url');
+        data.pulseIdEngraving = false;
+
+        if ($engravingPrice.length > 0 && $engravingTextOne.length > 0 && $engravingTextTwo.length > 0) {
+
+            var $engravingPrice = $engravingPrice.text().substring(1);
+            var $engravingTextOne = $engravingTextOne.text().trim();
+            var $engravingTextTwo = $engravingTextTwo.text().trim();
+
+            if ($engravingPrice && ($engravingTextOne || $engravingTextTwo) && $engravingPrice) {
+                data.pulseIdEngraving = true;
+                data.engravingPrice = $engravingPrice;
+                data.engravingTextOne = $engravingTextOne;
+                data.engravingTextTwo = $engravingTextTwo;
+                data.previewUrl = $previewUrl
+            }
+        }
+        //custom end : ulseID Engraving
 
         if (window.Resources.IS_CLYDE_ENABLED && typeof Clyde !== 'undefined') {
             var clydeContract = Clyde.getSelectedContract();
@@ -512,8 +537,6 @@ function onGooglePaymentButtonClicked() {
  * @see {@link https://developers.google.com/pay/api/web/reference/response-objects#PaymentData|PaymentData object reference}
  */
 function processPayment(paymentData) {
-    // show returned data in developer console for debugging
-    console.log(paymentData);
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
         setTimeout(function () {

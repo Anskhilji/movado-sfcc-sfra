@@ -155,13 +155,13 @@ function createSabrixRequestObject(basket, svc){
         }
       }
     } else {
-      if (sa.postalCode && sa.postalCode.length > 5) {
-        var postalCodeSplit = sa.postalCode.split('-');
-        shipToAddress.setPOSTCODE(postalCodeSplit[0]);
-        shipToAddress.setGEOCODE(postalCodeSplit[1]);
-      } else {
-        shipToAddress.setPOSTCODE(sa.postalCode);
-      }
+        if (sa.postalCode && sa.postalCode.length > 5) {
+          var postalCodeSplit = sa.postalCode.split('-');
+          shipToAddress.setPOSTCODE(postalCodeSplit[0]);
+          shipToAddress.setGEOCODE(postalCodeSplit[1]);
+        } else {
+          shipToAddress.setPOSTCODE(sa.postalCode);
+        }
     }
     invoice.setSHIPTO(shipToAddress);
   }

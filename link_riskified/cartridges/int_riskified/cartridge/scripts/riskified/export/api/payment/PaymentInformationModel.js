@@ -49,7 +49,6 @@ function savePaymentDetailsSFRA(cardNumber){
 function savePaymentAuthorizationDetails(paymentParams, callerModule) {
     var logLocation = callerModule + '~PaymentInformationModel.savePaymentAuthorizationDetails()';
     var message;
-
     if (empty(paymentParams)) {
         message = 'Payment parameters or payment method is empty', 'error', logLocation;
         RCLogger.logMessage(message);

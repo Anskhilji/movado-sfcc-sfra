@@ -241,8 +241,7 @@ var onLoadProductTile = function () {
 			            brand: gtmTrackingData.brand,
 			            category: gtmTrackingData.category,
 			            position: gtmTrackingData.position,
-			            list: gtmTrackingData.list
-                    });
+			            list: gtmTrackingData.list });
             currency = gtmTrackingData.currency;
         }
     });
@@ -271,7 +270,6 @@ var onPromoImpressionsLoad = function (e) {
 };
 
 var sliceProductImpressionArray = function (e, currency) {
-
     if ($('.slick-slider').length) {
         showProductImpressionCaraousel(e, currency);
     } else {

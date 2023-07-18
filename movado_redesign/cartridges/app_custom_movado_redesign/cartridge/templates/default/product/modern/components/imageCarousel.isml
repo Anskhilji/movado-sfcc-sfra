@@ -47,10 +47,8 @@
               </div>
           </isloop>
       </div>
-
       <div class="carousel-nav d-md-none" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
-
               <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
                   <div class="carousel-tile"> 
                       <picture>
@@ -83,7 +81,6 @@
       </isif>
   </isif>
 </div>
-
 <iscomment> Zoom Modal </iscomment>
 <div class="modal fade zoom-modal" id="zoomProduct" role="dialog">
     <div class="modal-dialog">

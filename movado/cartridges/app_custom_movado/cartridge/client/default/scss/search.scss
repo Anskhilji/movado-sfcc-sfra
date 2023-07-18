@@ -6,6 +6,7 @@
 @import "utilities/swatch";
 @import "components/categoryTiles";
 @import "components/yotpoStarsRattingRefinements";
+@import "components/loader";
 
 .filter-and-count {
     visibility: hidden;
@@ -455,16 +456,6 @@
       font-weight: 700;
     }
   }
-}
-
-.listrak-persistent-popup {
-    display: none !important;
-}
-
-.button-floting {
-    &.button-search-result {
-      bottom: rem(41);
-    }
 }
 
 .content-tile:not(:has(div)) {

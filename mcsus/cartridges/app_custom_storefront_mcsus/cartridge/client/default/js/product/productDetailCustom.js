@@ -38,6 +38,7 @@ $(function() {
     );
 });
 
+<<<<<<< HEAD
 // Custom start: Listrak persistent popup
 $(document).on('click','.listrak-popup', function(e) {
     e.preventDefault();
@@ -108,6 +109,8 @@ $(window).on('load', function () {
 });
 // Custom End: Listrak persistent popup
 
+=======
+>>>>>>> master
 module.exports = {
     // Custom Start: [MSS-1341 To Show/Hide More Short Description on PDP]
     showMoreDescription: function () {

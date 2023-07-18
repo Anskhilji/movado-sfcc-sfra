@@ -641,6 +641,22 @@
     }
 }
 
+.top-header-redesign {
+    position: fixed;
+    left: rem(0);
+    right: rem(0);
+    background-color: $white;
+    z-index: 1;
+    transition: all 0.4s;
+    transform: translateY(-100px);
+    top: rem(125);
+    box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
+    
+    &.scroll-top {
+        top: rem(170);
+    }
+}
+
 .scroll-hidden {
     visibility: hidden;
     transition: all 0.4s;
@@ -1047,6 +1063,36 @@
                                         @include media-breakpoint-down(md) {
                                             max-width: 100%;
                                         }
+
+                                        &.poster-frame-video {
+                                            max-width: rem(603);
+                                            height: rem(603);
+                
+                                            @include media-breakpoint-down(lg) {
+                                                max-width: rem(463);
+                                                height: rem(463);
+                                            }
+                
+                                            @include media-breakpoint-down(md) {
+                                                max-width: rem(414);
+                                                height: rem(414);
+                                            }
+                
+                                            @include custom-media-query-max($medium-screen-width) {
+                                                max-width: rem(309);
+                                                height: rem(309);
+                                            }
+                
+                                            @include media-breakpoint-down(sm) {
+                                                max-width: rem(366);
+                                                height: rem(366);
+                                            }
+                
+                                            @include custom-media-query-max($small-screen-width375) {
+                                                max-width: rem(316);
+                                                height: rem(316);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -1294,6 +1340,8 @@
                                     width: 100%;
                                     background-color: $black;
                                     bottom: rem(3);
+                                    left: 0;
+                                    right: 0;
                                 }
 
                                 &:hover {
@@ -2543,18 +2591,24 @@
 
 // CSS End: isPick up store pdp redesign
 
-// CSS Start: listrak persistent popup
-.listrak-persistent-popup {
-    display: none !important;
-}
+.main-variation-attribute-mcs {
 
-.button-floting {
-    &.button-product-detail {
-        bottom: rem(160);
+    .attribute {
+
+        &.pdp-select-variations {
+            margin-bottom: rem(25);
+            margin-top: rem(5);
+            position: relative;
+
+            .fa-angle-down {
+                top: 53%;
+            }
+        }
     }
 }
 
-// CSS End: listrak persistent popup
+// product detail set scss 
+@import 'productDetailSet';
 
 // MSS-1854 add-to cart button 
 .quantity-btn {
@@ -2624,6 +2678,7 @@
         }
     }
 }
+<<<<<<< HEAD
 .sticky-quantity-btn {
 
     .quantity-selector {
@@ -2717,3 +2772,5 @@
         }
     }
 }
+=======
+>>>>>>> master

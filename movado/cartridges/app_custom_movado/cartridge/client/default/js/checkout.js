@@ -317,7 +317,7 @@ $(document).ready(function() { // eslint-disable-line
     $('input.checkout-coupon-code-field').each(function() {
         checkPromoInput(this);
     });
-    $('input.checkout-coupon-code-field').on('change keyup', function() {
+    $('input.checkout-coupon-code-field').on('input change keyup paste', function() {
         checkPromoInput(this);
     });
 

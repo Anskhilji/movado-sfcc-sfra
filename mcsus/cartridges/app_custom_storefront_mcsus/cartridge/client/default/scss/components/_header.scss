@@ -4,6 +4,8 @@
 
 .header-banner {
   background-color: $beige;
+  position: relative;
+  z-index: 6;
 
   .html-slot-container {
     font-family: $font-medium;
@@ -166,7 +168,20 @@ header {
       font-family: $font-medium;
       font-weight: 500;
     }
+    
+    .popover {
+        display: none;
 
+        @include media-breakpoint-down(md) { 
+            top: rem(30);
+            padding: rem(10);
+            left: rem(-95);
+        }
+      
+        &.show {
+          display: block;
+        }
+    }
   }
 
   .menu-group { 

@@ -167,9 +167,6 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProduct
     } else {
         var endIdx = paging.getEnd();
         nextStart = endIdx + 1 < hitsCount ? endIdx + 1 : null;
-        if (enableGridSlot && paging.currentPage == 0) {
-        	nextStart -= 1;
-        }
 
         if (!nextStart) {
             return '';
@@ -423,7 +420,6 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
     }
     if (enableGridSlot) {
     	this.enableGridSlot = enableGridSlot;
-    	this.count = productSearch.count >=5 ? productSearch.count+1 : productSearch.count;
     }
     this.defaultPageSize = DEFAULT_PAGE_SIZE;
 }

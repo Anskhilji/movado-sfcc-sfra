@@ -17,23 +17,22 @@ var Money = require('dw/value/Money');
 var Logger = require('dw/system/Logger');
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-    var Constants = require('*/cartridge/utils/Constants');
-    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
-    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
-    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-    var youMayLikeRecommendations = [];
-    var moreStyleRecommendations = [];
-    var explicitRecommendations = [];
-    var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
-    var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
-    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
-    var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
-    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
-    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
+   var Constants = require('*/cartridge/utils/Constants');
+   var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
+   var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
+   var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+   var youMayLikeRecommendations = [];
+   var moreStyleRecommendations = [];
+   var explicitRecommendations = [];
+   var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
+   var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
+   var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+   var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
+   var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+   var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+   var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+   var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+   var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
 
    var collectionContentList;
    var moreStyleGtmArray = [];
@@ -48,8 +47,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
 
-   var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-   var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
    var productType = showProductPageHelperResult.product.productType;
    var template =  showProductPageHelperResult.template;
 
@@ -59,6 +56,24 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+
+    var apiProduct = productMgr.getProduct(product.id);
+    var params = req.querystring;
+    if (!apiProduct.variant && apiProduct.master) {
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
+
+        if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
+            var pid = apiProduct.variationModel.defaultVariant.getID();
+            params.pid = pid;
+            apiProduct = productMgr.getProduct(pid);
+        }
+        var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
+
+        viewData.product = showProductPageHelperResult.product,
+        viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
+        viewData.resources = showProductPageHelperResult.resources,
+        viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
+    }
 
     if(product.individualProducts) {
         yotpoCustomHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
@@ -131,7 +146,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    //Custom End
-   var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
+
    viewData = {
        isEmbossEnabled: isEmbossEnabled,
        isEngraveEnabled: isEngraveEnabled,
@@ -158,8 +173,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        collectionName: collectionName,
        addToCartUrl: showProductPageHelperResult.addToCartUrl,
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
-       smartGiftAddToCartURL : smartGiftAddToCartURL,
-       popupID: listrakPersistentPopup
+       smartGiftAddToCartURL : smartGiftAddToCartURL
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
    res.setViewData(smartGift);

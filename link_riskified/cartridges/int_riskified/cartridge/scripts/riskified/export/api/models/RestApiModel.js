@@ -69,6 +69,7 @@ function parseResponse(callerModule, responseFromRiskified, action) {
         parsingResponse.errorCode = Constants.BAD_CALL;
         parsingResponse.recoveryNeeded = RCUtilities.getRecoverySetting(action);
         parsingResponse.message = 'Riskified API Service Error';
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, parseError.message, logLocation, parsingResponse.message);
         return parsingResponse;
     }
 
@@ -116,6 +117,7 @@ function post(serviceType, callerModule, payload, action) {
         service,
         result,
         params = {};
+        var message;
 
         var message;
 
@@ -145,19 +147,19 @@ function post(serviceType, callerModule, payload, action) {
 
     try {
         switch (serviceType) {
-        case 'async':
-            service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedRestService');
-            service.setCredentialID('riskified.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
-            break;
-        case 'sync':
-            service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedSyncRestService');
-            service.setCredentialID('riskified.sync.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
-            break;
-        case 'deco':
-            service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/DecoRestService');
-            break;
-        default:
-            break;
+            case 'async':
+                service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedRestService');
+                service.setCredentialID('riskified.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
+                break;
+            case 'sync':
+                service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedSyncRestService');
+                service.setCredentialID('riskified.sync.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
+                break;
+            case 'deco':
+                service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/DecoRestService');
+                break;
+            default:
+                break;
         }
     } catch (e) {
         RCLogger.logMessage(e.message, 'error', logLocation);
@@ -196,7 +198,6 @@ function post(serviceType, callerModule, payload, action) {
     } else {
         message = 'Riskified API Call failed.\nHTTP Status Code: ' + result.error + ',\nError Text is: ' + result.errorMessage, 'error', logLocation;
         RCLogger.logMessage(message);
-        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, result.error);
         // try to get message out of riskified api response
         try {
             errorObj = JSON.parse(result.errorMessage);

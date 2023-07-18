@@ -43,6 +43,10 @@
 
     .availability-msg {
         font-family: $font-HelveticaNeueLT-book;
+
+        .availability-link {
+            color: $storm-gray;
+        }
     }
 
     .add-to-cart {
@@ -64,9 +68,12 @@
     }
 
     .promotions {
+        color: $danger;
 
         .callout {
             font-family: $font-HelveticaNeueLT-book;
+            color: $dark-green;
+
         }
     }
 
@@ -232,14 +239,5 @@
         p {
             font-family: $font-HelveticaNeueLT-book;
         }
-    }
-}
-
-.listrak-persistent-popup {
-    display: none !important;
-}
-.button-floting {
-    &.button-product-detail {
-        bottom: rem(160);
     }
 }

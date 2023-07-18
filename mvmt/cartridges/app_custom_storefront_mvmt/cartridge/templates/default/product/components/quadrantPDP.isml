@@ -29,9 +29,7 @@
         </isloop>
     </div>
 </div>
-
 <isinclude template="product/components/imageCarouselPDP" />
-
 <iscomment> Zoom Modal </iscomment>
 <div class="modal fade zoom-modal zoom-modal-inner" id="zoomProduct" role="dialog">
     <div class="modal-dialog">
@@ -64,7 +62,6 @@
                             </div>
                             <iscomment>Added zomm box</iscomment>
                             <div class="zoom-box">
-
                             </div>
                         </div>
                     </div>
@@ -72,4 +69,3 @@
         </div>
     </div>
 </div>
-

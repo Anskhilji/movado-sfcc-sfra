@@ -234,6 +234,7 @@ function setOrderAnalysisStatus(order, status, callerModule) {
     RCLogger.logMessage(message);
     checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
 
+
     try {
         if (empty(session.custom.delayRiskifiedStatus) || session.custom.delayRiskifiedStatus) {
             Transaction.wrap(function () {
@@ -249,7 +250,7 @@ function setOrderAnalysisStatus(order, status, callerModule) {
     } catch (e) {
         RCLogger.logMessage(
             'Error occurred while setting order analysis status error is ' + e, 'error', logLocation);
-            checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
 

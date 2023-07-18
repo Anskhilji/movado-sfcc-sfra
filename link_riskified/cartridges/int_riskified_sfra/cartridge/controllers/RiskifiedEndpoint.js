@@ -13,7 +13,6 @@ var AnalysisResponseModel = require('*/cartridge/scripts/riskified/export/api/ri
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
-
 /**
  * This function handles order analysis status request from Riskified. This perform authorization
  * on incoming request to ensure that its a legitimate request. It also update analysis and order status 

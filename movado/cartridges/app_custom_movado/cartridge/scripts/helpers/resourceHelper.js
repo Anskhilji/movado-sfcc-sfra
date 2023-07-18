@@ -115,12 +115,18 @@ function getResources(pageContext) {
         FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
         LISTRAK_SMS_API_CLIENT_SECRET: !empty(Site.current.preferences.custom.Listrak_SMS_ClientSecret) ? Site.current.preferences.custom.Listrak_SMS_ClientSecret : '',
         LISTRAK_ENABLE_BACK_IN_STOCK_SMS: !empty(Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? Site.current.preferences.custom.Listrak_EnableBackInStockSms : false,
-        CLYDE_WARRANTY: Constants.CLYDE_WARRANTY,
+        CLYDE_WIDGET_DISPLAY_ENABLED: Site.current.preferences.custom.clydeWidgetDisplay ? true : false,
+        CLYDE_WIDGET_ENABLED: Site.current.preferences.custom.isClydeEnabled ? true : false,
+        OUT_OF_STOCK_LABEL: Resource.msg('label.out.of.stock', 'common', null),
+        ADD_TO_CART_LABEL: Resource.msg('button.addtocart', 'common', null),
+        ENGRAVING_ERROR_MESSAGE: Resource.msg('engraving.error.message', 'product', null),
         INFO_PRODUCT_AVAILABILITY_PREORDER: Resource.msg('info.product.availability.preorder', 'common', null),
         INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
         BUTTON_ADD_TO_CART: Resource.msg('button.addtocart', 'common', null),
         BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null),
-        GIFT_MESSAGE_CART_ERROR: giftMessageCartError
+        GIFT_MESSAGE_CART_ERROR: giftMessageCartError,
+        CLYDE_WARRANTY: Constants.CLYDE_WARRANTY,
+        CLYDE_WIDGET_DISPLAY_PDP_ENABLED: Site.current.preferences.custom.clydeWidgetDisplayPDP ? true : false
     };
     return resources;
 }

@@ -11,9 +11,7 @@
 
 ## fraudDetectionHook.js
 - Line No 14, 73 : Added Parameter 
-
 ## Riskified.js
 - Line No 31, 32, 211, Start from 243 to 249, Start from 258 to 264, Start from 289 to 295
-
 ## DecoEndpoint.js
 - Line No 126, 127 : Added Parameter 

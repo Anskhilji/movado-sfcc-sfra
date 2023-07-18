@@ -164,7 +164,6 @@ function handle(callerModule) {
         error   : false,
         message : 'Order review status udpated successfully.'
     };
-    
     return response;
 }
 

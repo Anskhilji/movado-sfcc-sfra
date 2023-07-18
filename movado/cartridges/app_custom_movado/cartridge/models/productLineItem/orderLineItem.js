@@ -50,5 +50,13 @@ module.exports = function mgOrderLineItem(product, apiProduct, options) {
             value: isWatchTile
         });
     }
+
+    if (!empty(product)) {
+        Object.defineProperty(product, 'isPulseIDEngravingEnabled', {
+            enumerable: true,
+            value: !empty(apiProduct.custom.enablepulseIDEngraving) ? apiProduct.custom.enablepulseIDEngraving : ''
+        });
+    }
+
     return product;
 };

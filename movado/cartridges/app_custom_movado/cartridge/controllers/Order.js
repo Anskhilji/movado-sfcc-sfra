@@ -87,6 +87,19 @@ server.replace(
                     productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
                 }
             });
+
+            // custom : PulseID engraving
+            if (Site.current.preferences.custom.enablePulseIdEngraving) {
+                var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+                var items = orderModel.items;
+                pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
+                //unset session for Apple pay
+                req.session.raw.custom.appleProductId = '';
+                req.session.raw.custom.appleEngraveOptionId = '';
+                req.session.raw.custom.appleEngravedMessage = '';
+                req.session.raw.custom.pulseIDPreviewURL = '';
+            }
+            // custom en
         }
 
         // Custom Start: Save values in order custom attributes
@@ -360,7 +373,14 @@ server.append('Confirm', function (req, res, next) {
     if (session.custom.pickupFromStore) {
         session.custom.pickupFromStore = false;
     }
-    
+
+    //custom : PulseID engraving
+    if (Site.current.preferences.custom.enablePulseIdEngraving) {
+        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+        pulseIdAPIHelper.setPulseJobID(order);
+    }
+    // custom end
+
     res.setViewData({
         orderConfirmationObj: JSON.stringify(orderConfirmationObj)
     });

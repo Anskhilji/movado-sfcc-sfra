@@ -71,6 +71,7 @@
         <div class="mvmt-pdp-carousel main-mvmt-carousel main-mvmt-carousel-pdp-redesign">
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
+            <div class="carousel-tile ${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) ? 'video' : ''}" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
             <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
                 <div class="carousel-tile poster-frame-video ${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) ? 'video' : ''}" data-thumb="${!empty(product) && !empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}">
                     <video id="slide-video" class="slide-video" loop muted autoplay playsinline>
@@ -88,10 +89,8 @@
             </div>
           </isloop>
         </div>
-
         <iscomment>Added zomm box</iscomment>
         <div class="zoom-box">
-
         </div>
     </div>
 </div>

@@ -247,14 +247,12 @@ function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         }
         // Custom End
-
         return false;
     }
 
     if (empty(session.custom.checkoutUUID)) {
         message = 'checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
-
         // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails
         if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
@@ -262,7 +260,6 @@ function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
             checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         }     
         // Custom End
-
         return false;
     }
 
@@ -286,14 +283,6 @@ function sendCreateOrder(order, attemptCounter, sendErrorEmail) {
         message = 'Error occured while exporting order ' + order.orderNo + ' to Riskified. \n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
 
-        // Custom Comment : [MSS-2087] To Avoid Multiple Error Emails
-        if (sendErrorEmail === false && isRiskifiedSyncIntegerationEnabled && attemptCounter === 0) {
-            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
-        } else if (sendErrorEmail === true) {
-            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
-        }
-        // Custom End
-        
         if (response.recoveryNeeded) {
             RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
         }
@@ -330,7 +319,6 @@ function sendCancelOrder(order, cancelReason) {
         message = 'Error occured while sending Candel Order data for order number ' + order.orderNo + ' to Riskified. ' +
         '\n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return response;
     }
     return response;
