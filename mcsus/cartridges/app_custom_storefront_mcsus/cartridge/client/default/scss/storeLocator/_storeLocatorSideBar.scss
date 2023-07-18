@@ -72,6 +72,16 @@
         
     }
 
+    .grecaptcha-badge {
+        top: rem(700) !important;
+        position: absolute !important;
+
+        @media (max-width:$large-screen-width) {
+            top: rem(470) !important;
+        }
+
+    }
+
     .side-header {
         position: sticky;
         top: 0;
