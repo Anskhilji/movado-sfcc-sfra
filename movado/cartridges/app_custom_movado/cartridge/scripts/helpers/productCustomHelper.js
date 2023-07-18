@@ -479,16 +479,6 @@ function getPdpVariationUrls(product, apiProduct) {
                             }
                         });
                         if (colorVariations.values[key]) {
-                            colorVariations.values[key].swatchesURL = URLUtils.https(
-                                    'Product-Variation',
-                                    'dwvar_' + productId + '_color',
-                                    colorVariations.values[key].id,
-                                    'pid',
-                                    productId,
-                                    'quantity',
-                                    '1'
-                                    ).toString();
-
                             colorVariations.values[key].pdpURL = URLUtils.https(
                                 'Product-Show',
                                 'pid',
@@ -496,18 +486,6 @@ function getPdpVariationUrls(product, apiProduct) {
                             ).toString();
 
                             if (!empty(variationParam) && !empty(variationParamValue)) {
-                                colorVariations.values[key].swatchesURL = URLUtils.https(
-                                        'Product-Variation',
-                                        'dwvar_' + productId + '_color',
-                                        colorVariations.values[key].id,
-                                        'dwvar_' + productId + '_' + variationParam,
-                                        variationParamValue,
-                                        'pid',
-                                        productId,
-                                        'quantity',
-                                        '1'
-                                        ).toString();
-
                                 colorVariations.values[key].pdpURL = URLUtils.https(
                                     'Product-Show',
                                     'pid',
@@ -526,16 +504,6 @@ function getPdpVariationUrls(product, apiProduct) {
                             }
                         });
                         if (colorVariations.values[key]) {
-                            colorVariations.values[key].swatchesURL = URLUtils.https(
-                                'Product-Variation',
-                                'dwvar_' + productId + '_colorWatch',
-                                colorVariations.values[key].id,
-                                'pid',
-                                productId,
-                                'quantity',
-                                '1'
-                            ).toString();
-
                             colorVariations.values[key].pdpURL = URLUtils.https(
                                 'Product-Show',
                                 'pid',
@@ -543,18 +511,6 @@ function getPdpVariationUrls(product, apiProduct) {
                             ).toString();
 
                             if (!empty(variationParam) && !empty(variationParamValue)) {
-                                colorVariations.values[key].swatchesURL = URLUtils.https(
-                                    'Product-Variation',
-                                    'dwvar_' + productId + '_colorWatch',
-                                    colorVariations.values[key].id,
-                                    'dwvar_' + productId + '_' + variationParam,
-                                    variationParamValue,
-                                    'pid',
-                                    productId,
-                                    'quantity',
-                                    '1'
-                                ).toString();
-
                                 colorVariations.values[key].pdpURL = URLUtils.https(
                                     'Product-Show',
                                     'pid',
