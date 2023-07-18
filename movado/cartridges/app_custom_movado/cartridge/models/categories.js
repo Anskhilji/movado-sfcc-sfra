@@ -65,7 +65,8 @@ function categoryToObject(category) {
         disableSubCategories: category.custom.disableSubCategories,
         gender: category.custom.gender,
         staticContentAsset: staticContentAsset,
-        abTestSegmentIDs: abTestSegmentIDs
+        abTestSegmentIDs: abTestSegmentIDs,
+        isCategoryShow: category.custom.isCategoryShow
     };
     if (!empty(category.custom.categoryImageURL)) {
         result.categoryImageURL = category.custom.categoryImageURL.absURL;
