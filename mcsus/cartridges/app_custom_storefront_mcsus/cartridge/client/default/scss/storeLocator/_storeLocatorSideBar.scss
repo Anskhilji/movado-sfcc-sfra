@@ -63,17 +63,7 @@
     }
 
     .grecaptcha-badge {
-        position: absolute !important;
-        top: rem(496) !important;
-
-        @include media-breakpoint-down(custom-md) {
-            top: rem(600) !important;
-        }
-        
-    }
-
-    .grecaptcha-badge {
-        top: rem(700) !important;
+        top: rem(650) !important;
         position: absolute !important;
 
         @media (max-width:$large-screen-width) {

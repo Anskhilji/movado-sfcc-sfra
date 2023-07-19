@@ -32,9 +32,8 @@
             <input autofocus type="text" placeholder="${Resource.msg('storelocator.address.placeholder','storeLocator',null)}" class="form-control" id="store-postal-code" name="address"  value="" autocomplete="nofill" required/>
             <div class="invalid-feedback"></div>
         </div>
-        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" 
-            <isprint value=${pdict.profileForm.customer.grecaptchatoken.attributes} encoding="off" />
-        >
+        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" />
+
         <isif condition="${isGoogleRecaptchaEnabled}">
             <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search g-recaptcha" type="${pdict.isForm === 'true' ? 'submit' : 'button'}" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha'>
             ${Resource.msg('button.find.stores','storeLocator',null)}

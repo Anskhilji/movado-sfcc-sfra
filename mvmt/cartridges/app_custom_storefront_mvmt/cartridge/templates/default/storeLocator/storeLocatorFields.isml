@@ -9,9 +9,8 @@
         <div class="form-group-2">
             <isinclude template="storeLocator/storeLocatorRadius" />
        </div>
-        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken"
-            <isprint value=${pdict.profileForm.customer.grecaptchatoken.attributes} encoding="off" />
-        >
+        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" />
+        
        <div class="button-align">
             <isif condition="${isGoogleRecaptchaEnabled}">
                 <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search g-recaptcha" type="${pdict.isForm === 'true' ? 'submit' : 'button'}"  data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha'>
