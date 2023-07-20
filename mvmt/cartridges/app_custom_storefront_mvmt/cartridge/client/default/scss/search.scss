@@ -47,12 +47,11 @@
     display: none;
     margin-bottom: rem(10);
     color: $black;
-    font-family: $font-medium;
+    font-family: $font-ivypresto-headline;
     font-size: rem(40);
     font-weight: 500;
-    letter-spacing: rem(4);
     line-height: rem(42);
-    text-transform: uppercase;
+    text-transform: capitalize;
 
     @include media-breakpoint-up(lg) {
       display: block;

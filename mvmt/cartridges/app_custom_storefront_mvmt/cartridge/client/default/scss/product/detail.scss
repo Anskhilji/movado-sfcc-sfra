@@ -1236,6 +1236,7 @@
                         &-product-name {
                             @include collection-subtitle-font;
                             line-height: rem(41);
+                            font-family: $font-brandon-grotesque;
     
                             &.product-center-text {
                                 @include media-breakpoint-down(sm) {
@@ -1253,6 +1254,7 @@
                         &-collection-name {
                             @include collection-title-font;
                             display: block;
+                            font-family: $font-brandon-grotesque;
                         }
                         &-seprator {
                             @include collection-subtitle-font;
@@ -1260,6 +1262,7 @@
         
                         &-case-diameter {
                             @include collection-subtitle-font;
+                            font-family: $font-brandon-grotesque;
                         }
                     }
                 }
@@ -1328,7 +1331,7 @@
 
                     h1 {
                         margin-bottom: rem(5);
-                        font-family: $font-ivypresto-headline;
+                        font-family: $font-brandon-grotesque;
                     }
                     
                     .eyewear {
@@ -1339,7 +1342,8 @@
                             text-overflow: ellipsis;
                             display: -webkit-box;
                             -webkit-line-clamp: 3;
-    
+                            font-family: $font-brandon-grotesque;
+                            text-transform: capitalize;    
                             &.product-center-text {
                                 @include media-breakpoint-down(sm) {
                                     text-align: center;
@@ -1355,6 +1359,7 @@
                             line-height: rem(41);
                             .eyewear-colors-wrapper {
                                 @include collection-subtitle-font;
+                                font-family: $font-brandon-grotesque;
                             }
                         }
                     }
@@ -1376,6 +1381,7 @@
                             text-overflow: ellipsis;
                             display: -webkit-box;
                             -webkit-line-clamp: 3;
+                            font-family: $font-brandon-grotesque;
     
                             &.product-center-text {
                                 @include media-breakpoint-down(sm) {
@@ -1411,6 +1417,7 @@
                     display: -webkit-box;
                     -webkit-line-clamp: 3;
                     @include collection-title-font;
+                    font-family: $font-brandon-grotesque;
                 }
 
                 .product-center-text {
@@ -1432,6 +1439,7 @@
                     &-product-name {
                         @include collection-subtitle-font-2;
                         line-height: rem(41);
+                        font-family: $font-brandon-grotesque;
 
                         &.product-center-text {
                             @include media-breakpoint-down(sm) {
@@ -1451,14 +1459,17 @@
                     &-collection-name {
                         @include collection-title-font;
                         display: block;
+                        font-family: $font-brandon-grotesque;
                     }
 
                     &-seprator {
                         @include collection-subtitle-font;
+                        font-family: $font-brandon-grotesque;
                     }
     
                     &-case-diameter {
                         @include collection-subtitle-font;
+                        font-family: $font-brandon-grotesque;;
                     }
                 }
             }
@@ -1496,7 +1507,7 @@
                         }
 
                         span {
-                            font-family: $font-ivypresto-headline;
+                            font-family: $font-brandon-grotesque;
                             font-size: rem(16);
                             display: block;
                             letter-spacing: rem(1.5);
@@ -1531,7 +1542,7 @@
                 padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
-                    font-family: $font-ivypresto-headline;
+                    font-family: $font-brandon-grotesque;
                 }
                 
                 .eyewear {
@@ -1542,6 +1553,7 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        font-family: $font-brandon-grotesque;
 
                         &.product-center-text {
                             @include media-breakpoint-down(sm) {
@@ -1558,6 +1570,7 @@
                         line-height: rem(41);
                         .eyewear-colors-wrapper {
                             @include collection-subtitle-font-2;
+                            font-family: $font-brandon-grotesque;
                         }
                     }
                 }
@@ -1568,7 +1581,7 @@
 
                 h1 {
                     margin-bottom: rem(5);
-                    font-family: $font-ivypresto-headline;
+                    font-family: $font-brandon-grotesque;
                 }
                 
                 .jewlery {
@@ -1579,6 +1592,8 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        text-transform: capitalize;
+                        font-family: $font-brandon-grotesque;
 
                         &.product-center-text {
                             @include media-breakpoint-down(sm) {
@@ -1591,6 +1606,7 @@
                         display: block;
                         @include collection-subtitle-font-2;
                         margin-top: rem(10);
+                        font-family: $font-brandon-grotesque;
                     }
                 }
             }
