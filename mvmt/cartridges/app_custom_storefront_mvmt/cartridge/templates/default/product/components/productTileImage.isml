@@ -105,20 +105,20 @@
                                 <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 992px)" srcset="${product.defaultVariantImageDIS}" /></isif>
                                 <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 544px)" srcset="${product.defaultVariantImageDIS}" /></isif>
                                 <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 320px)" srcset="${product.defaultVariantImageDIS}" /></isif>
-                                <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                                <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" fetchpriority="${pdict.plpTilePosition < 5 ? 'high' : '' }" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
 
                             <iselse>
                                 <isif condition="${pdict.display.isNonWatchesTileEnable}">
                                     <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 992px)" srcset="${product.defaultVariantImageDIS}" /></isif>
                                     <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 544px)" srcset="${product.defaultVariantImageDIS}" /></isif>
                                     <isif condition="${product.defaultVariantTileImage300X300}"><source media="(min-width: 320px)" srcset="${product.defaultVariantTileImage300X300}" /></isif>
-                                    <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                                    <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" fetchpriority="${pdict.plpTilePosition < 5 ? 'high' : '' }" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
 
                                 <iselse/>
                                     <isif condition="${product.defaultVariantTile512X640}"><source media="(min-width: 992px)" srcset="${product.defaultVariantTile512X640}" /></isif>
                                     <isif condition="${product.defaultVariantTile512X640}"><source media="(min-width: 544px)" srcset="${product.defaultVariantTile512X640}" /></isif>
                                     <isif condition="${product.defaultVariantTileImage300X375}"><source media="(min-width: 320px)" srcset="${product.defaultVariantTileImage300X375}" /></isif>
-                                    <isif condition="${product.defaultVariantTile512X640}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defaultVariantTile512X640}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                                    <isif condition="${product.defaultVariantTile512X640}"><img class="tile-image gtm-product" fetchpriority="${pdict.plpTilePosition < 5 ? 'high' : '' }" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defaultVariantTile512X640}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
 
                                 </isif>
                             </isif>
@@ -165,11 +165,11 @@
                         </isif>
 
                         <isif condition="${pdict.display.isEnableSingleProductRow && pdict.display.isNonWatchesTileEnable}">
-                            <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                            <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" fetchpriority="${pdict.plpTilePosition < 5 ? 'high' : '' }" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                         <iselseif condition="${!pdict.display.isEnableSingleProductRow && !pdict.display.isNonWatchesTileEnable}"/>
-                             <isif condition="${product.defaultVariantTile512X640}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defaultVariantTile512X640}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                             <isif condition="${product.defaultVariantTile512X640}"><img class="tile-image gtm-product" fetchpriority="${pdict.plpTilePosition < 5 ? 'high' : '' }" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defaultVariantTile512X640}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                         <iselseif condition="${!pdict.display.isEnableSingleProductRow}"/>
-                            <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                            <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" fetchpriority="${pdict.plpTilePosition < 5 ? 'high' : '' }" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                         </isif>
                         </picture>
                     </a>
