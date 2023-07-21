@@ -1495,6 +1495,50 @@
                     border: none;
                     height: auto;
                     padding-bottom: rem(65);
+                    overflow: hidden;
+
+                    .plp-image-carousel-config {
+                        position: relative;
+                        display: none;
+
+                        .slick-slide {
+
+                            @include media-breakpoint-down(lg) {
+                                padding: 0 rem(0.7);
+                            }
+                        }
+
+                        &.slick-initialized {
+                            display: block;
+                        }
+
+                        .slick-dots {
+                            margin: 0;
+                            padding: 0;
+                            position: absolute;
+                            top: rem(10);
+                            right: rem(10);
+                            display: flex;
+                            gap: rem(5);
+
+                            li {
+                                box-sizing: border-box;
+                                list-style: none;
+                                height: rem(1);
+                                width: rem(5);
+                                background: $gray-light-5;
+
+                                &.slick-active {
+                                    background: $black;
+                                    width: rem(10);
+                                }
+
+                                button {
+                                    opacity: 0;
+                                }
+                            }
+                        }
+                    }
 
                     @include media-breakpoint-up(xs-custom) {
                         padding-bottom: 0;

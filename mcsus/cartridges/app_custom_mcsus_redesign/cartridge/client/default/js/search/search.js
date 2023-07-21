@@ -773,3 +773,23 @@ $(window).on('load resize scroll', function() {
         $('.search-filter-bar, .filter-redesign').addClass('sticky-search-filter-bar');
     }
 });
+
+function initializePrimarySlider() {
+    $('.plp-image-carousel-config').slick({
+      lazyLoad: 'ondemand',
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      dots: true,
+      arrows: false,
+      responsive: [{
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false
+        }
+      }],
+    });
+  }
+  
+  initializePrimarySlider();

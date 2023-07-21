@@ -356,6 +356,25 @@ function moveFocusToTop() {
         scrollTop: topScrollHeight
     }, 500);
 }
+function initializePrimarySlider() {
+    $('.plp-image-carousel-config').slick({
+      lazyLoad: 'ondemand',
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      dots: true,
+      arrows: false,
+      responsive: [{
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false
+        }
+      }],
+    });
+  }
+
+initializePrimarySlider();
 
 // Added container-fluid class alongside container
 
