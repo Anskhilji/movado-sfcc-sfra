@@ -628,17 +628,17 @@ server.post('CancelOrder', function (req, res, next) {
 
             var responseFraudUpdateStatus = SalesforceModel.cancelOrder({
                 orderSummaryNumber: req.form.orderId,
-                CustomerCancellation__C: true
+                customerCancellation: true
             });
 
             // we need this code after the right service response
-            // if (responseFraudUpdateStatus) {
+            if (responseFraudUpdateStatus) {
                 var orderCancelMessage = req.form.cancelOrderMessage;
                 Transaction.wrap(function () {
                     order.custom.isOrderCancelled = true;
                     order.custom.OrderCancelledMessage = orderCancelMessage;
                 });
-            // }
+            }
 
         }
     }
