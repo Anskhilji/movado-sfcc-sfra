@@ -950,6 +950,40 @@ module.exports = function () {
         updateCartQuantity(this, false);
     });
 
+    $('body').on('change', '.shippingMethods', function () {
+        var url = $(this).attr('data-actionUrl');
+        var urlParams = {
+            methodID: $(this).find(':selected').attr('data-shipping-id')
+        };
+
+        $('.totals').spinner().start();
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            data: urlParams,
+            success: function (data) {
+                if (data.error) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                    updateCartTotals(data);
+                    updateApproachingDiscounts(data.approachingDiscounts);
+                    validateBasket(data);
+                }
+                $.spinner().stop();
+            },
+            error: function (err) {
+                if (err.redirectUrl) {
+                    window.location.href = err.redirectUrl;
+                } else {
+                    createErrorNotification(err.responseJSON.errorMessage);
+                    $.spinner().stop();
+                }
+            }
+        });
+    });
+
     $('body').off('submit', '.minicart-promo-code-form').on('submit', '.minicart-promo-code-form', function (e) {
         e.preventDefault();
         $('.minicart-promo-code-form').spinner().start();
