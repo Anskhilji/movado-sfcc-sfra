@@ -24,10 +24,9 @@
                         <isif condition="${product.images.tile150[loopStatus.count-1]}">
                             <source media="(min-width: 320px)" srcset="${product.images.tile150[loopStatus.count-1].url}" />
                         </isif>
-                        <isif condition="${image}"><img class="tile-image gtm-product ${loopStatus.count-1}"
-                                src="${image[loopStatus.count-1].url}" alt="${product.productName}" itemprop="image"
-                                data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}'
-                                data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}' /></isif>
+                        <isif condition="${image}">
+                            <img class="tile-image gtm-product ${loopStatus.count-1}" src="${image[loopStatus.count-1].url}" alt="${product.productName}" itemprop="image" data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}' />
+                        </isif>
                     </picture>
                 </isif>
             </a>
@@ -40,10 +39,6 @@
     <isif condition="${pdict.display.showQuickView !== false}">
      <isif condition="${!('display' in pdict && 'quickView' in pdict.display && pdict.display.quickView == false)}">
         <a class="quickview hidden-xs-down" href="${pdict.urls.quickView}" data-gtm-qv='${JSON.stringify(pdict.qvGtmObj)}'>
-            <iscomment> <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
-                <i class="fa fa-expand fa-stack-1x"></i>
-            </span> </iscomment>
             <span class="sr-only">${Resource.msg('button.quickview', 'common', null)} ${product.productName} ${product.id}</span>
         </a>
       </isif>
