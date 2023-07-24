@@ -951,17 +951,17 @@ module.exports = function () {
     });
 
     $('body').on('change', '.shippingMethods', function () {
-        var url = $(this).attr('data-actionUrl');
-        var urlParams = {
+        var $url = $(this).attr('data-actionUrl');
+        var $urlParams = {
             methodID: $(this).find(':selected').attr('data-shipping-id')
         };
 
         $('.totals').spinner().start();
         $.ajax({
-            url: url,
+            url: $url,
             type: 'post',
             dataType: 'json',
-            data: urlParams,
+            data: $urlParams,
             success: function (data) {
                 if (data.error) {
                     window.location.href = data.redirectUrl;
