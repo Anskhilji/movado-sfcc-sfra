@@ -631,8 +631,7 @@ server.post('CancelOrder', function (req, res, next) {
                 customerCancellation: true
             });
 
-            // we need this code after the right service response
-            if (responseFraudUpdateStatus) {
+            if (responseFraudUpdateStatus.ok) {
                 var orderCancelMessage = req.form.cancelOrderMessage;
                 Transaction.wrap(function () {
                     order.custom.isOrderCancelled = true;
