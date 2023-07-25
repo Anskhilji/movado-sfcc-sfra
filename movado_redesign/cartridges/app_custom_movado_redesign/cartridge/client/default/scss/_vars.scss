@@ -32,30 +32,30 @@ $mine-shaft: #333333;
 $grey10-light: #C4C1C1;
 $grey11-light: #F5F5F5;
 
-$font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
-$font-fotter: "futura-pt", "FuturaStd-Medium", sans-serif;
+$font-futura-demi: "futura-pt", sans-serif;
+$font-fotter: "futura-pt", sans-serif;
 $heart-icon: "\F004";
 
 @mixin font-bold {
-    font-family: "futura-pt-bold", "FuturaStd-Bold", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 700;
     font-style: normal;
 }
 
 @mixin font-medium {
-    font-family: "futura-pt", "FuturaStd-Medium", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 500;
     font-style: normal;
 }
 
 @mixin font-light {
-    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 300;
     font-style: normal;
 }
 
 @mixin font-book {
-    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
