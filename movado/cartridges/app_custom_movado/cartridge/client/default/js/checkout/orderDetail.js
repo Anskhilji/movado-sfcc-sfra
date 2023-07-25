@@ -8,9 +8,20 @@ $('body').on('click', '.cancel-order-btn', function (e) {
         orderId: $orderId,
         cancelOrderMessage: $cancelOrderMessage
     }
+    $.spinner().start();
     $.ajax({
         url: $url,
         type: 'post',
-        data: $formData
+        data: $formData,
+        success: function (data) {
+            if (data && data.isCancelOrder && data.orderCancelResponse.ok) {
+                $('.order-cancel-container button').attr('disabled', true)
+                $('.cancel-order-msg').removeClass('d-none');
+            }
+            $.spinner().stop();
+        },
+        error: function () {
+            $.spinner().stop();
+        }
     });
 });

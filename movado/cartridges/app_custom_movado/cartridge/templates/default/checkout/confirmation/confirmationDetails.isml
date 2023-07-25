@@ -72,5 +72,6 @@
             <button ${pdict.isCancelOrderEnable == false ? 'disabled' : ''} class="cancel-order-btn"  data-cancel-order-url="${URLUtils.url('Order-CancelOrder')}">${Resource.msg('label.order.cancel.btn.text', 'confirmation', null)}</button>
             <iscontentasset aid="cancel-order-dropdown" />
         </div>
+        <div class="cancel-order-msg d-none"> ${Resource.msg('label.order.cancel.order', 'confirmation', null)}</div>
     </isif>
 </div>

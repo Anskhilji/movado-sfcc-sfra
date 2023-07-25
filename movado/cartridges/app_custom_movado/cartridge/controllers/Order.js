@@ -611,15 +611,11 @@ server.post('OrderDetail', function (req, res, next) {
 });
 
 server.post('CancelOrder', function (req, res, next) {
-    var Calendar = require('dw/util/Calendar');
-    var Locale = require('dw/util/Locale');
     var OrderMgr = require('dw/order/OrderMgr');
-    var StringUtils = require('dw/util/StringUtils');
     var Transaction = require('dw/system/Transaction');
     var ConversionLog = require('dw/system/Logger').getLogger('OrderConversion');
 
     var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-    var OrderModel = require('*/cartridge/models/order');
     var order;
 
     try {
@@ -639,9 +635,12 @@ server.post('CancelOrder', function (req, res, next) {
                 });
             }
 
+            res.json({
+                isCancelOrder: order.custom && order.custom.isOrderCancelled ? order.custom.isOrderCancelled : false,
+                orderCancelResponse: responseFraudUpdateStatus
+            });
         }
-    }
-    catch (error) {
+    } catch (error) {
         ConversionLog.error('(Order.js -> CancelOrder) Error is occurred in SalesforceModel.updateOrderSummaryFraudStatus', error.toString(), error.lineNumber);
     }
     next();
