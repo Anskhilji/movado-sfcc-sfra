@@ -584,6 +584,14 @@
                                 width: 100%;
                                 height: 100%;
 
+                                @include media-breakpoint-down(md) {
+                                    width: 100%;
+                                    height: 100%;
+                                    align-items: center;
+                                    flex-direction: row-reverse;
+                                    justify-content: space-between;
+                                }
+
                                 button {
                                     border: none;
                                     outline: none;
@@ -591,9 +599,25 @@
 
                                     &:hover {
                                         background-color: $light-silver;
+
+                                        @include media-breakpoint-down(md) {
+                                            background-color: transparent;
+                                        }
+                                    }
+
+                                    @include media-breakpoint-down(md) {
+                                        width: rem(15);
+                                        height: rem(15);
+                                        background: $white;
+                                        display: flex;
+                                        align-items: center;
                                     }
 
                                     &.up-qty-btn {
+
+                                        @include media-breakpoint-down(md) {
+                                            margin-right: rem(25);
+                                        }
                                         
                                         svg {
                                             position: absolute;
@@ -602,11 +626,19 @@
                                             top: 50%;
                                             right: rem(33);
                                             transform: translateY(-50%);
+
+                                            @include media-breakpoint-down(md) {
+                                                position: inherit;
+                                                transform: unset;
+                                            }
                                         }
                                     }
 
                                     &.down-qty-btn {
                                         
+                                        @include media-breakpoint-down(md) {
+                                            margin-left: rem(14);
+                                        }
                                         svg {
                                             position: absolute;
                                             width: rem(9);
@@ -614,20 +646,12 @@
                                             top: 50%;
                                             left: rem(14);
                                             transform: translateY(-50%);
+
+                                            @include media-breakpoint-down(md) {
+                                                transform: unset;
+                                            }
                                         }
                                     }
-                                }
-                            }
-    
-                            &-btn-up {
-                                svg {
-                                    top: rem(6);
-                                }
-                            }
-    
-                            &-btn-down {
-                                svg {
-                                    top: rem(-1);
                                 }
                             }
                         }
