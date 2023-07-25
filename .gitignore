@@ -20,8 +20,6 @@
 !**/bc_library**/cartridge/static/**/js/*
 !**/bm_socialfeeds**/cartridge/static/**/css/*
 !**/bm_socialfeeds**/cartridge/static/**/js/*
-!**/int_socialfeeds**/cartridge/static/**/css/*
-!**/int_socialfeeds**/cartridge/static/**/js/*
 !**/bm_socialchannels**/cartridge/static/**/css/*
 !**/bm_socialchannels**/cartridge/static/**/js/*
 !einstein-recommendations.js
