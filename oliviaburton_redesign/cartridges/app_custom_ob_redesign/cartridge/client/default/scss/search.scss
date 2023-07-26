@@ -1460,6 +1460,13 @@
                         z-index: 5;
                     }
 
+                    .plp-image-carousel-config {
+
+                        .tile-picture {
+                            display: block;
+                        }
+                    }
+
                     .tile-picture {
                         display: none;
 
