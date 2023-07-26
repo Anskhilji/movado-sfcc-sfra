@@ -249,7 +249,7 @@
                         <isinclude template="product/components/variationAttributes" />
                     </isif>
 
-                    <isif condition="${!product.available && !product.readyToOrder}">
+                    <isif condition="${!product.available}">
                         <div class="back-in-Stock-desktop">
                             <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
