@@ -135,6 +135,7 @@ function totals(lineItemContainer) {
     var totalsObj;
     var KlarnaGrandTotal = lineItemContainer.totalGrossPrice;
     var progressBarGrandTotal = lineItemContainer.totalGrossPrice;
+    var progressBarSubTotal = lineItemContainer.merchandizeTotalGrossPrice;
     var discountArray = getDiscounts(lineItemContainer);
     var isFree = false;
 
@@ -160,6 +161,7 @@ function totals(lineItemContainer) {
             deliveryTime : deliveryTime,
             beamGrandTotal : lineItemContainer.totalGrossPrice.decimalValue,
             progressBarGrandTotal: progressBarGrandTotal,
+            progressBarSubTotal: progressBarSubTotal,
             isFree: isFree
 	    });
     }

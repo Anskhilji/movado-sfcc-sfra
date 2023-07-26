@@ -1,6 +1,11 @@
 <isif condition="${pdict.isPromoProgressBarEnabled}">
     <div class="progress-meter-container" data-mini-cart="${pdict.isMiniCart ? true : false}">
-        <isif condition="${pdict.totals.progressBarGrandTotal >= pdict.conditionThresholdCurrencyValue}">
+        <isif condition="${pdict.isOrderLevelPromotion}">
+            <isset name="total" value="${pdict.totals.progressBarGrandTotal}" scope="page" />
+        <iselse/>
+            <isset name="total" value="${pdict.totals.progressBarSubTotal}" scope="page" />
+        </isif>
+        <isif condition="${total >= pdict.conditionThresholdCurrencyValue}">
             <div class="got-free-shipping ${pdict.isOrderLevelPromotion ? 'free-order-text' : 'free-shipping-text' } d-flex align-items-center justify-content-center">
                 <img src="${pdict.isOrderLevelPromotion ? pdict.orderLevelPromoImg : pdict.shippingLevelPromoImg}" alt="${!empty(pdict.progressBarSuccessMsg) ? pdict.progressBarSuccessMsg : ''}">
                 <isif condition="${!empty(pdict.progressBarSuccessMsg)}">
