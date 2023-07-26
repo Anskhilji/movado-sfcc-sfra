@@ -14,7 +14,7 @@ $('body').on('click', '.cancel-order-btn', function (e) {
         type: 'post',
         data: $formData,
         success: function (data) {
-            if (data && data.isCancelOrder && data.orderCancelResponse.ok) {
+            if (data && data.isCancelOrder && data.orderCancelResponse) {
                 $('.order-cancel-container button').attr('disabled', true)
                 $('.cancel-order-msg').removeClass('d-none');
             }

@@ -637,7 +637,7 @@ server.post('CancelOrder', function (req, res, next) {
 
             res.json({
                 isCancelOrder: order.custom && order.custom.isOrderCancelled ? order.custom.isOrderCancelled : false,
-                orderCancelResponse: responseFraudUpdateStatus
+                orderCancelResponse: responseFraudUpdateStatus.ok
             });
         }
     } catch (error) {
