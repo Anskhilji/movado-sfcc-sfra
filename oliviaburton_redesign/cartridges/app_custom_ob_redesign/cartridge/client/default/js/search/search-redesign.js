@@ -422,6 +422,7 @@ module.exports = {
                     if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
                         $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2) + 1);
                     }
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -508,6 +509,7 @@ module.exports = {
                                 }
                             }
                             $loaderIcon.addClass('d-none');
+                            initializePrimarySlider();
                         }
                     });
                 } else {
@@ -558,6 +560,7 @@ module.exports = {
                     $('.sort-dropdown-list, .sort-dropdown-toggle').removeClass('active');
                     $('body').removeClass('lock-bg');
                     $('.sort-dropdown-menu').hide();
+                    initializePrimarySlider();
 
                 },
                 error: function () {
@@ -603,6 +606,7 @@ module.exports = {
                     updateMarketingProducts(marketingProductsData);
                     $.spinner().stop();
                     moveFocusToTop();
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -658,6 +662,7 @@ module.exports = {
                         if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
                             $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2) + 1);
                         }
+                        initializePrimarySlider();
                     },
                     error: function () {
                         $.spinner().stop();
@@ -715,6 +720,7 @@ module.exports = {
                         if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
                             $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2) + 1);
                         }
+                        initializePrimarySlider();
                     },
                     error: function () {
                         $.spinner().stop();

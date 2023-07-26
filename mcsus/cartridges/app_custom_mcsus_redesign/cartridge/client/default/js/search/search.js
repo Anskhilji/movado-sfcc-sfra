@@ -452,6 +452,7 @@ module.exports = {
                     setTimeout(() => {
                         $('.product-tile-plp-container').removeClass('disable-hover');
                     }, 200);
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -539,6 +540,7 @@ module.exports = {
                                 }
                             }
                             $loaderIcon.addClass('d-none');
+                            initializePrimarySlider();
                         }
                     });
                 } else {
@@ -598,6 +600,7 @@ module.exports = {
                     if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
                         $loadMoreIndex = $('.searech-results-wrapper .product-tile').length - (parseInt($initiallyLoadedProducts / 2) + 1);
                     }
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -658,6 +661,7 @@ module.exports = {
                     if($(window).width() > 991) {
                         getTileHeight()
                     }
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -722,6 +726,7 @@ module.exports = {
 
                     checkResultCount();
                     hideSelectedFilterTabs();
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
