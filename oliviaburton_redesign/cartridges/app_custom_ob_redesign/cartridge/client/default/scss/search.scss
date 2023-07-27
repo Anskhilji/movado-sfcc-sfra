@@ -1531,9 +1531,10 @@
                             li {
                                 box-sizing: border-box;
                                 list-style: none;
-                                height: rem(3);
+                                height: rem(2);
                                 width: rem(5);
                                 background: $gray-light-5;
+                                border-radius: rem(1.2);
 
                                 &.slick-active {
                                     background: $black;
