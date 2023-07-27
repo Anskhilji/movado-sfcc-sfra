@@ -780,7 +780,7 @@ $(window).on('load resize scroll', function() {
 });
 
 function initializePrimarySlider() {
-    $('.plp-image-carousel-config').slick({
+    $('.plp-image-carousel-config').not('.slick-initialized').slick({
       lazyLoad: 'ondemand',
       slidesToShow: 1,
       slidesToScroll: 1,

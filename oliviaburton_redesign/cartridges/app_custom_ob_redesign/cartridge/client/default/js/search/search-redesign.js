@@ -357,7 +357,7 @@ function moveFocusToTop() {
     }, 500);
 }
 function initializePrimarySlider() {
-    $('.plp-image-carousel-config').slick({
+    $('.plp-image-carousel-config').not('.slick-initialized').slick({
       lazyLoad: 'ondemand',
       slidesToShow: 1,
       slidesToScroll: 1,
