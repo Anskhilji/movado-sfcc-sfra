@@ -1255,21 +1255,6 @@ function updateQuantities(quantities, $productContainer) {
     }
 }
 
-function updateUrl(response) {
-    var $updatedUrl;
-    if (response && response.pdpVariationsUrl && response.pdpVariationsUrl.values.length > 0) {
-        var $variationsObject = response.pdpVariationsUrl.values;
-        $variationsObject.forEach(function(el, index) {
-            if (el.selected == true) {
-                $updatedUrl = el.pdpURL;
-            }
-        });
-        if ($updatedUrl) {
-            history.pushState({}, null, $updatedUrl);
-        }
-    }
-}
-
 /**
  * updates the product view when a product attribute is selected or deselected or when
  *         changing quantity
@@ -1287,7 +1272,6 @@ function attributeSelect(selectedValueUrl, $productContainer) {
             method: 'GET',
             success: function (data) {
                 handleVariantResponse(data, $productContainer);
-                updateUrl(data.product);
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);

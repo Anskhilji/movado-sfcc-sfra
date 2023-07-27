@@ -9,7 +9,6 @@ var productTile = require('*/cartridge/models/product/productTile');
 var Constants = require('*/cartridge/scripts/util/Constants');
 var ContentMgr = require('dw/content/ContentMgr');
 var Site = require('dw/system/Site').getCurrent();
-var URLUtils = require('dw/web/URLUtils');
 
 /**
  * Get explicit recommendations for product
@@ -431,134 +430,6 @@ function getRunningABTestSegments() {
     return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
 }
 
-function getPdpVariationUrls(product, apiProduct) {
-    var colorVariations = '';
-    var defaultVariant;
-    var variationParam = '';
-    var variationParamValue = '';
-    var otherVariantValues = '';
-    var productId;
-    var productVariants;
-    var ATTRIBUTE_NAME = 'color';
-    var COLOR_WATCH = Constants.COLOR_WATCH;
-    if (apiProduct.variationModel && apiProduct.variationModel.variants && apiProduct.variationModel.variants.length > 0) {
-        productVariants = apiProduct.variationModel.variants.toArray();
-    }
-    if (product.variationAttributes) {
-        Object.keys(product.variationAttributes).forEach(function (key) {
-            if (product.variationAttributes[key].id !== ATTRIBUTE_NAME && product.variationAttributes[key].id !== COLOR_WATCH) {
-                defaultVariant = apiProduct.variationModel.defaultVariant;
-                otherVariantValues = product.variationAttributes[key].values;
-                if (!empty(defaultVariant) && !empty(defaultVariant.custom)) {
-                    Object.keys(otherVariantValues).forEach(function (value) {
-                        variationParam = product.variationAttributes[key].id;
-                        if (otherVariantValues[value].selected == true) {
-                            variationParamValue = otherVariantValues[value].id;
-                        }
-                    });
-                } else {
-                    variationParam = product.variationAttributes[key].id;
-                    variationParamValue = product.variationAttributes[key].values && product.variationAttributes[key].values[0] && product.variationAttributes[key].values[0].id ? product.variationAttributes[key].values[0].id : '';
-                }
-            }
-            if ((product.variationAttributes[key].id === ATTRIBUTE_NAME) || (product.variationAttributes[key].id === COLOR_WATCH)) {
-                colorVariations = product.variationAttributes[key];
-            }
-            if (!empty(colorVariations) && !empty(colorVariations.values) && !empty(productVariants)) {
-                if (colorVariations.id === ATTRIBUTE_NAME) {
-                    Object.keys(colorVariations.values).forEach(function (key) {
-                        productVariants.filter(function (variant) {
-                            if (variant.custom.color == colorVariations.values[key].id) {
-                                productId = variant.ID;
-                                return;
-                            }
-                        });
-                        if (colorVariations.values[key]) {
-                            colorVariations.values[key].swatchesURL = URLUtils.https(
-                                    'Product-Variation',
-                                    'dwvar_' + productId + '_color',
-                                    colorVariations.values[key].id,
-                                    'pid',
-                                    productId,
-                                    'quantity',
-                                    '1'
-                                    ).toString();
-                            colorVariations.values[key].pdpURL = URLUtils.https(
-                                'Product-Show',
-                                'pid',
-                                productId
-                            ).toString();
-                            if (!empty(variationParam) && !empty(variationParamValue)) {
-                                colorVariations.values[key].swatchesURL = URLUtils.https(
-                                        'Product-Variation',
-                                        'dwvar_' + productId + '_color',
-                                        colorVariations.values[key].id,
-                                        'dwvar_' + productId + '_' + variationParam,
-                                        variationParamValue,
-                                        'pid',
-                                        productId,
-                                        'quantity',
-                                        '1'
-                                        ).toString();
-                                colorVariations.values[key].pdpURL = URLUtils.https(
-                                    'Product-Show',
-                                    'pid',
-                                    productId
-                                ).toString();
-                            }
-                        }
-                    });
-                } else {
-                    Object.keys(colorVariations.values).forEach(function (key) {
-                        productVariants.filter(function (variant) {
-                            var productColor = variant.custom.productName ? variant.custom.productName : apiProduct.variationModel.variants[apiProductKey].custom.color;
-                            if (productColor == colorVariations.values[key].id) {
-                                productId = variant.ID;
-                                return;
-                            }
-                        });
-                        if (colorVariations.values[key]) {
-                            colorVariations.values[key].swatchesURL = URLUtils.https(
-                                'Product-Variation',
-                                'dwvar_' + productId + '_colorWatch',
-                                colorVariations.values[key].id,
-                                'pid',
-                                productId,
-                                'quantity',
-                                '1'
-                            ).toString();
-                            colorVariations.values[key].pdpURL = URLUtils.https(
-                                'Product-Show',
-                                'pid',
-                                productId
-                            ).toString();
-                            if (!empty(variationParam) && !empty(variationParamValue)) {
-                                colorVariations.values[key].swatchesURL = URLUtils.https(
-                                    'Product-Variation',
-                                    'dwvar_' + productId + '_colorWatch',
-                                    colorVariations.values[key].id,
-                                    'dwvar_' + productId + '_' + variationParam,
-                                    variationParamValue,
-                                    'pid',
-                                    productId,
-                                    'quantity',
-                                    '1'
-                                ).toString();
-                                colorVariations.values[key].pdpURL = URLUtils.https(
-                                    'Product-Show',
-                                    'pid',
-                                    productId
-                                ).toString();
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    }
-    return colorVariations;
-}
-
 
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
@@ -575,6 +446,5 @@ module.exports = {
     getGiftBoxSKU: getGiftBoxSKU,
     getIsWatchTile: getIsWatchTile,
     getRunningABTestSegments: getRunningABTestSegments,
-    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
-    getPdpVariationUrls: getPdpVariationUrls
+    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute
 };
