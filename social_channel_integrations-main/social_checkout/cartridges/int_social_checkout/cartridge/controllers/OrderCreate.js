@@ -46,7 +46,7 @@ server.post('Social', function (req, res, next) {
     }
 
     //get  order JSON string
-    var orderReqStr = req.httpParameterMap.getRequestBodyAsString();
+    var orderReqStr = request.httpParameterMap.getRequestBodyAsString();
 
     try {
         orderJSON = JSON.parse(orderReqStr);
