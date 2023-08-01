@@ -25,7 +25,7 @@
                             <source media="(min-width: 320px)" srcset="${product.images.tile150[loopStatus.count-1].url}" />
                         </isif>
                         <isif condition="${image}">
-                            <img class="tile-image gtm-product ${loopStatus.count-1}" src="${image[loopStatus.count-1].url}" alt="${product.productName}" itemprop="image" data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}' />
+                            <img class="tile-image gtm-product ${loopStatus.count-1}" fetchpriority="${pdict.plpTilePosition < 5 ? 'high' : '' }" src="${image[loopStatus.count-1].url}" alt="${product.productName}" itemprop="image" data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}' />
                         </isif>
                     </picture>
                 </isif>
