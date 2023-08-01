@@ -11,7 +11,7 @@ var salePrice;
 var listPrice;
 var productData;
 if (document.querySelector('.product-number span')) {
-    var productId = document.querySelector('.product-number span').innerHTML || '';
+    productId = document.querySelector('.product-number span').innerHTML || '';
 
 } else {
     var cartValue = document.querySelector('.add-to-cart');
@@ -73,7 +73,18 @@ clydeWidget = {
             var previousId = Clyde.getActiveProduct() ? Clyde.getActiveProduct().sku : null;
             // If there was no active variant, or the previous one is different from the new one
             if (previousId && previousId !== variantId) {
-                Clyde.setActiveProduct(variantId);
+                salePrice = $('.prices .sale-price-mvmt span').attr('content');
+                if (salePrice && ClydeSitePreferences.IS_PROMOTIONAL_PRICE) {
+                    productData = { sku: variantId, price: salePrice };
+                } else {
+                    listPrice = $('.prices .price-pdp-mvmt .strike-through span').attr('price-value');
+                    if (listPrice) {
+                        productData = { sku: variantId, price: listPrice };
+                    } else {
+                        productData = { sku: variantId, price: '' };
+                    }
+                }
+                Clyde.setActiveProduct(productData);
             }
         }
     }

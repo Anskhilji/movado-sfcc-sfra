@@ -453,7 +453,7 @@ server.append(
              //custom : PulseID engraving
              if (Site.current.preferences.custom.enablePulseIdEngraving) {
                 var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-                var setPulseJobID = pulseIdAPIHelper.setOptionalLineItemUUID(viewData, productLineItem);
+                pulseIdAPIHelper.setOptionalLineItemUUID(viewData, productLineItem);
             }
             // custom end
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
