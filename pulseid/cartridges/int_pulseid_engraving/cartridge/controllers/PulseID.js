@@ -18,11 +18,9 @@ server.post('Preview', function (req, res, next) {
 
         var templateCode = !empty(product.custom.pulseIDTemplateId) ? product.custom.pulseIDTemplateId : '';
         var productCode = !empty(product.custom.pulseIDProductCode) ? product.custom.pulseIDProductCode : '';
-        var location = pulseIdConstants.PULSEID_SERVICE_ID.LOCATION;
-        var elementName1 = pulseIdConstants.PULSEID_SERVICE_ID.LINE1;
-        var elementName2 = pulseIdConstants.PULSEID_SERVICE_ID.LINE2;
+        var location = !empty(product.custom.ProductLocation) ? product.custom.ProductLocation : '';
 
-        var payLoad = pulseIdRequestGenerator.pulseIdPayload(templateCode, productCode, location, elementName1, elementName2, line1Text, line2Text);
+        var payLoad = pulseIdRequestGenerator.pulseIdPayload(templateCode, productCode, location, line1Text, line2Text);
         // Making the API call to helper function to generate the payload of redner api and call the service 
         var pulseIdAPiResult = pulseIdAPI.pulseIdEngravingApi(payLoad, pulseIdConstants.PULSEID_SERVICE_ID.PULSEID_ENGRAVING_URL, pulseIdConstants.PULSEID_SERVICE_ID.PULSEID_REQUEST_METHOD);
         if (!empty(pulseIdAPiResult) && pulseIdAPiResult.success) {
