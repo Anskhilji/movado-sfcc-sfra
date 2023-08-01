@@ -12,25 +12,25 @@ header {
             .search-suggestions {
 
                 h3 {
-                    font-family: $font-HelveticaNeueLT-medium;
+                    font-family: $font-ProximaNova;
                 }
 
                 .category-slot {
 
                     a {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                     }
                 }
             }
 
             .search-close {
-                font-family: $font-HelveticaNeueLT-book;
+                font-family: $font-ProximaNova;
             }
 
         }
 
         .header-search-field {
-            font-family: $font-HelveticaNeueLT-medium;
+            font-family: $font-ProximaNova;
         }
 
         .user {
@@ -40,7 +40,7 @@ header {
                 .popover {
 
                     .btn {
-                        font-family: $font-HelveticaNeueLT-medium;
+                        font-family: $font-ProximaNova;
                     }
                 }
             }
@@ -49,16 +49,16 @@ header {
         .suggestions {
 
             .items-header > div {
-                font-family: $font-HelveticaNeueLT-medium;
+                font-family: $font-ProximaNova;
             }
 
             .item {
 
                 .name {
-                    font-family: $font-HelveticaNeueLT-book;
+                    font-family: $font-ProximaNova;
 
                     a {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                     }
                 }
             }
@@ -165,24 +165,24 @@ header {
                 .product-tile {
         
                     .out-of-stock {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                     }
         
                     .new-product,
                     .pre-order {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                     }
         
                     .tile-body {
         
                         .price {
-                            font-family: $font-HelveticaNeueLT-book;
+                            font-family: $font-ProximaNova;
                         }
                         
                         .pdp-link {
 
                             .product-name {
-                                font-family: $font-HelveticaNeueLT-medium;
+                                font-family: $font-ProximaNova;
                             }
                         }
                     }
@@ -193,16 +193,16 @@ header {
 }
 
 .accessible-link {
-    font-family: $font-HelveticaNeueLT-book;
+    font-family: $font-ProximaNova;
 }
 
 .header-banner {
 
     .html-slot-container {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
 
         .carousel-item {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
     }
 }
