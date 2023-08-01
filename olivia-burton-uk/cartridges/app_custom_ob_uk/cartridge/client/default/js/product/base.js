@@ -852,7 +852,10 @@ function slickSliderReinitialize() {
     var $slickCarouselConfig = $slickCarouselSlider.data('carousel-config');
 
     // Unslick the slider to reset the configuration
-    $slickCarouselSlider.slick('unslick');
+    if ($slickCarouselSlider.hasClass('slick-initialized')) {
+        $slickCarouselSlider.slick('unslick');
+    }
+    
     $slickCarouselSlider.addClass('d-none');
     
     setTimeout(() => {

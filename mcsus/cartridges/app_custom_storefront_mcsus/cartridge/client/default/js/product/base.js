@@ -1077,15 +1077,18 @@ function slickSliderReinitialize() {
     // Get the data value from the data-carousel-config attribute
     var $slickCarouselConfig = $slickCarouselSlider.data('carousel-config');
 
-     // Unslick the slider to reset the configuration
-     $slickCarouselSlider.slick('unslick');
-     $slickCarouselSlider.addClass('d-none');
+    // Unslick the slider to reset the configuration
+    if ($slickCarouselSlider.hasClass('slick-initialized')) {
+        $slickCarouselSlider.slick('unslick');
+    }
+    
+    $slickCarouselSlider.addClass('d-none');
      
-     setTimeout(() => {
+    setTimeout(() => {
         $slickCarouselSlider.removeClass('d-none');
         // Reinitialize the slider to reset the configuration
         $slickCarouselSlider.slick($slickCarouselConfig);
-     }, 300);
+    }, 300);
 }
 
 function clydeAddProductToCart() {
