@@ -19,6 +19,9 @@
                 a {
                     color: $light-black;
                     display: block;
+                    font-weight: 600;
+                    font-style: normal;
+                    font-size: rem(16);
                 }
             }
 
@@ -60,7 +63,10 @@
         .content {
             li {
                 a {
-                    font-size: rem(13);
+                    font-weight: 400;
+                    font-style: normal;
+                    font-size: rem(16);
+                    font-family: $font-futura-demi;
                 }
             }
         }
