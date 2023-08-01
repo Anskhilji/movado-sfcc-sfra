@@ -22,6 +22,7 @@ $dark-red: #981608 !default;
 $yellow: #FFC517 !default;
 $amber: #FFC107 !default;
 $border-color: #979797 !default;
+$border-color1: #D4D4D4 !default;
 // Consolidated values
 $black1: #212529 !default;
 $silver: #C6C4C4 !default;
@@ -59,6 +60,7 @@ $grayish-blue: #212529;
 $light-silver: #D8D8D8;
 $Grey: #242526;
 $silver: #B0B0B0;
+$silver2:#ededed;
 $light-grey4: #6C757D;
 $black3: #1E1E1E;
 $gray2: #A5A5A5;
@@ -72,6 +74,12 @@ $grey-transparent-4: rgba(0, 0, 0, 0.1) !default;
 $grey-transparent-5: rgba(0, 0, 0, 0.3) !default;
 $grey-transparent-6: rgba(0,0,0,0.5) !default;
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
+$grey-transparent-8: rgba(0,0,0,0.50) !default;
+$grey-transparent-9: rgba(0,0,0,0.50) !default;
+$grey-transparent-10:rgba(151, 151, 151, 0.18) !default;
+$grey-transparent-11: rgba(151,151,151,0.1) !default;
+$grey-transparent-12: rgba(0,0,0,0.68) !default;
+
 $grey-light: rgba(187, 189, 191, 0.3) !default;
 $grey-light2: rgba(195,195,195,0.5) !default;
 $grey-light3: #aaa !default;
@@ -97,6 +105,9 @@ $placeholder: $grey4 !default;
 $white-smoke:#F2F2F2 !default;
 $white-smoke2: rgba(245,245,245,0.9) !default;
 $white-smoke3: #F6F6F6 !default;
+$white-smoke5: rgba(0,0,0,0.05) !default;
+$white-smoke6:rgba(160,160,160,0.2) !default;
+$white-smoke7:#f2eee6 !default;
 $dark-black: #060506;
 $granite-gray:  #5C5C5C;
 $apple: #59AF2C;
@@ -111,6 +122,7 @@ $gray5: #EEEDEC;
 $gray6: #0D0D0D;
 $gray7: #909090;
 $gray8: #ECECEC;
+$gray9:#e2e2e2;
 $black6: #060004;
 $light-grey6: #F8f8f8;
 $light-gray3: #C4C1C1;
@@ -119,6 +131,7 @@ $grey-light11: rgba(0,0,0,0.89);
 $grey-light12: rgba(187,189,191,0.3);
 $grey-light13: rgba(196,193,193,0.45);
 $grey-light14: rgba(0,0,0,0.6) !default;
+$grey-light15: rgba(0,0,0,0.7) !default;
 $grey-light6: rgba(0,0,0,0.5) !default;
 $font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
 
@@ -170,6 +183,8 @@ $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org
 }
 // Large Screen
 $large-screen-width: 1400px;
+$xl-large-screen-width:1500px;
+$laptop-screen-width:1300px;
 
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {

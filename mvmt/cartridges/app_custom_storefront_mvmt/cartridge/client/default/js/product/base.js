@@ -206,8 +206,10 @@ function openMiniCart() {
 function updateCartIcons() {
     var $cartItems = $('.cart-quantity-items').data('quantity-id');
     var $cartIcon = $('.cart-icon');
+    var $cartCounter = $('.cart-counter');
     if ($cartItems !== undefined && $cartItems !== 0) {
         $cartIcon.addClass('fill-cart-icon');
+        $cartCounter.addClass('fill-cart-count');
     }
 }
 
@@ -1394,6 +1396,7 @@ movadoBase.addToCart = function () {
         var giftPid;
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
+        $('body, html').addClass('scroll-remove');
 
         if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
             setPids = [];

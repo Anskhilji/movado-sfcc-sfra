@@ -33,6 +33,9 @@ function top(errorOrSuccess) {
 }
 
 var wrapperContainer = $('.submission-status');
+var $emailSubmitBtn = $('.email-submit-btn');
+var $emailSubscriptionLoader = $('.email-subscription-loader');
+var $emailSubscriptionSuccess = $('.email-subscription-success');
 
 /**
  * This function is used to process the response and display the response message
@@ -41,7 +44,7 @@ var wrapperContainer = $('.submission-status');
  **/
 function processSubscription(response) {
     var formContainer = $(this).data('sfmc-form-container');
-    $.spinner().stop();
+    $emailSubscriptionLoader.addClass('d-none');
     if ((typeof (response) === 'object')) {
         var topPercentage = top(true);
         wrapperContainer.removeClass('d-none');
@@ -51,6 +54,7 @@ function processSubscription(response) {
             $('.submission-status').text(response.message);
             $('.footer-more-fields').css('top', topPercentage);
             $('#add-to-email-list').prop('checked', response.customerFound);
+            $emailSubscriptionSuccess.removeClass('d-none');
             if (response.isanalyticsTrackingEnabled && response.userTracking) {
                 setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
@@ -62,12 +66,15 @@ function processSubscription(response) {
         } else {
             $('.submission-status').removeClass('success').addClass('error');
             $('.footer-more-fields').css('top', topPercentage);
+            $emailSubmitBtn.removeClass('d-none');
         }
     }
 }
 
 $('#newsletterSubscribe').off('submit').on('submit', function (e) {
     e.preventDefault();
+    $emailSubmitBtn.addClass('d-none');
+    $emailSubscriptionLoader.removeClass('d-none');
     wrapperContainer.addClass('d-none');
     var topPercentage = top(true);
     var endPointUrl = $(e.target).attr('action');
@@ -77,6 +84,8 @@ $('#newsletterSubscribe').off('submit').on('submit', function (e) {
     var $footermorefields = $('.footer-more-fields');
     var $emailVerification = $(e.target).find('.email-verification').val();
     if (typeof $emailVerification !== 'undefined'  && ($emailVerification !== '' || $emailVerification.length > 0)) {
+        $emailSubmitBtn.removeClass('d-none');
+        $emailSubscriptionLoader.addClass('d-none');
         return;
     }
     if (inputValue !== '') {
@@ -87,14 +96,18 @@ $('#newsletterSubscribe').off('submit').on('submit', function (e) {
                 $submisstionStatus.text(Resources.MVMT_EMAIL_EMAIL_ERROR_INVALID);
                 $submisstionStatus.removeClass('success').addClass('error');
                 $footermorefields.css('top', topPercentage);
+                $emailSubmitBtn.removeClass('d-none');
+                $emailSubscriptionLoader.addClass('d-none');
             } else {
-                $.spinner().start();
                 $.ajax({
                     url: endPointUrl,
                     method: 'POST',
                     data: { email: inputValue },
                     success: processSubscription,
-                    error: function () { $.spinner().stop(); }
+                    error: function () {
+                        $emailSubmitBtn.removeClass('d-none');
+                        $emailSubscriptionLoader.addClass('d-none');
+                    }
                 });
             }
     } else {
@@ -103,6 +116,8 @@ $('#newsletterSubscribe').off('submit').on('submit', function (e) {
         $('.submission-status').text(Resources.MVMT_EMAIL_SIGNUP_EMPTY_EMAIL);
         $('.submission-status').removeClass('success').addClass('error');
         $('.footer-more-fields').css('top', topPercentage);
+        $emailSubmitBtn.removeClass('d-none');
+        $emailSubscriptionLoader.addClass('d-none');
     }
 });
 

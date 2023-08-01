@@ -90,6 +90,7 @@ function getResources(pageContext) {
         CLYDE_WIDGET_ENABLED: Site.current.preferences.custom.isClydeEnabled ? true : false,
         OUT_OF_STOCK_LABEL: Resource.msg('label.out.of.stock', 'common', null),
         ADD_TO_CART_LABEL: Resource.msg('button.addtocart', 'common', null),
+        ENGRAVING_ERROR_MESSAGE: Resource.msg('engraving.error.message', 'product', null),
         GIFT_MESSAGE_CART_ERROR: giftMessageCartError,
         INFO_PRODUCT_AVAILABILITY_PREORDER: Resource.msg('info.product.availability.preorder', 'common', null),
         INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),

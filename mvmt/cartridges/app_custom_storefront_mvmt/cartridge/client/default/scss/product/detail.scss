@@ -160,6 +160,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: rem(64.5);
 
             span {
                 color: $black;
@@ -167,7 +168,7 @@
             }
 
             &:hover {
-                background-color: $light-green;
+                background-color: $dark-blue-btn;
                 color: $white;
 
                 span {
@@ -218,7 +219,6 @@
         font-weight: 600;
         letter-spacing: rem(1.6);
         line-height: rem(12);
-        text-transform: capitalize;
         letter-spacing: rem(1.5);
 
         &.attribute-name {
@@ -541,6 +541,10 @@
                 max-height: rem(400);
                 }
 
+                @include media-breakpoint-up(lg) {
+                    width: rem(284);
+                    height: rem(284);
+                }
             }
         }
 
@@ -1032,6 +1036,16 @@
 
                     .carousel-tile {
                         overflow: visible !important;
+                        
+                        &.poster-frame-video {
+                            @include media-breakpoint-down(xs) { 
+                                max-width: rem(544);
+                            }
+                      
+                            @media (max-width: $small-screen-width375) {
+                                max-width: rem(375);
+                            } 
+                        }
                  
 
                         &.active {
@@ -1215,6 +1229,7 @@
                     padding-right: rem(20);
                     h1 {
                         margin-bottom: rem(5);
+                        font-family: $font-ivypresto-headline;
                     }
     
                     .watches {
@@ -1313,6 +1328,7 @@
 
                     h1 {
                         margin-bottom: rem(5);
+                        font-family: $font-ivypresto-headline;
                     }
                     
                     .eyewear {
@@ -1349,6 +1365,7 @@
 
                     h1 {
                         margin-bottom: rem(5);
+                        font-family: $font-ivypresto-headline;
                     }
                     
                     .jewlery {
@@ -1406,6 +1423,7 @@
                 padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
+                    font-family: $font-ivypresto-headline;
                 }
 
                 .watches {
@@ -1454,7 +1472,7 @@
                    span {
                         color: $light-black;
                         font-size: rem(34);
-                        @include font-medium;
+                        font-family: $font-ivypresto-headline;
                         letter-spacing: rem(0.7);
                         line-height: rem(41); 
                         margin: rem(0);
@@ -1477,7 +1495,8 @@
                         }
 
                         span {
-                            @include collection-subtitle-font;
+                            font-family: $font-ivypresto-headline;
+                            font-size: rem(16);
                             display: block;
                             letter-spacing: rem(1.5);
                             color: $light-gray2;
@@ -1511,6 +1530,7 @@
                 padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
+                    font-family: $font-ivypresto-headline;
                 }
                 
                 .eyewear {
@@ -1547,6 +1567,7 @@
 
                 h1 {
                     margin-bottom: rem(5);
+                    font-family: $font-ivypresto-headline;
                 }
                 
                 .jewlery {
@@ -1834,6 +1855,15 @@
                     margin-top: rem(4);
                     margin-bottom: rem(4);
                     justify-content: center;
+                    background-color: $dark-gray2;
+                    border-color: $dark-gray2;
+                    border-radius: rem(64.5);
+
+                    &:hover {
+                        background-color: $dark-blue-btn;
+                        border-color: $dark-blue-btn;
+                        box-shadow: none;
+                    }
             }
 
             &.mobileBtn.btn-primary {
@@ -1932,15 +1962,14 @@
         display: block !important;
 
         .add-to-cart, .add-to-cart-mvmt {
-           
             display: inline-block;
             text-align: center;
             text-transform: uppercase;
             line-height: 1;
             font-size: rem(16);
             padding: rem(16) rem(20);
-            background-color: $light-green2;
-            border-color: $light-green2;
+            background-color: $dark-gray2;
+            border-color: $dark-gray2;
             color: $white;
             width: 100%;
             letter-spacing: rem(3);
@@ -1948,6 +1977,8 @@
             letter-spacing: rem(1.25);
             transition: all .4s;
             height: rem(60);
+            border-radius: rem(64.5);
+            box-shadow: none;
 
             .btn-primary {
                 @include media-breakpoint-down(sm) {
@@ -1962,8 +1993,8 @@
             }
                        
             &:hover {
-                background: $gossamer;
-                border-color: $gossamer;
+                background: $dark-blue-btn;
+                border-color: $dark-blue-btn;
             }
 
             &:not(:disabled):not(.disabled):active:focus {
@@ -1971,28 +2002,33 @@
             }
 
             &.mobileBtn {
-                background-color: $light-green2;
-                border-color: $light-green2;
+                background-color: $dark-gray2;
+                border-color: $dark-gray2;
                 width: 100%;
                 height: rem(60);
+
+                &:hover {
+                    background-color: $dark-blue-btn;
+                    border-color: $dark-blue-btn;
+                }
             }
             
             &.out-of-stock-btn {
-                background: $light-grey10;
-                opacity: 0.5;
-                color: $black;
-                border-color: $light-grey10;
+                background: $dark-gray2;
+                opacity: 0.3;
+                color: $white;
+                border-color: $dark-gray2;
 
                 .product-price-mobile {
 
                     .price {
-                        color: $black;
+                        color: $white;
                     }
                 }
         
                 &:hover {
-                    background: $light-grey10;
-                    border-color: $light-grey10;
+                    background: $dark-gray2;
+                    border-color: $dark-gray2;
                 }
             }
         }
@@ -2002,11 +2038,6 @@
             justify-content: space-between;
             width: 100%;
             height: rem(60);
-
-            @include media-breakpoint-up(md-down) {
-              
-                border-radius: rem(5);
-            }
 
             @include media-breakpoint-down(xs) {
                 line-height: rem(28);
@@ -2114,6 +2145,7 @@
                     &:hover {
                         .upsell_text {
                             p {
+                                font-family: $font-brandon-grotesque;
                                 background-color: $light-green;
                                 color: $white;
                                 transition: 0.3s ease;
@@ -2181,7 +2213,7 @@
                     background-color: $white-gray;
 
                     p {
-                        font-family: $font-book;
+                        font-family: $font-brandon-grotesque;
                         font-size: rem(11);
                         color: $black;
                         text-align: center;
@@ -2862,8 +2894,8 @@
     &-btn {
         display: inline-block;
         text-transform: uppercase;
-        border: rem(1) solid $black;
-        color: $black;
+        border: rem(1) solid $dark-gray2;
+        color: $dark-gray2;
         font-family: $font-book;
         font-size: rem(12);
         padding: 0 rem(25);
@@ -2871,11 +2903,13 @@
         background-color: $white;
         transition: all .2s ease;
         text-decoration: none;
+        border-radius: rem(64.5);
 
-        &:hover {
+        &:hover,&:focus {
             color: $white;
-            background: $black;
+            background: $dark-blue-btn;
             text-decoration: none;
+            border-color: $dark-blue-btn;
         }
     }
 }
@@ -3112,10 +3146,6 @@
             padding: 0;
         }
     }
-
-    .attribute-value {
-        text-transform: capitalize;
-    }
 }
 
 .description-container {
@@ -3204,6 +3234,7 @@
 
             h2 {
                 margin-bottom: rem(25);
+                font-family: $font-ivypresto-headline;
                 font-size: rem(20);
                 font-weight: 400;
                 line-height: 1.2;
@@ -3220,6 +3251,7 @@
             }
 
             p {
+                font-family: $font-brandon-grotesque;
                 font-size: rem(16);
                 font-weight: 500;
                 color: $light-gray;
@@ -3360,7 +3392,7 @@
                         font-weight: 500;
                         letter-spacing: rem(1.6);
                         line-height: rem(12);
-                        text-transform: capitalize;
+
                         &.attribute-name {
                             text-transform: uppercase;
                         }
@@ -3656,6 +3688,7 @@
             margin: 0 0 rem(20);
         }
         p {
+            font-family: $font-brandon-grotesque;
             font-size: rem(14);
             line-height: rem(20);
             letter-spacing: .5px;
@@ -3750,7 +3783,6 @@
     .gpay-button {
         padding: rem(8) 15% !important;
     }
-
     .gpay-button-fill-new-style {
         
         .gpay-button {
@@ -4362,7 +4394,7 @@
                         }
             
                         .details-heading {
-                            font-family: $font-medium;
+                            font-family: $font-brandon-grotesque;
                             font-size: rem(18);
                             font-weight: 500;
                             line-height: rem(22);
@@ -4394,7 +4426,6 @@
                                     font-weight: 300;
                                     letter-spacing: rem(0);
                                     line-height: rem(22);
-                                    text-transform: capitalize;
             
                                     &.attribute-name {
                                         text-transform: capitalize;
@@ -4579,6 +4610,10 @@
         
                     .upsell {
         
+                        p {
+                            font-family: $font-brandon-grotesque;  
+                        }
+
                         &_wrapper {
                             text-align: center;
                             position: relative;
@@ -4626,7 +4661,7 @@
 
                             &_name {
                                 color: $black;
-                                font-family: $font-medium;
+                                font-family: $font-brandon-grotesque;
                                 font-size: rem(14);
                                 font-weight: 500;
                                 letter-spacing: rem(0);
@@ -4642,7 +4677,7 @@
                             font-size: rem(12);
                             text-transform: uppercase;
                             line-height: rem(20);
-                            font-family: $font-medium;
+                            font-family: $font-brandon-grotesque;
                             font-weight: 500;
                             letter-spacing: rem(0);
                             opacity: 0.7;
@@ -4673,7 +4708,7 @@
                             background-color: transparent;
         
                             p {
-                                font-family: $font-book;
+                                font-family: $font-brandon-grotesque;
                                 font-size: rem(14);
                                 font-weight: 500;
                                 color: $black;
@@ -4887,13 +4922,4 @@
     @include media-breakpoint-up(md-down) {
         display: none;
     }  
-}
-
-.listrak-persistent-popup {
-    display: none !important;
-}
-.button-floting {
-    &.button-product-detail {
-        bottom: rem(160);
-    }
 }

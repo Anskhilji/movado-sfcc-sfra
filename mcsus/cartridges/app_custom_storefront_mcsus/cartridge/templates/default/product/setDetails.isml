@@ -66,7 +66,8 @@
         <!-- sticky ATC -->
 
         <div class="atcc-btn ${productStock ? "d-none" : ""}">
-            <div class="top-sticky-card scroll-hidden">
+        <isset name="mcsHeaderABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSHeaderRedesign','render-new-design')}" scope="page" />
+            <div class=" ${mcsHeaderABTest ? 'top-header-redesign' : 'top-sticky-card'} scroll-hidden">
                 <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', pdict.product.id, 'isProductSet', true)}"/>
             </div>
             <div class="bottom-sticky-card scroll-hidden">
@@ -75,7 +76,7 @@
         </div>
 
             <!-- Start: Listrak persistent popup -->
-    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled}">
         <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
         <span class="listrak-popup-product-detail"></span>
         <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
