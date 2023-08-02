@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <div class="card confirm-details">
     <div class="card-header">
         <h4 class="heading-four text-uppercase">${Resource.msg('title.receipt', 'confirmation', null)}</h4>

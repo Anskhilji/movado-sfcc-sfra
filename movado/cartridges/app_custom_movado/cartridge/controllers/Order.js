@@ -573,7 +573,7 @@ server.post('OrderDetail', function (req, res, next) {
             salesChannel: Site.getCurrent().getID()
         });
 
-        var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
+        var ordersArray = !empty(orders) && !empty(orders.object) && !empty(orders.object.orders) ? orders.object.orders : '';
         var orderNumberParam = req.form.trackOrderNumber;
 
         if (!empty(ordersArray) && !empty(orderNumberParam)) {
@@ -589,9 +589,14 @@ server.post('OrderDetail', function (req, res, next) {
             cancelOrderEnable = true;
         }
 
+        var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
+        var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
+
         if (req.form.trackOrderEmail.toLowerCase() == orderModel.orderEmail.toLowerCase() && req.form.trackOrderPostal == orderModel.billing.billingAddress.address.postalCode) {
             res.render('account/orderDetails', {
                 order: orderModel,
+                exitLinkText: exitLinkText,
+                exitLinkUrl: exitLinkUrl,
                 isCancelOrder: true,
                 isCancelOrderEnable: cancelOrderEnable
             });
