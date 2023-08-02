@@ -80,6 +80,10 @@
                     @include media-breakpoint-down(md) {
                         padding: 0 rem(10);
                     }
+
+                    &.slick-initialized {
+                        display: block;
+                    }
                 }
             }
 
@@ -648,3 +652,4 @@
 .tick-icon {
     display: none;
 }
+
