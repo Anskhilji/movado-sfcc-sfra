@@ -49,9 +49,9 @@ module.exports = function () {
             for (var i = 0; i < $product.images.tile640.length; i++) {
                 var $html = `<a href="${$pdpURL}">
                                 <picture class="tile-picture tile-picture-primary">
-                                    <source media="(min-width: 992px)" srcset="${$product && $product.images && $product.images.tile512Xtile640.length > 0 && $product.images.tile512Xtile640[i].url ? $product.images.tile640Xtile764[i].url : ''}" />
-                                    <source media="(min-width: 544px)" srcset="${$product && $product.images && $product.images.tile512Xtile640.length > 0 && $product.images.tile512Xtile640[i].url ? $product.images.tile512Xtile640[i].url : ''}" />
-                                    <source media="(min-width: 320px)" srcset="${$product && $product.images && $product.images.tile512Xtile640.length > 0 && $product.images.tile512Xtile640[i].url ? $product.images.tile512Xtile640[i].url : ''}" />
+                                    <source media="(min-width: 992px)" srcset="${$product && $product.images && $product.images.tile640Xtile764 && $product.images.tile640Xtile764.length > 0 && $product.images.tile640Xtile764[i].url ? $product.images.tile640Xtile764[i].url : ''}" />
+                                    <source media="(min-width: 544px)" srcset="${$product && $product.images && $product.images.tile512Xtile640 && $product.images.tile512Xtile640.length > 0 && $product.images.tile512Xtile640[i].url ? $product.images.tile512Xtile640[i].url : ''}" />
+                                    <source media="(min-width: 320px)" srcset="${$product && $product.images && $product.images.tile512Xtile640 && $product.images.tile512Xtile640.length > 0 && $product.images.tile512Xtile640[i].url ? $product.images.tile512Xtile640[i].url : ''}" />
                                     <img class="tile-image gtm-product" src="${$product.images.tile640[i].url}" alt="${$product.images.tile640[i].alt}" itemprop="image"/>
                                 </picture>
                             </a>`;
