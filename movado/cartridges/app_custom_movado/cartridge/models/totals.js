@@ -135,7 +135,7 @@ function totals(lineItemContainer) {
     var totalsObj;
     var KlarnaGrandTotal = lineItemContainer.totalGrossPrice;
     var progressBarGrandTotal = lineItemContainer.totalGrossPrice;
-    var progressBarSubTotal = lineItemContainer.merchandizeTotalGrossPrice;
+    var progressBarSubTotal = lineItemContainer.adjustedMerchandizeTotalPrice;
     var discountArray = getDiscounts(lineItemContainer);
     var isFree = false;
 
