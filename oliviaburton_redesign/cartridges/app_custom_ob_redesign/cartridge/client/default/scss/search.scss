@@ -1513,28 +1513,19 @@
                                 padding: 0;
                             }
 
-                            @include media-breakpoint-down(md) {
-                                max-height: rem(234);
-                            }
-
-                            @include media-breakpoint-down(sm) {
-                                max-height: rem(170);
-                            }
-
                             @include media-breakpoint-down(sm-small) {
-                                max-height: rem(168);
+                                max-height: rem(210);
                             }
 
-                            @include media-breakpoint-down(sm-custom) {
-                                max-height: rem(185);
+                            @media (max-width:$m-425) {
+                                max-height: rem(247);
                             }
 
-                            @include media-breakpoint-down(xsm-custom) {
-                                max-height: rem(161);
+                            @media (max-width:$m-375) {
+                                max-height: rem(216);
                             }
-
-                            @include media-breakpoint-down(xs-custom) {
-                                max-height: rem(145);
+                            @media (max-width:$m-325) {
+                                max-height: rem(181);
                             }
                         }
 
