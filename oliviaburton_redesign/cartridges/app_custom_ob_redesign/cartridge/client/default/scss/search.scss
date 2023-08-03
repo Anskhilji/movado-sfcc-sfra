@@ -1509,9 +1509,32 @@
                         display: none;
 
                         .slick-slide {
-
                             @include media-breakpoint-down(lg) {
-                                padding: 0 rem(0.7);
+                                padding: 0;
+                            }
+
+                            @include media-breakpoint-down(md) {
+                                max-height: rem(234);
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                max-height: rem(170);
+                            }
+
+                            @include media-breakpoint-down(sm-small) {
+                                max-height: rem(168);
+                            }
+
+                            @include media-breakpoint-down(sm-custom) {
+                                max-height: rem(185);
+                            }
+
+                            @include media-breakpoint-down(xsm-custom) {
+                                max-height: rem(161);
+                            }
+
+                            @include media-breakpoint-down(xs-custom) {
+                                max-height: rem(145);
                             }
                         }
 
