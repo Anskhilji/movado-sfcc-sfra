@@ -62,6 +62,7 @@
       font-size: $font-size-heading2;
       letter-spacing: rem(1.6);
       border: rem(1) solid $black;
+      font-weight: 300;
     }
 
     select.form-control {
@@ -211,6 +212,7 @@
       font-family: $font-gills-light;
       font-size: $font-size-heading2;
       letter-spacing: rem(1);
+      font-weight: 300;
     }
   }
 }
@@ -228,6 +230,7 @@
 .checkout-page {
   label {
     font-family: $font-gills-light;
+    font-weight: 300;
   }
 }
 

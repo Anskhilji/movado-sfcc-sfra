@@ -493,6 +493,7 @@
                 font-family: $font-gills-light;
                 letter-spacing: rem(0);
                 font-style: normal;
+                font-weight: 300;
 
                 @include media-breakpoint-up(lg) {
                     line-height: rem(30);
