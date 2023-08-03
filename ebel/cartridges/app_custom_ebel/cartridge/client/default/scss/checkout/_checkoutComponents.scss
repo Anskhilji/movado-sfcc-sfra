@@ -955,10 +955,10 @@ $stored-payment-spacing: rem(16);
 }
 
 .order-cancel-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 
   .cancel-order-btn {
       background-color: transparent;
