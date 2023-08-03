@@ -430,6 +430,7 @@ module.exports = {
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     $('body').trigger('facet:success', [gtmFacetArray]);
                     $('.product-grid').empty().html(response);
+                    $('.product-grid .grid-footer').removeClass('d-none');
                     // edit
                     updatePageURLForSortRule(url);
                     // edit
