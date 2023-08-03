@@ -5,6 +5,7 @@ var Site = require('dw/system/Site');
 var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
+var URLUtils = require('dw/web/URLUtils');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var OrderMgr = require('dw/order/OrderMgr');
 var Order = require('dw/order/Order');
@@ -45,6 +46,7 @@ function sendOrderConfirmationEmail(order, locale) {
     var currentLocale = Locale.getLocale(locale);
     var ContentMgr = require('dw/content/ContentMgr');
     var Site = require('dw/system/Site');
+    var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
     var emailHeaderContent = ContentMgr.getContent('email-header');
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
@@ -55,6 +57,7 @@ function sendOrderConfirmationEmail(order, locale) {
     var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-confirmation-marketing-pick-in-store');
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
     var isPickupStoreEnabled = !empty(Site.current.preferences.custom.isPickupStoreEnabled) ? Site.current.preferences.custom.isPickupStoreEnabled : false;
+    var isOrderCancellationEnabled = !empty(Site.current.preferences.custom.enableOrderCancellation) ? Site.current.preferences.custom.enableOrderCancellation : false;
     var domesticShippingLabel = Resource.msg('order.confirmation.email.label.shippingto', 'order', null);
     var pickupShippingLabel = Resource.msg('order.confirmation.email.label.pickup.shippingto', 'order', null);
 
@@ -73,6 +76,38 @@ function sendOrderConfirmationEmail(order, locale) {
             bottomContent: (bottomPickInStoreContent && bottomPickInStoreContent.custom && bottomPickInStoreContent.custom.body ? bottomPickInStoreContent.custom.body : '')
         };
     }
+
+    // if (isOrderCancellationEnabled && !empty(order)) {
+    //     var cancelOrderEnable = false;
+    //     var emailAddress = orderModel.orderEmail;
+
+    //     var orders = SalesforceModel.getOrdersByCustomerEmail({
+    //         emailAddress: emailAddress,
+    //         salesChannel: Site.getCurrent().getID()
+    //     });
+
+    //     var ordersArray = !empty(orders) && !empty(orders.object) && !empty(orders.object.orders) ? orders.object.orders : '';
+    //     var orderNumberParam = orderModel.orderNumber;
+
+    //     if (!empty(ordersArray) && !empty(orderNumberParam)) {
+    //         var filteredOrder = ordersArray.filter(function (orderObject) {
+    //             return orderObject.num == orderNumberParam
+    //         });
+    //     }
+    //     var orderStatus = {
+    //         omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
+    //     }
+
+    //     if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Approved') {
+    //         cancelOrderEnable = true;
+    //     }
+    //     var orderCancellationUrl = URLUtils.url('Order-CancelOrder', 'orderId', orderModel.orderNumber);
+
+    //     var orderCancellationObj = {
+    //         isCancelOrderEnabled: cancelOrderEnable,
+    //         orderCancellationUrl: orderCancellationUrl
+    //     }
+    // }
 
     var orderObject = {
         order: orderModel,
@@ -113,6 +148,7 @@ function sendOrderConfirmationEmail(order, locale) {
         pickUpStoreAddressLabel: Resource.msg('order.confirmation.email..pick.store.address.label', 'order', null),
         billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
         currentOrder: order
+        // orderCancellationEmailObj: orderCancellationObj
     };
 
     var subject = isPickupStoreEnabled && order.custom.BOPIS ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber);

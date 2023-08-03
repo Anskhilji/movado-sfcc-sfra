@@ -465,7 +465,7 @@ server.post(
                     salesChannel: Site.getCurrent().getID()
                 });
 
-                var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
+                var ordersArray = !empty(orders) && !empty(orders.object) && !empty(orders.object.orders) ? orders.object.orders : '';
                 var orderNumberParam = req.form.trackOrderNumber;
                 if (!empty(ordersArray) && !empty(orderNumberParam)) {
                     var filteredOrder = ordersArray.filter(function (orderObject) {

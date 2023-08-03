@@ -953,3 +953,38 @@ $stored-payment-spacing: rem(16);
         }
     }
 }
+
+.order-cancel-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  .cancel-order-btn {
+      background-color: transparent;
+      border: transparent;
+      outline: none;
+      box-shadow: none;
+      padding: 0;
+
+      &:focus {
+          outline: none;
+          box-shadow: none;
+      }
+
+      &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+  }
+
+  .form-select {
+      height: rem(30);
+      max-width: rem(250);
+      width: 100%;
+  }
+}

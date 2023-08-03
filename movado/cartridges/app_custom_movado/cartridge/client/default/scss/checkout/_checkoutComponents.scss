@@ -1801,6 +1801,7 @@ $stored-payment-spacing: rem(16);
         border: transparent;
         outline: none;
         box-shadow: none;
+        padding: 0;
 
         &:focus {
             outline: none;
@@ -1810,6 +1811,10 @@ $stored-payment-spacing: rem(16);
         &:hover {
             cursor: pointer;
             text-decoration: underline;
+        }
+
+        &:disabled {
+          cursor: not-allowed;
         }
     }
 
