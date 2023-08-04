@@ -1,4 +1,11 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="inStock" value="${Resource.msg('label.instock', 'common', null)}" scope="page" />
+<isset name="preOrder" value="${Resource.msg('info.product.availability.preorder', 'common', null)}" scope="page" />
+<isset name="backOrder" value="${Resource.msg('info.product.availability.backorder', 'common', null)}" scope="page" />
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+<isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+
 <div class="row align-items-center">
     <iscomment> <div class="col-12 col-sm-4">
         <label class="availability">
@@ -14,7 +21,21 @@
                     ${Resource.msg('info.selectforstock', 'product', 'Select Styles for Availability')}
                 <iselse>
                     <isloop items="${product.availability.messages}" var="message">
-                        <div>${message}</div>
+                    <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                            <isif condition="${product.productATSValue <= lowStockThreshold}">
+                                <isif condition="${message === inStock || message === preOrder || message === backOrder}">
+                                    <div class="low-stock-message">
+                                        <iscontentasset aid="ca-low-stock-message" />
+                                    </div>
+                                <iselse/>
+                                    <div>${message}</div>
+                                </isif> 
+                            <iselse/>
+                                <div>${message}</div>
+                            </isif>
+                        <iselse/>
+                            <div>${message}</div>
+                        </isif>
                     </isloop>
                 </isif>
             </li>
