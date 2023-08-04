@@ -538,74 +538,50 @@ server.get('OrderTracking', function (req, res, next) {
     return next();
 });
 
-server.post('OrderDetail', function (req, res, next) {
+server.get('GetOrderDetail', function (req, res, next) {
     var Locale = require('dw/util/Locale');
-    var OrderMgr = require('dw/order/OrderMgr');
+    var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
-    var OrderModel = require('*/cartridge/models/order');
-    var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-    var order;
-    var cancelOrderEnable = false;
+    var currentLocale = Locale.getLocale(req.locale.id);
+    var orderNumber = req.querystring.trackOrderNumber;
+    var responseObject = orderCustomHelpers.orderDetail(currentLocale, true, orderNumber);
+    var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
+    var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
 
-    if (req.form.trackOrderEmail && req.form.trackOrderPostal && req.form.trackOrderNumber) {
-        order = OrderMgr.getOrder(req.form.trackOrderNumber);
+    if (!empty(responseObject) && !empty(responseObject.orderModel) && orderNumber.toLowerCase() == responseObject.orderModel.orderNumber.toLowerCase()) {
+        res.render('account/orderDetails', {
+            order: responseObject.orderModel,
+            exitLinkText: exitLinkText,
+            exitLinkUrl: exitLinkUrl,
+            isCancelOrder: true,
+            isCancelOrderEnable: responseObject.cancelOrderEnable
+        });
+    } else {
+        res.render('/order/orderTracking', {
+            invalidOrder: true
+        });
     }
 
-    if (order) {
-        var config = {
-            numberOfLineItems: '*'
-        };
+    next();
+});
 
-        var currentLocale = Locale.getLocale(req.locale.id);
+server.post('OrderDetail', function (req, res, next) {
+    var Locale = require('dw/util/Locale');
+    var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
-        var orderModel = new OrderModel(
-            order, {
-                config: config,
-                countryCode: currentLocale.country,
-                containerView: 'order'
-            }
-        );
+    var currentLocale = Locale.getLocale(req.locale.id);
+    var responseObject = orderCustomHelpers.orderDetail(currentLocale, false, req.form.trackOrderNumber, req.form.trackOrderPostal, req.form.trackOrderEmail);
+    var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
+    var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
 
-        var emailAddress = orderModel.orderEmail;
-
-        var orders = SalesforceModel.getOrdersByCustomerEmail({
-            emailAddress: emailAddress,
-            salesChannel: Site.getCurrent().getID()
+    if (!empty(responseObject) && !empty(responseObject.orderModel) && req.form.trackOrderEmail.toLowerCase() == responseObject.orderModel.orderEmail.toLowerCase() && req.form.trackOrderPostal == responseObject.orderModel.billing.billingAddress.address.postalCode) {
+        res.render('account/orderDetails', {
+            order: responseObject.orderModel,
+            exitLinkText: exitLinkText,
+            exitLinkUrl: exitLinkUrl,
+            isCancelOrder: true,
+            isCancelOrderEnable: responseObject.cancelOrderEnable
         });
-
-        var ordersArray = !empty(orders) && !empty(orders.object) && !empty(orders.object.orders) ? orders.object.orders : '';
-        var orderNumberParam = req.form.trackOrderNumber;
-
-        if (!empty(ordersArray) && !empty(orderNumberParam)) {
-            var filteredOrder = ordersArray.filter(function (orderObject) {
-                return orderObject.num == orderNumberParam
-            });
-        }
-        var orderStatus = {
-            omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
-        }
-
-        if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Approved') {
-            cancelOrderEnable = true;
-        }
-
-        var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
-        var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
-
-        if (req.form.trackOrderEmail.toLowerCase() == orderModel.orderEmail.toLowerCase() && req.form.trackOrderPostal == orderModel.billing.billingAddress.address.postalCode) {
-            res.render('account/orderDetails', {
-                order: orderModel,
-                exitLinkText: exitLinkText,
-                exitLinkUrl: exitLinkUrl,
-                isCancelOrder: true,
-                isCancelOrderEnable: cancelOrderEnable
-            });
-        } else {
-            res.render('/order/orderTracking', {
-                invalidOrder: true
-            });
-        }
-
     } else {
         res.render('/order/orderTracking', {
             invalidOrder: true

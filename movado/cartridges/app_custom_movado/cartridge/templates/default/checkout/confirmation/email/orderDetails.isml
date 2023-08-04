@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isloop items="${pdict.order.shipping}" var="shippingModel">
 <table class="responsive-550" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" class="yahoo-center-fix" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
 	<tr>
@@ -33,6 +34,15 @@
 				<isinclude template="/checkout/confirmation/email/shippingDetails" />
                 <isinclude template="/checkout/confirmation/email/billingDetails" />
 			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<isif condition="${dw.system.Site.current.preferences.custom.enableOrderCancellation}">
+				<div class="order-cancel-email">
+					<a href="${pdict.orderCancellationEmailObj.orderCancellationUrl}" class="cancel-order-email-btn">${Resource.msg('label.order.cancel.btn.text', 'confirmation', null)}</a>
+				</div>
+			</isif>
 		</td>
 	</tr>
 </table>

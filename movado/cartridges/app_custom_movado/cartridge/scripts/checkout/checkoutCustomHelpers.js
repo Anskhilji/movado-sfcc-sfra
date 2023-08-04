@@ -5,6 +5,7 @@ var Site = require('dw/system/Site');
 var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
+var URLUtils = require('dw/web/URLUtils');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var OrderMgr = require('dw/order/OrderMgr');
 var Order = require('dw/order/Order');
@@ -55,6 +56,7 @@ function sendOrderConfirmationEmail(order, locale) {
     var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-confirmation-marketing-pick-in-store');
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
     var isPickupStoreEnabled = !empty(Site.current.preferences.custom.isPickupStoreEnabled) ? Site.current.preferences.custom.isPickupStoreEnabled : false;
+    var isOrderCancellationEnabled = !empty(Site.current.preferences.custom.enableOrderCancellation) ? Site.current.preferences.custom.enableOrderCancellation : false;
     var domesticShippingLabel = Resource.msg('order.confirmation.email.label.shippingto', 'order', null);
     var pickupShippingLabel = Resource.msg('order.confirmation.email.label.pickup.shippingto', 'order', null);
 
@@ -72,6 +74,13 @@ function sendOrderConfirmationEmail(order, locale) {
             emailMarketingContent: (emailMarketingPickInStoreContent && emailMarketingPickInStoreContent.custom && emailMarketingPickInStoreContent.custom.body ? emailMarketingPickInStoreContent.custom.body : ''),
             bottomContent: (bottomPickInStoreContent && bottomPickInStoreContent.custom && bottomPickInStoreContent.custom.body ? bottomPickInStoreContent.custom.body : '')
         };
+    }
+
+    if (isOrderCancellationEnabled && !empty(orderModel)) {
+        var orderCancellationUrl = URLUtils.https('Order-GetOrderDetail', 'trackOrderNumber', orderModel.orderNumber);
+        var orderCancellationObj = {
+            orderCancellationUrl: orderCancellationUrl
+        }
     }
 
     var orderObject = {
@@ -112,7 +121,8 @@ function sendOrderConfirmationEmail(order, locale) {
         pickUpCustomerLabel: Resource.msg('order.confirmation.email..pick.customer.label', 'order', null),
         pickUpStoreAddressLabel: Resource.msg('order.confirmation.email..pick.store.address.label', 'order', null),
         billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
-        currentOrder: order
+        currentOrder: order,
+        orderCancellationEmailObj: orderCancellationObj
     };
 
     var subject = isPickupStoreEnabled && order.custom.BOPIS ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber);
