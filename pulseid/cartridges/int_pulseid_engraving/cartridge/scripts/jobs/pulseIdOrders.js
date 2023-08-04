@@ -12,12 +12,13 @@ function execute() {
 
     try {
         var pulseObj;
-        var jobs = [];
         var pulseObjs = pulseIdAPIHelper.getPulseObjs();
 
         while (pulseObjs.hasNext()) {
             pulseObj = pulseObjs.next();
             var orderID = pulseObj.custom.orderId;
+            var jobs = [];
+
             if (!empty(orderID)) {
                 var order = OrderManager.getOrder(orderID);
                 var lineItemsItr = order.getAllProductLineItems().iterator();
@@ -36,7 +37,7 @@ function execute() {
                 //create service
                 var result = pulseIdAPI.pulseIdEngravingApi(payload, pulseIdConstants.PULSEID_SERVICE_ID.PULSEID_SUBMIT_ORDER_API_ENDPOINT, pulseIdConstants.PULSEID_SERVICE_ID.PULSEID_REQUEST_METHOD);
                 if (result.success) {
-                    Logger.info('(pulseIdOrders Job) -> execute -> order has been submitted with order : ' + orderID + ' to PulseID. Response:' + result);
+                    Logger.info('(pulseIdOrders Job) -> execute -> order has been submitted with order : ' + orderID + ' to PulseID. Response:' + result.success);
                     pulseIdAPIHelper.removePulseObjs(pulseObj);
                 }
             }

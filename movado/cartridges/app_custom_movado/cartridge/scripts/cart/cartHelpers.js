@@ -744,7 +744,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                                 }
                             }
                         }
-                        addEngraveContract.addEngravingContractAttributes(engravedSKU, currentBasket, productId, form);
+                        addEngraveContract.addEngravingContractAttributes(engravedSKU, currentBasket, productId, form, productLineItem.UUID);
                     });
                 }
                 result.uuid = productLineItem.UUID;

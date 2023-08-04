@@ -422,6 +422,10 @@
             padding-left: rem(8);
         }
 
+        .remove-btn {
+            position: static;
+        }
+
         .item-info, .bundled-line-item {
             border-bottom: 0rem;
             align-items: center;
@@ -643,10 +647,6 @@
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         letter-spacing: 0;
-
-                        @include media-breakpoint-up(lg) {
-                            margin-left: rem(50);
-                        }
                     }
                 }
             }

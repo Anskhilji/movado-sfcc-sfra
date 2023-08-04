@@ -122,6 +122,18 @@ function productSync() {
                 productFile.AddRowItem('Meta5');
             }
             // Custom End:
+
+            // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
+            if (Site.current.ID === 'MovadoUS') {
+                productFile.AddRowItem('Meta2');
+                productFile.AddRowItem('Meta3');
+                productFile.AddRowItem('Meta4');
+                productFile.AddRowItem('Color');
+                productFile.AddRowItem('Style');
+                productFile.AddRowItem('Size');
+            }
+            // Custom End
+
             productFile.WriteRow();
 
             // //////// Write product rows //////////
@@ -174,7 +186,13 @@ function productSync() {
                 productFile.AddRowItem(prd.price == null ? 0.00 : prd.price, true);
 
                 // Brand
-                productFile.AddRowItem(prd.brand, true);
+                // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
+                if (Site.current.ID === 'MovadoUS') {
+                    productFile.AddRowItem(prd.familyName, true);
+                } else {
+                    productFile.AddRowItem(prd.brand, true);
+                }
+                // Custom End
 
                 if (Site.current.ID === 'MCSUS') {
                     if (!empty(productFeedJson)) {
@@ -259,7 +277,7 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-                if (categoryLevelAttributes) {
+                if (Site.current.ID !== 'MCSUS') {
                     if (!empty(productFeedJson)) {
                         productFile.AddRowItem(prd.watchGender, true);
                     }
@@ -281,6 +299,17 @@ function productSync() {
                 if (!empty(getAssignedCategories)) {
                     productFile.AddRowItem(prd.meta4, true);
                     productFile.AddRowItem(prd.meta5, true);
+                }
+                // Custom End
+
+                // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
+                if (Site.current.ID === 'MovadoUS') {
+                    productFile.AddRowItem(prd.meta2, true);
+                    productFile.AddRowItem(prd.meta3, true);
+                    productFile.AddRowItem(prd.movement, true);
+                    productFile.AddRowItem(prd.strapColor, true);
+                    productFile.AddRowItem(prd.dialColor, true);
+                    productFile.AddRowItem(prd.caseDiameter, true);
                 }
                 // Custom End
 

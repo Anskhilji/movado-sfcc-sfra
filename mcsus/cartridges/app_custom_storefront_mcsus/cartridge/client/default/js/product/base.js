@@ -730,14 +730,19 @@ function handleVariantResponse(response, $productContainer) {
     });
 
     // Updating promo messages
+    var $promotionsCallOut = $('.product-detail-right-box .promotions .callout');
     if (response && response.product && response.product.promotions) {
-        var $promotions = $('.promotions');
-        var $promotionsCallOut = $('.promotions .callout');
+        var $promotions = $('.product-detail-right-box .promotions');
         $promotionsCallOut.remove();
         var $productPromotions = response.product.promotions;
         $productPromotions.forEach(function(promotion) {
             $promotions.append('<div class="callout" title="' + promotion.details + '">' + promotion.calloutMsg + '</div>');
         });
+    }
+    else {
+        if ($promotionsCallOut.length) {
+            $promotionsCallOut.remove();
+        }
     }
 
     // Update pricing
@@ -753,10 +758,6 @@ function handleVariantResponse(response, $productContainer) {
         $mobilePrice.replaceWith(response.product.price.html);
         $barSalePriceSelector.replaceWith(response.product.price.html);
     }
-
-    // Update promotions
-    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions .callout').remove();
-    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions').append(getPromotionsHtml(response.product.promotions));
 
     updateAvailability(response, $productContainer);
 
@@ -818,6 +819,29 @@ function handleVariantResponse(response, $productContainer) {
         $addToCartSelector.each(function (index, button) {
             $(button).contents().first().replaceWith($addToCartSelector.textContent = window.Resources.BUTTON_ADD_TO_CART);
         });
+    }
+
+    var $lowStockMessage = $('.low-stock-message');
+    var $inStockMessage = $('.pick-up-store-stock-for-deliver');
+    var $tickIcon = $('.pdp-store-pickup-display-inline-block-inventory-icon');
+    if (response && response.product && response.product.productATSValue) {
+        var $productATSValue = response.product.productATSValue;
+        var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
+        if ($lowStockMessage.length > 0) {
+            if ($productATSValue <= $lowStockThreshold) {
+                $lowStockMessage.removeClass('d-none');
+                $inStockMessage.addClass('d-none');
+                $tickIcon.addClass('d-none');
+            } else {
+                $lowStockMessage.addClass('d-none');
+                $inStockMessage.removeClass('d-none');
+                $tickIcon.removeClass('d-none');
+            }
+        }
+    } else {
+        if ($lowStockMessage.length > 0 && (!$lowStockMessage.hasClass('d-none'))) {
+            $lowStockMessage.addClass('d-none');
+        }
     }
 }
 
