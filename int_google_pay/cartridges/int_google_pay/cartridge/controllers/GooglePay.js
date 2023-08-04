@@ -120,11 +120,21 @@ server.post('ProcessPayments',
             });
         }
 
-         // Added Smart Gift Logic
-         if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
-             session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
-         }
+        // Added Smart Gift Logic
+        if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
+            session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
+        }
 
+        // Basket level custom attribute set to true for shopperRecovery redirection in case of express payment
+        var isExpressPayment = false;
+        if (req.form.isGooglePayExpress == 'true' && currentBasket) {
+            isExpressPayment = true;
+        }
+
+        Transaction.wrap(function () {
+            currentBasket.custom.isExpressPayment = isExpressPayment;
+        });
+        
         var validatedProducts = validationHelpers.validateProducts(currentBasket);
 
         if (validatedProducts.error) {

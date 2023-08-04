@@ -2,8 +2,9 @@
 
 var server = require('server');
 
+var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
 var cache = require('*/cartridge/scripts/middleware/cache');
-
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var collections = require('*/cartridge/scripts/util/collections');
@@ -69,8 +70,6 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
     var basketModel = new CartModel(currentBasket);
     var viewData = res.getViewData();
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-    var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var recommendedProductCardHtml = '';
     var isCartPage = req.form.isCartPage;
@@ -347,11 +346,43 @@ server.prepend(
     csrfProtection.generateToken,
     function (req, res, next) {
     res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
+    
     var BasketMgr = require('dw/order/BasketMgr');
+    var Transaction = require('dw/system/Transaction');
+
     var CartModel = require('*/cartridge/models/cart');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
-    var basketModel = new CartModel(currentBasket);
     var productLineItems = currentBasket.productLineItems.iterator();
+    var result;
+
+    if (session.privacy.applePayBasketReOpen) {
+        var productId = session.privacy.applePayBasketReOpen;
+        var appleEngraveOptionId = session.custom.appleEngraveOptionId;
+        var appleEmbossOptionId = session.custom.appleEmbossOptionId;
+        var appleEmbossedMessage = session.custom.appleEmbossedMessage;
+        var appleEngravedMessage = session.custom.appleEngravedMessage;
+        var pulseIDPreviewURL = session.custom.pulseIDPreviewURL;
+
+        Transaction.wrap(function () {
+            result = cartHelper.addProductToCart(
+                currentBasket,
+                productId,
+                1,
+                [],
+                []
+            );
+
+            if (!result.error) {
+                cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+                basketCalculationHelpers.calculateTotals(currentBasket);
+            }
+        });
+        customCartHelpers.updateOptionLineItemAfterShopperRecovery(currentBasket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL);
+
+        delete session.custom.applePaySku;
+        delete session.privacy.applePayBasketReOpen;
+    }
+    customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
 
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
@@ -384,7 +415,6 @@ server.append(
         var currentCountry = productCustomHelper.getCurrentCountry();
         var marketingProductsData = [];
 
-        
         // Custom Start: Adding ESW cartridge integration
         if (isEswEnabled) {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
@@ -482,6 +512,12 @@ server.append(
         if (!empty(req.querystring.lastNameError)) {
             res.setViewData({ 
                 lastNameError: req.querystring.lastNameError
+            });
+        }
+
+        if (!empty(req.querystring.shopperRecoverySuccess)) {
+            res.setViewData({ 
+                shopperRecoverySuccess: req.querystring.shopperRecoverySuccess
             });
         }
 

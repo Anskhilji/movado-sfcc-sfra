@@ -25,6 +25,10 @@
 
 <isinclude template="common/progressMeter" sf-toolkit="on" />
 
+<isif condition="${!empty(pdict.shopperRecoverySuccess)}">
+    <isinclude template="cart/productCard/cartShopperRecoverySuccess" />
+</isif>
+
 <isif condition="${pdict.cartOptionalProductError}">
     <div class="container cart-error-messaging cart-error mt-2">
         <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">

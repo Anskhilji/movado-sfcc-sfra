@@ -24,7 +24,7 @@ var server = require('server');
 
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
-var PULSEID_ENGRAVING = 'pulseIdEngraving'
+var PULSEID_ENGRAVING = 'pulseIdEngraving';
 var NEWLINE = '\n';
 
 
@@ -331,11 +331,15 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
  exports.failOrder = function (order, status) {
     var URLUtils = require('dw/web/URLUtils');
-    
+
     if (session.privacy.riskifiedDeclined) {
         var declinedUrl = session.privacy.riskifiedShoppperRecoveryEndURL;
         delete session.privacy.riskifiedDeclined;
         delete session.privacy.riskifiedShoppperRecoveryEndURL;
+
+        if (session.custom.applePaySku) {
+            session.privacy.applePayBasketReOpen = session.custom.applePaySku;
+        }
 
         if (session.privacy.riskifiedShoppperRecovery) {
             delete session.privacy.riskifiedShoppperRecovery;
@@ -365,6 +369,8 @@ exports.prepareBasket = function (basket, parameters) {
     var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {
+        session.custom.applePaySku = parameters.sku;
+
         if (!basket.custom.storePickUp) {
             session.custom.StorePickUp = false;
             session.custom.applePayCheckout = true;
@@ -401,6 +407,7 @@ exports.prepareBasket = function (basket, parameters) {
     if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
         session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
     }
+
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
     return result;

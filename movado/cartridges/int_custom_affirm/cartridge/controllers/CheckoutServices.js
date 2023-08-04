@@ -54,6 +54,7 @@ server.append('SubmitPayment',
                 var Transaction = require('dw/system/Transaction');
                 Transaction.wrap(function () {
                     billingAddress.setCompanyName(viewData1.address.companyName.value);
+                    currentBasket.custom.isExpressPayment = false;
                 });
                 var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
                 if (usingMultiShipping === true && currentBasket.shipments.length < 2) {
