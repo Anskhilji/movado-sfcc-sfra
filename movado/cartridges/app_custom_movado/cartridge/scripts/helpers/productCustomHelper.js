@@ -449,6 +449,26 @@ function getPulseIDPreviewURL(lineItem) {
     }
 }
 
+function getProductATSValue(apiProduct) {
+    try {
+        var productAvailability;
+
+        if (!empty(apiProduct)) {
+            var productAvailabilityModel = apiProduct.getAvailabilityModel();
+            if (!empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord)) {
+                if (productAvailabilityModel.inventoryRecord.ATS && productAvailabilityModel.inventoryRecord.ATS.value) { 
+                    productAvailability = productAvailabilityModel.inventoryRecord.ATS.value;
+                    productAvailability = productAvailability.toString();
+                }             
+            }
+        }
+
+        return productAvailability;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getProductATSValue) Error occured while getting product available to sell value. Product {0}: \n Error: {1} \n', apiProduct.ID, e);
+    }
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
@@ -465,5 +485,6 @@ module.exports = {
     getIsWatchTile: getIsWatchTile,
     getRunningABTestSegments: getRunningABTestSegments,
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
-    getPulseIDPreviewURL: getPulseIDPreviewURL
+    getPulseIDPreviewURL: getPulseIDPreviewURL,
+    getProductATSValue: getProductATSValue
 };

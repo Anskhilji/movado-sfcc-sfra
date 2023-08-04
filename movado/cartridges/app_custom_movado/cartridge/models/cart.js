@@ -4,6 +4,7 @@ var formatMoney = require('dw/util/StringUtils').formatMoney;
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
+var URLUtils = require('dw/web/URLUtils');
 
 
 var Cart = module.superModule;
@@ -180,7 +181,8 @@ function getApproachingDiscounts(basket, discountPlan) {
                     conditionThresholdValue : approachingOrderDiscount.getConditionThreshold().value,
                     isPromoProgressBarEnable: approachingOrderDiscount.getDiscount().getPromotion().custom.isPromoProgressBarEnable ? approachingOrderDiscount.getDiscount().getPromotion().custom.isPromoProgressBarEnable : false,
                     progressBarPromoMsg: approachingOrderDiscount.getDiscount().getPromotion().custom.progressBarPromoMsg,
-                    progressBarSuccessMsg : approachingOrderDiscount.getDiscount().getPromotion().custom.progressBarSuccessMsg
+                    progressBarSuccessMsg : approachingOrderDiscount.getDiscount().getPromotion().custom.progressBarSuccessMsg,
+                    isOrderLevelPromotion : true
                 };
             });
         // Custom End:
@@ -239,7 +241,8 @@ function getOrderDiscounts(basket, discountPlan) {
         collections.map(orderDiscounts, function (orderDiscount) {
             return {
                 isPromoProgressBarEnable: orderDiscount.getPromotion().custom.isPromoProgressBarEnable ? orderDiscount.getPromotion().custom.isPromoProgressBarEnable : false,
-                progressBarSuccessMsg : orderDiscount.getPromotion().custom.progressBarSuccessMsg ? orderDiscount.getPromotion().custom.progressBarSuccessMsg : false
+                progressBarSuccessMsg : orderDiscount.getPromotion().custom.progressBarSuccessMsg ? orderDiscount.getPromotion().custom.progressBarSuccessMsg : false,
+                isOrderLevelPromotion : true
             };
         });
 
@@ -249,7 +252,6 @@ function getOrderDiscounts(basket, discountPlan) {
             return {
                 isPromoProgressBarEnable: shippingDiscount.getPromotion().custom.isPromoProgressBarEnable ? shippingDiscount.getPromotion().custom.isPromoProgressBarEnable : false,
                 progressBarSuccessMsg : shippingDiscount.getPromotion().custom.progressBarSuccessMsg ? shippingDiscount.getPromotion().custom.progressBarSuccessMsg : false
-
             };
         });
 
@@ -277,7 +279,8 @@ function getBonusDiscounts(basket, discountPlan) {
         collections.map(bonusDiscounts, function (bonusDiscount) {
             return {
                 isPromoProgressBarEnable: bonusDiscount.getPromotion().custom.isPromoProgressBarEnable ? bonusDiscount.getPromotion().custom.isPromoProgressBarEnable : false,
-                progressBarSuccessMsg : bonusDiscount.getPromotion().custom.progressBarSuccessMsg
+                progressBarSuccessMsg : bonusDiscount.getPromotion().custom.progressBarSuccessMsg,
+                isOrderLevelPromotion : true
             };
         });
 
@@ -318,7 +321,8 @@ function CartModel(basket) {
     var assets = getCustomAssets();
     var giftMessaging = getGiftMessagingObject();
     var isPromoProgressBarEnabled = false;
-    var progressBarSuccessMsg;  
+    var progressBarSuccessMsg;
+    var isOrderLevelPromotion = false;
     
     if((!basket) || (basket && basket.totalTax && basket.totalTax.value ==0 && basket.defaultShipment && basket.defaultShipment.shippingAddress==null)){
        totalTaxVal = '-';
@@ -326,25 +330,31 @@ function CartModel(basket) {
       totalTaxVal = basket.totalTax.value;
     }
 
-    if (basket !== null) {
+    cartModel = new Cart(basket);
+
+    if (basket !== null && cartModel.numItems > 0) {
         var discountPlan = PromotionMgr.getDiscounts(basket);
         if (discountPlan) {
             var progressBarApproachingDiscounts = getApproachingDiscounts(basket, discountPlan);
             var progressBarDiscounts = getOrderDiscounts(basket, discountPlan);
             var progressBarBonusDiscounts = getBonusDiscounts(basket, discountPlan);
+            var orderLevelPromoImg = URLUtils.httpStatic('/images/checkgreen.svg').toString();
+            var orderLevelPromoImgMiniCart = URLUtils.httpStatic('/images/checkwhite.svg').toString();
+            var shippingLevelPromoImg = URLUtils.httpStatic('/images/green_delivery.svg').toString();
+            var shippingLevelPromoImgMiniCart = URLUtils.httpStatic('/images/delivery.svg').toString();
 
             if (!empty(progressBarBonusDiscounts)) {
                 isPromoProgressBarEnabled =  progressBarBonusDiscounts[0].isPromoProgressBarEnable ? progressBarBonusDiscounts[0].isPromoProgressBarEnable : false;
                 progressBarSuccessMsg = progressBarBonusDiscounts[0].progressBarSuccessMsg ? progressBarBonusDiscounts[0].progressBarSuccessMsg : '';
+                isOrderLevelPromotion = progressBarBonusDiscounts[0].isOrderLevelPromotion ? progressBarBonusDiscounts[0].isOrderLevelPromotion : false;
             }
 
             if (!empty(progressBarDiscounts)) {
                 isPromoProgressBarEnabled =  progressBarDiscounts[0].isPromoProgressBarEnable ? progressBarDiscounts[0].isPromoProgressBarEnable : false;
                 progressBarSuccessMsg = progressBarDiscounts[0].progressBarSuccessMsg ? progressBarDiscounts[0].progressBarSuccessMsg : '';
+                isOrderLevelPromotion = progressBarDiscounts[0].isOrderLevelPromotion ? progressBarDiscounts[0].isOrderLevelPromotion : false;
             }
         }
-        
-        cartModel = new Cart(basket);
 
         if (cartModel && cartModel.approachingDiscounts && cartModel.approachingDiscounts[0] && progressBarApproachingDiscounts[0].isPromoProgressBarEnable  && typeof progressBarApproachingDiscounts[0].promotionTotal !== undefined) {
             var approachingDiscountsTotal = progressBarApproachingDiscounts[0].promotionTotal;
@@ -352,6 +362,7 @@ function CartModel(basket) {
             var conditionThresholdCurrencyValue = progressBarApproachingDiscounts[0].conditionThresholdValue;
             var approachingDiscountCurrencyValue = approachingDiscountsTotal.substring(1);
             var progressBarPromoMsg = progressBarApproachingDiscounts[0].progressBarPromoMsg ? progressBarApproachingDiscounts[0].progressBarPromoMsg : '';
+            isOrderLevelPromotion = progressBarApproachingDiscounts[0].isOrderLevelPromotion ? progressBarApproachingDiscounts[0].isOrderLevelPromotion : false;
             progressBarSuccessMsg = progressBarApproachingDiscounts[0].progressBarSuccessMsg ? progressBarApproachingDiscounts[0].progressBarSuccessMsg : '';
             isPromoProgressBarEnabled = progressBarApproachingDiscounts[0].isPromoProgressBarEnable ? progressBarApproachingDiscounts[0].isPromoProgressBarEnable : false;
 
@@ -365,6 +376,7 @@ function CartModel(basket) {
                 progressBarpercentage = ((progressBarPromoCurrent/progressBarPromoTotal) * 100).toFixed(3);
             }
         }
+    }
 
         cartObject = extend(cartModel,{
         lineItemOptions: lineItemOptionModel,
@@ -385,12 +397,15 @@ function CartModel(basket) {
         progressBarpercentage: progressBarpercentage,
         progressBarPromoMsg: progressBarPromoMsg,
         isPromoProgressBarEnabled: isPromoProgressBarEnabled,
-        progressBarSuccessMsg: progressBarSuccessMsg
-
+        progressBarSuccessMsg: progressBarSuccessMsg,
+        isOrderLevelPromotion : isOrderLevelPromotion,
+        orderLevelPromoImg : orderLevelPromoImg,
+        orderLevelPromoImgMiniCart: orderLevelPromoImgMiniCart,
+        shippingLevelPromoImg : shippingLevelPromoImg,
+        shippingLevelPromoImgMiniCart : shippingLevelPromoImgMiniCart
         });
         return cartObject;
     }
-}
 
 function getGiftOptions(basket) {
     var productHasGift = [];

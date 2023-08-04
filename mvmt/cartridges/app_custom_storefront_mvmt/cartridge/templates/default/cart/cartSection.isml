@@ -23,6 +23,8 @@
     </div>
 </isif>
 
+<isinclude template="common/progressMeter" sf-toolkit="on" />
+
 <isif condition="${pdict.cartOptionalProductError}">
     <div class="container cart-error-messaging cart-error mt-2">
         <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
@@ -77,7 +79,6 @@
                 <div class="row hidden-md-down d-none">
                     <a class="continue-shopping" href="${URLUtils.url('Home-Show')}"><img src="${URLUtils.staticURL('/images/cartLeftArrow.svg')}"/>${Resource.msg('link.continue.shopping', 'cart',null)}</a>
                 </div>
-                <isinclude template="cart/cartApproachingDiscount" />
             </isif>
             <isif condition="${itemsLength === 0}">
                 <div class="container my-5 cart-empty order-1 d-none">
