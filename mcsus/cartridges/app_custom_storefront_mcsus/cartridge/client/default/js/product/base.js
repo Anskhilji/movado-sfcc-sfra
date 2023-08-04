@@ -1191,14 +1191,10 @@ function clydeAddProductToCart() {
     /**
      * Custom Start: Add to cart form for MVMT
      */
-    if ($('.pdp-mvmt')) {
-        form = {
-            pid: pid,
-            pidsObj: pidsObj,
-            childProducts: getChildProducts(),
-            quantity: quantity,
-            giftPid: giftPid ? giftPid : ''
-        };
+    if (!$('.bundle-item').length) {
+        if ($('.pdp-mvmt')) {
+            form.quantity = quantity;
+        }
     }
     /**
      *  Custom End
@@ -1332,14 +1328,10 @@ function clydeAddProductSetToCart($this) {
     /**
      * Custom Start: Add to cart form for MVMT
      */
-    if ($('.pdp-mvmt')) {
-        form = {
-            pid: pid,
-            pidsObj: pidsObj,
-            childProducts: getChildProducts(),
-            quantity: quantity,
-            giftPid: giftPid ? giftPid : ''
-        };
+    if (!$('.bundle-item').length) {
+        if ($('.pdp-mvmt')) {
+            form.quantity = quantity;
+        }
     }
     /**
      *  Custom End
@@ -1473,14 +1465,10 @@ function addProductToCartPlp($this) {
     /**
      * Custom Start: Add to cart form for MVMT
      */
-    if ($('.pdp-mvmt')) {
-        form = {
-            pid: pid,
-            pidsObj: pidsObj,
-            childProducts: getChildProducts(),
-            quantity: quantity,
-            giftPid: giftPid ? giftPid : ''
-        };
+    if (!$('.bundle-item').length) {
+        if ($('.pdp-mvmt')) {
+            form.quantity = quantity;
+        }
     }
     /**
      *  Custom End
