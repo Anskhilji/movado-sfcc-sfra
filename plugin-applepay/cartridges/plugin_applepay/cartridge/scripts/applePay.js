@@ -238,11 +238,22 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     if (!deliveryValidationFail) {
         var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
         if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+            var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
             // Riskified order declined response from decide API
-            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-            if (riskifiedOrderDeclined) {
+            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
+
+            if (!riskifiedOrderDeclined.error) {
                 var riskifiedError = new Status(Status.ERROR);
+
+                if (riskifiedOrderDeclined.shopperRecovery) {
+                    session.privacy.riskifiedShoppperRecovery = false;
+                    riskifiedOrderDeclined.returnUrl.append('ID', order.orderNo);
+                } else {
+                    session.privacy.riskifiedShoppperRecovery = true;
+                }
+                
                 session.privacy.riskifiedDeclined = true;
+                session.privacy.riskifiedShoppperRecoveryEndURL = riskifiedOrderDeclined.returnUrl;
                 return riskifiedError;
             }
         } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
@@ -320,10 +331,19 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
  exports.failOrder = function (order, status) {
     var URLUtils = require('dw/web/URLUtils');
-
+    
     if (session.privacy.riskifiedDeclined) {
+        var declinedUrl = session.privacy.riskifiedShoppperRecoveryEndURL;
         delete session.privacy.riskifiedDeclined;
-        return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-Declined', 'ID', order.orderNo));
+        delete session.privacy.riskifiedShoppperRecoveryEndURL;
+
+        if (session.privacy.riskifiedShoppperRecovery) {
+            delete session.privacy.riskifiedShoppperRecovery;
+
+            return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-ShoperRecovery', 'returnUrl', declinedUrl));
+        }
+        delete session.privacy.riskifiedShoppperRecovery;
+        return new ApplePayHookResult(new Status(Status.ERROR), declinedUrl);
     } else {
         return new Status(Status.OK);
     }

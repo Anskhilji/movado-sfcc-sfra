@@ -12,16 +12,15 @@
  var PaymentMgr = require('dw/order/PaymentMgr');
  var OrderMgr = require('dw/order/OrderMgr');
  var Site = require('dw/system/Site');
+ var URLUtils = require('dw/web/URLUtils');
 
  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
  var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
  var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
  var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
-function orderDeclined(order) {
-    var paymentInstrument = order.paymentInstrument;
-    var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
-    var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+function riskifiedPaymentReversal(order, paymentMethod) {
     var responseObject;
     session.custom.currencyCode = order.currencyCode;
 
@@ -75,8 +74,102 @@ function orderDeclined(order) {
         checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
         checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedOrderDescion.js', ex.fileName, ex.lineNumber, ex.stack);
     }
+ }
+ 
+function addZeros(str, numZeros) {
+    for (var i = 0; i < numZeros; i++) {
+        str += "0";
+    }
+    return str;
+}
+
+function encodedUrl(order, data) {
+    /* Local API Includes */
+    var Encoding = require('dw/crypto/Encoding');
+    var StringUtils = require('dw/util/StringUtils');
+    var Cipher = require('dw/crypto/Cipher');
+
+    if (data === null || typeof data !== 'string') {
+        return '';
+    }
+
+    var orderNo = order.orderNo
     
-    return true;
+    if (orderNo.length < 32) {
+        var orderNoVal = 32 - orderNo.length;
+        var hashKey = addZeros(orderNo, orderNoVal);
+    }
+
+    var hashKeyEncoded = StringUtils.encodeBase64(hashKey);
+    var dataEncrypted = new Cipher().encrypt(data, hashKeyEncoded, 'AES/ECB/PKCS5Padding', '', 0);
+    dataEncrypted = Encoding.toURI(dataEncrypted);
+    return dataEncrypted;
+}
+
+function orderDeclined(order, riskifiedOrderStatus) {
+    var paymentInstrument = order.paymentInstrument;
+    var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
+    session.custom.currencyCode = order.currencyCode;
+
+    checkoutLogger.info('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo);
+
+    if (Site.current.preferences.custom.riskifiedShopperRecoveryEnabled && !empty(riskifiedOrderStatus)) {
+
+        var isRiskifiedShopperRecoveryDeclinedStatus = false;
+        
+        var riskifiedShopperRecoveryDeclinedStatus = Site.current.preferences.custom.riskifiedShopperRecoveryDeclinedStatus;
+        riskifiedShopperRecoveryDeclinedStatus.forEach(function(el) {
+            
+            if (el === riskifiedOrderStatus) {
+                isRiskifiedShopperRecoveryDeclinedStatus = true;
+            }
+        });
+
+        if (isRiskifiedShopperRecoveryDeclinedStatus) {
+        var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
+        var service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedSyncRestService');
+       
+        var authCode = service.getConfiguration().getCredential().getPassword();
+        var hmacAuthCode = RCUtilities.calculateRFC2104HMAC(order.orderNo, authCode);
+        var locale = order.customerLocaleID;
+        var riskifiedShoppperRecoveryURL = Site.current.preferences.custom.riskifiedShoppperRecoveryURL;
+        
+        var riskApproved = URLUtils.https('Checkout-RiskApproved').toString();
+        var riskDeclined = URLUtils.https('Checkout-Declined').toString();
+        var successUrl = encodedUrl(order, riskApproved);
+        var failureUrl = encodedUrl(order, riskDeclined);
+        
+        riskifiedPaymentReversal(order, paymentMethod);
+
+        try {
+            Transaction.wrap(function () {
+                order.custom.riskifiedShopperRecovery = true;
+            });
+
+            var riskifiedShoppperRecoveryEndURL = riskifiedShoppperRecoveryURL + '?id=' + order.orderNo + '&sig=' + hmacAuthCode + '&successUrl=' + successUrl + '&failureUrl=' + failureUrl + '&language=' + locale;
+
+            return {
+                error: false,
+                shopperRecovery: false,
+                returnUrl: riskifiedShoppperRecoveryEndURL
+            }
+
+            } catch (ex) {
+                checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Exception occurred while try to update order status: ' + order.orderNo + ' and exception is: ' + ex);
+            }
+
+        } else {
+            riskifiedPaymentReversal(order, paymentMethod);
+        }
+    } else {
+        riskifiedPaymentReversal(order, paymentMethod);
+    }
+
+    return {
+        error: false,
+        shopperRecovery: true,
+        returnUrl: URLUtils.url('Checkout-Declined')
+    }
 }
 
 function orderApproved(order) {

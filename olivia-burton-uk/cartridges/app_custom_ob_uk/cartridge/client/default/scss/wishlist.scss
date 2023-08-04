@@ -1,0 +1,51 @@
+@import "variables";
+@import "~movado/wishlist";
+
+.add-to-cart-wishList {
+
+    .add-to-cart-button {
+        background-color: $dark-cyan;
+        border: rem(1) solid $dark-cyan;
+
+        &:hover {
+            background-color: $white;
+            color: $black;
+            border: rem(1) solid $black;
+        }
+
+        &:active {
+            color: $white !important;
+            background-color: $dark-cyan !important;
+            border: rem(1) solid $dark-cyan !important;
+        }
+    }
+}
+
+.wishlist-item-update-button-block {
+
+    .update-cart-product-global {
+        background-color: $dark-cyan;
+        border: rem(1) solid $dark-cyan;
+
+        &:hover {
+            background-color: $white;
+            color: $black;
+            border: rem(1) solid $black;
+        }
+
+        &:active {
+            color: $white !important;
+            background-color: $dark-cyan !important;
+            border: rem(1) solid $dark-cyan !important;
+        }
+    }
+}
+
+.product-info {
+    margin-bottom: rem(16);
+    padding: rem(10) rem(10) rem(0) rem(10);
+
+    .remove-btn {
+        margin: 0;
+    }
+}

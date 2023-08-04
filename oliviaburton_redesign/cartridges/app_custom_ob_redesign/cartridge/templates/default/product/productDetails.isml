@@ -158,7 +158,6 @@
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
                             </isif>
-                                
                             <div class="d-flex align-items-center justify-content-lg-start instock-center-mobile">
                                 <!-- Product Availability -->
                                 <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"

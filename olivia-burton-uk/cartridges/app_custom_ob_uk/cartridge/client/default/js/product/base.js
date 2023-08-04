@@ -185,20 +185,37 @@ function updateAttrs(attrs, $productContainer) {
  * @param {jQuery} $productContainer - DOM element for a given product
  */
 function updateAvailability(response, $productContainer) {
-    var availabilityValue = '';
-    var availabilityMessages = response.product.availability.messages;
+    var $availabilityValue = '';
+    var $availabilityMessages = response.product.availability.messages;
+    var $productATSValue = response.product.productATSValue;
+    var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
+    var $inStockText = window.Resources.LABEL_IN_STOCK;
+    var $preOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_PREORDER;
+    var $backOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_BACK_ORDER;
+    var $lowStockMessage = window.Resources.LOW_STOCK_MESSAGE;
+
     if (!response.product.readyToOrder) {
-        availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
+        $availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
     } else {
-        availabilityMessages.forEach(function (message) {
-            availabilityValue += '<div>' + message + '</div>';
-        });
+        if ($productATSValue && $lowStockThreshold && $productATSValue <= $lowStockThreshold) {
+            $availabilityMessages.forEach(function (message) {
+                if (message === $inStockText || message === $preOrderText || message === $backOrderText) {
+                    $availabilityValue += '<div>' + $lowStockMessage + '</div>';
+                } else {
+                    $availabilityValue += '<div>' + message + '</div>';
+                }
+            });
+        } else {
+            $availabilityMessages.forEach(function (message) {
+                $availabilityValue += '<div>' + message + '</div>';
+            });
+        }
     }
 
     $($productContainer).trigger('product:updateAvailability', {
         product: response.product,
         $productContainer: $productContainer,
-        message: availabilityValue,
+        message: $availabilityValue,
         resources: response.resources
     });
 }
