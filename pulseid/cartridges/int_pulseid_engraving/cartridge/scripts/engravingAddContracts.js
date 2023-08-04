@@ -35,13 +35,13 @@ function getEngravingSelectedOptionProduct(productId) {
     return result;
 }
 
-function addEngravingContractAttributes(engravedSKU, basket, productId, form) {
+function addEngravingContractAttributes(engravedSKU, basket, productId, form, lineItemUUID) {
     var productLineItemItr = basket.getAllProductLineItems().iterator();
 
     while (productLineItemItr.hasNext()) {
         var productLineItem = productLineItemItr.next();
 
-        if (productLineItem && productLineItem.productID === productId && !empty(engravedSKU)) {
+        if (productLineItem && productLineItem.productID === productId && !empty(engravedSKU) && productLineItem.UUID == lineItemUUID) {
             var optionLineItemsItr = productLineItem.getOptionProductLineItems().iterator();
 
             while (optionLineItemsItr.hasNext()) {

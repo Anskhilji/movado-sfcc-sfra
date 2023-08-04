@@ -4,7 +4,8 @@
             <ul>
                 <isloop items="${menuItem.subCategories}" var="category">
                     <isif condition="${category.subCategories}">
-                        <li class="dropdown-item dropdown d-none <isif condition="${category.subCategories}"> third-level-category</isif>" role="menuitem">
+                        <li class="dropdown-item dropdown d-none <isif condition="${category.isCategoryShow}">category-to-show</isif>" role="menuitem">
+                        <a href="${category.url}" class="dropdown-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
                             <isset name="categoryItem" value="${category}" scope="page"/>
                             <isinclude template="components/header/old/menuItemList"/>
                         </li>

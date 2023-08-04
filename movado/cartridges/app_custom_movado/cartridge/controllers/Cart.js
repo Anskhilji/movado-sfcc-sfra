@@ -160,6 +160,7 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
 
         // update the success message from content
         var content = ContentMgr.getContent('product-successfully-added');
+
         if (content) {
             viewData.message = content.custom.body.markup;
         }
@@ -483,7 +484,7 @@ server.append(
              //custom : PulseID engraving
              if (Site.current.preferences.custom.enablePulseIdEngraving) {
                 var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-                var setPulseJobID = pulseIdAPIHelper.setOptionalLineItemUUID(viewData, productLineItem);
+                pulseIdAPIHelper.setOptionalLineItemUUID(viewData, productLineItem);
             }
             // custom end
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));

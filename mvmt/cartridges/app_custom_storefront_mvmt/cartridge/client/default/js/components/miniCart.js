@@ -92,6 +92,57 @@ var updateCartPage = function(data) {
     var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
     var $orderDiscountSelector = $miniCartSelector.find('.order-discount');
 
+    if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
+        var $promoProgressBarHtml = '<div class="progress-meter '+ (data.isOrderLevelPromotion ? 'progress-meter-order-text' : 'progress-meter-text') +' d-flex flex-column align-items-center">'+
+            '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
+            '<div class="progress-meter-box">'+
+            '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
+            '</div>'+
+            '</div>';
+
+        var $progressMeterMain = $('.progress-meter-container');
+        $progressMeterMain.empty();
+        $progressMeterMain.append($promoProgressBarHtml);
+    } else if (data.numItems == 0) {
+        var $progressMeterMain = $('.progress-meter-container');
+        $progressMeterMain.empty();
+
+    } else if (data && data.progressBarSuccessMsg && data.isPromoProgressBarEnabled) {
+        var $isMiniCart = $('.progress-meter-container-minicart').data('mini-cart');
+        var $promoImg;
+        var $promoImgMiniCart;
+        if (data.isOrderLevelPromotion) {
+            $promoImg = data.orderLevelPromoImg;
+            $promoImgMiniCart = data.orderLevelPromoImgMiniCart;
+        } else {
+            $promoImg = data.shippingLevelPromoImg;
+            $promoImgMiniCart = data.shippingLevelPromoImgMiniCart;
+        }
+        var $progressBarSuccessMsg = data.progressBarSuccessMsg;
+        var $progressMeterMain = $('.progress-meter-container');
+
+        if ($promoImg && $progressBarSuccessMsg) {
+            var $applicablePromoMessageHtml = '<div class="got-free-shipping '+ (data.isOrderLevelPromotion ? 'free-order-text' : 'free-shipping-text') +' d-flex align-items-center justify-content-center">'+
+                '<img src="'+ $promoImg +'" alt="'+ data.progressBarSuccessMsg +'">'+
+                '<p>'+ data.progressBarSuccessMsg +'</p>'+
+                '</div>';
+            $progressMeterMain.empty();
+            $progressMeterMain.append($applicablePromoMessageHtml);
+        }
+
+        if ($promoImgMiniCart && $progressBarSuccessMsg && $isMiniCart) {
+            var $progressMeterMiniCart = $('.progress-meter-container-minicart');
+            var $applicablePromoMessageHtmlMiniCart = '<div class="got-free-shipping '+ (data.isOrderLevelPromotion ? 'free-order-text' : 'free-shipping-text') +' d-flex align-items-center justify-content-center">'+
+                '<img src="'+ $promoImgMiniCart +'" alt="'+ data.progressBarSuccessMsg +'">'+
+                '<p>'+ data.progressBarSuccessMsg +'</p>'+
+                '</div>';
+
+            $progressMeterMiniCart.empty();
+            $progressMeterMiniCart.append($applicablePromoMessageHtmlMiniCart);
+        }
+
+    }
+
     if ($noOfItems.length > 0) {
         $noOfItems.empty().append(data.resources.numberOfItems);
     }
@@ -643,6 +694,7 @@ module.exports = function () {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
          var $homeHeaderTransparent = $('.home-header-transparent');
+         $('body, html').addClass('scroll-remove');
 
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
@@ -743,6 +795,7 @@ module.exports = function () {
         $('.mini-cart-data .popover').removeClass('show');
         $('.mobile-cart-icon').show();
         $('.mobile-cart-close-icon').hide();
+        $('body, html').removeClass('scroll-remove');
         // Custom:MSS-2034 add class when close miniCart
         if ($homeHeaderTransparent.length > 0) {
             $homeHeaderTransparent.removeClass('solid-header');
@@ -759,6 +812,7 @@ module.exports = function () {
             $('.mobile-cart-close-icon').hide();
             $('.mobile-cart-icon').show();
             $('.mini-cart-data .popover').removeClass('show');
+            $('body, html').removeClass('scroll-remove');
             // Custom:MSS-2034 add class when close miniCart
             if ($homeHeaderTransparent.length > 0) {
                 $homeHeaderTransparent.removeClass('solid-header');
@@ -889,6 +943,7 @@ module.exports = function () {
         $('.mobile-cart-icon').show();
         $('.mini-cart-data .popover').removeClass('show');
         $('#footer-overlay').removeClass('footer-form-overlay');
+        $('body, html').removeClass('scroll-remove');
         // Custom:MSS-2034 add class when close miniCart
         if ($homeHeaderTransparent.length > 0) {
             $homeHeaderTransparent.removeClass('solid-header');
@@ -1067,9 +1122,12 @@ module.exports = function () {
                 } else {
                     $('.mini-cart-data .product-summary .mini-cart-product').empty();
                     $('.mini-cart-data .product-summary .mini-cart-product').append(response.recommendedProductCardHtml);
-                    
+                    var $staticPromoCodeField = $('.mini-cart-product .coupon-code-field-static');
+                    if ($staticPromoCodeField.length > 0) {
+                        $staticPromoCodeField.remove();
+                    }
                 }
-                
+
                 updateCartTotals(response.cart);
                 handlePostCartAdd(response);
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart

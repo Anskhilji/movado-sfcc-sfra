@@ -20,7 +20,7 @@
 
             <div id="specification${product.id}" class="collapse" aria-labelledby="headingOne">
                 <div class="accordion-redesign-detail">
-                <isinclude template="product/components/descriptionAndDetails" />
+                    <isinclude template="product/components/attributesPre" />
                 </div>
             </div>
         </div>

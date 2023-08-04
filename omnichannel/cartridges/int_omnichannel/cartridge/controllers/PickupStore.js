@@ -105,7 +105,11 @@ server.get('GetPreferredStore', function (req, res, next) {
     var productInventoryInCurrentStore;
     var bopisContentAsset = ContentMgr.getContent('bopis-pdp-tool-tip');
     var bopisInfoText = bopisContentAsset && bopisContentAsset.custom && bopisContentAsset.custom.body ? bopisContentAsset.custom.body.markup : '';
-
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    var product = ProductMgr.getProduct(pid);
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var productATSValue = productCustomHelper.getProductATSValue(product);
+    
     if (session.privacy.pickupStoreID) {
         preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
         address1 = preferedPickupStore.address1;
@@ -139,7 +143,8 @@ server.get('GetPreferredStore', function (req, res, next) {
         stateCode: stateCode,
         inventory: productInventoryInCurrentStore,
         inventoryInStock: productInventoryInStock,
-        bopisInfoText: bopisInfoText
+        bopisInfoText: bopisInfoText,
+        productATSValue: productATSValue
     }
 
     template = 'product/components/pdpStorePickUpRedesign';

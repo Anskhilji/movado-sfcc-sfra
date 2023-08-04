@@ -60,7 +60,6 @@
            <isprint value="${dw.catalog.ProductMgr.getProduct(product.id).shortDescription}"  encoding="off"/>
         </p>
         <div class="tile-btns">
-		    
             <a href="${pdict.urls.product}" class="tile-detail-btn">${Resource.msg('label.product.tile.details', 'product', null)}</a>
             <div class="plp-botton-text">
                 <isif condition="${preOrder}">
