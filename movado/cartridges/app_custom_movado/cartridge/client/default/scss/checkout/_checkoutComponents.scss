@@ -402,7 +402,6 @@ $stored-payment-spacing: rem(16);
       float: left;
       width: 0;
       white-space: nowrap;
-      content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
       z-index: 1;
       color: #adadad;
     }
@@ -700,11 +699,35 @@ $stored-payment-spacing: rem(16);
     }
   }
 
-  .affirm-panel-image {
-      width: rem(75);
-      vertical-align: inherit;
-      @include media-breakpoint-down(xs) { 
-        width: rem(72);
+    .affirm-logo-blue {
+
+        .nav-link {
+            outline: none;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    
+      .form-check-label {
+          height: rem(22.78);
+          display: flex;
+          justify-content: center;
+    
+          @include media-breakpoint-down(xs) {
+              height: rem(21.86);
+          }
+    
+        .affirm-panel-image {
+            height: 100%;
+            object-fit: contain;
+            width: rem(75);
+            vertical-align: inherit;
+    
+            @include media-breakpoint-down(xs) {
+                width: rem(72);
+            }
+        }
       }
     }
   }
@@ -1359,6 +1382,7 @@ $stored-payment-spacing: rem(16);
                                         letter-spacing: rem(0.7);
                                         line-height: rem(22);
                                         color: $light-black2;
+                                        flex-direction: column;
                           
                                         .line-item-name {
                                             font-size: rem(16);
@@ -1373,7 +1397,33 @@ $stored-payment-spacing: rem(16);
                                                 line-height: rem(22);
                                             }
                                         }
-                                      
+
+                                        .line-item-brand-name {
+                                            margin-bottom: rem(11);
+
+                                            span {
+                                                font-family: $font-medium;
+                                                font-size: rem(16);
+                                                letter-spacing: rem(0.7);
+                                                line-height: rem(22);
+                                                font-weight: 600;
+                                                color: $light-black2;
+                                                text-transform: uppercase;
+                                                text-decoration: none;
+                                                position: relative;
+
+                                                &::before {
+                                                    content: '';
+                                                    display: block;
+                                                    position: absolute;
+                                                    height: rem(2);
+                                                    width: 100%;
+                                                    background-color: $black;
+                                                    bottom: rem(3);
+                                                }
+                                            }
+                                        }
+
                                         .item-options {
                 
                                             .line-item-option {
@@ -1548,5 +1598,194 @@ $stored-payment-spacing: rem(16);
 
     @include custom-media-query-1440($large-screen-width-1440) {
         padding: rem(0) rem(15);
+    }
+}
+
+// MSS-1541 checkout design update 
+.custom-radio-check input[type="radio"]+label:before {
+    display: none;
+}
+
+.custom-radio-check {
+    display: flex;
+    overflow: inherit;
+    flex-wrap: wrap;
+
+    .start-lines {
+        padding: 0;
+        box-sizing: border-box;
+        margin-left: rem(20);
+        margin-bottom: rem(15);
+
+        @include media-breakpoint-down(xs) {
+            &:last-child {
+                margin-bottom: rem(2);
+            }
+        }
+
+        .show-more {
+            font-size: 12px;
+            display: none;
+        }
+
+        &:nth-child(3n+1) {
+            margin-left: 0;
+        }
+
+        @include custom-media-query-xs-small($large-screen-width-1200, $large-screen-width-1320) {
+            margin-left: rem(20);
+            width: calc(51% - 20px);
+
+            &:nth-child(3n+1) {
+                margin-left: rem(20);
+            }
+
+            &:nth-child(odd) {
+                margin-left: rem(0);
+            }
+        }
+
+        @include media-breakpoint-down(lg) {
+            margin-left: rem(20);
+            width: calc(51% - 20px);
+
+            &:nth-child(3n+1) {
+                margin-left: rem(20);
+            }
+
+            &:nth-child(odd) {
+                margin-left: rem(0);
+            }
+
+            @include media-breakpoint-down(sm) {
+                width: 100%;
+                margin-left: 0;
+
+                &:nth-child(3n+1) {
+                    margin-left: rem(0);
+                }
+            }
+        }
+
+        .end-lines {
+            margin: 0;
+            padding: 0;
+        }
+
+        .display-name {
+            font-size: rem(14) !important;  //i'm using important to overwrite css which they're already using important
+            font-weight: 500 !important; //i'm using important to overwrite css which they're already using important
+            letter-spacing: rem(0.75) !important;//i'm using important to overwrite css which they're already using important
+            line-height: rem(24);
+            color: $google-grey1;
+
+            @include media-breakpoint-up(md) {
+                height: rem(50);
+                overflow: hidden;
+            }
+        }
+
+        .shipping-cost-control {
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: rem(0.65);
+            line-height: rem(24);
+            color: $black;
+            margin-left: rem(10);
+        }
+
+        .arrival-time {
+            color: $grey17;
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: rem(0.65);
+            line-height: rem(20);
+        }
+    }
+
+    label {
+        min-height: rem(130);
+        border: 1px solid $grey16;
+        padding: rem(14) rem(15) rem(12) rem(15);
+        width: rem(220);
+        margin-bottom: 0;
+        border-radius: rem(3);
+
+        @include custom-media-query-xs-small($large-screen-width-1200, $large-screen-width-1320) {
+            width: 100%;
+        }
+
+        @include media-breakpoint-down(lg) {
+            width: 100%;
+        }
+
+        @include custom-media-query-max($medium-screen-width) {
+            min-height: rem(82);
+        }
+
+        .price-naming {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: rem(6);
+        }
+    }
+
+    span {
+        font-size: rem(12);
+    }
+}
+
+.custom-radio-check input[type="radio"]:checked+label {
+    border: rem(2) solid $black;
+
+}
+
+.data-checkout-stage {
+
+    .shipping-method-block {
+
+        .new-shipping-sec {
+
+            h5 {
+
+                &.ship-method-header {
+                    font-size: rem(15);
+                    letter-spacing: rem(0.7);
+                    line-height: rem(21);
+                    color: $grey8;
+                    margin-top: rem(10);
+                    margin-bottom: rem(20);
+                    text-transform: uppercase;
+                    font-weight: 500;
+
+                    @include media-breakpoint-down(xs) {
+                        font-size: rem(15);
+                        margin-bottom: rem(15);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.custom-radio-check {
+
+    .form-check {
+
+        &.start-lines {
+            padding: 0;
+        }
+    }
+}
+.checkout-mb {
+
+    .start-lines {
+
+       @include media-breakpoint-down(xs) {
+
+        &:last-child {
+            margin-bottom: rem(4);
+        }
+       }
     }
 }

@@ -170,6 +170,12 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
     for (let index = 0; index < applicableShippingMethodsOnCart.length; index++) {
         var shippingMethod = applicableShippingMethodsOnCart[index];
         var shippingOption;
+        var shippingMethodDescription = !empty(shippingMethod.description) ? shippingMethod.description : '' ;
+
+        if (shippingMethod && !empty(shippingMethodDescription) && shippingMethodDescription.length > 195) {
+            shippingMethodDescription = shippingMethodDescription.substr(0,195) + constants.GOOGLE_PAY_SHIPPING_ELLIPSIS;
+        }
+
         if (currentCountry == constants.US_COUNTRY_CODE) {
             var isEswShippingMethod = session.custom.isEswShippingMethod;
             isEswShippingMethod = false;
@@ -179,7 +185,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
                 shippingOption = {
                     id: shippingMethod.ID,
                     label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
-                    description: shippingMethod.description ? shippingMethod.description : '',
+                    description: shippingMethodDescription ? shippingMethodDescription : '',
                 }
                 shippingOptions.push(shippingOption);
             }
@@ -189,7 +195,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
             shippingOption = {
                 id: shippingMethod.ID,
                 label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
-                description: shippingMethod.description ? shippingMethod.description : '',
+                description: shippingMethodDescription ? shippingMethodDescription : '',
             }
             shippingOptions.push(shippingOption);
         }
@@ -301,9 +307,9 @@ function getTransactionInfo(req) {
         totalPriceLabel: Resource.msg('total.price.label', 'googlePay', null)
     }
     var displayItems = [];
-    var quantity = 1;
     var productId = req.form.pid;
     var form = req.form;
+    var quantity = req.form && req.form.quantityPDP && req.form.quantityPDP > 0 && req.form.quantityPDP != null ? Number(req.form.quantityPDP) : 1;
     var childProducts = [];
     var options = [];
     form.options = [];

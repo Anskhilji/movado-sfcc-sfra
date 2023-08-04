@@ -32,7 +32,7 @@ module.exports = function mgOrderLineItem(product, apiProduct, options) {
     productLineItemDecorators.uuid(product, options.lineItem);
     productLineItemDecorators.shipment(product, options.lineItem);
     productLineItemDecorators.bonusProductLineItem(product, options.lineItem);
-    productLineItemDecorators.priceTotal(product, options.lineItem);
+    productLineItemDecorators.priceTotal(product, options.lineItem, options.quantity);
     productLineItemDecorators.options(product, options.lineItemOptions);
     productLineItemDecorators.bonusProductLineItemUUID(product, options.lineItem);
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
@@ -49,6 +49,13 @@ module.exports = function mgOrderLineItem(product, apiProduct, options) {
         Object.defineProperty(product, 'isWatchTile', {
             enumerable: true,
             value: isWatchTile
+        });
+    }
+
+    if (!empty(product)) {
+        Object.defineProperty(product, 'isPulseIDEngravingEnabled', {
+            enumerable: true,
+            value: !empty(apiProduct.custom.enablepulseIDEngraving) ? apiProduct.custom.enablepulseIDEngraving : ''
         });
     }
 

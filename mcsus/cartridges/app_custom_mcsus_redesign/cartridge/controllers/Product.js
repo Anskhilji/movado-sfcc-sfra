@@ -17,6 +17,7 @@ var Money = require('dw/value/Money');
 var Logger = require('dw/system/Logger');
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+    var Constants = require('*/cartridge/utils/Constants');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -26,6 +27,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
     var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
     var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+    var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
@@ -45,11 +47,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
     var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
 
-    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productType = showProductPageHelperResult.product.productType;
-    var template =  'product/productDetails';
-    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
+    var template =  showProductPageHelperResult.template;
 
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
@@ -57,12 +56,45 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
     var customURL = productCustomHelper.getPLPCustomURL(product);
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+    var customProductSetURL;
+    var customIndividualItemURL;
+    var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
+    var productSetURL = productSetCustomHelper.getPLPCustomSetURL(product.id, product);
+
+    if(product.individualProducts) {
+        yotpoCustomHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
+        productCustomHelpers.setProductAvailability(product)
+    }
+
+    var apiProduct = productMgr.getProduct(product.id);
+    var params = req.querystring;
+    if (!apiProduct.variant && apiProduct.master) {
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
+
+        if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
+            var pid = apiProduct.variationModel.defaultVariant.getID();
+            params.pid = pid;
+            apiProduct = productMgr.getProduct(pid);
+            customURL = productCustomHelper.getPLPCustomURL(apiProduct);
+        }
+        var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
+
+        viewData.product = showProductPageHelperResult.product,
+        viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
+        viewData.resources = showProductPageHelperResult.resources,
+        viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
+    }
 
    /* get recommendations for product*/
    if (product) {
        product = productMgr.getProduct(product.id);
        collectionName = !empty(product.custom.familyName) ? product.custom.familyName[0] : '';
        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
+
+       if (!empty(product.ID)) {
+        var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
+        var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
+       }
 
        // Custom Start: Add pricing logic for Klarna promo banners
        try {
@@ -80,7 +112,18 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
                }
            }
            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productDecimalPrice), session.getCurrency())).toString();
-       } catch (e) {
+            
+           // Custom Start: Add price logic for product sets
+            if (productType == Constants.PRODUCT_TYPE) {
+            if (productSetSalePrice.salePrice !== 0) {
+                klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetSalePrice.salePrice), session.getCurrency())).toString();
+            } else {
+                klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetBasePrice.basePrice), session.getCurrency())).toString();
+                }
+            }
+            // Custom End
+       
+        } catch (e) {
            Logger.error('Product.js: Error occured while getting product price for Klarna and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
        }
        // Custom End
@@ -108,8 +151,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    //Custom End
-
-   var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
+   
    viewData = {
        isEmbossEnabled: isEmbossEnabled,
        isEngraveEnabled: isEngraveEnabled,
@@ -139,7 +181,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
        smartGiftAddToCartURL : smartGiftAddToCartURL,
        customURL: customURL,
-       popupID: listrakPersistentPopup
+       customProductSetURL: productSetURL.customProductSetURL,
+       customIndividualItemURL: productSetURL.customIndividualItemURL
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
    res.setViewData(smartGift);
@@ -183,7 +226,13 @@ server.replace('ShowCartButton', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-    var template = 'product/components/showCartButtonProduct';
+    var productSet = req.querystring.isProductSet;
+    var template;
+    if (productSet) {
+        template = 'product/components/productSet/showCartButtonProduct';
+    } else {
+        template = 'product/components/showCartButtonProduct';
+    }
     res.setViewData(smartGift);
 
     res.render(template, {
@@ -203,8 +252,16 @@ server.get('ShowStickyATCButton', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var product = showProductPageHelperResult.product;
     var customURL = productCustomHelper.getPLPCustomURL(product);
+    var productSet = req.querystring.isProductSet;
+    var template;
 
-    res.render('product/components/stickyAddToCart', {
+    if (productSet) {
+        template = 'product/components/productSet/stickyAddToCart';
+    } else {
+        template = 'product/components/stickyAddToCart';
+    }
+
+    res.render(template, {
         product: product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
@@ -213,6 +270,8 @@ server.get('ShowStickyATCButton', function (req, res, next) {
         ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         customURL: customURL
     });
+
+
     next();
 });
 

@@ -485,7 +485,7 @@
             letter-spacing: normal;
             font-size: rem(15);
             @include font-medium;
-            color: $dark-blue2;
+            color: $black;
             text-overflow: ellipsis;
             overflow: hidden;
             width: 60%;
@@ -1092,15 +1092,6 @@
             padding-bottom: rem(0);
         }
     }
-}
-
-.listrak-persistent-popup {
-  display: none !important;
-}
-.button-floting {
-  &.button-search-result {
-    bottom: rem(41);
-  }
 }
 
 // custom: MSS-1948 styling start here for desktop design

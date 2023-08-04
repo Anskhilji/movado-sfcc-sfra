@@ -65,7 +65,8 @@ function categoryToObject(category) {
         disableSubCategories: category.custom.disableSubCategories,
         gender: category.custom.gender,
         staticContentAsset: staticContentAsset,
-        abTestSegmentIDs: abTestSegmentIDs
+        abTestSegmentIDs: abTestSegmentIDs,
+        isCategoryShow: category.custom.isCategoryShow
     };
     if (!empty(category.custom.categoryImageURL)) {
         result.categoryImageURL = category.custom.categoryImageURL.absURL;
@@ -75,8 +76,16 @@ function categoryToObject(category) {
         result.hexColor = category.custom.hexColor;
     }
 
+    if(!empty(category.custom.swatchImage)) {
+        result.swatchImage = category.custom.swatchImage.absURL;
+    }
+
     if (!empty(category.custom.showColorSwatchForSubcategories)) {
         result.showColorSwatchForSubcategories = category.custom.showColorSwatchForSubcategories;
+    }
+    
+    if (!empty(category.custom.isDesktopCategoryHidden)) {
+        result.isDesktopCategoryHidden = category.custom.isDesktopCategoryHidden;
     }
     var subCategories = category.hasOnlineSubCategories() ?
             category.getOnlineSubCategories() : null;

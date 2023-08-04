@@ -72,7 +72,7 @@
                 </div>
             </div>
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarouselPdp" />
+                <isinclude template="product/components/imageCarousel" />
 
                 <div class="col-12 col-sm-6">
                     <!-- Product Name -->
@@ -186,9 +186,8 @@
                 </div>
             </div>
         </div>
-
         <div class="container">
-            <isinclude template="product/components/descriptionAndDetails" />
+            <isinclude template="product/components/attributesPre" />
         </div>
 
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
@@ -210,13 +209,12 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-                <!-- Start: Listrak persistent popup -->
-        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <!-- Start: Listrak persistent popup -->
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled}">
             <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
             <span class="listrak-popup-product-detail"></span>
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
         </isif>
         <!-- End: Listrak persistent popup -->
-
     </isobject>
 </isdecorate>

@@ -10,9 +10,12 @@ var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+var revokeCheckout = require('*/cartridge/scripts/middleware/revokeCheckout');
 
 var page = module.superModule;
 server.extend(page);
+
+server.prepend('Login', revokeCheckout);
 
 server.append(
     'Login',
@@ -56,7 +59,6 @@ server.append(
         return next();
     }
 );
-
 
 server.append(
 	'Begin',
@@ -162,19 +164,32 @@ server.append(
                 productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
             }
         });
-    }
-        // Custom Start: Add email for Amazon Pay
-        res.setViewData({
-            order: orderModel,
-            actionUrls: actionUrls,
-            totals: totals,
-            customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
-            expirationYears: creditCardExpirationYears,
-            countryCode: countryCode,
-            couponLineItems: currentBasket.couponLineItems
-        });
 
-        next();
+        //custom : PulseID engraving
+        if (Site.current.preferences.custom.enablePulseIdEngraving) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            var items = orderModel.items;
+            pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
+        }
+        // custom end
+    }
+
+    var appliedCouponLineItems = currentBasket.couponLineItems.toArray().filter(function (couponLineItem) {
+        return couponLineItem.statusCode == Constants.APPLIED_COUPON;
+    });
+
+    // Custom Start: Add email for Amazon Pay
+    res.setViewData({
+        order: orderModel,
+        actionUrls: actionUrls,
+        totals: totals,
+        customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
+        expirationYears: creditCardExpirationYears,
+        countryCode: countryCode,
+        couponLineItems: appliedCouponLineItems
+    });
+
+    next();
 });
 
 server.get('Declined', function (req, res, next) {

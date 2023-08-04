@@ -16,3 +16,4 @@ exports.ERRORS_TYPE = {
 }
 
 exports.US_COUNTRY_CODE='US';
+exports.ROOT_CATEGORY = 'root';

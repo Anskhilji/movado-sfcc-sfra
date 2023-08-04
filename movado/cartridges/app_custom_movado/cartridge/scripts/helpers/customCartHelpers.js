@@ -3,6 +3,7 @@
 var ProductLineItem = require('dw/order/ProductLineItem');
 var Logger = require('dw/system/Logger');
 var productFactory = require('*/cartridge/scripts/factories/product');
+var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var collections = require('*/cartridge/scripts/util/collections');
 var EMBOSSED = 'Embossed';
@@ -97,6 +98,26 @@ function updateGiftMessaging(currentBasket, prodUUID, giftMsg){
 }
 
 
+/**
+ * Code to remove gift messaging  on cart in product line items
+ * @param  {dw.order.Basket} currentBasket
+ * @param  {String} prodUUID
+ * @param  {String} giftMsg
+ */
+ function removeGiftMessaging (currentBasket, prodUUID, giftMsg) {
+    var Transaction = require('dw/system/Transaction');
+    
+    var prodLineItems = currentBasket.productLineItems;
+
+    Transaction.wrap(function() {
+        for each (var lineItem in prodLineItems) {
+            if (lineItem.UUID === prodUUID) {
+                lineItem.custom.GiftWrapMessage = '';
+            }
+        }
+    });
+}
+
 
 /**
  * return the title texts to be added if cart is empty
@@ -123,8 +144,18 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
 
         if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
-            var productModel = productFactory.get({pid: productID});
-            var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+            var productPrice;
+            
+            if (!empty(pli.basePrice) && !empty(pli.adjustedPrice)) {
+                if (!empty(pli.basePrice.decimalValue) && !empty(pli.adjustedPrice.decimalValue)) {
+                    if (pli.basePrice.decimalValue !== pli.adjustedPrice.decimalValue) {
+                        productPrice = pli.adjustedPrice && pli.adjustedPrice.decimalValue ? pli.adjustedPrice.decimalValue.toString() : '0.0';
+                    } else {
+                        productPrice = pli.basePrice && pli.basePrice.decimalValue ? pli.basePrice.decimalValue.toString() : '0.0';
+                    }
+                }
+            }
+            
             var category = pli.product && pli.product.primaryCategory
             ? pli.product.primaryCategory
             : '';
@@ -159,8 +190,19 @@ function getCartForAnalyticsTracking(lineItemCtnr){
 	var analyticsTrackingCartItems = [];
 	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
             var productID = pli.product.ID;
-            var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
             var quantity = pli.quantity.decimalValue ? pli.quantity.decimalValue.toString() : '0.0';
+            var productPrice;
+
+            if (!empty(pli.basePrice) && !empty(pli.adjustedPrice)) {
+                if (!empty(pli.basePrice.decimalValue) && !empty(pli.adjustedPrice.decimalValue)) {
+                    if (pli.basePrice.decimalValue !== pli.adjustedPrice.decimalValue) {
+                        productPrice = pli.adjustedPrice && pli.adjustedPrice.decimalValue ? pli.adjustedPrice.decimalValue.toString() : '0.0';
+                    } else {
+                        productPrice = pli.basePrice && pli.basePrice.decimalValue ? pli.basePrice.decimalValue.toString() : '0.0';
+                    }
+                }
+            }
+
             productDetail = {
                 item : productID,
                 quantity: quantity,
@@ -179,7 +221,17 @@ function removeFromCartGTMObj(productLineItems){
 	var variant='';
 	 collections.forEach(productLineItems, function (pli) {
 		variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
-		var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+		var price;
+
+        if (!empty(pli.basePrice) && !empty(pli.adjustedPrice)) {
+            if (!empty(pli.basePrice.decimalValue) && !empty(pli.adjustedPrice.decimalValue)) {
+                if (pli.basePrice.decimalValue !== pli.adjustedPrice.decimalValue) {
+                    price = pli.adjustedPrice && pli.adjustedPrice.decimalValue ? pli.adjustedPrice.decimalValue.toString() : '0.0';
+                } else {
+                    price = pli.basePrice && pli.basePrice.decimalValue ? pli.basePrice.decimalValue.toString() : '0.0';
+                }
+            }
+        }
 
      	cartItemObj.push({
      		'id':pli.product.ID,
@@ -293,7 +345,6 @@ function getcartPageHtml (req) {
 function getCountrySwitch() {
     
     var Logger = require('dw/system/Logger');
-    var Site = require('dw/system/Site');
 
     var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
     if (isEswEnabled) {
@@ -321,16 +372,34 @@ function getCountrySwitch() {
 
 };
 
-function removeNullClydeWarrantyLineItem(currentBasket) {
-    var Constants = require('*/cartridge/utils/Constants');
+function removeNullClydeWarrantyLineItemAndEngraving(currentBasket) {
     var Transaction = require('dw/system/Transaction');
+
+    var Constants = require('*/cartridge/utils/Constants');
+
+    var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
     var orderLineItems = currentBasket.allProductLineItems;
     var orderLineItemsIterator = orderLineItems.iterator();
+    var pulseIdEngraving = 'pulseIdEngraving';
     var productLineItem;
+    var pulseIdConstants;
+
+    if (enablePulseIdEngraving) {
+        pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
+    }
+
     Transaction.wrap(function () {
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
-            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+            if (productLineItem instanceof dw.order.ProductLineItem && (productLineItem.optionID == Constants.ENGRAVING || productLineItem.optionID == Constants.CLYDE_WARRANTY) && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == EMBOSSED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == ENGRAVED && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE)) {
+                currentBasket.removeProductLineItem(productLineItem);
+            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == GIFTWRAPPED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
                 currentBasket.removeProductLineItem(productLineItem);
             }
         }
@@ -395,5 +464,6 @@ module.exports = {
     getGiftTransactionATC: getGiftTransactionATC,
     getCountrySwitch: getCountrySwitch,
     removeClydeWarranty: removeClydeWarranty,
-    removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem
+    removeNullClydeWarrantyLineItemAndEngraving: removeNullClydeWarrantyLineItemAndEngraving,
+    removeGiftMessaging: removeGiftMessaging
 };

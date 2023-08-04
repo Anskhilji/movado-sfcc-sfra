@@ -5,6 +5,9 @@ var _moduleName = 'riskifiedhandler';
 var Site = require('dw/system/Site');
 
 var restService = require('int_riskified/cartridge/scripts/riskified/export/api/models/RestApiModel');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
+
 
 /**
  * Send a new order to Riskified.
@@ -41,6 +44,7 @@ function createOrder(order, orderParams) {
             response.error = true;
             response.recoveryNeeded = false;
             response.message = "Order review status couldn't be updated.";
+            checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, response.message, logLocation);
 
             return response;
         }
@@ -54,6 +58,7 @@ function createOrder(order, orderParams) {
                 response.error = true;
                 response.recoveryNeeded = false;
                 response.message = "Order confirmation status couldn't be udpated.";
+                checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, response.message, logLocation);
 
                 return response;
             }
@@ -249,12 +254,15 @@ function getSyncDecision(order, orderParams) {
         riskifiedOrder;
     var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
     var OrderModel = require('int_riskified/cartridge/scripts/riskified/export/api/models/OrderModel');
+    var message;
 
     riskifiedOrder = OrderModel.create(order, orderParams, null);
     response = restService.post('sync', logLocation, riskifiedOrder, 'decide');
 
     if (response.error) {
-        RCLogger.logMessage('Syncronous Decisin Error:' + response.message, 'error', logLocation);
+        message = 'Syncronous Decisin Error:' + response.message, 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation);
         throw new Error('Syncronous Decision Error');
     }
 

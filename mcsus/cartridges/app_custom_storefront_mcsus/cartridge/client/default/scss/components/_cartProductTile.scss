@@ -8,6 +8,10 @@
         font-family: $font-medium;
         font-size: rem(16);
         font-weight: 500;
+
+        a {
+            color: $grey14;
+        }
     }
     .item-info {
         .item-attributes {
@@ -37,4 +41,11 @@
             }
         }
     }
+}
+
+.order-product-summary {
+
+    .cart-quantity-btn {
+        display: none;
+      }
 }

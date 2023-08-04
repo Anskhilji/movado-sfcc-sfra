@@ -1,6 +1,7 @@
 #yotpoReviews {
 
     h3.details-heading {
+        font-family: $font-brandon-grotesque;
         font-size: rem(24);
 
         @include media-breakpoint-up (md) {

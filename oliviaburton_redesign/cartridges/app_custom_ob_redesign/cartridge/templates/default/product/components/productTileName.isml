@@ -1,0 +1,9 @@
+<isif condition="${!('display' in pdict && 'showName' in pdict.display && pdict.display.showName == false)}">
+    <div class="pdp-link" itemprop="name">
+        <isif condition="${product.productType != 'master' || !product.defaultVariant}">
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName || ''}</a>
+        <iselse/>
+            <a class="link product-name" href="${product.variationPdpURL}" itemprop="url">${product.defaultVariant.name || product.productName}</a>
+        </isif>
+    </div>
+</isif>
