@@ -1,0 +1,56 @@
+.add-to-cart-redesign {
+
+    &.addToCartModal {
+
+        .modal-body {
+
+            .top-sec {
+
+                .btn-primary {
+                    background-color: $dark-cyan !important;
+                    
+                    &:hover {
+                        background: $dark-cyan !important;
+                    }
+
+                    &:focus {
+                        background: $dark-cyan !important;
+                    }
+                }
+    
+          
+            }
+        }   
+
+    }
+
+    .recomendation-carousel-wrapper {
+
+        .cs-carousel-wrapper {
+
+            &.recommendation-carousel-pdp {
+        
+                .cta-add-to-cart {
+        
+                    .btn {
+        
+                        &.btn-primary {
+
+                            &.add-to-cart-plp-redesign {
+        
+                                &:hover,
+                                &:focus,
+                                &.active {
+                                    color: $white !important;
+                                    background-color: $dark-cyan !important;
+                                    border: rem(1) solid $dark-cyan !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
