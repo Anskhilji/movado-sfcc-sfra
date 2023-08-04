@@ -93,6 +93,13 @@ module.exports = function productLineItem(product, apiProduct, options) {
         });
     }
 
+    if (!empty(product)) {
+        Object.defineProperty(product, 'isPulseIDEngravingEnabled', {
+            enumerable: true,
+            value: !empty(apiProduct.custom.enablepulseIDEngraving) ? apiProduct.custom.enablepulseIDEngraving : ''
+        });
+    }
+
     if (!empty(plpCustomUrl)) {
         Object.defineProperty(product, 'plpCustomUrl', {
             enumerable: true,

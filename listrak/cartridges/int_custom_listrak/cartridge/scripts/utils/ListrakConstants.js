@@ -32,17 +32,21 @@ exports.Source = {
     Footer: 'Listrak_FooterSourceID',
     Create_Account: 'Listrak_AccountCreateSourceID',
     Checkout: 'Listrak_CheckoutSourceID',
-    BackInStock: 'Listrak_BackInStockSourceID'
+    BackInStock: 'Listrak_BackInStockSourceID',
+    PDP: 'Listrak_PDPSourceID'
 }
 exports.Event = {
     Footer: 'Listrak_FooterEventID',
     Create_Account: 'Listrak_AccountCreateEventID',
+
     Checkout: 'Listrak_CheckoutEventID',
-    BackInStock: 'Listrak_BackInStockEventID'
+    BackInStock: 'Listrak_BackInStockEventID',
+    PDP: 'Listrak_PDPEventID'
 }
 exports.Subscribe = {
     Footer: 'Listrak_Footer_OverrideUnsubscribe',
     Create_Account: 'Listrak_AccountCreate_OverrideUnsubscribe',
     Checkout: 'Listrak_Checkout_OverrideUnsubscribe',
-    BackInStock: 'Listrak_BackInStock_OverrideUnsubscribe'
+    BackInStock: 'Listrak_BackInStock_OverrideUnsubscribe',
+    PDP: 'Listrak_PDP_OverrideUnsubscribe'
 }

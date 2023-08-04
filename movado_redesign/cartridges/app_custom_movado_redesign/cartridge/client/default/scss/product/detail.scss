@@ -96,13 +96,15 @@ $arrow-height: 1.25em;
 
     .clyde-bottom-border {
         height: rem(1);
-        margin-bottom: rem(30);
-        margin-top: rem(20);
+        margin:rem(20) rem(0) rem(30);
         border-color: $border-gray;
+        max-width: rem(376);
+        width: 100%;
 
         @include media-breakpoint-down (md) {
+            max-width: 100%;
             margin-bottom: rem(20);
-            margin-top: rem(-15); 
+            margin-top: rem(-15);
         } 
     }
 
@@ -161,6 +163,7 @@ $arrow-height: 1.25em;
             max-width: rem(275);
             margin-right: auto;
             margin-left: auto;
+            margin-bottom: rem(20);
         }
 
         #clyde-cta {
@@ -554,7 +557,6 @@ $arrow-height: 1.25em;
             font-size: rem(16);
             letter-spacing: normal;
             color: $grey8;
-            text-transform: capitalize;
         }
 
         .title {
@@ -2212,14 +2214,5 @@ body {
             top: 0;
             position: relative;
         }
-    }
-}
-
-.listrak-persistent-popup {
-    display: none !important;
-}
-.button-floting {
-    &.button-product-detail {
-        bottom: rem(160);
     }
 }

@@ -1,88 +1,122 @@
-<isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences.custom.enableUsablenetAccessibility : false}" scope="page" />
+<isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences
+                                                 .custom.enableUsablenetAccessibility : false}" scope="page" />
 <footer>
-    <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
-    <div class="home-email-signup"> 
-        <div class="container">
-            <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
-                <div class="row">
-                    <div class="col-lg-7">
+    <isinclude url="${URLUtils.url('Compare-Bar', 'urlAction', pdict.action)}" />
+      <isslot id="cs-value-propositions" context="global" description="Satisfaction Guaranteed, Free Shipping, Secure Payment, Free Returns" />
+
+    <div class="footer-container container-fluid">
+        <div class="row">
+            <div
+                class="col-12 footer-box">
+                <iscomment> footer logo </iscomment>
+                <div class="footer-logo">
+                    <iscontentasset aid="ca-footer-logo" />
+                </div>
+
+                <iscomment> footer store Location </iscomment>
+                <div class="footer-store-Location">
+                    <iscontentasset aid="ca-footer-locate-store" />
+
+                    <div class="seleced-store">
+                        <img src="${URLUtils.staticURL('/images/map-pin.svg')}" alt="" class="${(session.privacy.storeAddress) ? '' : 'd-none'}">
+                        <span class="store-address">${(session.privacy.storeAddress) || ''}</span>
+                    </div>
+
+                    <iscomment> Custom Start: Adding ESW Logic </iscomment>
+                    <isif condition="${isEswEnabled}">
+                        <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', !empty(request.httpParameterMap.get('country').value) ? request
+                                        .httpParameterMap.get('country').value : '')}" />
+                    </isif>
+                    <iscomment> Custom End </iscomment>
+                </div>
+
+                <iscomment> footer Subscribe to our newsletter </iscomment>
+                <div class="footer-newsletter">
+                    <form role="form" name="newsletterSubscribe" id="newsletterSubscribe"
+                        action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
+                        <iscomment> Custom Start: Email footer description </iscomment>
+                         <isslot id="cs-newsletter-subscribe-description" context="global" description="Email footer description" />
+                        <iscomment> Custom End </iscomment>
+
                         <div class="input-group">
-                            <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignups', 'homePage', null)}">
-                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('isEmailVerificationEnabled') === true}">
-                                <input type="text" class="form-control email-verification" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignups', 'homePage', null)}">
+                            <input type="text" class="form-control email-signUp" id="hpEmailSignUp" name="hpEmailSignUp"
+                                placeholder="${Resource.msg('placeholdertext.form.emailsignups', 'homePage', null)}">
+                            <isif
+                                condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('isEmailVerificationEnabled') === true}">
+                                <input type="text" class="form-control email-verification" id="hpEmailSignUp"
+                                    name="hpEmailSignUp"
+                                    placeholder="${Resource.msg('placeholdertext.form.emailsignups', 'homePage', null)}">
                             </isif>
-                            <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
+                            <label for="hpEmailSignUp"
+                                class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary">${Resource.msg('button.form.emailsignup', 'homePage', null)}</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <?xml version="1.0" encoding="UTF-8"?>
+                                    <svg width="19.9976779px" height="20px" viewBox="0 0 19.9976779 20" version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="Fourth-Iteration" stroke="none" stroke-width="1" fill="none"
+                                            fill-rule="evenodd">
+                                            <g id="19" transform="translate(-1358.003599, -718.000000)">
+                                                <g id="Stacked-Group-3" transform="translate(49.000000, 621.000000)">
+                                                    <g id="Stacked-Group-3-Copy"
+                                                        transform="translate(1005.000000, 0.000000)">
+                                                        <g id="Input-boxes" transform="translate(0.000000, 84.000000)">
+                                                            <g id="Group-3" transform="translate(290.005225, 0.000000)">
+                                                                <g id="akar-icons:send"
+                                                                    transform="translate(13.998374, 13.000000)">
+                                                                    <rect id="ViewBox" x="0" y="0" width="19.9976779"
+                                                                        height="20"></rect>
+                                                                    <path
+                                                                        d="M7.72453273,10.9998964 L2.70002852,10.9998964 L1.0198112,4.88263143 C1.00905198,4.8470805 1.00249859,4.81057435 1.00026391,4.77374178 C0.981566496,4.21296008 1.65637305,3.82406847 2.24109208,4.08073693 L17.9979101,10.9998964 L2.24109208,17.9190559 C1.66317211,18.173391 0.996864378,17.7953884 1.00026391,17.2447178 C1.00198441,17.195514 1.01142984,17.1467925 1.02831002,17.1000502 L2.27508737,13.3332461"
+                                                                        id="Path" stroke="#D8D8D8" stroke-width="1.25"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </button>
                             </span>
                         </div>
-                        <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
-                          <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
+
+                        <div class="submission-status d-none"
+                            data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
+                            <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
                         </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="footer-copyright">
+                    <div class="footer-links">
+                        <iscontentasset aid="ca-footer-account" />
                     </div>
-                    <div class="col-lg-5 email-description">
-                    <iscomment> Custom Start:  Email footer description </iscomment>
-                        <iscontentasset aid="email-signup-footer-description" />
-                    <iscomment> Custom End </iscomment>
+                    <div class="copyright-text text-center">
+                        <iscontentasset aid="ca-footer-copy" />
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-    <div class="container movado-footer-container">
-        <div class="footer-container row">
-            <isif condition="${enableUsablenetAccessibility}">
-                <div class="footer-item col-sm-3 hidden-md-up">
-                    <iscontentasset aid="ca-usablenet-mobile-link" />
-                </div>
-            </isif>
-            <div class="footer-item col-sm-3 store">
-                <iscontentasset aid="ca-footer-locate-store" />
-                <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <isif condition="${isEswEnabled}" > 
-                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
-                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
-                </isif>
-                <iscomment> Custom End </iscomment>
-            </div>
-            <div class="footer-item col-sm-3 collapsible-xs">
-                <iscontentasset aid="ca-footer-account" />
-            </div>
-            <div class="footer-item col-sm-3 collapsible-xs">
-                <iscontentasset aid="ca-footer-support" />
-            </div>
-            <div class="footer-item col-sm-3 collapsible-xs">
-                <iscontentasset aid="ca-footer-about" />
-            </div>
-        </div>
-        <hr class="hidden-xs-down" />
-        <div class="row">
-            <div class="col-lg-4 col-sm-6 order-sm-2 social">
-                <button class="back-to-top" aria-label="${Resource.msg('button.back_to_top', 'common', null)}" title="${Resource.msg('button.back_to_top', 'common', null)}" aria-hidden="true">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
-                        <i class="fa fa-arrow-up fa-stack-1x"></i>
-                    </span>
-                </button>
-                <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
-            </div>
-            <div class="col-lg-8 col-sm-6 order-sm-1 copyright-notice">
-              <iscontentasset aid="ca-footer-copy" />
             </div>
         </div>
     </div>
+
+
     <isif condition="${!request.httpParameterMap.get('country').value}">
-        <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+        <isinclude url="${URLUtils.https('WelcomeMat-Show')}" />
     </isif>
-    
+
     <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
 
-    <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
-    <isinclude template="resources/appresources"/>
+        <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
+        <isinclude template="resources/appresources" />
 
     <iscomment> Custom Start: Clyde Integration </iscomment>
         <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
-            <script src="${URLUtils.staticURL('/js/customClydeWidget.js')}" ></script>
+            <script src="${URLUtils.staticURL('/js/customClydeWidget.js')}"></script>
         </isif>
     <iscomment> Custom End: </iscomment>
 
@@ -95,3 +129,5 @@
     <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 </footer>
 <isinclude template="storeLocator/storeLocator" />
+
+<isslot id="sc-subscription-successful-modal" context="global" description="subscription successful Coupon code modal" />
