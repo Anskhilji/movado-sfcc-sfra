@@ -26,8 +26,9 @@ function updateBundleProducts(apiLineItem, childProducts) {
     var bundle = apiLineItem.product;
     var bundleProducts = bundle.getBundledProducts();
     var bundlePids = collections.map(bundleProducts, function (product) { return product.ID; });
+    var bundlePidsArray = bundlePids.toString();
     var selectedProducts = childProducts.filter(function (product) {
-        return bundlePids.indexOf(product.pid) === -1;
+        return bundlePidsArray.indexOf(product.pid) === -1;
     });
     var bundleLineItems = apiLineItem.getBundledProductLineItems();
 
