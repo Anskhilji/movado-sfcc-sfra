@@ -166,11 +166,18 @@ $('body').on('click', '.carousel-indicator-image', function (e) {
     $('.main-carousel .slick-active').addClass('slick-center');
 });
 
-$('body').off('change', '.quantity-selector > .quantity').on('change', '.quantity-selector .quantity', function (e) {
+$('body').off('change', '.quantity-selector > .quantity, .bundle-footer .quantity-select').on('change', '.quantity-selector .quantity, .bundle-footer .quantity-select', function (e) {
     e.preventDefault();
     var $selectQuantity = null;
     if ($('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
         $selectQuantity = $('.quantity-selector > .quantity').val();
+        if ($selectQuantity > 1) {
+            $('.apple-pay-pdp').addClass('d-none');
+        } else {
+            $('.apple-pay-pdp').removeClass('d-none');
+        }
+    } else if ($('.bundle-footer .quantity-select').length > 0) {
+        $selectQuantity = $('.bundle-footer > .quantity-select').val();
         if ($selectQuantity > 1) {
             $('.apple-pay-pdp').addClass('d-none');
         } else {
@@ -1084,7 +1091,7 @@ function getChildProducts() {
     var childProducts = [];
     $('.bundle-item').each(function () {
         childProducts.push({
-            pid: $(this).find('.product-id').text(),
+            pid: $(this).data('pid'),
             quantity: parseInt($(this).find('label.quantity').data('quantity'), 10)
         });
     });
@@ -1239,15 +1246,18 @@ function clydeAddProductToCart() {
     /**
      * Custom Start: Add to cart form for MVMT
      */
-    if ($('.pdp-mvmt')) {
-        form = {
-            pid: pid,
-            pidsObj: pidsObj,
-            childProducts: getChildProducts(),
-            quantity: quantity,
-            giftPid: giftPid ? giftPid : ''
-        };
+    if (!$('.bundle-item').length) {
+        if ($('.pdp-mvmt')) {
+            form = {
+                pid: pid,
+                pidsObj: pidsObj,
+                childProducts: getChildProducts(),
+                quantity: quantity,
+                giftPid: giftPid ? giftPid : ''
+            };
+        }
     }
+
     /**
      *  Custom End
      */

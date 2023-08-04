@@ -179,7 +179,7 @@ function updateCartTotals(data) {
             $('select[data-pid="' + item.id + '"]').attr('disabled', true);
         }
 
-        if (item.options.length > 0) {
+        if (item && item.options && item.options.length > 0) {
             item.options.forEach(function (option) {
                 if (option && option.optionId == Resources.CLYDE_WARRANTY && option.price != '' && option.adjustedPrice != '' && option.price == option.adjustedPrice) {
                     $('.clyde-uuid-' + item.UUID + ' .clyde-option-price').text(option.price);
