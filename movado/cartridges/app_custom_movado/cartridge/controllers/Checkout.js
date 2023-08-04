@@ -2,14 +2,20 @@
 
 var server = require('server');
 
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+var Site = require('dw/system/Site');
+var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
+
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
-var Transaction = require('dw/system/Transaction');
+var revokeCheckout = require('*/cartridge/scripts/middleware/revokeCheckout');
 
 var page = module.superModule;
 server.extend(page);
+
+server.prepend('Login', revokeCheckout);
 
 server.append(
     'Login',
@@ -18,7 +24,7 @@ server.append(
     csrfProtection.generateToken,
     function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
-        var Site = require('dw/system/Site');
+        
         var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
@@ -54,7 +60,6 @@ server.append(
     }
 );
 
-
 server.append(
 	'Begin',
 	server.middleware.https,
@@ -65,7 +70,6 @@ server.append(
         var Locale = require('dw/util/Locale');
         var Money = require('dw/value/Money');
         var OrderModel = require('*/cartridge/models/order');
-        var Site = require('dw/system/Site');
 
         var Constants = require('*/cartridge/scripts/util/Constants');
         var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
@@ -160,25 +164,36 @@ server.append(
                 productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
             }
         });
-    }
-        // Custom Start: Add email for Amazon Pay
-        res.setViewData({
-            order: orderModel,
-            actionUrls: actionUrls,
-            totals: totals,
-            customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
-            expirationYears: creditCardExpirationYears,
-            countryCode: countryCode,
-            couponLineItems: currentBasket.couponLineItems
-        });
 
-        next();
+        //custom : PulseID engraving
+        if (Site.current.preferences.custom.enablePulseIdEngraving) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            var items = orderModel.items;
+            pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
+        }
+        // custom end
+    }
+
+    var appliedCouponLineItems = currentBasket.couponLineItems.toArray().filter(function (couponLineItem) {
+        return couponLineItem.statusCode == Constants.APPLIED_COUPON;
+    });
+
+    // Custom Start: Add email for Amazon Pay
+    res.setViewData({
+        order: orderModel,
+        actionUrls: actionUrls,
+        totals: totals,
+        customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
+        expirationYears: creditCardExpirationYears,
+        countryCode: countryCode,
+        couponLineItems: appliedCouponLineItems
+    });
+
+    next();
 });
 
 server.get('Declined', function (req, res, next) {
-    var CustomObjectMgr = require('dw/object/CustomObjectMgr');
-    var Transaction = require('dw/system/Transaction');
-
+    
     Transaction.wrap(function () {
         var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
         if (currentSessionPaymentParams) {
@@ -187,6 +202,25 @@ server.get('Declined', function (req, res, next) {
     });
 
     res.render('checkout/declinedOrder');
+    next();
+});
+
+// ApplePay Riskified shoperRecovery order declined 
+server.get('ShoperRecovery', function (req, res, next) {
+    var returnUrl = req.querystring.returnUrl;
+
+    if (!empty(returnUrl)) {
+        res.redirect(returnUrl);
+    }
+        
+    next();
+});
+
+// Riskified shoperRecovery order approved
+server.get('RiskApproved', function (req, res, next) {
+    var Resource = require('dw/web/Resource');
+
+    res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentSuccess', Resource.msg('shopper.recovery.success', 'checkout', null)));
     next();
 });
 

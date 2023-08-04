@@ -545,3 +545,13 @@
         display: none;
     }
 }
+
+.add-to-cart-redesign {
+
+    &.addToCartModal {
+        
+        .add-to-cart-plp-redesign {
+            font-family: $font-gill-std-semibold;
+        }
+    }
+}

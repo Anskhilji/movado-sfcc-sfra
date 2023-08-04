@@ -386,20 +386,37 @@ function updateAttrs(attrs, $productContainer) {
  * @param {jQuery} $productContainer - DOM element for a given product
  */
 function updateAvailability(response, $productContainer) {
-    var availabilityValue = '';
-    var availabilityMessages = response.product.availability.messages;
+    var $availabilityValue = '';
+    var $availabilityMessages = response.product.availability.messages;
+    var $productATSValue = response.product.productATSValue;
+    var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
+    var $inStockText = window.Resources.LABEL_IN_STOCK;
+    var $preOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_PREORDER;
+    var $backOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_BACK_ORDER;
+    var $lowStockMessage = window.Resources.LOW_STOCK_MESSAGE;
+    
     if (!response.product.readyToOrder) {
-        availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
+        $availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
     } else {
-        availabilityMessages.forEach(function (message) {
-            availabilityValue += '<div>' + message + '</div>';
-        });
+        if ($productATSValue && $lowStockThreshold && $productATSValue <= $lowStockThreshold) {
+            $availabilityMessages.forEach(function (message) {
+                if (message === $inStockText || message === $preOrderText || message === $backOrderText) {
+                    $availabilityValue += '<div>' + $lowStockMessage + '</div>';
+                } else {
+                    $availabilityValue += '<div>' + message + '</div>';
+                }
+            });
+        } else {
+            $availabilityMessages.forEach(function (message) {
+                $availabilityValue += '<div>' + message + '</div>';
+            });
+        }
     }
 
     $($productContainer).trigger('product:updateAvailability', {
         product: response.product,
         $productContainer: $productContainer,
-        message: availabilityValue,
+        message: $availabilityValue,
         resources: response.resources
     });
 }
@@ -538,10 +555,10 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
          var $divOffsetTop = $addToCartBtn.offset().top;
          if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
              if ($(window).scrollTop() > $divOffsetTop) {
-                 $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+                 $('.top-sticky-card, .top-header-redesign').removeClass('scroll-hidden').addClass('scroll-top');
                  $('.bottom-sticky-card').addClass('scroll-hidden');
              } else {
-                 $('.top-sticky-card').addClass('scroll-hidden');
+                 $('.top-sticky-card, .top-header-redesign').addClass('scroll-hidden');
                  $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
              }
          }
@@ -556,18 +573,18 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
                  var $addToCatViewPort = $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen();
 
                  if ($addToCatViewPort) { // check if  button is on screen
-                     $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden'); // both bottom and top will hidde
+                     $('.bottom-sticky-card, .top-sticky-card, .top-header-redesign ').addClass('scroll-hidden'); // both bottom and top will hidde
                  } else {
                      if ($scrollDistance > $divOffsetTop) { // top sticky will be active
-                         $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+                         $('.top-sticky-card, .top-header-redesign').removeClass('scroll-hidden').addClass('scroll-top');
                          $('.bottom-sticky-card').addClass('scroll-hidden');
                      } else { // bottom sticky will be active
                          $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-                         $('.top-sticky-card').addClass('scroll-hidden');
+                         $('.top-sticky-card, .top-header-redesign').addClass('scroll-hidden');
                      }
                  }
              } else { // mobile case
-                 $('.top-sticky-card').addClass('scroll-hidden') //top scroll button  will forever hide in mobile case
+                 $('.top-sticky-card, .top-header-redesign').addClass('scroll-hidden') //top scroll button  will forever hide in mobile case
                  $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
              }
          });
@@ -869,7 +886,7 @@ function handleVariantResponse(response, $productContainer) {
                 $stickyWrapper.removeClass('d-none');
             }
         }
-    }); 
+    });
 }
 
 /**
@@ -1258,6 +1275,29 @@ function clydeAddProductToCart() {
     }
     form.currentPage = $('.page[data-action]').data('action') || '';
     $(this).trigger('updateAddToCartFormData', form);
+
+    var $engravingPrice = $('.engraving-price').first();
+    var $engravingTextOne = $('.engraved-text-one');
+    var $engravingTextTwo = $('.engraved-text-two');
+
+    form.pulseIdEngraving = false;
+
+    if ($engravingPrice.length > 0 && $engravingTextOne.length > 0 && $engravingTextTwo.length > 0) {
+
+        var $engravingPrice = $engravingPrice.text().substring(1);
+        var $engravingTextOne = $engravingTextOne.text().trim();
+        var $engravingTextTwo = $engravingTextTwo.text().trim();
+        var $previewUrl = $('.preview-btn').attr('preview-url');
+
+        if ($engravingPrice && $engravingTextOne && $previewUrl) {
+            form.pulseIdEngraving = true;
+            form.engravingPrice = $engravingPrice;
+            form.engravingTextOne = $engravingTextOne;
+            form.engravingTextTwo = $engravingTextTwo;
+            form.previewUrl = $previewUrl;
+        }
+    }
+
     if (addToCartUrl) {
         $.ajax({
             url: addToCartUrl,
@@ -1673,29 +1713,32 @@ module.exports = {
                     var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
                     var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
                     var clydeWidgetDisplayPDP = Resources.CLYDE_WIDGET_DISPLAY_PDP_ENABLED;
-
                     if (clydeWidgets && clydeWidgetsDisplay) {
-                        var selectedContract = Clyde.getSelectedContract();
-                        var clydeSettings = Clyde.getSettings();
-                        if (clydeSettings) {
-                            if (clydeWidgetDisplayPDP == true) {
-                                if (selectedContract) {
-                                    clydeAddProductToCart();
-                                } else {
-                                    var product = Clyde.getActiveProduct();
-                                    var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
-                                    if (hasContracts && clydeSettings.modal == true) {
-                                        Clyde.showModal(null, clydeAddProductToCart);
-                                    } else {
+                        try {
+                            var selectedContract = Clyde.getSelectedContract();
+                            var clydeSettings = Clyde.getSettings();
+                            if (clydeSettings) {
+                                if (clydeWidgetDisplayPDP == true) {
+                                    if (selectedContract) {
                                         clydeAddProductToCart();
+                                    } else {
+                                        var product = Clyde.getActiveProduct();
+                                        var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
+                                        if (hasContracts && clydeSettings.modal == true) {
+                                            Clyde.showModal(null, clydeAddProductToCart);
+                                        } else {
+                                            clydeAddProductToCart();
+                                        }
                                     }
+                                } else if (clydeSettings.modal == true) {
+                                    Clyde.showModal(null, clydeAddProductToCart);
+                                } else {
+                                    clydeAddProductToCart();
                                 }
-                            }  else if (clydeSettings.modal == true) {
-                                Clyde.showModal(null, clydeAddProductToCart);
                             } else {
                                 clydeAddProductToCart();
                             }
-                        } else {
+                        } catch (e) {
                             clydeAddProductToCart();
                         }
                     } else {
@@ -1866,5 +1909,5 @@ module.exports = {
     },
 
     getPidValue: getPidValue,
-    getQuantitySelected: getQuantitySelected,
+    getQuantitySelected: getQuantitySelected
 };

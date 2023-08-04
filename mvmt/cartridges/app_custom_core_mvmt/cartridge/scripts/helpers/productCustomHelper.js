@@ -176,6 +176,156 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
     return category;
 }
 
+function wordTitleCase(word, separator) {
+    var splitArray = word.split(separator);
+    var titleCaseArray = [];
+
+    for (var i = 0; i < splitArray.length; i++) {
+        var splitedWord = splitArray[i];
+        titleCaseArray.push(splitedWord.replace(splitedWord[0], splitedWord[0].toUpperCase()));
+    }
+    return titleCaseArray.join(separator);
+}
+
+/**
+ * Function all string transformation
+ * @param array, value
+ * @returns string to uppercase, lowercase, titlecase
+ */
+
+function stringTransformation(textTransformRulesArray, value) {
+    if (!empty(textTransformRulesArray) && textTransformRulesArray.length > 0) {
+        var textTransformObj = textTransformRulesArray[0];
+
+        if (textTransformObj.hasOwnProperty('textTransform') &&  textTransformObj.textTransform == 'uppercase') {
+            return value.trim().toUpperCase();
+        } else if (textTransformObj.hasOwnProperty('textTransform') &&  textTransformObj.textTransform == 'lowercase') {
+            return value.trim().toLowerCase();
+        } else {
+            var transformedArray = [];
+            var strSplitArray = value.trim().toString().split(' ');
+            
+            var strArray = strSplitArray.filter(function (str) {
+                return str.trim().length > 0;
+            });
+        
+            for (var i = 0; i < strArray.length; i++) {
+                var word = strArray[i].toLowerCase();
+                var isString = word[0].match(/[a-z]/i);
+
+                if (isString) {
+                    var isCharDash = word.match(/[-]/);
+                    if (isCharDash) {
+                        var separator = '-';
+                        var dashCharCapitalStr = wordTitleCase(word, separator);
+                        transformedArray.push(dashCharCapitalStr);
+                    }
+        
+                    var isUnderScore = word.match(/[_]/);
+                    if (isUnderScore) {
+                        var separator = '_';
+                        var underScoreCharCapitalStr = wordTitleCase(word, separator);
+                        transformedArray.push(underScoreCharCapitalStr);
+                    }
+        
+                    var isBackSlash = word.match(/[/]/);
+                    if (isBackSlash) {
+                        var separator = '/';
+                        var slashCharCapitalStr = wordTitleCase(word, separator);
+                        transformedArray.push(slashCharCapitalStr); 
+                    }
+                    
+                    var isAndOperator = word.match(/[&]/);
+                    if (isAndOperator) {
+                        var separator = '&';
+                        var andCharCapitalStr = wordTitleCase(word, separator);
+                        transformedArray.push(andCharCapitalStr); 
+                    }
+        
+                    var isPipeOperator = word.match(/[|]/);
+                    if (isPipeOperator) {
+                        var separator = '|';
+                        var pipeCharCapitalStr = wordTitleCase(word, separator);
+                        transformedArray.push(pipeCharCapitalStr); 
+                    }
+
+                    var isColon = word.match(/[:]/);
+                    if (isColon) {
+                        var splitColonArr = word.split(':');
+                        var colonCharCapital = [];
+        
+                        for (var m = 0; m < splitColonArr.length; m++) {
+                            var colonWord = splitColonArr[m];
+                            colonCharCapital.push(colonWord.replace(colonWord, colonWord.toUpperCase()));
+                        }
+                        var colonCharCapitalStr = colonCharCapital.join(':');
+                        transformedArray.push(colonCharCapitalStr); 
+                    }
+            
+                    if (!isCharDash && !isUnderScore && !isBackSlash & !isColon & !isAndOperator & !isPipeOperator) {
+                        var strUpperCaseArray = textTransformObj.hasOwnProperty('upperCaseUnitArray') ? textTransformObj.upperCaseUnitArray : false;
+                        var strLowerCaseArray = textTransformObj.hasOwnProperty('lowerCaseUnitArray') ? textTransformObj.lowerCaseUnitArray : false;
+        
+                        var isUpperCase = false;
+                        var isLowerCase = false;
+        
+                        if (strUpperCaseArray && strUpperCaseArray.length > 0) {
+                            strUpperCaseArray.forEach(function(el) {
+                                var wordToLower = el.toLowerCase();
+        
+                                if (wordToLower == word) {
+                                    isUpperCase = true;
+                                    transformedArray.push(word.toUpperCase());
+                                }
+                            });
+                        }
+    
+                        if (strLowerCaseArray && strLowerCaseArray.length > 0) {
+                            strLowerCaseArray.forEach(function(el) {
+                                var wordToLower = el.toLowerCase();
+        
+                                if (wordToLower == word) {
+                                    isLowerCase = true;
+                                    transformedArray.push(word.toLowerCase());
+                                }
+                            });
+                        }
+        
+                        if (!isUpperCase && !isLowerCase) {
+                            transformedArray.push(word.replace(word[0], word[0].toUpperCase()));
+                        }
+                    } 
+                } else {
+                    var strLowerCaseArray = textTransformObj.hasOwnProperty('lowerCaseUnitArray') ? textTransformObj.lowerCaseUnitArray : false;
+                    var isLowerCase = false;
+        
+                    if (strLowerCaseArray && strLowerCaseArray.length > 0) {
+                        // matching all alphabetic characters
+                        var characters = word.split(/[\W\d]+/).join('');
+                        // matching all numbers
+                        var numbers = word.replace(/[^\d.-]/g, '');
+        
+                        strLowerCaseArray.forEach(function(el) {
+                            var wordToLower = el.toLowerCase();
+            
+                            if (wordToLower == characters) {
+                                isLowerCase = true;
+                                var completeWordToLower = numbers + '' + characters.toLowerCase();
+                                transformedArray.push(completeWordToLower);
+                            }
+                        });
+                    }
+        
+                    if (!isLowerCase) {
+                        transformedArray.push(word.toUpperCase());
+                    }
+                }
+            }
+            return transformedArray.join(' ');
+        }
+    }
+}
+
 /**
  * It is used to get productCustomAttribute for Details and Specs Sections on PDP
  * @param {Object} apiProduct - apiProduct is from ProductMgr
@@ -206,15 +356,18 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
                         var isCustom =  attributes[attributesIndex].custom;
                         var section = attributes[attributesIndex].section;
                         var value = null;
+                        var textTransformRulesArray = attributes[attributesIndex].textTransformRules;
+                        
                         if (isCustom) {
                             value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
                         } else {
                             value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
                         }
                         if (!empty(value)) {
+                            var transformedStr = stringTransformation(textTransformRulesArray, value);
                             var attribute = {
                                 displayName: displayName,
-                                value: value,
+                                value: transformedStr ? transformedStr : value,
                                 section: section
                             };
 

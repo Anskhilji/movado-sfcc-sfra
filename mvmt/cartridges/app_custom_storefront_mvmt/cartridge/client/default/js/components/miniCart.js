@@ -17,6 +17,7 @@ function setMiniCartProductSummaryHeight () {
     var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
     $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
     var $productSummaryHeight = $miniCartFooterHeight + $miniCartHeaderHeight;
+    var $miniCartPromoFieldHeight = $('.mini-cart-data .coupon-code-field-static .collapsible-promo-wrapper [aria-expanded="false"]').length > 0 ? $('.mini-cart-data .coupon-code-field-static .collapsible-promo-wrapper').height() : 0;
     $('.mini-cart-data .product-summary').css('max-height', '');
     var screenSize = $(window).width();
     var mediumScreenSize = 992; // mobile break point
@@ -24,7 +25,7 @@ function setMiniCartProductSummaryHeight () {
     // check screen size for mobile and desktop
     if (screenSize != null) {
         if (screenSize <= mediumScreenSize) {
-            $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight + $miniCartGiftBoxHeight - 5);
+            $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight + $miniCartPromoFieldHeight + $miniCartGiftBoxHeight - 5);
         } else {
             $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight + $miniCartGiftBoxHeight);
         }
@@ -692,12 +693,20 @@ module.exports = function () {
      $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
+         var $homeHeaderTransparent = $('.home-header-transparent');
+         $('body, html').addClass('scroll-remove');
+
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
                 $('.mini-cart-data .popover').addClass('show');
                 $('#footer-overlay').addClass('footer-form-overlay');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                // Custom:MSS-2034 add class when open miniCart
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
+                
                 giftMessageTooltip();
                 checkGiftBoxItem();
                 return;
@@ -714,6 +723,10 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                // Custom:MSS-2034 add class when open miniCart
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
                 loadAmazonButton();
                 $('#AmazonPayButtonCheckout').css('width', '100%');
             });
@@ -723,6 +736,10 @@ module.exports = function () {
                 $('#footer-overlay').addClass('footer-form-overlay');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                // Custom:MSS-2034 add class when open miniCart
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
                 giftMessageTooltip();
                 checkGiftBoxItem();
                 return;
@@ -738,6 +755,10 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                // Custom:MSS-2034 add class when open miniCart
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
             });
          }
      });
@@ -745,6 +766,7 @@ module.exports = function () {
     $('body').off('click', '.mobile-cart-btn').on('click', '.mobile-cart-btn', function(event) {
         var $url = $('.minicart').data('action-url');
         var $count = parseInt($('.mini-cart-data .mini-cart-data-quantity').text());
+        var $homeHeaderTransparent = $('.home-header-transparent');
         if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             $.get($url, function (data) {
                 $('.mobile-cart-icon').hide();
@@ -758,16 +780,26 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                // Custom:MSS-2034 add class when open miniCart
+                if ($homeHeaderTransparent.length > 0) {
+                    $homeHeaderTransparent.addClass('solid-header');
+                }
             });
         }
     });
     
     $('body').off('click', '.mobile-cart-btn').on('click', '.mobile-cart-close-icon', function(event) {
+        var $homeHeaderTransparent = $('.home-header-transparent');
         event.preventDefault();
         $('#footer-overlay').removeClass('footer-form-overlay');
         $('.mini-cart-data .popover').removeClass('show');
         $('.mobile-cart-icon').show();
         $('.mobile-cart-close-icon').hide();
+        $('body, html').removeClass('scroll-remove');
+        // Custom:MSS-2034 add class when close miniCart
+        if ($homeHeaderTransparent.length > 0) {
+            $homeHeaderTransparent.removeClass('solid-header');
+        }
     });
     
 
@@ -775,10 +807,16 @@ module.exports = function () {
      * This event is used to close the mini cart.
      */
     $('#footer-overlay').on('click', function (event) {
+        var $homeHeaderTransparent = $('.home-header-transparent');
         if ($('.mini-cart-data .popover.show').length > 0) {
             $('.mobile-cart-close-icon').hide();
             $('.mobile-cart-icon').show();
             $('.mini-cart-data .popover').removeClass('show');
+            $('body, html').removeClass('scroll-remove');
+            // Custom:MSS-2034 add class when close miniCart
+            if ($homeHeaderTransparent.length > 0) {
+                $homeHeaderTransparent.removeClass('solid-header');
+            }
         }
     });
 
@@ -900,10 +938,16 @@ module.exports = function () {
     * This event is used to close the miniCart on the click event.
     */
     $('.mini-cart-data').on('click touchstart', '#close-mini-cart', function (event) {
+        var $homeHeaderTransparent = $('.home-header-transparent');
         $('.mobile-cart-close-icon').hide();
         $('.mobile-cart-icon').show();
         $('.mini-cart-data .popover').removeClass('show');
         $('#footer-overlay').removeClass('footer-form-overlay');
+        $('body, html').removeClass('scroll-remove');
+        // Custom:MSS-2034 add class when close miniCart
+        if ($homeHeaderTransparent.length > 0) {
+            $homeHeaderTransparent.removeClass('solid-header');
+        }
     });
 
     $('.mini-cart-data').on('submit', 'form.login', function (e) {
@@ -1078,9 +1122,12 @@ module.exports = function () {
                 } else {
                     $('.mini-cart-data .product-summary .mini-cart-product').empty();
                     $('.mini-cart-data .product-summary .mini-cart-product').append(response.recommendedProductCardHtml);
-                    
+                    var $staticPromoCodeField = $('.mini-cart-product .coupon-code-field-static');
+                    if ($staticPromoCodeField.length > 0) {
+                        $staticPromoCodeField.remove();
+                    }
                 }
-                
+
                 updateCartTotals(response.cart);
                 handlePostCartAdd(response);
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart

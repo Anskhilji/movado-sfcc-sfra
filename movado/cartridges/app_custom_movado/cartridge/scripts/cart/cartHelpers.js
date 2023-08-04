@@ -400,6 +400,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     var isClydeEnabled = Site.getCurrent().preferences.custom.isClydeEnabled;
     var isPDPQuantitySelectorEnabled = Site.current.preferences.custom.enablePDPQuantitySelector;
     var isCartQuantitySelectorEnabled = Site.current.preferences.custom.enableCartQuantitySelector;
+    var isPulseIdEngravingEnabled = Site.current.preferences.custom.enablePulseIdEngraving;
 
     if (isCartQuantitySelectorEnabled) {
         if (!empty(form) && !empty(form.clydeContractSku) && !empty(options)) {
@@ -640,6 +641,18 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             }
         }
 
+        if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && form.pulseIdEngraving == 'true') {
+            var addEngraveContract = require('*/cartridge/scripts/engravingAddContracts.js');
+            var engravedOptions = addEngraveContract.getEngravingSelectedOptionProduct(productId);
+            var engravedSKU = '';
+            var optionValue = '';
+
+            if (!empty(engravedOptions.optionProduct)) {
+                engravedSKU = engravedOptions.engravedSKUID;
+                optionValue = engravedOptions.optionValue;
+            }
+        }
+
         var result = {
             error: false,
             message: Resource.msg('text.alert.addedtobasket', 'product', null)
@@ -712,6 +725,27 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                 if (isClydeEnabled) {
                     var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
                     addClydeContract.addClydeContractAttributes(clydeSKU, currentBasket, productId);
+                }
+
+                if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && form.pulseIdEngraving == 'true') {
+                    var addEngraveContract = require('*/cartridge/scripts/engravingAddContracts');
+                    var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
+
+                    Transaction.wrap(function () {
+
+                        if (productLineItem) {
+                            var optoionProductLineItems = productLineItem.getOptionProductLineItems().iterator();
+
+                            while (optoionProductLineItems.hasNext()) {
+                                var optionLineItem = optoionProductLineItems.next();
+
+                                if (optionLineItem.optionID === pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID) {
+                                    optionLineItem.updateOptionValue(optionValue);
+                                }
+                            }
+                        }
+                        addEngraveContract.addEngravingContractAttributes(engravedSKU, currentBasket, productId, form, productLineItem.UUID);
+                    });
                 }
                 result.uuid = productLineItem.UUID;
             } catch (e) {

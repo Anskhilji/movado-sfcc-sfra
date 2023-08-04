@@ -7,6 +7,7 @@
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles";
 @import "~movado/components/yotpoStarsRattingRefinements";
+@import "~movado/components/loader";
 
 .filter-and-count-margin {
     margin-top: rem(20);
@@ -1773,9 +1774,9 @@
 
                         &:not(.out-of-stock-btn) {
                             &:hover {
-                                background-color: $gray20;
+                                background-color: $dark-cyan;
                                 color: $white;
-                                border-color: $gray20;
+                                border-color: $dark-cyan;
                             }
                         }
 
@@ -1871,10 +1872,11 @@
             &:hover,
             &:focus,
             &:active:focus {
-                background-color: $black;
+                background-color: $dark-cyan;
                 color: $white;
                 outline: none;
                 box-shadow: none;
+                border: rem(1) solid $dark-cyan;
             }
         }
 
@@ -2019,16 +2021,6 @@
 
 .content-tile:not(:has(div)) {
     display: none;
-  }
-  
-.listrak-persistent-popup {
-    display: none !important;
-  }
-  
-.button-floting {
-    &.button-search-result {
-      bottom: rem(41);
-    }
   }
 
   .plp-recommendation-carousel {

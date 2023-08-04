@@ -24,6 +24,7 @@ var server = require('server');
 
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
+var PULSEID_ENGRAVING = 'pulseIdEngraving'
 var NEWLINE = '\n';
 
 
@@ -237,11 +238,22 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     if (!deliveryValidationFail) {
         var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
         if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+            var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
             // Riskified order declined response from decide API
-            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-            if (riskifiedOrderDeclined) {
+            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
+
+            if (!riskifiedOrderDeclined.error) {
                 var riskifiedError = new Status(Status.ERROR);
+
+                if (riskifiedOrderDeclined.shopperRecovery) {
+                    session.privacy.riskifiedShoppperRecovery = false;
+                    riskifiedOrderDeclined.returnUrl.append('ID', order.orderNo);
+                } else {
+                    session.privacy.riskifiedShoppperRecovery = true;
+                }
+                
                 session.privacy.riskifiedDeclined = true;
+                session.privacy.riskifiedShoppperRecoveryEndURL = riskifiedOrderDeclined.returnUrl;
                 return riskifiedError;
             }
         } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
@@ -319,10 +331,19 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
  exports.failOrder = function (order, status) {
     var URLUtils = require('dw/web/URLUtils');
-
+    
     if (session.privacy.riskifiedDeclined) {
+        var declinedUrl = session.privacy.riskifiedShoppperRecoveryEndURL;
         delete session.privacy.riskifiedDeclined;
-        return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-Declined', 'ID', order.orderNo));
+        delete session.privacy.riskifiedShoppperRecoveryEndURL;
+
+        if (session.privacy.riskifiedShoppperRecovery) {
+            delete session.privacy.riskifiedShoppperRecovery;
+
+            return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-ShoperRecovery', 'returnUrl', declinedUrl));
+        }
+        delete session.privacy.riskifiedShoppperRecovery;
+        return new ApplePayHookResult(new Status(Status.ERROR), declinedUrl);
     } else {
         return new Status(Status.OK);
     }
@@ -364,14 +385,15 @@ exports.prepareBasket = function (basket, parameters) {
             session.custom.StorePickUp = true;
         }
     }
-    
+
     if (parameters.sku && parameters.sku === session.custom.appleProductId) {
         var appleEngraveOptionId = session.custom.appleEngraveOptionId;
         var appleEmbossOptionId = session.custom.appleEmbossOptionId;
         var appleEmbossedMessage = session.custom.appleEmbossedMessage;
         var appleEngravedMessage = session.custom.appleEngravedMessage;
+        var pulseIDPreviewURL = session.custom.pulseIDPreviewURL;
 
-        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage);
+        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL);
         // sample data for testing
         // updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
     }
@@ -393,7 +415,7 @@ exports.prepareBasket = function (basket, parameters) {
  * @param engravedMessage
  * @returns
  */
-function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage) {
+function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
     // since there will be only on Product from PDP/ Quick view
     var pli = lineItemCtnr.productLineItems[0];
@@ -427,6 +449,23 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
                             }
                         }
                     }
+                } else if (option.optionID === PULSEID_ENGRAVING) { // PulseID Engraving
+                    if (engraveOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(PULSEID_ENGRAVING);
+                        var optionValue = optionModel.getOptionValue(getOption, engraveOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (engravedMessage) {
+                            option.custom.pulseIDPreviewURL = pulseIDPreviewURL;
+                            // code to split the message based on newline character
+                            engravedMessage = engravedMessage.split(NEWLINE);
+                            option.custom.engraveMessageLine1 = engravedMessage[0];
+                            if (engravedMessage[1]) {
+                                option.custom.engraveMessageLine2 = engravedMessage[1];
+                            }
+                        }
+                    }
                 }
             });
         }); // end of Trasaction
@@ -438,10 +477,18 @@ exports.beforeAuthorization = function (order, payment, custom) {
     var Status = require('dw/system/Status');
     var orderLineItems = order.getAllProductLineItems();
     var orderLineItemsIterator = orderLineItems.iterator();
+    var pulseIdEngraving = 'pulseIdEngraving';
     var productLineItem;
-    /**~    
+    var pulseIdConstants;
+    /**~
      * Custom Start: Clyde Integration
      */
+
+    var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+    if (enablePulseIdEngraving) {
+        pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
+    }
+
     if (Site.current.preferences.custom.isClydeEnabled) {
         var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
         Transaction.wrap(function () {
@@ -449,12 +496,20 @@ exports.beforeAuthorization = function (order, payment, custom) {
                 productLineItem = orderLineItemsIterator.next();
                 if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
                     order.removeProductLineItem(productLineItem);
+                } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
+                    order.removeProductLineItem(productLineItem);
                 }
             }
             order.custom.isContainClydeContract = false;
             order.custom.clydeContractProductMapping = '';
         });
         addClydeContract.createOrderCustomAttr(order);
+        //custom : PulseID engraving
+        if (enablePulseIdEngraving) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            pulseIdAPIHelper.setPulseJobID(order);
+        }
+        // custom end
     }
     /**
      * Custom: End

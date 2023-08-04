@@ -1,0 +1,487 @@
+@import '~movado/variables';
+@import "~movado/mixins";
+@import "vars";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+
+.container-fluid.pdp-v-one,.cart-page {
+
+    .clyde-bottom-border {
+
+        &:has(+ .custom-options .engraving-box) {
+            margin-bottom: 0;
+        }
+    }
+
+    .product-options {
+        display: block;
+        margin-bottom: rem(10);
+
+        @include media-breakpoint-down(sm) {
+            justify-content: center;
+        }
+
+        .product-option {
+            margin: 0;
+
+            &:not(:first-child) {
+                margin-left: rem(0);
+            }
+        }
+    }
+
+    .popup {
+        width: 100%;
+        height: 100%;
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0px;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 9999;
+        text-align: center;
+
+        .popup-head {
+
+            h1 {
+                @include font-demi;
+                font-size: rem(34);
+                color: $grey8;
+                line-height: rem(41);
+                letter-spacing: normal;
+                margin: rem(40) rem(0) rem(20);
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(28);
+                    margin: rem(30) rem(0) rem(13);
+                }
+            }
+        }
+
+        .popup-body {
+
+            p {
+                @include font-book;
+                line-height: rem(20);
+                font-size: rem(15);
+                color: $storm-gray;
+                max-width: rem(600);
+                width: 100%;
+                text-align: center;
+                letter-spacing: normal;
+                margin: 0 auto;
+                padding: rem(0) rem(20);
+
+                @include media-breakpoint-down(sm) {
+                    line-height: rem(24);
+                }
+            }
+
+            .watch-image {
+                background: $grey22;
+                margin: rem(20) 0;
+                height: rem(288);
+
+                @include media-breakpoint-down(sm) {
+                    margin: rem(10) 0;
+                    margin-bottom: rem(15);
+                    height: rem(354);
+                }
+
+                .image {
+                    position: relative;
+                }
+
+                .text-on-watch {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+
+                    pre,
+                    span {
+                        display: block;
+                        color: $black;
+                        @include font-demi;
+                        font-size: rem(15);
+                        line-height: rem(20);
+                        letter-spacing: normal;
+                        text-align: center;
+                    }
+
+                    span {
+                        color: $white;
+                    }
+                }
+
+                img {
+                    object-fit: contain;
+                    max-height: rem(288);
+                    aspect-ratio: 1/1;
+
+                    @include media-breakpoint-down(sm) {
+                        max-height: rem(320);
+                        margin: rem(17);
+                    }
+                }
+            }
+
+            .text-area {
+                max-width: rem(260);
+                margin: 0 auto;
+                margin-bottom: rem(40);
+
+                @include media-breakpoint-down(sm) {
+                    margin-bottom: rem(30);
+                }
+
+                .option-message {
+                    position: relative;
+
+                    .engraving-error-msg {
+                        display: flex;
+                        font-weight: 300;
+                        font-style: normal;
+                        font-size: rem(12);
+                        letter-spacing: normal;
+                        text-transform: capitalize;
+                        text-align: left;
+                        margin-bottom: rem(20);
+                        color: $invalid-red;
+
+                        &:empty {
+                            display: none;
+                        }
+                    }
+
+                    .engraving-input-box {
+                        position: relative;
+                        margin-bottom: rem(20);
+
+                        .engraving-input {
+                            @include font-light;
+                            font-weight: 500;
+                            font-size: rem(15);
+                            color: $black;
+                            letter-spacing: normal;
+                            border: none;
+                            border-radius: rem(0);
+                            resize: none;
+                            height: rem(51);
+                            line-height: rem(20);
+                            background-color: $grey13-light;
+                            padding: rem(13) rem(13) rem(13) rem(13);
+                            border-bottom: rem(1) solid $light-grey7;
+
+                            &:focus {
+                                box-shadow: none;
+                            }
+                        }
+
+                        .remove-value {
+                            position: absolute;
+                            top: 50%;
+                            right: rem(10);
+                            transform: translateY(-50%);
+                            cursor: pointer;
+                        }
+                    }
+
+                    .engraving-input {
+                        @include font-light;
+                        font-size: rem(15);
+                        color: $storm-gray;
+                        letter-spacing: normal;
+                        border-color: $slate-grey;
+                        border-radius: rem(3);
+                        resize: none;
+                        height: rem(50);
+                        line-height: rem(18);
+
+                        &:focus {
+                            box-shadow: none;
+                        }
+                    }
+                }
+
+                label.error {
+                    color: $grey8;
+                    @include font-light;
+                    font-size: rem(15);
+                    letter-spacing: normal;
+                    margin-bottom: 0;
+                    text-transform: capitalize;
+                    width: 120%;
+                    position: absolute;
+                    top: rem(-23);
+                    left: 0;
+                    text-align: left;
+
+                    @include media-breakpoint-down(sm) {
+                        font-size: rem(13);
+                        text-align: left;
+                    }
+                }
+            }
+
+            .preview-btn {
+                margin-bottom: rem(30);
+
+                button {
+                    @include font-light;
+                    height: rem(45);
+                    width: rem(260);
+                    background-color: $cerulean2;
+                    color: $white;
+                    font-size: rem(15);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(45);
+                    text-align: center;
+                    border: none;
+                    outline: none;
+                    box-shadow: none;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                }
+            }
+
+            .engraving-total {
+                @include font-light;
+                font-size: rem(15);
+                font-weight: 600;
+                letter-spacing: 0;
+                line-height: rem(20);
+                text-align: center;
+                margin-bottom: rem(14);
+            }
+
+            .popup-action-btns {
+                display: flex;
+                justify-content: space-between;
+                width: rem(260);
+
+                .save,
+                .cancel {
+                    width: rem(120);
+                    height: rem(45);
+                    @include font-demi;
+                    font-size: rem(15);
+                    letter-spacing: normal;
+                    line-height: rem(32);
+                    transition: 0.3s;
+
+                    &:focus {
+                        box-shadow: none;
+                    }
+
+                    &.disabled {
+                        opacity: 0.2;
+                    }
+                }
+
+                .cancel {
+                    border: rem(1) solid $black;
+                    margin-left: rem(12);
+
+                    &:hover {
+                        background: $black;
+                        color: $white;
+                    }
+                }
+            }
+        }
+
+        .popup:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            margin-right: -4px;
+            vertical-align: top;
+        }
+
+        .popup-inner {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+            position: absolute;
+            max-width: 90%;
+            width: 100%;
+            padding: rem(0);
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
+            background: $white;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow-y: auto;
+            max-height: rem(825);
+            height: 100%;
+
+            @include media-breakpoint-down(sm) {
+                left: 50%;
+                height: 100vh;
+                max-width: 100%;
+            }
+        }
+    }
+
+    div {
+        &.availability {
+            margin-top: rem(20);
+        }
+    }
+
+    .engraving-box {
+        padding-bottom: rem(20);
+        border-bottom: rem(1) solid $grey12-light;
+        max-width: rem(376);
+        width: 100%;
+
+        @include media-breakpoint-down(md) {
+            max-width: 100%;
+
+            .engraving-inner {
+                max-width: rem(376);
+                margin: 0 auto;
+            }
+        }
+
+        .engraving {
+            &-info {
+                font-size: rem(16);
+                letter-spacing: 0;
+                line-height: rem(21);
+                @include font-book;
+                font-weight: 600;
+                color: $mine-shaft;
+            }
+        }
+
+        .engraved-action {
+            max-width: rem(127);
+            margin-top: rem(10);
+
+            .remove-engraved {
+                font-size: rem(13);
+                font-weight: 500;
+                letter-spacing: 0;
+                line-height: rem(18);
+                color: $cerulean2;
+                cursor: pointer;
+            }
+
+            .engraved-text-one,
+            .engraved-text-two {
+                text-align: left;
+                @include font-demi;
+                font-size: rem(13);
+                line-height: rem(18);
+                letter-spacing: normal;
+                color: $black;
+                margin-top: rem(0);
+                display: block;
+
+            }
+        }
+
+        .engraving-btn {
+
+            >a {
+                color: $black;
+                @include font-demi;
+                font-weight: 500;
+                font-size: rem(12);
+                background: none;
+                border: rem(1) solid $black;
+                padding: rem(4) rem(13);
+                border-radius: rem(20);
+                background: url("../images/pulseid-add.svg") left rem(12) center no-repeat;
+                background-size: rem(12);
+                outline: none;
+                padding-left: rem(30);
+                letter-spacing: normal;
+                box-shadow: none;
+                text-transform: capitalize;
+                line-height: rem(16);
+
+                &:hover {
+                    background: $black url("../images/pulseid-add-white.svg") left rem(12) center no-repeat;
+                    background-size: rem(12);
+                    color: $white;
+                    transition: 0.3s;
+                }
+
+                &.focus {
+                    box-shadow: none;
+                }
+
+                &.remove-engraving {
+                    background: url("../images/pulseid-remove-engraving.svg") left rem(12) center no-repeat;
+                    background-size: rem(10);
+
+                    &:hover {
+                        background: $black url("../images/pulseid-remove-white.svg") left rem(12) center no-repeat;
+                        background-size: rem(10);
+                        color: $white;
+                    }
+                }
+            }
+
+        }
+
+        .remove-engraved {
+            display: none;
+        }
+    }
+}
+
+.cart-page {
+
+    .engraving-box {
+
+        .engraving-btn {
+
+            >a {
+                display: none;
+            }
+
+            .remove-engraved {
+                display: block;
+                margin-left: rem(10);
+            }
+        }
+    }
+
+    .engraving-info {
+        color: $light-grey8;
+        letter-spacing: rem(0.4);
+    }
+
+}
+
+// Custom start: pulseIdEngraving.isml template css
+.engraving-checkout {
+
+    .engraving-info-checkout {
+        @include font-book;
+        font-size: rem(13.008);
+        margin: 0;
+    }
+}
+
+.engraved-action-checkout {
+
+    .engraved-text-one {
+        @include font-book;
+        font-size: rem(13.008);
+        margin: 0;
+    }
+
+    .engraved-text-two {
+        @include font-book;
+        font-size: rem(13.008);
+        margin: 0;
+    }
+}
+// Custom end
