@@ -11,7 +11,12 @@
 @import "bootstrapOverrides";
 @import "components/headerSearch";
 @import "checkout/checkout";
+@import "checkout/checkoutLogin";
 @import "cart";
 @import 'components/carousel';
 @import "components/tooltip";
-@import "components/_backInStockNotification";
+@import "components/backInStockNotification";
+@import "components/welcomeMatModal";
+@import "components/addToCartModal";
+@import "wishlist";
+@import "csrf";

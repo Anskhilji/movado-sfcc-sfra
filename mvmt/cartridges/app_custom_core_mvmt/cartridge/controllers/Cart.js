@@ -30,7 +30,7 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
         quantityTotal = 0;
     }
 
-    res.render('/components/header/miniCart', {isMobile: isMobile, quantityTotal: quantityTotal });
+    res.render('/components/header/miniCart', {isMobile: isMobile, quantityTotal: quantityTotal, isMiniCart: true });
     next();
 });
 
@@ -234,6 +234,7 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     res.viewData.removeProductLineItemUrl = removeProductLineItemUrl;
     res.viewData.cartItemObj = cartItems;
     res.viewData.quantityTotal = quantityTotal;
+    res.viewData.isMiniCart = true;
 
     next();
 });

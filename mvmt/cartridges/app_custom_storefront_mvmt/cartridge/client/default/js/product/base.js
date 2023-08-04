@@ -1237,6 +1237,24 @@ function handleVariantResponse(response, $productContainer) {
             zoomfeature();
         },500)
     })
+
+    var $lowStockMessage = $('.low-stock-message');
+    if (response && response.product && response.product.productATSValue) {
+        var $productATSValue = response.product.productATSValue;
+        var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
+        if ($lowStockMessage.length > 0) {
+            if ($productATSValue <= $lowStockThreshold) {
+                $lowStockMessage.removeClass('d-none');
+            } else {
+                $lowStockMessage.addClass('d-none');
+            }
+        }
+    } else {
+        if ($lowStockMessage.length > 0 && (!$lowStockMessage.hasClass('d-none'))) {
+            $lowStockMessage.addClass('d-none');
+        }
+    }
+    $('.ats-value').text($productATSValue)
 }
 
 /**
@@ -1396,6 +1414,7 @@ movadoBase.addToCart = function () {
         var giftPid;
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
+        $('body, html').addClass('scroll-remove');
 
         if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
             setPids = [];

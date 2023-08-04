@@ -2,6 +2,8 @@
 
 var server = require('server');
 
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
 
@@ -22,7 +24,7 @@ server.append(
     csrfProtection.generateToken,
     function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
-        var Site = require('dw/system/Site');
+        
         var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
@@ -68,7 +70,6 @@ server.append(
         var Locale = require('dw/util/Locale');
         var Money = require('dw/value/Money');
         var OrderModel = require('*/cartridge/models/order');
-        var Site = require('dw/system/Site');
 
         var Constants = require('*/cartridge/scripts/util/Constants');
         var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
@@ -192,9 +193,7 @@ server.append(
 });
 
 server.get('Declined', function (req, res, next) {
-    var CustomObjectMgr = require('dw/object/CustomObjectMgr');
-    var Transaction = require('dw/system/Transaction');
-
+    
     Transaction.wrap(function () {
         var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
         if (currentSessionPaymentParams) {
@@ -203,6 +202,25 @@ server.get('Declined', function (req, res, next) {
     });
 
     res.render('checkout/declinedOrder');
+    next();
+});
+
+// ApplePay Riskified shoperRecovery order declined 
+server.get('ShoperRecovery', function (req, res, next) {
+    var returnUrl = req.querystring.returnUrl;
+
+    if (!empty(returnUrl)) {
+        res.redirect(returnUrl);
+    }
+        
+    next();
+});
+
+// Riskified shoperRecovery order approved
+server.get('RiskApproved', function (req, res, next) {
+    var Resource = require('dw/web/Resource');
+
+    res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentSuccess', Resource.msg('shopper.recovery.success', 'checkout', null)));
     next();
 });
 
