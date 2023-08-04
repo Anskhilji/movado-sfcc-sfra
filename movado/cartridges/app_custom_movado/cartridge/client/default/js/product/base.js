@@ -1713,29 +1713,32 @@ module.exports = {
                     var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
                     var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
                     var clydeWidgetDisplayPDP = Resources.CLYDE_WIDGET_DISPLAY_PDP_ENABLED;
-
                     if (clydeWidgets && clydeWidgetsDisplay) {
-                        var selectedContract = Clyde.getSelectedContract();
-                        var clydeSettings = Clyde.getSettings();
-                        if (clydeSettings) {
-                            if (clydeWidgetDisplayPDP == true) {
-                                if (selectedContract) {
-                                    clydeAddProductToCart();
-                                } else {
-                                    var product = Clyde.getActiveProduct();
-                                    var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
-                                    if (hasContracts && clydeSettings.modal == true) {
-                                        Clyde.showModal(null, clydeAddProductToCart);
-                                    } else {
+                        try {
+                            var selectedContract = Clyde.getSelectedContract();
+                            var clydeSettings = Clyde.getSettings();
+                            if (clydeSettings) {
+                                if (clydeWidgetDisplayPDP == true) {
+                                    if (selectedContract) {
                                         clydeAddProductToCart();
+                                    } else {
+                                        var product = Clyde.getActiveProduct();
+                                        var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
+                                        if (hasContracts && clydeSettings.modal == true) {
+                                            Clyde.showModal(null, clydeAddProductToCart);
+                                        } else {
+                                            clydeAddProductToCart();
+                                        }
                                     }
+                                } else if (clydeSettings.modal == true) {
+                                    Clyde.showModal(null, clydeAddProductToCart);
+                                } else {
+                                    clydeAddProductToCart();
                                 }
-                            }  else if (clydeSettings.modal == true) {
-                                Clyde.showModal(null, clydeAddProductToCart);
                             } else {
                                 clydeAddProductToCart();
                             }
-                        } else {
+                        } catch (e) {
                             clydeAddProductToCart();
                         }
                     } else {
