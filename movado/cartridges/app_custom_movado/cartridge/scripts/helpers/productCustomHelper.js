@@ -430,6 +430,25 @@ function getRunningABTestSegments() {
     return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
 }
 
+function getPulseIDPreviewURL(lineItem) {
+    var pulseIDPreviewURL;
+    try {
+        if (!empty(lineItem)) {
+            var optionProductLineItems = lineItem.optionProductLineItems.toArray();
+            optionProductLineItems.filter(function (optionLineItem) {
+                if (!empty(optionLineItem.custom.pulseIDPreviewURL)) {
+                    pulseIDPreviewURL = optionLineItem.custom.pulseIDPreviewURL;
+                }
+            });
+        }
+        return pulseIDPreviewURL;
+        
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getPulseIDPreviewURL) Error occured while getting Product PulseID PreviewURL: ' + e.stack, e.message, apiProduct.ID);
+        return false;
+    }
+}
+
 function getProductATSValue(apiProduct) {
     try {
         var productAvailability;
@@ -466,5 +485,6 @@ module.exports = {
     getIsWatchTile: getIsWatchTile,
     getRunningABTestSegments: getRunningABTestSegments,
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
+    getPulseIDPreviewURL: getPulseIDPreviewURL,
     getProductATSValue: getProductATSValue
 };
