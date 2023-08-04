@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="footer-container row">
             <div class="col-lg-3 col-md-12 footer-item footer-right-contents home-email-signup">
-                <h4 class="email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</h4>
+                <iscontentasset aid="news-letter-subscription-footer-title"/>
                 <div class="email-desc">
                     <iscontentasset aid="news-letter-subscribe-footer-redesign"/>
                 </div>
