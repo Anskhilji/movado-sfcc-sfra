@@ -7,7 +7,7 @@ var $isLoadOnScroll = false;
 var $initiallyLoadedProducts = $('.product-grid').data('initial-products');
 var $isInfiniteScrollEnabled = $('.plp-new-design.search-results').data('infinte-scroll-enabled');
 var $isPaginationEnabled = $('.plp-new-design.search-results').data('enable-pagination');
-var $loadMoreIndex = parseInt($initiallyLoadedProducts / 2) - 1;
+var $loadMoreIndex = parseInt($initiallyLoadedProducts / 2);
 var $loadMoreInProcessing = false;
 var $mobileInfiniteScrollSize = $('.product-grid').data('mobile-infinite-scroll');
 var $mediumWidth = 992;
@@ -430,7 +430,6 @@ module.exports = {
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     $('body').trigger('facet:success', [gtmFacetArray]);
                     $('.product-grid').empty().html(response);
-                    $('.product-grid .grid-footer').removeClass('d-none');
                     // edit
                     updatePageURLForSortRule(url);
                     // edit
@@ -569,7 +568,7 @@ module.exports = {
                     // edit end
                     $.spinner().stop();
                     if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
-                        $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2) + 1);
+                        $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2));
                     }
                 },
                 error: function () {
@@ -739,7 +738,7 @@ module.exports = {
                             }
                         }, 20);
                         if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
-                            $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2) + 1);
+                            $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2));
                         }
                         moveFocusToTop();
                         swatches.showSwatchImages();
