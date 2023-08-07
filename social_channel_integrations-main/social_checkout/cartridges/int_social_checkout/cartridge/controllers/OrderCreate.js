@@ -1,6 +1,7 @@
 'use strict';
 
 var server = require('server');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var orderCreateHelper = require('*/cartridge/scripts/util/OrderCreateHelper');
 var OrderUtilCode = require("~/cartridge/scripts/util/OrderUtilCode");
 
@@ -121,6 +122,9 @@ server.post('Social', function (req, res, next) {
     try {
         //create Basket for order
         var socialBasket = BasketMgr.getCurrentOrNewBasket();
+
+        // add logic to remve nul clyde warrenty from basket
+        customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(socialBasket);
 
         Transaction.begin();
         inTransaction = true;

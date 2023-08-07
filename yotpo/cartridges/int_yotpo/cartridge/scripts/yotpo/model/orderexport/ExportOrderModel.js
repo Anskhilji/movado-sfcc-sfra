@@ -152,6 +152,11 @@ function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig)
             continue; // eslint-disable-line no-continue
         }
 
+        // Skip if order have channel type
+        if (order.getChannelType() == order.CHANNEL_TYPE_TIKTOK) {
+            continue; // eslint-disable-line no-continue
+        }
+
         customer = order.customer;
         
         try {
@@ -459,7 +464,6 @@ function exportOrder() {
                 '\n Total Orders to Process - ' + ordersIterator.count, 'debug', logLocation);
 
             while (ordersIterator.hasNext()) {
-                if (ordersIterator.getChannelType() != ordersIterator.CHANNEL_TYPE_TIKTOK) {
                     payload = prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig);
                     if (!empty(payload)) {
                         authenticationError = sendOrdersToYotpo(payload, yotpoAppKey);
@@ -479,7 +483,6 @@ function exportOrder() {
                             }
                         }
                     }
-                }
             } // end of while
         }
     }// end of for
