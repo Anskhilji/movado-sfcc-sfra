@@ -268,7 +268,7 @@
           &:hover {
 
             .dropdown-menu-item-text {
-              color: $dark-blue-btn;
+              color: $dark-blue-btn !important;
             }
           }
 
@@ -305,7 +305,7 @@
               color: $dark-gray2;
 
               &:hover {
-                color: $dark-blue-btn;
+                color: $dark-blue-btn !important;
                 text-decoration: underline;
               }
             }
@@ -445,7 +445,7 @@
        &:hover {
 
         .dropdown-link {
-          color: $dark-blue-btn;
+          color: $dark-blue-btn !important;
 
           &::before {
             background-color: $dark-blue-btn !important; // i'm using important to overwrite inline css
@@ -472,7 +472,7 @@
             transition: opacity .3s ease 0s,transform .24s ease 0s;
             width: 100%;
             height: rem(1);
-            background: $black;
+            background: var(--dark-black);
           }
 
           &:hover {

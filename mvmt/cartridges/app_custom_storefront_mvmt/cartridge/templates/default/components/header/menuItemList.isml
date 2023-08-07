@@ -16,7 +16,7 @@
                                             <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
                                                 <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
                                             </div>
-                                            <div class="dropdown-menu-item-text">${category.name}</div>
+                                            <div class="dropdown-menu-item-text" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">${category.name}</div>
                                         </a>
                                     </li>
                                 </isif>
@@ -34,7 +34,7 @@
                                             <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
                                                 <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
                                             </div>
-                                            <div class="dropdown-menu-item-text">${category.name}</div>
+                                            <div class="dropdown-menu-item-text" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">${category.name}</div>
                                         </a>
                                     </li>
                                 </isif>
@@ -53,7 +53,7 @@
                             <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
                                 <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
                             </div>
-                            <div class="dropdown-menu-item-text">${category.name}</div>
+                            <div class="dropdown-menu-item-text" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">${category.name}</div>
                         </a>
                     </li>
                 </isif>

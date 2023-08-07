@@ -6,7 +6,7 @@
                 <isloop items="${menuItem.subCategories}" var="category">
                     <isif condition="${!category.isDesktopCategoryHidden}">
                         <li class="dropdown-item gtm-customEvent submenu-control" role="menuitem" data-category = ${category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                            <a href="${category.url}" role="button" class="dropdown-link" >${category.name}</a>
+                            <a href="${category.url}" role="button" class="dropdown-link" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">${category.name}</a>
                         </li>
                     </isif>
                 </isloop>
