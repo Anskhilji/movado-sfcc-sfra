@@ -29,8 +29,8 @@
       color: $white;
       font-size: $font-size-text-heading1;
       letter-spacing: rem(2);
-      background: $black;
-      border: rem(1) solid $black;
+      background: $dark-cyan;
+      border: rem(1) solid $dark-cyan;
 
       &:hover,
       &:focus {
@@ -54,6 +54,10 @@
       font-size: $font-size-heading3;
       letter-spacing: rem(1.6);
     }
+
+    .grecaptcha-badge {
+      z-index: 1 !important;
+    } 
   }
 
   div.results-card,

@@ -29,6 +29,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var isGiftBoxAllowed = productCustomHelper.isGiftBoxAllowed(apiProduct);
     var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
+    var productATSValue = productCustomHelper.getProductATSValue(apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -154,6 +155,12 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: product.images.posterFrame[0] ? product.images.posterFrame[0] : ''
         });
     }
-
+    
+    if (!empty(productATSValue)) {
+        Object.defineProperty(product, 'productATSValue', {
+            enumerable: true,
+            value: productATSValue
+        });
+    }
     return product;
 };

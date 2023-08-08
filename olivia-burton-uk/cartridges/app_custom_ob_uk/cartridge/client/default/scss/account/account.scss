@@ -21,12 +21,54 @@
                     }
                 }
             }
+
+            .address-form {
+
+                .btn-primary {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+
+                    &:hover{
+                        background-color: $white;
+                        color: $black;
+                        border: rem(1) solid $black;
+                    }
+                }
+            }
         }
 
         .card-footer {
 
             .field-label {
                 font-family: $font-gill-std-medium;
+            }
+        }
+    }
+
+    .btn-outline-primary {
+
+        &:active {
+            background-color: $dark-cyan !important;
+            border: rem(1) solid $dark-cyan !important;
+        }
+    }
+
+    .btn-save {
+
+        &.btn-primary {
+            background-color: $dark-cyan;
+            border: rem(1) solid $dark-cyan;
+
+            &:hover {
+                background-color: $white;
+                color: $black;
+                border: rem(1) solid $black;
+            }
+
+            &:active {
+                color: $white !important;
+                background-color: $dark-cyan !important;
+                border: rem(1) solid $dark-cyan !important;
             }
         }
     }
