@@ -123,7 +123,7 @@ server.post('Social', function (req, res, next) {
         //create Basket for order
         var socialBasket = BasketMgr.getCurrentOrNewBasket();
 
-        // add logic to remve nul clyde warrenty from basket
+        // add logic to remove null clyde warrenty from basket
         customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(socialBasket);
 
         Transaction.begin();
