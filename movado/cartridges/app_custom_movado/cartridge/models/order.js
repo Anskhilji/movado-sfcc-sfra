@@ -70,14 +70,14 @@ function getCouponLineItemArray(lineItemContainer) {
 function getFirstProductLineItem(productLineItemsModel) {
     if (productLineItemsModel && productLineItemsModel.items[0]) {
         var firstItemImage = productLineItemsModel.items[0].images.tile150[0];
-        if(firstItemImage){
+        
+        if (firstItemImage) {
         	return {
                 imageURL: firstItemImage.url,
                 alt: firstItemImage.alt,
                 title: firstItemImage.title
             };
         }
-        
     }
     return null;
 }

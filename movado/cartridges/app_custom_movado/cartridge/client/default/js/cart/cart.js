@@ -179,7 +179,7 @@ function updateCartTotals(data) {
             $('select[data-pid="' + item.id + '"]').attr('disabled', true);
         }
 
-        if (item.options.length > 0) {
+        if (item && item.options && item.options.length > 0) {
             item.options.forEach(function (option) {
                 if (option && option.optionId == Resources.CLYDE_WARRANTY && option.price != '' && option.adjustedPrice != '' && option.price == option.adjustedPrice) {
                     $('.clyde-uuid-' + item.UUID + ' .clyde-option-price').text(option.price);
@@ -229,6 +229,8 @@ function updateApproachingDiscounts(approachingDiscounts) {
 function updateAvailability(data, uuid) {
     var lineItem;
     var messages = '';
+    var lineItemAvailability;
+    var lineItemMessage;
 
     for (var i = 0; i < data.items.length; i++) {
         if (data.items[i].UUID === uuid) {
@@ -237,23 +239,27 @@ function updateAvailability(data, uuid) {
         }
     }
 
-    $('.availability-' + lineItem.UUID).empty();
+    lineItemAvailability = $('.availability-' + lineItem.UUID);
+    lineItemMessage = lineItemAvailability.find('.line-item-attributes');
+    
+    if (!(lineItemMessage.hasClass('low-stock-availability'))) {
+        lineItemAvailability.empty();
 
-    if (lineItem.availability) {
-        if (lineItem.availability.messages) {
-            lineItem.availability.messages.forEach(function (message) {
-                messages += '<p class="line-item-attributes">' + message + '</p>';
-            });
-        }
+        if (lineItem.availability) {
+            if (lineItem.availability.messages) {
+                lineItem.availability.messages.forEach(function (message) {
+                    messages += '<p class="line-item-attributes">' + message + '</p>';
+                });
+            }
 
-        if (lineItem.availability.inStockDate) {
-            messages += '<p class="line-item-attributes line-item-instock-date">'
+            if (lineItem.availability.inStockDate) {
+                messages += '<p class="line-item-attributes line-item-instock-date">'
                 + lineItem.availability.inStockDate
                 + '</p>';
+            }
         }
+        lineItemAvailability.html(messages);
     }
-
-    $('.availability-' + lineItem.UUID).html(messages);
 }
 
 /**

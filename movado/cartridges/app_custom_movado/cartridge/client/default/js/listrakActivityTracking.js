@@ -24,12 +24,12 @@ module.exports = {
         var scriptVars = document.querySelector('script[src*="ltkActivityTracking.js"]');
 
         var sku = skuData;
-        var qvSku = scriptVars.getAttribute('ltk-data-qvsku');
-        var category = scriptVars.getAttribute('ltk-data-category');
-        var clearUrl = scriptVars.getAttribute('ltk-data-clearurl');
+        var qvSku = scriptVars ? scriptVars.getAttribute('ltk-data-qvsku') : '';
+        var category = scriptVars ? scriptVars.getAttribute('ltk-data-category') : '';
+        var clearUrl = scriptVars ? scriptVars.getAttribute('ltk-data-clearurl') : '';
         //Custom Start:[MSS-1450] Get data attributes from isml
-        var ltkCountryCode = scriptVars.getAttribute('ltk-data-countryCode');
-        var ltkProductPrice = scriptVars.getAttribute('ltk-data-price');
+        var ltkCountryCode = scriptVars ? scriptVars.getAttribute('ltk-data-countryCode') : '';
+        var ltkProductPrice = scriptVars ? scriptVars.getAttribute('ltk-data-price') : '';
         //Custom End:
         try {
             /* Perform activity/page/product browse logging. */

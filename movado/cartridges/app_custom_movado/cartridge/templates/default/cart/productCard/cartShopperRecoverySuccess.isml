@@ -1,0 +1,8 @@
+<div class="container cart-error-messaging cart-error mt-2">
+    <div class="alert card alert-dismissible text-success valid-cart-error fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        ${pdict.shopperRecoverySuccess}
+    </div>
+</div>

@@ -4,10 +4,17 @@ var processInclude = require('base/util');
 
 $(document).ready(function() { // eslint-disable-line
     var name = 'paymentError';
+    var paymentSuccess = 'paymentSuccess';
     var error = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search);
+    var successMessage = (new RegExp('[?&]' + encodeURIComponent(paymentSuccess) + '=([^&]*)')).exec(location.search);
     if (error) {
         $('.error-message').show();
         $('.error-message-text').text(decodeURIComponent(error[1]));
+    }
+    if (successMessage) {
+        $('.success-message').removeClass('d-none');
+        $('.success-message').addClass('d-block');
+        $('.success-message-text').text(decodeURIComponent(successMessage[1]));
     }
     processInclude(require('./checkout/billing'));
     processInclude(require('./checkout/checkout'));
