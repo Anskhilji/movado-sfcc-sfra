@@ -7,7 +7,10 @@ $(document).on('click', '.js-store-modal', function (event) {
     $.spinner().start();
     $.ajax({
         url: $url,
-        data: { pid: $pid },
+        data: { 
+            pid: $pid,
+            isForm: false
+         },
         type: 'GET',
         success: function (response) {
             $('#store-list').html(response.html);

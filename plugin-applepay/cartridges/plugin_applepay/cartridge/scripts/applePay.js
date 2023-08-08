@@ -24,7 +24,7 @@ var server = require('server');
 
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
-var PULSEID_ENGRAVING = 'pulseIdEngraving'
+var PULSEID_ENGRAVING = 'pulseIdEngraving';
 var NEWLINE = '\n';
 
 
@@ -238,11 +238,22 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     if (!deliveryValidationFail) {
         var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
         if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+            var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
             // Riskified order declined response from decide API
-            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-            if (riskifiedOrderDeclined) {
+            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
+
+            if (!riskifiedOrderDeclined.error) {
                 var riskifiedError = new Status(Status.ERROR);
+
+                if (riskifiedOrderDeclined.shopperRecovery) {
+                    session.privacy.riskifiedShoppperRecovery = false;
+                    riskifiedOrderDeclined.returnUrl.append('ID', order.orderNo);
+                } else {
+                    session.privacy.riskifiedShoppperRecovery = true;
+                }
+                
                 session.privacy.riskifiedDeclined = true;
+                session.privacy.riskifiedShoppperRecoveryEndURL = riskifiedOrderDeclined.returnUrl;
                 return riskifiedError;
             }
         } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
@@ -322,8 +333,21 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var URLUtils = require('dw/web/URLUtils');
 
     if (session.privacy.riskifiedDeclined) {
+        var declinedUrl = session.privacy.riskifiedShoppperRecoveryEndURL;
         delete session.privacy.riskifiedDeclined;
-        return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-Declined', 'ID', order.orderNo));
+        delete session.privacy.riskifiedShoppperRecoveryEndURL;
+
+        if (session.custom.applePaySku) {
+            session.privacy.applePayBasketReOpen = session.custom.applePaySku;
+        }
+
+        if (session.privacy.riskifiedShoppperRecovery) {
+            delete session.privacy.riskifiedShoppperRecovery;
+
+            return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-ShoperRecovery', 'returnUrl', declinedUrl));
+        }
+        delete session.privacy.riskifiedShoppperRecovery;
+        return new ApplePayHookResult(new Status(Status.ERROR), declinedUrl);
     } else {
         return new Status(Status.OK);
     }
@@ -345,6 +369,8 @@ exports.prepareBasket = function (basket, parameters) {
     var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {
+        session.custom.applePaySku = parameters.sku;
+
         if (!basket.custom.storePickUp) {
             session.custom.StorePickUp = false;
             session.custom.applePayCheckout = true;
@@ -372,8 +398,9 @@ exports.prepareBasket = function (basket, parameters) {
         var appleEmbossedMessage = session.custom.appleEmbossedMessage;
         var appleEngravedMessage = session.custom.appleEngravedMessage;
         var pulseIDPreviewURL = session.custom.pulseIDPreviewURL;
+        var appleProductId = session.custom.appleProductId;
 
-        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL);
+        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL, appleProductId);
         // sample data for testing
         // updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
     }
@@ -381,6 +408,7 @@ exports.prepareBasket = function (basket, parameters) {
     if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
         session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
     }
+
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
     return result;
@@ -395,7 +423,7 @@ exports.prepareBasket = function (basket, parameters) {
  * @param engravedMessage
  * @returns
  */
-function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL) {
+function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL, appleProductId) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
     // since there will be only on Product from PDP/ Quick view
     var pli = lineItemCtnr.productLineItems[0];
@@ -438,6 +466,7 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
                         option.updateOptionPrice();
                         if (engravedMessage) {
                             option.custom.pulseIDPreviewURL = pulseIDPreviewURL;
+                            option.custom.pulseIDAssociatedProductId = appleProductId;
                             // code to split the message based on newline character
                             engravedMessage = engravedMessage.split(NEWLINE);
                             option.custom.engraveMessageLine1 = engravedMessage[0];

@@ -70,7 +70,6 @@ $(window).on('resize', function() {
 
 $(window).on('load', function() {
     var $generaltab = $('.faq-nav-control-bar-link');
-    $('html, body').animate({ scrollTop: 0 }, "fast");
 
     $('.faq-nav-control-bar-inner').removeClass('active');
     $('.faq-nav-control-bar-btn span').text($(this).text());
