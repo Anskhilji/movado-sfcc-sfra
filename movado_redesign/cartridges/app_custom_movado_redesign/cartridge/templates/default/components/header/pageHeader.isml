@@ -38,24 +38,7 @@
                                     <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
                                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                                 </isif>
-                                <iscomment> Custom End </iscomment>
-                                <iscomment> <button class="navbar-toggler-custom navbar-toggler d-lg-none"
-                                    role="tab" type="button" aria-controls="sg-navbar-collapse"
-                                    aria-expanded="false" disabled>
-                                    <i class="fa fa-bars"></i> 
-                                    <span class="menu-text d-md-inline-block d-lg-none">
-                                        ${Resource.msg('link.header.menu', 'common', null)}
-                                    </span>
-                                </button> </iscomment>
                             </div>
-                            <iscomment> <div class="col-6 col-md-8 p-0 justify-content-center main-menu desktop-menu">
-                                <div class="d-none d-lg-inline-block">
-                                    <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
-                                </div>
-                                <div class="d-block text-center d-lg-none">
-                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
-                                </div>
-                            </div> </iscomment>
                             <div class="justify-content-end right">
                                 <a href="javascript:void(0);" class="search-icon header-icon" tabindex="0" aria-label="Search" role="search"></a>
                                 <div class="hidden-md-down  navbar-header account-wrapper search">
