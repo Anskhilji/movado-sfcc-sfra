@@ -19,10 +19,18 @@
             <div class="header-menu-wrapper non-sticky">
                 <div class="header-wrapper">
                     <div class="container-fluid px-0">
-                    <div class="row overlay"></div>
-                        <div class="row header-container m-0">
-                            <div class="col-3 col-md-2 navbar-header header-logo">
-                                <div class="d-none d-lg-inline-block">
+                    <div class="overlay"></div>
+                        <div class="header-container m-0">
+                        <div class="desktop-hamburger">
+                            <svg width="18" height="9" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0.413086H18V2.41309H0V0.413086Z" fill="black"/>
+                                <path d="M0 7.58691H18V9.58691H0V7.58691Z" fill="black"/>
+                            </svg>
+
+                            <div class="Menu-text">${Resource.msg('link.header.menu', 'common', null)}</div>
+                        </div>
+                            <div class="navbar-header header-logo">
+                                <div class="logos">
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
                                 <iscomment>Custom Start: Adding ESW Logic </iscomment>
@@ -31,24 +39,24 @@
                                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                                 </isif>
                                 <iscomment> Custom End </iscomment>
-                                <button class="navbar-toggler-custom navbar-toggler d-lg-none"
+                                <iscomment> <button class="navbar-toggler-custom navbar-toggler d-lg-none"
                                     role="tab" type="button" aria-controls="sg-navbar-collapse"
                                     aria-expanded="false" disabled>
                                     <i class="fa fa-bars"></i> 
                                     <span class="menu-text d-md-inline-block d-lg-none">
                                         ${Resource.msg('link.header.menu', 'common', null)}
                                     </span>
-                                </button>
+                                </button> </iscomment>
                             </div>
-                            <div class="col-6 col-md-8 p-0 justify-content-center main-menu desktop-menu">
+                            <iscomment> <div class="col-6 col-md-8 p-0 justify-content-center main-menu desktop-menu">
                                 <div class="d-none d-lg-inline-block">
                                     <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
                                 </div>
                                 <div class="d-block text-center d-lg-none">
                                     <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
-                            </div>
-                            <div class="col-3 col-md-2 justify-content-end right">
+                            </div> </iscomment>
+                            <div class="justify-content-end right">
                                 <a href="javascript:void(0);" class="search-icon header-icon" tabindex="0" aria-label="Search" role="search"></a>
                                 <div class="hidden-md-down  navbar-header account-wrapper search">
                                     <isinclude url="${URLUtils.url('Account-Header')}" />
