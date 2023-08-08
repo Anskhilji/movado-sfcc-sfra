@@ -1,35 +1,57 @@
+'use strict';
 
 $(document).ready(function () {
+    var $googleRecaptchaToken;
+    var $isForm = false;
+
+    window.onSubmitCaptchaHeaderBopis = function (token) {
+        var $submitBtn = $('.bopis-header-btn');
+        var $gCaptchaBopisHeaderInput = $('.g-recaptcha-token-bopis-header');
+        $($gCaptchaBopisHeaderInput).val(token);
+        $($submitBtn).click();
+    }
+
     var $searchStore = $('#search-store');
     $searchStore.click(function () {
-        getStoreList($searchStore);
+        $googleRecaptchaToken = $('.g-recaptcha-token-bopis-header').val();
+        $isForm = true;
+        getStoreList($searchStore, $googleRecaptchaToken, $isForm);
     });
 
     $('.store-pickup-zip-code-field').on('keypress',function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
-        if(keycode == '13'){
+
+        if(keycode == '13') {
+            $googleRecaptchaToken = null;
             var $searchStore = $('#search-store');
-            getStoreList($searchStore);
+            getStoreList($searchStore, $googleRecaptchaToken, $isForm);
         }
     });
 })
 
-function getStoreList($searchStore) {
+function getStoreList($searchStore, $googleRecaptchaToken, $isForm) {
     var $zipCode = $('#zip-code');
     var $radius = $('#store-pickup-radius');
-    url = $searchStore.data('url');
-    data = {
+    var $url = $searchStore.data('url');
+    var $recaptchaToken = $googleRecaptchaToken ? $googleRecaptchaToken : '';
+    var data = {
         zipCode: $zipCode.val(),
         radius: $radius.val(),
-        isSearch: true
+        isSearch: true,
+        isForm: $isForm,
+        googleRecaptchaToken: $recaptchaToken
     }
     $('#pickupStoreModal').spinner().start();
     $.ajax({
-        url: url,
+        url: $url,
         type: 'GET',
         data: data,
         success: function (response) {
-            $('#store-list').html(response.html);
+            if (data.hasOwnProperty('success') && response.success == false) {
+                $('#store-list').html('<div class="no-store">' + response.errorMessage + '</div>');
+            } else {
+                $('#store-list').html(response.html);
+            }
             $.spinner().stop();
         },
         error: function (error) {

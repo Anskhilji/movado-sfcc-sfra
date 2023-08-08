@@ -448,6 +448,76 @@ function escapeQuotes(value) {
     return value;
 }
 
+/**
+ * Code to populate personalization message in the ProductLineItem for Apple pay button from PDP and Quickview
+ * @param lineItemCtnr : current basket
+ * @param embossOptionID
+ * @param engraveOptionID
+ * @param embossedMessage
+ * @param engravedMessage
+ * @returns
+ */
+
+var EMBOSSED = 'Embossed';
+var ENGRAVED = 'Engraved';
+var PULSEID_ENGRAVING = 'pulseIdEngraving';
+var NEWLINE = '\n';
+function updateOptionLineItemAfterShopperRecovery(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL) {
+    // since there will be only on Product from PDP/ Quick view
+    var pli = lineItemCtnr.productLineItems[0];
+    if (pli.optionProductLineItems) {
+        Transaction.wrap(function () {
+            collections.forEach(pli.optionProductLineItems, function (option) {
+                if (option.optionID === EMBOSSED) {
+                    if (embossOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(EMBOSSED);
+                        var optionValue = optionModel.getOptionValue(getOption, embossOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (embossedMessage) {
+                            pli.custom.embossMessageLine1 = embossedMessage;
+                        }
+                    }
+                } else if (option.optionID === ENGRAVED) {
+                    if (engraveOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(ENGRAVED);
+                        var optionValue = optionModel.getOptionValue(getOption, engraveOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (engravedMessage) {
+                            // code to split the message based on newline character
+                            engravedMessage = engravedMessage.split(NEWLINE);
+                            pli.custom.engraveMessageLine1 = engravedMessage[0];
+                            if (engravedMessage[1]) {
+                                pli.custom.engraveMessageLine2 = engravedMessage[1];
+                            }
+                        }
+                    }
+                } else if (option.optionID === PULSEID_ENGRAVING) { // PulseID Engraving
+                    if (engraveOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(PULSEID_ENGRAVING);
+                        var optionValue = optionModel.getOptionValue(getOption, engraveOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (engravedMessage) {
+                            option.custom.pulseIDPreviewURL = pulseIDPreviewURL;
+                            // code to split the message based on newline character
+                            engravedMessage = engravedMessage.split(NEWLINE);
+                            option.custom.engraveMessageLine1 = engravedMessage[0];
+                            if (engravedMessage[1]) {
+                                option.custom.engraveMessageLine2 = engravedMessage[1];
+                            }
+                        }
+                    }
+                }
+            });
+        }); // end of Transaction
+    }
+}
+
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
     updateOption: updateOption,
@@ -465,5 +535,6 @@ module.exports = {
     getCountrySwitch: getCountrySwitch,
     removeClydeWarranty: removeClydeWarranty,
     removeNullClydeWarrantyLineItemAndEngraving: removeNullClydeWarrantyLineItemAndEngraving,
-    removeGiftMessaging: removeGiftMessaging
+    removeGiftMessaging: removeGiftMessaging,
+    updateOptionLineItemAfterShopperRecovery: updateOptionLineItemAfterShopperRecovery
 };
