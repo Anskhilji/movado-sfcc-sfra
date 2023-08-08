@@ -60,6 +60,9 @@ function sendOrderConfirmationEmail(order, locale) {
     var domesticShippingLabel = Resource.msg('order.confirmation.email.label.shippingto', 'order', null);
     var pickupShippingLabel = Resource.msg('order.confirmation.email.label.pickup.shippingto', 'order', null);
 
+    var orderCancellationUrl;
+    var orderCancellationObj;
+
     var orderConfirmationObj = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
         emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
@@ -77,8 +80,8 @@ function sendOrderConfirmationEmail(order, locale) {
     }
 
     if (isOrderCancellationEnabled && !empty(orderModel)) {
-        var orderCancellationUrl = URLUtils.https('Order-GetOrderDetail', 'trackOrderNumber', orderModel.orderNumber);
-        var orderCancellationObj = {
+        orderCancellationUrl = URLUtils.https('Order-GetOrderDetail', 'trackOrderNumber', orderModel.orderNumber);
+        orderCancellationObj = {
             orderCancellationUrl: orderCancellationUrl
         }
     }

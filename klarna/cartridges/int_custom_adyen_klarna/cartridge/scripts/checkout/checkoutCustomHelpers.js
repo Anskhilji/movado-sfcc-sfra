@@ -23,9 +23,12 @@ checkoutCustomHelpers.sendOrderConfirmationEmail = function (order, locale) {
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
     var isOrderCancellationEnabled = !empty(Site.current.preferences.custom.enableOrderCancellation) ? Site.current.preferences.custom.enableOrderCancellation : false;
 
+    var orderCancellationUrl;
+    var orderCancellationObj;
+
     if (isOrderCancellationEnabled && !empty(orderModel)) {
-        var orderCancellationUrl = URLUtils.https('Order-GetOrderDetail', 'trackOrderNumber', orderModel.orderNumber);
-        var orderCancellationObj = {
+        orderCancellationUrl = URLUtils.https('Order-GetOrderDetail', 'trackOrderNumber', orderModel.orderNumber);
+        orderCancellationObj = {
             orderCancellationUrl: orderCancellationUrl
         }
     }
