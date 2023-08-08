@@ -38,11 +38,15 @@ header.new-header {
     position: absolute;
     pointer-events: none;
     width: 100%;
-    height: rem(60);
+    height: rem(80);
     box-shadow: 0px 0px rem(14) rem(1) $grey-dark;
     z-index: 999;
     margin: 0;
     opacity: 0;
+
+    @include media-breakpoint-down(md) {
+      height: rem(62);
+    }
   }
 
   .top-search-tiles {
@@ -215,12 +219,14 @@ header.new-header {
   }
 
   .header-icon {
-    height: rem(20);
-    width: rem(20);
+    height: rem(16);
+    width: rem(16);
     display: inline-block;
-    margin-right: rem(20);
-    position: relative;
-    top: rem(1);
+    margin-right: rem(37);
+
+    @include media-breakpoint-down(md) {
+      margin-right: rem(20);
+    }
 
     @include media-breakpoint-down(xs) {
       margin-right: rem(15);
@@ -235,10 +241,6 @@ header.new-header {
 
   .tile-discription {
     display: none;
-  }
-  
-  .minicart {
-    margin-right: rem(20);
   }
 
   .menu-text {
@@ -269,10 +271,12 @@ header.new-header {
   }
 
   .user {
-    margin-right: rem(20);
-    padding: rem(18) rem(4) rem(16) rem(3);
+    margin-right: rem(36);
     outline: none;
-    border-bottom: 2px solid transparent;
+    position: relative;
+    padding: rem(18) rem(4) rem(16) rem(3);
+    top: rem(1);
+
     &:hover {
       border-color: $black;
     }
@@ -282,7 +286,7 @@ header.new-header {
       padding-bottom: rem(20);
       width: rem(150);
       left: rem(-48);
-      top: rem(60);
+      top: rem(50);
       box-shadow: unset;
       border-radius: unset;
 
@@ -291,7 +295,7 @@ header.new-header {
       }
 
       a {
-        font: rem(15) $font-primary;
+        font: rem(13) $movado-font;
       }
 
       &::before {
@@ -313,6 +317,7 @@ header.new-header {
           color: $grey8;
           border-radius: 0;
           white-space: unset;
+          font-family: $movado-font;
 
           &:hover {
             color: $white;
@@ -338,8 +343,8 @@ header.new-header {
     }
 
     .user-icon {
-      height: rem(20);
-      width: rem(20);
+      height: rem(16);
+      width: rem(16);
       display: inline-block;
       background: url("../images/user-icon-white.svg") center center no-repeat;
       cursor: pointer;
@@ -376,7 +381,6 @@ header.new-header {
 
   .search-icon {
     background: url("../images/search-icon-white.svg") center center no-repeat;
-    top: rem(-1);
   }
 
   .minicart-link {
@@ -580,6 +584,47 @@ header.new-header {
 
       .header-container {
         box-shadow: rem(1) rem(1) rem(7) 0 $grey-transparent-7;
+        height: rem(80);
+        padding: 0 rem(50);
+
+        @include media-breakpoint-down(md) {
+          padding: 0 rem(24);
+          height: rem(62);
+        }
+
+        .minicart {
+
+          @include media-breakpoint-down(md) {
+            width: rem(16);
+            height: rem(16);
+          }
+
+          &-total {
+            width: rem(16);
+            height: rem(16);
+          }
+        }
+
+        .desktop-hamburger {
+          display: flex;
+          align-items: center;
+          gap: rem(12);
+          cursor: pointer;
+
+          .Menu-text {
+            font-size: rem(14);
+            font-style: normal;
+            font-weight: 400;
+            line-height: rem(17.22);
+            letter-spacing: rem(0.56);
+            font-family: $movado-font;
+            margin-top: rem(2);
+
+            @include media-breakpoint-down(md) {
+              display: none;
+            }
+          }
+        }
       }
 
       .user {
@@ -615,6 +660,8 @@ header.new-header {
 
           .user-icon {
             background: url("../images/user-icon-black.svg") center center no-repeat;
+            width: rem(16);
+            height: rem(16);
           }
 
           &.user-login {
@@ -657,25 +704,25 @@ header.new-header {
       }
 
       .search-icon {
-        background: url("../images/search-icon-black.svg") center center no-repeat;
+        background: url("../images/search.svg") center center no-repeat;
       }
 
       .user {
 
         .user-icon {
-          background: url("../images/user-icon-black.svg") center center no-repeat;
+          background: url("../images/account.svg") center center no-repeat;
         }
 
         &.user-login {
 
           .user-icon {
-            background: url("../images/user-icon-fill.svg") center center no-repeat;
+            background: url("../images/account.svg") center center no-repeat;
           }
         }
       }
 
       .minicart-link {
-        background: url("../images/cart-icon-black.svg") center center no-repeat;
+        background: url("../images/shopping-bag.svg") center center no-repeat;
       }
 
       .logo-link {
@@ -725,9 +772,25 @@ header.new-header {
   } 
 
   .header-logo {
+    margin-left: rem(46);
+    width: rem(181);
+    height: rem(22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     p {
         margin: 0;
+    }
+
+    @include media-breakpoint-down(md) {
+      width: rem(128);
+      margin-left: rem(30);
+
+      a {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 }
