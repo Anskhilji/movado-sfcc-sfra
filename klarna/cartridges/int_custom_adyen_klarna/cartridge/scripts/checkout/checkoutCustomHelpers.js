@@ -2,6 +2,7 @@
 
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
+var URLUtils = require('dw/web/URLUtils');
 var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
 var checkoutCustomHelpers = require('app_custom_movado/cartridge/scripts/checkout/checkoutCustomHelpers');
 /**
@@ -20,6 +21,14 @@ checkoutCustomHelpers.sendOrderConfirmationEmail = function (order, locale) {
     var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
     var bottomContent = ContentMgr.getContent('email-confirmation-bottom');
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
+    var isOrderCancellationEnabled = !empty(Site.current.preferences.custom.enableOrderCancellation) ? Site.current.preferences.custom.enableOrderCancellation : false;
+
+    if (isOrderCancellationEnabled && !empty(orderModel)) {
+        var orderCancellationUrl = URLUtils.https('Order-GetOrderDetail', 'trackOrderNumber', orderModel.orderNumber);
+        var orderCancellationObj = {
+            orderCancellationUrl: orderCancellationUrl
+        }
+    }
 
     var orderObject = {
         order: orderModel,
@@ -57,7 +66,8 @@ checkoutCustomHelpers.sendOrderConfirmationEmail = function (order, locale) {
         shippingMethodLabel: Resource.msg('order.confirmation.email.label.shippingmethod', 'order', null),
         shippingStatusLabel: Resource.msg('order.confirmation.email.label.shippingstatus', 'order', null),
         billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
-        currentOrder: order
+        currentOrder: order,
+        orderCancellationEmailObj: orderCancellationObj
     };
 
     var emailObj = {
