@@ -295,7 +295,7 @@ header.new-header {
       }
 
       a {
-        // font: rem(13) $movado-font;
+        font: rem(13) $movado-font;
       }
 
       &::before {
@@ -317,7 +317,7 @@ header.new-header {
           color: $grey8;
           border-radius: 0;
           white-space: unset;
-          //font-family: $movado-font;
+          font-family: $movado-font;
 
           &:hover {
             color: $white;
@@ -617,7 +617,7 @@ header.new-header {
             font-weight: 400;
             line-height: rem(17.22);
             letter-spacing: rem(0.56);
-            //font-family: $movado-font;
+            font-family: $movado-font;
             margin-top: rem(2);
 
             @include media-breakpoint-down(md) {
