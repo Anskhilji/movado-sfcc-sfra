@@ -1719,6 +1719,7 @@ header {
                           
                         .nav-link {
                           font-weight: 450;
+                          color: $dark-gray2 !important;
 
                           &::after {
                             opacity: 1;
