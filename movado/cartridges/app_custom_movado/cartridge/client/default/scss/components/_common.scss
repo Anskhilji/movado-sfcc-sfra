@@ -1,6 +1,7 @@
 body {
   @include primary-font;
   background: $white;
+  font-weight: 400;
 }
 .modal-background {
   background-color: $black;
@@ -219,6 +220,7 @@ input[type="radio"] {
   font-family: $font-book;
   font-size: rem(14);
   letter-spacing: rem(1);
+  font-weight: 500;
 }
 .light-text-on-dark-theme {
   color: $white;
@@ -405,7 +407,7 @@ input[type="radio"] {
 
       &::after {
         content: "\F107";
-        font-size: rem(24);
+        font-size: rem(24);   
       }
     }
 

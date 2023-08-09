@@ -194,7 +194,7 @@ header.new-header {
           .product-name {
             font-size: rem(12);
             @include font-medium;
-            font-weight: bold;
+            font-weight: 500;
             color: $grey8;
             letter-spacing: normal;
             text-transform: capitalize;

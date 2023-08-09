@@ -26,10 +26,12 @@
     }
     input[placeholder],label{
         font-family: $font-medium;
+        font-weight: 500;
     }
     .hidden-xs-down{
         text-decoration: underline;
         font-size: rem(14);
         font-family: $font-medium;
+        font-weight: 500    ;
     }
 }
