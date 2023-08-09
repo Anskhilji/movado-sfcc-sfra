@@ -33,20 +33,20 @@
   }
 
   .summary-section-label {
-    font-weight: normal;
+    font-weight: 300;
   }
 
   .order-total-summary {
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
     letter-spacing: rem(0.4);
-    font-weight: normal;
+    font-weight: 300;
 
     .grand-total {
       span {
         font-size: $font-size-heading1;
         letter-spacing: rem(0.4);
-        font-weight: $font-semi-bold;
+        font-weight: 300;
       }
     }
   }
