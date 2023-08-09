@@ -68,7 +68,7 @@ function categoryToObject(category) {
         staticContentAsset: staticContentAsset,
         abTestSegmentIDs: abTestSegmentIDs,
         isCategoryShow: category.custom.isCategoryShow,
-        categoryColor: category.custom.color
+        categoryColor: category.custom.hexColor
     };
     if (!empty(category.custom.categoryImageURL)) {
         result.categoryImageURL = category.custom.categoryImageURL.absURL;
