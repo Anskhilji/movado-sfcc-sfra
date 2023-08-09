@@ -12,7 +12,7 @@
                       <iscomment> Custom: sub-dropdown class added</iscomment>
                       <isif condition="${!category.isDesktopCategoryHidden}">
                         <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                          <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">
                               ${category.name}
                             </a>
                           <isset name="topCat" value="${category}" scope="page"/>
