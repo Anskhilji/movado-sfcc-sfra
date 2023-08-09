@@ -8,11 +8,13 @@ module.exports = function () {
         var $totalHeaderSize = $headerBannerSize - 30;
         if (!$('.tab-bar-menu').hasClass('dashboard-active')) {
             if ($(this).scrollTop() > $totalHeaderSize) {
+                $('.mobile-search-content').addClass('mobile-search-content-adjustment');      
                 $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
                 $('.tab-bar-main').addClass('account-dashboard-tab-sticky');
                 $('.tab-bar-main').css('top', $headerSize);
             } else {
                 $('.tab-bar-main').removeClass('account-dashboard-tab-sticky');
+                $('.mobile-search-content').addClass('mobile-search-content-adjustment');      
                 $('.tab-bar-main').css('top', '');
             }
         } else {
