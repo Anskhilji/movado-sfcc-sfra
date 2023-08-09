@@ -2219,3 +2219,140 @@
   }
 }
 // Custom:MSS-2073 end desktop 
+
+
+// Custom:MSS-2347 end desktop 
+.plp-new-tile {
+
+  .row {
+
+    &.product-grid {
+
+      @include media-breakpoint-down(md) {
+        padding: 0 rem(22);
+        overflow: hidden;
+        margin-left: rem(-17);
+        margin-right: rem(-17);
+      }
+  
+      .product {
+  
+        @include media-breakpoint-down(md) {
+          padding: 0 rem(2);
+        }
+      }
+    }
+  }
+  
+  .product-tile {
+    background: $grey-silver-light;
+  
+    @include media-breakpoint-down(md) {
+      margin-bottom: 0;
+    }
+
+    .out-of-stock, .pre-order {
+      color: $black;
+      font-size: rem(10);
+      letter-spacing: rem(0.5);
+      padding: rem(8) rem(16);
+      background: $white;
+      font-weight: 500;
+      border-radius: rem(18.682);
+      border: rem(0.701) solid $silver-light;
+    }
+
+    .new-product {
+      color: $black;
+      font-size: rem(10);
+      letter-spacing: rem(0.5);
+      padding: rem(8) rem(16);
+      background: $white;
+      font-weight: 500;
+      border-radius: rem(18.682);
+      border: rem(0.701) solid $silver-light;
+    }
+
+    .tile-body {
+      padding: rem(16);
+      background: $white;
+      
+      @include media-breakpoint-down(md){
+        padding: rem(12) rem(0) rem(24) rem(0);
+      }
+
+      .product-name {
+        font-size: rem(16);
+        color: $black;
+        letter-spacing: rem(0.25);
+        font-family: $movado-font;
+        line-height: rem(20);
+
+        @include media-breakpoint-down(md){
+          font-size: rem(12);
+        }
+      }
+
+      .price {
+        font-size: rem(14);
+        letter-spacing: rem(0.25);
+        font-weight: 400;
+        font-family: $the-futura-font;
+        line-height: rem(16);
+
+        @include media-breakpoint-down(md){
+          font-size: rem(10);
+        }
+      }
+
+      .tile-discription, .product-not-available-msg {
+        font-size: rem(14);
+        color: $black;
+        letter-spacing: rem(0.14);
+        margin-top: rem(16);
+        font-family: $the-futura-font;
+        max-height: rem(36);
+        line-height: rem(18);
+      }
+
+      .tile-detail-btn {
+        font-size: rem(10);
+        font-weight: 400;
+        letter-spacing: rem(1);
+        color: $black;
+        padding: rem(16) rem(32);
+        border: rem(1) solid $black;
+        border-radius: 30px;
+        font-family: $movado-font;
+        line-height: rem(13);
+      }
+
+      .tile-btns {
+        margin-top: rem(79);
+      }
+
+      .tile-quick-view-btn {
+        width: rem(45);
+        height: rem(45);
+        background: url("../images/add-to-cart.svg") center no-repeat;
+        background-size: rem(45);
+      }
+    }
+  }
+  
+  .hovered-tile {
+    min-height: rem(412);
+
+    .tile-body {
+      height: rem(249);
+    }
+  }
+
+  .product-grid {
+    padding: 0 rem(43);
+
+    @include media-breakpoint-down(md){     
+      padding: 0 rem(24);
+    }
+  }
+}
