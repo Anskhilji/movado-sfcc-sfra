@@ -1061,27 +1061,29 @@ header.new-header {
                 }
               }
 
-              .search-icon {
-                background: url(../images/search.svg) center center no-repeat;
+             
+            }
+
+            .search-icon {
+              background: url(../images/search.svg) center center no-repeat;
+            }
+
+            .user {
+
+              .user-icon {
+
+                background: url(../images/account.svg) center center no-repeat;
               }
 
-              .user {
+              &.user-login {
 
                 .user-icon {
-
-                  background: url(../images/account.svg) center center no-repeat;
+                  background: url(../images/user-icon-fill.svg) center center no-repeat;
                 }
+              }
 
-                &.user-login {
-
-                  .user-icon {
-                    background: url("../images/user-icon-fill.svg") center center no-repeat;
-                  }
-                }
-
-                .minicart-link {
-                  background: url(../images/account.svg) center center no-repeat;
-                }
+              .minicart-link {
+                background: url(../images/account.svg) center center no-repeat;
               }
             }
           }
