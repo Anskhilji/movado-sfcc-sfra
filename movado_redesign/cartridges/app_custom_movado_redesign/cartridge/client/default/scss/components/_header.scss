@@ -1009,7 +1009,6 @@ header.new-header {
         .sticky-header {
 
           .header-container {
-
             height: rem(80);
             padding: 0 rem(50);
 
@@ -1032,7 +1031,6 @@ header.new-header {
             }
 
             .header-icon {
-
               height: rem(16);
               width: rem(16);
               margin-right: rem(37);
@@ -1065,26 +1063,26 @@ header.new-header {
             }
 
             .search-icon {
-              background: url(../images/search.svg) center center no-repeat;
+              background: url("../images/search.svg") center center no-repeat;
             }
 
             .user {
 
               .user-icon {
 
-                background: url(../images/account.svg) center center no-repeat;
+                background: url("../images/account.svg") center center no-repeat;
               }
 
               &.user-login {
 
                 .user-icon {
-                  background: url(../images/user-icon-fill.svg) center center no-repeat;
+                  background: url("../images/user-icon-fill.svg") center center no-repeat;
                 }
               }
 
-              .minicart-link {
-                background: url(../images/account.svg) center center no-repeat;
-              }
+            }
+            .minicart-link {
+              background: url("../images/shopping-bag.svg") center center no-repeat;
             }
           }
           
