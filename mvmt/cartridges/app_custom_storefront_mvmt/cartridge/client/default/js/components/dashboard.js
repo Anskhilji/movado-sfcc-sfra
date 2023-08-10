@@ -13,8 +13,7 @@ module.exports = function () {
                 $('.tab-bar-main').addClass('account-dashboard-tab-sticky');
                 $('.tab-bar-main').css('top', $headerSize);
             } else {
-                $('.tab-bar-main').removeClass('account-dashboard-tab-sticky');
-                $('.mobile-search-content').addClass('mobile-search-content-adjustment');      
+                $('.tab-bar-main').removeClass('account-dashboard-tab-sticky');     
                 $('.tab-bar-main').css('top', '');
             }
         } else {
