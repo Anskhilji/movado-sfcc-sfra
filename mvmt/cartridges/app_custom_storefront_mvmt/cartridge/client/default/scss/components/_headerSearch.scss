@@ -382,16 +382,9 @@
     padding-top: rem(30);
 
     @include media-breakpoint-down(xs) {
-      padding-top: rem(60);
+      padding-top: rem(30);
     }
   }
-
-  .mobile-search-content-adjustment {
-    @include media-breakpoint-down(xs) {
-        padding-top: rem(10);
-    }
-  }
-
     .search {
 
         &-recomendation {

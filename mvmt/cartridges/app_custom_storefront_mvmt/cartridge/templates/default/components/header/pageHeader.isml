@@ -203,7 +203,7 @@
 </div>
 
 <div class="mobile-side-search new-header search-bar">
-    <div class="mobile-search-content mobile-search-content-adjustment">
+    <div class="mobile-search-content">
         <div class="mobile-search-close">
             <a class="mobile-search-close-text">${Resource.msg('label.suggest.close', 'search', null)}</a>
         </div>
