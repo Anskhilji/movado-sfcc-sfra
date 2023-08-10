@@ -227,26 +227,32 @@
   }
 }
 
-.checkout-page {
-  
-  .card {
-      .card-body {
+.container {
+    &.checkout-page {
 
-          input[placeholder] {
-              font-family: $font-gills-light;
-              font-weight: 300;
-          }
+      .card {
 
-          label {
-              font-family: $font-gills-light;
-              font-weight: 300;
-          }
+          .card-body {
 
-          .hidden-xs-down {
-              font-family: $font-gills-light;
+              .form-group {
+
+                  input[placeholder] {
+                      font-family: $font-gills-light;
+                      font-weight: 300;
+                  }
+
+                  label {
+                      font-family: $font-gills-light;
+                      font-weight: 300;
+                  }
+
+                  .hidden-xs-down {
+                      font-family: $font-gills-light;
+                  }
+              }
           }
       }
-  }
+    }
 }
 
 @include media-breakpoint-up(sm) {
@@ -897,21 +903,26 @@
     box-shadow: none;
 }
 
-.card {
+.checkout-content {
+  
+    .card {
 
-    &.payment-form {
+      &.payment-form {
 
-        .payment-information {
+          .payment-information {
 
-            .payment-options {
+              .payment-options {
 
-                .nav-item {
+                  .nav-item {
 
-                    .credit-card-label {
-                        font-family: $font-gill-std-medium;
-                    }
-                }
-            }
-        }
+                      label {
+                          &.credit-card-label {
+                              font-family: $font-gill-std-medium;
+                          }
+                      }
+                  }
+              }
+          }
+      }
     }
 }
