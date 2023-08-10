@@ -2222,24 +2222,24 @@
 
 
 // Custom:MSS-2347 end desktop 
-.plp-new-tile {
+.plp-aruliden-tile {
 
     .row {
 
         &.product-grid {
 
           @include media-breakpoint-down(md) {
-            padding: 0 rem(22);
-            overflow: hidden;
-            margin-left: rem(-17);
-            margin-right: rem(-17);
+              padding: 0 rem(22);
+              overflow: hidden;
+              margin-left: rem(-17);
+              margin-right: rem(-17);
           }
     
           .product {
     
-            @include media-breakpoint-down(md) {
-              padding: 0 rem(2);
-            }
+              @include media-breakpoint-down(md) {
+                  padding: 0 rem(2);
+              }
           }
         }
     }
