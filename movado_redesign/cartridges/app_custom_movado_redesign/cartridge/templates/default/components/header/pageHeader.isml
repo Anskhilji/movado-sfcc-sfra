@@ -95,13 +95,13 @@
                 </div>
             </div>
 
-            <div class="main-menu navbar-toggleable-sm mobile-menu menu-toggleable-left multilevel-dropdown d-inline-block d-lg-none" id="sg-navbar-collapse">
+            <iscomment> <div class="main-menu navbar-toggleable-sm mobile-menu menu-toggleable-left multilevel-dropdown d-inline-block d-lg-none" id="sg-navbar-collapse">
                 <div class="container">
                     <div class="row">
                         <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
                     </div>
                 </div>
-            </div>
+            </div> </iscomment>
         </div>
         <div class="search-mobile d-none">
             <isinclude template="components/header/search" />
@@ -126,3 +126,22 @@
     </nav>
 </header>
 
+<div class="desktop-slide-up">
+<div class="close-sec">
+    <div class="close-icons">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.75111 5L18.5721 17.821L17.3932 19L4.57216 6.17895L5.75111 5Z" fill="white" />
+            <path d="M18.5718 6.17897L5.75072 19L4.57178 17.8211L17.3928 5.00003L18.5718 6.17897Z" fill="white" />
+        </svg>
+        <span class="close-text">close</span>
+    </div>
+        <div class="white-header-logo">
+            <isslot id="brand-logo" description="Brand Logo" context="global" />
+        </div>
+</div>
+    <div class="main-menu-redesign desktop-menu-redesign">
+        <div class="d-none d-lg-inline-block">
+            <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+        </div>
+    </div>
+</div>

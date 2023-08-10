@@ -241,6 +241,17 @@ $(".desktop-menu .sub-dropdown").keydown(function(e) {
 });
 
 
+// 2356
+$(".desktop-hamburger svg , .Menu-text").click(function(){
+    $('.desktop-slide-up').addClass("desktop-slide-down");
+    $('.desktop-slide-up').slideDown("300");
+  });
+  $(".desktop-slide-up .close-icons , .close-text").click(function(){
+    $(".desktop-slide-up").removeClass("desktop-slide-down");
+    // $(".desktop-slide-up").slideDown("fast");
+  });
+// end
+
 $(".mobile-menu .close-button").click(function(){
     $(".mobile-menu").addClass("animated fadeOut delay-point-three");
     $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
