@@ -898,20 +898,20 @@
 }
 
 .card {
-  
+
     &.payment-form {
 
-      .payment-information {
+        .payment-information {
 
-          .payment-options {
+            .payment-options {
 
-              .nav-item {
+                .nav-item {
 
-                  .credit-card-label {
-                      font-family: $font-gill-std-medium;
-                  }
-              }
-          }
-      }
+                    .credit-card-label {
+                        font-family: $font-gill-std-medium;
+                    }
+                }
+            }
+        }
     }
 }
