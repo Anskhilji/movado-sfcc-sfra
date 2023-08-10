@@ -992,7 +992,7 @@
                                 background-color: $light-grey;
                                 height: rem(25);
                                 p {
-                                    font-family: $font-futura;
+                                    font-family: $font-gill-std;
                                     font-size: rem(12);
                                     color: $black;
                                     text-align: center;
@@ -1207,7 +1207,7 @@
                             }
 
                             p {
-                                font-family: $font-futura-book;
+                                font-family: $font-gill-std;
                                 font-size: rem(12);
                                 line-height: rem(16);
                                 color: $gray20;
@@ -1429,7 +1429,7 @@
 
                     > a.btn {
                         color: $gray20;
-                        font-family: $font-futura;
+                        font-family: $font-gill-std;
                         font-size: rem(12);
                         font-weight: 600;
                         line-height: rem(16);
@@ -1470,7 +1470,7 @@
                     }
 
                     .edit-popup {
-                        font-family: $font-futura;
+                        font-family: $font-gill-std;
                         font-size: rem(12);
                         font-weight: 400;
                         letter-spacing: normal;

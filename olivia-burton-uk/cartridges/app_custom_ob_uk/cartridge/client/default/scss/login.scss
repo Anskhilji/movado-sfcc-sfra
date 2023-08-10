@@ -10,6 +10,13 @@
     .privacy-policy {
         font-family: $font-gill-std-medium;
     }
+
+    .form-group {
+
+        .form-control-field-label {
+            font-family: $font-gill-std-medium;
+        }
+    }
 }
 
 .login-page {

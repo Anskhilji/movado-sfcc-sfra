@@ -228,9 +228,24 @@
 }
 
 .checkout-page {
-  label {
-    font-family: $font-gills-light;
-    font-weight: 300;
+  
+  .card {
+      .card-body {
+
+          input[placeholder] {
+              font-family: $font-gills-light;
+              font-weight: 300;
+          }
+
+          label {
+              font-family: $font-gills-light;
+              font-weight: 300;
+          }
+
+          .hidden-xs-down {
+              font-family: $font-gills-light;
+          }
+      }
   }
 }
 
@@ -866,11 +881,11 @@
 
             .form-control {
                 &.input-wrapper-checkout {
-                    font-weight: 600;
+                    font-weight: 500;
                 }
 
                 &.custom-select-box {
-                    font-weight: 600;
+                    font-weight: 500;
                 }
             }
         }
@@ -880,4 +895,23 @@
 :focus {
     outline: none;
     box-shadow: none;
+}
+
+.card {
+  
+    &.payment-form {
+
+      .payment-information {
+
+          .payment-options {
+
+              .nav-item {
+
+                  .credit-card-label {
+                      font-family: $font-gill-std-medium;
+                  }
+              }
+          }
+      }
+    }
 }
