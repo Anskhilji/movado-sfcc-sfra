@@ -1,0 +1,148 @@
+.desktop-slide-up {
+    position: absolute;
+    top: rem(-500);
+    width: 100%;
+    height: 0;
+    background: $black;
+    z-index: 1024;
+    transition: 1s ease-in;
+  
+    &.desktop-slide-down {
+      height: 100%;
+      top: 0;
+    }
+  
+    .close-sec {
+      height: rem(80);
+      padding: 0 rem(40);
+      display: flex;
+      align-items: center;
+  
+      .close-icons {
+        display: flex;
+        align-items: center;
+        gap: rem(12);
+  
+        svg {
+          cursor: pointer;
+        }
+  
+        .close-text {
+            color: $white;
+            font-family: $movado-font;
+            font-size: rem(14);
+            font-style: normal;
+            font-weight: 400;
+            line-height: rem(14);
+            letter-spacing: rem(0.5);
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+      }
+    }
+  
+    .white-header-logo {
+      width: 100%;
+      margin-right: rem(94);
+  
+      p {
+        margin: 0;
+      }
+  
+      a {
+        max-width: rem(166);
+        height: rem(20);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      }
+    }
+  
+    .black-logo {
+      display: none;
+    } 
+  
+    .menubar {
+      background-color: red;
+    }
+  
+    .desktop-menu-redesign {
+      padding-left: rem(48);
+  
+      .menubar-container {
+  
+        .first-category {
+          position: relative;
+          margin: 0;
+          padding: 0;
+  
+          .first-level {
+            list-style: none;
+  
+            &-category {
+              color: $white;
+              font-family: $movado-font;
+              font-size: rem(16);
+              font-style: normal;
+              font-weight: 400;
+              line-height: rem(18);
+              letter-spacing: rem(0.25);
+              padding: rem(13) 0;
+              text-transform: uppercase;
+              position: relative;
+              cursor: pointer;
+              transition: .3s ease all;
+
+              &::before {
+                content: '';
+                position: absolute;
+                top: rem(17);
+                left: rem(-16);
+                width: rem(8);
+                height: rem(8);
+                border-radius: 100%;
+                background-color: $white;
+                opacity: 0;
+              }
+
+              &:hover {
+
+                &::before {
+                    opacity: 1;
+                }
+              }
+            }
+  
+            .second-level-sec {
+              position: absolute;
+              top: 0;
+              left: 100%;
+              padding: 0 0 0 rem(195);
+  
+              .second-category {
+                margin: 0;
+                padding: 0;
+  
+                .second-level {
+                  list-style: none;
+                  
+                  &-category {
+                    color: $white;
+                    font-family: $movado-font;
+                    font-size: rem(14);
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: rem(14);
+                    letter-spacing: rem(0.5);
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
+  
+      }
+    }
+  }

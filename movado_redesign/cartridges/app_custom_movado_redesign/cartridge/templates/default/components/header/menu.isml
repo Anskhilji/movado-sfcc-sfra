@@ -1,11 +1,11 @@
 <div class="menubar-container">
     <ul class="first-category">
         <li class="first-level">
-            <a>Home</a>
-            <div class="second-level">
+            <a class="first-level-category">Home</a>
+            <div class="second-level-sec">
                 <ul class="second-category">
-                    <li>
-                        <a>Home-two</a>
+                    <li class="second-level">
+                        <a class="second-level-category">Home-two</a>
                     </li>
                 </ul>
             </div>
