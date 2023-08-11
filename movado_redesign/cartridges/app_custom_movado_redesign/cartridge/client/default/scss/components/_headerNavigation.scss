@@ -6,10 +6,12 @@
     background: $black;
     z-index: 1024;
     transition: 1s ease-in;
+    display: none;
   
     &.desktop-slide-down {
       height: 100%;
       top: 0;
+      display: block;
     }
   
     .close-sec {
@@ -94,6 +96,10 @@
               cursor: pointer;
               transition: .3s ease all;
 
+              &.active {
+                color: rgb(255, 255, 255);
+              }
+
               &::before {
                 content: '';
                 position: absolute;
@@ -119,6 +125,11 @@
               top: 0;
               left: 100%;
               padding: 0 0 0 rem(195);
+              display: none;
+
+              &.active {
+               display: block; 
+              }
   
               .second-category {
                 margin: 0;

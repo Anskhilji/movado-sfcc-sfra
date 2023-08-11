@@ -47,6 +47,13 @@ $('.minicart .popover').keyup(function(event) {
     }
 });
 
+$(".first-level-category").click(function(){
+    $('.second-level-sec').removeClass('active');
+    $(this).addClass('active');
+    $(this).siblings('.second-level-sec').addClass('active');
+    $(this).closest('.first-category').addClass('change-color');
+});
+
 $(".search-icon").click(function(e){
     $(".desktop-search").slideDown("fast");
     $(".header-search-field").val("");
@@ -432,5 +439,7 @@ function cloneRecommendationSlot(selector) {
     recommendationSlot.find(selector).clone().appendTo('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id'));
     window.slickSlider.initCarousel($('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id') + ' .trending-category-recommendation'));
 }
+
+
 
  
