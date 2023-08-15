@@ -56,7 +56,7 @@ $('.first-level-category').click(function(){
 });
 
 $('.first-levels-items-category').click(function(){
-    $('.second-levls-section').addClass('active fadeIn animated fast');
+    $(this).parent('.first-levels-items').siblings('.second-levls-section').addClass('active fadeIn animated fast');
     $('.mobile-container').removeClass('fadeIn animated fast')
 });
 

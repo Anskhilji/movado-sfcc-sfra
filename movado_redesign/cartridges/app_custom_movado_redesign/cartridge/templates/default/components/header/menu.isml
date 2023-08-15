@@ -33,27 +33,40 @@
 <div class="mobile-container">
     <div class="first">
         <ul class="first-levels">
-            <li class="first-levels-items">
-                <a class="first-levels-items-category">Home</a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="second-levls-section">
-    <div class="back-section">
-        <div class="back-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="17" viewBox="0 0 11 17" fill="none">
-                <path d="M9.77734 16L1.99957 8.5L9.77735 1" stroke="white" stroke-width="1.51" />
-            </svg>
-        </div>
-        <div class="category-name">Shop</div>
-    </div>
+            <isloop items="${pdict.categories}" var="mobileCategory">
+                <isif condition="${mobileCategory.subCategories || mobileCategory.disableSubCategories}">
+                    <li class="first-levels-items gtm-customEvent"  data-gtm-tracking="${JSON.stringify(mobileCategory.gtmNavVal)}">
+                        <p class="first-levels-items-category">${mobileCategory.name}</p>
+                    </li>
+                    <div class="second-levls-section">
+                        <div class="back-section">
+                            <div class="back-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="17" viewBox="0 0 11 17" fill="none">
+                                    <path d="M9.77734 16L1.99957 8.5L9.77735 1" stroke="white" stroke-width="1.51" />
+                                </svg>
+                            </div>
+                            <div class="category-name">${mobileCategory.name}</div>
+                        </div>
 
-    <div class="second">
-        <ul class="second-levels">
-            <li class="second-levels-items">
-                <a class="second-levels-items-category">Home-two</a>
-            </li>
+                        <isset name="topCatMobile" value="${mobileCategory}" scope="page"/>
+                        <isset name="gtmCategoryValMobile" value="${JSON.stringify(mobileCategory.gtmNavVal)}" scope="page"/>
+                        <isset name="menuItemMobile" value="${mobileCategory}" scope="page" />
+                        <div class="second">
+                            <ul class="second-levels">
+                                <isloop items="${menuItemMobile.subCategories}" var="secondLevelCategoryMobile">
+                                        <li class="second-levels-items gtm-customEvent" data-gtm-tracking="${JSON.stringify(secondLevelCategoryMobile.gtmCategoryValMobile)}">
+                                            <a href="${secondLevelCategoryMobile.url}" class="second-levels-items-category">${secondLevelCategoryMobile.name}</a>
+                                        </li>
+                                </isloop>
+                            </ul>
+                        </div>
+                    </div>
+                <iselse/>
+                    <li class="first-levels-items gtm-customEvent"  data-gtm-tracking="${JSON.stringify(secondLevelCategoryMobile.gtmNavVal)}">
+                        <p class="first-levels-items-category">${secondLevelCategoryMobile.name}</p>
+                    </li>
+                </isif>
+            </isloop>
         </ul>
     </div>
 </div>
