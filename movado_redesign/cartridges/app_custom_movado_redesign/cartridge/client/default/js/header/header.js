@@ -52,7 +52,7 @@ $('.first-level-category').click(function(){
     $(this).addClass('active');
     $(this).siblings('.second-level-sec').addClass('active');
     $(this).closest('.first-category').addClass('change-color');
-    $('.second-level-sec').addClass('fadeInLeft fast animated');
+    $('.second-level-sec .second-category .second-level').addClass('fadeInLeft fast animated');
 });
 
 $('.first-levels-items-category').click(function(){
@@ -275,6 +275,7 @@ $(".desktop-menu .sub-dropdown").keydown(function(e) {
 $(".desktop-hamburger svg , .Menu-text").click(function(){
     $('.desktop-slide-up').addClass("desktop-slide-down");
     $('.desktop-slide-up').slideDown("300");
+    $('body, html').addClass('no-overflow');
   });
 
   $(".desktop-slide-up .close-icons , .close-text").click(function(){
@@ -283,7 +284,7 @@ $(".desktop-hamburger svg , .Menu-text").click(function(){
     $('.first-category').removeClass('change-color');
     $('.first-level-category').removeClass('active');
     $('.categories-image-container').addClass('d-none');
-    // $(".desktop-slide-up").slideDown("fast");
+    $('body, html').removeClass('no-overflow');
   });
 
 
@@ -294,8 +295,9 @@ $(".desktop-hamburger svg , .Menu-text").click(function(){
     $(this).siblings('.second-level-sec').addClass('active');
     $(this).closest('.first-category').addClass('change-color');
     var categoryId = $(this).attr('id');
-    $('.categories-image-container').addClass('d-none');
+    $('.categories-image-container').addClass('d-none fadeIn fast animated');
     $('.categories-image-container-second').addClass('d-none');
+    $('body, html').addClass('no-overflow');
     
 
     $('.categories-image-container').each(function () {
@@ -318,6 +320,7 @@ $('.second-level').hover(function() {
     if ($(this).siblings('.categories-image-container-second').length > 0) {
         $('.categories-image-container').addClass('d-none');
         $(this).siblings('.categories-image-container-second').removeClass('d-none');
+        $(this).siblings('.categories-image-container-second').addClass('fadeIn fast animated');
     }
 });
 // end

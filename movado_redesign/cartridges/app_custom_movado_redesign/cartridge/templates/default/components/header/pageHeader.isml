@@ -144,4 +144,9 @@
             <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
         </div>
     </div>
+
+    <div class="mobile-accounts">
+     <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
+      <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
+    </div>
 </div>

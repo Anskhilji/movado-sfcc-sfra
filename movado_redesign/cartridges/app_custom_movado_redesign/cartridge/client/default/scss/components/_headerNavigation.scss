@@ -13,6 +13,15 @@
       top: 0;
       opacity: 1;
     }
+
+    .mobile-accounts {
+        display: none;
+
+        @include media-breakpoint-down(md) {
+            display: block;
+            background-color: red;
+        }
+    }
   
     .close-sec {
       height: rem(80);
@@ -95,6 +104,27 @@
           margin-top: rem(26);
           display: inline-block;
 
+          .categories-image-container {
+
+            @include media-breakpoint-down(md) {
+                display: none;
+            }
+
+            a {
+                display: flex;
+                position: fixed;
+                right: 0;
+                top: rem(80);
+                max-width: rem(700);
+                height: rem(820);
+                overflow: hidden;
+                
+                @include media-breakpoint-down(lg) {
+                    max-width: rem(500);
+                }
+            }
+          }
+
           &.change-color {
 
             .first-level {
@@ -175,24 +205,49 @@
               display: none;
               margin-top: rem(8);
 
+              @include media-breakpoint-down(lg) {
+                padding: 0 0 0 rem(80);
+              }
+
               &.active {
-               display: block; 
+                display: block; 
               }
   
               .second-category {
                 margin: 0;
                 padding: 0;
                 min-width: rem(125);
+
+                .categories-image-container-second {
+
+                    @include media-breakpoint-down(md) {
+                        display: none;
+                    }
+
+                    a {
+                        display: flex;
+                        position: fixed;
+                        right: 0;
+                        top: rem(80);
+                        max-width: rem(700);
+                        height: rem(820);
+                        overflow: hidden;
+
+                        @include media-breakpoint-down(lg) {
+                            max-width: rem(500);
+                        }
+                    }
+                }
   
                 .second-level {
                   list-style: none;
                   margin: 0 0 rem(20) 0;
 
                   &.active {
-                    
-                    a {
-                      color: red;
-                    }
+
+                    // a {
+                    //   color: red;
+                    // }
                   }
         
                   &-category {
@@ -367,10 +422,15 @@
 
                         &:hover,&:focus {
                             color: $white;
+                            text-decoration: none;
                         }
                     }
                 }
             }
         }
     }
-  }
+}
+
+.no-overflow {
+    overflow: hidden;
+}
