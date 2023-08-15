@@ -1,29 +1,23 @@
 <div class="second-level-sec">
     <ul class="second-category">
-      <isloop items="${menuItem.subCategories}" var="category">
-          <isif condition="${category.subCategories}">
+      <isloop items="${menuItem.subCategories}" var="secondLevelCategory">
+          <isif condition="${secondLevelCategory.subCategories}">
             <li class="second-level">
-              <a href="${category.url}" class="second-level-category">${category.name}</a>
-              <isset name="categoryItem" value="${category}" scope="page"/>
+              <a href="${secondLevelCategory.url}" class="second-level-category">${secondLevelCategory.name}</a>
+              <isset name="categoryItem" value="${secondLevelCategory}" scope="page"/>
+              <isset name="gtmCategoryVal" value="${JSON.stringify(secondLevelCategory.gtmNavVal)}" scope="page"/>
               <isinclude template="components/header/menuItemList"/>
             </li>
           <iselse/>
-            <li class="second-level gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <a href="${category.url}" class="second-level-category" >${category.name}</a>
+            <li class="second-level gtm-customEvent" data-gtm-tracking='${JSON.stringify(secondLevelCategory.gtmNavVal)}'>
+              <a href="${secondLevelCategory.url}" class="second-level-category" >${secondLevelCategory.name}</a>
             </li>
           </isif>
-      </isloop>
-
-      <isloop items="${menuItem.subCategories}" var="category">
-        <isif condition="${category.subCategories}">
-          <ul class="second-category">
-            <li class="second-level">
-              <a href="${category.url}" id="${category.id+'list'}" class="second-level-category">${category.name}</a>
-              <isset name="categoryItem" value="${category}" scope="page"/>
-              <isinclude template="components/header/menuItemList"/>
-            </li>
-          </ul>
-        </isif>
+          <isif condition="${!empty(secondLevelCategory.categoryBannerImage)}">
+              <div class="categories-image-container-second gtm-customEvent d-none" data-gtm-tracking='${gtmCategoryVal}'>
+                          <a href="${secondLevelCategory.url}"><img class="main-category-image" alt="${secondLevelCategory.name}" src="${!empty(secondLevelCategory.categoryBannerImage) ? secondLevelCategory.categoryBannerImage : '#'}" loading="lazy" title="${secondLevelCategory.name}" /></a>
+              </div>
+          </isif>
       </isloop>
     </ul>
 </div>

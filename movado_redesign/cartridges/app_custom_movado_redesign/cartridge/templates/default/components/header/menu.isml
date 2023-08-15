@@ -4,7 +4,7 @@
         <isloop items="${pdict.categories}" var="category">
           <isif condition="${category.subCategories || category.disableSubCategories}">
             <iscomment> Custom: sub-dropdown class added</iscomment>
-            <li class="first-level gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+            <li data-image="${category.categoryBannerImage}" class="first-level gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
               <p id="${category.id}" class="first-level-category">
                 ${category.name}
               </p>
@@ -20,7 +20,12 @@
               </p>
             </li>
           </isif>
+          <isif condition="${!empty(category.categoryBannerImage)}">
+            <div class="categories-image-container gtm-customEvent d-none" data-id="${category.id}" data-gtm-tracking='${gtmCategoryVal}'>
+                <a href="${category.url}"><img class="main-category-image" alt="${category.name}" src="${!empty(category.categoryBannerImage) ? category.categoryBannerImage : '#'}" loading="lazy" title="${category.name}" /></a>
+            </div>
+          </isif>
         </isloop>
-      </isif>
-    </ul>
+    </isif>
+   </ul>
 </div>

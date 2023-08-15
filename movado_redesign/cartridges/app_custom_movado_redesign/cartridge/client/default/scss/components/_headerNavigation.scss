@@ -137,6 +137,12 @@
   
                 .second-level {
                   list-style: none;
+
+                  &.active {
+                    a {
+                      color: red;
+                    }
+                  }
                   
                   &-category {
                     color: $white;
