@@ -21,6 +21,11 @@ exports.LTK_TRANSACTIONAL_API_ENDPOINT = 'List/{listId}/TransactionalMessage/{tr
 exports.LTK_GET_CONTACT_STATUS_API_ENDPOINT = 'ShortCode/{shortCodeId}/Contact/{phoneNumber}';
 exports.LTK_SUBSCRIBE_CONTACT_API_ENDPOINT = 'ShortCode/{shortCodeId}/Contact/{phoneNumber}/PhoneList/{phoneListId}';
 exports.LTK_CREATE_CONTACT_API_ENDPOINT = 'ShortCode/{shortCodeId}/PhoneList/{phoneListId}/Contact';
+exports.CLYDE_WARRANTY = 'clydeWarranty';
+exports.PULSE_ENGRAVING = 'pulseIdEngraving';
+exports.ENGRAVING = 'Engraved';
+exports.EMBOSSED = 'Embossed';
+
 exports.SERVICE_ID = {
     LTK_AUTH: 'listrak.auth.api',
     LTK_SMS_AUTH: 'listrak.sms.auth.api',

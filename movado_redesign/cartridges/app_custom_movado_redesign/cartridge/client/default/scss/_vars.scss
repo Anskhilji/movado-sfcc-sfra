@@ -31,10 +31,14 @@ $storm-gray: #787A8A;
 $mine-shaft: #333333;
 $grey10-light: #C4C1C1;
 $grey11-light: #F5F5F5;
+$grey-silver-light: #F8F8F8;
+$silver-light: #E2E3E4;
 
 $font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
 $font-fotter: "futura-pt", "FuturaStd-Medium", sans-serif;
 $heart-icon: "\F004";
+$movado-font: "Movado Sans";
+$the-futura-font:  "The Future";
 
 @mixin font-bold {
     font-family: "futura-pt-bold", "FuturaStd-Bold", sans-serif;

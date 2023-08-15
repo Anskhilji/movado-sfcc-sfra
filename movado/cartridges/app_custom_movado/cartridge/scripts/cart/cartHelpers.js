@@ -26,8 +26,9 @@ function updateBundleProducts(apiLineItem, childProducts) {
     var bundle = apiLineItem.product;
     var bundleProducts = bundle.getBundledProducts();
     var bundlePids = collections.map(bundleProducts, function (product) { return product.ID; });
+    var bundlePidsArray = bundlePids.toString();
     var selectedProducts = childProducts.filter(function (product) {
-        return bundlePids.indexOf(product.pid) === -1;
+        return bundlePidsArray.indexOf(product.pid) === -1;
     });
     var bundleLineItems = apiLineItem.getBundledProductLineItems();
 
@@ -641,7 +642,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             }
         }
 
-        if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && form.pulseIdEngraving == 'true') {
+        if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && !empty(form) && form.pulseIdEngraving && form.pulseIdEngraving == 'true') {
             var addEngraveContract = require('*/cartridge/scripts/engravingAddContracts.js');
             var engravedOptions = addEngraveContract.getEngravingSelectedOptionProduct(productId);
             var engravedSKU = '';
@@ -727,17 +728,17 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                     addClydeContract.addClydeContractAttributes(clydeSKU, currentBasket, productId);
                 }
 
-                if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && form.pulseIdEngraving == 'true') {
+                if (product.custom.enablepulseIDEngraving && isPulseIdEngravingEnabled && !empty(form) && form.pulseIdEngraving && form.pulseIdEngraving == 'true') {
                     var addEngraveContract = require('*/cartridge/scripts/engravingAddContracts');
                     var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
 
                     Transaction.wrap(function () {
 
                         if (productLineItem) {
-                            var optoionProductLineItems = productLineItem.getOptionProductLineItems().iterator();
+                            var optionProductLineItems = productLineItem.getOptionProductLineItems().iterator();
 
-                            while (optoionProductLineItems.hasNext()) {
-                                var optionLineItem = optoionProductLineItems.next();
+                            while (optionProductLineItems.hasNext()) {
+                                var optionLineItem = optionProductLineItems.next();
 
                                 if (optionLineItem.optionID === pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID) {
                                     optionLineItem.updateOptionValue(optionValue);
