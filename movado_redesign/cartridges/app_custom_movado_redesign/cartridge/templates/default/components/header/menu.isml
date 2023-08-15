@@ -26,6 +26,34 @@
             </div>
           </isif>
         </isloop>
-    </isif>
-   </ul>
+      </isif>
+    </ul>
+</div>
+
+<div class="mobile-container">
+    <div class="first">
+        <ul class="first-levels">
+            <li class="first-levels-items">
+                <a class="first-levels-items-category">Home</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="second-levls-section">
+    <div class="back-section">
+        <div class="back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="17" viewBox="0 0 11 17" fill="none">
+                <path d="M9.77734 16L1.99957 8.5L9.77735 1" stroke="white" stroke-width="1.51" />
+            </svg>
+        </div>
+        <div class="category-name">Shop</div>
+    </div>
+
+    <div class="second">
+        <ul class="second-levels">
+            <li class="second-levels-items">
+                <a class="second-levels-items-category">Home-two</a>
+            </li>
+        </ul>
+    </div>
 </div>

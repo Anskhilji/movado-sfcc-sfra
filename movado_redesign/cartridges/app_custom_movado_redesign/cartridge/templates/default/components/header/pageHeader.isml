@@ -140,7 +140,7 @@
         </div>
 </div>
     <div class="main-menu-redesign desktop-menu-redesign">
-        <div class="d-none d-lg-inline-block">
+        <div class="navigation-sec">
             <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
         </div>
     </div>

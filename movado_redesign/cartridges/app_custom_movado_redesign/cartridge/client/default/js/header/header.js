@@ -47,6 +47,25 @@ $('.minicart .popover').keyup(function(event) {
     }
 });
 
+$('.first-level-category').click(function(){
+    $('.second-level-sec').removeClass('active');
+    $(this).addClass('active');
+    $(this).siblings('.second-level-sec').addClass('active');
+    $(this).closest('.first-category').addClass('change-color');
+    $('.second-level-sec').addClass('fadeInLeft fast animated');
+});
+
+$('.first-levels-items-category').click(function(){
+    $('.second-levls-section').addClass('active fadeIn animated fast');
+    $('.mobile-container').removeClass('fadeIn animated fast')
+});
+
+$('.back-btn').click(function(){
+    $('.second-levls-section').removeClass('active fadeIn animated fast');
+    $('.mobile-container').addClass('fadeIn animated fast')
+    $('.second-levls-section').fadeOut();
+    $('.mobile-container').fadeIn();
+});
 
 $(".search-icon").click(function(e){
     $(".desktop-search").slideDown("fast");
