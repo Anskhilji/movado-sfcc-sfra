@@ -56,8 +56,18 @@ $('.first-level-category').click(function(){
 });
 
 $('.first-levels-items-category').click(function(){
-    $(this).parent('.first-levels-items').siblings('.second-levls-section').addClass('active fadeIn animated fast');
-    $('.mobile-container').removeClass('fadeIn animated fast')
+    $('.second-levls-section').removeClass('active fadeIn animated fast');
+    var categoryId = $(this).data('id');
+
+    $('.second-levls-section').each(function () {
+        var subCategoryContainer = $(this).data('sub-id');
+        if (categoryId == subCategoryContainer) {
+            $(this).addClass('active fadeIn animated fast');
+            return;
+        }
+    });
+
+    $('.mobile-container').removeClass('fadeIn animated fast');
 });
 
 $('.back-btn').click(function(){

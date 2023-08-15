@@ -36,9 +36,9 @@
             <isloop items="${pdict.categories}" var="mobileCategory">
                 <isif condition="${mobileCategory.subCategories || mobileCategory.disableSubCategories}">
                     <li class="first-levels-items gtm-customEvent"  data-gtm-tracking="${JSON.stringify(mobileCategory.gtmNavVal)}">
-                        <p class="first-levels-items-category">${mobileCategory.name}</p>
+                        <p class="first-levels-items-category" data-id="${mobileCategory.id}">${mobileCategory.name}</p>
                     </li>
-                    <div class="second-levls-section">
+                    <div class="second-levls-section" data-sub-id="${mobileCategory.id}">
                         <div class="back-section">
                             <div class="back-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="17" viewBox="0 0 11 17" fill="none">
