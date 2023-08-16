@@ -68,6 +68,7 @@ $('.first-levels-items-category').click(function(){
     });
 
     $('.mobile-container').removeClass('fadeIn animated fast');
+    $('.mobile-accounts').addClass('d-none');
 });
 
 $('.back-btn').click(function(){
@@ -75,6 +76,7 @@ $('.back-btn').click(function(){
     $('.mobile-container').addClass('fadeIn animated fast')
     $('.second-levls-section').fadeOut();
     $('.mobile-container').fadeIn();
+    $('.mobile-accounts').removeClass('d-none');
 });
 
 $(".search-icon").click(function(e){

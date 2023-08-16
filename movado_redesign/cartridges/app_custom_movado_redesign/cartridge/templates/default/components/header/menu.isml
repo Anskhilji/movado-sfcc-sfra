@@ -1,3 +1,4 @@
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
 <div class="menubar-container">
     <ul class="first-category">
      <isif condition="${pdict.categories}">
@@ -68,5 +69,16 @@
                 </isif>
             </isloop>
         </ul>
+    </div>
+    <div class="mobile-accounts">
+        <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
+        <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
+        
+        <div class="country-selector">
+          <isif condition="${isEswEnabled}" >
+                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
+                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                </isif>
+        </div>
     </div>
 </div>

@@ -7,11 +7,134 @@
     z-index: 1024;
     transition: 1s ease-in-out;
     opacity: 0;
+
+    @include media-breakpoint-down(md) {
+        position: fixed;
+        bottom: 0;
+        overflow: auto;
+    }
   
     &.desktop-slide-down {
       height: 100%;
       top: 0;
       opacity: 1;
+
+      .mobile-container {
+
+        @include media-breakpoint-down(md) {
+            display: block;
+
+            &.fadeIn {
+
+                .country-selector {
+                    display: block;
+                }
+            }
+
+            .mobile-login {
+                list-style: none;
+                margin-top: 0 !important; // i'm using important to overwrite inline css
+
+                .nav-link {
+                    color: $white;
+                    
+                    &.fadeOutLeft {
+                        all: unset;
+                        color: $gray-x12;
+                        font-family: $the-futura-font;
+                        font-size: rem(12);
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: rem(16.8);
+                        letter-spacing: rem(1.5);
+                        text-transform: uppercase;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .my-stores {
+                list-style: none;
+
+                margin-top: rem(30);
+
+                .nav-link {
+                    padding: 0;
+                    color: $gray-x12;
+                    font-family: $the-futura-font;
+                    font-size: rem(12);
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: rem(16.8);
+                    letter-spacing: rem(1.5);
+                    text-transform: uppercase;
+                    cursor: pointer;
+                }
+            }
+
+            .my-wishlist {
+                display: none;
+            }
+
+            .country-selector-mobile {
+                display: none;
+            }
+
+            .country-selector {
+
+                .footerDropdown {
+                    width: 100%;
+                    display: flex;
+                    gap: rem(20);
+
+                    .esw-country-selector {
+                        width: 100%;
+
+                        .btn {
+                            padding: 0;
+                            border-bottom: rem(1) solid $white;
+
+                            &::after {
+                                display: none;
+                            }
+
+                            span {
+                                color: $white;
+                                font-family: $the-futura-font;
+                                font-size: rem(14);
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: rem(16);
+                                letter-spacing: rem(0.14);
+                                text-transform: capitalize;
+                            }
+
+                            .flag-icon {
+                                border: 0;
+                                margin-right: rem(1);
+                            }
+                        }
+
+                        .content {
+                            color: $white;
+                            height: rem(150);
+                            overflow: auto;
+
+                            .dropdown-item {
+                                color: $white;
+                                padding-left: rem(0);
+                                background: transparent;
+
+                                &:hover {
+                                    background: transparent;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+      }
     }
 
     .mobile-accounts {
@@ -19,7 +142,7 @@
 
         @include media-breakpoint-down(md) {
             display: block;
-            background-color: red;
+            margin-top: rem(116);
         }
     }
   
@@ -31,7 +154,7 @@
 
       @include media-breakpoint-down(md) {
         padding: 0 rem(24);
-        height: rem(62);
+        height: rem(64);
       }
   
       .close-icons {
@@ -64,6 +187,10 @@
     .white-header-logo {
       width: 100%;
       margin-right: rem(94);
+
+      @include media-breakpoint-down(md) {
+        margin-right: rem(25);
+      }
   
       p {
         margin: 0;
@@ -76,6 +203,11 @@
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+
+        @include media-breakpoint-down(md) {
+            height: rem(22);
+            max-width: rem(128);
+        }
       }
     }
   
@@ -321,8 +453,7 @@
         display: none;
 
         @include media-breakpoint-down(md) {
-            display: block;
-            margin-top: rem(37);
+            margin-top: rem(35);
         }
 
         .first {
@@ -345,6 +476,7 @@
                         font-weight: 400;
                         line-height: rem(18);
                         letter-spacing: rem(0.25);
+                        text-transform: uppercase;
 
                         &:focus {
                             color: $white;
@@ -393,13 +525,13 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height:  rem(21.6);
-                letter-spacing: rem(1);
+                letter-spacing: rem(2);
                 text-transform: uppercase;
             }
         }
 
         .second {
-            margin-top: rem(41);
+            margin-top: rem(24);
             padding: 0 rem(25);
 
             &-levels {
@@ -408,12 +540,12 @@
 
                 &-items {
                     list-style: none;
-                    margin-bottom: rem(32);
+                    margin-bottom: rem(40);
 
                     &-category {
                         color: $white;
                         font-family: $movado-font;
-                        font-size: rem(18);
+                        font-size: rem(16);
                         font-style: normal;
                         font-weight: 400;
                         line-height: rem(14);
