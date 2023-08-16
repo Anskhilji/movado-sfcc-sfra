@@ -52,15 +52,26 @@
                         <isset name="topCatMobile" value="${mobileCategory}" scope="page"/>
                         <isset name="gtmCategoryValMobile" value="${JSON.stringify(mobileCategory.gtmNavVal)}" scope="page"/>
                         <isset name="menuItemMobile" value="${mobileCategory}" scope="page" />
-                        <div class="second">
-                            <ul class="second-levels">
-                                <isloop items="${menuItemMobile.subCategories}" var="secondLevelCategoryMobile">
-                                        <li class="second-levels-items gtm-customEvent" data-gtm-tracking="${JSON.stringify(secondLevelCategoryMobile.gtmCategoryValMobile)}">
-                                            <a href="${secondLevelCategoryMobile.url}" class="second-levels-items-category">${secondLevelCategoryMobile.name}</a>
-                                        </li>
-                                </isloop>
-                            </ul>
-                        </div>
+
+                        <isif condition="${topCatMobile.disableSubCategories}">
+                            <div class="shop-by-collection-slide">
+                                <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
+                                    <isloop items="${menuItemMobile.subCategories}" var="topCatMobileCategory">
+                                        <p class="gtm-collections ga-collections" ><a href="${topCatMobileCategory.url}"><img class="ga-collection-image" alt="${topCatMobileCategory.name}" src="${!empty(topCatMobileCategory.categoryImageURL) ? topCatMobileCategory.categoryImageURL : '#'}" loading="lazy" title="${topCatMobileCategory.name}" /><span>${topCatMobileCategory.name}</span> </a></p>
+                                    </isloop>
+                                </div>
+                            </div>
+                        <iselse/>
+                            <div class="second">
+                                <ul class="second-levels">
+                                    <isloop items="${menuItemMobile.subCategories}" var="secondLevelCategoryMobile">
+                                            <li class="second-levels-items gtm-customEvent" data-gtm-tracking="${JSON.stringify(secondLevelCategoryMobile.gtmCategoryValMobile)}">
+                                                <a href="${secondLevelCategoryMobile.url}" class="second-levels-items-category">${secondLevelCategoryMobile.name}</a>
+                                            </li>
+                                    </isloop>
+                                </ul>
+                            </div>
+                        </isif>
                     </div>
                 <iselse/>
                     <li class="first-levels-items gtm-customEvent"  data-gtm-tracking="${JSON.stringify(secondLevelCategoryMobile.gtmNavVal)}">

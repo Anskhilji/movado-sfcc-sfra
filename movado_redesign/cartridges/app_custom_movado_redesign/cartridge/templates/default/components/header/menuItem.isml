@@ -1,11 +1,11 @@
-<div class="second-level-sec">
+<div class="second-level-sec" data-pararent-id="${menuItem.id}">
     <ul class="second-category">
       <isloop items="${menuItem.subCategories}" var="secondLevelCategory">
             <li class="second-level">
               <a href="${secondLevelCategory.url}" class="second-level-category">${secondLevelCategory.name}</a>
             </li>
           <isif condition="${!empty(secondLevelCategory.categoryBannerImage)}">
-              <div class="categories-image-container-second gtm-customEvent d-none" data-gtm-tracking='${gtmCategoryVal}'>
+              <div class="categories-image-container-second gtm-customEvent d-none" data-cat-image="${secondLevelCategory.categoryBannerImage ? true : false}" data-gtm-tracking='${gtmCategoryVal}'>
                   <a href="${secondLevelCategory.url}"><img class="main-category-image" alt="${secondLevelCategory.name}" src="${!empty(secondLevelCategory.categoryBannerImage) ? secondLevelCategory.categoryBannerImage : '#'}" loading="lazy" title="${secondLevelCategory.name}" /></a>
               </div>
           </isif>
