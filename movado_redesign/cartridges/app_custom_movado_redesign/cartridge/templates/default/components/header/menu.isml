@@ -57,14 +57,12 @@
                             <div class="shop-by-collection-slide">
                                 <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
                                     <isloop items="${menuItemMobile.subCategories}" var="topCatMobileCategory">
-                                        <isset name="topCatMobileCategoryName" value="${topCatMobileCategory.name.split(' ')}" scope="page" />
                                         <p class="gtm-collections ga-collections">
                                             <a href="${topCatMobileCategory.url}">
                                                 <img class="ga-collection-image" alt="${topCatMobileCategory.name}"src="${!empty(topCatMobileCategory.categoryImageURL) ? topCatMobileCategory.categoryImageURL : '#'}" loading="lazy" title="${topCatMobileCategory.name}" />
                                             </a>
                                             <span class="collection-title">
-                                                <span>${topCatMobileCategoryName[0]}</span>
-                                                <span>${topCatMobileCategoryName[1]}</span>
+                                                <span>${topCatMobileCategory.name}</span>
                                             </span>
                                         </p>
                                     </isloop>
