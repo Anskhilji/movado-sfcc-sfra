@@ -13,6 +13,24 @@
         bottom: 0;
         overflow: auto;
     }
+
+    .desktop-icon {
+        display: flex;
+        align-items: center;
+        
+        @include media-breakpoint-down(md) {
+            display: none;
+        }
+    }
+
+    .mobile-icon {
+        display: none;
+
+        @include media-breakpoint-down(md) {
+            display: flex;
+            align-items: center;
+        }
+    }
   
     &.desktop-slide-down {
       height: 100%;
@@ -34,41 +52,56 @@
             .mobile-login {
                 list-style: none;
                 margin-top: 0 !important; // i'm using important to overwrite inline css
+                font-family: $movado-font;
+
+                i {
+                    display: none;
+                }
+
+                .dropdown-menu {
+                    height: auto;
+                    margin: 0;
+
+                    .my-account {
+
+                        &:hover,&:focus,:active {
+                            background-color: transparent;
+                            color: $black;
+                        }
+                    }
+                }
 
                 .nav-link {
                     color: $white;
                     
                     &.fadeOutLeft {
                         all: unset;
-                        color: $gray-x12;
+                        color: $white;
                         font-family: $the-futura-font;
-                        font-size: rem(12);
+                        font-size: rem(14);
                         font-style: normal;
-                        font-weight: 500;
-                        line-height: rem(16.8);
-                        letter-spacing: rem(1.5);
-                        text-transform: uppercase;
+                        font-weight: 400;
+                        line-height: rem(18.48);
                         cursor: pointer;
+                        letter-spacing: 0;
                     }
                 }
             }
 
             .my-stores {
                 list-style: none;
-
-                margin-top: rem(30);
+                margin-top: rem(29);
 
                 .nav-link {
                     padding: 0;
-                    color: $gray-x12;
+                    color: $white;
                     font-family: $the-futura-font;
-                    font-size: rem(12);
+                    font-size: rem(14);
                     font-style: normal;
-                    font-weight: 500;
-                    line-height: rem(16.8);
-                    letter-spacing: rem(1.5);
-                    text-transform: uppercase;
+                    font-weight: 400;
+                    line-height: rem(18.48);
                     cursor: pointer;
+                    letter-spacing: 0;
                 }
             }
 
@@ -142,7 +175,7 @@
 
         @include media-breakpoint-down(md) {
             display: block;
-            margin-top: rem(116);
+            margin-top: rem(144);
         }
     }
   
@@ -154,7 +187,7 @@
 
       @include media-breakpoint-down(md) {
         padding: 0 rem(24);
-        height: rem(64);
+        height: rem(62);
       }
   
       .close-icons {
@@ -189,7 +222,7 @@
       margin-right: rem(94);
 
       @include media-breakpoint-down(md) {
-        margin-right: rem(25);
+        margin-right: rem(15);
       }
   
       p {
@@ -348,7 +381,7 @@
               .second-category {
                 margin: 0;
                 padding: 0;
-                min-width: rem(125);
+                min-width: rem(170);
 
                 .categories-image-container-second {
 
@@ -374,6 +407,7 @@
                 .second-level {
                   list-style: none;
                   margin: 0 0 rem(20) 0;
+                  font-family: $movado-font;
 
                   &.active {
 
@@ -453,7 +487,7 @@
         display: none;
 
         @include media-breakpoint-down(md) {
-            margin-top: rem(35);
+            margin-top: rem(37);
         }
 
         .first {
@@ -503,6 +537,61 @@
             display: block;
         }
 
+        .shop-by-collection-slide {
+            margin-top: rem(22);
+
+            .featured-promotion {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                text-align: center;
+                padding: 0 rem(24);
+                justify-content: space-between;
+                gap: rem(16);
+
+                .ga-collections {
+                    width: calc(50% - 8px);
+                    margin-top: rem(16);
+                    display: block;
+                    margin-bottom: 0;
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        height: rem(130);
+
+                        img {
+                            height: 100%;
+                            width: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .collection-title {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                    }
+
+                    span {
+                        color: $white;
+                        font-family: $movado-font;
+                        font-size: rem(18);
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: rem(18);
+                        letter-spacing: rem(0.25);
+                        margin-top: rem(16);
+                        text-align: left;
+
+                        &:last-child {
+                            margin-top: 0;
+                        }
+                    }
+                }
+            }
+        }
+
         .back-section {
             height: 62px;
             padding: 0 24px;
@@ -525,13 +614,13 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height:  rem(21.6);
-                letter-spacing: rem(2);
+                letter-spacing: rem(1);
                 text-transform: uppercase;
             }
         }
 
         .second {
-            margin-top: rem(24);
+            margin-top: rem(41);
             padding: 0 rem(25);
 
             &-levels {
@@ -540,12 +629,12 @@
 
                 &-items {
                     list-style: none;
-                    margin-bottom: rem(40);
+                    margin-bottom: rem(32);
 
                     &-category {
                         color: $white;
                         font-family: $movado-font;
-                        font-size: rem(16);
+                        font-size: rem(18);
                         font-style: normal;
                         font-weight: 400;
                         line-height: rem(14);
@@ -563,6 +652,6 @@
     }
 }
 
-.no-overflow {
+.overflow-hide {
     overflow: hidden;
 }

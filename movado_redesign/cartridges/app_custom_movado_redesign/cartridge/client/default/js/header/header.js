@@ -277,7 +277,7 @@ $(".desktop-menu .sub-dropdown").keydown(function(e) {
 $(".desktop-hamburger svg , .Menu-text").click(function(){
     $('.desktop-slide-up').addClass("desktop-slide-down");
     $('.desktop-slide-up').slideDown("300");
-    $('body, html').addClass('no-overflow');
+    $('body, html').addClass('overflow-hide');
   });
 
   $(".desktop-slide-up .close-icons , .close-text").click(function(){
@@ -286,7 +286,7 @@ $(".desktop-hamburger svg , .Menu-text").click(function(){
     $('.first-category').removeClass('change-color');
     $('.first-level-category').removeClass('active');
     $('.categories-image-container').addClass('d-none');
-    $('body, html').removeClass('no-overflow');
+    $('body, html').removeClass('overflow-hide');
   });
 
 
@@ -299,7 +299,7 @@ $(".desktop-hamburger svg , .Menu-text").click(function(){
     var categoryId = $(this).attr('id');
     $('.categories-image-container').addClass('d-none fadeIn fast animated');
     $('.categories-image-container-second').addClass('d-none');
-    $('body, html').addClass('no-overflow');
+    $('body, html').addClass('overflow-hide');
     
 
     $('.categories-image-container').each(function () {
