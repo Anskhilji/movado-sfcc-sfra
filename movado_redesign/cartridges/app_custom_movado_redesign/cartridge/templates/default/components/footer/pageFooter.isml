@@ -4,7 +4,7 @@
     <isslot id="footer-top-slot" description="Footer top slot" context="global" />
     
     <iscomment> container-1366 class addded, usablenet replaced  </iscomment>
-    <div class="container-fluid container-1366 mb-4 mb-lg-5">
+    <div class="container-fluid container-1366">
         <div class="footer-container row">
             <isif condition="${enableUsablenetAccessibility}">
                 <div class="footer-item text-center col-12 hidden-md-up">

@@ -247,6 +247,7 @@
 
             .input-group {
                 align-items: center;
+                border-bottom: 0.0625rem solid $white;
             }
         }
 
@@ -618,6 +619,10 @@
         max-width: rem(1440);
         padding: 0 rem(48);
 
+        .copyright-notice {
+            margin-top: rem(39);
+        }
+
         @include media-breakpoint-down(md) {
             padding: 0;
 
@@ -693,7 +698,6 @@
                 .footer-newsletter-email-field {
                     padding: rem(12) rem(0);
                     border: none;
-                    border-bottom: rem(1) solid $white;
                 }
 
                 .header-container {
@@ -715,7 +719,7 @@
                     min-width: rem(190);
                 }
 
-                @media (max-width:$custom-xll) {
+                @media (min-width:$custom-xll) {
                     max-width: rem(306);
                     width: auto;
                 }
@@ -869,10 +873,14 @@
     .footer-country-section {
 
         .selectCountry {
-            padding: rem(10) 0;
+            padding: 0;
 
             .title {
-                border-bottom: 1px solid $white;
+                border-bottom: rem(1) solid $white;
+                min-width: rem(190);
+                display: flex;
+                align-items: center;
+                padding: rem(10) 0;
             }
          
             span {
@@ -886,10 +894,15 @@
         }
 
         .selectLanguage {
-            padding: rem(10) 0;
+            padding: 0;
+            display: flex;
 
             .title {
                 border-bottom: rem(1) solid $white;
+                min-width: rem(190);
+                display: flex;
+                align-items: center;
+                padding: rem(10) 0;
 
                 &::after {
                     display: none;
