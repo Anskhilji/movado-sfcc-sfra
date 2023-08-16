@@ -317,16 +317,39 @@ $('.second-level').hover(
     function () {
         $('.categories-image-container-second').addClass('d-none');
         $(this).addClass('active');
-        if ($(this).siblings('.categories-image-container-second').length && $(this).siblings('.categories-image-container-second').data('cat-image') == true) {
-            $('.categories-image-container').addClass('d-none');
-            $(this).siblings('.categories-image-container-second').removeClass('d-none');
-            $(this).siblings('.categories-image-container-second').addClass('fadeIn fast animated');
-        } else {
-            $('.categories-image-container-second').removeClass('d-none');
-        }
+        var childCategoryId = $(this).data('category-id');
+
+            $('.categories-image-container-second').each(function () {
+                var imageId = $(this).data('cat-image');
+                if (childCategoryId == imageId) {
+                    $('.categories-image-container').addClass('d-none');
+                    $(this).removeClass('d-none');
+                    $(this).addClass('fadeIn fast animated');
+                    return;
+                } else {
+                    var parentCatId = $(this).parents('.second-level-sec').data('pararent-id');
+                    $('.categories-image-container').each(function () {
+                        var imageId = $(this).data('id');
+                        if (parentCatId == imageId) {
+                            $(this).removeClass('d-none');
+                            return;
+                        }
+                
+                    });
+                }
+        
+            });
     }, 
     function () {
-        $(this).closest('.categories-image-container').removeClass('d-none');
+        var parentCatId = $(this).parents('.second-level-sec').data('pararent-id');
+        $('.categories-image-container').each(function () {
+            var imageId = $(this).data('id');
+            if (parentCatId == imageId) {
+                $(this).removeClass('d-none');
+                return;
+            }
+    
+        });
         $(this).removeClass('active');
     }
  );
