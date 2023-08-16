@@ -270,9 +270,9 @@
         }
 
         #dropdownCountrySelector {
+            
             &::after {
                 margin-left: rem(5);
-                display: none;
             }
         }
 
@@ -589,7 +589,7 @@
     background-color: $black;
 
     .footer-top {
-        background-color: $footer-new-desgin;
+        background-color: $light-black6;
 
         .footer-top-inner {
             padding: rem(27.5) 0;
@@ -703,7 +703,7 @@
                
                 @include media-breakpoint-up(md) {
                     margin-top: rem(60);
-                    width: rem(190);
+                    width: auto;
                 }
             }
 
@@ -726,7 +726,7 @@
         .footer-logo-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 157px;
+            margin-top: rem(157);
 
             @include media-breakpoint-down(xs) {
                 flex-direction: column-reverse;
@@ -736,7 +736,16 @@
                 width: rem(302);
                 height: rem(37);
             }
+
+            #dropdownCountrySelector {
+                
+                &::after {
+                    margin-left: rem(5);
+                    display: none;
+                }
+            }
         }
+
         .footer-item {
 
             .content-asset {
@@ -837,7 +846,7 @@
     .footer-signup-container {
 
         .footer-newsletter-email-button {
-            background: url(../../images/Enter-Icon.svg) center center no-repeat;
+            background: url(../../images/enter-icon.svg) center center no-repeat;
             width: rem(20);
             height: rem(20);
         }
