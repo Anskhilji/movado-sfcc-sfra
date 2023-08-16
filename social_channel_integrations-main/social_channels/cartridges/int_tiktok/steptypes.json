@@ -26,6 +26,14 @@
                             "@required": "false",
                             "default-value": "large",
                             "description": "The view type of the image exported for each product"
+                        },
+                        {
+                            "@name": "HiddenCategory",
+                            "@type": "string",
+                            "@trim": "true",
+                            "@required": "false",
+                            "default-value": "",
+                            "description": "The parametter is used to export the specific category"
                         }
                     ]
                 },

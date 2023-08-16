@@ -47,12 +47,9 @@ function exportCatalog(parameters) {
         return new Status(Status.ERROR, 'ERROR', 'No access token available, skip this step...');
     }
 
-    var productsIterator = ProductMgr.queryAllSiteProducts();
-    // If the search returns more than 0 products, authenticate against TikTok
-    if (productsIterator.getCount() === 0) {
-        return new Status(Status.OK, 'NO_DATA', 'No data to export, skip this step...');
-    }
-    Logger.info('Number of products to process: ' + productsIterator.getCount() + '\n');
+    var productsIterator = getProductSearchHitIt(parameters.HiddenCategory);
+    // var productsIterator = ProductMgr.queryAllSiteProducts();
+
     try {
         var allCallsSucceed = true;
         //var productsChunk = [];
@@ -69,7 +66,7 @@ function exportCatalog(parameters) {
         var fileWriter = new FileWriter(newTrackingFile, ENCODING);
 
         while(productsIterator.hasNext()) {
-            var product = productsIterator.next();
+            var product = productsIterator.next().product;
 
             // Ignore offline products
             if (!isExportableProduct(product)) {
@@ -109,7 +106,6 @@ function exportCatalog(parameters) {
         Logger.error(e);
         return new Status(Status.ERROR, 'ERROR', 'Something went wrong with the data export.');
     } finally {
-        productsIterator && productsIterator.close();
         fileWriter.close();
     }
 }
@@ -135,6 +131,23 @@ function readPreviousExportTrackingFile() {
     }
     fileReader.close();
     return products;
+}
+
+
+/**
+ * get the product search model on base of provide category
+ *
+ * @param {dw/object/CustomObject} categoryID The hidden category to export
+ */
+function getProductSearchHitIt(categoryID) {
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
+    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+    var categoryID = CatalogMgr.getCategory(categoryID);
+    var productSearchModel = new ProductSearchModel();
+    productSearchModel.setCategoryID(categoryID.ID);
+    productSearchModel.search();
+    var productSearchHitsItr = productSearchModel.getProductSearchHits();
+    return productSearchHitsItr;
 }
 
 /**
