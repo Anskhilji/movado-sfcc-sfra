@@ -196,7 +196,7 @@
           &::after {
             transform: rotateY(0);
             opacity: 1;
-            background-color: $dark-blue-btn;
+            background-color: var(--dark-blue-btn);
           }
         }
       }
@@ -257,7 +257,7 @@
           &:hover {
             
             a {
-              color: $dark-blue-btn;
+              color: var(--dark-blue-btn);
             }
           }
 
@@ -268,7 +268,7 @@
           &:hover {
 
             .dropdown-menu-item-text {
-              color: $dark-blue-btn !important;
+              color: var(--dark-blue-btn);
             }
           }
 
@@ -305,7 +305,7 @@
               color: $dark-gray2;
 
               &:hover {
-                color: $dark-blue-btn !important;
+                color: var(--dark-blue-btn);
                 text-decoration: underline;
               }
             }
@@ -445,10 +445,10 @@
        &:hover {
 
         .dropdown-link {
-          color: $dark-blue-btn !important;
+          color: var(--dark-blue-btn);
 
           &::before {
-            background-color: $dark-blue-btn !important; // i'm using important to overwrite inline css
+            background-color: var(--dark-blue-btn) !important; // i'm using important to overwrite inline css
           }
         }
        }
@@ -476,12 +476,12 @@
           }
 
           &:hover {
-            color: $dark-blue-btn;
+            color: var(--dark-blue-btn);
             text-decoration: none;
 
             &::before {
               opacity: 1;
-              background-color: $dark-blue-btn;
+              background-color: var(--dark-blue-btn);
             }
           }
         }
@@ -637,8 +637,8 @@
     border-radius: rem(64.5);
 
     &:hover, &:focus {
-      border-color: $dark-blue-btn;
-      background-color: $dark-blue-btn;
+      border-color: var(--dark-blue-btn);
+      background-color: var(--dark-blue-btn);
       color: $white;
     }
   }
@@ -670,10 +670,10 @@
       &:hover {
         
         .category-custom-link {
-          color: $dark-blue-btn;
+          color: var(--dark-blue-btn);
  
           &::before {
-            background-color: $dark-blue-btn;
+            background-color: var(--dark-blue-btn);
             opacity: 1;
           }
         }
@@ -696,10 +696,10 @@
       margin: 0;
       color: $dark-gray2;
       &:hover {
-        color: $dark-blue-btn;
+        color: var(--dark-blue-btn);
 
         &::before {
-          background: $dark-blue-btn;
+          background: var(--dark-blue-btn);
         }
       }
     }
@@ -718,10 +718,10 @@
     color: $dark-gray2;
 
      &:hover {
-      color: $dark-blue-btn;
+      color: var(--dark-blue-btn);
 
       &::before {
-        background: $dark-blue-btn;
+        background: var(--dark-blue-btn);
       }
      }
   

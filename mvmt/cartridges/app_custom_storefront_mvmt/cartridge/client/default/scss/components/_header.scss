@@ -1719,7 +1719,6 @@ header {
                           
                         .nav-link {
                           font-weight: 450;
-                          color: $dark-gray2 !important;
 
                           &::after {
                             opacity: 1;
@@ -1754,7 +1753,7 @@ header {
                           transition: opacity .3s ease 0s,transform .24s ease 0s;
                           width: 100%;
                           height: rem(2);
-                          background: $dark-gray2;
+                          background: var(--dark-black);
                         }
                       }
                     }

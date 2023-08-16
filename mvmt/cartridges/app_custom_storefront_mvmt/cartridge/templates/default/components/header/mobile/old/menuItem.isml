@@ -18,7 +18,7 @@
                 <isloop items="${menuItem.subCategories}" var="category">
                     <isif condition="${category.subCategories}">
                         <li class="dropdown dropdown-item-mvmt grey-arrow-right gtm-customEvent submenu-control" role="menuitem" data-category=$ {category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                            <span href="${category.url}" role="button" class="dropdown-link" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">${category.name}</span>
+                            <span href="${category.url}" role="button" class="dropdown-link" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>${category.name}</span>
                             <div class="dropdown-menu">
                                 <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
                                     <div class="new-header-menu-logo">
@@ -39,7 +39,7 @@
                         </li>
                     <iselse>
                        <li class="dropdown-item-mvmt gtm-customEvent submenu-control" role="menuitem" data-category=$ {category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                           <a href="${category.url}" role="button" class="dropdown-link" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">${category.name}</a>
+                           <a href="${category.url}" role="button" class="dropdown-link" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>${category.name}</a>
                       </li>
                   </isif>
               </isloop>

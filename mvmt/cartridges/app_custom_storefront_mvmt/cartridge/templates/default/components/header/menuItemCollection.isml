@@ -13,7 +13,7 @@
 	                            <isif condition="${category.categoryImageURL}">
 	                               <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
 	                            </isif>
-	                            <span class="third-level-menu-text" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">${category.name}</span>
+	                            <span class="third-level-menu-text" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>${category.name}</span>
 	                        </div>
 	                    </a>
 	                </li>
@@ -31,7 +31,7 @@
 	                            <isif condition="${category.categoryImageURL}">
 	                               <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
 	                            </isif>
-	                            <span class="third-level-menu-text" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">${category.name}</span>
+	                            <span class="third-level-menu-text" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>${category.name}</span>
 	                        </div>
 	                    </a>
 	                </li>
@@ -49,7 +49,7 @@
                             <isif condition="${category.categoryImageURL}">
                                 <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
                             </isif>
-                            <span class="third-level-menu-text" style="color:${category.categoryColor}; --dark-black:${category.categoryColor};">${category.name}</span>
+                            <span class="third-level-menu-text" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>${category.name}</span>
                         </div>
                     </a>
                 </li>
