@@ -22,7 +22,7 @@
 
     <div class="tile-body" aria-label="pooduct tile popover" tabindex="0">
      <isinclude template="product/components/productTileName" />
-        <div class="d-flex">
+        <div class="d-flex tile-body-content">
         <iscomment> Custom Start: Prodcut prices shows when following requirements meet </iscomment>
             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                 <isset name="price" value="${product.price}" scope="page" />
