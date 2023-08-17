@@ -346,6 +346,7 @@
                         cursor: pointer;
                         transition: .3s ease all;
                         margin: 0;
+                        display: block;
 
                         &.active {
                             color: $white;
@@ -365,6 +366,7 @@
                         }
 
                         &:hover {
+                            text-decoration: none;
 
                             &::before {
                                 opacity: 1;
