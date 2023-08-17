@@ -6,9 +6,9 @@
           <isif condition="${category.subCategories || category.disableSubCategories}">
             <iscomment> Custom: sub-dropdown class added</iscomment>
             <li data-image="${category.categoryBannerImage}" class="first-level gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <p id="${category.id}" class="first-level-category">
+              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="first-level-category">
                 ${category.name}
-              </p>
+              </a>
              <isset name="topCat" value="${category}" scope="page"/>
              <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
               <isset name="menuItem" value="${category}" scope="page" />
@@ -16,14 +16,14 @@
             </li>
           <iselse/>
             <li class="first-level" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <p  id="${category.id}" role="button" class="first-level-category">
+              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>"  id="${category.id}" role="button" class="first-level-category">
                 ${category.name}
-              </p>
+              </a>
             </li>
           </isif>
           <isif condition="${!empty(category.categoryBannerImage)}">
             <div class="categories-image-container gtm-customEvent d-none" data-id="${category.id}" data-gtm-tracking='${gtmCategoryVal}'>
-                <a href="${category.url}"><img class="main-category-image" alt="${category.name}" src="${!empty(category.categoryBannerImage) ? category.categoryBannerImage : '#'}" loading="lazy" title="${category.name}" /></a>
+                <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>"><img class="main-category-image" alt="${category.name}" src="${!empty(category.categoryBannerImage) ? category.categoryBannerImage : '#'}" loading="lazy" title="${category.name}" /></a>
             </div>
           </isif>
         </isloop>
