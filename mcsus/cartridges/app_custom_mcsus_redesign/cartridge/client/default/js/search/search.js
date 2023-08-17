@@ -545,11 +545,11 @@ module.exports = {
                             updatePageURLForShowMore($showMoreUrl);
                             $loadMoreInProcessing = false;
                             if ($windowWidth < $mediumWidth) {
-                                if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
+                                if (($('.searech-results-wrapper .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
                                     $('.grid-footer').removeClass('d-none');
                                 }
                             } else {
-                                if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
+                                if (($('.searech-results-wrapper .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
                                     $('.grid-footer').removeClass('d-none');
                                 }
                             }
