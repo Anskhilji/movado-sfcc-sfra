@@ -27,7 +27,7 @@
                                 </isloop>
                                 <isif condition="${isSubCategoryHidden == 'false'}">
                                     <div class="browse-collection ${categoryItem.headerMenuBanner == null ? 'no-static-content' : ''}">
-                                        <a href="${category.url}" id="${category.id+'list'}" class="sub-menu-title" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>${category.name}</a>
+                                        <a href="${category.url}" id="${category.id+'list'}" class="sub-menu-title" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
                                         <div class="dropdown" role="menuitem" >
                                             <isinclude template="components/header/menuItemList"/>
                                         </div>
