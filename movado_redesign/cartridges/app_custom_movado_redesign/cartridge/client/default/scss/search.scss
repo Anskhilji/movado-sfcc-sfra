@@ -111,20 +111,41 @@
 
   .filter-btn {
 
-    button{
-      border: none;
-      font-size:rem(15);
-      @include font-demi;
+    button {
+      font-family: $movado-font;
+      font-size:rem(12);
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: rem(0.48);
+      text-transform: uppercase;
       color: $black;
+      border: none;
       outline: none;
-      padding-left: rem(25);
-      background: url("../images/filter.png") left center no-repeat;
+      padding-right: rem(25);
+      background: url("../images/new-filter.png") right center no-repeat;
       cursor: pointer;
-
-      &:focus {
-            outline: -webkit-focus-ring-color auto 1px;
-        }
     }
+  }
+
+  .sortBy-btn {
+
+    button {
+      font-family: $movado-font;
+      font-size:rem(12);
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: rem(0.48);
+      text-transform: uppercase;
+      color: $black;
+      border: none;
+      outline: none;
+      padding-right: rem(25);
+      background: url("../images/sort-icon.png") right center no-repeat;
+      cursor: pointer;
+    }
+
   }
 
   .tab-content {
@@ -134,20 +155,33 @@
   .result-count {
 
     > span {
-        margin: 0;
-        @include font-book;
-        font-size: rem(15);
-        letter-spacing: normal;
+        color: $dark-gray;
+        font-family: $the-futura-font;
+        font-size: rem(14);
+        font-style: normal;
+        font-weight: 400;
+        line-height: rem(16);
+        letter-spacing: rem(0.14);
     }
 
-    .make-bold, .category-name {
+    .make-bold {
         @include font-demi;
         font-size: rem(17);
         margin: 0;
         margin-right: rem(5);
         text-transform: capitalize;
     }
-    .category-name {font-size: rem(15);}
+    .category-name {
+        color: $light-black;
+        font-family: $movado-font;
+        font-size: rem(24);
+        font-style: normal;
+        font-weight: 400;
+        line-height: rem(32);
+        margin: 0;
+        margin-right: rem(5);
+        text-transform: capitalize;
+      }
   }
 
   .plp-show-more {
@@ -167,6 +201,19 @@
         box-shadow: none;
       }
     }
+  }
+  .sortBy-bar {
+    position: fixed;
+    width: rem(350);
+    z-index: 99999;
+    background: $white;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: unset;
+    // opacity: 0;
+    // display: none !important;
+    // pointer-events: none;
   }
 
   .refinement-bar {
@@ -313,7 +360,7 @@
 
         &::after {
           content: "";
-          background: url("../images/down-arrow.svg") left center no-repeat;
+          background: url("../images/filter-plus.svg") left center no-repeat;
           opacity: 1;
           right: 0;
           top: rem(7);
@@ -394,7 +441,6 @@
       }
     }
     .close-refinebar {
-      background: url("../images/left-arrow.svg") left -4px center no-repeat;
       border: none;
       font-size: rem(17);
       @include font-medium;
@@ -1547,8 +1593,6 @@
   .dk-fillter-m  {
     // filter bar sticky styling MSS-1912
       &.filter-box {
-        border-bottom: rem(1) solid $white-grey;
-        margin-bottom: rem(15);
         
           @include custom-media-query-max($medium-screen-width) {
             border-bottom: rem(0) solid $white-grey;
@@ -1588,9 +1632,7 @@
   .desktop-search-refine-bar-redesing {
     position: relative;
     background-color: $white;
-    @include custom-media-query-max($medium-screen-width) {
-      display: none;
-    }
+
     &.active {
       position: absolute;
       left: 0;
@@ -2355,4 +2397,9 @@
             padding: 0 rem(24);
         }
     }
+}
+
+.search-results-updated {
+  height: rem(80);
+  padding: 0 rem(50);
 }
