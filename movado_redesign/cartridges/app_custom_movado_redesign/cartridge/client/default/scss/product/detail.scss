@@ -5,6 +5,10 @@
 @import "animate.css/animate";
 @import "../custom-animation";
 @import "../components/_backInStockNotification";
+@import "../components/productGallery";
+@import "../components/productRightDetail";
+@import "../components/accordionPdp";
+@import "../components/swissMade";
 
 $arrow-height: 1.25em;
 .dw-apple-pay-button.apple-pay-pdp,
@@ -49,10 +53,6 @@ $arrow-height: 1.25em;
 
     &.product-detail {
         background: $slate-grey-light;
-    }
-
-    .detail-sec {
-        padding-top: rem(100);
     }
 
     .product-name {
@@ -441,7 +441,7 @@ $arrow-height: 1.25em;
     .exclusive-badges {
 
         .badge {
-            @include font-demi;
+            font-family: $the-futura-font;
             font-size: rem(10);
             letter-spacing: normal;
             color: $storm-gray;
@@ -1368,9 +1368,68 @@ $arrow-height: 1.25em;
 
 .container-fluid.pdp-mobile {
 
+    // .mobile-carsousel {
+    //     &.primary-images {
+    //         position: relative;
+
+    //         @include media-breakpoint-up(custom-md) {
+    //             display: none;
+    //         }
+
+    //         @include media-breakpoint-down(sm) {
+    //             padding: 0;
+    //         }
+
+    //         .product-badges-mobile {
+    //             position: absolute;
+    //             top: rem(24);
+    //             right: rem(24);
+    //             z-index: 2;
+
+    //             .exclusive-badges {
+    //                 margin: 0;
+
+    //                 .badge {
+    //                     font-family: $the-futura-font;
+    //                     font-size: rem(12);
+    //                     color: $black;
+    //                     line-height: rem(13.8);
+    //                     letter-spacing: rem(0.5);
+    //                     color: $storm-gray;
+    //                     padding: rem(4) rem(16);
+    //                     margin: 0;
+    //                     background-color: $white;
+    //                     text-transform: uppercase;
+    //                     border: rem(1) solid $neutrals-300;
+    //                     border-radius: rem(100);
+    //                 }
+    //             }
+    //         }
+
+    //         // .cs-carousel-wrapper {
+    //         //     margin-bottom: 0;
+    //         //     .main-carousel  {
+    //         //         padding-bottom: 0;
+    //         //     }
+
+    //         //     // .carousel-nav {
+    //         //     //     margin-bottom: 0;
+    //         //     //     .slick-dots {
+    //         //     //         width: 100%;
+    //         //     //         bottom: rem(2);
+    //         //     //         li {
+
+    //         //     //         }
+    //         //     //     }
+    //         //     // }
+    //         // }
+    //     }
+    // }
+
     @include media-breakpoint-down(md) {
 
         .primary-images {
+           
 
             .cs-carousel-wrapper {
 
@@ -1378,8 +1437,17 @@ $arrow-height: 1.25em;
 
                     .slick-slide {
                         opacity: 1;
+                        margin: 0;
+
+                        .poster-frame-video{
+                            width: 100%;
+                            max-width: 100%;
+                            height: 100%;
+                            aspect-ratio: 0.8/1;
+                        }
                     }
                 }
+                
             }
         }
 
@@ -1831,111 +1899,22 @@ $arrow-height: 1.25em;
 }
 
 .no-overflow {
-    overflow: hidden;
+    overflow: clip;
 }
 
 html {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 body {
     margin-bottom: 0 !important;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .cart-and-ipay {
     justify-content: flex-start;
 }
-.smart-gift-btn {
-    width: 100%;
 
-    @include media-breakpoint-down(sm) {
-        display: flex;
-    }
-
-    .content-asset {display: inline-block;}
-
-    .smartgift {
-        &-btn-redesign {
-            width: 88%;
-            font-family: $font-futura-demi;
-            font-weight: 600;
-            font-style: normal;
-            font-size: 1rem;
-            letter-spacing: normal;
-            border-color: $black;
-            border-radius: 0;
-    
-            @include media-breakpoint-down(xs) {
-                min-width: 85%;
-                margin-left: rem(0);
-            }
-        }
-
-        &-btn-popup {
-            width: rem(39);
-            font-family: $font-medium;
-            font-weight: 500;
-            font-style: normal;
-            font-size: 1rem;
-            letter-spacing: normal;
-            border-color: $black;
-            margin-left: rem(-7);
-            border-radius: 0;
-            
-            &::after, &::before {
-                border-left: solid transparent 0.425em;
-                border-right: solid transparent 0.425em;
-                content: " ";
-                height: 0;
-                right: rem(14);
-                transform: rotate(180deg);
-                position: absolute;
-                width: 0;
-                bottom: rem(33);
-                z-index: 999;
-                border-bottom: solid $white 0.625em;;
-                display: none;
-                @include media-breakpoint-down(sm) {
-                    right: rem(13);
-                    bottom: rem(37);
-                }
-            }
-    
-            &::before {
-                border-bottom: solid $gull-gray-light rem(10);
-                right: rem(13);
-                top: rem(4);
-                border-left: solid transparent 0.525em;
-                border-right: solid transparent 0.525em;
-                @include media-breakpoint-down(sm) {
-                    right: rem(11);
-                    top: rem(1);
-                }
-                @include media-breakpoint-down(xs) {
-                    top: rem(3);
-                    right: rem(13);
-                }
-            }
-            
-    
-            &.active {
-                &::after, &::before {
-                    display: block;
-                }
-            }
-            @include media-breakpoint-down(sm) {
-                min-width: rem(44);
-                margin-left: rem(-1);
-            }
-            @include media-breakpoint-down(xs) {
-                min-width: rem(44);
-                margin-left: rem(-4);
-            }
-        }
-    }
-    
-}
 
 .custom-tooltipsmart {
     display: none;

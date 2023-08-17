@@ -30,58 +30,78 @@
                 </div>
             </isif>
 
-            <div class="row mobile-detail-head d-md-none">
-                <div class="col-12">
-                    <!---Breadcrumbs--->
-                    <div class="product-breadcrumb d-none">
-                        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-                    </div>
-
-                    <!-- Product Name -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h1 class="product-name text-capitalize" itemprop="name">${product.productName}</h1>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(sitePref.yotpoStoreProductRatingEnabled) ? sitePref.yotpoStoreProductRatingEnabled : false}" scope="page" />
-                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                            <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
-                                <div class="product-number-rating clearfix">
-                                    <div class="product-number d-none hidden-xs-down pull-left">
-                                        <isinclude template="product/components/productNumber" />
-                                    </div>
-                                    <div class="ratings pull-left">
-                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                            <isinclude template="product/components/yotpoRatings" />
-                                        </div>
-                                    </div>
-                                    <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
-                                </div>
-                            <iselse/>
-                                <isinclude template="product/components/pidRating" />
-                            </isif>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="row movado-pdp-row">
-                <!-- Product Images Carousel -->
+            <div class="row product-aruliden-sec">
+                <!-- Product Images gallery for desktop -->
+                <isinclude template="product/components/productGalleryDesktop" />
+                <!-- Product Images Carousel for mobile-->
                 <isinclude template="product/components/imageCarousel" />
 
-                <div class="col-12 col-lg-5 detail-sec pt-sm-5">
-	               <div class="row">
+                <div class="col">
+	              <div class="detail-sec">
+                     <div class="product-badges">
 	                   <!-- Attributes and Quantity -->
-	                   <div class="col-md-10 col-12">
-                            <isinclude template="product/components/badges" />
-                        </div>
+	                    <isinclude template="product/components/badges" />
 	                </div>
                     <!-- Product Name -->
-                    <h2 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h2>
+                    <h2 class="product-name product-title-for-gtm">${product.productName}</h2>
+                    
+                    <!-- Prices -->
+                    <div class="prices pdp-price">
+                        <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </isif>
+                    </div>
+
+                    <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                    <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                        <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                        <isset name="context" value="pdp" scope="page" />
+                        <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                        <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
+                    </isif> 
+
+                    <div class="product-description description">
+                        <isinclude template="product/components/description" />
+                    </div>
+
+                    <isif condition="${sitePref.clydeWidgetDisplayPDP}">
+                        <div class="pdp-clyde">
+                            <iscomment> Custom Start: Clyde Integration </iscomment>
+                            <isset name="isClydeEnable" value="${!empty(dw.system.Site.current.preferences.custom.isClydeEnabled) ? dw.system.Site.current.preferences.custom.isClydeEnabled : false}" scope="page" />
+                            <isset name="isClydeWidgetEnable" value="${!empty(dw.system.Site.current.preferences.custom.clydeWidgetDisplay) ? dw.system.Site.current.preferences.custom.clydeWidgetDisplay : false}" scope="page" />
+                            <div hidden="hidden" class="clyde-site-prefrence" data-clyde-enable="${isClydeEnable}" data-clyde-widget="${isClydeWidgetEnable}"></div>
+                            <isif condition="${isClydeEnable && isClydeWidgetEnable}">
+                                <div class="clyde-widget">
+                                    <div id="clyde-cta">                                
+                                    </div>
+                                </div>
+                            </isif>
+                            <iscomment> Custom End: </iscomment>                         
+                        </div>
+                    </isif>
+
+                    <!-- Cart and [Optionally] Apple Pay -->
+                    <div class="cart-wishlist ${product.available && product.readyToOrder ? '' : 'cart-wishlist-out-of-stock'}">
+                        <iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
+                        <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
+                        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                            <div class="traditional-wishlist-row wishlist-row">
+                                <isinclude url="${URLUtils.https('Wishlist-ShowIcon', 'gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
+                            </div>
+                        </isif>
+                    </div>
+
+                    <!-- Product Availability -->
+                    <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
+                    <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                        <div class="availability product-availability" data-ready-to-order="${product.readyToOrder}"
+                            data-available="${product.available}">
+                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                        </div>
+                    </isif>
+                    
                     <div class="hidden-sm-down">
                         <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                         <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
@@ -100,22 +120,18 @@
                             <isinclude template="product/components/pidRating" />
                         </isif>
                     </div>
-                    <div class="row mt-4 product-description description">
-                        <isinclude template="product/components/description" />
-                    </div>
+
                     
-                    <div class="row m-0">
+                    <div class="m-0">
                         <!-- Attributes and Quantity -->
                         <isif condition="${!product.variationAttributes && product.options.length === 0}">
-                            <div class="col-md-10 col-12">
-                                <div class="simple-quantity d-none">
-                                    <isinclude template="product/components/quantity" />
-                                </div>
+                             <div class="simple-quantity d-none">
+                                <isinclude template="product/components/quantity" />
                             </div>
                         </isif>
 
                        <isif condition="${product.attributes && product.attributes.length > 0 && product.variant}">
-                            <div class="col-md-10 col-12">
+                            <div class="product-mainAttributes">
                                 <isinclude template="product/components/mainAttributes" />
                             </div>
                         </isif>
@@ -126,15 +142,8 @@
 
 
                         <!-- Affirm Text -->
-                        <div class="col-12 prices-add-to-cart-actions">
-                            <!-- Prices -->
-                            <div class="prices">
-                                <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isset name="price" value="${product.price}" scope="page" />
-                                    <isinclude template="product/components/pricing/main" />
-                                </isif>
-                            </div>
+                        <div class="prices-add-to-cart-actions">
+                            
                             <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
                             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                             <isif condition="${isEswEnabled}" >
@@ -154,24 +163,6 @@
                                     </isif>
                                 </isif>
                             </isif>
-                            <div class = "d-block d-md-none">
-                            <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
-                                    <isset name="context" value="pdp" scope="page" />
-                                    <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
-                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
-                                </isif>    
-                            </div>
-                            <div class = "d-none d-md-block">
-                            <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
-                                    <isset name="context" value="pdp" scope="page" />
-                                    <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
-                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
-                                </isif>
-                            </div>
                             <!-- Applicable Promotions -->
                             <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
                             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
@@ -184,44 +175,12 @@
                                 </div>
                             </isif>
 
-                            <isif condition="${sitePref.clydeWidgetDisplayPDP}">
-                                <iscomment> Custom Start: Clyde Integration </iscomment>
-                                <isset name="isClydeEnable" value="${!empty(dw.system.Site.current.preferences.custom.isClydeEnabled) ? dw.system.Site.current.preferences.custom.isClydeEnabled : false}" scope="page" />
-                                <isset name="isClydeWidgetEnable" value="${!empty(dw.system.Site.current.preferences.custom.clydeWidgetDisplay) ? dw.system.Site.current.preferences.custom.clydeWidgetDisplay : false}" scope="page" />
-                                <div hidden="hidden" class="clyde-site-prefrence" data-clyde-enable="${isClydeEnable}" data-clyde-widget="${isClydeWidgetEnable}"></div>
-                                <isif condition="${isClydeEnable && isClydeWidgetEnable}">
-                                    <hr class="clyde-top-border d-none" />
-                                    <div class="clyde-widget">
-                                        <div id="clyde-cta">                                
-                                        </div>
-                                    </div>
-                                    <hr class="clyde-bottom-border d-none" />
-                                </isif>
-                                <iscomment> Custom End: </iscomment>                         
-                            </isif>
-
 	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
 
-                            <!-- Product Availability -->
-                            <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
-                            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                <div class="availability mb-3 product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                                    data-available="${product.available}">
-                                    <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                                </div>
-                            </isif>
-                                <!-- Cart and [Optionally] Apple Pay -->
-                            <div class="cart-wishlist ${product.available && product.readyToOrder ? '' : 'cart-wishlist-out-of-stock'}">
-                                <iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
-                                <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <div class="traditional-wishlist-row wishlist-row">
-                                        <isinclude url="${URLUtils.https('Wishlist-ShowIcon', 'gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
-                                    </div>
-                                </isif>
-                           </div>
+                            
+                               
                             <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
                             <iselseif condition="${isListrakEnable}">
@@ -239,11 +198,14 @@
 
                     <!-- Size Chart -->
                     <isif condition="${product.variationAttributes && product.sizeChartId}">
-                        <div class="size-chart col-md-10 col-12">
+                        <div class="size-charts">
                             <isinclude template="product/components/sizeChart" />
                         </div>
                     </isif>
+                  </div>
                 </div>
+
+
                 <div class="col-12 pdp-movado prices-add-to-cart-actions cart-sticky-wrapper-btn scroll-hidden">
                     <!-- Prices -->
                     <div class="prices">
@@ -259,16 +221,25 @@
             </div>
             <div class="cart-wishlist-observer"></div>
         </div>
+        
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
-            <isinclude template="product/components/descriptionAndDetails" />
+           <div class="row">
+            <div class="col-12">
+                 <isinclude template="product/components/descriptionAndDetails" />
+            </div>
+           </div>
         </div>
 
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(product.id)}" scope="page" />
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
-        <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
+        <div class="recently-viewed-recommendation">
             <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
+
+        <div class="swiss-made-sec">
+            <isslot id="cs_pdp_swiss_made_slot" context="global" description="Swiss Made slot at the bottom of the PDP" />
         </div>
         <isinclude template="product/components/contentAssets" />
 

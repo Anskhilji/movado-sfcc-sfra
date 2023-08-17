@@ -1,0 +1,38 @@
+@import 'technicalDetail';
+
+.accordion {
+    &-pdp {
+        .accordion-list {
+            border-bottom: rem(1) solid $black;
+            margin: rem(48) 0;
+
+            .accordion-heading {
+                padding-right: rem(12);
+                margin-bottom: rem(16);
+                cursor: pointer;
+
+                &.collapsed {
+                    .icon {
+                        &-minus {
+                            display: none;
+                        }
+
+                        &-plus {
+                            display: block;
+                        }
+                    }
+                }
+
+                .icon {
+                    &-minus {
+                        display: block;
+                    }
+
+                    &-plus {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
