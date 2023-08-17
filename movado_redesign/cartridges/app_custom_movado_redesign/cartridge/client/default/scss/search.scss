@@ -597,8 +597,8 @@
       z-index: 1;
 
       @include media-breakpoint-down(md) {
-        top: rem(8);
-        padding-right: rem(8);
+          top: rem(8);
+          padding-right: rem(8);
       }
 
       @include media-breakpoint-down(xs) {
@@ -846,7 +846,7 @@
                 font-family: $the-futura-font;
 
                 &:focus {
-                  outline: none;
+                    outline: none;
                 }
             }
 
@@ -2281,14 +2281,14 @@
             font-family: $the-futura-font;
 
             @include media-breakpoint-down(md) {
-              font-size: rem(9);
-              padding: rem(5) rem(12);
-          }
+                font-size: rem(9);
+                padding: rem(5) rem(12);
+            }
 
             @include media-breakpoint-down(xs) {
-              font-size: rem(8);
-              padding: rem(4) rem(10);
-          }
+                font-size: rem(8);
+                padding: rem(4) rem(10);
+            }
         }
 
         .new-product {
@@ -2309,9 +2309,9 @@
             }
 
             @include media-breakpoint-down(xs) {
-              font-size: rem(8);
-              padding: rem(4) rem(10);
-          }
+                font-size: rem(8);
+                padding: rem(4) rem(10);
+            }
         }
 
         .tile-body {
