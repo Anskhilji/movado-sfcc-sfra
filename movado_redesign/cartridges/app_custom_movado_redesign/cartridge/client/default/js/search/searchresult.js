@@ -19,7 +19,7 @@ function closeSortBy() {
 
 $(document).ready(function () {
     $('.search-results.plp-new-design .filter-btn,.more-filter-btn').click(function () {
-        // closeRefinementFilters(); // close refinement filter before opening of sidebar more filter
+        closeRefinementFilters(); // close refinement filter before opening of sidebar more filter
         $('.header-menu-wrapper').addClass('sticky-bar-index');
         $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast').css('z-index', 9999);
         $('body').addClass('no-overflow');
