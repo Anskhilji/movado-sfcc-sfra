@@ -12,7 +12,7 @@
                             <isif condition="${category.gender && category.gender.equalsIgnoreCase('Men')}" >
                                 <isif condition="${!category.isDesktopCategoryHidden}">
                                     <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                                        <a href="${category.url}">
+                                        <a href="${category.url}" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>
                                             <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
                                                 <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
                                             </div>
@@ -30,7 +30,7 @@
                             <isif condition="${category.gender && category.gender.equalsIgnoreCase('Women')}" >
                                 <isif condition="${!category.isDesktopCategoryHidden}">
                                     <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                                        <a href="${category.url}">
+                                        <a href="${category.url}" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>
                                             <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
                                                 <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
                                             </div>
@@ -49,7 +49,7 @@
             <isloop items="${categoryItem.subCategories}" var="category">
                 <isif condition="${!category.isDesktopCategoryHidden}">
                     <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                        <a href="${category.url}">
+                        <a href="${category.url}" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>
                             <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
                                 <img class="dropdown-menu-item-img" alt="" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
                             </div>
