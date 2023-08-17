@@ -1049,6 +1049,10 @@ header.new-header {
               align-items: center;
               justify-content: center;
 
+              .white-logo {
+                display: none;
+              }
+
               @include media-breakpoint-down(md) {
                 width: rem(128);
                 margin-left: rem(30);
