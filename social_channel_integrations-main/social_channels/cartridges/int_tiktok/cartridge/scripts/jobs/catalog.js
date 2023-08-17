@@ -48,7 +48,6 @@ function exportCatalog(parameters) {
     }
 
     var productsIterator = getProductSearchHitIt(parameters.HiddenCategory);
-    // var productsIterator = ProductMgr.queryAllSiteProducts();
 
     try {
         var allCallsSucceed = true;
