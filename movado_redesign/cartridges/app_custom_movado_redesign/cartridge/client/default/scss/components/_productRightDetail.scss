@@ -1,5 +1,7 @@
 .container-fluid {
+
     &.pdp-v-one {
+
         &.product-wrapper {
             padding-top: 0;
             max-width: rem(1440);
@@ -189,6 +191,7 @@
                 }
 
                 .pdp-clyde {
+
                     .clyde-widget {
                         max-width: 100%;
                     }
@@ -259,6 +262,7 @@
                         }
 
                         .smartgift {
+
                             &-btn-redesign {
                                 width: 100%;
                                 font-family: $movado-font;
@@ -295,7 +299,6 @@
                                     bottom: rem(33);
                                     z-index: 999;
                                     border-bottom: solid $white 0.625em;
-                                    ;
                                     display: none;
 
                                     @include media-breakpoint-down(sm) {

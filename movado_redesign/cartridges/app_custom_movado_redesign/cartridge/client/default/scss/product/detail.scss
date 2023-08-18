@@ -1369,6 +1369,7 @@ $arrow-height: 1.25em;
 .container-fluid.pdp-mobile {
 
     .mobile-carsousel {
+
         &.primary-images {
             position: relative;
 
@@ -1409,24 +1410,30 @@ $arrow-height: 1.25em;
 
             .cs-carousel-wrapper {
                 margin-bottom: 0;
+
                 .main-carousel  {
                     padding-bottom: 0;
                 }
 
                 .carousel-nav {
                     margin-bottom: 0;
+
                     .slick-list {
+
                         .slick-track {
                             height: rem(3);
                         }
                     }
+
                     .slick-dots {
                         max-width: 100%;
                         width: 100%;
                         bottom: rem(2);
+
                         li {
                             height: rem(3);
                             background-color: $neutrals-300;
+                            
                             button {
                                 border-radius: 0;
                             }

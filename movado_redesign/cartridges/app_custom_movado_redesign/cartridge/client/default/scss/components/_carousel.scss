@@ -47,6 +47,7 @@ header {
     }
 
     .cs-carousel-wrapper {
+
         &.cs-carousel-update {
             margin-bottom: rem(0);
 
@@ -83,11 +84,13 @@ header {
             }
 
             .cs-carousel {
+
                 &.slick-slider {
                     margin: 0;
                     padding: 0;
 
                     .slick-list {
+                        
                         &.draggable {
                             margin: rem(0) rem(-3);
 

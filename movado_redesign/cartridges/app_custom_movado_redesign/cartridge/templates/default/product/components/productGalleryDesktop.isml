@@ -1,28 +1,3 @@
-  <isscript>
-    var primaryImageCarouselConfig = {
-      "slidesToShow": 1,
-      "slidesToScroll": 1,
-      "dots": false,
-      "centerMode": true,
-      asNavFor: '.carousel-nav',
-      responsive: [
-        {
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                infinite: true,
-                dots: false,
-                arrows: false,
-                "centerMode": false,
-                asNavFor: '.carousel-nav'
-            }
-        },
-      ]
-    }
-    <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
-  </isscript>
-
 <div class="product-gallery primary-images">
     <div class="main-carousel col-12 px-0">
     <div class="gallery-image">

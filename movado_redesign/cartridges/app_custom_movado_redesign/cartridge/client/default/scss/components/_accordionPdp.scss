@@ -1,7 +1,9 @@
 @import 'technicalDetail';
 
 .accordion {
+    
     &-pdp {
+
         .accordion-list {
             border-bottom: rem(1) solid $black;
             margin: rem(48) 0;
@@ -16,7 +18,9 @@
                 cursor: pointer;
 
                 &.collapsed {
+
                     .icon {
+
                         &-minus {
                             display: none;
                         }
@@ -28,6 +32,7 @@
                 }
 
                 .icon {
+
                     &-minus {
                         display: block;
                     }

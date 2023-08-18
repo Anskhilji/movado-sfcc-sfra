@@ -1,4 +1,5 @@
 .container-fluid {
+
     &.pdp-v-one {
 
         .product-aruliden-sec {
@@ -24,8 +25,9 @@
                 }
 
                 .gallery {
+                    
                     &-image {
-                        
+
                         .carousel-tile {
                             margin-bottom: rem(2);
                             position: relative;
