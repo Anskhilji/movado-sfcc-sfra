@@ -172,15 +172,12 @@
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
 
-
                         <!-- Affirm Text -->
                         <div class="prices-add-to-cart-actions">
 
 	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/components/options" />
-	                        </isif>
-
-                            
+	                        </isif>                            
                                
                             <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                

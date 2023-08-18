@@ -37,7 +37,6 @@
                 data-target="#productReview" aria-expanded="true" aria-controls="reviews">
                 <h2 class="technical-detail-heading">
                     Reviews (24) stars
-                    <iscomment> ${Resource.msg('label.product.detail.details2', 'product', null)} </iscomment>
                 </h2>
                 
                 <div class="plus-minus-icons">
