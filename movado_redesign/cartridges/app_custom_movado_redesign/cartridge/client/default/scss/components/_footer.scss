@@ -657,7 +657,7 @@
                 }
 
                 .footer-item {
-                    margin-top: 0;
+                    margin-top: rem(-8);
                 }
             }
 
@@ -875,9 +875,12 @@
     }
     
     .footer-country-section {
+        margin-right: rem(3px);
 
         .selectCountry {
             padding: 0;
+            margin-right: rem(40);
+            z-index: 3;
 
             .title {
                 border: none;
@@ -896,6 +899,17 @@
                 line-height: rem(16);
                 letter-spacing: rem(0.14);
                 color: $white;
+
+                &::before, &::after {
+                    left: rem(60);
+                }
+            }
+
+            @include media-breakpoint-down(sm) {
+
+                .content {
+                    bottom: rem(73.6);
+                }
             }
         }
 
@@ -923,6 +937,10 @@
                 line-height: rem(16);
                 letter-spacing: rem(0.14);
                 color: $white;
+
+                &::before, &::after {
+                    left: rem(94);
+                }
             }
         } 
     }
