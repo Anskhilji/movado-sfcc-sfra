@@ -235,6 +235,15 @@
                             }
                         }
 
+                        .dw-apple-pay-button {
+
+                            &.apple-pay-pdp {
+                                border-radius: rem(30);
+                                height: rem(45);
+                                margin-bottom: rem(8);
+                            }
+                        }
+
                         .smartgiftpopup {
 
                             .smart-gift-btn {
