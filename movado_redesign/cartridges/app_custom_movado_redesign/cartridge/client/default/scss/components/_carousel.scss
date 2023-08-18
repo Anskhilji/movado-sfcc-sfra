@@ -42,101 +42,127 @@ header {
 .aruliden-carousel {
     padding: rem(0) rem(48) rem(118);
 
-    .cs-carousel-update {
-        margin-bottom: rem(0    );
+    @include media-breakpoint-down(sm) {
+        padding: rem(0) rem(48) rem(90);
+    }
 
-        .carousel-title {
-            font-size: rem(32);
-            font-style: normal;
-            font-weight: 400;
-            line-height: rem(40);
-            font-family: $movado-font;
-            color: $black;
-            margin-bottom: rem(25);
-            letter-spacing: normal;
+    .cs-carousel-wrapper {
+        &.cs-carousel-update {
+            margin-bottom: rem(0);
 
-            &.carousel-title-left-align {
+            .carousel-title {
                 font-size: rem(32);
                 font-style: normal;
                 font-weight: 400;
                 line-height: rem(40);
                 font-family: $movado-font;
                 color: $black;
-            }
-        }
+                margin-bottom: rem(25);
+                letter-spacing: normal;
 
-        .cs-carousel {
-            &.slick-slider {
-                margin: 0;
-                padding: 0;
-
-                .slick-list {
-                    &.draggable {
-                        margin: rem(0) rem(-3);
-
-                        .slick-slide {
-                            margin: rem(0) rem(3);
-                        }
-                    }
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(24);
+                    line-height: rem(32);
+                    margin-bottom: rem(17);
                 }
 
+                &.carousel-title-left-align {
+                    font-size: rem(32);
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: rem(40);
+                    font-family: $movado-font;
+                    color: $black;
 
-                .slick-dots {
-                    opacity: 1;
-                    max-width: calc(100% - 156px);
-                    margin: rem(7) auto 0 0;
-                    position: static;
-                    height: rem(48);
-                    display: flex;
-                    align-items: center;
+                    @include media-breakpoint-down(sm) {
+                        font-size: rem(24);
+                        line-height: rem(32);
+                        margin-bottom: rem(17);
+                    }
+                }
+            }
 
-                    li {
-                        width: 100%;
-                        height: rem(3);
-                        background: $neutrals-300;
-                        margin: 0;
+            .cs-carousel {
+                &.slick-slider {
+                    margin: 0;
+                    padding: 0;
 
-                        button {
-                            height: 100%;
-                            width: 100%;
-                            background-color: transparent;
+                    .slick-list {
+                        &.draggable {
+                            margin: rem(0) rem(-3);
 
-                            &::before {
-                                content: unset;
+                            .slick-slide {
+                                margin: rem(0) rem(3);
                             }
                         }
+                    }
 
-                        &.slick-active {
-                            background: $black;
+
+                    .slick-dots {
+                        opacity: 1;
+                        max-width: calc(100% - 156px);
+                        margin: rem(7) auto 0 0;
+                        position: static;
+                        height: rem(48);
+                        display: flex;
+                        align-items: center;
+
+                        @include media-breakpoint-down(sm) {
+                            max-width: 100%;
+                            height: auto;
+                            margin: rem(5) auto 0 0;
+                        }
+
+                        li {
+                            width: 100%;
+                            height: rem(3);
+                            background: $neutrals-300;
+                            margin: 0;
+
+                            button {
+                                height: 100%;
+                                width: 100%;
+                                background-color: transparent;
+
+                                &::before {
+                                    content: unset;
+                                }
+                            }
+
+                            &.slick-active {
+                                background: $black;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        .aruliden-carousel-arrow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: rem(116);
-            margin-left: auto;
-            position: relative;
-            margin-top: rem(-50);
+            .aruliden-carousel-arrow {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: rem(116);
+                margin-left: auto;
+                position: relative;
+                margin-top: rem(-50);
 
-            .aruliden-prev,
-            .aruliden-next {
-                opacity: 0;
+                .aruliden-prev,
+                .aruliden-next,
+                .youMayLike-prev,
+                .youMayLike-next {
+                    opacity: 0;
 
-                &.slick-arrow {
-                    top: 0;
-                    transform: translateY(0);
-                    position: static;
-                    background-color: transparent;
-                    padding: 0;
-                    width: rem(48);
-                    height: rem(48);
-                    display: block;
-                    opacity: 1;
+                    &.slick-arrow {
+                        top: 0;
+                        transform: translateY(0);
+                        position: static;
+                        background-color: transparent;
+                        padding: 0;
+                        width: rem(48);
+                        height: rem(48);
+                        display: block;
+                        opacity: 1;
+                    }
                 }
             }
         }

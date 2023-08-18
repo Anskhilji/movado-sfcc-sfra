@@ -6,6 +6,10 @@
             border-bottom: rem(1) solid $black;
             margin: rem(48) 0;
 
+            @include media-breakpoint-down(sm) {
+                margin: rem(40) 0;
+            }
+
             .accordion-heading {
                 padding-right: rem(12);
                 margin-bottom: rem(16);

@@ -1,6 +1,8 @@
 .container-fluid {
     &.pdp-v-one {
+
         .description-and-detail {
+            
             .technical-detail-heading {
                 font-size: rem(16);
                 color: $black;
@@ -16,11 +18,16 @@
                 flex-wrap: wrap;
                 width: 100%;
                 padding-top: rem(35);
+                gap: rem(0) rem(10);
 
                 .attribute {
                     &-list {
-                        flex-basis: 33.3%;
+                        flex-basis: calc(33.3% - 10px);
                         margin-bottom: rem(40);
+
+                        @include media-breakpoint-down(sm) {
+                            flex-basis: calc(50% - 10px);
+                        }
                     }
 
                     &-name {

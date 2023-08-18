@@ -1368,63 +1368,74 @@ $arrow-height: 1.25em;
 
 .container-fluid.pdp-mobile {
 
-    // .mobile-carsousel {
-    //     &.primary-images {
-    //         position: relative;
+    .mobile-carsousel {
+        &.primary-images {
+            position: relative;
 
-    //         @include media-breakpoint-up(custom-md) {
-    //             display: none;
-    //         }
+            @include media-breakpoint-up(custom-md) {
+                display: none;
+            }
 
-    //         @include media-breakpoint-down(sm) {
-    //             padding: 0;
-    //         }
+            @include media-breakpoint-down(sm) {
+                padding: 0;
+                margin-bottom: 0;
+            }
 
-    //         .product-badges-mobile {
-    //             position: absolute;
-    //             top: rem(24);
-    //             right: rem(24);
-    //             z-index: 2;
+            .product-badges-mobile {
+                position: absolute;
+                top: rem(24);
+                right: rem(24);
+                z-index: 2;
 
-    //             .exclusive-badges {
-    //                 margin: 0;
+                .exclusive-badges {
+                    margin: 0;
 
-    //                 .badge {
-    //                     font-family: $the-futura-font;
-    //                     font-size: rem(12);
-    //                     color: $black;
-    //                     line-height: rem(13.8);
-    //                     letter-spacing: rem(0.5);
-    //                     color: $storm-gray;
-    //                     padding: rem(4) rem(16);
-    //                     margin: 0;
-    //                     background-color: $white;
-    //                     text-transform: uppercase;
-    //                     border: rem(1) solid $neutrals-300;
-    //                     border-radius: rem(100);
-    //                 }
-    //             }
-    //         }
+                    .badge {
+                        font-family: $the-futura-font;
+                        font-size: rem(12);
+                        color: $black;
+                        line-height: rem(13.8);
+                        letter-spacing: rem(0.5);
+                        color: $storm-gray;
+                        padding: rem(4) rem(16);
+                        margin: 0;
+                        background-color: $white;
+                        text-transform: uppercase;
+                        border: rem(1) solid $neutrals-300;
+                        border-radius: rem(100);
+                    }
+                }
+            }
 
-    //         // .cs-carousel-wrapper {
-    //         //     margin-bottom: 0;
-    //         //     .main-carousel  {
-    //         //         padding-bottom: 0;
-    //         //     }
+            .cs-carousel-wrapper {
+                margin-bottom: 0;
+                .main-carousel  {
+                    padding-bottom: 0;
+                }
 
-    //         //     // .carousel-nav {
-    //         //     //     margin-bottom: 0;
-    //         //     //     .slick-dots {
-    //         //     //         width: 100%;
-    //         //     //         bottom: rem(2);
-    //         //     //         li {
-
-    //         //     //         }
-    //         //     //     }
-    //         //     // }
-    //         // }
-    //     }
-    // }
+                .carousel-nav {
+                    margin-bottom: 0;
+                    .slick-list {
+                        .slick-track {
+                            height: rem(3);
+                        }
+                    }
+                    .slick-dots {
+                        max-width: 100%;
+                        width: 100%;
+                        bottom: rem(2);
+                        li {
+                            height: rem(3);
+                            background-color: $neutrals-300;
+                            button {
+                                border-radius: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     @include media-breakpoint-down(md) {
 

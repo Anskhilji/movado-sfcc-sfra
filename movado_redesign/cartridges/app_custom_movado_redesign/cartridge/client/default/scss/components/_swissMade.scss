@@ -1,10 +1,27 @@
 .swiss-made-sec {
     max-width: rem(1440);
     margin: rem(70) auto 0 auto;
-    padding: 0 rem(130 );
+    padding: 0 rem(130);
+
+    @include media-breakpoint-down(lg) {
+        padding: 0 rem(48);
+    }
+
+    @include media-breakpoint-down(custom-md) {
+        margin: rem(70) auto rem(50) auto;
+    }
+
+    @include media-breakpoint-down(sm) {
+        padding: 0;
+        margin: rem(80) auto rem(93) auto;
+    }
 
     .container-fluid {
         padding: 0;
+
+        @include media-breakpoint-down(sm) {
+            padding: 0 rem(15);
+        }
     }
 
 
@@ -17,6 +34,12 @@
         font-weight: 400;
         line-height: rem(40);
         margin-bottom: rem(80);
+
+        @include media-breakpoint-down(sm) {
+            font-size: rem(24);
+            line-height: rem(32);
+            margin-bottom: rem(78);
+        }
     }
 
     .swiss-made-explore {
@@ -37,22 +60,36 @@
         text-transform: uppercase;
         display: block;
         margin: rem(80) auto rem(0);
+
+        @include media-breakpoint-down(sm) {
+            margin: rem(90) auto rem(0);
+        }
     }
 
     .swiss-made-list {
         display: none;
+
         &.slick-initialized {
             display: block;
 
             .slick-list {
                 &.draggable {
                     margin: rem(0) rem(-69.5);
+
+                    @include media-breakpoint-down(lg) {
+                        margin: 0 rem(0);
+                    }
                 }
             }
 
             .slick-slide {
                 margin: 0 rem(69.5);
-                > div {
+
+                @include media-breakpoint-down(lg) {
+                    margin: 0 rem(30);
+                }
+
+                >div {
                     text-align: center;
                 }
             }

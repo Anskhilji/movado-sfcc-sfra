@@ -30,7 +30,7 @@
                 </div>
             </isif>
 
-            <div class="row product-aruliden-sec">
+            <div class="row product-aruliden-sec movado-pdp-row">
                 <!-- Product Images gallery for desktop -->
                 <isinclude template="product/components/productGalleryDesktop" />
                 <!-- Product Images Carousel for mobile-->
@@ -54,6 +54,18 @@
                         </isif>
                     </div>
 
+                     <!-- Applicable Promotions -->
+                    <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
+                    <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                        <div class="promotions">
+                            <isloop items="${product.promotions}" var="promotion">
+                                <isif condition="${!empty(promotion.calloutMsg)}">
+                                    <isinclude template="product/components/promotions" />
+                                </isif>
+                            </isloop>
+                        </div>
+                    </isif>
+
                     <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
                     <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                         <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
@@ -61,6 +73,26 @@
                         <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
                         <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
                     </isif> 
+                    
+                    <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${isEswEnabled}" >
+                        <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                        <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                            <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        <iselse/>
+                            <isif condition="${!domesticAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        </isif>
+                    </isif>
 
                     <div class="product-description description">
                         <isinclude template="product/components/description" />
@@ -143,37 +175,6 @@
 
                         <!-- Affirm Text -->
                         <div class="prices-add-to-cart-actions">
-                            
-                            <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
-                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
-                            <isif condition="${isEswEnabled}" >
-                                <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
-                                <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
-                                <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
-                                    <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
-                                        <div class="tax-duties">
-                                            <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
-                                        </div>
-                                    </isif>
-                                <iselse/>
-                                    <isif condition="${!domesticAllowedCountry}">
-                                        <div class="tax-duties">
-                                            <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
-                                        </div>
-                                    </isif>
-                                </isif>
-                            </isif>
-                            <!-- Applicable Promotions -->
-                            <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
-                            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                               <div class="promotions">
-                                    <isloop items="${product.promotions}" var="promotion">
-                                        <isif condition="${!empty(promotion.calloutMsg)}">
-                                            <isinclude template="product/components/promotions" />
-                                        </isif>
-                                    </isloop>
-                                </div>
-                            </isif>
 
 	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/components/options" />

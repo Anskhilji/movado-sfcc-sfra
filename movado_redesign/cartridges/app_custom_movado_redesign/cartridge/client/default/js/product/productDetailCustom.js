@@ -286,10 +286,27 @@ $(document).ready(function() {
 
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: 991,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 767,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 544,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
         },
       },
     ],
