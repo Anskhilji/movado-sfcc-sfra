@@ -23,7 +23,7 @@
                         <iscontentasset aid="footerEmailList"/>
                     </div>
                 </div>
-                <div class="footer-signup-container mb-4"> 
+                <div class="footer-signup-container"> 
                     <div class="container">
                         <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
                             <div class="row">
