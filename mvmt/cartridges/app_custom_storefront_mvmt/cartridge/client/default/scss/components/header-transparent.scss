@@ -50,7 +50,21 @@ header {
     
                                         .nav-left {
                                             background: transparent;
-                                        } 
+
+                                            @include media-breakpoint-down(sm) {
+
+                                                &:has(.mobile-logo) {
+                                                    @include filterRemove;
+                                                }
+                                            }
+                                        }
+
+                                        .mobile-logo {
+
+                                            @include media-breakpoint-down(sm) { 
+                                                @include filter;
+                                            }
+                                        }
 
                                         // Css Filter remove
                                         .main-level-item {
@@ -132,6 +146,13 @@ header {
                                         .mobile-cart-close-icon {
                                             @include filterRemove;
                                         }
+
+                                        .mobile-logo {
+
+                                            @include media-breakpoint-down(sm) { 
+                                                @include filterRemove;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -209,6 +230,7 @@ header {
                                         .header-logo,
                                         .mvmt-mobile-header-logo,
                                         .nav-left,
+                                        .mobile-logo,
                                         .main-level-item,
                                         .minicart-text,
                                         .cart-icon,
