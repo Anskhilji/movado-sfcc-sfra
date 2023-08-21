@@ -301,7 +301,6 @@ $('.first-level-category').hover(
         var $categoryId = $(this).attr('id');
         $('.categories-image-container').addClass('d-none fadeIn fast animated');
         $('.categories-image-container-second').addClass('d-none');
-        $('body, html').addClass('overflow-hide');
         
     
         $('.categories-image-container').each(function () {
@@ -333,7 +332,7 @@ $('.second-level').hover(
                     var $parentCatId = $(this).parents('.second-level-sec').data('pararent-id');
                     $('.categories-image-container').each(function () {
                         var $imageId = $(this).data('id');
-                        if ($parentCatId == $imageId) {
+                        if ($childCategoryId != '' && $parentCatId == $imageId) {
                             $(this).removeClass('d-none');
                             return;
                         }
