@@ -1,0 +1,23 @@
+@import "vars";
+@import "components/formFields";
+
+.login-form-nav{
+    .hidden-xs-down{
+        font-family: $the-futura-font;
+    }
+    .privacy-policy{
+        font-family: $the-futura-font;
+    }
+}
+
+.login-page{
+    input[placeholder],label{
+        font-family: $the-futura-font;
+    }
+}
+
+.track-order-header-description {
+    & a {
+        font-family: $the-futura-font;
+    }
+}
