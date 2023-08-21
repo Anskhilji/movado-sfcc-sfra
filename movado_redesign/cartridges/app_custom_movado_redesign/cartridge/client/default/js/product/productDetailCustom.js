@@ -356,7 +356,7 @@ $(document).ready(function() {
             if (this.window.scrollY < $initialCoords.top) { //if we scroll up to button
                 $('.cart-sticky-wrapper-btn').removeClass('scroll-bottom').addClass('scroll-hidden');
             } else {
-                if (!$('.prices-add-to-cart-actions .cta-add-to-cart, .cart-wishlist .cta-add-to-cart').isOnScreen()) { // if button is not on viewport
+                if (!$('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen()) { // if button is not on viewport
                     $('.cart-sticky-wrapper-btn').removeClass('scroll-hidden').addClass('scroll-bottom');
                 }else{
                     $('.cart-sticky-wrapper-btn').addClass('scroll-hidden');
