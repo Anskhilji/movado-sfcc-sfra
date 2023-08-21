@@ -483,7 +483,7 @@
         .callout.promo-msg {
             padding-top: 0;
             letter-spacing: normal;
-            font-size: rem(15);
+            font-size: rem(14);
             @include font-medium;
             color: $black;
             text-overflow: ellipsis;
@@ -520,7 +520,7 @@
 
       .callout.promo-msg {
         width: inherit;
-        font-size: rem(15);
+        font-size: rem(14);
         text-align: left;
         font-family: $the-futura-font;
 
@@ -2350,14 +2350,24 @@
                 font-size: rem(10);
                 line-height: rem(13.2);
             }
+
+            del {
+              
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(14);
+                }
+            }
+
+            span:nth-child(2) {
+              
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(14);
+                }
+            }
         }
 
         .pdp-link {
             margin-bottom: rem(4);
-
-            @include media-breakpoint-down(xs) {
-                margin-bottom: 0;
-            }
 
             @include media-breakpoint-down(sm) {
                 margin-bottom: 0;

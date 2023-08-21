@@ -134,12 +134,27 @@ header {
                             @include media-breakpoint-down(md) {
                                 font-size: rem(10);
                             }
+
+                            del {
+              
+                                @include media-breakpoint-up(lg) {
+                                    font-size: rem(14);
+                                }
+                            }
+                
+                            span:nth-child(1) {
+                              
+                                @include media-breakpoint-up(lg) {
+                                    font-size: rem(14);
+                                }
+                            }
                         }
 
                         .callout {
                             
                             &.promo-msg {
                                 font-family: $the-futura-font;
+                                font-size: rem(14);
                             }
                         }
                     }
