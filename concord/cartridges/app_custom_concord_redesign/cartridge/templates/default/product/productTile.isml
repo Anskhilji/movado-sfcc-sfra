@@ -21,8 +21,7 @@
     </isif>
 
     <div class="tile-body" aria-label="pooduct tile popover" tabindex="0">
-     <isinclude template="product/components/productTileName" />
-        <div class="d-flex tile-body-content">
+        <div class="d-flex">
         <iscomment> Custom Start: Prodcut prices shows when following requirements meet </iscomment>
             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                 <isset name="price" value="${product.price}" scope="page" />
@@ -55,11 +54,13 @@
                 </isif>
             </isif>
         </div>
+        <isinclude template="product/components/productTileName" />
         
         <p class="tile-discription" tabindex="0">
            <isprint value="${dw.catalog.ProductMgr.getProduct(product.id).shortDescription}"  encoding="off"/>
         </p>
         <div class="tile-btns">
+		    
             <a href="${pdict.urls.product}" class="tile-detail-btn">${Resource.msg('label.product.tile.details', 'product', null)}</a>
             <div class="plp-botton-text">
                 <isif condition="${preOrder}">
