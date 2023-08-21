@@ -279,37 +279,36 @@ $(document).ready(function() {
   });
 
   $(".swiss-made-list").slick({
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    dots: false,
-    arrows: false,
-
-    responsive: [
-      {
-        breakpoint: 991,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 767,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 544,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-    ],
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      dots: false,
+      arrows: false,  
+      responsive: [
+          {
+          breakpoint: 991,
+          settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              arrows: false,
+          },
+          },
+          {
+          breakpoint: 767,
+              settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                  arrows: false,
+              },
+          },
+          {
+          breakpoint: 544,
+              settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  arrows: false,
+              },
+          },
+      ],
   });
 
     function zoom() {

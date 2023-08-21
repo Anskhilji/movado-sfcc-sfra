@@ -1,6 +1,6 @@
 <iscomment>Updated carousel configuration</iscomment>
 <iscomment> bootstrap column classes changed </iscomment>
-<div class="primary-images mobile-carsousel col-12 col-lg-7">
+<div class="primary-images mobile-carousel col-12 col-lg-7">
     <div class="product-badges-mobile">
         <!-- Attributes and Quantity -->
         <isinclude template="product/components/badges" />
