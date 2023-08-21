@@ -98,6 +98,25 @@
                         <isinclude template="product/components/description" />
                     </div>
 
+                    <div class="m-0">
+                        <!-- Attributes and Quantity -->
+                        <isif condition="${!product.variationAttributes && product.options.length === 0}">
+                             <div class="simple-quantity d-none">
+                                <isinclude template="product/components/quantity" />
+                            </div>
+                        </isif>
+
+                       <isif condition="${product.attributes && product.attributes.length > 0 && product.variant}">
+                            <div class="product-mainAttributes">
+                                <isinclude template="product/components/mainAttributes" />
+                            </div>
+                        </isif>
+
+                        <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                            <isinclude template="product/components/variationAttributes" />
+                        </isif>
+                    </div>
+
                     <isif condition="${sitePref.clydeWidgetDisplayPDP}">
                         <div class="pdp-clyde">
                             <iscomment> Custom Start: Clyde Integration </iscomment>
@@ -113,6 +132,26 @@
                             <iscomment> Custom End: </iscomment>                         
                         </div>
                     </isif>
+
+                    <!-- Affirm Text -->
+                    <div class="prices-add-to-cart-actions">
+                        <isif condition="${product.options && product.options.length > 0}">
+                            <isinclude template="product/components/options" />
+                        </isif>                            
+                            
+                        <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
+                            <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
+                        <iselseif condition="${isListrakEnable}">
+                            <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                                <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                            <iselse>
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                            </isif>
+                        </iselseif> 
+                        <iselse>
+                            <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                        </isif>
+                    </div>
 
                     <!-- Cart and [Optionally] Apple Pay -->
                     <div class="cart-wishlist ${product.available && product.readyToOrder ? '' : 'cart-wishlist-out-of-stock'}">
@@ -151,47 +190,6 @@
                         <iselse/>
                             <isinclude template="product/components/pidRating" />
                         </isif>
-                    </div>
-
-                    
-                    <div class="m-0">
-                        <!-- Attributes and Quantity -->
-                        <isif condition="${!product.variationAttributes && product.options.length === 0}">
-                             <div class="simple-quantity d-none">
-                                <isinclude template="product/components/quantity" />
-                            </div>
-                        </isif>
-
-                       <isif condition="${product.attributes && product.attributes.length > 0 && product.variant}">
-                            <div class="product-mainAttributes">
-                                <isinclude template="product/components/mainAttributes" />
-                            </div>
-                        </isif>
-
-                        <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
-                            <isinclude template="product/components/variationAttributes" />
-                        </isif>
-
-                        <!-- Affirm Text -->
-                        <div class="prices-add-to-cart-actions">
-
-	                        <isif condition="${product.options && product.options.length > 0}">
-	                            <isinclude template="product/components/options" />
-	                        </isif>                            
-                               
-                            <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
-                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
-                            <iselseif condition="${isListrakEnable}">
-                                <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
-                                    <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
-                                <iselse>
-                                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
-                                </isif>
-                            </iselseif> 
-                            <iselse>
-                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
-                            </isif>
-                        </div>
                     </div>
 
                     <!-- Size Chart -->
