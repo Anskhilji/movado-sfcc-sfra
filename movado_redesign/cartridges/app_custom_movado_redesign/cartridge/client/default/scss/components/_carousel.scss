@@ -49,10 +49,14 @@ header {
             .carousel-tile {
             
                 .product-tile {
-                    background: $grey-silver-light;
+                    background: $white;
                 
                     @include media-breakpoint-down(md) {
                         margin-bottom: 0;
+                    }
+
+                    .image-container {
+                        background: $grey-silver-light;
                     }
             
                     .out-of-stock, .pre-order {
@@ -87,6 +91,8 @@ header {
                         border: rem(0.701) solid $silver-light;
                         font-family: $the-futura-font;   
                         font-weight: 500;
+                        line-height: rem(11.5);
+                        font-size: rem(10);
 
                         @include media-breakpoint-down(sm) {
                             right: rem(5);
@@ -107,6 +113,7 @@ header {
                             letter-spacing: rem(0.25);
                             font-family: $movado-font;
                             line-height: rem(20);
+                            font-weight: 400;
                 
                             @include media-breakpoint-down(md){
                                 font-size: rem(12);

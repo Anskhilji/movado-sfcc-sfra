@@ -61,7 +61,7 @@ header.new-header {
       }
 
       .product-tile {
-        background: $grey-silver-light;
+        background: $white;
         min-height: unset;
         position: relative;
 
@@ -168,6 +168,7 @@ header.new-header {
 
         .image-container {
           border: none;
+          background: $grey-silver-light;
 
           .quickview {
             display: none;
@@ -212,6 +213,7 @@ header.new-header {
             letter-spacing: normal;
             text-transform: capitalize;
             font-family: $movado-font;
+            font-weight: 400;
           }
           .tile-discription, .tile-btns {
             display: none;

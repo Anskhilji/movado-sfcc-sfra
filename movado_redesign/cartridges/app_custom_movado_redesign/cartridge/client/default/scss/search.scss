@@ -759,12 +759,11 @@
         display: inline-block;
         padding: rem(5) rem(20);
         border: rem(1) solid $grey8;
-        transition: 0.3s;
+        transition: all 0.4s;
         text-decoration: none;
 
         &:hover {
-          color: $white;
-          background: $grey8;
+            box-shadow: inset rem(0) rem(0) rem(0) rem(1) $black;
         }
       }
 
@@ -2262,10 +2261,14 @@
     }
   
     .product-tile {
-        background: $grey-silver-light;
+        background: $white;
     
         @include media-breakpoint-down(md) {
           margin-bottom: 0;
+        }
+
+        .image-container {
+            background: $grey-silver-light;
         }
 
         .out-of-stock, .pre-order {
@@ -2329,6 +2332,7 @@
             letter-spacing: rem(0.25);
             font-family: $movado-font;
             line-height: rem(20);
+            font-weight: 400;
 
             @include media-breakpoint-down(md){
                 font-size: rem(12);
@@ -2340,10 +2344,23 @@
             letter-spacing: rem(0.25);
             font-weight: 400;
             font-family: $the-futura-font;
-            line-height: rem(16);
+            line-height: rem(19);
 
             @include media-breakpoint-down(md){
                 font-size: rem(10);
+                line-height: rem(13.2);
+            }
+        }
+
+        .pdp-link {
+            margin-bottom: rem(4);
+
+            @include media-breakpoint-down(xs) {
+                margin-bottom: 0;
+            }
+
+            @include media-breakpoint-down(sm) {
+                margin-bottom: 0;
             }
         }
 
