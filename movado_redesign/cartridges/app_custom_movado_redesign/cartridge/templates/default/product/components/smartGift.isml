@@ -2,7 +2,7 @@
 <div class="text-center ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <div class="col-sm-12 smartgiftpopup promo-icon-smartgift p-0">
     <div class="smart-gift-btn">
-        <a href="${pdict.smartGiftAddToCartURL}" target="_blank" class="btn smartgift-btn-redesign mt-2" >${Resource.msg('button.smartgift.label', 'smartgift', null)}</a>
+        <a href="${pdict.smartGiftAddToCartURL}" target="_blank" class="btn smartgift-btn-redesign" >${Resource.msg('button.smartgift.label', 'smartgift', null)}</a>
         <iscontentasset aid="smart-gift-tool-tip" />
     </div>  
     </div>
