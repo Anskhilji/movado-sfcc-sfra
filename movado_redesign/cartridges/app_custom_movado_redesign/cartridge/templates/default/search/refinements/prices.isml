@@ -1,9 +1,9 @@
 <iscomment> Custom: span and icon removed, class added with condition</iscomment>
 <ul class="values content row m-0">
     <isloop items="${refinement.values}" var="refinementValue">
-        <li class="col-6" title="${refinementValue.title}">
+        <li class="col-12" title="${refinementValue.title}">
             <a href="${refinementValue.url}" class="selection-tab <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>">
-                ${refinementValue.displayValue}
+                <span>${refinementValue.displayValue}</span>
             </a>
         </li>
     </isloop>

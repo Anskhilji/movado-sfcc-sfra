@@ -57,7 +57,6 @@ function parseResults(response) {
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
-        '.refine-wrapper',
         '.refine-wrapper-sidebar',
         '.header-bar',
         '.header.page-title',
@@ -399,19 +398,19 @@ module.exports = {
 
     sort: function () {
         // Handle sort order menu selection
-        $('.container, .container-fluid').on('change', '[name=sort-order]', function (e) {
-            setTimeout( function () {
+        $('.container, .container-fluid').on('click', '.sorting-rule-options-update', function (e) {
+            setTimeout(function () {
                 if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
                     $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
                 }
             }, 20);
-            var url = this.value;
+            var url = $(this).data('url');
             e.preventDefault();
 
             $.spinner().start();
 
             // Push Data into gtm For Sorting Rules Filters
-            var $filteredText = $(this).find(':selected').text().trim();
+            var $filteredText = $(this).text().trim();
             if ($filteredText !==undefined) {
                 dataLayer.push({
                     event: 'Collection Filtering',
@@ -421,10 +420,10 @@ module.exports = {
                   });
             }
 
-            $(this).trigger('search:sort', this.value);
+            $(this).trigger('search:sort', url);
             $.ajax({
-                url: this.value,
-                data: { selectedUrl: this.value },
+                url: url,
+                data: { selectedUrl: url },
                 method: 'GET',
                 success: function (response) {
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
@@ -433,9 +432,11 @@ module.exports = {
                     // edit
                     updatePageURLForSortRule(url);
                     // edit
+                    $('.search-results.plp-new-design .sortBy-bar').removeClass('d-block').addClass('d-none');
                     $.spinner().stop();
                 },
                 error: function () {
+                    $('.search-results.plp-new-design .sortBy-bar').removeClass('d-block').addClass('d-none');
                     $.spinner().stop();
                 }
             });

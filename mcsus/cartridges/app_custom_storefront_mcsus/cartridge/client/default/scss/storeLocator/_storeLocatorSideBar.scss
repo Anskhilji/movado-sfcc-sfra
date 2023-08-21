@@ -51,6 +51,7 @@
     transform: translateX(100%);
     transition: all 0.4s;
     @include custom-scroll;
+    
 
     &.hide-scroll {
         overflow: hidden;
@@ -58,6 +59,17 @@
 
     &.show {
         transform: translateX(0);
+        overflow-x: hidden;
+    }
+
+    .grecaptcha-badge {
+        top: rem(650) !important;
+        position: absolute !important;
+
+        @media (max-width:$large-screen-width) {
+            top: rem(470) !important;
+        }
+
     }
 
     .side-header {
@@ -123,7 +135,7 @@
                 }
             }
 
-            .button-search {
+            .button-search, .button-search-captcha {
                 cursor: pointer;
                 width: rem(32);
                 min-width: rem(32);
@@ -137,6 +149,12 @@
                 img {
                     transform: translateY(-1px);
                 }
+            }
+
+            .button-search-captcha {
+                background-image: url('../../images/seach-icon.svg');
+                background-repeat: no-repeat;
+                background-position: center;
             }
         }
 

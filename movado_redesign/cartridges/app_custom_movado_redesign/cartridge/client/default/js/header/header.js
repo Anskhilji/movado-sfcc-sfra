@@ -89,6 +89,10 @@ $(".search-close").click(function(){
     e.preventDefault();
 });
 
+$(".sortBy-bar").click(function(e){
+    $(".modal-background").addClass("d-block");
+});
+
 const $menu = $('.search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom, .refinement-bar, .filter-btn');
 $(document).mouseup(e => {
 
