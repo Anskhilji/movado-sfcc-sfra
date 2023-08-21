@@ -778,7 +778,7 @@
                 @include media-breakpoint-down(xs) {
 
                     .collapsible-xs {
-                        border-bottom: rem(1) solid #fff;
+                        border-bottom: rem(1) solid $white;
                         padding-bottom: rem(16);
                     }
                 }
@@ -1027,16 +1027,8 @@
 
                     .logo-link {
                         display: flex;
-                        width: rem(382);
-                        height: rem(46);
-
-                        @media (max-width:$custom-sm11) {
-                            width: rem(330);
-                        }
-
-                        @media(max-width:$small-screen-width375) {
-                            width: rem(318);
-                        }
+                        max-width: rem(382);
+                        width: 100%;
                     }
 
                     img {
@@ -1317,7 +1309,7 @@
                 padding: 0 rem(24);
                 margin-top: rem(48);
 
-                @media(max-width:$custom-sm11) {
+                @include media-breakpoint-down(xs) {
                     gap: rem(55);
                 }
 
