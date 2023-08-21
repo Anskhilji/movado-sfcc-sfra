@@ -778,7 +778,7 @@
                 @include media-breakpoint-down(xs) {
 
                     .collapsible-xs {
-                        border-bottom: 1px solid #fff;
+                        border-bottom: rem(1) solid #fff;
                         padding-bottom: rem(16);
                     }
                 }
