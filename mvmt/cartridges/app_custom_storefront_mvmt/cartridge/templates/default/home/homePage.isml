@@ -26,4 +26,7 @@
         <isslot id="cs-homepage-slot11" description="Homepage content Slot 11." context="global" />
         <isslot id="cs-homepage-slot12" description="Homepage content Slot 12." context="global" />
     </div>
+    <div class="test mCustomScrollbar">
+        <p>This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.This is para.</p>
+    </div>
 </isdecorate>

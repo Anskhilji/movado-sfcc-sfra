@@ -53,7 +53,8 @@
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
 
 
-    <div class="product-summary">
+    <div class="product-summary mCustomScrollbar">
+
         <div class="mini-cart-product">
             <isloop items="${items}" var="lineItem" status="loopStatus">
                 <div class="row" data-lineitem="${JSON.stringify(lineItem)}">

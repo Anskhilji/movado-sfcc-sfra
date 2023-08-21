@@ -27,6 +27,7 @@ $(document).ready(function () {
     processInclude(require('./components/search'));
     processInclude(require('./utilities/sticky-header'));
     processInclude(require('./utilities/gtm-events'));
+    processInclude(require('malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min'));
     processInclude(require('./components/miniCart'));
     processInclude(require('./login/login'));
     processInclude(require('./components/newsLetterSubscription'));
