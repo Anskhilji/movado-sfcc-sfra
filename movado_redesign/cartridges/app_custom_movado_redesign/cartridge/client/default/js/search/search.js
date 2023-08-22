@@ -357,6 +357,18 @@ function moreFilterBtn($moreFilterBtn) {
 }
  // Custom:MSS-2073 end
 
+function showLoadMoreButton() {
+    if ($windowWidth < $mediumWidth) {
+        if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
+            $('.grid-footer').removeClass('d-none');
+        }
+    } else {
+        if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
+            $('.grid-footer').removeClass('d-none');
+        }
+    }
+}
+
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
@@ -432,6 +444,7 @@ module.exports = {
                     $('.product-grid').empty().html(response);
                     // edit
                     updatePageURLForSortRule(url);
+                    showLoadMoreButton();
                     // edit
                     $.spinner().stop();
                 },
@@ -481,16 +494,8 @@ module.exports = {
                         $isLoadOnScroll = false;
                     }
                 }
-    
-                if ($windowWidth < $mediumWidth) {
-                    if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                        $('.grid-footer').removeClass('d-none');
-                    }
-                } else {
-                    if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                        $('.grid-footer').removeClass('d-none');
-                    }
-                }
+                //show load more button
+                showLoadMoreButton();
 
                 if (($scrollPostion >= $nextLoadMorePosition) && $loadMoreInProcessing && $isLoadOnScroll && $initialScroll) {
                     e.preventDefault();
@@ -512,15 +517,7 @@ module.exports = {
                             updatePageURLForShowMore($showMoreUrl);
                             $loadMoreInProcessing = false;
 
-                            if ($windowWidth < $mediumWidth) {
-                                if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                                    $('.grid-footer').removeClass('d-none');
-                                }
-                            } else {
-                                if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                                    $('.grid-footer').removeClass('d-none');
-                                }
-                            }
+                            showLoadMoreButton();
                             $loaderIcon.addClass('d-none');
                         }
                     });
