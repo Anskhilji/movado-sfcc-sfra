@@ -2511,6 +2511,14 @@
                     transition: .3s ease all;
                     text-transform: capitalize;
 
+                    &.active {
+                      color: $black;
+
+                      &::after {
+                        opacity: 1;
+                      }
+                    }
+
                     &:last-child {
                       margin-bottom: 0;
                     }
