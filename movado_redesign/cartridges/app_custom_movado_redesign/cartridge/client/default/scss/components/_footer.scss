@@ -636,7 +636,7 @@
 
                     &.footer-icon {
                      
-                        &-1 {
+                        &-first {
                             width: rem(14);
                 
                             @include media-breakpoint-down(md) {
@@ -645,7 +645,7 @@
                             }
                         }
                 
-                        &-2 {
+                        &-second {
                             width: rem(18.422);
                 
                             @include media-breakpoint-down(md) {
@@ -654,7 +654,7 @@
                             }
                         }
                 
-                        &-3 {
+                        &-third {
                             width: rem(17.84);
                 
                             @include media-breakpoint-down(md) {
@@ -663,7 +663,7 @@
                             }
                         }
                 
-                        &-4 {
+                        &-fourth {
                             width: rem(14.821);
                 
                             @include media-breakpoint-down(md) {
