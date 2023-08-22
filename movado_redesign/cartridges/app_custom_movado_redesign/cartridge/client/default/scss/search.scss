@@ -2617,6 +2617,7 @@
                   background-color: $black;
                   flex: 1;
                   height: rem(45);
+                  cursor: pointer;
                 }
               }
 
@@ -2974,6 +2975,7 @@
                       width: rem(25);
                       height: rem(25);
                       display: block;
+                      cursor: pointer;
                     }
 
                     &::after {
