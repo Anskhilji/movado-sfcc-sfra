@@ -367,10 +367,10 @@ $(window).scroll(function() {
     } 
 
     if (scroll > screenWidth) {
-        $('.search-result-desktop').addClass('search-desktop-sticky');
+       $('.filter-box').addClass('filter-bar-sticky');
         
     } else {
-        $('.search-result-desktop').removeClass('search-desktop-sticky');
+        $('.filter-box').removeClass('filter-bar-sticky');
     }
 }); 
 
@@ -419,6 +419,16 @@ module.exports = {
                     eventLabel: $filteredText
                   });
             }
+            
+            var $selectedSortselectors = $('.sorting-rule-options-update');
+            if ($selectedSortselectors.length > 0) {
+                $selectedSortselectors.each(function() {
+                    if ($selectedSortselectors.hasClass('active')) {
+                        $selectedSortselectors.removeClass('active');
+                    }
+                });
+            }
+            $(this).addClass('active');
 
             $(this).trigger('search:sort', url);
             $.ajax({

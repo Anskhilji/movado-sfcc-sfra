@@ -2624,7 +2624,7 @@
                 margin-top: rem(112);
 
                 .movado-refinements-container {
-                  height: calc(100vh - 250px);
+                  height: calc(100vh - 235px);
                   padding: 0 rem(24);
 
                   .card {
@@ -2786,6 +2786,97 @@
         .filter-box {
           margin: 0;
           border: 0;
+
+          .filter-and-count {
+            display: none !important; // i'm using important to overwrite inline css
+          }
+
+          &.filter-bar-sticky {
+            height: rem(80);
+            align-items: center;
+            padding: 0 rem(50);
+            top: rem(117);
+            justify-content: space-between;
+
+            @media (max-width:$custom-lg4) {
+              display: flex;
+              align-items: center;
+              padding: 0 rem(24);
+              top: rem(98);
+            }
+
+            
+            .filter-and-count {
+
+              .grid-header {
+
+                .result-count {
+
+                  @media (max-width:$custom-lg4) {
+                    padding: 0;
+
+                    .d-inline-flex {
+                      align-items: center;
+                    }
+
+                    .mobile-category-name {
+                      color: $light-black;
+                      font-family: $movado-font;
+                      font-size: rem(18);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(20);
+                    }
+
+                    span {
+                      color: $dark-gray;
+                      font-family: $the-futura-font;
+                      font-size: rem(14);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(19);
+                      letter-spacing: rem(0.25);
+                      margin: 0;
+                    }
+                  }
+                  
+
+                  > .d-none {
+                    gap: rem(8);
+                    align-items: center;
+
+                    label {
+                      color: $black;
+                      font-family: $movado-font;
+                      font-size: rem(24);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(32);
+                      margin: 0;
+                    }
+
+                    span {
+                      color: $dark-gray;
+                      font-family: $the-futura-font;
+                      font-size: rem(14);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(16);
+                      letter-spacing: rem(0.14);
+                    }
+                  }
+                }
+              }
+            }
+
+            .desktop-search-refine-bar-redesing {
+              width: auto !important; // i'm using important to overwrite inline css
+            }
+
+            .filter-and-count {
+              display: block !important; // i'm using important to overwrite inline css
+            }
+          }
 
           .desktop-search-refine-bar-redesing {
 
