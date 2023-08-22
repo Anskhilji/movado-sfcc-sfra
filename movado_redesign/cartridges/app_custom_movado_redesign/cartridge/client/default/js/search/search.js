@@ -433,10 +433,12 @@ module.exports = {
                     updatePageURLForSortRule(url);
                     // edit
                     $('.search-results.plp-new-design .sortBy-bar').removeClass('d-block').addClass('d-none');
+                    $(".modal-background").removeClass("d-block");
                     $.spinner().stop();
                 },
                 error: function () {
                     $('.search-results.plp-new-design .sortBy-bar').removeClass('d-block').addClass('d-none');
+                    $(".modal-background").removeClass("d-block");
                     $.spinner().stop();
                 }
             });

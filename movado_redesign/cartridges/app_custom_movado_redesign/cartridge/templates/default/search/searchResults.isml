@@ -16,7 +16,7 @@
         <isinclude template="reporting/reportingUrls" />
     </isif>
 
-    <div class="plp-new-design search-results search-results-updated">
+    <div class="container-fluid plp-new-design search-results search-results-updated">
         <div class="search-results-sec">
             <div class="tab-content p-sm-0">
                 <div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
