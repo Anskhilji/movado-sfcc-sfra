@@ -727,7 +727,7 @@
         padding: 0 rem(48);
 
         .copyright-notice {
-            margin-top: rem(39);
+            margin-top: rem(25);
 
             @include media-breakpoint-down(xs) {
                 margin-top: rem(24);
@@ -922,6 +922,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: rem(166);
+            align-items: center;
 
             @include media-breakpoint-down(md) {
                 flex-direction: column;
@@ -931,11 +932,7 @@
             @include media-breakpoint-down(xs) {
                 flex-direction: column-reverse;
                 margin-top: rem(163);
-            }
-
-            .movado-logo {
-                width: rem(302);
-                height: rem(37);
+                align-items: flex-start;
             }
 
             #dropdownCountrySelector {
@@ -1012,6 +1009,8 @@
 
                 .white-logo {
                     margin-top: rem(20);
+                    width: 18.875rem;
+                    height: 2.3125rem;
                 }
 
                 @include media-breakpoint-down(md){
@@ -1292,34 +1291,40 @@
 
         @include media-breakpoint-down(xs) {
             display: block;
+        }
 
-            .social-desktop {
+        .social-desktop {
+            @include media-breakpoint-down(xs) {
+                display: none;
+            }
+        }
+
+        .mb-title {
+            @include media-breakpoint-down(xs) {
+                display: none;
+            }
+        }
+
+        .social-links {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            display: flex;
+            gap: rem(70);
+            padding: 0 rem(24);
+            margin-top: rem(48);
+            justify-content: space-between;
+
+            &::after {
                 display: none;
             }
 
-            .mb-title {
-                display: none;
+            @include media-breakpoint-down(xs) {
+                gap: unset;
             }
 
-            .social-links {
-                width: unset;
+            li {
                 margin: 0;
-                display: flex;
-                gap: rem(70);
-                padding: 0 rem(24);
-                margin-top: rem(48);
-
-                @include media-breakpoint-down(xs) {
-                    gap: rem(70);
-                }
-
-                li {
-                    margin: 0;
-                }
-
-                 @media (max-width:$small-screen-width375) {
-                    gap: rem(55);
-                 }
             }
         }
     }
