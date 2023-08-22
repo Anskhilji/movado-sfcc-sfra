@@ -616,6 +616,10 @@
                @include media-breakpoint-down(md) {
                    gap: rem(30);
                }
+               
+               @include media-breakpoint-down(sm) {
+                   gap: rem(0);
+               }
 
                 .footer-top-item {
                     min-width: auto;
@@ -926,12 +930,12 @@
             @include media-breakpoint-down(md) {
                 flex-direction: column;
                 padding: 0 rem(24);
+                margin-top: rem(80);
             }
 
             @include media-breakpoint-down(xs) {
                 flex-direction: column-reverse;
                 margin-top: rem(163);
-                align-items: flex-start;
             }
 
             #dropdownCountrySelector {
@@ -1002,7 +1006,7 @@
 
             .movado-logo {
 
-                @include media-breakpoint-down(sm) {
+                @include media-breakpoint-down(md) {
                     order: 1;
                 }
                 
@@ -1016,8 +1020,6 @@
 
                 .white-logo {
                     margin-top: rem(20);
-                    width: 18.875rem;
-                    height: 2.3125rem;
                 }
 
                 @include media-breakpoint-down(md){
@@ -1126,7 +1128,7 @@
             @include media-breakpoint-down(sm) {
 
                 .content {
-                    bottom: rem(73.6);
+                    bottom: rem(35.6);
 
                     @include media-breakpoint-down(xs) {
                         bottom: rem(41.6);
