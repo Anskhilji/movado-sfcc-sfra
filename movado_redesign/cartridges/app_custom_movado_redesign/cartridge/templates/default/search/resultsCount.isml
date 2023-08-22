@@ -4,7 +4,7 @@
             <label class="category-name" data-result-counts="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}">${pdict.productSearch.category.name}</label> <span> <isprint value="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}" encoding="off"></span>
         </span>
         <span class="d-inline-flex d-md-none">
-            <label class="category-name mobile-category-name" data-result-counts="${Resource.msgf('label.results.mobile', 'search', null, pdict.productSearch.count)}">${pdict.productSearch.category.name}</label> <span><isprint value="${Resource.msgf('label.results.mobile', 'search', null, pdict.productSearch.count)}" encoding="off"></span>
+            <label class="category-name mobile-category-name" data-result-counts="${Resource.msgf('label.results.mobile', 'search', null, pdict.productSearch.count)}">${pdict.productSearch.category.name}</label> <span> <isprint value="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}" encoding="off"></span>
         </span>
     <iscomment> Custom End: category name added</iscomment>
 <iselse>

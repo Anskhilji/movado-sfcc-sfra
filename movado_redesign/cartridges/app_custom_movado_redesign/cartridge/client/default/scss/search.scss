@@ -129,26 +129,6 @@
     outline: -webkit-focus-ring-color auto 1px;
 }
 
-  // .sortBy-btn {
-
-  //   button {
-  //     font-family: $movado-font;
-  //     font-size:rem(12);
-  //     font-style: normal;
-  //     font-weight: 400;
-  //     line-height: normal;
-  //     letter-spacing: rem(0.48);
-  //     text-transform: uppercase;
-  //     color: $black;
-  //     border: none;
-  //     outline: none;
-  //     padding-right: rem(25);
-  //     background: url("../images/sort-icon.png") right center no-repeat;
-  //     cursor: pointer;
-  //   }
-
-  // }
-
   .tab-content {
     position: unset;
   }
@@ -171,17 +151,6 @@
     }
 
     .category-name {font-size: rem(15);}
-    // .category-name {
-    //     color: $light-black;
-    //     font-family: $movado-font;
-    //     font-size: rem(24);
-    //     font-style: normal;
-    //     font-weight: 400;
-    //     line-height: rem(32);
-    //     margin: 0;
-    //     margin-right: rem(5);
-    //     text-transform: capitalize;
-    //   }
   }
 
   .plp-show-more {
@@ -202,19 +171,6 @@
       }
     }
   }
-  // .sortBy-bar {
-  //   position: fixed;
-  //   width: rem(350);
-  //   z-index: 99999;
-  //   background: $white;
-  //   right: 0;
-  //   top: 0;
-  //   bottom: 0;
-  //   left: unset;
-  //   // opacity: 0;
-  //   // display: none !important;
-  //   // pointer-events: none;
-  // }
 
   .refinement-bar {
     position: fixed;
@@ -2423,6 +2379,22 @@
       justify-content: space-between;
       height: rem(80);
 
+      &.search-desktop-sticky {
+        position: fixed;
+        top: rem(117);
+        width: 100%;
+        background: $white;
+        z-index: 99;
+        margin-left: rem(-48);
+        padding: 0 rem(50);
+
+        @media (max-width:$custom-lg4) {
+          top: rem(98);
+          margin-left: rem(-24);
+          padding: 0 rem(24);
+        }
+      }
+
       .left-sec {
 
         .filter-and-count {
@@ -2445,17 +2417,17 @@
                   font-style: normal;
                   font-weight: 400;
                   line-height: rem(20);
-  
-                  span {
-                    color: $dark-gray;
-                    font-family: $the-futura-font;
-                    font-size: rem(14);
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: rem(19);
-                    letter-spacing: rem(0.25);
-                    margin: 0;
-                  }
+                }
+
+                span {
+                  color: $dark-gray;
+                  font-family: $the-futura-font;
+                  font-size: rem(14);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: rem(19);
+                  letter-spacing: rem(0.25);
+                  margin: 0;
                 }
               }
               
@@ -2526,7 +2498,7 @@
                   margin-top: rem(64);
 
                   .sorting-rule-options-update {
-                    color: #949496;
+                    color: $storm-gray1;
                     font-family: $movado-font;
                     font-size: rem(16);
                     font-style: normal;
@@ -2537,6 +2509,7 @@
                     position: relative;
                     cursor: pointer;
                     transition: .3s ease all;
+                    text-transform: capitalize;
 
                     &:last-child {
                       margin-bottom: 0;
@@ -2587,6 +2560,7 @@
                 align-items: center;
                 gap: rem(16);
                 padding: rem(40);
+                margin: 0;
                 
                 &::after {
                   content: '';
@@ -2594,7 +2568,7 @@
                   top: 0;
                   width: 100%;
                   height: rem(1);
-                  background: #B2B2B4; //$dark-light-grey
+                  background: $silver-light;
                   margin-left: rem(-40);
                 }
                 
@@ -2643,16 +2617,17 @@
 
                 .movado-refinements-container {
                   height: calc(100vh - 250px);
+                  padding: 0 rem(24);
 
                   .card {
-                    border-color: #B2B2B4; //$dark-light-grey
+                    border-color: $neutrals-400;
 
                     &:last-child {
                       border: 0;
                     }
 
                     button {
-                      padding: rem(32) rem(40) rem(16) rem(40);
+                      padding: rem(32) rem(0) rem(16) rem(0);
                       color: $black;
                       font-family: $movado-font;
                       font-size: rem(16);
@@ -2662,13 +2637,23 @@
                       letter-spacing: rem(0.25);
 
                       @media (max-width:$custom-lg4) {
-                        padding: rem(48) rem(24) rem(16) rem(24);
+                        padding: rem(48) rem(0) rem(16) rem(0);
+                        font-size: rem(18);
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: rem(20);
+                        letter-spacing: inherit;
+
+                        &::after {
+                          top: rem(48);
+                        }
                       }
 
                       &::after {
                         background: url(../images/plus.svg) left center no-repeat;
-                        width: rem(20);
-                        height: rem(20);
+                        width: rem(24);
+                        height: rem(24);
+                        right: 0;
                       }
                     }
 
@@ -2683,7 +2668,7 @@
                       }
 
                       .card-body {
-                        padding: rem(8) rem(40) rem(32) rem(40);
+                        padding: rem(8) rem(0) rem(32) rem(0);
 
                         ul {
 
@@ -2748,7 +2733,8 @@
                 right: 0;
 
                 @media (max-width:$custom-lg4) {
-                  margin: 0 rem(24);
+                  margin: 0;
+                  padding: rem(40) rem(24);
                 }
 
                 &.d-flex {
@@ -2757,7 +2743,7 @@
 
                     &::after {
                       margin-left: rem(-24);
-                      width: calc(100% + 48px);
+                      width: 100%;
                     }
                   }
                 }
@@ -2782,6 +2768,7 @@
                   font-style: normal;
                   font-weight: 400;
                   line-height: rem(32);
+                  text-transform: capitalize;
                 }
               }
             }

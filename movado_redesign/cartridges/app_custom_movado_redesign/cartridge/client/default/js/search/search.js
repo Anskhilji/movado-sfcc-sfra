@@ -367,10 +367,10 @@ $(window).scroll(function() {
     } 
 
     if (scroll > screenWidth) {
-        $('.filter-box').addClass('filter-bar-sticky');
+        $('.search-result-desktop').addClass('search-desktop-sticky');
         
     } else {
-        $('.filter-box').removeClass('filter-bar-sticky');
+        $('.search-result-desktop').removeClass('search-desktop-sticky');
     }
 }); 
 
