@@ -21,23 +21,22 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-    <isif condition="${!pdict.isMobileUser}">
-        <section class="sticky-bar" data-desktop-sticky-atc-bar>
-            <div class="sticky-bar-container">
-                <div>
-                    <strong>${Resource.msg('label.sticky.selected', 'product', null)}</strong>
-                    <span class="sticky-bar-name">${product.productName}</span>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span class="sticky-bar-price">
-                        <isset name="price" value="${product.price}" scope="page" />
-                        <isinclude template="product/components/pricing/main" />
-                    </span>
-                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
-                </div>
+    <section class="sticky-bar" data-desktop-sticky-atc-bar>
+        <div class="sticky-bar-container">
+            <div>
+                <strong>${Resource.msg('label.sticky.selected', 'product', null)}</strong>
+                <span class="sticky-bar-name">${product.productName}</span>
             </div>
-        </section>
-    </isif>
+            <div class="d-flex align-items-center">
+                <span class="sticky-bar-price">
+                    <isset name="price" value="${product.price}" scope="page" />
+                    <isinclude template="product/components/pricing/main" />
+                </span>
+                <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
+                <iscomment> <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/> </iscomment>
+            </div>
+        </div>
+    </section>
 
         <div class="product-breadcrumb">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
@@ -235,18 +234,17 @@
                                 </div>
                             </isif>
                         </div>
-                        <isif condition="${pdict.isMobileUser}">
-                            <div class="show-cart-button-below-price">
-                                <div class="row">
-                                    <div class="col-12 prices-add-to-cart-actions-top">
-                                        <div class="d-block">
-                                            <!-- Cart and [Optionally] Apple Pay -->
-                                            <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}" />
-                                        </div>
+                        <div class="show-cart-button-below-price">
+                            <div class="row">
+                                <div class="col-12 prices-add-to-cart-actions-top">
+                                    <div class="d-block">
+                                        <!-- Cart and [Optionally] Apple Pay -->
+                                        <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
+                                        <iscomment> <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}" /> </iscomment>
                                     </div>
                                 </div>
                             </div>
-                        </isif>
+                        </div>
                         <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                         <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
                         <isif condition="${!product.available}">
@@ -295,32 +293,31 @@
                                 </isif>
                             </isif>
                         </div>
-                        <isif condition="${pdict.isMobileUser}">
-                            <div class="show-cart-button-mobile">
-                                <div class="row">
-                                    <div class="col-12 prices-add-to-cart-actions">
-                                        <div class="d-block show-cart-button-mobile-container">
-                                            <!-- Cart and [Optionally] Apple Pay -->
-                                            <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
-                                            <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
-                                            <isif condition="${isEswEnabled}">
-                                                <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
-                                                    <isif condition="${product.available && product.readyToOrder}">
-                                                        <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
-                                                    </isif>
-                                                </isif>
-                                            <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
-                                            <iselse/>
+                        <div class="show-cart-button-mobile">
+                            <div class="row">
+                                <div class="col-12 prices-add-to-cart-actions">
+                                    <div class="d-block show-cart-button-mobile-container">
+                                        <!-- Cart and [Optionally] Apple Pay -->
+                                        <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
+                                        <iscomment> <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/> </iscomment>
+                                        <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
+                                        <isif condition="${isEswEnabled}">
+                                            <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
                                                 <isif condition="${product.available && product.readyToOrder}">
                                                     <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
                                                 </isif>
                                             </isif>
-                                            <iscomment> Custom End </iscomment>
-                                        </div>
+                                        <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+                                        <iselse/>
+                                            <isif condition="${product.available && product.readyToOrder}">
+                                                <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
+                                            </isif>
+                                        </isif>
+                                        <iscomment> Custom End </iscomment>
                                     </div>
                                 </div>
                             </div>
-                        </isif>
+                        </div>
 
                         <!-- Applicable Promotions -->
                         <div class="promotions d-md-block d-none">
@@ -360,15 +357,13 @@
                         
 
                         <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
-                        <isif condition="${!pdict.isMobileUser}">
-                            <div class="show-cart-button-desktop">
-                                <div class="row">
-                                    <div class="col-12 prices-add-to-cart-actions">
-                                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
-                                    </div>
+                        <div class="show-cart-button-desktop">
+                            <div class="row">
+                                <div class="col-12 prices-add-to-cart-actions">
+                                <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                                 </div>
                             </div>
-                        </isif>
+                        </div>
                         <isif condition="${!product.available}">
                             <div class="d-none d-md-block back-in-Stock-desktop">
                                 <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">

@@ -1539,6 +1539,4 @@ movadoBase.addToCart = function () {
     });
 }
 
-
-
 module.exports = movadoBase; 

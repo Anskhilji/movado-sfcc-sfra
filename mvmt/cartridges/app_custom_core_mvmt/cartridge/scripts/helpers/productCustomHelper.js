@@ -784,12 +784,6 @@ function getProductPromoAndSalePrice(product) {
     }
 }
 
-function isMobileUser() {
-    var userAgent = request.httpHeaders['user-agent'];
-    var isMobile = /Mobile|Android/.test(userAgent);
-    return isMobile
-}
-
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
@@ -803,6 +797,5 @@ movadoProductCustomHelper.getProductCategory = getProductCategory;
 movadoProductCustomHelper.isGiftBoxAllowed = isGiftBoxAllowed;
 movadoProductCustomHelper.getGiftBoxSKU = getGiftBoxSKU;
 movadoProductCustomHelper.getProductCategoryForGiftBox = getProductCategoryForGiftBox;
-movadoProductCustomHelper.isMobileUser = isMobileUser;
 
 module.exports = movadoProductCustomHelper;

@@ -46,7 +46,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
-    var isMobileUser = productCustomHelper.isMobileUser();
     /* get recommendations for product*/
     if (product) {
         product = ProductMgr.getProduct(product.id);
@@ -86,7 +85,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         upsellHeadingText: upsellHeadingText,
         collectionName: collectionName,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
-        isMobileUser: isMobileUser
     };
 
     if (product.custom.renderingTemplate) {
