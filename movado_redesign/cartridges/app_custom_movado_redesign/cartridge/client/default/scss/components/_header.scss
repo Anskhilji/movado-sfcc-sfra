@@ -61,22 +61,24 @@ header.new-header {
       }
 
       .product-tile {
-        background: $white-smoke;
+        background: $white;
         min-height: unset;
         position: relative;
 
         .out-of-stock {
           display: inline-block;
-          color: $storm-gray;
+          color: $black;
           font-size: rem(9);
           letter-spacing: normal;
           padding: rem(2) rem(5);
-          background: $dark-pink;
+          background: $white;
           @include font-book;
           text-transform: capitalize;
           border-radius: rem(10);
           z-index: 99;
           float: right;
+          font-family: $the-futura-font;
+          border: rem(0.701) solid $silver-light;
     
           @include media-breakpoint-down(sm) {
             right: rem(5);
@@ -100,16 +102,19 @@ header.new-header {
         }
         .new-product, .pre-order  {
           display: inline-block;
-          color: $storm-gray;
+          color: $black;
           font-size: rem(9);
           display: block !important;
           letter-spacing: normal;
           padding: rem(2) rem(5);
-          background: $grey9-light;
+          background: $white;
           @include font-book;
           text-transform: capitalize;
           border-radius: rem(10);
           z-index: 99;
+          font-family: $the-futura-font;
+          border: rem(0.701) solid $silver-light;
+
           @include media-breakpoint-down(sm) {
             right: rem(5);
           }
@@ -118,7 +123,7 @@ header.new-header {
           }
         }
         .pre-order {
-          background: $grey9-light;
+          background: $white;
           z-index: 999; 
         }
         .wishlistTile {
@@ -163,6 +168,7 @@ header.new-header {
 
         .image-container {
           border: none;
+          background: $grey-silver-light;
 
           .quickview {
             display: none;
@@ -173,12 +179,19 @@ header.new-header {
           text-align: left;
           padding: rem(10);
           overflow: auto;
+          background: $white;
+          font-family: $the-futura-font;
 
           .pdp-link , .price {
             display: block;
             float: unset;
             padding: 0;
             margin: 0;
+            font-family: $the-futura-font;
+          }
+
+          .tile-body-content {
+              font-family: $the-futura-font;
           }
 
           .price {
@@ -189,6 +202,7 @@ header.new-header {
             float: unset;
             letter-spacing: normal;
             color: $grey8;
+            font-family: $the-futura-font;
           }
 
           .product-name {
@@ -198,6 +212,8 @@ header.new-header {
             color: $grey8;
             letter-spacing: normal;
             text-transform: capitalize;
+            font-family: $movado-font;
+            font-weight: 400;
           }
           .tile-discription, .tile-btns {
             display: none;
@@ -1048,6 +1064,10 @@ header.new-header {
               display: flex;
               align-items: center;
               justify-content: center;
+
+              .white-logo {
+                display: none;
+              }
 
               @include media-breakpoint-down(md) {
                 width: rem(128);
