@@ -57,7 +57,6 @@ function parseResults(response) {
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
-        '.refine-wrapper',
         '.refine-wrapper-sidebar',
         '.header-bar',
         '.header.page-title',
@@ -368,7 +367,7 @@ $(window).scroll(function() {
     } 
 
     if (scroll > screenWidth) {
-        $('.filter-box').addClass('filter-bar-sticky');
+       $('.filter-box').addClass('filter-bar-sticky');
         
     } else {
         $('.filter-box').removeClass('filter-bar-sticky');
@@ -399,19 +398,19 @@ module.exports = {
 
     sort: function () {
         // Handle sort order menu selection
-        $('.container, .container-fluid').on('change', '[name=sort-order]', function (e) {
-            setTimeout( function () {
+        $('.container, .container-fluid').on('click', '.sorting-rule-options-update', function (e) {
+            setTimeout(function () {
                 if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
                     $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
                 }
             }, 20);
-            var url = this.value;
+            var url = $(this).data('url');
             e.preventDefault();
 
             $.spinner().start();
 
             // Push Data into gtm For Sorting Rules Filters
-            var $filteredText = $(this).find(':selected').text().trim();
+            var $filteredText = $(this).text().trim();
             if ($filteredText !==undefined) {
                 dataLayer.push({
                     event: 'Collection Filtering',
@@ -420,11 +419,21 @@ module.exports = {
                     eventLabel: $filteredText
                   });
             }
+            
+            var $selectedSortSelectors = $('.sorting-rule-options-update');
+            if ($selectedSortSelectors.length > 0) {
+                $selectedSortSelectors.each(function() {
+                    if ($selectedSortSelectors.hasClass('active')) {
+                        $selectedSortSelectors.removeClass('active');
+                    }
+                });
+            }
+            $(this).addClass('active');
 
-            $(this).trigger('search:sort', this.value);
+            $(this).trigger('search:sort', url);
             $.ajax({
-                url: this.value,
-                data: { selectedUrl: this.value },
+                url: url,
+                data: { selectedUrl: url },
                 method: 'GET',
                 success: function (response) {
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
@@ -433,9 +442,13 @@ module.exports = {
                     // edit
                     updatePageURLForSortRule(url);
                     // edit
+                    $('.search-results.plp-new-design .sortby-bar').removeClass('d-block').addClass('d-none');
+                    $('.modal-background').removeClass('d-block');
                     $.spinner().stop();
                 },
                 error: function () {
+                    $('.search-results.plp-new-design .sortby-bar').removeClass('d-block').addClass('d-none');
+                    $('.modal-background').removeClass('d-block');
                     $.spinner().stop();
                 }
             });
