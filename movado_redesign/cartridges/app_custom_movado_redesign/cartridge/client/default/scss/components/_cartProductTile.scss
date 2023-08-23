@@ -1,0 +1,100 @@
+@import "../vars";
+
+.product-card-wrapper {
+
+  .line-item-name {
+      font-family: $the-futura-font;
+  }
+
+  .line-item-brand-name {
+
+        a, span {
+            font-family: $the-futura-font;
+        }
+    }
+
+  .item-info {
+      .item-attributes {
+
+          .total-amount {
+              font-family: $movado-font;
+              font-weight: 500;
+
+          }
+
+          .model-name, .original-price, .savings {
+              font-family: $movado-font;
+
+          }
+
+          .personalize-msg, .personalize-price {
+              font-family: $movado-font;
+              font-weight: 500;
+
+          }
+
+          .edit-add-to-wishlist {
+
+            .product-edit {
+              .move {
+                font-family: $the-futura-font;
+              }
+            }
+          }
+
+
+        .engraving-box {
+
+            .remove-engraved {
+                font-family: $movado-font;
+                font-weight: 600;
+            }
+
+            .engraved-text {
+                font-family: $movado-font;
+            }
+
+        }
+      }
+  }
+}
+
+.product-gift-wrap {
+
+    .gift-message-wrapper {
+
+        .gift-description-font {
+            font-family: $movado-font;
+        }
+
+        .is-gift-row {
+            .character-limit {
+                span {
+                    font-family: $movado-font;
+                }
+            }
+
+           .gift-textarea {
+                textarea[placeholder] {
+                    font-family: $movado-font;
+                }
+           } 
+
+           .gift-error-wrapper {
+               span {
+                font-family: $movado-font;
+               }
+           }
+
+           .add-gift-message {
+                .apply-button {
+                    font-family: $movado-font;
+                }
+
+                .saved-button {
+                    font-family: $movado-font;
+                }
+           }
+        }
+    }
+}

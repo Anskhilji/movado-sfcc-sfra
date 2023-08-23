@@ -1,0 +1,20 @@
+@import '~movado/checkout/orderConfirmation';
+@import "../vars";
+
+body {
+    font-family: $movado-font;
+}
+
+.order-thank-you-email-msg {
+    font-family: $movado-font;
+}
+
+.order-summary-title{
+    h5{
+      font-family: $movado-font;
+    }
+}
+
+.order-confirmation-continue-shopping {
+    font-family: $movado-font;
+}

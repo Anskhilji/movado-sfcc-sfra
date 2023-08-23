@@ -1,0 +1,60 @@
+@import "vars";
+@import '~movado/staticContent';
+
+body {
+  font-family: $movado-font;
+}
+
+.pt_customerservice {
+  aside {
+    nav {
+      ul {
+        li {
+          a {
+            font-family: $the-futura-font;
+          }
+        }
+      }
+    }
+  }
+
+  .right-content {
+    p {
+      font-family: $movado-font;
+      font-weight: 500;
+    }
+    a {
+      font-family: $the-futura-font;
+    }
+    h1 {
+      font-family: $movado-font;
+      font-weight: 700;
+    }
+    h2 {
+      font-family: $movado-font;
+      font-weight: 600;
+    }
+    h3 {
+      font-family: $movado-font;
+      font-weight: 500;
+    }
+    h4,h5,h6 {
+      font-family: $movado-font;
+    }
+  }
+
+  .contactus-page {
+    .contactus {
+      .form-group {
+        .form-control-label {
+          font-family: $movado-font;
+          font-weight: 400;
+        }
+      }
+    }
+
+    .btn-save {
+      font-family: $movado-font;
+    }
+  }
+}

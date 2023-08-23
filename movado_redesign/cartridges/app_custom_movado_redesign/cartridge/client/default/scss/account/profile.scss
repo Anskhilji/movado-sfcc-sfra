@@ -1,0 +1,9 @@
+@import '~movado/account/profile';
+@import "../vars";
+@import "account";
+
+.grand-total{
+.order-receipt-label,.grand-total-sum{
+    font-family: $movado-font;
+}
+}

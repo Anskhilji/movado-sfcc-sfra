@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import 'vars';
+@import "mixins";
 @import "typography";
 @import "utilities/fonts";
 @import '~movado/global';
@@ -9,12 +10,15 @@
 @import "components/header";
 @import "custom-animation";
 @import 'common';
+@import 'components/buttons';
 @import "components/common";
 @import "components/subMenuSlot";
 @import "components/breadcrumb";
 @import "components/tooltip";
+@import "components/cartProductTile";
 @import "malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar";
 @import "components/footer";
 @import "homepage";
 @import "components/carousel";
 @import "miniCart";
+@import "needHelp";

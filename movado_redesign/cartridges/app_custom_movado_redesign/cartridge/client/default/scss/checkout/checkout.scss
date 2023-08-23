@@ -1,0 +1,44 @@
+@import '~movado/checkout/checkout';
+@import "checkoutComponents";
+@import "../vars";
+
+body {
+    font-family: $movado-font !important;
+}
+
+.shipping-method-option {
+    font-family: $movado-font !important;
+}
+
+.shipping-method-pricing {
+    font-family: $movado-font;
+}
+
+header {
+
+    .checkout-header-wrapper {
+
+        .header-left {
+
+            .checkout-logo {
+
+                .logo-checkout-text {
+                    font-family: $movado-font;
+
+                }
+            }
+        }
+    }
+}
+
+// Google Autocomplete Address Style -------------------------------
+.pac-container {
+    
+    .pac-item {
+        font-family: $movado-font;
+
+        .pac-item-query {
+            font-family: $movado-font;
+        }
+    }
+}
