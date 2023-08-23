@@ -2664,6 +2664,10 @@
                   text-transform: uppercase;
                   flex: 1;
                   height: rem(45);
+
+                  @media (max-width:$custom-sm11) {
+                    font-size: rem(10);
+                  }
                 }
 
                 button {
