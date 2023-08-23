@@ -103,7 +103,7 @@
                                     </div>
 
                                     <div class="side-sortBy">
-                                        <div class="sortBy-bar sort-by-redesign col d-none">
+                                        <div class="sortby-bar sort-by-redesign col d-none">
                                             <isinclude template="search/sortRefineBar" />
                                         </div>
                                     </div>

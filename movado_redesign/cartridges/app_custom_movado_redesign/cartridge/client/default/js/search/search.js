@@ -442,12 +442,12 @@ module.exports = {
                     // edit
                     updatePageURLForSortRule(url);
                     // edit
-                    $('.search-results.plp-new-design .sortBy-bar').removeClass('d-block').addClass('d-none');
+                    $('.search-results.plp-new-design .sortby-bar').removeClass('d-block').addClass('d-none');
                     $(".modal-background").removeClass("d-block");
                     $.spinner().stop();
                 },
                 error: function () {
-                    $('.search-results.plp-new-design .sortBy-bar').removeClass('d-block').addClass('d-none');
+                    $('.search-results.plp-new-design .sortby-bar').removeClass('d-block').addClass('d-none');
                     $(".modal-background").removeClass("d-block");
                     $.spinner().stop();
                 }

@@ -14,7 +14,7 @@ function closeRefinementFilters() {
 }
 
 function closeSortBy() {
-    $('.search-results.plp-new-design .sortBy-bar').removeClass('d-block').addClass('d-none');
+    $('.search-results.plp-new-design .sortby-bar').removeClass('d-block').addClass('d-none');
 }
 
 $(document).ready(function () {
@@ -64,7 +64,7 @@ $(document).ready(function () {
         $('.header-menu-wrapper').addClass('sticky-bar-index');
         $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast').css('z-index', 9999);
         $('body').addClass('no-overflow');
-        $('.search-results.plp-new-design .sortBy-bar').removeClass('d-none').addClass('fast fadeInRight animated d-block');
+        $('.search-results.plp-new-design .sortby-bar').removeClass('d-none').addClass('fast fadeInRight animated d-block');
         $('.side-sortBy .custom-select').addClass('d-none');
         $('.side-sortBy .sorting-rules-filters').addClass('d-block');
     });

@@ -124,7 +124,7 @@ $(".search-close").click(function(){
     e.preventDefault();
 });
 
-$(".sortBy-bar").click(function(e){
+$(".sortby-bar").click(function(e){
     $(".modal-background").addClass("d-block");
 });
 
