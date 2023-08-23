@@ -420,11 +420,11 @@ module.exports = {
                   });
             }
             
-            var $selectedSortselectors = $('.sorting-rule-options-update');
-            if ($selectedSortselectors.length > 0) {
-                $selectedSortselectors.each(function() {
-                    if ($selectedSortselectors.hasClass('active')) {
-                        $selectedSortselectors.removeClass('active');
+            var $selectedSortSelectors = $('.sorting-rule-options-update');
+            if ($selectedSortSelectors.length > 0) {
+                $selectedSortSelectors.each(function() {
+                    if ($selectedSortSelectors.hasClass('active')) {
+                        $selectedSortSelectors.removeClass('active');
                     }
                 });
             }
@@ -443,12 +443,12 @@ module.exports = {
                     updatePageURLForSortRule(url);
                     // edit
                     $('.search-results.plp-new-design .sortby-bar').removeClass('d-block').addClass('d-none');
-                    $(".modal-background").removeClass("d-block");
+                    $('.modal-background').removeClass('d-block');
                     $.spinner().stop();
                 },
                 error: function () {
                     $('.search-results.plp-new-design .sortby-bar').removeClass('d-block').addClass('d-none');
-                    $(".modal-background").removeClass("d-block");
+                    $('.modal-background').removeClass('d-block');
                     $.spinner().stop();
                 }
             });

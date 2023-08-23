@@ -1,4 +1,4 @@
-<div class="sortBy-section">
+<div class="sort-by-section">
     <div class="sortBy-header d-flex justify-content-between">
         <span class="sort-by">${Resource.msg('label.sortby', 'search', null)}</span>
         <svg class="close-bar" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
