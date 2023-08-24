@@ -2,9 +2,10 @@
 @import '~movado/cart';
 
 .checkout-button-wrapper {
+
     .estimated-price {
-      font-family: $movado-font;
-      font-size: 500;
+        font-family: $movado-font;
+        font-size: 500;
     }
 }
 
@@ -50,8 +51,8 @@
         .form-group {
 
             label {
-              font-family: $movado-font;
-              font-weight: 400;
+                font-family: $movado-font;
+                font-weight: 400;
             }
 
             .shippingMethods {
@@ -77,9 +78,9 @@
 
             .more-options {
 
-              .paypal-btn, .apple-pay-cart, .google-pay-column {
-                font-family: $movado-font;
-              }
+                .paypal-btn, .apple-pay-cart, .google-pay-column {
+                    font-family: $movado-font;
+                }
             }
         }
     }
@@ -88,13 +89,13 @@
 
 .product-card-wrapper {
 
-  .product-gift-wrap {
-    
-    .character-limit,
-    .gift-check + label {
-      font-family: $movado-font;
+    .product-gift-wrap {
+
+        .character-limit,
+        .gift-check + label {
+            font-family: $movado-font;
+        }
     }
-  }
 }
 
 .totals {

@@ -15,7 +15,7 @@ body {
   }
 
   .card-body.form-control-label{
-    font-family: $movado-font;
+      font-family: $movado-font;
   }
 
   .card {
@@ -24,36 +24,36 @@ body {
 
           .account-wishlist-item {
 
-            .remove-from-wishlist {
-              font-weight: 300;
-              font-family: $movado-font;
-            }
+              .remove-from-wishlist {
+                  font-weight: 300;
+                  font-family: $movado-font;
+              }
           }
 
           dt,.field-label{
-            font-family: $movado-font;
+              font-family: $movado-font;
           }
 
           & > div{
 
-            div{
+              div{
 
-              &.dashboard-cards-block-title{
-                font-family: $movado-font;
-                font-weight: 500;
+                  &.dashboard-cards-block-title{
+                      font-family: $movado-font;
+                      font-weight: 500;
+                  }
               }
-            }
           }
 
           .line-item-name {
-            font-family: $movado-font;
+              font-family: $movado-font;
           }
       }
 
       .card-footer {
 
           .field-label {
-            font-family: $movado-font;
+              font-family: $movado-font;
           }
       }
   }
@@ -87,6 +87,6 @@ body {
 .account-pages {
 
     .card-header h4 {
-      font-family: $movado-font;
+        font-family: $movado-font;
     } 
 } 
