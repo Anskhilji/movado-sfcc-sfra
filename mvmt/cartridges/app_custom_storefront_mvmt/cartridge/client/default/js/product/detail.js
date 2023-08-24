@@ -629,8 +629,10 @@ $('.zoom-product-modal').click(function() {
     }
 });
 
-if ($('.show-cart-button-desktop .add-to-cart').length > 0 && $('.show-cart-button-desktop .add-to-cart').hasClass('out-of-stock-btn')) {
-    $('.add-to-cart').addClass('out-of-stock-btn').attr('disabled', 'disabled').contents().first().replaceWith($('.show-cart-button-desktop .add-to-cart').contents().first().text());
-    $('.apple-pay-pdp').addClass('d-none');
-    $('.google-pay-container').addClass('d-none');
-}
+$(document).ready(function () {
+    if ($('.show-cart-button-desktop .add-to-cart').length > 0 && $('.show-cart-button-desktop .add-to-cart').hasClass('out-of-stock-btn')) {
+        $('.add-to-cart').addClass('out-of-stock-btn').attr('disabled', 'disabled').contents().first().replaceWith($('.show-cart-button-desktop .add-to-cart').contents().first().text());
+        $('.apple-pay-pdp').addClass('d-none');
+        $('.google-pay-container').addClass('d-none');
+    }
+});
