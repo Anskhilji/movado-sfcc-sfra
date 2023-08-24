@@ -9,6 +9,7 @@
 @import "../components/productRightDetail";
 @import "../components/accordionPdp";
 @import "../components/swissMade";
+@import "../components/dropdown";
 
 $arrow-height: 1.25em;
 .dw-apple-pay-button.apple-pay-pdp,
@@ -288,6 +289,10 @@ $arrow-height: 1.25em;
 
             &:not(:first-child) {
                 margin-left: rem(10);
+            }
+
+            .debossing-btn {
+                margin-top: rem(10);
             }
         }
     }
@@ -1396,14 +1401,14 @@ $arrow-height: 1.25em;
                         font-size: rem(12);
                         color: $black;
                         line-height: rem(13.8);
-                        letter-spacing: rem(0.5);
-                        color: $storm-gray;
+                        letter-spacing: rem(0);
                         padding: rem(4) rem(16);
                         margin: 0;
                         background-color: $white;
                         text-transform: uppercase;
                         border: rem(1) solid $neutrals-300;
                         border-radius: rem(100);
+                        height: rem(24);
                     }
                 }
             }

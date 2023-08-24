@@ -154,6 +154,10 @@ header {
         &.cs-carousel-update {
             margin-bottom: rem(0);
 
+            @include media-breakpoint-down(sm) {
+                margin-top: rem(44);
+            }
+
             .carousel-title {
                 font-size: rem(32);
                 font-style: normal;
