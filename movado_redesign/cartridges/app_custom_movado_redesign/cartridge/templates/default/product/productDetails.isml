@@ -94,7 +94,7 @@
                         </isif>
                     </isif>
 
-                    <div class="product-description description aruliden-description">
+                    <div class="product-description description">
                         <isinclude template="product/components/description" />
                     </div>
 
