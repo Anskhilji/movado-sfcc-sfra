@@ -38,7 +38,7 @@
                 <h2 class="technical-detail-heading">
                     <span>Reviews</span> 
                     
-                    <div class="">
+                    <div>
                         <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                         <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
                             <div class="product-number-rating clearfix">
