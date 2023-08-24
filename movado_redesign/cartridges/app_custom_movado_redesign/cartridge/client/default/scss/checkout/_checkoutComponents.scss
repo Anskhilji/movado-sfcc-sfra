@@ -23,7 +23,7 @@ body {
             font-family: $movado-font;
 
             a {
-              font-family: $the-futura-font;
+                font-family: $the-futura-font;
             }
         }
     }
@@ -127,35 +127,40 @@ body {
       .new-shipping-sec {
 
           h5 {
+            
               &.ship-method-header {
                 font-family: $movado-font;
               }
           }
       }
-  }
-
-  .card-header {
-    font-family: $the-futura-font;
-
-    h4 {
-      font-family: $movado-font;
     }
-  }
-  
-  .checkout-content-container-inner {
 
-    .next-step-button {
-      .mx-container-box1 {
-        .btn {
-          font-family: $movado-font;
+    .card-header {
+        font-family: $the-futura-font;
+
+        h4 {
+            font-family: $movado-font;
         }
-      }
-    } 
-  }
+    }
+  
+    .checkout-content-container-inner {
+
+        .next-step-button {
+
+            .mx-container-box1 {
+
+                .btn {
+                    font-family: $movado-font;
+                }
+            }
+        } 
+    }
 }
 
 .data-checkout-stage {
+
     .product-summary-block {
+
         .line-item-name {
             font-family: $movado-font;
         }

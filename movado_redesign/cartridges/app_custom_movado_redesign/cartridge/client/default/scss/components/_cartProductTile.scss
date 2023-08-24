@@ -14,6 +14,7 @@
     }
 
   .item-info {
+
       .item-attributes {
 
           .total-amount {
@@ -36,6 +37,7 @@
           .edit-add-to-wishlist {
 
             .product-edit {
+
               .move {
                 font-family: $the-futura-font;
               }
@@ -68,25 +70,30 @@
         }
 
         .is-gift-row {
+
             .character-limit {
+
                 span {
                     font-family: $movado-font;
                 }
             }
 
            .gift-textarea {
+
                 textarea[placeholder] {
                     font-family: $movado-font;
                 }
            } 
 
            .gift-error-wrapper {
+
                span {
                 font-family: $movado-font;
                }
            }
 
            .add-gift-message {
+            
                 .apply-button {
                     font-family: $movado-font;
                 }
