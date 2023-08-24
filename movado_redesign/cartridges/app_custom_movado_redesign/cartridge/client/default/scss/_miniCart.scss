@@ -1,3 +1,39 @@
 @import '~movado/miniCart';
 @import "productCard";
 
+
+
+.minicart {
+    
+    .bonus-line-item-heading {
+        font-family: $movado-font;
+    }
+
+    .sub-total-label {
+        font-family: $movado-font;
+    }
+
+    .promo-msg {
+        font-family: $movado-font;
+    }
+
+    .sub-total {
+        font-family: $movado-font;
+    }
+
+    .line-item-attributes {
+        font-family: $movado-font;
+    }
+
+    .view-cart {
+        font-family: $the-futura-font;
+    }
+}
+
+.model-name {
+    font-family: $movado-font;
+}
+
+label.quantity-label {
+    font-family: $movado-font;
+}

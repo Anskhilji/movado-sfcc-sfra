@@ -1,0 +1,47 @@
+@import 'vars';
+@import '~movado/login';
+
+
+.login-form-nav {
+
+    .hidden-xs-down {
+        font-family: $the-futura-font;
+    }
+
+    .privacy-policy {
+        font-family: $the-futura-font;
+    }
+
+    .nav-item {
+
+        .nav-link {
+            font-family: $the-futura-font;
+        }
+    }
+}
+
+.login-page {
+
+    input[placeholder],label,button {
+        font-family: $the-futura-font;
+    }
+}
+
+.login-oauth {
+
+    .oauth-google {
+        font-family: $the-futura-font;
+        font-weight: 400;
+    }
+    
+    .oauth-facebook {
+        font-family: $the-futura-font;
+        font-weight: 400;
+    }
+}
+
+.track-order-header-description {
+    & a {
+        font-family: $the-futura-font;
+    }
+}

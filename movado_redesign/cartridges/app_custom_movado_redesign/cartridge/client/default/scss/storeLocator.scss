@@ -1,0 +1,23 @@
+@import '~movado/storeLocator';
+@import "storeLocator/storeLocator";
+@import "vars";
+
+
+.gm-style-iw {
+
+    .store-details {
+        font-family: $movado-font;
+        
+        .store-name {
+            font-family: $movado-font;
+        }
+    }
+}
+
+
+.store-locator-hero {
+
+    h1.page-title {
+        font-family: $movado-font;
+    }
+}

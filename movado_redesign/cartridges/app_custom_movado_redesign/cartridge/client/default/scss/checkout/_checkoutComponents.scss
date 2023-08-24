@@ -1,0 +1,169 @@
+@import '~movado/checkout/_checkoutComponents';
+@import "../vars";
+
+body {
+    font-family: $movado-font;
+}
+
+.data-checkout-stage {
+
+    .form-group {
+
+        .form-control-label {
+            font-family: $movado-font;
+        }
+    }
+}
+
+.data-checkout-stage {
+
+    .form-group {
+      
+        .form-control-label {
+            font-family: $movado-font;
+
+            a {
+                font-family: $the-futura-font;
+            }
+        }
+    }
+
+    .add-address {
+        font-family: $the-futura-font;
+    }
+
+    .edit-address {
+        font-family: $the-futura-font;
+    }
+
+    .custom-select {
+        font-family: $movado-font;
+    }
+
+    .order-total-summary {
+
+        .order-receipt-label,
+        .text-right,
+        .sub-total {
+            font-family: $movado-font;
+        }
+
+        .grand-total {
+
+            .order-receipt-label,
+            .text-right {
+                font-family: $movado-font;
+            }
+        }
+      }
+}
+
+
+.summary-details {
+    font-family: $movado-font;
+}
+
+.summary-section-label {
+    font-family: $movado-font;
+}
+
+.payment-form {
+
+    .payment-information {
+      
+      .payment-options {
+
+          .nav-item {
+
+              .credit-card-label {
+                  font-family: $movado-font;
+              }
+          }
+      }
+    }
+}
+
+.data-checkout-stage {
+
+    .flex-box-contianer-bottom {
+
+        .order-product-summary {
+          
+            .product-summary-block {
+
+                .card {
+
+                    &.product-line-item {
+
+                        &.product-card-wrapper {
+                          
+                            &.product-card-container {
+                      
+                                .product-line-item-details {
+                        
+                                    .item-attributes {
+                            
+                                        .line-item-header {
+
+                                            .line-item-brand-name {
+
+                                                span {
+                                                    font-family: $movado-font;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .shipping-method-block {
+
+      .new-shipping-sec {
+
+          h5 {
+
+              &.ship-method-header {
+                font-family: $movado-font;
+              }
+          }
+      }
+    }
+
+    .card-header {
+        font-family: $the-futura-font;
+
+        h4 {
+            font-family: $movado-font;
+        }
+    }
+  
+    .checkout-content-container-inner {
+
+        .next-step-button {
+
+            .mx-container-box1 {
+
+                .btn {
+                    font-family: $movado-font;
+                }
+            }
+        } 
+    }
+}
+
+.data-checkout-stage {
+
+    .product-summary-block {
+
+        .line-item-name {
+            font-family: $movado-font;
+        }
+    } 
+}
+

@@ -1,0 +1,139 @@
+@import "vars";
+@import '~movado/cart';
+
+.checkout-button-wrapper {
+
+    .estimated-price {
+        font-family: $movado-font;
+        font-size: 500;
+    }
+}
+
+.line-item-attributes {
+    font-family: $movado-font;
+}
+
+.more-ways-text {
+    font-family: $movado-font;
+    font-size: 500;
+}
+
+.cart-header-wrapper {
+
+    .cart-header {
+        font-family: $movado-font;
+    }
+
+    .estimate-price-wrapper {
+
+      .estimated-total {
+          font-family: $movado-font;
+          font-weight: 500;
+      }
+    }
+}
+
+.cart-page {
+
+    .totals {
+
+        .collapsible-promo-wrapper {
+          
+          .promo-code-form {
+
+            .title {
+                font-family: $movado-font;
+                font-weight: 400;
+            }
+          }
+        }
+
+        .form-group {
+
+            label {
+                font-family: $movado-font;
+                font-weight: 400;
+            }
+
+            .shippingMethods {
+                font-family: $movado-font;
+                font-weight: 300;
+
+              option {
+                  font-family: $movado-font;
+                  font-weight: 300;
+              }
+            }
+        }
+
+        .checkout-continue {
+
+            .checkout-button-wrapper {
+
+                .checkout-btn {
+                    font-family: $movado-font;
+                    font-weight: 400;
+                }
+            }
+
+            .more-options {
+
+                .paypal-btn, .apple-pay-cart, .google-pay-column {
+                    font-family: $movado-font;
+                }
+            }
+        }
+    }
+
+}
+
+.product-card-wrapper {
+
+    .product-gift-wrap {
+
+        .character-limit,
+        .gift-check + label {
+            font-family: $movado-font;
+        }
+    }
+}
+
+.totals {
+
+    .price-label,
+    .cost {
+        font-family: $movado-font;
+        font-weight: 300;
+    }
+
+    .grand-total-label,
+    .grand-total {
+        font-family: $movado-font;
+        font-weight: 700;
+    }
+}
+
+.cart-empty {
+
+    .empty-cart-header {
+        font-family: $movado-font;
+        font-weight: 500;
+    }
+}
+
+.estimated-price {
+
+    .grand-total {
+        font-family: $movado-font;
+        font-weight: 500;
+    }
+}
+
+.cart-disclaimer-message-movado {
+
+    p {
+        font-family: $movado-font;
+        font-weight: 500;
+    }
+}
+
