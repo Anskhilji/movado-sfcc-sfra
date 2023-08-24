@@ -2541,7 +2541,7 @@
 
         .sortby-bar {
           position: fixed;
-          width: rem(430);
+          width: rem(390);
           z-index: 10000;
           background: $white;
           right: 0;
@@ -2632,7 +2632,7 @@
             &.d-block {
               display: flex !important; // i'm using important to overwrite inline css
               flex-direction: column;
-              width: rem(430);
+              width: rem(509);
 
               @media (max-width:$custom-lg4) {
                 width: 100%;
@@ -2712,7 +2712,7 @@
                   cursor: pointer;
 
                   @media (max-width:$custom-sm14) {
-                    width: 100% !important;
+                    width: 100%;
                   }
                 }
               }
