@@ -71,17 +71,19 @@ body {
 }
 
 .card {
-  .card-header h4{
-      font-family: $movado-font;
-  }
+
+    .card-header h4 {
+        font-family: $movado-font;
+    }
 }
 
 .profile-back-to-account-link {
-  font-family: $the-futura-font;
+    font-family: $the-futura-font;
 }
 
 .account-pages {
-  .card-header h4{
-    font-family: $movado-font;
-  } 
+  
+    .card-header h4 {
+      font-family: $movado-font;
+    } 
 } 

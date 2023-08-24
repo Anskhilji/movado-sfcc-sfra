@@ -1,18 +1,6 @@
 
-.heading-one {
+.heading-one,.heading-two, .heading-three, .heading-four, .body-text {
     font-family: $movado-font;
-}
-.heading-two {
-    font-family: $movado-font;
-}
-.heading-three {
-    font-family: $movado-font;
-}
-.heading-four {
-    font-family: $movado-font;
-}
-.body-text {
-    font-family: $font-book;
 }
 
 @include media-breakpoint-up(md) {
