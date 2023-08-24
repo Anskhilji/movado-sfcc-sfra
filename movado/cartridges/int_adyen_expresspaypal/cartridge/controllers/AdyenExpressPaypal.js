@@ -48,6 +48,12 @@ server.get('ExpressCheckoutFromCart', server.middleware.https, function (req, re
         customerEmail = currentBasket.getCustomerEmail();
     }
 
+    if (currentBasket) {
+        Transaction.wrap(function () {
+            currentBasket.custom.isExpressPayment = true;
+        });
+    }
+
     var orderNo = OrderMgr.createOrderNo();
 
     adyenLogger.debug('(AdyenExpressPaypal) -> ExpressCheckoutFromCart: Inside the ExpressCheckoutFromCart to validate the paypal express and order number is: ' + orderNo);

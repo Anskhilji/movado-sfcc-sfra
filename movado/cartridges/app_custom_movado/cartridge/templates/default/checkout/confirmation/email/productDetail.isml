@@ -20,12 +20,8 @@
             <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >
                 <isif condition="${bonus}">
                     ${pdict.bonusLabel}
-                <iselseif condition="${lineItem.price}"/>
-                    <isif condition="${lineItem.price.sales}" >
-                        ${lineItem.price.sales.formatted}
-                    <iselse/>
-                        ${lineItem.price.list.formatted}
-                    </isif>
+                <iselseif condition="${lineItem.priceTotal}"/>
+                    ${lineItem.priceTotal.saleFormattedPrice}
                 <iselse/>
                 ${lineItem.priceTotal.price}
                 </isif>

@@ -61,9 +61,13 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
     var productSetURL = productSetCustomHelper.getPLPCustomSetURL(product.id, product);
 
-    if(product.individualProducts) {
+    if (product.individualProducts) {
         yotpoCustomHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
         productCustomHelpers.setProductAvailability(product)
+    }
+    
+    if (product.bundledProducts) {
+        yotpoCustomHelper.getBundleRatingOrReviewsData(yotpoConfig, product);
     }
 
     var apiProduct = productMgr.getProduct(product.id);
@@ -115,10 +119,10 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
             
            // Custom Start: Add price logic for product sets
             if (productType == Constants.PRODUCT_TYPE) {
-            if (productSetSalePrice.salePrice !== 0) {
-                klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetSalePrice.salePrice), session.getCurrency())).toString();
-            } else {
-                klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetBasePrice.basePrice), session.getCurrency())).toString();
+                if (productSetSalePrice.salePrice !== 0) {
+                    klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetSalePrice.salePrice), session.getCurrency())).toString();
+                } else {
+                    klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetBasePrice.basePrice), session.getCurrency())).toString();
                 }
             }
             // Custom End

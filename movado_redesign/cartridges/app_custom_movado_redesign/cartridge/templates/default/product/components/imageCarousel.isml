@@ -1,9 +1,11 @@
 <iscomment>Updated carousel configuration</iscomment>
 <iscomment> bootstrap column classes changed </iscomment>
-<div class="primary-images col-12 col-lg-7">
-  <div class="product-badges">
-    <isinclude template="product/components/newnessBadge"/>
-  </div>
+<div class="primary-images mobile-carousel col-12 col-lg-7">
+    <div class="product-badges-mobile">
+        <!-- Attributes and Quantity -->
+        <isinclude template="product/components/badges" />
+    </div>
+    
   <isscript>
     var primaryImageCarouselConfig = {
       "slidesToShow": 1,
@@ -41,9 +43,9 @@
               </isif>
               <div class="carousel-tile">
                   <picture>
-                      <source media="(min-width: 992px)" srcset="${product.images.pdp600[loopStatus.count-1].url}" />
-                      <source media="(max-width: 991px)" srcset="${product.images.pdp600[loopStatus.count-1].url}" />
-                      <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                      <source media="(min-width: 992px)" srcset="${product.images.pdp430X540[loopStatus.count-1].url}" />
+                      <source media="(max-width: 991px)" srcset="${product.images.pdp430X540[loopStatus.count-1].url}" />
+                      <img src="${image.url}" fetchpriority="high" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
               </div>
@@ -57,7 +59,7 @@
                       <picture>
                           <source media="(min-width: 992px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
                           <source media="(max-width: 991px)" srcset="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" />
-                          <img class="carousel-indicator-image" src="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" alt="${product.posterFrame.alt}" itemprop="image" />
+                          <img class="carousel-indicator-image" fetchpriority="high" src="${!empty(product.posterFrame) && !empty(product.posterFrame.url) ? product.posterFrame.url : URLUtils.staticURL('/images/1x1.png')}" alt="${product.posterFrame.alt}" itemprop="image" />
                           <isset name="isImageExist" value="true" scope="page" />
                       </picture>
                     </div>
@@ -66,7 +68,7 @@
                   <picture>
                       <source media="(min-width: 992px)" srcset="${product.images.tile150[loopStatus.count-1].url}" />
                       <source media="(max-width: 991px)" srcset="${product.images.tile150[loopStatus.count-1].url}" />
-                      <img class="carousel-indicator-image" src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                      <img class="carousel-indicator-image" fetchpriority="high" src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
               </div>

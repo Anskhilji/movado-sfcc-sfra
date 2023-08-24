@@ -166,11 +166,18 @@ $('body').on('click', '.carousel-indicator-image', function (e) {
     $('.main-carousel .slick-active').addClass('slick-center');
 });
 
-$('body').off('change', '.quantity-selector > .quantity').on('change', '.quantity-selector .quantity', function (e) {
+$('body').off('change', '.quantity-selector > .quantity, .bundle-footer .quantity-select').on('change', '.quantity-selector .quantity, .bundle-footer .quantity-select', function (e) {
     e.preventDefault();
     var $selectQuantity = null;
     if ($('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
         $selectQuantity = $('.quantity-selector > .quantity').val();
+        if ($selectQuantity > 1) {
+            $('.apple-pay-pdp').addClass('d-none');
+        } else {
+            $('.apple-pay-pdp').removeClass('d-none');
+        }
+    } else if ($('.bundle-footer .quantity-select').length > 0) {
+        $selectQuantity = $('.bundle-footer > .quantity-select').val();
         if ($selectQuantity > 1) {
             $('.apple-pay-pdp').addClass('d-none');
         } else {
@@ -386,20 +393,37 @@ function updateAttrs(attrs, $productContainer) {
  * @param {jQuery} $productContainer - DOM element for a given product
  */
 function updateAvailability(response, $productContainer) {
-    var availabilityValue = '';
-    var availabilityMessages = response.product.availability.messages;
+    var $availabilityValue = '';
+    var $availabilityMessages = response.product.availability.messages;
+    var $productATSValue = response.product.productATSValue;
+    var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
+    var $inStockText = window.Resources.LABEL_IN_STOCK;
+    var $preOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_PREORDER;
+    var $backOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_BACK_ORDER;
+    var $lowStockMessage = window.Resources.LOW_STOCK_MESSAGE;
+    
     if (!response.product.readyToOrder) {
-        availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
+        $availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
     } else {
-        availabilityMessages.forEach(function (message) {
-            availabilityValue += '<div>' + message + '</div>';
-        });
+        if ($productATSValue && $lowStockThreshold && $productATSValue <= $lowStockThreshold) {
+            $availabilityMessages.forEach(function (message) {
+                if (message === $inStockText || message === $preOrderText || message === $backOrderText) {
+                    $availabilityValue += '<div>' + $lowStockMessage + '</div>';
+                } else {
+                    $availabilityValue += '<div>' + message + '</div>';
+                }
+            });
+        } else {
+            $availabilityMessages.forEach(function (message) {
+                $availabilityValue += '<div>' + message + '</div>';
+            });
+        }
     }
 
     $($productContainer).trigger('product:updateAvailability', {
         product: response.product,
         $productContainer: $productContainer,
-        message: availabilityValue,
+        message: $availabilityValue,
         resources: response.resources
     });
 }
@@ -869,7 +893,7 @@ function handleVariantResponse(response, $productContainer) {
                 $stickyWrapper.removeClass('d-none');
             }
         }
-    }); 
+    });
 }
 
 /**
@@ -1067,7 +1091,7 @@ function getChildProducts() {
     var childProducts = [];
     $('.bundle-item').each(function () {
         childProducts.push({
-            pid: $(this).find('.product-id').text(),
+            pid: $(this).data('pid'),
             quantity: parseInt($(this).find('label.quantity').data('quantity'), 10)
         });
     });
@@ -1222,15 +1246,18 @@ function clydeAddProductToCart() {
     /**
      * Custom Start: Add to cart form for MVMT
      */
-    if ($('.pdp-mvmt')) {
-        form = {
-            pid: pid,
-            pidsObj: pidsObj,
-            childProducts: getChildProducts(),
-            quantity: quantity,
-            giftPid: giftPid ? giftPid : ''
-        };
+    if (!$('.bundle-item').length) {
+        if ($('.pdp-mvmt')) {
+            form = {
+                pid: pid,
+                pidsObj: pidsObj,
+                childProducts: getChildProducts(),
+                quantity: quantity,
+                giftPid: giftPid ? giftPid : ''
+            };
+        }
     }
+
     /**
      *  Custom End
      */
@@ -1696,29 +1723,32 @@ module.exports = {
                     var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;
                     var clydeWidgetsDisplay = Resources.CLYDE_WIDGET_DISPLAY_ENABLED;
                     var clydeWidgetDisplayPDP = Resources.CLYDE_WIDGET_DISPLAY_PDP_ENABLED;
-
                     if (clydeWidgets && clydeWidgetsDisplay) {
-                        var selectedContract = Clyde.getSelectedContract();
-                        var clydeSettings = Clyde.getSettings();
-                        if (clydeSettings) {
-                            if (clydeWidgetDisplayPDP == true) {
-                                if (selectedContract) {
-                                    clydeAddProductToCart();
-                                } else {
-                                    var product = Clyde.getActiveProduct();
-                                    var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
-                                    if (hasContracts && clydeSettings.modal == true) {
-                                        Clyde.showModal(null, clydeAddProductToCart);
-                                    } else {
+                        try {
+                            var selectedContract = Clyde.getSelectedContract();
+                            var clydeSettings = Clyde.getSettings();
+                            if (clydeSettings) {
+                                if (clydeWidgetDisplayPDP == true) {
+                                    if (selectedContract) {
                                         clydeAddProductToCart();
+                                    } else {
+                                        var product = Clyde.getActiveProduct();
+                                        var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
+                                        if (hasContracts && clydeSettings.modal == true) {
+                                            Clyde.showModal(null, clydeAddProductToCart);
+                                        } else {
+                                            clydeAddProductToCart();
+                                        }
                                     }
+                                } else if (clydeSettings.modal == true) {
+                                    Clyde.showModal(null, clydeAddProductToCart);
+                                } else {
+                                    clydeAddProductToCart();
                                 }
-                            }  else if (clydeSettings.modal == true) {
-                                Clyde.showModal(null, clydeAddProductToCart);
                             } else {
                                 clydeAddProductToCart();
                             }
-                        } else {
+                        } catch (e) {
                             clydeAddProductToCart();
                         }
                     } else {
@@ -1889,5 +1919,5 @@ module.exports = {
     },
 
     getPidValue: getPidValue,
-    getQuantitySelected: getQuantitySelected,
+    getQuantitySelected: getQuantitySelected
 };

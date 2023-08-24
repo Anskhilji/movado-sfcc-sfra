@@ -149,6 +149,8 @@ $negative-spacer: -0.625rem;
 }
 
 .product-info {
+  padding: rem(10);
+
   @include media-breakpoint-up(md) {
     height: auto;
   }

@@ -1,5 +1,8 @@
 <div class="card product-line-item product-card-wrapper product-card-container" data-product-line-item="${lineItem.UUID}">
     <isif condition="${lineItem.productType === 'bundle'}">
+        <div class="line-item-name">
+            <span>${lineItem.productName}</span>
+        </div>
         <div class="bundle-includes">${Resource.msg('msg.bundle.includes','cart',null)}</div>
         <!--- individual bundled line items --->
         <isinclude template="cart/productCard/cartProductCardBundledItems" />

@@ -49,6 +49,8 @@ module.exports = function productLineItem(product, apiProduct, options) {
 
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
     var plpCustomUrl = productCustomHelper.getPLPCustomURL(apiProduct);
+    var pulseIDPreviewURL = productCustomHelper.getPulseIDPreviewURL(options.lineItem);
+    var productATSValue = productCustomHelper.getProductATSValue(apiProduct);
 
     /**
      * Custom Start:  Clyde Integration
@@ -103,6 +105,20 @@ module.exports = function productLineItem(product, apiProduct, options) {
         Object.defineProperty(product, 'plpCustomUrl', {
             enumerable: true,
             value: plpCustomUrl
+        });
+    }
+
+    if (!empty(pulseIDPreviewURL)) {
+        Object.defineProperty(product, 'pulseIDPreviewURL', {
+            enumerable: true,
+            value: pulseIDPreviewURL
+        });
+    }
+
+    if (!empty(productATSValue)) {
+        Object.defineProperty(product, 'productATSValue', {
+            enumerable: true,
+            value: productATSValue
         });
     }
     return product;
