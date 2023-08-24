@@ -631,8 +631,12 @@ $('.zoom-product-modal').click(function() {
 
 $(document).ready(function () {
     if ($('.show-cart-button-desktop .add-to-cart').length > 0 && $('.show-cart-button-desktop .add-to-cart').hasClass('out-of-stock-btn')) {
-        $('.add-to-cart').addClass('out-of-stock-btn').attr('disabled', 'disabled').contents().first().replaceWith($('.show-cart-button-desktop .add-to-cart').contents().first().text());
+        $('.add-to-cart').each(function() {
+            $(this).addClass('out-of-stock-btn').attr('disabled', 'disabled').contents().first().replaceWith($('.show-cart-button-desktop .add-to-cart').contents().first().text());
+        })
     } else if ($('.show-cart-button-desktop .add-to-cart').length > 0 && !$('.show-cart-button-desktop .add-to-cart').hasClass('out-of-stock-btn')) {
-        $('.add-to-cart').removeClass('out-of-stock-btn').attr('disabled', false).contents().first().replaceWith($('.show-cart-button-desktop .add-to-cart').contents().first().text());
+        $('.add-to-cart').each(function() {
+            $(this).removeClass('out-of-stock-btn').attr('disabled', false).contents().first().replaceWith($('.show-cart-button-desktop .add-to-cart').contents().first().text());
+        })
     }
-});
+})
