@@ -2,13 +2,13 @@
 @import '~movado/login';
 
 
-.login-form-nav{
+.login-form-nav {
 
-    .hidden-xs-down{
+    .hidden-xs-down {
         font-family: $the-futura-font;
     }
 
-    .privacy-policy{
+    .privacy-policy {
         font-family: $the-futura-font;
     }
 
@@ -20,16 +20,16 @@
     }
 }
 
-.login-page{
+.login-page {
 
-    input[placeholder],label,button{
+    input[placeholder],label,button {
         font-family: $the-futura-font;
     }
 }
 
-.login-oauth{
+.login-oauth {
 
-    .oauth-google{
+    .oauth-google {
         font-family: $the-futura-font;
         font-weight: 400;
     }

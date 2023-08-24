@@ -5,7 +5,7 @@ body {
   font-family: $movado-font;
 }
 
-.account-pages{
+.account-pages {
 
   .card-header {
 
@@ -14,7 +14,7 @@ body {
       }
   }
 
-  .card-body.form-control-label{
+  .card-body.form-control-label {
       font-family: $movado-font;
   }
 
@@ -30,13 +30,13 @@ body {
               }
           }
 
-          dt,.field-label{
+          dt,.field-label {
               font-family: $movado-font;
           }
 
-          & > div{
+          & > div {
 
-              div{
+              div {
 
                   &.dashboard-cards-block-title{
                       font-family: $movado-font;
