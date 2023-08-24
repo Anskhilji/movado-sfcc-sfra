@@ -2808,7 +2808,11 @@
                               gap: rem(12);
 
                               &:focus {
-                                background: transparent;
+                                background-color: $black;
+                                color: $black;
+                              }
+
+                              &:hover {
                                 color: $black;
                               }
 
