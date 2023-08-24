@@ -455,6 +455,53 @@ module.exports = {
         });
     },
 
+    sortby: function () {
+        // Handle sort order menu selection
+        $('.container, .container-fluid').on('change', '[name=sort-order]', function (e) {
+            setTimeout(function () {
+                if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
+                    $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
+                }
+            }, 20);
+            var url = this.value;
+            e.preventDefault();
+
+            $.spinner().start();
+
+            // Push Data into gtm For Sorting Rules Filters
+            var $filteredText = $(this).find(':selected').text().trim();
+            if ($filteredText !==undefined) {
+                dataLayer.push({
+                    event: 'Collection Filtering',
+                    eventCategory: 'Collection Filter',
+                    eventAction: 'Open Filter Category',
+                    eventLabel: $filteredText
+                  });
+            }
+            
+            $(this).addClass('active');
+
+            $(this).trigger('search:sort', this.value);
+            $.ajax({
+                url: this.value,
+                data: { selectedUrl: this.value },
+                method: 'GET',
+                success: function (response) {
+                    var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                    $('body').trigger('facet:success', [gtmFacetArray]);
+                    $('.product-grid').empty().html(response);
+                    // edit
+                    updatePageURLForSortRule(url);
+                    // edit
+                    $.spinner().stop();
+                },
+                error: function () {
+                    $.spinner().stop();
+                }
+            });
+        });
+    },
+
     loadMoreProductsOnScroll: function () {
         if ($('.plp-new-design.search-results').length == 0){
             return;
