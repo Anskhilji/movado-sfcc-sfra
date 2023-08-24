@@ -1,5 +1,5 @@
 <div class="product-gallery primary-images">
-    <div class="col-12 px-0 cs-carousel-wrapper">
+    <div class="main-carousel col-12 px-0">
     <div class="gallery-image">
         <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['pdp720X800']}" var="image" status="loopStatus">
