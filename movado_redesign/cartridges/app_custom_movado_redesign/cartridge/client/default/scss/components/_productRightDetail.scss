@@ -405,6 +405,7 @@
                 }
 
                 .listrak-back-in-stock {
+
                     &-notification-container-main {
                         text-align: center;
                         display: flex;
@@ -412,8 +413,11 @@
                         justify-content: center;
                         flex-direction: column;
                         margin-top: rem(30);
+
                         .back-in-stock {
+                            
                             &-notification-form {
+
                                 .btn-primary {
                                     width: 100%;
                                     height: rem(45);

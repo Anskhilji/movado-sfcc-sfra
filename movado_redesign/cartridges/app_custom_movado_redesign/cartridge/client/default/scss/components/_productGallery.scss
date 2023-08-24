@@ -8,12 +8,10 @@
                 max-width: rem(720);
                 width: 100%;
 
-                &.primary-images {
-                    display: none;
+                display: none;
 
-                    @include media-breakpoint-up(custom-md) {
-                        display: block;
-                    }
+                @include media-breakpoint-up(custom-md) {
+                    display: block;
                 }
 
                 @include media-breakpoint-down(lg) {
@@ -35,6 +33,8 @@
 
                             img {
                                 aspect-ratio: 0.9/1;
+                                height: 100%;
+                                width: 100%;
 
                                 &:hover {
                                     cursor: zoom-in;
@@ -44,24 +44,27 @@
                             .slide-video {
                                 position: static;
                                 aspect-ratio: 0.9/1;
+                                min-width: 100%;
+                                max-width: 100%;
+                                height: 100%;
+                                width: inherit;
+                                max-height: 100%;
+                                object-fit: cover;
                             }
                         }
                     }
                 }
             }
 
-            .primary-images {
-                
-                .cs-carousel-wrapper {
+            .cs-carousel-wrapper {
 
-                    .carousel-tile {
-                        
-                        @include media-breakpoint-down(sm) {
-                            background-color: $grey-silver-light;
-                        }
+                .carousel-tile {
+                    
+                    @include media-breakpoint-down(sm) {
+                        background-color: $grey-silver-light;
                     }
                 }
-            } 
+            }
         }
     }
 }

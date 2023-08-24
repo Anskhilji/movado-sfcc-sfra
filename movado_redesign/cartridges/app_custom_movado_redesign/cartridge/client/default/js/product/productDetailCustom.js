@@ -478,7 +478,7 @@ function showMoreDescription() {
     var showChar = 245;  // Characters that are shown by default
     var moretext = ' Read More';
     var lesstext = ' show less';
-    $('.product-description p').each(function() {
+    $('.aruliden-description p').each(function() {
         var content = $(this).html();
         if(content.length > showChar) {
             var c = content.substr(0, showChar);
