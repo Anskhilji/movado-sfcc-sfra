@@ -2431,7 +2431,7 @@
 
 .search-results-updated {
   height: rem(80);
-  padding: 0 rem(48);
+  padding: 0 rem(40);
 
   @media(max-width:$custom-lg4) {
     padding: 0 rem(24);
@@ -2484,6 +2484,10 @@
                   font-style: normal;
                   font-weight: 400;
                   line-height: rem(20);
+
+                  @media (max-width:$custom-sm14) {
+                    font-size: rem(13);
+                  }
                 }
 
                 span {
@@ -2495,6 +2499,10 @@
                   line-height: rem(19);
                   letter-spacing: rem(0.25);
                   margin: 0;
+
+                  @media (max-width:$custom-sm14) {
+                    font-size: rem(13);
+                  }
                 }
               }
               
@@ -2504,7 +2512,7 @@
                 align-items: center;
 
                 label {
-                  color: $black;
+                  color: $light-black;
                   font-family: $movado-font;
                   font-size: rem(24);
                   font-style: normal;
@@ -2519,8 +2527,8 @@
                   font-size: rem(14);
                   font-style: normal;
                   font-weight: 400;
-                  line-height: rem(16);
-                  letter-spacing: rem(0.14);
+                  line-height: rem(19);
+                  letter-spacing: rem(0.25)
                 }
               }
             }
@@ -2533,7 +2541,7 @@
 
         .sortby-bar {
           position: fixed;
-          width: rem(430);
+          width: rem(390);
           z-index: 10000;
           background: $white;
           right: 0;
@@ -2624,7 +2632,7 @@
             &.d-block {
               display: flex !important; // i'm using important to overwrite inline css
               flex-direction: column;
-              width: rem(430);
+              width: rem(509);
 
               @media (max-width:$custom-lg4) {
                 width: 100%;
@@ -2637,10 +2645,19 @@
                 padding: rem(40);
                 margin: 0;
                 
+                @media (max-width:$custom-lg4) {
+                  background-color: $white;
+                  padding: rem(40) rem(24);
+                }
+
+                @media (max-width:$custom-sm14) {
+                  flex-direction: column;
+                }
+                
                 &::after {
                   content: '';
                   position: absolute;
-                  top: 0;
+                  top: rem(2);
                   width: 100%;
                   height: rem(1);
                   background: $silver-light;
@@ -2668,6 +2685,10 @@
                   @media (max-width:$custom-sm11) {
                     font-size: rem(10);
                   }
+
+                  @media (max-width:$custom-sm14) {
+                    width: 100% !important; //i'm using important to overwrite inline css
+                  }
                 }
 
                 button {
@@ -2689,6 +2710,10 @@
                   flex: 1;
                   height: rem(45);
                   cursor: pointer;
+
+                  @media (max-width:$custom-sm14) {
+                    width: 100%;
+                  }
                 }
               }
 
@@ -2697,7 +2722,12 @@
 
                 .movado-refinements-container {
                   height: calc(100vh - 235px);
-                  padding: 0 rem(24);
+                  padding: 0 rem(40);
+
+                  @media (max-width:$custom-lg4) {
+                    max-height: unset;
+                    padding: 0 rem(24);
+                  }
 
                   .card {
                     border-color: $neutrals-400;
@@ -2776,6 +2806,11 @@
                               display: flex;
                               align-items: center;
                               gap: rem(12);
+
+                              &:focus {
+                                background: transparent;
+                                color: $black;
+                              }
 
                               span {
                                 color: $black;
@@ -2918,7 +2953,7 @@
                     align-items: center;
 
                     label {
-                      color: $black;
+                      color: $light-black;
                       font-family: $movado-font;
                       font-size: rem(24);
                       font-style: normal;
@@ -2933,8 +2968,8 @@
                       font-size: rem(14);
                       font-style: normal;
                       font-weight: 400;
-                      line-height: rem(16);
-                      letter-spacing: rem(0.14);
+                      line-height: rem(19);
+                      letter-spacing: rem(0.25);
                     }
                   }
                 }
@@ -2961,6 +2996,10 @@
               display: flex;
               align-items: center;
               gap: rem(32);
+
+              @media (max-width:$custom-sm14) {
+                gap: rem(16);
+              }
 
               .sort-order-menu-box {
 
