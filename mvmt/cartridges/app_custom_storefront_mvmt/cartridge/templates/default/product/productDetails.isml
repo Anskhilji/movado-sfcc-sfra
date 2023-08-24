@@ -33,7 +33,6 @@
                     <isinclude template="product/components/pricing/main" />
                 </span>
                 <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
-                <iscomment> <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/> </iscomment>
             </div>
         </div>
     </section>
@@ -240,7 +239,6 @@
                                     <div class="d-block">
                                         <!-- Cart and [Optionally] Apple Pay -->
                                         <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
-                                        <iscomment> <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}" /> </iscomment>
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +297,6 @@
                                     <div class="d-block show-cart-button-mobile-container">
                                         <!-- Cart and [Optionally] Apple Pay -->
                                         <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
-                                        <iscomment> <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/> </iscomment>
                                         <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
                                         <isif condition="${isEswEnabled}">
                                             <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
