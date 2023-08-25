@@ -24,7 +24,7 @@
 
 <isif condition="${itemsLength === 0 || itemsLength === null}">
 <iscomment> Wraped content asset into empty-min-cart div </iscomment>
-    <div class="empty-mini-cart row">
+    <div class="empty-mini-cart">
         <iscomment>Custom Start: Adding empty mini cart content assets </iscomment>
         <div class="empty-mini-cart-image justify-content-center row">
             <iscontentasset aid="mini-cart-content-image" />
