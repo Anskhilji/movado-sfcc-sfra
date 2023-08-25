@@ -168,6 +168,45 @@ function exportGoogleFeed(args) {
             "link_FR": 28,
             "availability_FR": 29
         }
+    } else if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+        feedColumnsGoogle = {
+            "ID": 1,
+            "metaTitle": 2,
+            "descriptionGoogle": 3,
+            "decimalPrice": 4,
+            "salePrice": 5,
+            "salePriceEffectiveDate": 6,
+            "link": 7,
+            "imageLink": 8,
+            "additionalImageLink": 9,
+            "availability": 10,
+            "productTypeGoogle": 11,
+            "googleProductCategory": 12,
+            "condition": 13,
+            "gtin": 14,
+            "mpn": 15,
+            "brand": 16,
+            "color": 17,
+            "size": 18,
+            "gender": 19,
+            "ageGroup": 20,
+            "customLabel0": 21,
+            "customLabel1": 22,
+            "customLabel2": 23,
+            "customLabel3": 24,
+            "price_GBP": 25,
+            "price_CAD": 26,
+            "price_EUR": 27,
+            "price_AUD": 28,
+            "salePrice_GBP": 29,
+            "salePrice_CAD": 30,
+            "salePrice_EUR": 31,
+            "salePrice_AUD": 32,
+            "sale_price_effective_date_GBP": 33,
+            "sale_price_effective_date_CAD": 34,
+            "sale_price_effective_date_EUR": 35,
+            "sale_price_effective_date_AUD": 36
+        }
     } else {
         feedColumnsGoogle = {
             "ID": 1,
@@ -533,6 +572,10 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("price_CA");
     }
 
+    if (!empty(feedColumns['price_CAD'])) {
+        csvFileHeader.push("price_CAD");
+    }
+
     if (!empty(feedColumns['price_GBP'])) {
         csvFileHeader.push("price_GBP");
     }
@@ -561,8 +604,16 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("price_HKD");
     }
 
+    if (!empty(feedColumns['price_AUD'])) {
+        csvFileHeader.push("price_AUD");
+    }
+
     if (!empty(feedColumns['salePrice_CA'])) {
         csvFileHeader.push("Sale Price_CA");
+    }
+
+    if (!empty(feedColumns['salePrice_CAD'])) {
+        csvFileHeader.push("Sale Price_CAD");
     }
 
     if (!empty(feedColumns['salePrice_GBP'])) {
@@ -573,12 +624,32 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("Sale Price_EUR");
     }
 
+    if (!empty(feedColumns['salePrice_AUD'])) {
+        csvFileHeader.push("Sale Price_AUD");
+    }
+
     if (!empty(feedColumns['sale_price_effective_date_CA'])) {
         csvFileHeader.push("sale_price_effective_date_CA");
     }
 
+    if (!empty(feedColumns['sale_price_effective_date_CAD'])) {
+        csvFileHeader.push("sale_price_effective_date_CAD");
+    }
+
     if (!empty(feedColumns['sale_price_effective_date_UK'])) {
         csvFileHeader.push("sale_price_effective_date_UK");
+    }
+
+    if (!empty(feedColumns['sale_price_effective_date_GBP'])) {
+        csvFileHeader.push("sale_price_effective_date_GBP");
+    }
+
+    if (!empty(feedColumns['sale_price_effective_date_EUR'])) {
+        csvFileHeader.push("sale_price_effective_date_EUR");
+    }
+
+    if (!empty(feedColumns['sale_price_effective_date_AUD'])) {
+        csvFileHeader.push("sale_price_effective_date_AUD");
     }
 
     if (!empty(feedColumns['link_CA'])) {
@@ -1032,7 +1103,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if (!empty(feedColumns['price_CA'])) {
+    if (!empty(feedColumns['price_CA']) || !empty(feedColumns['price_CAD'])) {
         if (product.price_CA) {
             productDetails.push(product.price_CA)
         } else {
@@ -1096,7 +1167,15 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if (!empty(feedColumns['salePrice_CA'])) {
+    if (!empty(feedColumns['price_AUD'])) {
+        if (product.price_AUD) {
+            productDetails.push(product.price_AUD)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['salePrice_CA']) || !empty(feedColumns['salePrice_CAD'])) {
         if (product.salePrice_CA) {
             productDetails.push(product.salePrice_CA)
         } else {
@@ -1118,9 +1197,17 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         } else {
             productDetails.push("");
         }
+    }
+    
+    if (!empty(feedColumns['salePrice_AUD'])) {
+        if (product.salePrice_AUD) {
+            productDetails.push(product.salePrice_AUD)
+        } else {
+            productDetails.push("");
+        }
     } 
 
-    if (!empty(feedColumns['sale_price_effective_date_CA'])) {
+    if (!empty(feedColumns['sale_price_effective_date_CA']) || !empty(feedColumns['sale_price_effective_date_CAD'])) {
         if (product.salePrice_CA) {
             productDetails.push(product.sale_price_effective_date_CA)
         } else {
@@ -1128,9 +1215,25 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if (!empty(feedColumns['sale_price_effective_date_UK'])) {
+    if (!empty(feedColumns['sale_price_effective_date_UK']) || !empty(feedColumns['sale_price_effective_date_GBP'])) {
         if (product.salePrice_GBP) {
             productDetails.push(product.sale_price_effective_date_UK)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['sale_price_effective_date_EUR'])) {
+        if (product.salePrice_EUR) {
+            productDetails.push(product.sale_price_effective_date_EUR)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['sale_price_effective_date_AUD'])) {
+        if (product.salePrice_AUD) {
+            productDetails.push(product.sale_price_effective_date_AUD)
         } else {
             productDetails.push("");
         }
@@ -1264,7 +1367,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         };
     
         //Custom Columns for MovadoUS and OBUK
-        if (!empty(feedColumns['price_CA'])) {
+        if (!empty(feedColumns['price_CA']) || !empty(feedColumns['price_CAD'])) {
             productAttributes.price_CA = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD;
         }
         if (!empty(feedColumns['price_GBP'])) {
@@ -1288,10 +1391,13 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         if (!empty(feedColumns['price_HKD'])) {
             productAttributes.price_HKD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_HKD) + " " + Constants.CURRENCY_HKD;
         }
-        if (!empty(feedColumns['salePrice_CA'])) {
+        if (!empty(feedColumns['price_AUD'])) {
+            productAttributes.price_AUD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_AUD) + " " + Constants.CURRENCY_AUD;
+        }
+        if (!empty(feedColumns['salePrice_CA']) || !empty(feedColumns['salePrice_CAD'])) {
             productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).productDecimalPrice;
         }
-        if (!empty(feedColumns['sale_price_effective_date_CA'])) {
+        if (!empty(feedColumns['sale_price_effective_date_CA']) || !empty(feedColumns['sale_price_effective_date_CAD'])) {
             productAttributes.sale_price_effective_date_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).salePriceEffectiveDate;
         }
         if (!empty(feedColumns['salePrice_GBP'])) {
@@ -1301,8 +1407,17 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         if (!empty(feedColumns['salePrice_EUR'])) {
             productAttributes.salePrice_EUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).productDecimalPrice;
         }
-        if (!empty(feedColumns['sale_price_effective_date_UK'])) {
+        if (!empty(feedColumns['salePrice_AUD'])) {
+            productAttributes.salePrice_AUD = getPromotionalPricePerPriceBook(Constants.CURRENCY_AUD, product, true).productDecimalPrice;
+        }
+        if (!empty(feedColumns['sale_price_effective_date_UK']) || !empty(feedColumns['sale_price_effective_date_GBP'])) {
             productAttributes.sale_price_effective_date_UK = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).salePriceEffectiveDate;
+        }
+        if (!empty(feedColumns['sale_price_effective_date_EUR'])) {
+            productAttributes.sale_price_effective_date_EUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).salePriceEffectiveDate;
+        }
+        if (!empty(feedColumns['sale_price_effective_date_AUD'])) {
+            productAttributes.sale_price_effective_date_AUD = getPromotionalPricePerPriceBook(Constants.CURRENCY_AUD, product, true).salePriceEffectiveDate;
         }
         if (!empty(feedColumns['availability_CA'])) {
             productAttributes.availability_CA = getProductAvailability(product, Constants.COUNTRY_CA);
