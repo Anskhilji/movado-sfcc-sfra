@@ -2445,6 +2445,7 @@
       align-items: center;
       justify-content: space-between;
       height: rem(80);
+      font-family: $movado-font;
 
       &.search-desktop-sticky {
         position: fixed;
@@ -2453,7 +2454,7 @@
         background: $white;
         z-index: 99;
         margin-left: rem(-48);
-        padding: 0 rem(50);
+        padding: 0 rem(40);
 
         @media (max-width:$custom-lg4) {
           top: rem(98);
@@ -2541,7 +2542,7 @@
 
         .sortby-bar {
           position: fixed;
-          width: rem(390);
+          width: rem(394);
           z-index: 10000;
           background: $white;
           right: 0;
@@ -2549,6 +2550,10 @@
           bottom: 0;
           left: unset;
           padding: 0 rem(40);
+
+          @include media-breakpoint-down(sm) {
+            width: 100%;
+          }
 
           .sort-by-section {
 
@@ -2562,6 +2567,11 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height: rem(32);
+                text-transform: capitalize;
+              }
+
+              .close-bar {
+                cursor: pointer;
               }
             }
 
@@ -2585,6 +2595,7 @@
                     cursor: pointer;
                     transition: .3s ease all;
                     text-transform: capitalize;
+                    max-width: rem(220);
 
                     &.active {
                       color: $black;
@@ -2632,7 +2643,7 @@
             &.d-block {
               display: flex !important; // i'm using important to overwrite inline css
               flex-direction: column;
-              width: rem(509);
+              width: rem(394);
 
               @media (max-width:$custom-lg4) {
                 width: 100%;
@@ -2761,8 +2772,8 @@
 
                       &::after {
                         background: url(../images/plus.svg) left center no-repeat;
-                        width: rem(24);
-                        height: rem(24);
+                        width: rem(20);
+                        height: rem(20);
                         right: 0;
                       }
                     }
@@ -2806,6 +2817,7 @@
                               display: flex;
                               align-items: center;
                               gap: rem(12);
+                              min-height: auto;
 
                               &:focus {
                                 background-color: $black;
@@ -2826,13 +2838,18 @@
                                 letter-spacing: rem(0.14);
                                 position: absolute;
                                 left: rem(24);
-                                width: 100%;
+                                width: auto;
                                 text-align: left;
                               }
 
                               &.selected {
                                 border: rem(1) solid $black;
                                 background: $black;
+                              }
+                              .star-rating-area {
+                                .rating-static {
+                                    width: rem(233);
+                                }
                               }
                             }
                           }
@@ -2905,7 +2922,7 @@
           &.filter-bar-sticky {
             height: rem(80);
             align-items: center;
-            padding: 0 rem(50);
+            padding: 0 rem(40);
             top: rem(117);
             justify-content: space-between;
 
@@ -2955,6 +2972,7 @@
                   > .d-none {
                     gap: rem(8);
                     align-items: center;
+                    font-family: $movado-font;
 
                     label {
                       color: $light-black;
