@@ -110,7 +110,7 @@ function getQuantitySelector($el) {
 /**
  *  CovertsPDP Zoom Model Primary Images to Indicators
  */
- function initializeZoomSlickDots() {
+function initializeZoomSlickDots() {
     $('.zoom-carousel').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -811,10 +811,20 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // unslick Carousel 
-    $('.primary-images .main-carousel').slick('unslick');
-    $('.primary-images .carousel-nav').slick('unslick');
-    $('.zoom-carousel').slick('unslick');
-    $('.zoom-carousel-slider').slick('unslick');
+    
+    if ($('.zoom-carousel').hasClass('slick-initialized')) {
+        $('.zoom-carousel-slider').slick('unslick');
+    }
+    if ($('.zoom-carousel-slider').hasClass('slick-initialized')) {
+        $('.zoom-carousel').slick('unslick');
+    }
+    if ($('.primary-images .carousel-nav').hasClass('slick-initialized')) {
+        $('.primary-images .carousel-nav.slick-initialized').slick('unslick');
+    }
+    if ($('.primary-images .main-carousel').hasClass('slick-initialized')) {
+        $('.primary-images .main-carousel.slick-initialized').slick('unslick');
+    }
+
 
     // Update primary images
     var $primaryImageUrls = response.product.images;
@@ -901,8 +911,10 @@ function handleVariantResponse(response, $productContainer) {
     // intialize carousel
         initializePDPMainSlider();
         initializeSlickDots();
-        initializeZoomSlickDots();
         initializeZoomModelCarousel();
+        if (!$('.zoom-carousel').hasClass('slick-initialized')) {
+            initializeZoomSlickDots();
+        }
         $('.main-carousel .slick-active').addClass('slick-center');
 
     $(document).ready(function () {
@@ -1103,7 +1115,7 @@ function handlePostCartAdd(response) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
         $('#addToCartModal').modal('show');
-        $('.slick-slider').slick('refresh');
+        $('.slick-slider').not('.slick-initialized').slick('refresh');
     }
 }
 
