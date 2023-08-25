@@ -16,7 +16,7 @@
         <isinclude template="reporting/reportingUrls" />
     </isif>
 
-    <div class="container-fluid plp-new-design search-results search-results-updated">
+    <div class="container-fluid plp-new-design search-results search-results-updated" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
         <div class="search-results-sec">
             <div class="tab-content p-sm-0">
                 <div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
@@ -25,7 +25,7 @@
                             <div class="search-result-desktop">
                                 <div class="left-sec">
                                     <div class="d-flex align-items-start search-result-counts filter-and-count">
-                                        <div id="product-search-results" class="">
+                                        <div id="product-search-results">
                                             <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                 <div class="row m-0 grid-header">
                                                     <div class="result-count">
@@ -43,7 +43,7 @@
                                 <div class="right-sec">
                                     <div class="dk-fillter-m d-md-flex align-items-cetner filter-box">
                                         <div class="d-flex align-items-start search-result-counts filter-and-count">
-                                                <div id="product-search-results" class="">
+                                                <div id="product-search-results">
                                                     <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                         <div class="row m-0 grid-header">
                                                             <div class="result-count">

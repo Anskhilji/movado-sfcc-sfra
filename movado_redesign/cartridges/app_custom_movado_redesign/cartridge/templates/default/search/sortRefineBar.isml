@@ -12,7 +12,6 @@
     <div class="sort-order-menu-box order-md-1">
         <isif condition="${pdict.productSearch.productIds.length > 0}">
             <div class="mb-3 sort-open-state-modal sort-col-margin position-relative sort-order-mobile-menu">
-                <iscomment> <isinclude template="search/sortOrderMenu" /> </iscomment>
                 <div name="sort-order" id="sort-order" class="sorting-rules-filters">
                     <isloop items="${pdict.productSearch.productSort.options}" var="option">
                         <div class="sorting-rule-options-update ${option.id}" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" data-url="${option.url}"
