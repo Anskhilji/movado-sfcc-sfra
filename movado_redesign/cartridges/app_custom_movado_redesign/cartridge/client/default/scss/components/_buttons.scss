@@ -2,26 +2,7 @@ body {
     font-family: $movado-font;
 }
 
-button,.btn,.btn_primary,.btn-secondary, .btn-danger,.btn-success,.btn-info,.btn-warning,.btn-light,.btn-dark {
-    font-family: $movado-font;
-}
-
-h1 {
-    font-family: $movado-font;
-    font-weight: 700;
-}
-
-h2 {
-    font-family: $movado-font;
-    font-weight: 600;
-}
-
-h3 {
-    font-family: $movado-font;
-    font-weight: 500;
-}
-
-h4,h5,h6,p,span {
+h1,h2,h3,h4,h5,h6,p,span,button,.btn,.btn_primary,.btn-secondary, .btn-danger,.btn-success,.btn-info,.btn-warning,.btn-light,.btn-dark {
     font-family: $movado-font;
 }
 
