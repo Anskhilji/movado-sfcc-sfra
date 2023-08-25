@@ -24,6 +24,7 @@ server.post('Social', function (req, res, next) {
     var ProductInventoryMgr = require ('dw/catalog/ProductInventoryMgr');
     var BasketMgr = require('dw/order/BasketMgr');
     var Transaction = require('dw/system/Transaction');
+    var Site = require('dw/system/Site');
 	var Shipment = require('dw/order/Shipment');
     var PaymentInstrument = require('dw/order/PaymentInstrument');
     var Money = require('dw/value/Money');
@@ -256,6 +257,22 @@ server.post('Social', function (req, res, next) {
         if(orderJSON.hasOwnProperty('c_externalOrderId')){
             order.custom.externalOrderId = orderJSON.c_externalOrderId;
         }
+
+
+        // Salesforce Order Management attributes
+        if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            try {
+                var order = OrderMgr.getOrder(order.orderNo);
+                Transaction.wrap(function () {
+                    populateOrderJSON.populateByOrder(order);
+                });
+            } catch (exSOM) {
+                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+            }
+        }
+        // End Salesforce Order Management
 
         Transaction.commit();
 		inTransaction = false;
