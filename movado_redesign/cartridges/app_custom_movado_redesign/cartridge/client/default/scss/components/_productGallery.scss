@@ -23,7 +23,7 @@
                 }
 
                 .gallery {
-                    
+
                     &-image {
 
                         .carousel-tile {
@@ -58,10 +58,42 @@
 
             .cs-carousel-wrapper {
 
-                .carousel-tile {
+                .traditional-main-carousel {
                     
-                    @include media-breakpoint-down(sm) {
-                        background-color: $grey-silver-light;
+                    .slick-slide {
+
+                        .carousel-tile {
+
+                            @include media-breakpoint-down(sm) {
+                                background-color: $grey-silver-light;
+                            }
+
+
+                            img {
+
+                                @include media-breakpoint-up(xl) {
+                                    min-width: auto;
+                                    max-width: 100%;
+                                    height: 100%;
+                                    width: 100%;
+                                }
+
+                                @media (max-width: $custom-sm4) {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+
+                                @media (max-width: $small-screen-width375) {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+
+                                @media (max-width: $small-screen-width) {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+                            }
+                        }
                     }
                 }
             }
