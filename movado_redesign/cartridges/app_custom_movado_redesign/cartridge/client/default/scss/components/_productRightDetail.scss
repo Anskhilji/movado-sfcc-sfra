@@ -445,7 +445,7 @@
             padding: rem(22) rem(0) rem(116);
 
             @include media-breakpoint-down(sm) {
-                padding: rem(22) rem(0) rem(100);
+                padding: rem(30) rem(0) rem(2);
             }
 
             @include media-breakpoint-down(xs) {
