@@ -173,24 +173,7 @@
                         </div>
                     </isif>
                     
-                    <div class="hidden-sm-down">
-                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                        <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
-                            <div class="product-number-rating clearfix">
-                                <div class="product-number d-none hidden-xs-down pull-left">
-                                    <isinclude template="product/components/productNumber" />
-                                </div>
-                                <div class="ratings pull-left">
-                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                        <isinclude template="product/components/yotpoRatings" />
-                                    </div>
-                                </div>
-                                <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
-                            </div>
-                        <iselse/>
-                            <isinclude template="product/components/pidRating" />
-                        </isif>
-                    </div>
+                    
 
                     <!-- Size Chart -->
                     <isif condition="${product.variationAttributes && product.sizeChartId}">
@@ -203,7 +186,7 @@
 
                 <div class="col-12 pdp-movado prices-add-to-cart-actions cart-sticky-wrapper-btn scroll-hidden">
                     <!-- Prices -->
-                    <div class="prices">
+                    <div class="prices sticky-price">
                         <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
                         <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                             <isset name="price" value="${product.price}" scope="page" />
@@ -211,7 +194,9 @@
                         </isif>
                     </div>
                     <!-- Cart and [Optionally] Apple Pay -->
-                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    <div class="sticky-add-to-cart">
+                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    </div>
                 </div>
             </div>
             <div class="cart-wishlist-observer"></div>
@@ -233,14 +218,14 @@
             <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
         </div>
 
+        <div class="recently-viewed-recommendation">
+            <isslot id="pdp-collection-you-may-like" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
+
         <div class="swiss-made-sec">
             <isslot id="cs_pdp_swiss_made_slot" context="global" description="Swiss Made slot at the bottom of the PDP" />
         </div>
         <isinclude template="product/components/contentAssets" />
-
-        <div class="container-fluid pdp-mobile pdp-v-one my-md-5 collection-you-may-like">
-            <isslot id="pdp-collection-you-may-like" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
-        </div>
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
         <div class="modal fade share-via-email-overlay" id="sendtofriendform">

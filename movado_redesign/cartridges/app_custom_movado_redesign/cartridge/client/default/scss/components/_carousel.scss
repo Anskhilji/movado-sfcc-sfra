@@ -106,6 +106,7 @@ header {
                     .tile-body {
                         background: $white;
                         font-family: $the-futura-font;
+                        padding: rem(16);
                 
                         .product-name {
                             font-size: rem(16);
@@ -116,7 +117,8 @@ header {
                             font-weight: 400;
                 
                             @include media-breakpoint-down(md){
-                                font-size: rem(12);
+                                font-size: rem(16);
+                                line-height: rem(18);
                             }
                         }
 
@@ -132,7 +134,12 @@ header {
                             line-height: rem(16);
                 
                             @include media-breakpoint-down(md) {
-                                font-size: rem(10);
+                                font-size: rem(14);
+                                letter-spacing: rem(0.14);
+
+                                span {
+                                    font-size: rem(14);
+                                }
                             }
 
                             del {
@@ -175,6 +182,10 @@ header {
 
         &.cs-carousel-update {
             margin-bottom: rem(0);
+
+            @include media-breakpoint-down(sm) {
+                margin-top: rem(44);
+            }
 
             .carousel-title {
                 font-size: rem(32);

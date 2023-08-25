@@ -676,6 +676,32 @@ function handleVariantResponse(response, $productContainer) {
         $shortDescriptionMobile.text(response.product.shortDescription);
     }
 
+    var showChar = 245;  // Characters that are shown by default
+    var moretext = ' Read More';
+    var lesstext = ' show less';
+    var description = $('.product-aruliden-sec .product-description .content');
+        var content = description.html();
+        if(content.length > showChar) {
+            var c = content.substr(0, showChar);
+            var h = content.substr(showChar, content.length - showChar);
+            var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a></div>';
+            description.html(html);
+        }
+    $('.morelink-wrapper').on('click',function() {
+        if($(this).hasClass('less')) {
+            $(this).removeClass('less');
+            $(this).html(moretext);
+            $('.morelink-wrapper').css('margin-left','4px');
+            $('.morecontent-wrapper').css('display','none');
+        } else {
+            $(this).addClass('less');
+            $(this).html(lesstext);
+            $('.morelink-wrapper').css('margin-left','4px');
+            $('.morecontent-wrapper').css('display','inline');
+        }
+        return false;
+    });
+
     //update wishlist icon
     $('.add-to-wish-list').removeClass('added-to-wishlist');
 

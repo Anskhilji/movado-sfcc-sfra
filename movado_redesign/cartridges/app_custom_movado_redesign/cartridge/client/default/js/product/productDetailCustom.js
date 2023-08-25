@@ -475,15 +475,15 @@ $(document).ready(function () {
 
 // Custom Start: [MSS-2360 To Show/Hide More Short Description on PDP]
 function showMoreDescription() {
-    var showChar = 186;  // Characters that are shown by default
+    var showChar = 245;  // Characters that are shown by default
     var moretext = ' Read More';
     var lesstext = ' show less';
-    $('.product-description p').each(function() {
+    $('.product-aruliden-sec .product-description p').each(function() {
         var content = $(this).html();
         if(content.length > showChar) {
             var c = content.substr(0, showChar);
             var h = content.substr(showChar, content.length - showChar);
-            var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: block">' + moretext + '</a>';
+            var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a></div>';
             $(this).html(html);
         }
     });

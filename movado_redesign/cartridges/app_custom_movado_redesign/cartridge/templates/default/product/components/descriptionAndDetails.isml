@@ -36,7 +36,26 @@
             <div class="accordion-heading  d-flex align-items-center justify-content-between collapsed" data-toggle="collapse"
                 data-target="#productReview" aria-expanded="true" aria-controls="reviews">
                 <h2 class="technical-detail-heading">
-                    Reviews (24) stars
+                    <span>Reviews</span> 
+                    
+                    <div>
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                        <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                            <div class="product-number-rating clearfix">
+                                <div class="product-number d-none hidden-xs-down pull-left">
+                                    <isinclude template="product/components/productNumber" />
+                                </div>
+                                <div class="ratings pull-left">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isinclude template="product/components/yotpoRatings" />
+                                    </div>
+                                </div>
+                                <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
+                            </div>
+                        <iselse/>
+                            <isinclude template="product/components/pidRating" />
+                        </isif>
+                    </div>
                 </h2>
                 
                 <div class="plus-minus-icons">
