@@ -845,8 +845,8 @@ function handleVariantResponse(response, $productContainer) {
             $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
                 .attr('srcset', imageUrl.url);
         });
-    } else if ($primaryImageUrls.pdp720X800 && $(window).width < 768) {
-        $primaryImageUrls.pdp430X540.forEach(function (imageUrl, idx) {
+    } else if ($primaryImageUrls.pdp720X800) {
+        $primaryImageUrls.pdp720X800.forEach(function (imageUrl, idx) {
             $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
                 .attr('src', imageUrl.url);
             $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
@@ -854,8 +854,8 @@ function handleVariantResponse(response, $productContainer) {
             $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
                 .attr('srcset', imageUrl.url);
         });
-    } else if ($primaryImageUrls.pdp720X800) {
-        $primaryImageUrls.pdp720X800.forEach(function (imageUrl, idx) {
+    } else if ($primaryImageUrls.pdp430X540 && $(window).width < 768) {
+        $primaryImageUrls.pdp430X540.forEach(function (imageUrl, idx) {
             $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
                 .attr('src', imageUrl.url);
             $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
