@@ -597,6 +597,10 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
          });
      }
 
+     if($(window).width() < 768){
+        $('.product-gallery.primary-images').remove();
+     }
+
  });
 
 $.fn.isOnScreen = function () {
