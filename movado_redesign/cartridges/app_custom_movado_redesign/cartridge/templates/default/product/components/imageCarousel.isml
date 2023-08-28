@@ -33,7 +33,7 @@
   <div class="cs-carousel-wrapper mvd-carousel-wrapper">
       <div class="js-carousel main-carousel main-carousel-movado traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
-          <isloop items="${product.images['pdp600']}" var="image" status="loopStatus">
+          <isloop items="${product.images['pdp430X540']}" var="image" status="loopStatus">
               <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
                   <div class="carousel-tile poster-frame-video d-block">
                       <video class="slide-video" loop muted autoplay playsinline >
