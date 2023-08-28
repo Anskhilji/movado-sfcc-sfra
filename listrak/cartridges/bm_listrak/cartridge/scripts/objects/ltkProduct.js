@@ -83,6 +83,10 @@ function ltkProduct() {
     this.dialColor = '';
     // Custom End:
     this.familyName = '';
+
+    // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+    this.dialBackgroundColor = '';
+    // Custom End
 }
 
 /* Method to load product URLs only. */
@@ -208,6 +212,10 @@ ltkProduct.prototype.LoadProduct = function (product) {
     this.caseDiameter = this.getCaseDiameter(product);
     // Custom End
     this.familyName = this.getFamilyName(product);
+
+    // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+    this.dialBackgroundColor = this.getDialBackgroundColor(product);
+    // Custom End
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {
@@ -640,6 +648,32 @@ ltkProduct.prototype.getDialColor = function (product) {
             return dialColor;
         } catch (error) {
             Logger.error('Listrak Product Processing Failed while getting Dial Color Attribute for Product: {0}, Error: {1}', product.ID, error);
+        }
+    }
+}
+// Custom End
+
+// Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+ltkProduct.prototype.getDialBackgroundColor = function (product) {
+    var dialBackgroundColor = '';
+    var productFeedDialBackgroundColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedDialBackgroundColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedDialBackgroundColorAttribute : '';
+    productFeedDialBackgroundColorJson = !empty(productFeedDialBackgroundColorJson) ? JSON.parse(productFeedDialBackgroundColorJson) : '';
+
+    if (productFeedDialBackgroundColorJson && product) {
+        try {
+            var dialBackgroundColorAttr = !empty(product.custom.dialBackgroundColor) ? product.custom.dialBackgroundColor : '';
+    
+            if (!empty(dialBackgroundColorAttr)) {
+                var dialBackgroundColorArray = dialBackgroundColorAttr.split(',');
+            }
+            
+            if (!empty(productFeedDialBackgroundColorJson) && !empty(dialBackgroundColorArray[0])) {
+                dialBackgroundColor = productFeedDialBackgroundColorJson[dialBackgroundColorArray[0]];
+            }
+    
+            return dialBackgroundColor;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Dial Background Color Attribute for Product: {0}, Error: {1}', product.ID, error);
         }
     }
 }

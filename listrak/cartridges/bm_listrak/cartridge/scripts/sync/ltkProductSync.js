@@ -116,9 +116,12 @@ function productSync() {
             }
             // Custom End
 
+            // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+            productFile.AddRowItem('Meta4');
+            // Custom End
+
             // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
             if (!empty(getAssignedCategories)) {
-                productFile.AddRowItem('Meta4');
                 productFile.AddRowItem('Meta5');
             }
             // Custom End:
@@ -131,6 +134,12 @@ function productSync() {
                 productFile.AddRowItem('Color');
                 productFile.AddRowItem('Style');
                 productFile.AddRowItem('Size');
+            } else if (Site.current.ID === 'MCSUS') {  // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+                productFile.AddRowItem('Color');
+                productFile.AddRowItem('Size');
+                productFile.AddRowItem('Style');
+                productFile.AddRowItem('Meta2');
+                productFile.AddRowItem('Meta3');
             }
             // Custom End
 
@@ -295,9 +304,12 @@ function productSync() {
                 }
                 // Custom End
 
+                // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+                productFile.AddRowItem(prd.movement, true);
+                // Custom End
+
                 // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
                 if (!empty(getAssignedCategories)) {
-                    productFile.AddRowItem(prd.meta4, true);
                     productFile.AddRowItem(prd.meta5, true);
                 }
                 // Custom End
@@ -310,6 +322,12 @@ function productSync() {
                     productFile.AddRowItem(prd.strapColor, true);
                     productFile.AddRowItem(prd.dialColor, true);
                     productFile.AddRowItem(prd.caseDiameter, true);
+                } else if (Site.current.ID === 'MCSUS') {  // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+                    productFile.AddRowItem(prd.strapColor, true);
+                    productFile.AddRowItem(prd.caseDiameter, true);
+                    productFile.AddRowItem(prd.meta3, true);
+                    productFile.AddRowItem(prd.meta2, true);
+                    productFile.AddRowItem(prd.dialBackgroundColor, true);
                 }
                 // Custom End
 
