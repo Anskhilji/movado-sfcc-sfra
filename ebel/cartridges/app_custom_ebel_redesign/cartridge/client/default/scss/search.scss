@@ -4,6 +4,23 @@
 
 .plp-new-design {
 
+    &.plp-tile-updated {
+
+        .hovered-tile {
+
+            @media (min-width:$custom-lg1) {
+
+                .tile-body {
+                    height: rem(166);
+    
+                    .tile-discription {
+                        max-height: rem(42);
+                    }
+                }
+            }
+        }
+    }
+
     .filter-bar {
 
         ul {
