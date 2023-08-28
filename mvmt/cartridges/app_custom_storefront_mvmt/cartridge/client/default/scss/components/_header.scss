@@ -1,13 +1,6 @@
 @import 'variables';
 @import '~movado/components/header';
 
-.test, .test1 {
-  max-height: rem(256);
-  max-width: rem(256);
-  overflow-y: auto;
-
-}
-
 .cart-and-checkout-header {
   width: 100%;
   background-color: $black;

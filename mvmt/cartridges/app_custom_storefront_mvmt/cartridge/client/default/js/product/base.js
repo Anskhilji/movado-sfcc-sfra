@@ -1499,6 +1499,7 @@ movadoBase.addToCart = function () {
                     handlePostCartAdd(data);
                     openMiniCart();
                     updateCartIcons();
+                    
                     $('body').trigger('product:afterAddToCart', data);
                     updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart

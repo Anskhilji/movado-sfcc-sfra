@@ -1,6 +1,5 @@
 'use strict';
 $(document).ready(function() {
-    $('.test.mCustomScrollbar').mCustomScrollbar();
     $('.new-header .dropdown-menu .dropdown-item:first-child').addClass('active');
     $('.new-header .dropdown-menu .submenu-container:first-child').removeClass('d-none').addClass('active');
     

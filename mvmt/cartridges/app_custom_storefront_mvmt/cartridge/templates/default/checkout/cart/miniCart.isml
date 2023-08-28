@@ -54,7 +54,6 @@
 
 
     <div class="product-summary">
-
         <div class="mini-cart-product">
             <isloop items="${items}" var="lineItem" status="loopStatus">
                 <div class="row" data-lineitem="${JSON.stringify(lineItem)}">
