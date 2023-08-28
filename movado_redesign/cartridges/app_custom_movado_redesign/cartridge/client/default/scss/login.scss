@@ -22,8 +22,12 @@
 
 .login-page {
 
-    input[placeholder],label,button {
+    input[placeholder],label {
         font-family: $the-futura-font;
+    }
+
+    button {
+        font-family: $movado-font;
     }
 }
 

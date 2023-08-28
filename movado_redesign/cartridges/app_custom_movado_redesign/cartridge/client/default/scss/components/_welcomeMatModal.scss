@@ -1,0 +1,77 @@
+.welcomeMat {
+    
+    .movado-welcome-mat {
+
+        .eswModalWrapper {
+
+            .eswModal {
+
+                .selector-container {
+
+                    p {
+                        font-family: $the-futura-font;
+    
+                    }
+                }
+
+                .esw-header-wrapper, .esw-body-wrapper, .geolocation, .not-geolocation-country  {
+
+                    h1,h2,h3,h4,h5,h6 {
+                        font-family: $movado-font;
+                        font-weight: 500;
+                    }
+
+                    p {
+                        font-family: $the-futura-font; 
+                    }
+                }
+
+                .geolocation, .not-geolocation-country {
+
+                    .esw-btn {
+                        font-family: $movado-font;
+                    }
+                }
+
+                .shipping-country-message {
+                    font-family: $the-futura-font; 
+                }
+
+                .selector-container {
+
+                    .add-shipping-country-message {
+                        font-family: $the-futura-font; 
+                    }
+
+                    .esw-country-selector {
+
+                        label {
+                            font-family: $the-futura-font; 
+                        }
+
+                        .select-field {
+
+                            .current-country {
+
+                                .selected-country {
+                                    font-family: $the-futura-font; 
+                                }
+                            }
+
+                            .selector {
+
+                                .country {
+
+                                    .selected-link {
+                                        font-family: $the-futura-font; 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
