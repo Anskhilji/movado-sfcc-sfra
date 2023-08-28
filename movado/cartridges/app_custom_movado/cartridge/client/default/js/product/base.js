@@ -836,7 +836,7 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var $primaryImageUrls = response.product.images;
-    $primaryImageUrls.pdp720X800.forEach(function (imageUrl, idx) {
+    $primaryImageUrls.pdp600.forEach(function (imageUrl, idx) {
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
             .attr('src', imageUrl.url);
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
@@ -844,6 +844,29 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
             .attr('srcset', imageUrl.url);
     });
+
+    if ($primaryImageUrls.pdp720X800) {
+        if(window.innerWidth < 768) {
+            $primaryImageUrls.pdp430X540.forEach(function (imageUrl, idx) {
+                $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
+                    .attr('src', imageUrl.url);
+                $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
+                    .attr('srcset', imageUrl.url);
+                $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
+                    .attr('srcset', imageUrl.url);
+            });
+        } else {
+            $primaryImageUrls.pdp720X800.forEach(function (imageUrl, idx) {
+                $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
+                    .attr('src', imageUrl.url);
+                $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
+                    .attr('srcset', imageUrl.url);
+                $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
+                    .attr('srcset', imageUrl.url);
+            });
+        }
+        
+    }
 
     // Update primary images indicators
     var $primaryImageindiCatorsUrls = response.product.images;
