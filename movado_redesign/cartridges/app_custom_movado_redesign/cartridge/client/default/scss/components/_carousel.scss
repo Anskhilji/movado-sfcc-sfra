@@ -107,18 +107,21 @@ header {
                         background: $white;
                         font-family: $the-futura-font;
                         padding: rem(16);
-                
-                        .product-name {
-                            font-size: rem(16);
-                            color: $black;
-                            letter-spacing: rem(0.25);
-                            font-family: $movado-font;
-                            line-height: rem(20);
-                            font-weight: 400;
-                
-                            @include media-breakpoint-down(md){
+                        
+                        .pdp-link {
+                            margin-bottom: rem(4);
+                            
+                            .product-name {
                                 font-size: rem(16);
-                                line-height: rem(18);
+                                color: $black;
+                                letter-spacing: rem(0.25);
+                                font-family: $movado-font;
+                                line-height: rem(20);
+                    
+                                @include media-breakpoint-down(md){
+                                    font-size: rem(16);
+                                    line-height: rem(18);
+                                }
                             }
                         }
 

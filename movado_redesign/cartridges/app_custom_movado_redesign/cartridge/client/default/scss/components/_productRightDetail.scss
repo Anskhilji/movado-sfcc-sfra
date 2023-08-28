@@ -113,10 +113,7 @@
                         font-family: $movado-font;
                         font-weight: 400;
                         letter-spacing: rem(0.25);
-
-                        @include media-breakpoint-down(sm) {
-                            line-height: rem(18);
-                        }
+                        line-height: rem(18);
 
                         .price-pdp-mvmt {
 
@@ -142,6 +139,7 @@
                     margin: 0;
                     width: 100%;
                     height: auto;
+                    margin-bottom: rem(27);
 
                     .affirm-modal-trigger {
                         font-family: $the-futura-font;
@@ -157,7 +155,10 @@
                 }
 
                 .tax-duties {
-                    margin-bottom: 0;
+                    margin-bottom: rem(8);
+                    font-family: $the-futura-font;
+                    font-weight: 400;
+                    font-size: rem(14);
                 }
 
                 .product-description {
@@ -175,8 +176,9 @@
                         margin: rem(32) 0 rem(48);
                     }
 
-                    p {
+                    p,.content,span {
                         margin: 0;
+                        font-family: $the-futura-font;
                     }
 
                     .content {
@@ -262,16 +264,6 @@
 
                             }
                         }
-
-                        .smartgiftpopup {
-
-                            .smart-gift-btn {
-
-                                .smartgift-btn-redesign {
-                                    margin-top: 0;
-                                }
-                            }
-                        }
                     }
 
                     .traditional-wishlist-row {
@@ -285,6 +277,7 @@
                         display: flex;
                         align-items: center;
                         height: rem(45);
+                        padding: 0;
 
 
                         .content-asset {
@@ -302,6 +295,8 @@
                                 letter-spacing: rem(0.48);
                                 text-transform: uppercase;
                                 padding: 0;
+                                color: $black;
+                                margin: 0;
                             }
 
                             &-btn-popup {

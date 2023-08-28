@@ -35,7 +35,7 @@
         <div class="accordion-list">
             <div class="accordion-heading  d-flex align-items-center justify-content-between collapsed" data-toggle="collapse"
                 data-target="#productReview" aria-expanded="true" aria-controls="reviews">
-                <h2 class="technical-detail-heading">
+                <h2 class="technical-detail-heading d-flex">
                     <span>Reviews</span> 
                     
                     <div>
@@ -85,7 +85,7 @@
     </div>
 
 
-    <div class="detail-bottom-preposition d-flex align-items-center justify-content-center">
+    <div class="detail-bottom-preposition d-flex justify-content-center">
         <isif condition="${pdict.productDetailAttribute3}">
             <div class="preposition-block product-detail-attribute-3 warranty-block">
                 <isprint value="${pdict.productDetailAttribute3}" encoding="off" />
