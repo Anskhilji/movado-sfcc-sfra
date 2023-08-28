@@ -28,7 +28,7 @@
             <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
         </isif>
     </div>
-    <div class="container-fluid plp-new-design search-results plp-tile-updated" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
+    <div class="container-fluid plp-new-design search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
         <isif condition="${!pdict.productSearch.isCategorySearch}">
             <div class="row">
                 <div class="search-nav">
