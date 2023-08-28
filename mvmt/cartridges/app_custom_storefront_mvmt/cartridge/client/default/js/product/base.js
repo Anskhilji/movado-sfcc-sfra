@@ -165,13 +165,6 @@ function hideMiniCartCheckbox() {
     }
 }
 
-// function initializeScroll() {
-//     alert($('.product-summary.mCustomScrollbar').length);
-//     if ($('.product-summary.mCustomScrollbar').length) {
-//         $('.product-summary.mCustomScrollbar').mCustomScrollbar();
-//     }
-// }
-
 function openMiniCart() {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
@@ -590,17 +583,6 @@ function checkVideoStatus() {
 var videoStatusChecker = setInterval(function () {
     checkVideoStatus();
 }, 3000);
-
-
-
-function initializeScroll() {
-    var $clydeWidget = $('.product-summary.mCustomScrollbar');
-    if(document.readyState === 'complete' && $clydeWidget.length === 1) {
-        $('.product-summary.mCustomScrollbar').mCustomScrollbar();
-    } else {
-        setTimeout(initializeScroll, 500);
-    }
-}
 
 $(document).ready(function () {
     var $slideVideo = $('.slide-video');
@@ -1532,7 +1514,6 @@ movadoBase.addToCart = function () {
                 },
                 complete: function () {
                     $('body').trigger('miniCart:recommendations');
-                    initializeScroll();
                 }
             });
         }
