@@ -37,6 +37,19 @@ function isIE() {
     return is_ie; 
 }
 
+function initializeScroll() {
+    var $productSummary = $('.product-summary');
+    if($productSummary.length == 1) {
+        if($productSummary.hasClass('scrollbox-overflowed')) {
+            $productSummary.scrollbox('destroy').scrollbox('update');
+        } else {
+            $productSummary.scrollbox();
+        }
+    } else {
+        setTimeout(initializeScroll, 500);
+    }
+}
+
 function giftMessageTooltip() {
     $('body').on('click','.gift-messages-tooltip', function() {
         $('.custom-tooltipsmart').show();
@@ -676,6 +689,7 @@ module.exports = function () {
                     $homeHeaderTransparent.addClass('solid-header');
                 }
                 loadAmazonButton();
+                initializeScroll();
                 $('#AmazonPayButtonCheckout').css('width', '100%');
             });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {
@@ -703,6 +717,7 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                initializeScroll();
                 // Custom:MSS-2034 add class when open miniCart
                 if ($homeHeaderTransparent.length > 0) {
                     $homeHeaderTransparent.addClass('solid-header');
@@ -724,6 +739,7 @@ module.exports = function () {
                 setMiniCartProductSummaryHeight();
                 giftMessageTooltip();
                 checkGiftBoxItem();
+                initializeScroll();
                 $('.mini-cart-data .popover').addClass('show');
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();

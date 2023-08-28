@@ -14,6 +14,8 @@ processInclude(require('movado/components/mod_video'));
 processInclude(require('movado/utilities/swatches'));
 processInclude(require('movado/components/emailPopUpSubscription'));
 processInclude(require('movado/components/googleRecaptcha'));
+processInclude(require('scrollbox/src/js/scrollbox'));
+processInclude(require('jquery.mousewheel/jquery.mousewheel'));
 
 $(document).ready(function () {
     processInclude(require('./components/slickCarousel'));

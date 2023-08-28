@@ -31,6 +31,19 @@ function setMiniCartProductSummaryHeight () {
     }
 }
 
+function initializeScroll() {
+    var $productSummary = $('.product-summary');
+    if($productSummary.length == 1) {
+        if($productSummary.hasClass('scrollbox-overflowed')) {
+            $productSummary.scrollbox('destroy').scrollbox('update');
+        } else {
+            $productSummary.scrollbox();
+        }
+    } else {
+        setTimeout(initializeScroll, 500);
+    }
+}
+
 function giftMessageTooltip() {
     $('body').on('click','.gift-messages-tooltip', function() {
         $('.custom-tooltipsmart').show();
@@ -184,6 +197,7 @@ function openMiniCart() {
             $.spinner().stop();
             loadAmazonButton();
             hideMiniCartCheckbox();
+            initializeScroll();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
@@ -1499,7 +1513,7 @@ movadoBase.addToCart = function () {
                     handlePostCartAdd(data);
                     openMiniCart();
                     updateCartIcons();
-                    
+
                     $('body').trigger('product:afterAddToCart', data);
                     updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart
