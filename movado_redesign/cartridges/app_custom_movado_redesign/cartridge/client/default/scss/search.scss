@@ -2742,7 +2742,11 @@
                   padding: 0 rem(40);
 
                   @include media-breakpoint-down(sm) {
-                    height: calc(100dvh - 235px);
+                    height: calc(100svh - 235px);
+                  }
+                  
+                  @media (max-width:$custom-sm14) {
+                    height: calc(100svh - 300px);
                   }
 
                   @media (max-width:$custom-lg4) {
