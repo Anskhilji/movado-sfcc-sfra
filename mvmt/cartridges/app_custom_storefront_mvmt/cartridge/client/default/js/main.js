@@ -14,8 +14,6 @@ processInclude(require('movado/components/mod_video'));
 processInclude(require('movado/utilities/swatches'));
 processInclude(require('movado/components/emailPopUpSubscription'));
 processInclude(require('movado/components/googleRecaptcha'));
-processInclude(require('jquery-mousewheel/jquery.mousewheel'));
-processInclude(require('scrollbox/src/js/scrollbox'));
 
 $(document).ready(function () {
     processInclude(require('./components/slickCarousel'));
@@ -29,6 +27,8 @@ $(document).ready(function () {
     processInclude(require('./components/search'));
     processInclude(require('./utilities/sticky-header'));
     processInclude(require('./utilities/gtm-events'));
+    processInclude(require('jquery-mousewheel/jquery.mousewheel'));
+    processInclude(require('scrollbox/src/js/scrollbox'));
     processInclude(require('./components/miniCart'));
     processInclude(require('./login/login'));
     processInclude(require('./components/newsLetterSubscription'));
