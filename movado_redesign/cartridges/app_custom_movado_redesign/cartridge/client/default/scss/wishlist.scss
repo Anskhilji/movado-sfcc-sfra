@@ -1,0 +1,70 @@
+@import "vars";
+
+.product-card-price {
+
+    .price-pdp-mvmt {
+
+        .strike-through {
+
+            span {
+                font-family: $the-futura-font;
+            }
+        }
+
+        .sale-price-mvmt {
+
+            span {
+                font-family: $the-futura-font;
+            }
+        }
+    }
+}
+
+
+.line-item-price-info {
+    font-family: $the-futura-font;
+}
+
+
+/*Wishlist designs need to move it wishlist specific css*/
+.my-wishlist-page, .wishlist-page {
+
+  .wishlistItemCards {
+
+      .line-item-name { 
+          font-family: $the-futura-font;
+      }
+
+      .product-card-price {
+
+          .line-item-price-info {
+              font-family: $the-futura-font;
+          }
+
+          .price .value{
+              font-family: $the-futura-font;
+          }
+
+      }
+
+      .edit-add-to-wishlist {
+
+          .edit {
+
+              font-family: $the-futura-font;
+          }
+      }
+
+      .line-item-attributes {
+          font-family: $font-medium;
+      }
+
+      .line-item-availability {
+
+          .line-item-attributes {
+              font-family: $the-futura-font;
+          }
+      }
+  }
+
+}
