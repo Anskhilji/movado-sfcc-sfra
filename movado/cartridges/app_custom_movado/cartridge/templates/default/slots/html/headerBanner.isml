@@ -5,7 +5,7 @@
         ${Resource.msg('enable.accessibility', 'common', null)}
     </a>                      
   </isif>
-  <div class="header-banner slide-up">
+  <div class="header-banner header-banner-redesign slide-up">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">

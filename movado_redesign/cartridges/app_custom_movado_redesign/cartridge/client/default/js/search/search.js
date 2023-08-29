@@ -359,11 +359,10 @@ function moreFilterBtn($moreFilterBtn) {
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
-    var screenWidth = 130;
-    
+    var screenWidth = 0;
     //  this var use for mobile scree 
     if (window.innerWidth <= 1200) {
-        screenWidth = 60;
+        screenWidth = 0;
     } 
 
     if (scroll > screenWidth) {
