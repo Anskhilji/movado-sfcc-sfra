@@ -2741,6 +2741,10 @@
                   height: calc(100vh - 235px);
                   padding: 0 rem(40);
 
+                  @include media-breakpoint-down(sm) {
+                    height: calc(100dvh - 235px);
+                  }
+
                   @media (max-width:$custom-lg4) {
                     max-height: unset;
                     padding: 0 rem(24);
