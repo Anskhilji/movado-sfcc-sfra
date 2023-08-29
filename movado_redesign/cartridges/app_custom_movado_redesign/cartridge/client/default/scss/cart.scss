@@ -4,18 +4,16 @@
 .checkout-button-wrapper {
 
     .estimated-price {
-        font-family: $movado-font;
-        font-size: 500;
+        font-family: $the-futura-font;
     }
 }
 
 .line-item-attributes {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .more-ways-text {
-    font-family: $movado-font;
-    font-size: 500;
+    font-family: $the-futura-font;
 }
 
 .cart-header-wrapper {
@@ -27,8 +25,7 @@
     .estimate-price-wrapper {
 
       .estimated-total {
-          font-family: $movado-font;
-          font-weight: 500;
+          font-family: $the-futura-font;
       }
     }
 }
@@ -42,8 +39,7 @@
           .promo-code-form {
 
             .title {
-                font-family: $movado-font;
-                font-weight: 400;
+                font-family: $the-futura-font;
             }
           }
         }
@@ -51,17 +47,14 @@
         .form-group {
 
             label {
-                font-family: $movado-font;
-                font-weight: 400;
+                font-family: $the-futura-font;
             }
 
             .shippingMethods {
-                font-family: $movado-font;
-                font-weight: 300;
+                font-family: $the-futura-font;
 
               option {
-                  font-family: $movado-font;
-                  font-weight: 300;
+                  font-family: $the-futura-font;
               }
             }
         }
@@ -72,7 +65,6 @@
 
                 .checkout-btn {
                     font-family: $movado-font;
-                    font-weight: 400;
                 }
             }
 
@@ -93,7 +85,7 @@
 
         .character-limit,
         .gift-check + label {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
     }
 }
@@ -102,14 +94,12 @@
 
     .price-label,
     .cost {
-        font-family: $movado-font;
-        font-weight: 300;
+        font-family: $the-futura-font;
     }
 
     .grand-total-label,
     .grand-total {
-        font-family: $movado-font;
-        font-weight: 700;
+        font-family: $the-futura-font;
     }
 }
 
@@ -124,15 +114,14 @@
 .estimated-price {
 
     .grand-total {
-        font-family: $movado-font;
-        font-weight: 500;
+        font-family: $the-futura-font;
     }
 }
 
 .cart-disclaimer-message-movado {
 
     p {
-        font-family: $movado-font;
+        font-family: $the-futura-font;
         font-weight: 500;
     }
 }

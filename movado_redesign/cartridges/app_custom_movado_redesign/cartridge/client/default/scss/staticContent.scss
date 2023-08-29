@@ -2,7 +2,7 @@
 @import '~movado/staticContent';
 
 body {
-  font-family: $movado-font;
+  font-family: $the-futura-font;
 }
 
 .pt_customerservice {
@@ -25,31 +25,11 @@ body {
 
   .right-content {
 
-    p {
-      font-family: $movado-font;
-      font-weight: 500;
-    }
-
-    a {
+    a,p {
       font-family: $the-futura-font;
     }
 
-    h1 {
-      font-family: $movado-font;
-      font-weight: 700;
-    }
-
-    h2 {
-      font-family: $movado-font;
-      font-weight: 600;
-    }
-
-    h3 {
-      font-family: $movado-font;
-      font-weight: 500;
-    }
-
-    h4,h5,h6 {
+    h1,h2,h3,h4,h5,h6 {
       font-family: $movado-font;
     }
   }
@@ -61,8 +41,7 @@ body {
             .form-group {
 
                 .form-control-label {
-                    font-family: $movado-font;
-                    font-weight: 400;
+                    font-family: $the-futura-font;
                 }
             }
         }

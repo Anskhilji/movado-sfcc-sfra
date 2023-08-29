@@ -2,11 +2,11 @@
 @import "../vars";
 
 body {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .order-thank-you-email-msg {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .order-summary-title {
@@ -17,5 +17,22 @@ body {
 }
 
 .order-confirmation-continue-shopping {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
+}
+
+.order-summary-title {
+
+    .grand-total-label {
+        font-family: $the-futura-font;
+    }
+}
+
+.checkout-registration {
+
+    .form-group {
+        
+        .password-description, .invalid-feedback,.form-control-label {
+            font-family: $the-futura-font;
+        }
+    }
 }

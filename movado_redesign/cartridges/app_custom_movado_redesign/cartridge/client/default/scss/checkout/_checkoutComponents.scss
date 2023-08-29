@@ -2,7 +2,7 @@
 @import "../vars";
 
 body {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .data-checkout-stage {
@@ -10,7 +10,7 @@ body {
     .form-group {
 
         .form-control-label {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
     }
 }
@@ -20,7 +20,7 @@ body {
     .form-group {
       
         .form-control-label {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
 
             a {
                 font-family: $the-futura-font;
@@ -37,7 +37,7 @@ body {
     }
 
     .custom-select {
-        font-family: $movado-font;
+        font-family: $the-futura-font;
     }
 
     .order-total-summary {
@@ -45,14 +45,14 @@ body {
         .order-receipt-label,
         .text-right,
         .sub-total {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
 
         .grand-total {
 
             .order-receipt-label,
             .text-right {
-                font-family: $movado-font;
+                font-family: $the-futura-font;
             }
         }
       }
@@ -60,11 +60,11 @@ body {
 
 
 .summary-details {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .summary-section-label {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .payment-form {
@@ -76,7 +76,7 @@ body {
           .nav-item {
 
               .credit-card-label {
-                  font-family: $movado-font;
+                  font-family: $the-futura-font;
               }
           }
       }
@@ -108,7 +108,7 @@ body {
                                             .line-item-brand-name {
 
                                                 span {
-                                                    font-family: $movado-font;
+                                                    font-family: $the-futura-font;
                                                 }
                                             }
                                         }
@@ -162,7 +162,7 @@ body {
     .product-summary-block {
 
         .line-item-name {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
     } 
 }
