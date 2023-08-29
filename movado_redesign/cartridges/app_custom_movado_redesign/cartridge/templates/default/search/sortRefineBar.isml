@@ -14,10 +14,12 @@
             <div class="mb-3 sort-open-state-modal sort-col-margin position-relative sort-order-mobile-menu">
                 <div name="sort-order" id="sort-order" class="sorting-rules-filters">
                     <isloop items="${pdict.productSearch.productSort.options}" var="option">
-                        <div class="sorting-rule-options-update ${option.id}" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" data-url="${option.url}"
-                            data-id="${option.id}"
-                            ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }>
-                            ${option.displayName}
+                        <div class="sorting-rule-list">
+                            <div class="sorting-rule-options-update ${option.id}" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" data-url="${option.url}"
+                                data-id="${option.id}"
+                                ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }>
+                                ${option.displayName}
+                            </div>
                         </div>
                     </isloop>
                 </div>

@@ -2511,6 +2511,7 @@
               > .d-none {
                 gap: rem(8);
                 align-items: center;
+                font-family: $movado-font;
 
                 label {
                   color: $light-black;
@@ -2581,53 +2582,58 @@
 
                 .sorting-rules-filters {
                   margin-top: rem(64);
-
-                  .sorting-rule-options-update {
-                    color: $storm-gray2;
-                    font-family: $movado-font;
-                    font-size: rem(16);
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: rem(18);
-                    letter-spacing: rem(0.25);
-                    margin-bottom: rem(24);
-                    position: relative;
-                    cursor: pointer;
-                    transition: .3s ease all;
-                    text-transform: capitalize;
-                    max-width: rem(220);
-
-                    &.active {
-                      color: $black;
-
-                      &::after {
-                        opacity: 1;
-                      }
-                    }
+                  .sorting-rule-list {
 
                     &:last-child {
-                      margin-bottom: 0;
-                    }
 
-                    &:hover {
-                      color: $black;
-
-                      &::after {
-                        opacity: 1;
+                      .sorting-rule-options-update {
+                        margin-bottom: 0;
                       }
                     }
-
-                    &::after {
-                      content: '';
-                      position: absolute;
-                      top: 49%;
-                      background-color: $black;
-                      width: rem(8);
-                      height: rem(8);
-                      transform: translate(-50%, -50%);
-                      left: (-14px);
-                      opacity: 0;
-                      border-radius: 100%;
+                    
+                    .sorting-rule-options-update {
+                      color: $storm-gray2;
+                      font-family: $movado-font;
+                      font-size: rem(16);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(18);
+                      letter-spacing: rem(0.25);
+                      margin-bottom: rem(24);
+                      position: relative;
+                      cursor: pointer;
+                      transition: .3s ease all;
+                      text-transform: capitalize;
+                      display: inline-block;
+  
+                      &.active {
+                        color: $black;
+  
+                        &::after {
+                          opacity: 1;
+                        }
+                      }
+  
+                      &:hover {
+                        color: $black;
+  
+                        &::after {
+                          opacity: 1;
+                        }
+                      }
+  
+                      &::after {
+                        content: '';
+                        position: absolute;
+                        top: 49%;
+                        background-color: $black;
+                        width: rem(8);
+                        height: rem(8);
+                        transform: translate(-50%, -50%);
+                        left: (-14px);
+                        opacity: 0;
+                        border-radius: 100%;
+                      }
                     }
                   }
                 }
@@ -2826,6 +2832,7 @@
 
                               &:hover {
                                 color: $black;
+                                background-color: $black;
                               }
 
                               span {
@@ -2851,6 +2858,10 @@
 
                                 .rating-static {
                                     width: rem(233);
+                                    
+                                    label {
+                                      cursor: pointer;
+                                    }
                                 }
                               }
                             }
@@ -2907,6 +2918,7 @@
                   font-weight: 400;
                   line-height: rem(32);
                   text-transform: capitalize;
+                  letter-spacing: normal;
                 }
               }
             }
