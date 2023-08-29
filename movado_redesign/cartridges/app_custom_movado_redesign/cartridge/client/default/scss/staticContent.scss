@@ -43,6 +43,24 @@ body {
                 .form-control-label {
                     font-family: $the-futura-font;
                 }
+
+                input[placeholder] {
+                    font-family: $the-futura-font;
+                }
+
+                .myquestion-wrapper {
+                    
+                    .custom-select-wrapper {
+
+                        .custom-select {
+                            font-family: $the-futura-font;
+    
+                            option {
+                                font-family: $the-futura-font;
+                            }
+                        }
+                    }
+                }
             }
         }
 
