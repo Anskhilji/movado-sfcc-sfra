@@ -81,7 +81,9 @@
     "flag-icon-css": "^2.3.0",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.1",
+    "jquery-mousewheel": "^3.1.13",
     "malihu-custom-scrollbar-plugin": "^3.1.5",
+    "scrollbox": "^4.0.0",
     "sfra": "file:./storefront-reference-architecture/",
     "us-state-codes": "^1.1.2"
   },
@@ -160,7 +162,6 @@
     "jquery": "./node_modules/jquery",
     "beam": "./beam/cartridges/int_beam/cartridge/client/default/js",
     "pulseid": "./pulseid/cartridges/int_pulseid_engraving/cartridge/client/default/js"
-	
   },
   "scssAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/scss",

@@ -35,10 +35,9 @@ function initializeScroll() {
     var $productSummary = $('.product-summary');
     if($productSummary.length == 1) {
         if($productSummary.hasClass('scrollbox-overflowed')) {
-            $productSummary.scrollbox('destroy').scrollbox('update');
-        } else {
-            $productSummary.scrollbox();
+            $productSummary.scrollbox('update');
         }
+        $productSummary.scrollbox();
     } else {
         setTimeout(initializeScroll, 500);
     }
