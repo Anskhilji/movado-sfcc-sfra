@@ -74,7 +74,7 @@ $('.first-levels-items-category').click(function(){
     $('.mobile-accounts').addClass('d-none');
 });
 
-$('.back-btn').click(function(){
+$('.back-section .back-btn,.back-section .category-name').click(function(){
     $('.second-levls-section').removeClass('active fadeIn animated fast');
     $('.mobile-container').addClass('fadeIn animated fast')
     $('.second-levls-section').fadeOut();
@@ -282,7 +282,7 @@ function resetMenu() {
     $('.categories-image-container').addClass('d-none');
 }
 
-$('.desktop-hamburger svg , .Menu-text').click(function () {
+$('.desktop-hamburger, .desktop-hamburger svg, .Menu-text').click(function () {
     $('.desktop-slide-up').addClass('desktop-slide-down');
     $('.desktop-slide-up').slideDown('300');
     resetMenu();
