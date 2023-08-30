@@ -1,4 +1,4 @@
-@import '~movado/components/welcomeMatModal';
+@import "~concord/components/welcomeMatModal";
 
 .welcomeMat {
     
@@ -11,7 +11,7 @@
                 .selector-container {
 
                     p {
-                        font-family: $the-futura-font;
+                        font-family: $font-raleway-book;
     
                     }
                 }
@@ -19,36 +19,35 @@
                 .esw-header-wrapper, .esw-body-wrapper, .geolocation, .not-geolocation-country  {
 
                     h1,h2,h3,h4,h5,h6 {
-                        font-family: $movado-font;
-                        font-weight: 500;
+                        font-family: $font-raleway-medium;
                     }
 
                     p {
-                        font-family: $the-futura-font; 
+                        font-family: $font-raleway-book; 
                     }
                 }
 
                 .geolocation, .not-geolocation-country {
 
                     .esw-btn {
-                        font-family: $movado-font;
+                        font-family: $font-raleway-book;
                     }
                 }
 
                 .shipping-country-message {
-                    font-family: $the-futura-font; 
+                    font-family: $font-raleway-book; 
                 }
 
                 .selector-container {
 
                     .add-shipping-country-message {
-                        font-family: $the-futura-font; 
+                        font-family: $font-raleway-book; 
                     }
 
                     .esw-country-selector {
 
                         label {
-                            font-family: $the-futura-font; 
+                            font-family: $font-raleway-book; 
                         }
 
                         .select-field {
@@ -56,7 +55,7 @@
                             .current-country {
 
                                 .selected-country {
-                                    font-family: $the-futura-font; 
+                                    font-family: $font-raleway-book; 
                                 }
                             }
 
@@ -65,7 +64,7 @@
                                 .country {
 
                                     .selected-link {
-                                        font-family: $the-futura-font; 
+                                        font-family: $font-raleway-book; 
                                     }
                                 }
                             }

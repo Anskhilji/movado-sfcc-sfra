@@ -1,4 +1,4 @@
-@import '~movado/components/welcomeMatModal';
+@import '~ebel/components/_welcomeMatModal';
 
 .welcomeMat {
     
@@ -11,7 +11,7 @@
                 .selector-container {
 
                     p {
-                        font-family: $the-futura-font;
+                        font-family: $font-ProximaNova;
     
                     }
                 }
@@ -19,36 +19,36 @@
                 .esw-header-wrapper, .esw-body-wrapper, .geolocation, .not-geolocation-country  {
 
                     h1,h2,h3,h4,h5,h6 {
-                        font-family: $movado-font;
+                        font-family: $font-ProximaNova;
                         font-weight: 500;
                     }
 
                     p {
-                        font-family: $the-futura-font; 
+                        font-family: $font-ProximaNova; 
                     }
                 }
 
                 .geolocation, .not-geolocation-country {
 
                     .esw-btn {
-                        font-family: $movado-font;
+                        font-family: $font-ProximaNova;
                     }
                 }
 
                 .shipping-country-message {
-                    font-family: $the-futura-font; 
+                    font-family: $font-ProximaNova; 
                 }
 
                 .selector-container {
 
                     .add-shipping-country-message {
-                        font-family: $the-futura-font; 
+                        font-family: $font-ProximaNova; 
                     }
 
                     .esw-country-selector {
 
                         label {
-                            font-family: $the-futura-font; 
+                            font-family: $font-ProximaNova; 
                         }
 
                         .select-field {
@@ -56,7 +56,7 @@
                             .current-country {
 
                                 .selected-country {
-                                    font-family: $the-futura-font; 
+                                    font-family: $font-ProximaNova; 
                                 }
                             }
 
@@ -65,7 +65,7 @@
                                 .country {
 
                                     .selected-link {
-                                        font-family: $the-futura-font; 
+                                        font-family: $font-ProximaNova; 
                                     }
                                 }
                             }
