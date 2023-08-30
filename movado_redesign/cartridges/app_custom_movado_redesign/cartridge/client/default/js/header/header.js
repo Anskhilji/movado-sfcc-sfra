@@ -286,7 +286,7 @@ function resetMenu() {
     $('.categories-image-container').addClass('d-none');
 }
 
-$('.desktop-hamburger svg , .Menu-text').click(function () {
+$('.desktop-hamburger, .desktop-hamburger svg, .Menu-text').click(function () {
     $('.desktop-slide-up').addClass('desktop-slide-down');
     $('.desktop-slide-up').slideDown('300');
     resetMenu();
