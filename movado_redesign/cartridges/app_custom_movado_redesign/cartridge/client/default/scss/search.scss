@@ -2352,9 +2352,12 @@
             }
 
             del {
-              
                 @include media-breakpoint-up(lg) {
                     font-size: rem(14);
+                }
+
+                .strike-through {
+                  color: $grey-suit;
                 }
             }
 
