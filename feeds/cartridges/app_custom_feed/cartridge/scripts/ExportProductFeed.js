@@ -195,15 +195,15 @@ function exportGoogleFeed(args) {
             "customLabel2": 23,
             "customLabel3": 24,
             "price_GBP": 25,
-            "price_CAD": 26,
+            "price_CA": 26,
             "price_EUR": 27,
             "price_AUD": 28,
             "salePrice_GBP": 29,
-            "salePrice_CAD": 30,
+            "salePrice_CA": 30,
             "salePrice_EUR": 31,
             "salePrice_AUD": 32,
-            "sale_price_effective_date_GBP": 33,
-            "sale_price_effective_date_CAD": 34,
+            "sale_price_effective_date_UK": 33,
+            "sale_price_effective_date_CA": 34,
             "sale_price_effective_date_EUR": 35,
             "sale_price_effective_date_AUD": 36
         }
@@ -572,10 +572,6 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("price_CA");
     }
 
-    if (!empty(feedColumns['price_CAD'])) {
-        csvFileHeader.push("price_CAD");
-    }
-
     if (!empty(feedColumns['price_GBP'])) {
         csvFileHeader.push("price_GBP");
     }
@@ -612,10 +608,6 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("Sale Price_CA");
     }
 
-    if (!empty(feedColumns['salePrice_CAD'])) {
-        csvFileHeader.push("Sale Price_CAD");
-    }
-
     if (!empty(feedColumns['salePrice_GBP'])) {
         csvFileHeader.push("Sale Price_GBP");
     }
@@ -632,16 +624,8 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("sale_price_effective_date_CA");
     }
 
-    if (!empty(feedColumns['sale_price_effective_date_CAD'])) {
-        csvFileHeader.push("sale_price_effective_date_CAD");
-    }
-
     if (!empty(feedColumns['sale_price_effective_date_UK'])) {
         csvFileHeader.push("sale_price_effective_date_UK");
-    }
-
-    if (!empty(feedColumns['sale_price_effective_date_GBP'])) {
-        csvFileHeader.push("sale_price_effective_date_GBP");
     }
 
     if (!empty(feedColumns['sale_price_effective_date_EUR'])) {
@@ -1103,7 +1087,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if (!empty(feedColumns['price_CA']) || !empty(feedColumns['price_CAD'])) {
+    if (!empty(feedColumns['price_CA'])) {
         if (product.price_CA) {
             productDetails.push(product.price_CA)
         } else {
@@ -1175,7 +1159,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if (!empty(feedColumns['salePrice_CA']) || !empty(feedColumns['salePrice_CAD'])) {
+    if (!empty(feedColumns['salePrice_CA'])) {
         if (product.salePrice_CA) {
             productDetails.push(product.salePrice_CA)
         } else {
@@ -1207,7 +1191,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     } 
 
-    if (!empty(feedColumns['sale_price_effective_date_CA']) || !empty(feedColumns['sale_price_effective_date_CAD'])) {
+    if (!empty(feedColumns['sale_price_effective_date_CA'])) {
         if (product.salePrice_CA) {
             productDetails.push(product.sale_price_effective_date_CA)
         } else {
@@ -1215,7 +1199,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if (!empty(feedColumns['sale_price_effective_date_UK']) || !empty(feedColumns['sale_price_effective_date_GBP'])) {
+    if (!empty(feedColumns['sale_price_effective_date_UK'])) {
         if (product.salePrice_GBP) {
             productDetails.push(product.sale_price_effective_date_UK)
         } else {
@@ -1367,7 +1351,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         };
     
         //Custom Columns for MovadoUS and OBUK
-        if (!empty(feedColumns['price_CA']) || !empty(feedColumns['price_CAD'])) {
+        if (!empty(feedColumns['price_CA'])) {
             productAttributes.price_CA = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD;
         }
         if (!empty(feedColumns['price_GBP'])) {
@@ -1394,10 +1378,10 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         if (!empty(feedColumns['price_AUD'])) {
             productAttributes.price_AUD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_AUD) + " " + Constants.CURRENCY_AUD;
         }
-        if (!empty(feedColumns['salePrice_CA']) || !empty(feedColumns['salePrice_CAD'])) {
+        if (!empty(feedColumns['salePrice_CA'])) {
             productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).productDecimalPrice;
         }
-        if (!empty(feedColumns['sale_price_effective_date_CA']) || !empty(feedColumns['sale_price_effective_date_CAD'])) {
+        if (!empty(feedColumns['sale_price_effective_date_CA'])) {
             productAttributes.sale_price_effective_date_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).salePriceEffectiveDate;
         }
         if (!empty(feedColumns['salePrice_GBP'])) {
@@ -1410,7 +1394,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         if (!empty(feedColumns['salePrice_AUD'])) {
             productAttributes.salePrice_AUD = getPromotionalPricePerPriceBook(Constants.CURRENCY_AUD, product, true).productDecimalPrice;
         }
-        if (!empty(feedColumns['sale_price_effective_date_UK']) || !empty(feedColumns['sale_price_effective_date_GBP'])) {
+        if (!empty(feedColumns['sale_price_effective_date_UK'])) {
             productAttributes.sale_price_effective_date_UK = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).salePriceEffectiveDate;
         }
         if (!empty(feedColumns['sale_price_effective_date_EUR'])) {
