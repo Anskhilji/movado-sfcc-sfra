@@ -74,7 +74,7 @@ $('.first-levels-items-category').click(function(){
     $('.mobile-accounts').addClass('d-none');
 });
 
-$('.back-section .back-btn,.back-section .category-name').click(function(){
+$('.back-btn').click(function(){
     $('.second-levls-section').removeClass('active fadeIn animated fast');
     $('.mobile-container').addClass('fadeIn animated fast')
     $('.second-levls-section').fadeOut();
