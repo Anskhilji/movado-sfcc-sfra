@@ -302,11 +302,10 @@
                         position: fixed;
                         right: 0;
                         top: rem(80);
-                        max-width: rem(700);
-                        min-width: 50%;
-                        height: rem(820);
+                        max-width: 50%;
+                        height: auto;
                         overflow: hidden;
-                        width: 100%;
+                        width: 50%;
 
                         img {
                             width: 100%;
@@ -425,10 +424,10 @@
                                     position: fixed;
                                     right: 0;
                                     top: rem(80);
-                                    max-width: rem(700);
-                                    height: rem(820);
+                                    max-width: 50%;
+                                    height: auto;
                                     overflow: hidden;
-                                    width: 100%;
+                                    width: 50%;
 
                                     @include media-breakpoint-down(lg) {
                                         max-width: rem(500);
