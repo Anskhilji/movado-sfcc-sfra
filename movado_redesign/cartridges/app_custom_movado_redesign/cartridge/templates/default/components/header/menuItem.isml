@@ -6,7 +6,9 @@
             </li>
           <isif condition="${!empty(secondLevelCategory.categoryBannerImage)}">
               <div class="categories-image-container-second gtm-customEvent d-none" data-cat-image="${menuItem.id}" data-gtm-tracking='${gtmCategoryVal}'>
-                  <a href="${secondLevelCategory.url}"><img class="main-category-image" alt="${secondLevelCategory.name}" src="${!empty(secondLevelCategory.categoryBannerImage) ? secondLevelCategory.categoryBannerImage : '#'}" loading="lazy" title="${secondLevelCategory.name}" /></a>
+                  <a href="${secondLevelCategory.url}">
+                      <isprint value="${secondLevelCategory.categoryBannerImage}" encoding="off" />
+                 </a>
               </div>
           </isif>
       </isloop>
