@@ -48,8 +48,8 @@
                                     <path d="M9.77734 16L1.99957 8.5L9.77735 1" stroke="white" stroke-width="1.51" />
                                 </svg>
                             </div>
-                            <a href="${mobileCategory.url}" id="shop-watches" role="button" aria-haspopup="false">
-                                <div class="category-name">${mobileCategory.name}</div>
+                            <a class="category-name" href="${mobileCategory.url}" id="shop-watches" role="button" aria-haspopup="false">
+                               ${mobileCategory.name}
                             </a>
                         </div>
 
