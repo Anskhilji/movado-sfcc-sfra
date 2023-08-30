@@ -1,0 +1,58 @@
+.container-fluid {
+
+    &.pdp-v-one {
+
+        .description-and-detail {
+
+            .technical-detail-heading {
+                font-size: rem(16);
+                color: $black;
+                font-weight: 400;
+                font-family: $movado-font;
+                line-height: rem(18);
+                letter-spacing: rem(0.25);
+                margin-bottom: 0;
+            }
+
+            .technical-detail {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                padding-top: rem(35);
+                gap: rem(0) rem(10);
+                margin-bottom: rem(27);
+
+                .attribute {
+                    
+                    &-list {
+                        flex-basis: calc(33.3% - 10px);
+                        margin-bottom: rem(40);
+
+                        @include media-breakpoint-down(sm) {
+                            flex-basis: calc(50% - 10px);
+                        }
+                    }
+
+                    &-name {
+                        font-size: rem(14);
+                        color: $black;
+                        font-weight: 500;
+                        font-family: $the-futura-font;
+                        line-height: rem(16.1);
+                        letter-spacing: rem(0.28);
+                        margin-bottom: rem(9);
+                    }
+
+                    &-value {
+                        font-size: rem(14);
+                        color: $black;
+                        font-weight: 400;
+                        font-family: $the-futura-font;
+                        line-height: rem(22);
+                        letter-spacing: rem(0.25);
+                    }
+                }
+            }
+        }
+    }
+}

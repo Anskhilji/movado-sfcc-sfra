@@ -110,7 +110,7 @@ function getQuantitySelector($el) {
 /**
  *  CovertsPDP Zoom Model Primary Images to Indicators
  */
- function initializeZoomSlickDots() {
+function initializeZoomSlickDots() {
     $('.zoom-carousel').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -597,6 +597,10 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
          });
      }
 
+     if($(window).width() < 768){
+        $('.product-gallery.primary-images').remove();
+     }
+
  });
 
 $.fn.isOnScreen = function () {
@@ -675,6 +679,36 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.product-description .content').text(response.product.shortDescription);
         $shortDescriptionMobile.text(response.product.shortDescription);
     }
+
+    var showChar = 245;  // Characters that are shown by default
+    if(window.innerWidth <= 544) {
+        showChar = 175;  // Characters that are shown by default
+    }
+    
+    var moretext = ' Read More';
+    var lesstext = ' show less';
+    var description = $('.product-aruliden-sec .product-description .content');
+        var content = description.html();
+        if(content.length > showChar) {
+            var charLenght = content.substr(0, showChar);
+            var shortCharLenght = content.substr(showChar, content.length - showChar);
+            var html = charLenght + '<span style="display:none" class="morecontent-wrapper"><span>' + shortCharLenght + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a></div>';
+            description.html(html);
+        }
+    $('.morelink-wrapper').on('click',function() {
+        if($(this).hasClass('less')) {
+            $(this).removeClass('less');
+            $(this).html(moretext);
+            $('.morelink-wrapper').css('margin-left','4px');
+            $('.morecontent-wrapper').css('display','none');
+        } else {
+            $(this).addClass('less');
+            $(this).html(lesstext);
+            $('.morelink-wrapper').css('margin-left','4px');
+            $('.morecontent-wrapper').css('display','inline');
+        }
+        return false;
+    });
 
     //update wishlist icon
     $('.add-to-wish-list').removeClass('added-to-wishlist');
@@ -785,21 +819,51 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // unslick Carousel 
-    $('.primary-images .main-carousel').slick('unslick');
-    $('.primary-images .carousel-nav').slick('unslick');
-    $('.zoom-carousel').slick('unslick');
-    $('.zoom-carousel-slider').slick('unslick');
+    
+    if ($('.zoom-carousel').hasClass('slick-initialized')) {
+        $('.zoom-carousel-slider').slick('unslick');
+    }
+    if ($('.zoom-carousel-slider').hasClass('slick-initialized')) {
+        $('.zoom-carousel').slick('unslick');
+    }
+    if ($('.primary-images .carousel-nav').hasClass('slick-initialized')) {
+        $('.primary-images .carousel-nav.slick-initialized').slick('unslick');
+    }
+    if ($('.primary-images .main-carousel').hasClass('slick-initialized')) {
+        $('.primary-images .main-carousel.slick-initialized').slick('unslick');
+    }
+
 
     // Update primary images
     var $primaryImageUrls = response.product.images;
-    $primaryImageUrls.pdp600.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
+    if ($primaryImageUrls.pdp600) {
+        $primaryImageUrls.pdp600.forEach(function (imageUrl, idx) {
+            $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
+                .attr('src', imageUrl.url);
+            $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
+                .attr('srcset', imageUrl.url);
+            $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
+                .attr('srcset', imageUrl.url);
+        });
+    } else if ($primaryImageUrls.pdp720X800) {
+        $primaryImageUrls.pdp720X800.forEach(function (imageUrl, idx) {
+            $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
+                .attr('src', imageUrl.url);
+            $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
+                .attr('srcset', imageUrl.url);
+            $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
+                .attr('srcset', imageUrl.url);
+        });
+    } else if ($primaryImageUrls.pdp430X540 && $(window).width < 768) {
+        $primaryImageUrls.pdp430X540.forEach(function (imageUrl, idx) {
+            $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
+                .attr('src', imageUrl.url);
+            $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
+                .attr('srcset', imageUrl.url);
+            $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
+                .attr('srcset', imageUrl.url);
+        });
+    }
 
     // Update primary images indicators
     var $primaryImageindiCatorsUrls = response.product.images;
@@ -875,8 +939,10 @@ function handleVariantResponse(response, $productContainer) {
     // intialize carousel
         initializePDPMainSlider();
         initializeSlickDots();
-        initializeZoomSlickDots();
         initializeZoomModelCarousel();
+        if (!$('.zoom-carousel').hasClass('slick-initialized')) {
+            initializeZoomSlickDots();
+        }
         $('.main-carousel .slick-active').addClass('slick-center');
 
     $(document).ready(function () {
@@ -1077,7 +1143,7 @@ function handlePostCartAdd(response) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
         $('#addToCartModal').modal('show');
-        $('.slick-slider').slick('refresh');
+        $('.slick-slider').not('.slick-initialized').slick('refresh');
     }
 }
 
