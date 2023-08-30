@@ -360,10 +360,6 @@ function moreFilterBtn($moreFilterBtn) {
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
     var screenWidth = 0;
-    //  this var use for mobile scree 
-    if (window.innerWidth <= 1200) {
-        screenWidth = 0;
-    } 
 
     if (scroll > screenWidth) {
        $('.filter-box').addClass('filter-bar-sticky');
