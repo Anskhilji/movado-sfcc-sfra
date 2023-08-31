@@ -985,6 +985,18 @@ header.new-header {
 .transparent-header,
 .home-header-transparent {
 
+  .minicart {
+
+    .popover-bottom {
+      opacity: 1;
+
+      &.mini-cart-hide {
+        opacity: 0;
+      }
+
+    }
+  }
+
   .header-menu-wrapper {
     transition: .4s ease all;
   }
