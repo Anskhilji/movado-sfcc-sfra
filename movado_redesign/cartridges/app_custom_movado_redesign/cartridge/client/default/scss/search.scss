@@ -2741,6 +2741,14 @@
                   height: calc(100vh - 235px);
                   padding: 0 rem(40);
 
+                  @include media-breakpoint-down(sm) {
+                    height: calc(100svh - 235px);
+                  }
+                  
+                  @media (max-width:$custom-sm14) {
+                    height: calc(100svh - 300px);
+                  }
+
                   @media (max-width:$custom-lg4) {
                     max-height: unset;
                     padding: 0 rem(24);
@@ -2946,6 +2954,11 @@
               padding: 0 rem(24);
               top: rem(98);
             }
+
+            
+          &.filter-bar-updated {
+            top: 0;
+          }
 
             
             .filter-and-count {
