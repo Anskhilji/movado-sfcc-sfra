@@ -204,11 +204,46 @@ server.prepend('Variation', function (req, res, next) {
     var product = ProductFactory.get(params);
     var productHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImagesTemplate);
     viewData.productImages = productHTML;
+    var backInStockTemplate;
+    var backInStockHtml;
+    var enableBackInStock = !empty(dw.system.Site.current.preferences.custom.enableBackInStock) ? dw.system.Site.current.preferences.custom.enableBackInStock : false;
+    var ListrakCartridgeEnabled =  !empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
+    var ListrakEnableBackInStockSms = !empty(dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockSms : false;
+    var ListrakEnableBackInStockEmail = !empty(dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockEmail) ? dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockEmail : false;
+    var listrakBackInStockTerms = ContentMgr.getContent('listrak-back-in-stock-terms');
+    listrakBackInStockTerms = listrakBackInStockTerms && listrakBackInStockTerms.custom.body ? listrakBackInStockTerms.custom.body : '';
+    listrakBackInStockTerms = listrakBackInStockTerms && listrakBackInStockTerms.markup ? listrakBackInStockTerms.markup : '';
+    var listrakBISSubscription = ContentMgr.getContent('listrak-back-in-stock-subscription-checkbox');
+    listrakBISSubscription = listrakBISSubscription && listrakBISSubscription.custom.body ? listrakBISSubscription.custom.body : '';
+    listrakBISSubscription = listrakBISSubscription && listrakBISSubscription.markup ? listrakBISSubscription.markup : '';
+    var listrakBISSubscriptionSMS = ContentMgr.getContent('listrak-back-in-stock-subscription-checkbox-sms');
+    listrakBISSubscriptionSMS = listrakBISSubscriptionSMS && listrakBISSubscriptionSMS.custom.body ? listrakBISSubscriptionSMS.custom.body : '';
+    listrakBISSubscriptionSMS = listrakBISSubscriptionSMS && listrakBISSubscriptionSMS.markup ? listrakBISSubscriptionSMS.markup : '';
 
-    recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
+    recommendedProductTemplate = renderTemplateHelper.getRenderedHtml (
             attributeContext,
             attributeTemplateLinked
-        );
+    );
+
+    if (enableBackInStock && !ListrakEnableBackInStockSms && !ListrakEnableBackInStockEmail) {
+        backInStockTemplate = 'product/backInStockNotificationForm';
+    } else if (ListrakCartridgeEnabled) {
+        if (ListrakEnableBackInStockSms || ListrakEnableBackInStockEmail) {
+            backInStockTemplate = 'product/listrackBackInstockForm';
+        } else {
+            backInStockTemplate = 'product/backInStockNotificationForm';
+        }
+    } else {
+        backInStockTemplate = 'product/backInStockNotificationForm';
+    }
+
+    backInStockHtml = renderTemplateHelper.getRenderedHtml({product: product}, backInStockTemplate);
+    viewData.backInStockHtml = backInStockHtml;
+    viewData.listrakBackInStockTerms = listrakBackInStockTerms;
+    viewData.listrakBISSubscription = listrakBISSubscription;
+    viewData.listrakBISSubscriptionSMS = listrakBISSubscriptionSMS;
+
+
     res.json({
         recommendedProductTemplate: recommendedProductTemplate
     });

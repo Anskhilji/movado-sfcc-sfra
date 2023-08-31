@@ -781,6 +781,63 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+    var $backInStockDesktop = $('.back-in-Stock-desktop');
+    var $backInStockMobile = $('.back-in-Stock-mobile');
+    var $listrakBackInStockSMS = window.Resources.LISTRAK_ENABLE_BACK_IN_STOCK_SMS;
+    var $listrakBackInStockEmail = window.Resources.LISTRAK_ENABLE_BACK_IN_STOCK_EMAIL;
+
+    if (!response.product.available && response && response.backInStockHtml) {
+        if ($backInStockDesktop.length > 0) {
+            $backInStockDesktop.empty();
+            $backInStockDesktop.append(response.backInStockHtml);
+        }  
+        
+        if ($backInStockMobile.length > 0) {
+            $backInStockMobile.empty();
+            $backInStockMobile.append(response.backInStockHtml);
+        }
+    }
+
+    var $backInStockTerms = $('.bis-terms');
+    var $backInStockSubscription = $('.bis-subscription');
+    var $backInStockSlotContent = $('.bis-slot-content').html();
+    var $backInStockNotification = $('.back-in-stock-notification-container');
+    var $backInStockSuccessMsg = $('.back-in-stock-notification-container-success');
+    var $listrakSuccessMsg = $('.listrak-success-msg');
+
+    if ($backInStockTerms.length > 0 && response && response.listrakBackInStockTerms) {
+        $backInStockTerms.empty();
+        $backInStockTerms.append(response.listrakBackInStockTerms)
+    }
+
+    if ($listrakBackInStockEmail && !$listrakBackInStockSMS) {
+        if ($backInStockSubscription.length > 0 && response && response.listrakBISSubscription) {
+            $backInStockSubscription.empty();
+            $backInStockSubscription.append(response.listrakBISSubscription);
+        }
+    } else if ($listrakBackInStockSMS && !$listrakBackInStockEmail) {
+        if ($backInStockSubscription.length > 0 && response && response.listrakBISSubscriptionSMS) {
+            $backInStockSubscription.empty();
+            $backInStockSubscription.append(response.listrakBISSubscriptionSMS);
+        }
+    } else if ($listrakBackInStockSMS && $listrakBackInStockEmail) {
+        if ($backInStockSubscription.length > 0 && response && response.listrakBISSubscription && response.listrakBISSubscriptionSMS) {
+            $backInStockSubscription.empty();
+            $backInStockSubscription.append(response.listrakBISSubscription);
+            $backInStockSubscription.append(response.listrakBISSubscriptionSMS);
+        }
+    }
+
+    if (response.product.isBackInStockEnabled && $backInStockSlotContent && $backInStockNotification.length) {
+        $backInStockNotification.append($backInStockSlotContent);
+        $('.back-in-stock-notification-container .bis-slot-content').removeClass('d-none');
+    }
+
+    if (!$backInStockSuccessMsg.hasClass('d-none')) {
+        $('.back-in-stock-notification-container-main').addClass('d-none');
+        $('.back-in-stock-notification-marketing-container').addClass('d-none');
+    }
+
     if (!response.product.available) {
         $('.gift-box-wrapper.d-show-desktop').hide();
         $('.gift-box-wrapper.d-show-mobile').hide();
