@@ -36,11 +36,6 @@ function setMiniCartProductSummaryHeight () {
 function initializeScroll() {
     var $productSummary = $('.product-summary');
     if($productSummary.length == 1) {
-        // alert('Heee');
-        // if($productSummary.hasClass('scrollbox-overflowed')) {
-        //     $productSummary.scrollbox('update');
-        // }
-        // $productSummary.scrollbox();
         var sidebar1 = new GeminiScrollbar({
             element: document.querySelector('.product-summary')
         }).create();
@@ -203,6 +198,7 @@ function openMiniCart() {
             loadAmazonButton();
             hideMiniCartCheckbox();
             initializeScroll();
+            $('body, html').addClass('scroll-remove');
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
@@ -1415,7 +1411,7 @@ movadoBase.addToCart = function () {
         var giftPid;
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
-        $('body, html').addClass('scroll-remove');
+        
 
         if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
             setPids = [];

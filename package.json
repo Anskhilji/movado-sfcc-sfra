@@ -82,10 +82,7 @@
     "font-awesome": "^4.6.3",
     "gemini-scrollbar": "^1.5.3",
     "jquery": "^3.1.1",
-    "jquery-mousewheel": "^3.1.13",
     "malihu-custom-scrollbar-plugin": "^3.1.5",
-    "overlayscrollbars": "^2.3.0",
-    "scrollbox": "^4.0.0",
     "sfra": "file:./storefront-reference-architecture/",
     "us-state-codes": "^1.1.2"
   },

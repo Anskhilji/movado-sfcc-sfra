@@ -42,11 +42,6 @@ function isIE() {
 function initializeScroll() {
     var $productSummary = $('.product-summary');
     if($productSummary.length == 1) {
-        // alert('Heee');
-        // if($productSummary.hasClass('scrollbox-overflowed')) {
-        //     $productSummary.scrollbox('update');
-        // }
-        // $productSummary.scrollbox();
         var sidebar1 = new GeminiScrollbar({
             element: document.querySelector('.product-summary')
         }).create();
@@ -660,7 +655,7 @@ module.exports = function () {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
          var $homeHeaderTransparent = $('.home-header-transparent');
-         $('body, html').addClass('scroll-remove');
+         
 
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
@@ -695,6 +690,7 @@ module.exports = function () {
                 }
                 loadAmazonButton();
                 initializeScroll();
+                $('body, html').addClass('scroll-remove');
                 $('#AmazonPayButtonCheckout').css('width', '100%');
             });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {

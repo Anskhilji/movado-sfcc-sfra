@@ -497,14 +497,12 @@
 
         .product-summary {
             height: 100%;
-            // max-height: 100%;
             margin: 0;
             padding: 0;
             overflow: hidden;
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
-            width: 90vw;
-            max-width: 100%;
+            width: 100%;
             padding-bottom: 0 !important; // i'm using important to overwrite inline css
             z-index: 1;
             padding-top: rem(25);
@@ -2109,100 +2107,3 @@
     height: 100%;
     width: 100%;
 }
-
-// .scrollbox-wrapper {
-//     position: relative;
-//     width: 100%;
-//     height: 100%;
-
-//     .scrollbox-overflowed {
-//         overflow: hidden;
-//     }
-
-//     > :first-child {
-//         will-change: scroll-position;
-//     }
-// }
-
-// .scrollbox-rail,
-// .scrollbox-bar {
-//     display: none;
-//     position: absolute;
-//     z-index: 10;
-// }
-
-// .scrollbox-horizontal-rail,
-// .scrollbox-horizontal-bar {
-//     bottom: 0;
-//     left: 0;
-//     display: none;
-// }
-
-// .scrollbox-vertical-rail,
-// .scrollbox-vertical-bar {
-//     top: 0;
-//     right: 0;
-// }
-
-// .scrollbox-rail-in,
-// .scrollbox-bar-in {
-//     display: block;
-// }
-
-// .scrollbox-horizontal-bar {
-//     will-change: left;
-//     display: none;
-// }
-
-// .scrollbox-vertical-bar {
-//     will-change: top;
-// }
-
-// $rail-thickness: 7px;
-// $rail-border-radius: floor($rail-thickness / 2);
-// $rail-background-color: #000;
-// $rail-opacity: .03;
-
-// $bar-min-length: 20px;
-// $bar-thickness: $rail-thickness;
-// $bar-border-radius: $rail-border-radius;
-// $bar-background-color: #ccc;
-// $bar-hovered-background-color: darken($bar-background-color, 20%);
-// $bar-captured-background-color: darken($bar-background-color, 40%);
-
-// .scrollbox-rail {
-//     background-color: $rail-background-color;
-//     border-radius: $rail-border-radius;
-//     opacity: $rail-opacity;
-// }
-
-// .scrollbox-bar {
-//     background-color: $bar-background-color;
-//     border-radius: $bar-border-radius;
-
-//     &:hover {
-//         background-color: $bar-hovered-background-color;
-//     }
-
-//     &.scrollbox-bar-captured {
-//         background-color: $bar-captured-background-color;
-//     }
-// }
-
-// .scrollbox-horizontal-rail {
-//     height: $rail-thickness;
-// }
-
-// .scrollbox-vertical-rail {
-//     width: $rail-thickness;
-// }
-
-// .scrollbox-horizontal-bar {
-//     min-width: $bar-min-length;
-//     height: $bar-thickness;
-// }
-
-// .scrollbox-vertical-bar {
-//     min-height: $bar-min-length;
-//     width: $bar-thickness;
-// }
