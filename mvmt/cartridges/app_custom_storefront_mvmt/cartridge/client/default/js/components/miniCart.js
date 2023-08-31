@@ -1,6 +1,6 @@
 'use strict';
 
-var GeminiScrollbar = require("gemini-scrollbar");
+var GeminiScrollbar = require('gemini-scrollbar');
 
 var $formValidation = require('base/components/formValidation');
 var $createErrorNotification = require('base/components/errorNotification');
@@ -42,7 +42,7 @@ function isIE() {
 function initializeScroll() {
     var $productSummary = $('.product-summary');
     if($productSummary.length == 1) {
-        var sidebar1 = new GeminiScrollbar({
+        var miniCartScrollBar = new GeminiScrollbar({
             element: document.querySelector('.product-summary')
         }).create();
     } else {

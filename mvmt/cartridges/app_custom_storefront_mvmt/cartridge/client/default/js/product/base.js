@@ -1,6 +1,6 @@
 'use strict';
 var movadoBase = require('movado/product/base');
-var GeminiScrollbar = require("gemini-scrollbar");
+var GeminiScrollbar = require('gemini-scrollbar');
 
 if(Resources.IS_CLYDE_ENABLED){
     var clydeWidget = require('link_clyde/getClydeWidget.js');
@@ -36,7 +36,7 @@ function setMiniCartProductSummaryHeight () {
 function initializeScroll() {
     var $productSummary = $('.product-summary');
     if($productSummary.length == 1) {
-        var sidebar1 = new GeminiScrollbar({
+        var miniCartScrollBar = new GeminiScrollbar({
             element: document.querySelector('.product-summary')
         }).create();
     } else {
