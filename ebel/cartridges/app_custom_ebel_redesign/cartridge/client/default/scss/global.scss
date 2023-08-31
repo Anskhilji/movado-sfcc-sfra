@@ -3,6 +3,7 @@
 @import '~movad_redesign/global';
 @import 'vars';
 @import "components/common";
+@import "components/buttons";
 @import "lib/slick";
 @import "lib/slick-theme";
 @import "animate.css/animate";
@@ -16,7 +17,8 @@
 @import "components/addToCartModal";
 @import "components/cartProductTile";
 @import "miniCart";
-@import "login";
+@import "components/welcomeMatModal";
+@import "components/login";
 @import "components/productTiles";
 @import "bootstrapOverrides";
 @import "components/carousel";

@@ -1,0 +1,77 @@
+@import '~ebel/components/_welcomeMatModal';
+
+.welcomeMat {
+    
+    .movado-welcome-mat {
+
+        .eswModalWrapper {
+
+            .eswModal {
+
+                .selector-container {
+
+                    p {
+                        font-family: $font-ProximaNova;
+                    }
+                }
+
+                .esw-header-wrapper, .esw-body-wrapper, .geolocation, .not-geolocation-country  {
+
+                    h1,h2,h3,h4,h5,h6 {
+                        font-family: $font-ProximaNova;
+                        font-weight: 500;
+                    }
+
+                    p {
+                        font-family: $font-ProximaNova; 
+                    }
+                }
+
+                .geolocation, .not-geolocation-country {
+
+                    .esw-btn {
+                        font-family: $font-ProximaNova;
+                    }
+                }
+
+                .shipping-country-message {
+                    font-family: $font-ProximaNova; 
+                }
+
+                .selector-container {
+
+                    .add-shipping-country-message {
+                        font-family: $font-ProximaNova; 
+                    }
+
+                    .esw-country-selector {
+
+                        label {
+                            font-family: $font-ProximaNova; 
+                        }
+
+                        .select-field {
+
+                            .current-country {
+
+                                .selected-country {
+                                    font-family: $font-ProximaNova; 
+                                }
+                            }
+
+                            .selector {
+
+                                .country {
+
+                                    .selected-link {
+                                        font-family: $font-ProximaNova; 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

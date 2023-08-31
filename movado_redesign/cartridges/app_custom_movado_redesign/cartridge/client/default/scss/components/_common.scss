@@ -1,0 +1,35 @@
+
+.heading-one,.heading-two, .heading-three, .heading-four {
+    font-family: $movado-font;
+}
+
+.body-text {
+    font-family: $the-futura-font;
+}
+
+@include media-breakpoint-up(md) {
+    .heading-two {
+        font-family: $movado-font;
+    }
+}
+
+// Styles for coupons on cart and checkout page
+.coupons-wrapper {
+
+    .coupon-code {
+        font-family: $movado-font;
+    }
+
+    .coupon-applied,
+    .coupon-not-applied {
+        font-family: $movado-font;
+    }
+
+}
+
+.form-group {
+  
+    .form-control-field-label {
+        font-family: $the-futura-font;
+    }
+}

@@ -1,0 +1,129 @@
+@import "vars";
+@import '~movado/cart';
+
+.checkout-button-wrapper {
+
+    .estimated-price {
+        font-family: $the-futura-font;
+    }
+}
+
+.line-item-attributes {
+    font-family: $the-futura-font;
+}
+
+.more-ways-text {
+    font-family: $the-futura-font;
+}
+
+.cart-header-wrapper {
+
+    .cart-header {
+        font-family: $movado-font;
+    }
+
+    .estimate-price-wrapper {
+
+      .estimated-total {
+          font-family: $the-futura-font;
+      }
+    }
+}
+
+.cart-page {
+
+    .totals {
+
+        .collapsible-promo-wrapper {
+          
+          .promo-code-form {
+
+            .title {
+                font-family: $the-futura-font;
+            }
+          }
+        }
+
+        .form-group {
+
+            label {
+                font-family: $the-futura-font;
+            }
+
+            .shippingMethods {
+                font-family: $the-futura-font;
+
+              option {
+                  font-family: $the-futura-font;
+              }
+            }
+        }
+
+        .checkout-continue {
+
+            .checkout-button-wrapper {
+
+                .checkout-btn {
+                    font-family: $movado-font;
+                }
+            }
+
+            .more-options {
+
+                .paypal-btn, .apple-pay-cart, .google-pay-column {
+                    font-family: $movado-font;
+                }
+            }
+        }
+    }
+
+}
+
+.product-card-wrapper {
+
+    .product-gift-wrap {
+
+        .character-limit,
+        .gift-check + label {
+            font-family: $the-futura-font;
+        }
+    }
+}
+
+.totals {
+
+    .price-label,
+    .cost {
+        font-family: $the-futura-font;
+    }
+
+    .grand-total-label,
+    .grand-total {
+        font-family: $the-futura-font;
+        font-weight: 700;
+    }
+}
+
+.cart-empty {
+
+    .empty-cart-header {
+        font-family: $movado-font;
+        font-weight: 500;
+    }
+}
+
+.estimated-price {
+
+    .grand-total {
+        font-family: $the-futura-font;
+    }
+}
+
+.cart-disclaimer-message-movado {
+
+    p {
+        font-family: $the-futura-font;
+        font-weight: 500;
+    }
+}
+

@@ -1,0 +1,92 @@
+@import '~movado/account/account';
+@import "../vars";
+
+body {
+    font-family: $the-futura-font;
+}
+
+.account-pages {
+
+  .card-header {
+
+      h3,h4 {
+        font-family: $movado-font;
+      }
+  }
+
+  .card-body.form-control-label {
+      font-family: $the-futura-font;
+  }
+
+  .card {
+
+      .card-body {
+
+          .account-wishlist-item {
+
+              .remove-from-wishlist {
+                  font-weight: 300;
+                  font-family: $movado-font;
+              }
+          }
+
+          dt,.field-label {
+              font-family: $the-futura-font;
+          }
+
+          & > div {
+
+              div {
+
+                  &.dashboard-cards-block-title {
+                      font-family: $movado-font;
+                      font-weight: 500;
+                  }
+              }
+          }
+
+          .line-item-name {
+              font-family: $movado-font;
+          }
+      }
+
+      .card-footer {
+
+          .field-label {
+              font-family: $the-futura-font;
+          }
+      }
+  }
+}
+
+
+.breadcrumbs-wrapper-main {
+
+    .breadcrumb {
+
+        .breadcrumb-item {
+      
+            a {
+                font-family: $the-futura-font;
+            }
+        }
+    }
+}
+
+.card {
+
+    .card-header h4 {
+        font-family: $movado-font;
+    }
+}
+
+.profile-back-to-account-link {
+    font-family: $the-futura-font;
+}
+
+.account-pages {
+
+    .card-header h4 {
+        font-family: $movado-font;
+    } 
+} 

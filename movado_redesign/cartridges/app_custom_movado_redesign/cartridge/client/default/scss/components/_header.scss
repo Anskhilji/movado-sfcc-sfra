@@ -252,7 +252,7 @@ header.new-header {
   .tile-discription {
     display: none;
   }
-  
+
   .minicart {
     margin-right: rem(20);
   }
@@ -289,6 +289,7 @@ header.new-header {
     padding: rem(18) rem(4) rem(16) rem(3);
     outline: none;
     border-bottom: 2px solid transparent;
+
     &:hover {
       border-color: $black;
     }
@@ -979,4 +980,478 @@ header.new-header {
             }
          }
     }
+}
+
+.transparent-header,
+.home-header-transparent {
+
+  .desktop-search {
+  
+      &.show {
+        width: rem(509);
+        height: 100vh;
+        overflow-y: auto;
+        right: 0;
+        padding: 0 rem(40);
+        background: $black;
+  
+        @include media-breakpoint-down(xs) {
+          width: 100%;
+          padding: 0 rem(24);
+        }
+  
+        .desktop-search-redesign {
+  
+          .input-fields {
+            display: flex;
+            justify-content: space-between;
+            padding: rem(28) rem(40);
+            gap: rem(8);
+            position: fixed;
+            width: rem(509);
+            top: 0;
+            height: rem(80);
+            right: 0;
+            background: $black;
+            z-index: 99;
+  
+            @include media-breakpoint-down(xs) {
+              width: 100%;
+              padding: rem(20) rem(24);
+            }
+  
+            input {
+              font-family: $the-futura-font;
+              font-size: rem(18);
+              font-style: normal;
+              font-weight: 400;
+              line-height: rem(22);
+              letter-spacing: rem(0.25);
+              color: $white;
+              text-transform: capitalize;
+  
+              &::placeholder {
+                color: $white;
+                font-family: $the-futura-font;
+              }
+            }
+  
+            .text-right {
+              width: rem(20);
+              height: rem(20);
+  
+              .search-close {
+                all: unset;
+                background: url(../images/cross-circle.svg) center no-repeat;
+                width: rem(20);
+                height: rem(20);
+                display: block;
+                cursor: pointer;
+              }
+            }
+  
+            form {
+              width: 100%;
+              position: unset;
+  
+              .suggestions-wrapper {
+                position: absolute;
+                left: 0;
+                right: 0;
+                padding: 0 rem(40);
+                top: rem(96);
+  
+                .suggestions {
+                  padding: 0;
+                  background-color: transparent;
+                  height: 100vh;
+                  overflow-y: auto;
+  
+                  .col-12 {
+                    padding-inline: 0;
+                  }
+  
+                  .item {
+                    padding-bottom: rem(16);
+  
+                    .align-self-center {
+                      padding-left: 0 !important; // i'm using important to overwrite inline css
+  
+                      a {
+  
+                        img {
+                          background: transparent;
+                        }
+                      }
+                    }
+  
+                    .name {
+  
+                      >a {
+                        color: $white;
+                        font-family: $movado-font;
+                        font-size: rem(16);
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: rem(22);
+                        letter-spacing: rem(0.25);
+                      }
+  
+                      .category-parent {
+                        color: $white;
+                        font-family: $movado-font;
+                        font-size: rem(16);
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: rem(22);
+                        letter-spacing: rem(0.25);
+                      }
+                    }
+                  }
+  
+                  .row {
+                    margin: 0;
+                    padding: rem(16) 0;
+                    border: 0;
+  
+                    .row {
+                      padding: 0;
+                    }
+  
+                    &.product-serach-items {
+  
+                      .searched-text {
+                        padding: 0;
+  
+                        .product-serach-container {
+                          color: $white;
+                          font-family: $movado-font;
+                          font-size: rem(16);
+                          font-style: normal;
+                          font-weight: 400;
+                          line-height: rem(22);
+                          letter-spacing: rem(0.25);
+                          text-transform: capitalize;
+                        }
+                      }
+                    }
+  
+                    &.items-header {
+                      padding: 0;
+  
+                      >div {
+                        color: $storm-gray2;
+                        font-family: $the-futura-font;
+                        font-size: rem(14);
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: rem(18);
+                        letter-spacing: rem(0.25);
+                        text-transform: capitalize;
+                      }
+  
+                      >div {
+                        padding: 0;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+  
+            .header-search-field {
+              width: 100%;
+              border: 0;
+              padding: 0;
+              margin: 0;
+              background: transparent;
+            }
+          }
+  
+          .search-recomendation {
+            margin-top: rem(96);
+  
+            .search-suggestions {
+              flex-direction: column;
+              margin-bottom: rem(30);
+              padding-bottom: 0;
+  
+              .category-slot {
+                margin-bottom: 0;
+  
+                .carousel-title {
+                  color: $storm-gray2;
+                  font-family: $the-futura-font;
+                  font-size: rem(14);
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: rem(18);
+                  letter-spacing: rem(0.25);
+                }
+  
+                ul {
+                  margin-bottom: 0;
+  
+                  li {
+                    margin-bottom: rem(16);
+  
+                    &:last-child {
+                      margin-bottom: 0;
+                    }
+  
+                    a {
+                      color: $white;
+                      font-family: $movado-font;
+                      font-size: rem(16);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(22);
+                      letter-spacing: rem(0.25);
+                    }
+                  }
+                }
+              }
+  
+              .top-product {
+                margin-top: rem(40);
+  
+                h3 {
+                  color: $storm-gray2;
+                  font-family: $the-futura-font;
+                  font-size: rem(14);
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: rem(18);
+                  letter-spacing: rem(0.25);
+                  margin-bottom: rem(19);
+                }
+  
+                .top-search-update {
+                  flex-wrap: wrap;
+                  gap: rem(24) rem(54);
+                  justify-content: space-between;
+                  margin: 0;
+  
+                  @include media-breakpoint-down(xs) {
+                    gap: rem(24) rem(7);
+                  }
+  
+                  .product {
+                    width: calc(50% - 27.5px);
+                    margin: 0;
+                    max-width: unset;
+  
+                    @include media-breakpoint-down(xs) {
+                      width: calc(50% - 4px);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  .header-menu-wrapper {
+    transition: .4s ease all;
+  }
+
+  &.hide-header {
+
+    .sticky-header-wrapper {
+
+      .header-menu-wrapper {
+
+        &.non-sticky {
+          top: rem(-150) !important; //i'm using important to overwrite inline css
+        }
+      }
+    }
+  }
+
+  .overlay {
+
+    height: rem(80);
+
+    @include media-breakpoint-down(md) {
+      height: rem(62);
+    }
+  }
+
+  &.tophat-sticky {
+
+    &.new-header {
+      top: 0;
+
+      .header-menu-wrapper {
+
+        .desktop-hamburger {
+          display: flex;
+          align-items: center;
+          gap: rem(12);
+          cursor: pointer;
+
+          .Menu-text {
+            font-size: rem(14);
+            font-style: normal;
+            font-weight: 400;
+            line-height: rem(17.22);
+            letter-spacing: rem(0.56);
+            font-family: $movado-font;
+            margin-top: rem(2);
+            
+            @include media-breakpoint-down(md) {
+              display: none;
+            }
+          }
+        }
+        
+        &.non-sticky,
+        .sticky-header {
+
+          .header-container {
+            height: rem(80);
+            padding: 0 rem(50);
+
+            @include media-breakpoint-down(md) {
+              padding: 0 rem(24);
+              height: rem(62);
+            }
+
+            .minicart {
+
+              @include media-breakpoint-down(md) {
+                width: rem(16);
+                height: rem(16);
+              }
+
+              &-total {
+                width: rem(16);
+                height: rem(16);
+              }
+            }
+
+            .header-icon {
+              height: rem(16);
+              width: rem(16);
+              margin-right: rem(37);
+              position: inherit;
+
+              @include media-breakpoint-down(md) {
+                margin-right: rem(20);
+              }
+            }
+
+            .header-logo {
+              margin-left: rem(46);
+              width: rem(181);
+              height: rem(22);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .white-logo {
+                display: none;
+              }
+
+              @include media-breakpoint-down(md) {
+                width: rem(128);
+                margin-left: rem(30);
+
+                a {
+                  display: flex;
+                  align-items: center;
+                }
+              }
+
+             
+            }
+
+            .search-icon {
+              background: url("../images/search.svg") center center no-repeat;
+            }
+
+            .user {
+
+              .user-icon {
+
+                background: url("../images/account.svg") center center no-repeat;
+              }
+
+              &.user-login {
+
+                .user-icon {
+                  background: url("../images/user-icon-fill.svg") center center no-repeat;
+                }
+              }
+
+            }
+            .minicart-link {
+              background: url("../images/shopping-bag.svg") center center no-repeat;
+            }
+          }
+          
+          .minicart {
+            margin-right: rem(0);
+          }
+
+          .user {
+
+            position: relative;
+            padding: rem(18) rem(4) rem(16) rem(3);
+            top: rem(1);
+            border: 0;
+            margin-right: rem(36);
+
+            .user-icon {
+              height: rem(16);
+              width: rem(16);
+            }
+
+            .popover {
+              top: rem(50);
+
+              a {
+                font: rem(13) $the-futura-font;;
+              }
+            }
+
+            &.user-not-login {
+
+              .popover {
+
+                .btn {
+                  font-family: $movado-font;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// Hide-header
+.site-tophat-main-sec {
+
+  .header-banner {
+    top: 0;
+    transition: .4s ease all;
+
+    &.header-banner-hide {
+      top: rem(-50);
+    }
+  }
+
+}
+
+.checkout-header-redesign {
+
+  .sticky-header-wrapper {
+    transition: .4s ease all;
+  }
+
+  .white-logo {
+    display: none;
+  }
 }

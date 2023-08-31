@@ -1,0 +1,43 @@
+@import '~movado/checkout/checkout';
+@import "checkoutComponents";
+@import "../vars";
+
+body {
+    font-family: $the-futura-font;
+}
+
+.shipping-method-option {
+    font-family: $the-futura-font;
+}
+
+.shipping-method-pricing {
+    font-family: $the-futura-font;
+}
+
+header {
+
+    .checkout-header-wrapper {
+
+        .header-left {
+
+            .checkout-logo {
+
+                .logo-checkout-text {
+                    font-family: $the-futura-font;
+                }
+            }
+        }
+    }
+}
+
+// Google Autocomplete Address Style -------------------------------
+.pac-container {
+
+    .pac-item {
+        font-family: $the-futura-font;
+
+        .pac-item-query {
+            font-family: $the-futura-font;
+        }
+    }
+}

@@ -111,21 +111,23 @@
 
   .filter-btn {
 
-    button{
+    button {
       border: none;
       font-size:rem(15);
       @include font-demi;
-      color: $black;
-      outline: none;
       padding-left: rem(25);
       background: url("../images/filter.png") left center no-repeat;
+      color: $black;
+      border: none;
+      outline: none;
+      padding-left: rem(25);
       cursor: pointer;
-
-      &:focus {
-            outline: -webkit-focus-ring-color auto 1px;
-        }
     }
   }
+
+  &:focus {
+    outline: -webkit-focus-ring-color auto 1px;
+}
 
   .tab-content {
     position: unset;
@@ -134,19 +136,20 @@
   .result-count {
 
     > span {
-        margin: 0;
-        @include font-book;
-        font-size: rem(15);
-        letter-spacing: normal;
+      margin: 0;
+      @include font-book;
+      font-size: rem(15);
+      letter-spacing: normal;
     }
 
-    .make-bold, .category-name {
+    .make-bold, .category-name  {
         @include font-demi;
         font-size: rem(17);
         margin: 0;
         margin-right: rem(5);
         text-transform: capitalize;
     }
+
     .category-name {font-size: rem(15);}
   }
 
@@ -1604,9 +1607,11 @@
   .desktop-search-refine-bar-redesing {
     position: relative;
     background-color: $white;
+
     @include custom-media-query-max($medium-screen-width) {
       display: none;
     }
+
     &.active {
       position: absolute;
       left: 0;
@@ -2426,4 +2431,728 @@
             padding: 0 rem(24);
         }
     }
+}
+
+.search-results-updated {
+  height: rem(80);
+  padding: 0 rem(40);
+
+  @media(max-width:$custom-lg4) {
+    padding: 0 rem(24);
+
+  }
+
+  .search-results-sec {
+
+    .search-result-desktop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: rem(80);
+      font-family: $movado-font;
+
+      &.search-desktop-sticky {
+        position: fixed;
+        top: rem(117);
+        width: 100%;
+        background: $white;
+        z-index: 99;
+        margin-left: rem(-48);
+        padding: 0 rem(40);
+
+        @media (max-width:$custom-lg4) {
+          top: rem(98);
+          margin-left: rem(-24);
+          padding: 0 rem(24);
+        }
+      }
+
+      .left-sec {
+
+        .filter-and-count {
+
+          .grid-header {
+
+            .result-count {
+
+              @media (max-width:$custom-lg4) {
+                padding: 0;
+
+                .d-inline-flex {
+                  align-items: center;
+                }
+
+                .mobile-category-name {
+                  color: $light-black;
+                  font-family: $movado-font;
+                  font-size: rem(18);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: rem(20);
+
+                  @media (max-width:$custom-sm14) {
+                    font-size: rem(13);
+                  }
+                }
+
+                span {
+                  color: $dark-gray;
+                  font-family: $the-futura-font;
+                  font-size: rem(14);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: rem(19);
+                  letter-spacing: rem(0.25);
+                  margin: 0;
+
+                  @media (max-width:$custom-sm14) {
+                    font-size: rem(13);
+                  }
+                }
+              }
+              
+
+              > .d-none {
+                gap: rem(8);
+                align-items: center;
+                font-family: $movado-font;
+
+                label {
+                  color: $light-black;
+                  font-family: $movado-font;
+                  font-size: rem(24);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: rem(32);
+                  margin: 0;
+                }
+
+                span {
+                  color: $dark-gray;
+                  font-family: $the-futura-font;
+                  font-size: rem(14);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: rem(19);
+                  letter-spacing: rem(0.25)
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .right-sec {
+        display: flex;
+
+        .sortby-bar {
+          position: fixed;
+          width: rem(394);
+          z-index: 10000;
+          background: $white;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          left: unset;
+          padding: 0 rem(40);
+
+          @include media-breakpoint-down(sm) {
+            width: 100%;
+          }
+
+          .sort-by-section {
+
+            .sortBy-header {
+              margin: rem(42) 0 rem(34) 0;
+
+              .sort-by {
+                color: $black;
+                font-family: $movado-font;
+                font-size: rem(24);
+                font-style: normal;
+                font-weight: 400;
+                line-height: rem(32);
+                text-transform: capitalize;
+              }
+
+              .close-bar {
+                cursor: pointer;
+              }
+            }
+
+            .sort-order-menu-box {
+
+              .sort-open-state-modal {
+
+                .sorting-rules-filters {
+                  margin-top: rem(64);
+                  .sorting-rule-list {
+
+                    &:last-child {
+
+                      .sorting-rule-options-update {
+                        margin-bottom: 0;
+                      }
+                    }
+                    
+                    .sorting-rule-options-update {
+                      color: $storm-gray2;
+                      font-family: $movado-font;
+                      font-size: rem(16);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(18);
+                      letter-spacing: rem(0.25);
+                      margin-bottom: rem(24);
+                      position: relative;
+                      cursor: pointer;
+                      transition: .3s ease all;
+                      text-transform: capitalize;
+                      display: inline-block;
+  
+                      &.active {
+                        color: $black;
+  
+                        &::after {
+                          opacity: 1;
+                        }
+                      }
+  
+                      &:hover {
+                        color: $black;
+  
+                        &::after {
+                          opacity: 1;
+                        }
+                      }
+  
+                      &::after {
+                        content: '';
+                        position: absolute;
+                        top: 49%;
+                        background-color: $black;
+                        width: rem(8);
+                        height: rem(8);
+                        transform: translate(-50%, -50%);
+                        left: (-14px);
+                        opacity: 0;
+                        border-radius: 100%;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .side-fliter {
+          
+          .refinement-bar-redesign {
+
+            &.d-block {
+              display: flex !important; // i'm using important to overwrite inline css
+              flex-direction: column;
+              width: rem(394);
+
+              @media (max-width:$custom-lg4) {
+                width: 100%;
+              }
+              
+              .show-bottom-btn  {
+                display: flex;
+                align-items: center;
+                gap: rem(16);
+                padding: rem(40);
+                margin: 0;
+                
+                @media (max-width:$custom-lg4) {
+                  background-color: $white;
+                  padding: rem(40) rem(24);
+                }
+
+                @media (max-width:$custom-sm14) {
+                  flex-direction: column;
+                }
+                
+                &::after {
+                  content: '';
+                  position: absolute;
+                  top: rem(2);
+                  width: 100%;
+                  height: rem(1);
+                  background: $silver-light;
+                  margin-left: rem(-40);
+                }
+                
+                a {
+                  display: flex !important;
+                  padding: rem(14) rem(32);
+                  justify-content: center;
+                  align-items: center;
+                  border: rem(1) solid $black;
+                  border-radius: rem(120);
+                  color: $black;
+                  font-family: $movado-font;
+                  font-size: rem(12);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: rem(17);
+                  letter-spacing: rem(0.5);
+                  text-transform: uppercase;
+                  flex: 1;
+                  height: rem(45);
+
+                  @media (max-width:$custom-sm11) {
+                    font-size: rem(10);
+                  }
+
+                  @media (max-width:$custom-sm14) {
+                    width: 100% !important; //i'm using important to overwrite inline css
+                  }
+                }
+
+                button {
+                  display: flex !important;
+                  padding: rem(14) rem(32);
+                  justify-content: center;
+                  align-items: center;
+                  border: rem(1) solid $black;
+                  border-radius: rem(120);
+                  color: $white;
+                  font-family: $movado-font;
+                  font-size: rem(12);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: rem(17);
+                  letter-spacing: rem(0.5);
+                  text-transform: uppercase;
+                  background-color: $black;
+                  flex: 1;
+                  height: rem(45);
+                  cursor: pointer;
+
+                  @media (max-width:$custom-sm14) {
+                    width: 100%;
+                  }
+                }
+              }
+
+              .refine-wrapper-sidebar {
+                margin-top: rem(112);
+
+                .movado-refinements-container {
+                  height: calc(100vh - 235px);
+                  padding: 0 rem(40);
+
+                  @include media-breakpoint-down(sm) {
+                    height: calc(100svh - 235px);
+                  }
+                  
+                  @media (max-width:$custom-sm14) {
+                    height: calc(100svh - 300px);
+                  }
+
+                  @media (max-width:$custom-lg4) {
+                    max-height: unset;
+                    padding: 0 rem(24);
+                  }
+
+                  .card {
+                    border-color: $neutrals-400;
+
+                    &:last-child {
+                      border: 0;
+                    }
+
+                    button {
+                      padding: rem(32) rem(0) rem(16) rem(0);
+                      color: $black;
+                      font-family: $movado-font;
+                      font-size: rem(16);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(18);
+                      letter-spacing: rem(0.25);
+
+                      @media (max-width:$custom-lg4) {
+                        padding: rem(48) rem(0) rem(16) rem(0);
+                        font-size: rem(18);
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: rem(20);
+                        letter-spacing: inherit;
+
+                        &::after {
+                          top: rem(48);
+                        }
+                      }
+
+                      &::after {
+                        background: url(../images/plus.svg) left center no-repeat;
+                        width: rem(20);
+                        height: rem(20);
+                        right: 0;
+                      }
+                    }
+
+                    &.active {
+
+                      button {
+                        transform: unset;
+
+                        &::after {
+                          background: url(../images/minus.svg) left center no-repeat;
+                        } 
+                      }
+
+                      .card-body {
+                        padding: rem(8) rem(0) rem(32) rem(0);
+
+                        ul {
+
+                          li {
+                            margin-bottom: rem(12);
+                            list-style: none;
+                            position: relative;
+
+                            &:nth-child(even) {
+                              padding-left: 0;
+                            }
+
+                            &:last-child {
+                              margin-bottom: 0;
+                            }
+
+                            a {
+                              width: rem(10);
+                              height: rem(10);
+                              padding: 0;
+                              border: 0;
+                              border-radius: 0;
+                              font-family: $the-futura-font;
+                              border: rem(1) solid $black;
+                              display: flex;
+                              align-items: center;
+                              gap: rem(12);
+                              min-height: auto;
+
+                              &:focus {
+                                background-color: $black;
+                                color: $black;
+                              }
+
+                              &:hover {
+                                color: $black;
+                                background-color: $black;
+                              }
+
+                              span {
+                                color: $black;
+                                font-family: $the-futura-font;
+                                font-size: rem(14);
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: rem(16);
+                                letter-spacing: rem(0.14);
+                                position: absolute;
+                                left: rem(24);
+                                width: auto;
+                                text-align: left;
+                              }
+
+                              &.selected {
+                                border: rem(1) solid $black;
+                                background: $black;
+                              }
+                              
+                              .star-rating-area {
+
+                                .rating-static {
+                                    width: rem(233);
+                                    
+                                    label {
+                                      cursor: pointer;
+                                    }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+
+              .filter-header {
+                padding: rem(40);
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+
+                @media (max-width:$custom-lg4) {
+                  margin: 0;
+                  padding: rem(40) rem(24);
+                }
+
+                &.d-flex {
+                  
+                  @media (max-width:$custom-lg4) {
+
+                    &::after {
+                      margin-left: rem(-24);
+                      width: 100%;
+                    }
+                  }
+                }
+
+                &::after {
+                  content: '';
+                  position: absolute;
+                  bottom: 0;
+                  width: 100%;
+                  height: rem(1);
+                  background: $silver-light;
+                  margin-left: rem(-40);
+                }
+
+                .close-bar {
+                  cursor: pointer;
+                }
+
+                .sort-by {
+                  font-family: $movado-font;
+                  font-size: rem(24);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: rem(32);
+                  text-transform: capitalize;
+                  letter-spacing: normal;
+                }
+              }
+            }
+          }
+        }
+
+        .filter-box {
+          margin: 0;
+          border: 0;
+
+          .filter-and-count {
+            display: none !important; // i'm using important to overwrite inline css
+          }
+
+          &.filter-bar-sticky {
+            height: rem(80);
+            align-items: center;
+            padding: 0 rem(40);
+            top: rem(117);
+            justify-content: space-between;
+
+            @media (max-width:$custom-lg4) {
+              display: flex;
+              align-items: center;
+              padding: 0 rem(24);
+              top: rem(98);
+            }
+
+            
+          &.filter-bar-updated {
+            top: 0;
+          }
+
+            
+            .filter-and-count {
+
+              .grid-header {
+
+                .result-count {
+
+                  @media (max-width:$custom-lg4) {
+                    padding: 0;
+
+                    .d-inline-flex {
+                      align-items: center;
+                    }
+
+                    .mobile-category-name {
+                      color: $light-black;
+                      font-family: $movado-font;
+                      font-size: rem(18);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(20);
+                    }
+
+                    span {
+                      color: $dark-gray;
+                      font-family: $the-futura-font;
+                      font-size: rem(14);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(19);
+                      letter-spacing: rem(0.25);
+                      margin: 0;
+                    }
+                  }
+                  
+
+                  > .d-none {
+                    gap: rem(8);
+                    align-items: center;
+                    font-family: $movado-font;
+
+                    label {
+                      color: $light-black;
+                      font-family: $movado-font;
+                      font-size: rem(24);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(32);
+                      margin: 0;
+                    }
+
+                    span {
+                      color: $dark-gray;
+                      font-family: $the-futura-font;
+                      font-size: rem(14);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(19);
+                      letter-spacing: rem(0.25);
+                    }
+                  }
+                }
+              }
+            }
+
+            .desktop-search-refine-bar-redesing {
+              width: auto !important; // i'm using important to overwrite inline css
+            }
+
+            .filter-and-count {
+              display: block !important; // i'm using important to overwrite inline css
+            }
+          }
+
+          .desktop-search-refine-bar-redesing {
+
+            @media (max-width:$custom-lg4) {
+              display: block;
+            }
+
+            .refine-wrapper {
+              padding: 0;
+              display: flex;
+              align-items: center;
+              gap: rem(32);
+
+              @media (max-width:$custom-sm14) {
+                gap: rem(16);
+              }
+
+              .sort-order-menu-box {
+
+                .sort-order-mobile-menu {
+
+                  @media (max-width:$custom-lg4) {
+                    width: auto;
+                  }
+                }
+              }
+
+              .filter-btn {
+
+                .filter-refinement-panel-btn {
+                  position: relative;
+                  background: transparent;
+                  padding: 0;
+                  color: $black;
+                  font-family: $movado-font;
+                  font-size: rem(12);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                  letter-spacing: rem(0.48);
+                  text-transform: uppercase;
+                  display: flex;
+                  align-items: center;
+
+                  @media(max-width:$custom-lg4) {
+
+                    span {
+                      display: none;
+                    }
+                  }
+
+                  .filter-icon {
+                    width: rem(24);
+                    height: rem(24);
+                    display: block;
+                  }
+
+                  &::after {
+                   background: transparent;
+                  }
+                }
+              }
+            }
+
+            .sort-order-menu-box {
+              min-width: auto;
+              height: auto;
+              width: auto;
+
+              .sort-open-state-modal {
+
+                .sortBy-btn {
+
+                  .sortBy-refinement-panel-btn {
+                    position: relative;
+                    background: transparent;
+                    padding: 0;
+                    color: $black;
+                    font-family: $movado-font;
+                    font-size: rem(12);
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    letter-spacing: rem(0.48);
+                    text-transform: uppercase;
+                    border: 0;
+                    box-shadow: none;
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    outline: none;
+
+                    @media(max-width:$custom-lg4) {
+                    
+                      span {
+                        display: none;
+                      }
+                    }
+
+                    .sort-by-icon {
+                      width: rem(25);
+                      height: rem(25);
+                      display: block;
+                      cursor: pointer;
+                    }
+
+                    &::after {
+                      background: transparent;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
