@@ -573,7 +573,7 @@ var lastScrollTop = 0;
   });
 
 // on load scroll on top
-  $(window).on('beforeunload', function(){
+  $(window).on('beforeunload', function() {
     if ($('.modal-is-open').length == 0) {
         $(window).scrollTop(0);
     }
