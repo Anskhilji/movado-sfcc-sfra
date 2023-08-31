@@ -1,6 +1,7 @@
 @import '~movado/search';
 @import '~movad_redesign/search';
 @import 'vars';
+@import 'mixins';
 
 .plp-new-design {
 
@@ -139,6 +140,7 @@
 
             .tile-detail-btn {
                 font-family: $font-HelveticaNeueLT-medium;
+                @include buttonOutline;
             }
 
             .tile-discription, .product-not-available-msg {  

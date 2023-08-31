@@ -31,6 +31,15 @@
 
                     .esw-btn {
                         font-family: $font-ProximaNova;
+                        
+                        &:focus {
+                            background-color: $white;
+                            color: $black;
+                            outline: none;
+                            box-shadow: none;
+                            border-style: solid;
+                            border-color: $black;
+                        }
                     }
                 }
 

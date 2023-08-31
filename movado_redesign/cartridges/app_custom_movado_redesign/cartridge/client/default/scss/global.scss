@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import 'vars';
 @import "typography";
+@import "mixins";
 @import "utilities/fonts";
 @import '~movado/global';
 @import "lib/slick";
@@ -25,3 +26,4 @@
 @import "needHelp";
 @import "components/welcomeMatModal";
 @import "components/progressMeter";
+@import "components/input";

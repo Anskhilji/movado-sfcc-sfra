@@ -32,6 +32,7 @@
 
                     .esw-btn {
                         font-family: $movado-font;
+                        @include buttonFilled;
                     }
                 }
 

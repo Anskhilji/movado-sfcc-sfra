@@ -60,10 +60,13 @@
         text-transform: uppercase;
         display: block;
         margin: rem(80) auto rem(0);
+        text-decoration: none;
 
         @include media-breakpoint-down(sm) {
             margin: rem(90) auto rem(0);
         }
+
+        @include buttonFilled;
     }
 
     .swiss-made-list {

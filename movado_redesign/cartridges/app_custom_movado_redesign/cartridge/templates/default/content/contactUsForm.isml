@@ -1,0 +1,99 @@
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
+ <div class="container contactus-page">
+	<form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
+
+		<div class="form-group aruliden-input-style
+			<isif condition="${pdict.contactUsForm.firstname.mandatory === true}">required</isif>">
+			<label class="form-control-label" for="firstName">
+				<isprint value="${pdict.contactUsForm.firstname.label}" encoding="htmlcontent" />
+			</label>
+			<input placeholder="${pdict.contactUsForm.firstname.label}" type="text" class="form-control" id="firstName"
+				<isprint value="${pdict.contactUsForm.firstname.attributes}" encoding="off" />>
+			<div class="invalid-feedback"></div>
+		</div>
+
+		<div class="form-group aruliden-input-style
+			<isif condition="${pdict.contactUsForm.lastname.mandatory === true}">required</isif>">
+			<label class="form-control-label" for="lastName">
+				<isprint value="${pdict.contactUsForm.lastname.label}" encoding="htmlcontent" />
+			</label>
+			<input placeholder="${pdict.contactUsForm.lastname.label}" type="text" class="form-control" id="lastName"
+				<isprint value="${pdict.contactUsForm.lastname.attributes}" encoding="off" />>
+			<div class="invalid-feedback"></div>
+		</div>
+		
+		<div class="form-group aruliden-input-style
+			<isif condition="${pdict.contactUsForm.phone.mandatory === true}">required</isif>">
+			<label class="form-control-label" for="phone">
+				<isprint value="${pdict.contactUsForm.phone.label}" encoding="htmlcontent" />
+			</label>
+			<input placeholder="${pdict.contactUsForm.phone.label}" type="text" class="form-control" id="phone"
+				<isprint value="${pdict.contactUsForm.phone.attributes}" encoding="off" />>
+			<div class="invalid-feedback"></div>
+		</div>
+
+		<div class="form-group aruliden-input-style
+			<isif condition="${pdict.contactUsForm.email.mandatory === true}">required</isif>">
+			<label class="form-control-label" for="email">
+				<isprint value="${pdict.contactUsForm.email.label}" encoding="htmlcontent" />
+			</label>
+			<input placeholder="${pdict.contactUsForm.email.label}" type="email" class="form-control" id="email"
+				<isprint value="${pdict.contactUsForm.email.attributes}" encoding="off" />>
+			<div class="invalid-feedback"></div>
+		</div>
+
+		<div class="form-group aruliden-input-style
+			<isif condition="${pdict.contactUsForm.ordernumber.mandatory === true}">required</isif>">
+			<label class="form-control-label" for="ordernumber">
+				<isprint value="${pdict.contactUsForm.ordernumber.label}" encoding="htmlcontent" />
+			</label>
+			<input placeholder="${pdict.contactUsForm.ordernumber.label}" type="text" class="form-control" id="ordernumber"
+				<isprint value="${pdict.contactUsForm.ordernumber.attributes}" encoding="off" />>
+			<div class="invalid-feedback"></div>
+		</div>
+
+		<div class="form-group">
+			<label class="form-control-label" for="myquestion">
+				<isprint value="${pdict.contactUsForm.myquestion.label}" encoding="htmlcontent" />
+			</label>
+			
+			 <div class="myquestion-wrapper row">
+				<div class="custom-select-wrapper col-12">
+					<select class="form-control custom-select" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
+					   <isloop items=${pdict.contactUsForm.myquestion.options} var="ques">
+						<option id="${ques.id}" value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
+					   </isloop>
+					</select>
+					<i class="fa fa-angle-down"></i>
+					<div class="invalid-feedback"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group 
+			<isif condition="${pdict.contactUsForm.comment.mandatory === true}">required</isif>">
+			<label class="form-control-label" for="comment">
+				<isprint value="${pdict.contactUsForm.comment.label}" encoding="htmlcontent" />
+			</label>
+			<textarea class="form-control" id="comment" rows="3"
+            <isprint value="${pdict.contactUsForm.comment.attributes}" encoding="off" />></textarea>
+			<div class="invalid-feedback"></div>
+		</div>
+
+		<input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+
+		<input type="hidden" class="g-recaptcha-token" name="${pdict.contactUsForm.grecaptchatoken.htmlName}" 
+		    <isprint value="${pdict.contactUsForm.grecaptchatoken.attributes}"/>
+		/>
+
+        <div class="row">
+            <div class="col">
+                <isif condition="${isGoogleRecaptchaEnabled}">
+                    <button class="btn btn-block btn-save btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha' data-action='submit'>${Resource.msg('button.send','common',null)}</button>
+                </isif>
+                <button type="submit" name="Send" class="btn btn-save btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''} form-submit">${Resource.msg('button.send','common',null)}</button>
+            </div>
+        </div>
+    </form>
+</div>

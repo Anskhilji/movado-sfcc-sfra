@@ -1,0 +1,101 @@
+.form-group {
+
+    &.aruliden-input-style {
+        position: relative;
+        // height: rem(48);
+
+        &:has(input.form-control:placeholder-shown) {
+
+            .form-control-label {
+                top: rem(12);
+                font-size: rem(16);
+                font-style: normal;
+                font-weight: 400;
+                line-height: rem(20);
+                letter-spacing: rem(0.25);
+                font-family: $the-futura-font;
+
+            }
+        }
+
+        &:has(input.form-control:focus) {
+
+            .form-control-label {
+                font-size: rem(10);
+                line-height: rem(10);
+                letter-spacing: rem(0.5);
+                font-weight: 500;
+                top: 0;
+            }
+        }
+
+        input {
+
+            &.form-control {
+                color: $black;
+                font-family: $the-futura-font;
+                font-size: rem(16);
+                font-style: normal;
+                font-weight: 400;
+                line-height: rem(20);
+                letter-spacing: rem(0.25);
+                border: none;
+                border-bottom: rem(1) solid $black;
+                box-shadow: none;
+                outline: none;
+                padding: rem(10) rem(0);
+
+                &::placeholder {
+                    color: transparent;
+                    font-family: $the-futura-font;
+                    font-size: rem(16);
+                    font-weight: 400;
+                }
+
+
+                &:-webkit-autofill,
+                &:-webkit-autofill:hover,
+                &:-webkit-autofill:focus {
+                    -webkit-text-fill-color: $black;
+                    -webkit-box-shadow: 0 0 0px rem(1000) $white inset;
+                    transition: background-color 5000s ease-in-out 0s;
+                }
+
+            }
+        }
+
+        .form-control-label {
+            color: $black;
+            font-family: $the-futura-font;
+            font-size: rem(10);
+            line-height: rem(10);
+            letter-spacing: rem(0.5);
+            font-weight: 500;
+            margin: 0;
+            position: absolute;
+            top: rem(0);
+            left: 0;
+            transition: all 0.4s;
+        }
+
+        .invalid-feedback {
+            color: $invalidRed;
+            font-family: $the-futura-font;
+            font-size: rem(10);
+            font-style: normal;
+            font-weight: 500;
+            line-height: rem(10);
+            letter-spacing: rem(0.5);
+        }
+
+        &+.back-in-stock {
+
+            &-notification {
+                
+                &-invalid-email {
+                    @extend .invalid-feedback;
+                }
+            }
+        }
+    }
+}

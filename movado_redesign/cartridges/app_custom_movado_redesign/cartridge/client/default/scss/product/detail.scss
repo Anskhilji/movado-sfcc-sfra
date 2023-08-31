@@ -1,6 +1,7 @@
 @import '~movado/product/detail';
 @import '~movado/variables';
 @import '../vars';
+@import "../mixins";
 @import '../utilities/fonts';
 @import "animate.css/animate";
 @import "../custom-animation";
@@ -255,11 +256,14 @@ $arrow-height: 1.25em;
             box-shadow: none;
             text-transform: capitalize;
 
+            span {
+                pointer-events: none;
+            }
+            @include buttonOutline;
+
             &:hover {
-                background: $black url("../../images/add-white.svg") left rem(12) center no-repeat;
+                background: url("../../images/add.svg") left rem(12) center no-repeat;
                 background-size: rem(12);
-                color: $white;
-                transition: 0.3s;
             }
 
             &.focus {

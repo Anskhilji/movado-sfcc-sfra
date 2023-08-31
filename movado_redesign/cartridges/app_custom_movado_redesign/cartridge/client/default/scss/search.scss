@@ -1,5 +1,6 @@
 @import '~movado/search';
 @import 'vars';
+@import 'mixins';
 @import "animate.css/animate";
 @import "custom-animation";
 .plp-new-design {
@@ -765,9 +766,7 @@
         transition: all 0.4s;
         text-decoration: none;
 
-        &:hover {
-            box-shadow: inset rem(0) rem(0) rem(0) rem(1) $black;
-        }
+        @include buttonOutline;
       }
 
       .tile-quick-view-btn {
@@ -3080,6 +3079,25 @@
                   text-transform: uppercase;
                   display: flex;
                   align-items: center;
+                  border: rem(1) solid transparent;
+                  
+                  &:hover {
+                    color: $neutrals-700;
+
+                    .filter-icon {
+
+                      svg {
+                          path {
+                            fill: $neutrals-700;
+                          }
+                      }
+                    }
+                  }
+                  
+                  &:focus {
+                    border: rem(1) dashed $black;
+                    box-shadow: none;
+                  }
 
                   @media(max-width:$custom-lg4) {
 
@@ -3128,12 +3146,32 @@
                     align-items: center;
                     cursor: pointer;
                     outline: none;
+                    border: rem(1) solid transparent;
 
                     @media(max-width:$custom-lg4) {
                     
                       span {
                         display: none;
                       }
+                    }
+
+                    &:hover {
+                      color: $neutrals-700;
+    
+                      .sort-by-icon {
+    
+                        svg {
+                            path {
+                              fill: $neutrals-700;
+                              stroke: $neutrals-700;
+                            }
+                        }
+                      }
+                    }
+                    
+                    &:focus {
+                      border: rem(1) dashed $black;
+                      box-shadow: none;
                     }
 
                     .sort-by-icon {
