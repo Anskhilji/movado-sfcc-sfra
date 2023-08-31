@@ -53,43 +53,46 @@
                             </div>
                         </div>
 
-                        <div class="desktop-search pb-md-4 show w-100">
-                            <div class="row justify-content-center">
-                                <div class="col-md-3 hidden-md-down">
-                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
-                                </div>
-                                <div class="col-sm-9 col-lg-6 m-0 p-md-0">
+                        <div class="desktop-search show">
+                            <div class="desktop-search-redesign">
+                                <div class="input-fields">
+                                    <div class="search-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M15.6092 16.6013C14.4011 17.5764 12.8661 18.1598 11.1954 18.1598C7.30133 18.1598 4.14453 14.99 4.14453 11.0799C4.14453 7.16978 7.30133 4 11.1954 4C15.0895 4 18.2463 7.16978 18.2463 11.0799C18.2463 12.7238 17.6884 14.2368 16.7522 15.4385L19.9062 18.6054C20.224 18.9245 20.224 19.4417 19.9062 19.7607C19.5885 20.0798 19.0734 20.0798 18.7557 19.7607L15.6092 16.6013ZM16.6192 10.9461C16.6192 13.9539 14.1909 16.3922 11.1954 16.3922C8.19997 16.3922 5.77166 13.9539 5.77166 10.9461C5.77166 7.9383 8.19997 5.5 11.1954 5.5C14.1909 5.5 16.6192 7.9383 16.6192 10.9461Z"
+                                                fill="white" />
+                                        </svg>
+                                    </div>
                                     <form role="search" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
-                                        <button class="fa fa-search gtm-customEvent d-none" type="submit" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+                                        <button class="fa fa-search gtm-customEvent d-none" type="submit"
+                                            data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
                                             <span class="sr-only">"${Resource.msg('label.header.search', 'common', null)}"</span>
                                         </button>
-                                        <input class="form-control search-field header-search-field"
-                                            type="search" name="q"
+                                        <input class="form-control search-field header-search-field" type="search" name="q"
                                             title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-                                            value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
-                                            placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-                                            autocomplete="off"
+                                            value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords) ? pdict.productSearch.searchKeywords : ''}"
+                                            placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}" autocomplete="off"
                                             data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
                                         <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
                                         <input type="hidden" value="${pdict.locale}" name="lang" />
-                                        <a href="javascript:void(0);" class="search-close search-close-mobile hidden-lg-up"></a>
                                     </form>
-                                    <div class="row search-recomendation justify-content-center">
-                                        <div class="col-12">
-                                            <div class="search-suggestions">
-                                                <div><isslot id="top-search-product-name" description="Top Search Product Name" context="global" /></div>
-                                                <div><isslot id="top-search-product" description="Top Search Product" context="global" /></div>
+                                    <div class="text-right">
+                                        <a href="javascript:void(0);" class="search-close"></a>
+                                    </div>
+                                </div>
+                                <div class="row search-recomendation justify-content-center">
+                                    <div class="col-12">
+                                        <div class="search-suggestions">
+                                            <div class="search-terms">
+                                                <isslot id="top-search-product-name" description="Top Search Product Name" context="global" />
+                                            </div>
+                                            <div class="top-product">
+                                                <isslot id="top-search-product" description="Top Search Product" context="global" />
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                </div>
-                                <div class="col-md-3 text-right hidden-md-down">
-                                    <a href="javascript:void(0);" class="search-close">${Resource.msg('label.button.close', 'common', null)}</a>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
