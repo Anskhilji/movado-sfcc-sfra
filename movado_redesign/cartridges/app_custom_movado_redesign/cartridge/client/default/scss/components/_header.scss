@@ -1430,6 +1430,18 @@ header.new-header {
       }
     }
   }
+
+  .minicart {
+
+    .popover-bottom {
+      opacity: 1;
+
+      &.mini-cart-hide {
+        opacity: 0;
+      }
+
+    }
+  }
 }
 // Hide-header
 .site-tophat-main-sec {
