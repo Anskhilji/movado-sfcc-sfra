@@ -497,13 +497,14 @@
 
         .product-summary {
             height: 100%;
-            max-height: 100%;
+            // max-height: 100%;
             margin: 0;
             padding: 0;
-            overflow: auto;
+            overflow: hidden;
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
-            width: 100%;
+            width: 90vw;
+            max-width: 100%;
             padding-bottom: 0 !important; // i'm using important to overwrite inline css
             z-index: 1;
             padding-top: rem(25);
@@ -2106,101 +2107,102 @@
     position: relative;
     overflow: hidden;
     height: 100%;
-}
-
-.scrollbox-wrapper {
-    position: relative;
     width: 100%;
-    max-height: 100%;
-
-    .scrollbox-overflowed {
-        overflow: hidden;
-    }
-
-    > :first-child {
-        will-change: scroll-position;
-    }
 }
 
-.scrollbox-rail,
-.scrollbox-bar {
-    display: none;
-    position: absolute;
-    z-index: 10;
-}
+// .scrollbox-wrapper {
+//     position: relative;
+//     width: 100%;
+//     height: 100%;
 
-.scrollbox-horizontal-rail,
-.scrollbox-horizontal-bar {
-    bottom: 0;
-    left: 0;
-    display: none;
-}
+//     .scrollbox-overflowed {
+//         overflow: hidden;
+//     }
 
-.scrollbox-vertical-rail,
-.scrollbox-vertical-bar {
-    top: 0;
-    right: 0;
-}
+//     > :first-child {
+//         will-change: scroll-position;
+//     }
+// }
 
-.scrollbox-rail-in,
-.scrollbox-bar-in {
-    display: block;
-}
+// .scrollbox-rail,
+// .scrollbox-bar {
+//     display: none;
+//     position: absolute;
+//     z-index: 10;
+// }
 
-.scrollbox-horizontal-bar {
-    will-change: left;
-    display: none;
-}
+// .scrollbox-horizontal-rail,
+// .scrollbox-horizontal-bar {
+//     bottom: 0;
+//     left: 0;
+//     display: none;
+// }
 
-.scrollbox-vertical-bar {
-    will-change: top;
-}
+// .scrollbox-vertical-rail,
+// .scrollbox-vertical-bar {
+//     top: 0;
+//     right: 0;
+// }
 
-$rail-thickness: 7px;
-$rail-border-radius: floor($rail-thickness / 2);
-$rail-background-color: #000;
-$rail-opacity: .03;
+// .scrollbox-rail-in,
+// .scrollbox-bar-in {
+//     display: block;
+// }
 
-$bar-min-length: 20px;
-$bar-thickness: $rail-thickness;
-$bar-border-radius: $rail-border-radius;
-$bar-background-color: #ccc;
-$bar-hovered-background-color: darken($bar-background-color, 20%);
-$bar-captured-background-color: darken($bar-background-color, 40%);
+// .scrollbox-horizontal-bar {
+//     will-change: left;
+//     display: none;
+// }
 
-.scrollbox-rail {
-    background-color: $rail-background-color;
-    border-radius: $rail-border-radius;
-    opacity: $rail-opacity;
-}
+// .scrollbox-vertical-bar {
+//     will-change: top;
+// }
 
-.scrollbox-bar {
-    background-color: $bar-background-color;
-    border-radius: $bar-border-radius;
+// $rail-thickness: 7px;
+// $rail-border-radius: floor($rail-thickness / 2);
+// $rail-background-color: #000;
+// $rail-opacity: .03;
 
-    &:hover {
-        background-color: $bar-hovered-background-color;
-    }
+// $bar-min-length: 20px;
+// $bar-thickness: $rail-thickness;
+// $bar-border-radius: $rail-border-radius;
+// $bar-background-color: #ccc;
+// $bar-hovered-background-color: darken($bar-background-color, 20%);
+// $bar-captured-background-color: darken($bar-background-color, 40%);
 
-    &.scrollbox-bar-captured {
-        background-color: $bar-captured-background-color;
-    }
-}
+// .scrollbox-rail {
+//     background-color: $rail-background-color;
+//     border-radius: $rail-border-radius;
+//     opacity: $rail-opacity;
+// }
 
-.scrollbox-horizontal-rail {
-    height: $rail-thickness;
-}
+// .scrollbox-bar {
+//     background-color: $bar-background-color;
+//     border-radius: $bar-border-radius;
 
-.scrollbox-vertical-rail {
-    width: $rail-thickness;
-}
+//     &:hover {
+//         background-color: $bar-hovered-background-color;
+//     }
 
-.scrollbox-horizontal-bar {
-    min-width: $bar-min-length;
-    height: $bar-thickness;
-}
+//     &.scrollbox-bar-captured {
+//         background-color: $bar-captured-background-color;
+//     }
+// }
 
-.scrollbox-vertical-bar {
-    min-height: $bar-min-length;
-    width: $bar-thickness;
-}
+// .scrollbox-horizontal-rail {
+//     height: $rail-thickness;
+// }
+
+// .scrollbox-vertical-rail {
+//     width: $rail-thickness;
+// }
+
+// .scrollbox-horizontal-bar {
+//     min-width: $bar-min-length;
+//     height: $bar-thickness;
+// }
+
+// .scrollbox-vertical-bar {
+//     min-height: $bar-min-length;
+//     width: $bar-thickness;
+// }

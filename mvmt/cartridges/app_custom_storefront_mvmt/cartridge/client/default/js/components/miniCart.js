@@ -1,5 +1,7 @@
 'use strict';
 
+var GeminiScrollbar = require("gemini-scrollbar");
+
 var $formValidation = require('base/components/formValidation');
 var $createErrorNotification = require('base/components/errorNotification');
 var $cart = require('../cart/cart');
@@ -40,10 +42,14 @@ function isIE() {
 function initializeScroll() {
     var $productSummary = $('.product-summary');
     if($productSummary.length == 1) {
-        if($productSummary.hasClass('scrollbox-overflowed')) {
-            $productSummary.scrollbox('update');
-        }
-        $productSummary.scrollbox();
+        // alert('Heee');
+        // if($productSummary.hasClass('scrollbox-overflowed')) {
+        //     $productSummary.scrollbox('update');
+        // }
+        // $productSummary.scrollbox();
+        var sidebar1 = new GeminiScrollbar({
+            element: document.querySelector('.product-summary')
+        }).create();
     } else {
         setTimeout(initializeScroll, 500);
     }

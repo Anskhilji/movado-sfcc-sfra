@@ -27,8 +27,6 @@ $(document).ready(function () {
     processInclude(require('./components/search'));
     processInclude(require('./utilities/sticky-header'));
     processInclude(require('./utilities/gtm-events'));
-    processInclude(require('jquery-mousewheel/jquery.mousewheel'));
-    processInclude(require('scrollbox/src/js/scrollbox'));
     processInclude(require('./components/miniCart'));
     processInclude(require('./login/login'));
     processInclude(require('./components/newsLetterSubscription'));

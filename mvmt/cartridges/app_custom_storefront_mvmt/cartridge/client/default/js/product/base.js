@@ -1,5 +1,7 @@
 'use strict';
 var movadoBase = require('movado/product/base');
+var GeminiScrollbar = require("gemini-scrollbar");
+
 if(Resources.IS_CLYDE_ENABLED){
     var clydeWidget = require('link_clyde/getClydeWidget.js');
 }
@@ -34,10 +36,14 @@ function setMiniCartProductSummaryHeight () {
 function initializeScroll() {
     var $productSummary = $('.product-summary');
     if($productSummary.length == 1) {
-        if($productSummary.hasClass('scrollbox-overflowed')) {
-            $productSummary.scrollbox('update');
-        }
-        $productSummary.scrollbox();
+        // alert('Heee');
+        // if($productSummary.hasClass('scrollbox-overflowed')) {
+        //     $productSummary.scrollbox('update');
+        // }
+        // $productSummary.scrollbox();
+        var sidebar1 = new GeminiScrollbar({
+            element: document.querySelector('.product-summary')
+        }).create();
     } else {
         setTimeout(initializeScroll, 500);
     }
