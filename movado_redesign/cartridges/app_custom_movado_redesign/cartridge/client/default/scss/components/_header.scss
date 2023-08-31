@@ -986,41 +986,41 @@ header.new-header {
 .home-header-transparent {
 
   .desktop-search {
-   
-    &.show {
-      width: rem(509);
-      height: 100vh;
-      overflow-y: auto;
-      right: 0;
-      padding: 0 rem(40);
-      background: $black;
-
-      @include media-breakpoint-down(xs) {
-        width: 100%;
-        padding: 0 rem(24);
-      } 
-
-      .desktop-search-redesign {
-
-        .input-fields {
-          display: flex;
-          justify-content: space-between;
-          padding: rem(28) rem(40);
-          gap: rem(8);
-          position: fixed;
-          width: rem(509);
-          top: 0;
-          height: rem(80);
-          right: 0;
-          background: $black;
-          z-index: 99;
-
-          @include media-breakpoint-down(xs) {
-            width: 100%;
-            padding: rem(20) rem(24);
-          }
-
-          input {
+  
+      &.show {
+        width: rem(509);
+        height: 100vh;
+        overflow-y: auto;
+        right: 0;
+        padding: 0 rem(40);
+        background: $black;
+  
+        @include media-breakpoint-down(xs) {
+          width: 100%;
+          padding: 0 rem(24);
+        }
+  
+        .desktop-search-redesign {
+  
+          .input-fields {
+            display: flex;
+            justify-content: space-between;
+            padding: rem(28) rem(40);
+            gap: rem(8);
+            position: fixed;
+            width: rem(509);
+            top: 0;
+            height: rem(80);
+            right: 0;
+            background: $black;
+            z-index: 99;
+  
+            @include media-breakpoint-down(xs) {
+              width: 100%;
+              padding: rem(20) rem(24);
+            }
+  
+            input {
               font-family: $the-futura-font;
               font-size: rem(18);
               font-style: normal;
@@ -1029,101 +1029,65 @@ header.new-header {
               letter-spacing: rem(0.25);
               color: $white;
               text-transform: capitalize;
-
-            &::placeholder {
-              color: $white;
-              font-family: $the-futura-font;
+  
+              &::placeholder {
+                color: $white;
+                font-family: $the-futura-font;
+              }
             }
-          }
-
-          .text-right {
-            width: rem(20);
-            height: rem(20);
-
-            .search-close {
-              all: unset;
-              background: url(../images/cross-circle.svg) center no-repeat;
+  
+            .text-right {
               width: rem(20);
               height: rem(20);
-              display: block;
-              cursor: pointer;
+  
+              .search-close {
+                all: unset;
+                background: url(../images/cross-circle.svg) center no-repeat;
+                width: rem(20);
+                height: rem(20);
+                display: block;
+                cursor: pointer;
+              }
             }
-          }
-
-          form {
-            width: 100%;
-            position: unset;
-
-            .suggestions-wrapper {
-              position: absolute;
-              left: 0;
-              right: 0;
-              padding: 0 rem(40);
-              top: rem(96);
-
-              .suggestions {
-                padding: 0;
-                background-color: transparent;
-                height: 100vh;
-                overflow-y: auto;
-
-                .col-12 {
-                  padding-inline: 0;
-                }
-
-                .item {
-                  padding-bottom: rem(16);
-
-                  .align-self-center {
-                    padding-left: 0 !important; // i'm using important to overwrite inline css
-
-                    a {
-
-                      img {
-                        background: transparent;
+  
+            form {
+              width: 100%;
+              position: unset;
+  
+              .suggestions-wrapper {
+                position: absolute;
+                left: 0;
+                right: 0;
+                padding: 0 rem(40);
+                top: rem(96);
+  
+                .suggestions {
+                  padding: 0;
+                  background-color: transparent;
+                  height: 100vh;
+                  overflow-y: auto;
+  
+                  .col-12 {
+                    padding-inline: 0;
+                  }
+  
+                  .item {
+                    padding-bottom: rem(16);
+  
+                    .align-self-center {
+                      padding-left: 0 !important; // i'm using important to overwrite inline css
+  
+                      a {
+  
+                        img {
+                          background: transparent;
+                        }
                       }
                     }
-                  }
-
-                  .name {
-
-                    > a {
-                      color: $white;
-                      font-family: $movado-font;
-                      font-size: rem(16);
-                      font-style: normal;
-                      font-weight: 400;
-                      line-height: rem(22);
-                      letter-spacing: rem(0.25);
-                    }
-
-                    .category-parent {
-                      color: $white;
-                      font-family: $movado-font;
-                      font-size: rem(16);
-                      font-style: normal;
-                      font-weight: 400;
-                      line-height: rem(22);
-                      letter-spacing: rem(0.25);
-                    }
-                  }
-                }
-
-                .row {
-                  margin: 0;
-                  padding: rem(16) 0;
-                  border: 0;
-
-                  .row {
-                    padding: 0;
-                  }
-
-                  &.product-serach-items {
-
-                    .searched-text {
-                      padding: 0;
-
-                      .product-serach-container {
+  
+                    .name {
+  
+                      >a {
                         color: $white;
                         font-family: $movado-font;
                         font-size: rem(16);
@@ -1131,118 +1095,155 @@ header.new-header {
                         font-weight: 400;
                         line-height: rem(22);
                         letter-spacing: rem(0.25);
-                        text-transform: capitalize;
+                      }
+  
+                      .category-parent {
+                        color: $white;
+                        font-family: $movado-font;
+                        font-size: rem(16);
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: rem(22);
+                        letter-spacing: rem(0.25);
                       }
                     }
                   }
-
-                  &.items-header {
-                    padding: 0;
-
-                    > div {
-                      color: $storm-gray2;
-                      font-family: $the-futura-font;
-                      font-size: rem(14);
-                      font-style: normal;
-                      font-weight: 500;
-                      line-height: rem(18);
-                      letter-spacing: rem(0.25);
-                      text-transform: capitalize;
-                    }
-
-                    > div {
+  
+                  .row {
+                    margin: 0;
+                    padding: rem(16) 0;
+                    border: 0;
+  
+                    .row {
                       padding: 0;
                     }
+  
+                    &.product-serach-items {
+  
+                      .searched-text {
+                        padding: 0;
+  
+                        .product-serach-container {
+                          color: $white;
+                          font-family: $movado-font;
+                          font-size: rem(16);
+                          font-style: normal;
+                          font-weight: 400;
+                          line-height: rem(22);
+                          letter-spacing: rem(0.25);
+                          text-transform: capitalize;
+                        }
+                      }
+                    }
+  
+                    &.items-header {
+                      padding: 0;
+  
+                      >div {
+                        color: $storm-gray2;
+                        font-family: $the-futura-font;
+                        font-size: rem(14);
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: rem(18);
+                        letter-spacing: rem(0.25);
+                        text-transform: capitalize;
+                      }
+  
+                      >div {
+                        padding: 0;
+                      }
+                    }
                   }
                 }
               }
             }
+  
+            .header-search-field {
+              width: 100%;
+              border: 0;
+              padding: 0;
+              margin: 0;
+              background: transparent;
+            }
           }
-          
-          .header-search-field {
-            width: 100%;
-            border: 0;
-            padding: 0;
-            margin: 0;
-            background: transparent;
-          }
-        }
-
-        .search-recomendation {
-          margin-top: rem(96);
-
-          .search-suggestions {
-            flex-direction: column;
-            margin-bottom: rem(30);
-            padding-bottom: 0;
-
-            .category-slot {
-              margin-bottom: 0;
-
-              .carousel-title {
-                color: $storm-gray2;
-                font-family: $the-futura-font;
-                font-size: rem(14);
-                font-style: normal;
-                font-weight: 500;
-                line-height: rem(18);
-                letter-spacing: rem(0.25);
-              }
-
-              ul {
+  
+          .search-recomendation {
+            margin-top: rem(96);
+  
+            .search-suggestions {
+              flex-direction: column;
+              margin-bottom: rem(30);
+              padding-bottom: 0;
+  
+              .category-slot {
                 margin-bottom: 0;
-
-                li {
-                  margin-bottom: rem(16);
-
-                  &:last-child {
-                    margin-bottom: 0;
-                  }
-
-                  a {
-                    color: $white;
-                    font-family: $movado-font;
-                    font-size: rem(16);
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: rem(22);
-                    letter-spacing: rem(0.25);
+  
+                .carousel-title {
+                  color: $storm-gray2;
+                  font-family: $the-futura-font;
+                  font-size: rem(14);
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: rem(18);
+                  letter-spacing: rem(0.25);
+                }
+  
+                ul {
+                  margin-bottom: 0;
+  
+                  li {
+                    margin-bottom: rem(16);
+  
+                    &:last-child {
+                      margin-bottom: 0;
+                    }
+  
+                    a {
+                      color: $white;
+                      font-family: $movado-font;
+                      font-size: rem(16);
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: rem(22);
+                      letter-spacing: rem(0.25);
+                    }
                   }
                 }
               }
-            }
-
-            .top-product {
-              margin-top: rem(40);
-
-              h3 {
-                color: $storm-gray2;
-                font-family: $the-futura-font;
-                font-size: rem(14);
-                font-style: normal;
-                font-weight: 500;
-                line-height: rem(18);
-                letter-spacing: rem(0.25);
-                margin-bottom: rem(19);
-              }
-
-              .top-search-update {
-                flex-wrap: wrap;
-                gap: rem(24) rem(54);
-                justify-content: space-between;
-                margin: 0;
-
-                @include media-breakpoint-down(xs) {
-                  gap: rem(24) rem(7);
+  
+              .top-product {
+                margin-top: rem(40);
+  
+                h3 {
+                  color: $storm-gray2;
+                  font-family: $the-futura-font;
+                  font-size: rem(14);
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: rem(18);
+                  letter-spacing: rem(0.25);
+                  margin-bottom: rem(19);
                 }
-
-                .product {
-                  width: calc(50% - 27.5px);
+  
+                .top-search-update {
+                  flex-wrap: wrap;
+                  gap: rem(24) rem(54);
+                  justify-content: space-between;
                   margin: 0;
-                  max-width: unset;
-
+  
                   @include media-breakpoint-down(xs) {
-                    width: calc(50% - 4px);
+                    gap: rem(24) rem(7);
+                  }
+  
+                  .product {
+                    width: calc(50% - 27.5px);
+                    margin: 0;
+                    max-width: unset;
+  
+                    @include media-breakpoint-down(xs) {
+                      width: calc(50% - 4px);
+                    }
                   }
                 }
               }
@@ -1251,7 +1252,6 @@ header.new-header {
         }
       }
     }
-  }
   .header-menu-wrapper {
     transition: .4s ease all;
   }
