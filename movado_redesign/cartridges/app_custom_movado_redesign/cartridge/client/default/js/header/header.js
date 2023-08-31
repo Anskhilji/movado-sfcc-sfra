@@ -553,7 +553,7 @@ var lastScrollTop = 0;
 
     if (scrollTop >= lastScrollTop) {
       // Scrolling down
-        $('.transparent-header').addClass('hide-header');
+        $('.transparent-header , .home-header-transparent').addClass('hide-header');
         $('.header-banner-redesign').addClass('header-banner-hide');
         $('.search-results-updated .filter-bar-sticky').addClass('filter-bar-updated');
         $('.checkout-header-redesign .sticky-header-wrapper').removeClass('fixed-header');
@@ -561,7 +561,7 @@ var lastScrollTop = 0;
         $('.search-results-updated .left-sec .result-count').css('display','none');
     } else {
       // Scrolling up
-        $('.transparent-header').removeClass('hide-header');
+        $('.transparent-header , .home-header-transparent').removeClass('hide-header');
         $('.header-banner-redesign').removeClass('header-banner-hide');
         $('.checkout-header-redesign .sticky-header-wrapper').addClass('fixed-header');
         $('.search-results-updated .filter-bar-sticky').removeClass('filter-bar-updated');
@@ -574,5 +574,7 @@ var lastScrollTop = 0;
 
 // on load scroll on top
   $(window).on('beforeunload', function(){
-    $(window).scrollTop(0);
+    if ($('.modal-is-open').length == 0) {
+        $(window).scrollTop(0);
+    }
   });
