@@ -102,7 +102,7 @@
         </div>
 
         <!-- State  -->
-        <div class="col-6">
+        <div class="col-6 d-flex align-items-center mt-4">
             <div class="form-group aruliden-input-style
                 ${pdict.addressForm.states.stateCode.mandatory === true ? 'required' : ''}">
                 <label class="form-control-label" for="state">
