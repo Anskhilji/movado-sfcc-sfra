@@ -1,4 +1,4 @@
-<div class="form-group required aruliden-input-style">
+<div class="form-group required updated-input-style">
     <label class="form-control-label" for="trackorder-form-zip">
         ${Resource.msg('label.input.trackorder.postalcode', 'login', null)}
     </label>

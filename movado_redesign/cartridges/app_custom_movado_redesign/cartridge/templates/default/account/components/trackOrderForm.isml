@@ -12,7 +12,7 @@
         <iscomment> Add Content Asset for Track Order Link </iscomment>
         <iscontentasset aid="track-order-header-description" />
         
-        <div class="form-group required aruliden-input-style">
+        <div class="form-group required updated-input-style">
             <label class="form-control-label" for="trackorder-form-number">
                 ${Resource.msg('label.input.trackorder.ordernumber', 'login', null)}
             </label>
@@ -27,7 +27,7 @@
             <div class="invalid-feedback"></div>
         </div>
 
-        <div class="form-group required aruliden-input-style">
+        <div class="form-group required updated-input-style">
             <label class="form-control-label" for="trackorder-form-email">
                 ${Resource.msg('label.input.trackorder.orderemail', 'login', null)}
             </label>

@@ -3,7 +3,7 @@
  <div class="container contactus-page">
 	<form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
 
-		<div class="form-group aruliden-input-style
+		<div class="form-group updated-input-style
 			<isif condition="${pdict.contactUsForm.firstname.mandatory === true}">required</isif>">
 			<label class="form-control-label" for="firstName">
 				<isprint value="${pdict.contactUsForm.firstname.label}" encoding="htmlcontent" />
@@ -13,7 +13,7 @@
 			<div class="invalid-feedback"></div>
 		</div>
 
-		<div class="form-group aruliden-input-style
+		<div class="form-group updated-input-style
 			<isif condition="${pdict.contactUsForm.lastname.mandatory === true}">required</isif>">
 			<label class="form-control-label" for="lastName">
 				<isprint value="${pdict.contactUsForm.lastname.label}" encoding="htmlcontent" />
@@ -23,7 +23,7 @@
 			<div class="invalid-feedback"></div>
 		</div>
 		
-		<div class="form-group aruliden-input-style
+		<div class="form-group updated-input-style
 			<isif condition="${pdict.contactUsForm.phone.mandatory === true}">required</isif>">
 			<label class="form-control-label" for="phone">
 				<isprint value="${pdict.contactUsForm.phone.label}" encoding="htmlcontent" />
@@ -33,7 +33,7 @@
 			<div class="invalid-feedback"></div>
 		</div>
 
-		<div class="form-group aruliden-input-style
+		<div class="form-group updated-input-style
 			<isif condition="${pdict.contactUsForm.email.mandatory === true}">required</isif>">
 			<label class="form-control-label" for="email">
 				<isprint value="${pdict.contactUsForm.email.label}" encoding="htmlcontent" />
@@ -43,7 +43,7 @@
 			<div class="invalid-feedback"></div>
 		</div>
 
-		<div class="form-group aruliden-input-style
+		<div class="form-group updated-input-style
 			<isif condition="${pdict.contactUsForm.ordernumber.mandatory === true}">required</isif>">
 			<label class="form-control-label" for="ordernumber">
 				<isprint value="${pdict.contactUsForm.ordernumber.label}" encoding="htmlcontent" />

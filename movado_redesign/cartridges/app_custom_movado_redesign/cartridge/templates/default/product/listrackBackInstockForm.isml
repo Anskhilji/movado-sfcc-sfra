@@ -14,19 +14,29 @@
                 </div>
                 <isif condition="${sitePref.Listrak_EnableBackInStockEmail}">
                     <div class="col-12 mb-2 p-0 email-chek">
-                        <input class="back-in-stock-notification-email" id="lbisEmail" type="text" name="lbisEmail" placeholder="${Resource.msg('listrak.form.email.placeholder', 'product', null)}">
-                        <p class="back-in-stock-notification-invalid-email error-msg back-in-stock-notification-error-invalid"></p>
-                        <p class="back-in-stock-notification-invalid-email error-msg back-in-stock-notification-error-required"></p>
+                       <div class="form-group updated-input-style mb-0">
+                            <label class="form-control-label">
+                                <isprint value="${Resource.msg('listrak.form.email.placeholder', 'product', null)}" encoding="htmlcontent" />
+                            </label>
+                            <input class="back-in-stock-notification-email form-control" id="lbisEmail" type="text" name="lbisEmail" placeholder="${Resource.msg('listrak.form.email.placeholder', 'product', null)}">
+                            <p class="back-in-stock-notification-invalid-email error-msg back-in-stock-notification-error-invalid"></p>
+                            <p class="back-in-stock-notification-invalid-email error-msg back-in-stock-notification-error-required"></p>
+                       </div>
                     </div>
                 </isif>
                 <isif condition="${sitePref.Listrak_EnableBackInStockSms}">
                 <isset name="backInStockSmsMessage" value="${!empty(sitePref.Listrak_BackInStockSMSMessage) ? sitePref.Listrak_BackInStockSMSMessage : ''}" scope="page" />
                     <div class="col-12 mb-2 p-0 phone-check">
-                        <input class="back-in-stock-notification-phone" id="lbisEmail" type="text" name="lbisPhone" placeholder="${Resource.msg('listrak.form.phone.placeholder', 'product', null)}">
-                        <p class="back-in-stock-notification-invalid-phone error-msg back-in-stock-notification-error"></p>
-                        <isif condition="${!empty(backInStockSmsMessage)}">
-                            <p class="listrak-sms-reminder-msg d-none error-msg">${backInStockSmsMessage}</p>
-                        </isif>
+                        <div class="form-group updated-input-style mb-0">
+                            <label class="form-control-label">
+                                <isprint value="${Resource.msg('listrak.form.phone.placeholder', 'product', null)}" encoding="htmlcontent" />
+                            </label>
+                            <input class="back-in-stock-notification-phone form-control" id="lbisEmail" type="text" name="lbisPhone" placeholder="${Resource.msg('listrak.form.phone.placeholder', 'product', null)}">
+                            <p class="back-in-stock-notification-invalid-phone error-msg back-in-stock-notification-error"></p>
+                            <isif condition="${!empty(backInStockSmsMessage)}">
+                                <p class="listrak-sms-reminder-msg d-none error-msg">${backInStockSmsMessage}</p>
+                            </isif>
+                        </div>
                     </div>
                 </isif>
                 <div class="col-12 mb-2 p-0">
