@@ -78,15 +78,13 @@ function processAdyenCancelledOrders(param) {
  * remove adyen custom objects
  */
 function removeAdyenCustomObjects() {
-    
-    var	deleteCustomObjects = require('int_adyen_overlay/cartridge/scripts/deleteCustomObjects');
 
+    var	deleteCustomObjects = require('int_adyen_overlay/cartridge/scripts/deleteCustomObjects');
     var searchQuery = CustomObjectMgr.queryCustomObjects('adyenNotification', "custom.eventCode = 'CANCELLATION' AND custom.success = 'false'", null);
+    var customObject,
+    orderID;
     
     Logger.info('Removing Processed Custom Objects start with count {0}', searchQuery.count);
-
-    var customObject,
-        orderID;
 
     try {
         while (searchQuery.hasNext()) {
