@@ -433,9 +433,10 @@
                                     overflow: hidden;
                                     width: 50%;
 
-                                    picture {
+                                    picture, img {
                                         width: 100%;
                                     }
+                                    
 
                                     @include media-breakpoint-down(lg) {
                                         max-width: rem(500);
