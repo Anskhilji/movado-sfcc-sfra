@@ -506,6 +506,16 @@
             padding-bottom: 0 !important; // i'm using important to overwrite inline css
             z-index: 1;
             padding-top: rem(25);
+
+            &.gm-scrollbar-container {
+
+                
+                .gm-scroll-view {
+                    height: 100% !important; // i'm using important to overwrite inline css
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                }
+            }
             .mini-cart-fixed {
                 margin: 0 rem(12) rem(12) rem(12);
                 padding-bottom: rem(20);
