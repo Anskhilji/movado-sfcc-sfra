@@ -207,9 +207,9 @@ server.prepend('Variation', function (req, res, next) {
     var backInStockTemplate;
     var backInStockHtml;
     var enableBackInStock = !empty(dw.system.Site.current.preferences.custom.enableBackInStock) ? dw.system.Site.current.preferences.custom.enableBackInStock : false;
-    var ListrakCartridgeEnabled =  !empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
-    var ListrakEnableBackInStockSms = !empty(dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockSms : false;
-    var ListrakEnableBackInStockEmail = !empty(dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockEmail) ? dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockEmail : false;
+    var listrakCartridgeEnabled =  !empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
+    var listrakEnableBackInStockSms = !empty(dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockSms : false;
+    var listrakEnableBackInStockEmail = !empty(dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockEmail) ? dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockEmail : false;
     var listrakBackInStockTerms = ContentMgr.getContent('listrak-back-in-stock-terms');
     listrakBackInStockTerms = listrakBackInStockTerms && listrakBackInStockTerms.custom.body ? listrakBackInStockTerms.custom.body : '';
     listrakBackInStockTerms = listrakBackInStockTerms && listrakBackInStockTerms.markup ? listrakBackInStockTerms.markup : '';
@@ -225,10 +225,10 @@ server.prepend('Variation', function (req, res, next) {
             attributeTemplateLinked
     );
 
-    if (enableBackInStock && !ListrakEnableBackInStockSms && !ListrakEnableBackInStockEmail) {
+    if (enableBackInStock && !listrakEnableBackInStockSms && !listrakEnableBackInStockEmail) {
         backInStockTemplate = 'product/backInStockNotificationForm';
-    } else if (ListrakCartridgeEnabled) {
-        if (ListrakEnableBackInStockSms || ListrakEnableBackInStockEmail) {
+    } else if (listrakCartridgeEnabled) {
+        if (listrakEnableBackInStockSms || listrakEnableBackInStockEmail) {
             backInStockTemplate = 'product/listrackBackInstockForm';
         } else {
             backInStockTemplate = 'product/backInStockNotificationForm';
