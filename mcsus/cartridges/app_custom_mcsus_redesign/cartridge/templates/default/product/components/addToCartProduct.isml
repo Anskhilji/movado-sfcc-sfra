@@ -7,11 +7,9 @@
         <div class="quantity-btn">
             <isset name="enablePDPQuantitySelector" value="${!empty(dw.system.Site.current.preferences.custom.enablePDPQuantitySelector) ? dw.system.Site.current.preferences.custom.enablePDPQuantitySelector : false}" scope="page" />
             <isif condition="${enablePDPQuantitySelector}">
-                <isif condition="${!product.productType === 'bundle'}">
                       <div class="quantity-selector-pdp attribute quantity">
                         <isinclude template="product/components/productQuantitySelector" />
                     </div>                  
-                </isif>
             </isif>
             <isif condition="${product.productType === 'bundle'}">
                 <button class='add-to-cart btn btn-primary <isif condition="${product.isProductRestricted}">d-none</isif>'

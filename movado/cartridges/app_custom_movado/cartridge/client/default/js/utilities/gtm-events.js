@@ -547,6 +547,24 @@ var carouselAfterChangeEvent = function () {
     });
 };
 
+var onUpdateQuantity = function () {
+    $('body').on('change', '.quantity-selector-pdp .quantity-select.quantity.custom-select', function () {
+        var a = dataLayer;
+        // updateDataLayer('productDetail');
+        // dataLayer.ecommerce.detail[{quantity:4}]
+        // dataLayer.push({
+        //     event: 'productDetail',
+        //     ecommerce: {
+        //         detail: {
+        //             products: [{
+        //                 quantity: '4'
+        //             }]
+        //         }
+        //     }
+        // });
+    });
+}
+
 var onClickEvents = function () {
     onPromoClickEvent();
     onClickLinkEvent();
@@ -559,6 +577,7 @@ var onClickEvents = function () {
     onMorestyleLoadEvent();
     onAddtoCartClickEvent();
     onEmailSubscribe();
+    onUpdateQuantity();
 };
 
 
