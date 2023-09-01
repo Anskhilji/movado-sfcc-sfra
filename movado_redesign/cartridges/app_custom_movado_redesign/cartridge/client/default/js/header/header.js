@@ -326,24 +326,25 @@ $('.second-level').hover(
     function () {
         $('.categories-image-container-second').addClass('d-none');
         $(this).addClass('active');
+        $('.second-level.active').next('div').addClass('active-image');
         var $childCategoryId = $(this).data('category-id');
 
-            $('.categories-image-container-second').each(function () {
+            $('.categories-image-container-second.active-image').each(function () {
                 var $imageId = $(this).data('cat-image');
-                if ($childCategoryId == $imageId) {
+                if ($childCategoryId == $imageId && $(this).find('.second-level.active').next('div')) {
                     $('.categories-image-container').addClass('d-none');
                     $(this).removeClass('d-none');
                     $(this).addClass('fadeIn fast animated');
-                    return;
+                    return false;
                 } else {
-                    var $parentCatId = $(this).parents('.second-level-sec').data('pararent-id');
+                    var $parentCatId = $(this).parents('.second-level-sec.active').data('pararent-id');
+                    $(this).removeClass('active-image');
                     $('.categories-image-container').each(function () {
                         var $imageId = $(this).data('id');
                         if ($childCategoryId != '' && $parentCatId == $imageId) {
                             $(this).removeClass('d-none');
-                            return;
+                            return false;
                         }
-                
                     });
                 }
         
