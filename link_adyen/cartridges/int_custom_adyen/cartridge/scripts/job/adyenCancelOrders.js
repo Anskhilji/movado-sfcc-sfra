@@ -3,40 +3,35 @@
  */
 
 /* API Includes */
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Status = require('dw/system/Status');
 var Transaction = require('dw/system/Transaction');
-var CustomObjectMgr = require('dw/object/CustomObjectMgr');
-var logger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
+var Logger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 
 
-function processAdyenCancelOrders(param) {
+function processAdyenCancelledOrders(param) {
 
-    var	objectsHandler = require('int_adyen_overlay/cartridge/scripts/handleCustomObject');
+    var objectsHandler = require('int_adyen_overlay/cartridge/scripts/handleCustomObject');
     var orderStatusHelper = require('*/cartridge/scripts/lib/orderStatusHelper');
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
     var searchQuery = CustomObjectMgr.queryCustomObjects('adyenNotification', "custom.eventCode = 'CANCELLATION' AND custom.success = 'false'", null);
     var ERROR = 'ERROR'; 
-    // logger.info('Process notifications start with count {0}', searchQuery.count);
+    Logger.info('Process notifications start with count {0}', searchQuery.count);
 
-    var customObj,
-        handlerResult,
+    var customObject,
+        resultHandler,
         order,
         notify;
+
     while (searchQuery.hasNext()) {
-        customObj = searchQuery.next();
+        customObject = searchQuery.next();
         Transaction.wrap(function () {
-            handlerResult = objectsHandler.handle(customObj);
+            resultHandler = objectsHandler.handle(customObject);
         });
 
-		/*
-			Sometimes order cannot be found in DWRE DB even if it exists there,
-			in that case we shouldn't reply to Adyen that all was ok in order to get a new notification
-		*/
-
-        order = handlerResult.Order;
-
-
+        order = resultHandler.Order;
+        
         var orderTotal = order.getTotalGrossPrice().value;
         var amount = order.getTotalGrossPrice().value;
         var isJob = true;
@@ -50,7 +45,7 @@ function processAdyenCancelOrders(param) {
             }
         }
 
-        if (handlerResult.status || handlerResult.status === 'SUCCESS') {
+        if (resultHandler.status || resultHandler.status === 'SUCCESS') {
             var paymentMethod = order.paymentInstruments[0].paymentMethod;
 
             if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY' || paymentMethod == 'Adyen') && amount == orderTotal && refundedAmount == 0) {
@@ -60,20 +55,18 @@ function processAdyenCancelOrders(param) {
             }  else if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY') && amount < orderTotal && transactionType.toLowerCase() == 'void') {
                 var adjustResponse = hooksHelper('app.payment.adyen.adjustAuthorisation', 'adjustAuthorisation', order, amount, sendMail,
                     require('*/cartridge/scripts/hooks/payment/adyenAdjustAuthorisationSVC').adjustAuthorisation);
-    
                 return adjustResponse;
             }
         }
 
 
     }
-    logger.info('Process notifications finished with count {0}', searchQuery.count);
+    Logger.info('Process notifications finished with count {0}', searchQuery.count);
     searchQuery.close();
 
     return new Status(Status.OK);
 }
 
-
 module.exports = {
-    processAdyenCancelOrders: processAdyenCancelOrders
+    processAdyenCancelledOrders: processAdyenCancelledOrders
 };
