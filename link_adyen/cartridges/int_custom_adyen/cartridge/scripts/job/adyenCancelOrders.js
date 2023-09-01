@@ -15,7 +15,7 @@ function processAdyenCancelledOrders(param) {
     var orderStatusHelper = require('*/cartridge/scripts/lib/orderStatusHelper');
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
-    var searchQuery = CustomObjectMgr.queryCustomObjects('adyenNotification', "custom.eventCode = 'CANCELLATION' AND custom.success = 'false'", null);
+    var searchQuery = CustomObjectMgr.queryCustomObjects('adyenNotification', "custom.eventCode = 'CANCELLATION'", null);
 
     Logger.info('Process notifications start with count {0}', searchQuery.count);
 
@@ -37,6 +37,7 @@ function processAdyenCancelledOrders(param) {
             var amount = order.getTotalGrossPrice().value;
             var isJob = true;
             var sendMail = true;
+            var orderID = customObject.custom.orderId.split('-', 1)[0];
     
             var refundedAmount = 0;
             var alreadyRefundedAmountList = orderStatusHelper.convertSapAttributesToList(order.custom.sapAlreadyRefundedAmount);
@@ -48,18 +49,23 @@ function processAdyenCancelledOrders(param) {
     
             if (resultHandler.status || resultHandler.status === 'SUCCESS') {
                 var paymentMethod = order.paymentInstruments[0].paymentMethod;
+                var response = false;
     
                 if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY' || paymentMethod == 'Adyen') && amount == orderTotal && refundedAmount == 0) {
-                    var cancelResponse = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, amount, isJob, sendMail,
+                    response = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, amount, isJob, sendMail,
                         require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').cancelOrRefund);
-                    return cancelResponse;
+                    var cancelResponse;
+                    response = true;
                 }  else if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY') && amount < orderTotal && transactionType.toLowerCase() == 'void') {
-                    var adjustResponse = hooksHelper('app.payment.adyen.adjustAuthorisation', 'adjustAuthorisation', order, amount, sendMail,
+                    response = hooksHelper('app.payment.adyen.adjustAuthorisation', 'adjustAuthorisation', order, amount, sendMail,
                         require('*/cartridge/scripts/hooks/payment/adyenAdjustAuthorisationSVC').adjustAuthorisation);
-                    return adjustResponse;
+                    var adjustResponse;
+                    response = true;
                 }
 
-                removeAdyenCustomObjects();
+                if (orderID && response) {
+                    removeAdyenCustomObjects(orderID);
+                }
             }
     
     
@@ -77,22 +83,25 @@ function processAdyenCancelledOrders(param) {
 /**
  * remove adyen custom objects
  */
-function removeAdyenCustomObjects() {
+function removeAdyenCustomObjects(orderId) {
 
     var	deleteCustomObjects = require('int_adyen_overlay/cartridge/scripts/deleteCustomObjects');
     var searchQuery = CustomObjectMgr.queryCustomObjects('adyenNotification', "custom.eventCode = 'CANCELLATION' AND custom.success = 'false'", null);
     var customObject,
     orderID;
-    
+
     Logger.info('Removing Processed Custom Objects start with count {0}', searchQuery.count);
 
     try {
         while (searchQuery.hasNext()) {
             customObject = searchQuery.next();
             orderID = customObject.custom.orderId.split('-', 1)[0];
-            Transaction.wrap(function () {
-                deleteCustomObjects.handle(orderID);
-            });
+            if (orderId == orderID) {
+                Transaction.wrap(function () {
+                    deleteCustomObjects.handle(orderID);
+                });
+                break;
+            }
         }
     } catch (ex) {
         Logger.error('(adyenCancelOrders) -> removeAdyenCustomObjects: Error occured while removing adyen custom objects and error is:{0} at line {1} in file {2}', ex.toString(), ex.lineNumber, ex.fileName);
