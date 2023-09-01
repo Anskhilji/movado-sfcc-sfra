@@ -9,3 +9,31 @@ h1,h2,h3,h4,h5,h6,button,.btn,.btn_primary,.btn-secondary, .btn-danger,.btn-succ
 a,p,span {
     font-family: $the-futura-font;
 }
+
+.btn-primary {
+    border-radius: rem(120);
+    padding: rem(6) rem(25);
+    @include buttonFilled;
+}
+
+.btn-outline-primary,
+.btn-outline-dark {
+    border-radius: rem(120);
+    padding: rem(6) rem(25);
+    @include buttonOutline;
+
+    &:not(:disabled) {
+
+        &:not(.disabled) {
+
+            &:active {
+
+                &:focus {
+                    background-color: transparent;
+                    color: $black;
+                    border-style: dashed;
+                }
+            }
+        }
+    }
+}
