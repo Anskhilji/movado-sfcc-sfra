@@ -12,14 +12,14 @@ a,p,span {
 
 .btn-primary {
     border-radius: rem(0);
-    padding: rem(6) rem(0);
+    padding: rem(6) rem(12);
     @include buttonFilled;
 }
 
 .btn-outline-primary,
 .btn-outline-dark {
     border-radius: rem(0);
-    padding: rem(6) rem(0);
+    padding: rem(6) rem(12);
     @include buttonOutline;
 
     &:not(:disabled) {
