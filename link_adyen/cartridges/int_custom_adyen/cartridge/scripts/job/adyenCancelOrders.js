@@ -3,9 +3,6 @@
  */
 
 /* API Includes */
-var Order = require('dw/order/Order');
-var OrderMgr = require('dw/order/OrderMgr');
-var Resource = require('dw/web/Resource');
 var Status = require('dw/system/Status');
 var Transaction = require('dw/system/Transaction');
 var CustomObjectMgr = require('dw/object/CustomObjectMgr');
