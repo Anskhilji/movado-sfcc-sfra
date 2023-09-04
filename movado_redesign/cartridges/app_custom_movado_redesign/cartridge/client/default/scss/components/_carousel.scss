@@ -1,4 +1,11 @@
 .cs-carousel-update {
+    
+    &.cs-carousel-wrapper {
+
+        .carousel-title {
+            font-family: $movado-font;
+        }
+    }
 
     .cs-carousel {
 

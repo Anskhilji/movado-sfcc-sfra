@@ -22,6 +22,10 @@
 
 .login-page {
 
+    .custom-select {
+        font-family: $the-futura-font;
+    }
+
     input[placeholder],label {
         font-family: $the-futura-font;
     }

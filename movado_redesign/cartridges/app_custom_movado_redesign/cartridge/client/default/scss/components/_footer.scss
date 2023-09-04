@@ -884,6 +884,7 @@
                         padding: rem(12) rem(0);
                         border: none;
                         color: $white;
+                        font-family: $the-futura-font;
                     }
     
                     .header-container {
@@ -1107,6 +1108,7 @@
                 align-items: center;
                 padding: rem(10) 0;
                 height: rem(44);
+                font-family: $the-futura-font;
             }
          
             span {
@@ -1156,6 +1158,7 @@
                 align-items: center;
                 padding: rem(10) 0;
                 height: rem(44);
+                font-family: $the-futura-font;
 
                 &::after {
                     display: none;

@@ -989,7 +989,7 @@ header.new-header {
   
       &.show {
         width: rem(509);
-        height: 100vh;
+        height: calc(100vh + 8px);
         overflow-y: auto;
         right: 0;
         padding: 0 rem(40);
@@ -998,6 +998,10 @@ header.new-header {
         @include media-breakpoint-down(xs) {
           width: 100%;
           padding: 0 rem(24);
+        }
+
+        &::-webkit-scrollbar {
+          display: none;
         }
   
         .desktop-search-redesign {
@@ -1029,9 +1033,10 @@ header.new-header {
               letter-spacing: rem(0.25);
               color: $white;
               text-transform: capitalize;
+              color: $white;
   
               &::placeholder {
-                color: $white;
+                color: $storm-gray2;
                 font-family: $the-futura-font;
               }
             }
@@ -1060,12 +1065,20 @@ header.new-header {
                 right: 0;
                 padding: 0 rem(40);
                 top: rem(96);
+             
+                @include media-breakpoint-down(xs) {
+                  padding: 0 rem(24);
+                }
   
                 .suggestions {
                   padding: 0;
                   background-color: transparent;
                   height: 100vh;
                   overflow-y: auto;
+
+                  &::-webkit-scrollbar {
+                    display: none;
+                  }
   
                   .col-12 {
                     padding-inline: 0;
@@ -1234,6 +1247,53 @@ header.new-header {
   
                   @include media-breakpoint-down(xs) {
                     gap: rem(24) rem(7);
+                  }
+
+                  .product-tile {
+                    background-color: transparent;
+
+                    .image-container {
+                      background-color: $white;
+                    }
+
+                    .tile-body {
+                      padding: rem(8) 0 rem(24) 0;
+                      background: transparent;
+                      overflow: hidden;
+                      
+                      .pdp-link {
+                        margin-bottom: rem(4);
+                        font-family: $movado-font;
+                        color: $white;
+                        font-family: $movado-font;
+                        font-size: rem(12);
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: rem(18);
+
+                        .product-name {
+                          color: $white;
+                          font-family: $movado-font;
+                          font-size: rem(12);
+                          font-style: normal;
+                          font-weight: 400;
+                          line-height: rem(18);
+                        }
+                      }
+
+                      .tile-body-content {
+
+                        .price, .promo-msg {
+                          color: $white;
+                          font-family: $the-futura-font;
+                          font-size: rem(14);
+                          font-style: normal;
+                          font-weight: 400;
+                          line-height: rem(19);
+                          letter-spacing: rem(0.25);
+                        }
+                      }
+                    }
                   }
   
                   .product {
@@ -1428,6 +1488,18 @@ header.new-header {
           }
         }
       }
+    }
+  }
+
+  .minicart {
+
+    .popover-bottom {
+      opacity: 1;
+
+      &.mini-cart-hide {
+        opacity: 0;
+      }
+
     }
   }
 }
