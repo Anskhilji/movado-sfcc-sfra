@@ -54,8 +54,6 @@ function processAdyenCancelledOrders(param) {
                     removeAdyenCustomObjects(customObject);
                 }
             }
-    
-    
         }
     } catch (ex) {
         Logger.error('(adyenCancelOrders) -> processAdyenCancelledOrders: Error occured while calling cancel or refund hook and error is:{0} at line {1} in file {2}', ex.toString(), ex.lineNumber, ex.fileName);
@@ -72,7 +70,7 @@ function processAdyenCancelledOrders(param) {
  */
 function removeAdyenCustomObjects(customObject) {
 
-    var	deleteCustomObjects = require('int_adyen_overlay/cartridge/scripts/deleteCustomObjects');
+    var deleteCustomObjects = require('int_adyen_overlay/cartridge/scripts/deleteCustomObjects');
     var orderID;
 
     try {
