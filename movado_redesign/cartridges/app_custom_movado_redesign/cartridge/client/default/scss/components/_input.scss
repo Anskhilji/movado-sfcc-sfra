@@ -28,6 +28,13 @@
             }
         }
 
+        &:has(input.form-control.is-invalid:focus) {
+            
+            .form-control-label {
+                color: $invalidRed;
+            }
+        }
+
         input {
 
             &.form-control {
@@ -51,6 +58,9 @@
                     font-weight: 400;
                 }
 
+                &.is-invalid {
+                    border-color: $invalidRed;
+                }
 
                 &:-webkit-autofill,
                 &:-webkit-autofill:hover,

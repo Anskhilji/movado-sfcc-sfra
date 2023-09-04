@@ -430,6 +430,12 @@
                                     line-height: normal;
                                     letter-spacing: rem(0.48);
                                     text-transform: uppercase;
+
+                                    &:hover {
+                                        background-color: transparent;
+                                        border-color: $black;
+                                        color: $black;
+                                    }
                                 }
                             }
                         }
@@ -529,6 +535,8 @@
                                     letter-spacing: rem(0.48);
                                     font-family: $movado-font;
                                     color: $white;
+                                    border: rem(1) solid $black;
+                                    @include buttonFilled;
                                 }
                             }
                         }
