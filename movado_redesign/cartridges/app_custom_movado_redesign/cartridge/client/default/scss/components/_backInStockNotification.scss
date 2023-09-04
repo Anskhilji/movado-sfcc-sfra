@@ -1,13 +1,11 @@
-.back-in-stock-notification-container {
-    text-align: center;
-    margin-top: rem(30);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
 .back-in-stock-notification {
+
+    &-marketing-container {
+    
+        .checkmark {
+            left: rem(0);
+        }
+    }
 
     &-button {
         font-family: $font-medium;
