@@ -36,6 +36,18 @@
                 <!-- Product Images Carousel for mobile-->
                 <isinclude template="product/components/imageCarousel" />
 
+                <!-- Pulse Engraving -->
+                <isif condition="${product.options && product.options.length > 0}">
+                    <isloop items="${product.options}" var="option" status="loopStatus">
+                        <isif condition="${option.id.indexOf('pulseIdEngraving') > -1}">
+                            <isif condition="${pdict.isPulseIDEngraveEnabled && sitePref.enablePulseIdEngraving}">
+                                <isinclude template="product/components/productPulseIDEngravingPopup" />
+                            </isif>
+                        </isif>
+                    </isloop>
+                </isif>
+                
+
                 <div class="col">
 	              <div class="detail-sec">
                      <div class="product-badges">
