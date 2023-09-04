@@ -1058,8 +1058,7 @@ function handleVariantResponse(response, $productContainer) {
         }
         if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
             if ($productContainer.find('.pd-desc-mvmt.product-description').length > 0) {
-                var $shortDescription = response.product.shortDescription.replace(/<[^>]+>/g, '');
-                $productContainer.find('.pd-desc-mvmt.product-description').text($shortDescription);
+                $productContainer.find('.pd-desc-mvmt.product-description').html(response.product.shortDescription);
             }
         }
         $.ajax({
