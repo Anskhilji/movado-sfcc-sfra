@@ -22,7 +22,8 @@ function processAdyenCancelledOrders(param) {
     var customObject,
         resultHandler,
         order,
-        notify;
+        notify,
+        orderID;
 
     try {
         while (searchQuery.hasNext()) {
@@ -32,39 +33,25 @@ function processAdyenCancelledOrders(param) {
             });
     
             order = resultHandler.Order;
-    
-            var orderTotal = order.getTotalGrossPrice().value;
-            var amount = order.getTotalGrossPrice().value;
-            var isJob = true;
-            var sendMail = true;
-            var orderID = customObject.custom.orderId.split('-', 1)[0];
-    
-            var refundedAmount = 0;
-            var alreadyRefundedAmountList = orderStatusHelper.convertSapAttributesToList(order.custom.sapAlreadyRefundedAmount);
-            if (alreadyRefundedAmountList) {
-                for (var i = 0; i < alreadyRefundedAmountList.length; i++) {
-                    refundedAmount = parseFloat(refundedAmount) + parseFloat(alreadyRefundedAmountList[i]);
-                }
-            }
-    
-            if (resultHandler.status || resultHandler.status === 'SUCCESS') {
-                var paymentMethod = order.paymentInstruments[0].paymentMethod;
-                var response = false;
-    
-                if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY' || paymentMethod == 'Adyen') && amount == orderTotal && refundedAmount == 0) {
-                    response = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, amount, isJob, sendMail,
-                        require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').cancelOrRefund);
-                    var cancelResponse;
-                    response = true;
-                }  else if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY') && amount < orderTotal && transactionType.toLowerCase() == 'void') {
-                    response = hooksHelper('app.payment.adyen.adjustAuthorisation', 'adjustAuthorisation', order, amount, sendMail,
-                        require('*/cartridge/scripts/hooks/payment/adyenAdjustAuthorisationSVC').adjustAuthorisation);
-                    var adjustResponse;
-                    response = true;
-                }
+            orderID = customObject.custom.orderId.split('-', 1)[0];
+            if (resultHandler.status || resultHandler.status === 'SUCCESS' && order.custom.canceledViaAdyenHook == false) {   
+                var sendMail = true;
+                var isJob = true;
+                var refundResponse = hooksHelper(
+                    'app.payment.adyen.refund',
+                    'refund',
+                    order,
+                    order.getTotalGrossPrice().value,
+                    sendMail,
+                    isJob,
+                    require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+                
+                Transaction.wrap(function () {
+                    order.custom.canceledViaAdyenHook = true;
+                });
 
-                if (orderID && response) {
-                    removeAdyenCustomObjects(orderID);
+                if (orderID) {
+                    removeAdyenCustomObjects(customObject);
                 }
             }
     
@@ -83,32 +70,21 @@ function processAdyenCancelledOrders(param) {
 /**
  * remove adyen custom objects
  */
-function removeAdyenCustomObjects(orderId) {
+function removeAdyenCustomObjects(customObject) {
 
     var	deleteCustomObjects = require('int_adyen_overlay/cartridge/scripts/deleteCustomObjects');
-    var searchQuery = CustomObjectMgr.queryCustomObjects('adyenNotification', "custom.eventCode = 'CANCELLATION' AND custom.success = 'false'", null);
-    var customObject,
-    orderID;
-
-    Logger.info('Removing Processed Custom Objects start with count {0}', searchQuery.count);
+    var orderID;
 
     try {
-        while (searchQuery.hasNext()) {
-            customObject = searchQuery.next();
-            orderID = customObject.custom.orderId.split('-', 1)[0];
-            if (orderId == orderID) {
-                Transaction.wrap(function () {
-                    deleteCustomObjects.handle(orderID);
-                });
-                break;
-            }
+        orderID = customObject.custom.orderId.split('-', 1)[0];
+        if (!empty(orderID)) {
+            Transaction.wrap(function () {
+                deleteCustomObjects.handle(orderID);
+            });
         }
     } catch (ex) {
         Logger.error('(adyenCancelOrders) -> removeAdyenCustomObjects: Error occured while removing adyen custom objects and error is:{0} at line {1} in file {2}', ex.toString(), ex.lineNumber, ex.fileName);
     }
-
-    Logger.info('Removing Processed Custom Objects finished with count {0}', searchQuery.count);
-    searchQuery.close();
 
     return new Status(Status.OK);
 }
