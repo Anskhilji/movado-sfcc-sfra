@@ -106,7 +106,8 @@ function getResources(pageContext) {
         BUTTON_ADD_TO_BAG: Resource.msg('button.addtobag', 'common', null),
         LOW_STOCK_THRESHOLD: !empty(Site.current.preferences.custom.lowStockThreshold) ? Site.current.preferences.custom.lowStockThreshold : false,
         LABEL_IN_STOCK: Resource.msg('label.instock', 'common', null),
-        LOW_STOCK_MESSAGE: lowStockMessage
+        LOW_STOCK_MESSAGE: lowStockMessage,
+        ENGRAVING_PROFANE_ERROR_MESSAGE: Resource.msg('engraving.profane.error.message', 'product', null)
     };
     return resources;
 }

@@ -1,4 +1,5 @@
 'use strict';
+var profanity = require('profanity-cleaner/src/index');
 
 $('.pdp-v-one [pd-popup-open]').on('click', function (e) {
     var $engravingInputOne = $('.engraving-input-one').val();
@@ -166,6 +167,8 @@ $('.preview-btn').click(function (e) {
         var $engravingErrorMsg = $('.engraving-error-msg');
         var $engravedTextOne = $('.engraved-text-one');
         var $engravedTextTwo = $('.engraved-text-two');
+        var profaneTextOne;
+        var profaneTextTwo;
         $engravedTextOne.text('');
         $engravedTextTwo.text('');
         $engravingErrorMsg.text('');
@@ -195,39 +198,51 @@ $('.preview-btn').click(function (e) {
                 }
             }
 
-
             if ($EngravingoptionTextone || $EngravingoptionTextTwo) {
-                var $productId = $($clicked).data('pid');
-                var $form = {
-                    line1Text: $EngravingoptionTextone,
-                    line2Text: $EngravingoptionTextTwo,
-                    productId: $productId
+                if ($EngravingoptionTextone) {
+                    profaneTextOne = profanity.isProfane($EngravingoptionTextone, {customBadWords: []});
                 }
-                var $url = $($clicked).data('url');
-                $.spinner().start();
-                $.ajax({
-                    url: $url,
-                    method: 'POST',
-                    data: $form,
-                    success: function (response) {
 
-                        if (response && response.result && response.result.success && response.result.response) {
-                            $('.engraving-save.save').prop('disabled', false);
-                            $('.preview-img').attr('src', response.result.response);
-                            $('.preview-btn').attr('preview-url', response.result.response);
-                            $('.preview-img').prev().attr('srcset', response.result.response);
-                            $('.preview-img').prev().prev().attr('srcset', response.result.response);
-                        } else {
-                            $engravingErrorMsg.text(response.message);
-                        }
-                        $.spinner().stop();
-                    },
-                    error: function () {
-                        $.spinner().stop();
-                    }
-                });
+                if ($EngravingoptionTextTwo) {
+                    profaneTextTwo = profanity.isProfane($EngravingoptionTextTwo, {customBadWords: []});
+                }
             }
 
+            if (profaneTextOne !== true && profaneTextTwo !== true) {
+                if ($EngravingoptionTextone || $EngravingoptionTextTwo) {
+                    var $productId = $($clicked).data('pid');
+                    var $form = {
+                        line1Text: $EngravingoptionTextone,
+                        line2Text: $EngravingoptionTextTwo,
+                        productId: $productId
+                    }
+                    var $url = $($clicked).data('url');
+                    $.spinner().start();
+                    $.ajax({
+                        url: $url,
+                        method: 'POST',
+                        data: $form,
+                        success: function (response) {
+    
+                            if (response && response.result && response.result.success && response.result.response) {
+                                $('.engraving-save.save').prop('disabled', false);
+                                $('.preview-img').attr('src', response.result.response);
+                                $('.preview-btn').attr('preview-url', response.result.response);
+                                $('.preview-img').prev().attr('srcset', response.result.response);
+                                $('.preview-img').prev().prev().attr('srcset', response.result.response);
+                            } else {
+                                $engravingErrorMsg.text(response.message);
+                            }
+                            $.spinner().stop();
+                        },
+                        error: function () {
+                            $.spinner().stop();
+                        }
+                    });
+                }
+            } else {
+                $engravingErrorMsg.text(window.Resources.ENGRAVING_PROFANE_ERROR_MESSAGE);
+            }
         }
     }
 });
