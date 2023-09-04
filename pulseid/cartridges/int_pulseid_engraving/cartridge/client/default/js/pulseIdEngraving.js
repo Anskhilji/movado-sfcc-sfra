@@ -1,5 +1,5 @@
 'use strict';
-var profanity = require('profanity-cleaner/src/index');
+var profanityfinder = require('./findprofanity');
 
 $('.pdp-v-one [pd-popup-open]').on('click', function (e) {
     var $engravingInputOne = $('.engraving-input-one').val();
@@ -157,6 +157,7 @@ $(document).mouseup(function (e) {
 
 $('.preview-btn').click(function (e) {
     var $clicked = e.target.closest('.preview-btn');
+    var findprofanity = profanityfinder.findprofanity;
 
     if (!$clicked) return;
     if ($clicked) {
@@ -200,11 +201,11 @@ $('.preview-btn').click(function (e) {
 
             if ($EngravingoptionTextone || $EngravingoptionTextTwo) {
                 if ($EngravingoptionTextone) {
-                    profaneTextOne = profanity.isProfane($EngravingoptionTextone, {customBadWords: []});
+                    profaneTextOne = findprofanity($EngravingoptionTextone);
                 }
 
                 if ($EngravingoptionTextTwo) {
-                    profaneTextTwo = profanity.isProfane($EngravingoptionTextTwo, {customBadWords: []});
+                    profaneTextTwo = findprofanity($EngravingoptionTextTwo);
                 }
             }
 

@@ -82,7 +82,6 @@
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.1",
     "malihu-custom-scrollbar-plugin": "^3.1.5",
-    "profanity-cleaner": "0.0.3",
     "sfra": "file:./storefront-reference-architecture/",
     "us-state-codes": "^1.1.2"
   },
