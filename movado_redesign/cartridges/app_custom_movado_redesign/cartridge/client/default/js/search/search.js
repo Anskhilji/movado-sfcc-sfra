@@ -57,6 +57,7 @@ function parseResults(response) {
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
+        '.refine-wrapper',
         '.refine-wrapper-sidebar',
         '.header-bar',
         '.header.page-title',
