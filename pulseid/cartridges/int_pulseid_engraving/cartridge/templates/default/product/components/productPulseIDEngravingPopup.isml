@@ -1,67 +1,68 @@
 <div class="popup" pd-popup="popupNew">
-            <div class="popup-inner">
-                <div class="modal-header modal-header-options p-0 mr-2">
-                    <button type="button" class="close-option-popup close" data-dismiss="modal"></button>
+    <div class="popup-inner">
+        <div class="modal-header modal-header-options p-0 mr-2">
+            <button type="button" class="close-option-popup close" data-dismiss="modal"></button>
+        </div>
+        <div class="popup-head mb-3">
+            <h1>${Resource.msg('label.product.add.engraving.text', 'product', 'null')}</h1>
+        </div>
+        <isif condition="${pdict.product}">
+            <div class="popup-body">
+                <p>${pdict.product.assets.pulseIdEngravingTop}</p>
+                <div class="watch-image">
+                    <span class="default-image"
+                        data-default-image="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product
+                                            .images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}"></span>
+                    <div class="image d-inline-block">
+                        <picture class="d-inline-block">
+                            <source media="(min-width: 650px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product
+                                                                       .images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
+                            <source media="(min-width: 465px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product
+                                                                       .images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
+                            <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product
+                                      .images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}"
+                                alt="test" class="preview-img img-fluid" style="width:auto;">
+                        </picture>
+                    </div>
                 </div>
-                <div class="popup-head mb-3">
-                    <h1>${Resource.msg('label.product.add.engraving.text', 'product', 'null')}</h1>
-                </div>
-                <isif condition="${pdict.product}">
-                    <div class="popup-body">
-                        <p>${pdict.product.assets.pulseIdEngravingTop}</p>
-                        <div class="watch-image">
-                        <span class="default-image" data-default-image="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}"></span>
-                            <div class="image d-inline-block">
-                                <picture class="d-inline-block">
-                                    <source media="(min-width: 650px)"
-                                        srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product
-                                                .images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
-                                    <source media="(min-width: 465px)"
-                                        srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product
-                                                .images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
-                                    <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product
-                                            .images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}"
-                                        alt="test" class="preview-img img-fluid" style="width:auto;">
-                                </picture>
-                            </div>
+                <div class="text-area">
+                    <div class="mb-3 option-message">
+                        <span class="engraving-error-msg"></span>
+                        <div class="engraving-input-box">
+                            <input rows="${product.engravingTextValidations['casebackLineLimit']}"
+                                class="form-control engraving-input engraving-input-one" wrap="hard"
+                                placeholder="${product.resources.engravingInputPlaceHolder}" />
+                            <i class="remove-value d-none">
+                                <img src="${URLUtils.staticURL('/images/icons/empty-icon.svg')}" alt="remove-value"></i>
                         </div>
-                        <div class="text-area">
-                            <div class="mb-3 option-message">
-                                <span class="engraving-error-msg"></span>
-                                <div class="engraving-input-box">
-                                    <input rows="${product.engravingTextValidations['casebackLineLimit']}"
-                                        class="form-control engraving-input engraving-input-one" wrap="hard"
-                                        placeholder="${product.resources.engravingInputPlaceHolder}" />
-                                    <i class="remove-value d-none">
-                                    <img src="${URLUtils.staticURL('/images/icons/empty-icon.svg')}" alt="remove-value"></i>
-                                </div>
-                                <div class="engraving-input-box">
-                                    <input rows="${product.engravingTextValidations['casebackLineLimit']}"
-                                        class="form-control engraving-input engraving-input-two" wrap="hard"
-                                        placeholder="${product.resources.engravingInputOptionalPlaceHolder}" />
-                                </div>
-                            </div>
-                            <div class="preview-btn" data-url="${URLUtils.https('PulseID-Preview')}" preview-url="" data-pid="${product.id}">
-                                <button type="button">${Resource.msg('label.product.show-preview-btn', 'product', null)}</button>
-                            </div>
-
-                            <div class="engraving-total d-flex justify-content-center">
-                                ${Resource.msg('label.product.add.engraving.total', 'product', null)}
-                                <iscontentasset aid="pulseidEngravingPrice" />
-                            </div>
-                            <div class="popup-action-btns">
-                                <button type="submit" class="btn btn-primary engraving-save save" id="submit-form" data-url="${URLUtils.https('PulseID-SetSession')}" disabled form="engravingForm">
-                                    <span class="apply">${Resource.msg('buttom.option.text.save', 'product', null)}</span>
-                                </button>
-                                <button type="button"
-                                    class="btn btn-primary pulse-engraving-cancel cancel">
-                                    ${Resource.msg('buttom.button.text.cancel', 'product', null)}
-                                </button>
-                            </div>
-                            <label for="${'input_' + option.id}"
-                                class="hidden-label">${product.resources.engravingPlaceholder}</label>
+                        <div class="engraving-input-box">
+                            <input rows="${product.engravingTextValidations['casebackLineLimit']}"
+                                class="form-control engraving-input engraving-input-two" wrap="hard"
+                                placeholder="${product.resources.engravingInputOptionalPlaceHolder}" />
                         </div>
                     </div>
-                </isif>
+                    <div class="preview-btn" data-url="${URLUtils.https('PulseID-Preview')}" preview-url=""
+                        data-pid="${product.id}">
+                        <button type="button">${Resource.msg('label.product.show-preview-btn', 'product', null)}</button>
+                    </div>
+
+                    <div class="engraving-total d-flex justify-content-center">
+                        ${Resource.msg('label.product.add.engraving.total', 'product', null)}
+                        <iscontentasset aid="pulseidEngravingPrice" />
+                    </div>
+                    <div class="popup-action-btns">
+                        <button type="submit" class="btn btn-primary engraving-save save" id="submit-form"
+                            data-url="${URLUtils.https('PulseID-SetSession')}" disabled form="engravingForm">
+                            <span class="apply">${Resource.msg('buttom.option.text.save', 'product', null)}</span>
+                        </button>
+                        <button type="button" class="btn btn-primary pulse-engraving-cancel cancel">
+                            ${Resource.msg('buttom.button.text.cancel', 'product', null)}
+                        </button>
+                    </div>
+                    <label for="${'input_' + option.id}"
+                        class="hidden-label">${product.resources.engravingPlaceholder}</label>
+                </div>
             </div>
-        </div>
+        </isif>
+    </div>
+</div>
