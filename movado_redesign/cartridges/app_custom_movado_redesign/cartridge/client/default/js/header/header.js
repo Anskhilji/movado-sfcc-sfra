@@ -576,12 +576,11 @@ var lastScrollTop = 0;
   $(window).on('beforeunload', function(){
     $(window).scrollTop(0);
   });
-  $(window).on("load", function (e) {
-    $('form .updated-input-style').each(function (el) {
-        if ($(this).find('input').val().length > 0) {
-            $(this).find('input').focus();
-        } else {
-            $(this).find('input').blur();
-        }
-    });
+
+  $('form .updated-input-style').each(function (el) {
+    if ($(this).find('input').val().length > 0) {
+        $(this).find('input').focus();
+    } else {
+        $(this).addClass('inpupt-blur');
+    }
 });
