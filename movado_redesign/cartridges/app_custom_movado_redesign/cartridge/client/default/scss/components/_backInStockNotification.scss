@@ -1,3 +1,12 @@
+.back-in-stock-notification-container {
+    text-align: center;
+    margin-top: rem(30);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
 .back-in-stock-notification {
 
     &-button {
@@ -15,6 +24,7 @@
         font-weight: 300;
         letter-spacing: rem(1);
         line-height: auto;
+        text-align: center;
     }
 
     
