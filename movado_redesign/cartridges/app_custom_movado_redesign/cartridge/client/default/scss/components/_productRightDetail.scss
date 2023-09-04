@@ -430,6 +430,12 @@
                                     line-height: normal;
                                     letter-spacing: rem(0.48);
                                     text-transform: uppercase;
+
+                                    &:hover {
+                                        background-color: transparent;
+                                        border-color: $black;
+                                        color: $black;
+                                    }
                                 }
                             }
                         }
