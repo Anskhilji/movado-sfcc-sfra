@@ -106,6 +106,7 @@
       text-align: center;
       font-size:rem(15);
       @include font-book;
+      font-family: $the-futura-font;
     }
   }
 
@@ -161,6 +162,7 @@
       font-size: rem(16);
       height: rem(45);
       letter-spacing: normal;
+      font-family: $movado-font;
 
       &:hover, &:focus {
         color: $white;
@@ -2245,6 +2247,33 @@
 // Custom:MSS-2347 end desktop 
 .plp-aruliden-tile {
 
+  .search-nav {
+
+    .nav-link {
+      font-family: $the-futura-font;
+    }
+  }
+
+  .selected-filters-nav {
+    
+    li {
+
+      &.filter-value {
+
+        a {
+          font-family: $the-futura-font;
+        }
+      }
+    }
+  }
+
+  &.cs-carousel-wrapper {
+
+    .cs-carousel-title {
+      font-family: $movado-font;
+    }
+  }
+
     .row {
 
         &.product-grid {
@@ -2436,6 +2465,16 @@
   @media(max-width:$custom-lg4) {
     padding: 0 rem(24);
 
+  }
+
+  .selected-filters-nav {
+
+    li {
+
+      a {
+        font-family: $the-futura-font;
+      }
+    }
   }
 
   .search-results-sec {
