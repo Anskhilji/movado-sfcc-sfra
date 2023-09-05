@@ -582,20 +582,6 @@ $(window).scroll(function () {
     }
   });
 
-$(document).ready(function () {
-    setTimeout(() => {
-        $('form .updated-input-style').each(function () {
-            var a = $(this).find('input');
-            var b = $(this).find('input').val();
-            var c = $(this).find('input').val().length;
-
-            if ($(this).find('input').val().length > 0) {
-                $(this).addClass('input-blur');
-            }
-        });
-    }, 10000);
-});
-
 $('.updated-input-style input').focus(function () {
     $(this).parent().addClass('input-blur');
 }).blur(function () {
