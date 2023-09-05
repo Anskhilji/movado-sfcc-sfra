@@ -329,7 +329,6 @@ $('.second-level').hover(
         $('.second-level.active').next('div').addClass('active-image');
         var $childCategoryId = $(this).data('category-id');
 
-<<<<<<< Updated upstream
             $('.categories-image-container-second.active-image').each(function () {
                 var $imageId = $(this).data('cat-image');
                 if ($childCategoryId == $imageId && $(this).find('.second-level.active').next('div')) {
@@ -350,28 +349,6 @@ $('.second-level').hover(
                 }
         
             });
-=======
-        $('.categories-image-container-second').each(function () {
-            var $imageId = $(this).data('cat-image');
-            if ($childCategoryId == $imageId) {
-                $('.categories-image-container').addClass('d-none');
-                $(this).removeClass('d-none');
-                $(this).addClass('fadeIn fast animated');
-                return;
-            } else {
-                var $parentCatId = $(this).parents('.second-level-sec').data('pararent-id');
-                $('.categories-image-container').each(function () {
-                    var $imageId = $(this).data('id');
-                    if ($childCategoryId != '' && $parentCatId == $imageId) {
-                        $(this).removeClass('d-none');
-                        return;
-                    }
-
-                });
-            }
-
-        });
->>>>>>> Stashed changes
     },
     function () {
         var $parentCatId = $(this).parents('.second-level-sec').data('pararent-id');
