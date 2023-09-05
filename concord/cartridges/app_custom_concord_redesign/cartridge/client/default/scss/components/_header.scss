@@ -85,6 +85,10 @@ header {
                     .btn {
                         font-family: $font-raleway-medium;
                         border-radius: 0;
+
+                        &:hover {
+                            color: $white;
+                        }
                     }
                 }
             }
