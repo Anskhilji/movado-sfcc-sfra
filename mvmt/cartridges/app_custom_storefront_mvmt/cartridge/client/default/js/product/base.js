@@ -1,6 +1,8 @@
 'use strict';
 var movadoBase = require('movado/product/base');
-var listrakBackInStock = require('custom_backinstock/listrakBackInStock.js');
+if (window.Resources.LISTRAK_ENABLED) {
+    var listrakBackInStock = require('custom_backinstock/listrakBackInStock.js');
+}
 
 if(Resources.IS_CLYDE_ENABLED){
     var clydeWidget = require('link_clyde/getClydeWidget.js');
