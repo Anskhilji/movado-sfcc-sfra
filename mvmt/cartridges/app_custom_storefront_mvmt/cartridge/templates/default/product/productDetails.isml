@@ -567,7 +567,7 @@
         </isif>
         <!-- End: Listrak persistent popup -->
 
-        <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
+        <isif condition="${sitePref.enableBackInStock}">
             <div class="bis-slot-content d-none">
                 <isslot id="cs-pdp-back-in-stock-notification" context="global" description="Content slot for back in stock notification on pdp" />
             </div>
