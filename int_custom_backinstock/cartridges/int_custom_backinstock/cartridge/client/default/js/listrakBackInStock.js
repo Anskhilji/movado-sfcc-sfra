@@ -331,3 +331,8 @@ $('.back-in-stock-notification-phone').on('keyup', function () {
         }
     }
 })
+
+module.exports = {
+    listrakBackInStockDesktop: listrakBackInStockDesktop,
+    listrakBackInStockFormSubmission: listrakBackInStockFormSubmission
+ }

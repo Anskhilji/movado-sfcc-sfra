@@ -1,5 +1,7 @@
 'use strict';
 var movadoBase = require('movado/product/base');
+var listrakBackInStock = require('custom_backinstock/listrakBackInStock.js');
+
 if(Resources.IS_CLYDE_ENABLED){
     var clydeWidget = require('link_clyde/getClydeWidget.js');
 }
@@ -785,6 +787,8 @@ function handleVariantResponse(response, $productContainer) {
     var $backInStockMobile = $('.back-in-Stock-mobile');
     var $listrakBackInStockSMS = window.Resources.LISTRAK_ENABLE_BACK_IN_STOCK_SMS;
     var $listrakBackInStockEmail = window.Resources.LISTRAK_ENABLE_BACK_IN_STOCK_EMAIL;
+    var $listrakSuccessMsg = $('.listrak-success-msg').html();
+    var $listrakSMSApiResponse = $('.listrak-sms-api-response-msg').hasClass('d-none');
 
     if (!response.product.available && response && response.backInStockHtml) {
         if ($backInStockDesktop.length > 0) {
@@ -803,7 +807,6 @@ function handleVariantResponse(response, $productContainer) {
     var $backInStockSlotContent = $('.bis-slot-content').html();
     var $backInStockNotification = $('.back-in-stock-notification-container');
     var $backInStockSuccessMsg = $('.back-in-stock-notification-container-success');
-    var $listrakSuccessMsg = $('.listrak-success-msg');
 
     if ($backInStockTerms.length > 0 && response && response.listrakBackInStockTerms) {
         $backInStockTerms.empty();
@@ -922,7 +925,7 @@ function handleVariantResponse(response, $productContainer) {
                 if ($screenSize > 768) {
     
                     if ($backInStockDesktop.length > 0) {
-                        listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder);
+                        listrakBackInStock.listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder);
                     }
                 } else {
                     if ($backInStockMobile.find($backInStockSMSSubscription).length > 0 && $backInStockMobile.find($listarkSMSReminder).length > 0) {
@@ -931,339 +934,21 @@ function handleVariantResponse(response, $productContainer) {
                         if ($backInStockMobile.find($listarkSMSReminder).hasClass('d-none') && ($backInStockMobile.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSMSSubscriptionChecked) {
                             $backInStockMobile.find($listarkSMSReminder).removeClass('d-none');
                         } else {
-                            listrakBackInStockFormSubmission();
+                            listrakBackInStock.listrakBackInStockFormSubmission();
                         }
                     } else {
-                        listrakBackInStockFormSubmission();
+                        listrakBackInStock.listrakBackInStockFormSubmission();
                     }
                 }
             } else {
                 if ($backInStockDesktop.length > 0) {
-                    listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder);
+                    listrakBackInStock.listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder);
                 }
             }
         } else {
-            listrakBackInStockFormSubmission();
+            listrakBackInStock.listrakBackInStockFormSubmission();
         }
     });
-
-    function listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder) {
-        var $isBackInStockSMSSubscription;
-        var $isBackInStockSMSSubscriptionChecked;
-    
-        if ($backInStockDesktop.find('.back-in-stock-notification-phone').length > 0 && $backInStockDesktop.find('.back-in-stock-notification-phone').val().length > 0) {
-            if ($backInStockDesktop.find($backInStockSMSSubscription).length > 0 && $backInStockDesktop.find($listarkSMSReminder).length > 0) {
-                $isBackInStockSMSSubscription = $backInStockDesktop.find($backInStockSMSSubscription);
-                $isBackInStockSMSSubscriptionChecked = $isBackInStockSMSSubscription.is(':checked');
-                if ($backInStockDesktop.find($listarkSMSReminder).hasClass('d-none') && ($backInStockDesktop.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSMSSubscriptionChecked) {
-                    $backInStockDesktop.find($listarkSMSReminder).removeClass('d-none');
-                } else {
-                    listrakBackInStockFormSubmission();
-                }
-            } else {
-                listrakBackInStockFormSubmission();
-            }
-        }
-    }
-
-    function listrakBackInStockFormSubmission() {
-        var $backInStockContainerMain = $('.listrak-back-in-stock-notification-container-main');
-        var $form = $('.back-in-stock-notification-form');
-        var $pid = $('#productSKU').val();
-        var $email = '';
-        var $phone = '';
-        var $alertCode = $('#alertCode').val();
-        var $listrakSuccessMsg = $('.listrak-success-msg');
-        var $emailRequired = $('.back-in-stock-notification-error-required');
-        var $emailInvalid = $('.back-in-stock-notification-error-invalid');
-        var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
-        var $backInStockListrakPreference = $('#backInStockMarketingCloudPreference');
-        var $backInStockSmsSubscription = $('#backInStockSMSSubscription');
-        $emailRequired.text('');
-        $emailInvalid.text('');
-        $phoneInvalid.text('');
-        var $listrackPhoneCode = "+";
-    
-        if ($form.find('.back-in-stock-notification-email').length > 0) {
-            var $phoneNo = '';
-    
-            $('.back-in-stock-notification-email').each(function() {
-                if ($(this).val()) {
-                    $email = $(this).val().trim();
-                }
-            });
-            if ($('.back-in-stock-notification-phone').length > 0) {
-                $('.back-in-stock-notification-phone').each(function() {
-                    if ($(this).val()) {
-                        $phoneNo = $(this).val().trim();
-                    }
-                });
-            }
-    
-            var $pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
-            var smsSubscription = false;
-            var $phoneNoPattern;
-            var $backinStockselector = $('.listrak-back-in-stock-notification-container-main');
-            var $isValid;
-            var $isValidPhoneNo;
-    
-            if ($backinStockselector.find('#backInStockSMSSubscription').length > 0) {
-                if ($backinStockselector.find('#backInStockSMSSubscription').is(':checked')) {
-                    smsSubscription = true;
-                }
-            }
-    
-            if (smsSubscription) {
-                $phoneNo = $listrackPhoneCode + $phoneNo;
-                $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
-            } else {
-                $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-            }
-    
-            if ($email && $phoneNo) {
-                $isValid = $pattern.test($email);
-                $isValidPhoneNo = $phoneNoPattern.test($phoneNo);
-                if ($isValid && $isValidPhoneNo) {
-                    if ($backInStockListrakPreference.length > 0 && $backInStockSmsSubscription.length > 0) {
-                        var $selector;
-                        if ($backInStockContainerMain.length > 0) {
-                            $selector = $('.listrak-back-in-stock-notification-container-main');
-                        }
-                        submitBackInStockEmail($selector);
-                    }
-                }
-            } else if ($email || $phoneNo) {
-                $isValid = $pattern.test($email);
-                $isValidPhoneNo = $phoneNoPattern.test($phoneNo);
-                if ($isValid || $isValidPhoneNo) {
-                    if ($backInStockListrakPreference.length > 0 || $backInStockSmsSubscription.length > 0) {
-                        var $selector;
-                        if ($backInStockContainerMain.length > 0) {
-                            $selector = $('.listrak-back-in-stock-notification-container-main');
-                        }
-                        submitBackInStockEmail($selector);
-                    }
-                }
-            }
-    
-            if ($form.find('.back-in-stock-notification-phone').length > 0) {
-                var $phonePattern;
-                var $isValidPhone;
-    
-                $('.back-in-stock-notification-phone').each(function() {
-    
-                    if ($(this).val().length > 0) {
-                        $phone = $(this).val().trim();
-                    }
-                });
-    
-                if (smsSubscription) {
-                    $phone = $listrackPhoneCode + $phone;
-                    $phonePattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
-                } else {
-                    $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-                }
-    
-                if ($phone) {
-                    $isValidPhone = $phonePattern.test($phone)
-                }
-    
-                if ($phone == '' || $phone == undefined) {
-                    if ($email == '' || $email == undefined) {
-                        $emailInvalid.text(window.Resources.EMIAL_ADDRESS_REQUIRED);
-                        $email = '';
-                        $phone = '';
-                        return;
-                    } else if (!$isValid) {
-                        $emailInvalid.text(window.Resources.EMIAL_ADDRESS_INVALID);
-                        $email = '';
-                        $phone = '';
-                        return;
-                    }
-                } else if ($phone !== '' && !$isValidPhone && $email !== ''  && !$isValid) {
-                    $emailInvalid.text(window.Resources.EMIAL_ADDRESS_INVALID);
-                    $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
-                    $email = '';
-                    $phone = '';
-                    return;
-                } else if ($email == '' && !$isValidPhone) {
-                    $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
-                    $email = '';
-                    $phone = '';
-                    return;
-                } else if ($isValid && !$isValidPhone) {
-                    $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
-                    $email = '';
-                    $phone = '';
-                } else if (!$isValidPhone && !$isValid) {
-                    $emailInvalid.text(window.Resources.EMIAL_ADDRESS_INVALID);
-                    $email = '';
-                    $phone = '';
-                }
-            
-            } else {
-                if ($email == '' || $email == undefined) {
-                    $emailInvalid.text(window.Resources.EMIAL_ADDRESS_REQUIRED);
-                    $email = '';
-                    return;
-                } else if (!$isValid) {
-                    $emailInvalid.text(window.Resources.EMIAL_ADDRESS_INVALID);
-                    $email = '';
-                    return;
-                }
-            }
-        } else {
-            if ($form.find('.back-in-stock-notification-phone').length > 0) {
-    
-                $('.back-in-stock-notification-phone').each(function() {
-    
-                    if ($(this).val().length > 0) {
-                        $phone = $(this).val().trim();
-                    }
-                });
-    
-                var $phonePattern;
-                var $isValidPhone;
-    
-                if (smsSubscription) {
-                    $phone = $listrackPhoneCode + $phone;
-                    $phonePattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
-                } else {
-                    $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-                }
-    
-                if ($phone) {
-                    $isValidPhone = $phonePattern.test($phone)
-                }
-    
-                if ($isValidPhone) {
-                    if ($backInStockSmsSubscription.length > 0) {
-                        var $selector;
-                        if ($backInStockContainerMain.length > 0) {
-                            $selector = $('.listrak-back-in-stock-notification-container-main');
-                        }
-                        submitBackInStockEmail($selector);
-                    }
-                }
-    
-                if ($phone == '' || $phone == undefined) {
-                    $phoneInvalid.text(window.Resources.PHONE_NUMBER_REQUIRED);
-                    $phone = '';
-                    return;
-                } else if (!$isValidPhone) {
-                    $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
-                    $phone = '';
-                    return;
-                }
-            }
-        }
-        
-        if ($email || $phone) {
-            SubmitAlert($email, $phone, $pid, $alertCode);
-        }
-        
-        function SubmitAlert (email, phone, pid, alertCode) {
-            var $emailAddress = email;
-            var $phoneNumber = phone;
-            var $productSKU = pid;
-            var $alertCode = alertCode;
-            _ltk.Alerts.AddAlertWithIdentifiers({Identifiers:{Email:$emailAddress, PhoneNumber:$phoneNumber}, Sku:$productSKU, AlertCode:$alertCode});
-            _ltk.Alerts.Submit();
-            $backInStockContainerMain.addClass('d-none');
-            $listrakSuccessMsg.text(window.Resources.LISTRAK_SUCCESS_MESSAGE);
-            return;
-        }
-    }
-
-    function submitBackInStockEmail($selector) {
-        $selector.find('.back-in-stock-notification-error').addClass('d-none');
-        $('.listrak-back-in-stock-notification-container-main').spinner().start();
-        var url = $selector.data('url');
-        var pid = $selector.data('pid');
-        var emailAddress = ''
-        var $phoneNo = ''
-        var enabledMarketing = false;
-        var smsSubscription = false;
-        var $phoneNoPattern;
-        var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
-        var $listrackPhoneCode = "+";
-        
-        if ($selector.find('.back-in-stock-notification-email').length > 0) {
-            $('.back-in-stock-notification-email').each(function() {
-                if ($(this).val()) {
-                    emailAddress = $(this).val().trim();
-                }
-            });
-        }
-        if ($selector.find('.back-in-stock-notification-phone').length > 0) {
-            $('.back-in-stock-notification-phone').each(function() {
-                if ($(this).val()) {
-                    $phoneNo = $(this).val().trim();
-                }
-            });
-        }
-    
-        if ($selector.find('#backInStockMarketingCloudPreference').length > 0) {
-            if ($selector.find('#backInStockMarketingCloudPreference').is(':checked')) {
-                enabledMarketing = true;
-            }
-        }
-        if ($selector.find('#backInStockSMSSubscription').length > 0) {
-            if ($selector.find('#backInStockSMSSubscription').is(':checked')) {
-                smsSubscription = true;
-            }
-        }
-    
-        var form = {
-            pid: pid,
-            email: emailAddress,
-            enabledMarketing: enabledMarketing,
-            phoneNo: $listrackPhoneCode + $phoneNo,
-            smsSubscription: smsSubscription,
-            clientSecret: encodeURIComponent(window.Resources.LISTRAK_SMS_API_CLIENT_SECRET)
-        }
-    
-        if (form.smsSubscription) {
-            $phoneNo = $listrackPhoneCode + $phoneNo;
-            $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
-        } else {
-            $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-        }
-        var $isValidPhoneNo = $phoneNoPattern.test($phoneNo);
-    
-        if (!$isValidPhoneNo && form.smsSubscription) {
-            $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
-            $phoneInvalid.removeClass('d-none');
-            $phoneNo = '';
-        }
-    
-        $.ajax({
-            url: url,
-            data: form,
-            method: 'POST',
-            success: function (response) {
-                if (response.result) {
-                    processResponse($selector, response.result);
-                    if (Resources.LISTRAK_ENABLE_BACK_IN_STOCK_SMS && form.smsSubscription) {
-                        if (response.result.smsApiResponse == false || response.result.smsApiResponse.success == false) {
-                            $('.listrak-sms-api-response-msg').removeClass('d-none');
-                        } else {
-                            $('.listrak-sms-api-response-msg').addClass('d-none');
-                        }
-                    }
-                } else {
-                    $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
-                    $('.listrak-sms-api-response-msg').removeClass('d-none');
-                }
-                $selector.spinner().stop();
-            },
-            error: function (response) {
-                $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
-                $selector.spinner().stop();
-            }
-        });
-    
-    }
     
     if (response.product.productType == 'variant') {
         $('body').trigger('pdpChangedVariation', response.product);
@@ -1612,6 +1297,16 @@ function handleVariantResponse(response, $productContainer) {
                $ctaAddToCart.removeClass('d-none');
            }
        }
+
+        if ($listrakSuccessMsg) {
+            $('.listrak-back-in-stock-notification-container-main').addClass('d-none');
+            $('.listrak-success-msg').empty();
+            $('.listrak-success-msg').append($listrakSuccessMsg);
+
+            if (!$listrakSMSApiResponse) {
+                $('.listrak-sms-api-response-msg').removeClass('d-none');
+            }
+        }
    
        /**
    
