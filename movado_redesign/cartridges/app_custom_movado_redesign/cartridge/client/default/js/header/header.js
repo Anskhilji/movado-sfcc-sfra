@@ -59,9 +59,9 @@ $('.first-level-category').hover(
         var $navigationHeight = $('.desktop-slide-up').height();
         var $deviceHeight = 780;
         if ($navigationHeight <= $deviceHeight) {
-            $('.second-level').css('margin-bottom', '8px');
+            $('.second-level').addClass('second-level-adjustment');
         } else {
-            $('.second-level').css('margin-bottom', '20px');
+            $('.second-level').removeClass('second-level-adjustment');
         }
     }
 );
