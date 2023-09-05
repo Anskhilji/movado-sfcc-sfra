@@ -78,7 +78,14 @@ function validateBasket(data) {
                 '</div>'
             );
             $('.number-of-items').empty().append(data.resources.numberOfItems);
-            $('.minicart-quantity').empty().append(data.numItems);
+            var $miniCartQuantity = $('.minicart-quantity');
+            var $showMiniCartCounter = $('.minicart-quantity').data('counter');
+            if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
+                $miniCartQuantity.empty();
+                $miniCartQuantity.removeClass('d-none').addClass('d-block');
+            } else {
+                $miniCartQuantity.empty().append(data.numItems);
+            }
             $('.minicart .popover').empty().removeClass('show');
         }
 
@@ -153,7 +160,14 @@ function updateCartTotals(data) {
             affirm.ui.refresh();
         });
     }
-    $('.minicart-quantity').empty().append(data.numItems);
+    var $miniCartQuantity = $('.minicart-quantity');
+    var $showMiniCartCounter = $('.minicart-quantity').data('counter');
+    if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
+        $miniCartQuantity.empty();
+        $miniCartQuantity.removeClass('d-none').addClass('d-block');
+    } else {
+        $miniCartQuantity.empty().append(data.numItems);
+    }
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
         $('.order-discount').removeClass('hide-order-discount');
@@ -622,7 +636,14 @@ module.exports = function () {
                 if (data.basket.items.length === 0) {
                     $('.cart').empty().append(data.emptyCartDom);
                     $('.number-of-items').empty().append(data.basket.resources.numberOfItems);
-                    $('.minicart-quantity').empty().append(data.basket.numItems);
+                    var $miniCartQuantity = $('.minicart-quantity');
+                    var $showMiniCartCounter = $('.minicart-quantity').data('counter');
+                    if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
+                        $miniCartQuantity.empty();
+                        $miniCartQuantity.removeClass('d-none').addClass('d-block');
+                    } else {
+                        $miniCartQuantity.empty().append(data.basket.numItems);
+                    }
                     $('.minicart .popover').empty().removeClass('show');
                     $('body').removeClass('modal-open');
                     $('html').removeClass('veiled');

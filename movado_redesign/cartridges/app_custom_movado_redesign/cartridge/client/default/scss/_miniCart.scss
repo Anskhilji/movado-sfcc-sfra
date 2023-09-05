@@ -4,6 +4,12 @@
 
 
 .minicart {
+
+    .minicart-quantity {
+        background-color: $black;
+        height: rem(4);
+        width: rem(4);
+    }
     
     .bonus-line-item-heading {
         font-family: $movado-font;

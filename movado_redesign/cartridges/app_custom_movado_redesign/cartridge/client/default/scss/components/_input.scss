@@ -3,88 +3,106 @@
     &.updated-input-style {
         position: relative;
 
-        &:has(input.form-control:placeholder-shown) {
+        &.input-validation-error {
 
-            .form-control-label {
-                top: rem(12);
-                font-size: rem(16);
-                font-style: normal;
-                font-weight: 400;
-                line-height: rem(20);
-                letter-spacing: rem(0.25);
-                font-family: $the-futura-font;
+            &.input-blur {
 
+                .form-control-label {
+                    color: $invalidRed;
+                }
             }
         }
 
-        &:has(input.form-control:focus) {
+        &:hover {
+
+            .form-control {
+                border-bottom: rem(2) solid $black;
+            }
+        }
+
+        &.input-blur {
 
             .form-control-label {
-                font-size: rem(10);
-                line-height: rem(10);
-                letter-spacing: rem(0.5);
-                font-weight: 500;
                 top: 0;
-            }
-        }
-
-        &:has(input.form-control.is-invalid:focus) {
-            
-            .form-control-label {
-                color: $invalidRed;
-            }
-        }
-
-        input {
-
-            &.form-control {
                 color: $black;
                 font-family: $the-futura-font;
-                font-size: rem(16);
+                font-size: rem(10);
                 font-style: normal;
-                font-weight: 400;
-                line-height: rem(20);
-                letter-spacing: rem(0.25);
-                border: none;
-                border-bottom: rem(1) solid $black;
-                box-shadow: none;
-                outline: none;
-                padding: rem(10) rem(0);
-
-                &::placeholder {
-                    color: transparent;
-                    font-family: $the-futura-font;
-                    font-size: rem(16);
-                    font-weight: 400;
-                }
-
-                &.is-invalid {
-                    border-color: $invalidRed;
-                }
-
-                &:-webkit-autofill,
-                &:-webkit-autofill:hover,
-                &:-webkit-autofill:focus {
-                    -webkit-text-fill-color: $black;
-                    -webkit-box-shadow: 0 0 0px rem(1000) $white inset;
-                    transition: background-color 5000s ease-in-out 0s;
-                }
-
+                font-weight: 500;
+                line-height: rem(10);
+                letter-spacing: rem(0.5);
             }
         }
 
         .form-control-label {
             color: $black;
             font-family: $the-futura-font;
-            font-size: rem(10);
-            line-height: rem(10);
-            letter-spacing: rem(0.5);
-            font-weight: 500;
-            margin: 0;
+            font-size: rem(16);
+            font-style: normal;
+            font-weight: 400;
+            line-height: rem(20);
+            letter-spacing: rem(0.25);
             position: absolute;
-            top: rem(0);
-            left: 0;
-            transition: all 0.4s;
+            margin: 0;
+            top: rem(20);
+            transition: .4s ease all;
+            text-transform: capitalize;
+        }
+
+        .form-control {
+            border: 0;
+            border-bottom: rem(1) solid $black;
+            padding: rem(13) 0 rem(10) 0;
+            box-shadow: none;
+            outline: none;
+            transition: .4s ease all;
+            color: $black;
+            font-family: $the-futura-font;
+            font-size: rem(16);
+            font-style: normal;
+            font-weight: 400;
+            line-height: rem(20);
+            letter-spacing: rem(0.25);
+            height: rem(48);
+
+            &::placeholder {
+                color: transparent;
+                font-family: $the-futura-font;
+                font-size: rem(16);
+                font-weight: 400;
+            }
+
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            &:-webkit-autofill:focus {
+                -webkit-text-fill-color: $black;
+                -webkit-box-shadow: 0 0 0px rem(1000) $white inset;
+                transition: background-color 5000s ease-in-out 0s;
+            }
+
+            &.is-invalid {
+                border-color: $invalidRed;
+            }
+
+            &.is-invalid {
+
+                &:focus {
+
+                    .form-control-label {
+                        color: $invalidRed;
+                    }
+                }
+            }
+        }
+
+        &+.back-in-stock {
+
+            &-notification {
+
+                &-invalid-email {
+                    @extend .invalid-feedback;
+                }
+            }
         }
 
         .invalid-feedback {
@@ -95,16 +113,7 @@
             font-weight: 500;
             line-height: rem(10);
             letter-spacing: rem(0.5);
-        }
-
-        &+.back-in-stock {
-
-            &-notification {
-                
-                &-invalid-email {
-                    @extend .invalid-feedback;
-                }
-            }
+            margin-top: rem(9);
         }
     }
 }

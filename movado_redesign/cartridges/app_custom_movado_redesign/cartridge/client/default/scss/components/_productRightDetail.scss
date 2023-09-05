@@ -412,6 +412,14 @@
                         flex-direction: column;
                         margin-top: rem(30);
 
+                        .updated-input-style {
+                            text-align: left;
+                        }
+
+                        .phone-check {
+                            text-align: left;
+                        }
+
                         .back-in-stock {
 
                             &-notification-form {
