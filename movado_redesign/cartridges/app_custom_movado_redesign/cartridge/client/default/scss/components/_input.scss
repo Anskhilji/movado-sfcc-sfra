@@ -5,11 +5,22 @@
 
         &.input-validation-error {
 
+            &:hover {
+
+                .form-control {
+                    border-color: $invalidRed;
+                }
+            }
+
             &.input-blur {
 
                 .form-control-label {
                     color: $invalidRed;
                 }
+            }
+
+            .form-control {
+                border-color: $invalidRed;
             }
         }
 
@@ -65,6 +76,10 @@
             letter-spacing: rem(0.25);
             height: rem(48);
 
+            &.back-in-stock-notification-email {
+                padding-right: rem(100);
+            }
+
             &::placeholder {
                 color: transparent;
                 font-family: $the-futura-font;
@@ -114,6 +129,41 @@
             line-height: rem(10);
             letter-spacing: rem(0.5);
             margin-top: rem(9);
+        }
+    }
+
+    .back-in-stock-notification-button {
+        top: rem(5);
+    }
+}
+
+.back-in-stock-notification-container-main {
+
+    .updated-input-style {
+        margin-bottom: 0;
+
+        &:hover {
+
+            .form-control {
+                border-bottom: rem(2) solid $black;
+            }
+        }
+    }
+    
+    .back-in-stock-notification-form {
+        max-width: 100%;
+    }
+
+    &.input-validation-error {
+
+        .back-in-stock-notification-form {
+
+            .back-in-stock-notification-email {
+
+                &.form-control {
+                    border-color: $invalidRed;
+                }
+            }
         }
     }
 }

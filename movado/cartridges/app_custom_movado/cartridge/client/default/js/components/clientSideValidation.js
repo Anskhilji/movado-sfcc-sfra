@@ -69,6 +69,7 @@ module.exports = {
 
     submit: function () {
         $('form').on('submit', function (e) {
+            clearForm.call(this, e);
             return validateForm.call(this, e);
         });
     },

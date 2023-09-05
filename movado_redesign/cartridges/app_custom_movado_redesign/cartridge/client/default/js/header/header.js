@@ -589,3 +589,20 @@ $('.updated-input-style input').focus(function () {
         $(this).parent().removeClass('input-blur');
     }
 });
+
+setTimeout(function () {
+    $('.updated-input-style input:-webkit-autofill').each(function() {
+        $(this).closest('.updated-input-style').addClass('input-blur');
+    });
+}, 2000);
+
+setTimeout(function() {
+    // Iterate over each element with the class 'updated-input-style' within a form
+    $('form .updated-input-style').each(function() {
+        // Check if the input field within this element has a non-empty value
+        if ($(this).find('input').val().length > 0) {
+            // Add the 'input-blur' class to this element
+            $(this).addClass('input-blur');
+        }
+    });
+}, 500);
