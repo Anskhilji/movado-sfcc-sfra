@@ -3,6 +3,16 @@
     &.updated-input-style {
         position: relative;
 
+        &.input-validation-error {
+
+            &.input-blur {
+
+                .form-control-label {
+                    color: $invalidRed;
+                }
+            }
+        }
+
         &:hover {
 
             .form-control {

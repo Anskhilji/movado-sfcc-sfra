@@ -20,13 +20,6 @@
     }
 
     &-email-notification-copy {
-        // color: $mine-shaft;
-        // font-family: $font-medium;
-        // font-size: rem(17);
-        // font-weight: 300;
-        // letter-spacing: rem(1);
-        // line-height: auto;
-        // text-align: center;
         color: $black;
         font-family: $the-futura-font;
         font-size: rem(16);
@@ -100,7 +93,17 @@
 .back-in-stock-notification-container-main {
     position: relative;
 
-    .back-in-stock-notification-invalid-email {
+    &.input-validation-error {
+
+        &.input-blur {
+
+            .back-in-stock-notification-email-notification-copy {
+                color: $invalidRed;
+            }
+        }
+    }
+
+    .back-in-stock-notification-error {
         color: $invalidRed;
         font-family: $the-futura-font;
         font-size: rem(10);

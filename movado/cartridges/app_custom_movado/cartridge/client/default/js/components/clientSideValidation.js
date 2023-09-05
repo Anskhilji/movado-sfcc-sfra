@@ -31,6 +31,9 @@ function validateForm(event) {
  */
 function clearForm(form) {
     $(form).find('.form-control.is-invalid').removeClass('is-invalid');
+    if ($('.updated-input-style.input-validation-error').length > 0) {
+        $('.updated-input-style.input-validation-error').removeClass('input-validation-error');
+    }
 }
 
 module.exports = {
@@ -41,6 +44,9 @@ module.exports = {
             if (!this.validity.valid) {
                 var validationMessage = this.validationMessage;
                 $(this).addClass('is-invalid');
+                if($(this).closest('.updated-input-style').length > 0){
+                    $(this).closest('.updated-input-style').addClass('input-validation-error');
+                }
                 if (this.validity.patternMismatch && $(this).data('pattern-mismatch')) {
                     validationMessage = $(this).data('pattern-mismatch');
                 }

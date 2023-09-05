@@ -582,10 +582,18 @@ $(window).scroll(function () {
     }
   });
 
-$('form .updated-input-style').each(function (el) {
-    if ($(this).find('input').val().length > 0) {
-        $(this).addClass('input-blur');
-    }
+$(document).ready(function () {
+    setTimeout(() => {
+        $('form .updated-input-style').each(function () {
+            var a = $(this).find('input');
+            var b = $(this).find('input').val();
+            var c = $(this).find('input').val().length;
+
+            if ($(this).find('input').val().length > 0) {
+                $(this).addClass('input-blur');
+            }
+        });
+    }, 10000);
 });
 
 $('.updated-input-style input').focus(function () {
@@ -595,6 +603,3 @@ $('.updated-input-style input').focus(function () {
         $(this).parent().removeClass('input-blur');
     }
 });
-
-
-
