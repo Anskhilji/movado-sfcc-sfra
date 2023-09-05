@@ -60,6 +60,8 @@ $('.first-level-category').hover(
         var $deviceHeight = 780;
         if ($navigationHeight <= $deviceHeight) {
             $('.second-level').css('margin-bottom', '8px');
+        } else {
+            $('.second-level').css('margin-bottom', '20px');
         }
     }
 );
