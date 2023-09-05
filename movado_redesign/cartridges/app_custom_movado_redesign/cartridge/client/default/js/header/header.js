@@ -55,6 +55,14 @@ $('.first-level-category').hover(
         $(this).siblings('.second-level-sec').addClass('active');
         $(this).closest('.first-category').addClass('change-color');
         $('.second-level-sec .second-category .second-level').addClass('fadeInLeft fast animated');
+
+        var $navigationHeight = $('.desktop-slide-up').height();
+        var $deviceHeight = 780;
+        if ($navigationHeight <= $deviceHeight) {
+            $('.second-level').addClass('second-level-adjustment');
+        } else {
+            $('.second-level').removeClass('second-level-adjustment');
+        }
     }
 );
 
