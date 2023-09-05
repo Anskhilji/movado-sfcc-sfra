@@ -20,13 +20,39 @@
     }
 
     &-email-notification-copy {
-        color: $mine-shaft;
-        font-family: $font-medium;
-        font-size: rem(17);
-        font-weight: 300;
-        letter-spacing: rem(1);
-        line-height: auto;
-        text-align: center;
+        // color: $mine-shaft;
+        // font-family: $font-medium;
+        // font-size: rem(17);
+        // font-weight: 300;
+        // letter-spacing: rem(1);
+        // line-height: auto;
+        // text-align: center;
+        color: $black;
+        font-family: $the-futura-font;
+        font-size: rem(16);
+        font-style: normal;
+        font-weight: 400;
+        line-height: rem(20);
+        letter-spacing: rem(0.25);
+        position: absolute;
+        margin: 0;
+        top: rem(20);
+        transition: .4s ease all;
+        height: auto;
+    }
+
+    &-email {
+        border: 0;
+        border-bottom: rem(1) solid $black;
+        height: rem(48);
+        padding-left: 0;
+
+        &::placeholder {
+            color: transparent;
+            font-family: $the-futura-font;
+            font-size: rem(16);
+            font-weight: 400;
+        }
     }
 
     
@@ -67,6 +93,42 @@
             color: $red;
             margin: rem(5) 0;
             font-size: rem(10);
+        }
+    }
+}
+
+.back-in-stock-notification-container-main {
+    position: relative;
+
+    .back-in-stock-notification-invalid-email {
+        color: $invalidRed;
+        font-family: $the-futura-font;
+        font-size: rem(10);
+        font-style: normal;
+        font-weight: 500;
+        line-height: rem(10);
+        letter-spacing: rem(0.5);
+        margin-top: rem(9);
+    }
+
+    &:hover {
+
+        .back-in-stock-notification-email {
+            border-bottom: rem(2) solid $black;
+        }
+    }
+
+    &.input-blur {
+
+        .back-in-stock-notification-email-notification-copy {
+            top: 0;
+            color: $black;
+            font-family: $the-futura-font;
+            font-size: rem(10);
+            font-style: normal;
+            font-weight: 500;
+            line-height: rem(10);
+            letter-spacing: rem(0.5);
         }
     }
 }
