@@ -5,7 +5,7 @@
         .product-aruliden-sec {
 
             .product-gallery {
-                max-width: rem(720);
+                max-width: 50%;
                 width: 100%;
 
                 display: none;
@@ -30,6 +30,7 @@
                             margin-bottom: rem(2);
                             position: relative;
                             background: $grey-silver-light;
+                            display: unset;
 
                             img {
                                 aspect-ratio: 0.9/1;

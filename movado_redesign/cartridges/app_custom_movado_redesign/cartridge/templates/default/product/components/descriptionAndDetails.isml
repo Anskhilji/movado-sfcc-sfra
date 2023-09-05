@@ -32,30 +32,12 @@
             </div>
         </div>
 
+        
         <div class="accordion-list">
             <div class="accordion-heading  d-flex align-items-center justify-content-between collapsed" data-toggle="collapse"
                 data-target="#productReview" aria-expanded="true" aria-controls="reviews">
                 <h2 class="technical-detail-heading d-flex">
-                    <span>Reviews</span> 
-                    
-                    <div>
-                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                        <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
-                            <div class="product-number-rating clearfix">
-                                <div class="product-number d-none hidden-xs-down pull-left">
-                                    <isinclude template="product/components/productNumber" />
-                                </div>
-                                <div class="ratings pull-left">
-                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                        <isinclude template="product/components/yotpoRatings" />
-                                    </div>
-                                </div>
-                                <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
-                            </div>
-                        <iselse/>
-                            <isinclude template="product/components/pidRating" />
-                        </isif>
-                    </div>
+                    <span>Reviews</span>
                 </h2>
                 
                 <div class="plus-minus-icons">
@@ -76,29 +58,31 @@
 
             </div>
             <div class="collapse" aria-labelledby="headingOne" id="productReview">
-                <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
-                    then appropriate template should be overridden. </iscomment>
-                <isinclude template="widget/yotporeviewswidget" />
+                    <div>
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                        <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
+                            <div class="product-number-rating clearfix">
+                                <div class="product-number d-none hidden-xs-down pull-left">
+                                    <isinclude template="product/components/productNumber" />
+                                </div>
+                                <div class="ratings pull-left">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isinclude template="product/components/yotpoRatings" />
+                                    </div>
+                                </div>
+                                <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
+                            </div>
+                        <iselse/>
+                            <isinclude template="product/components/pidRating" />
+                        </isif>
+                    </div>
             </div>
         </div>
     </div>
+   
 
 
     <div class="detail-bottom-preposition d-flex justify-content-center">
-        <isif condition="${pdict.productDetailAttribute3}">
-            <div class="preposition-block product-detail-attribute-3 warranty-block">
-                <isprint value="${pdict.productDetailAttribute3}" encoding="off" />
-            </div>
-            <iselse>
-            <div class="preposition-block warranty-block">
-                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.6205 13.7985C19.4376 13.6152 19.1147 13.6152 18.9318 13.8452L15.9939 17.0183L14.5249 15.4084C14.342 15.2251 14.0191 15.1784 13.8362 15.3617L12.7797 16.3284C12.5968 16.5117 12.5501 16.8351 12.7331 17.0184L15.6262 20.1466C15.8091 20.3766 16.132 20.3766 16.3149 20.1466L20.677 15.4083C20.8599 15.2251 20.8599 14.9016 20.6304 14.7184L19.6205 13.7985Z" fill="black" />
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20.0195 30.9757C20.3876 30.6046 20.8808 30.4816 21.3115 30.6672L24.5764 31.8386C25.1923 32.0844 25.931 31.653 26.0537 30.9757L26.6696 27.5194C26.7321 27.088 27.1003 26.7168 27.5309 26.6566L30.9811 26.0396C31.6596 25.9167 32.0277 25.237 31.8424 24.5597L30.6731 21.289C30.4879 20.8576 30.6731 20.3635 30.9811 20.055L33.6301 17.8327C34.1233 17.4013 34.1233 16.5987 33.6301 16.1673L30.9811 13.945C30.6106 13.6365 30.4879 13.1424 30.6731 12.711L31.8424 9.44027C32.0878 8.82325 31.6572 8.08332 30.9811 7.96041L27.5309 7.34339C27.1002 7.28073 26.7297 6.91196 26.6696 6.48055L26.0537 3.02425C25.931 2.34454 25.2525 1.97581 24.5764 2.16141L21.3115 3.33276C20.8808 3.51835 20.3876 3.33276 20.0796 3.02425L17.8613 0.370573C17.4306 -0.123524 16.6295 -0.123524 16.1988 0.370573L13.9204 3.02425C13.6124 3.33276 13.1192 3.45568 12.6885 3.33276L9.42358 2.16141C8.80765 1.91557 8.06903 2.347 7.94634 3.02425L7.33041 6.48055C7.26785 6.91198 6.89974 7.28317 6.46909 7.34339L3.01891 7.96041C2.3404 8.08333 1.97232 8.76303 2.15759 9.44027L3.32687 12.711C3.51213 13.1424 3.32687 13.6365 3.01891 13.945L0.369918 16.1673C-0.123306 16.5987 -0.123306 17.4013 0.369918 17.8327L3.01891 20.055C3.38942 20.3635 3.51213 20.8576 3.32687 21.289L2.15759 24.5597C1.91218 25.1767 2.34285 25.9167 3.01891 26.0396L6.46909 26.6566C6.89976 26.7193 7.27029 27.088 7.33041 27.5194L7.94634 30.9757C8.06904 31.6555 8.74754 32.0242 9.42358 31.8386L12.6885 30.6672C13.1192 30.4816 13.6124 30.6672 13.9204 30.9757L16.1387 33.6294C16.5694 34.1235 17.3705 34.1235 17.8012 33.6294L20.0195 30.9757ZM16.9699 32.8586L19.1831 30.2112L19.217 30.177C19.8434 29.5454 20.8009 29.2335 21.7205 29.6101L24.9413 30.7657L25.5533 27.3348C25.6944 26.4297 26.4322 25.6779 27.349 25.5379L30.7576 24.9283C30.7591 24.9181 30.7597 24.9034 30.7567 24.8842L29.6178 21.6983C29.2178 20.7151 29.6742 19.7614 30.1811 19.2536L30.2164 19.2182L32.8606 17L30.258 14.8166L30.2559 14.8148C29.525 14.2048 29.2518 13.1995 29.6178 12.3014L30.7714 9.07477L27.3465 8.46167C26.443 8.32025 25.6926 7.58121 25.5529 6.66277L24.9443 3.24812C24.9341 3.24661 24.9195 3.24603 24.9003 3.24904L21.7201 4.38999C20.7386 4.79071 19.7866 4.33347 19.2797 3.82564L19.2444 3.79026L17.0296 1.1409L14.7504 3.79555L14.7203 3.82564C14.1107 4.43637 13.1883 4.65386 12.3785 4.42272L12.3424 4.41241L9.05873 3.23434L8.44671 6.66523C8.30554 7.57037 7.5678 8.3221 6.65097 8.46212L3.24237 9.0717C3.24087 9.08192 3.24029 9.09659 3.24329 9.11582L4.38223 12.3016C4.78224 13.2849 4.32581 14.2386 3.81888 14.7464L3.78355 14.7818L1.13938 17L3.74205 19.1834L3.74397 19.185C4.47495 19.795 4.74822 20.8005 4.38214 21.6986L3.22862 24.9252L6.6534 25.5383C7.55697 25.6797 8.30739 26.4188 8.44716 27.3373L9.05566 30.7519C9.06586 30.7534 9.0805 30.754 9.0997 30.751L12.2799 29.61C13.2614 29.2093 14.2134 29.6665 14.7203 30.1744L14.7556 30.2097L16.9699 32.8586ZM17 26.9247C11.5105 26.9247 7.06027 22.4696 7.06027 16.9674C7.06027 11.4676 11.5105 7.01249 17 7.01249C22.4897 7.01249 26.9397 11.4676 26.9397 16.9698C26.9397 22.4696 22.4895 26.9247 17 26.9247ZM8.1916 16.9674C8.1916 21.8434 12.1351 25.7914 17 25.7914C21.865 25.7914 25.8084 21.8433 25.8084 16.9698C25.8084 12.0938 21.865 8.14583 17 8.14583C12.135 8.14583 8.1916 12.0939 8.1916 16.9674Z" fill="black" />
-                </svg>
-                <p>${Resource.msg('label.product.detail.warranty', 'product', 'null')}</p>
-            </div>
-        </isif>
-
         <isif condition="${pdict.productDetailAttribute1}">
             <div class="preposition-block product-detail-attribute-1 free-shipping-block">
                 <isprint value="${pdict.productDetailAttribute1}" encoding="off" />
