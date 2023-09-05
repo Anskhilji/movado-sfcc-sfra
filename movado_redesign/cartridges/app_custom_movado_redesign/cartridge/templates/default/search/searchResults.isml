@@ -57,7 +57,7 @@
                                              </div>
                                         </div>
                                         <div class="desktop-search-refine-bar-redesing w-100">
-                                            <div class="refine-wrapper">
+                                            <div class="refinement-wrapper">
                                                 <div class="filter-btn">
                                                     <button class="filter-refinement-panel-btn" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" ><span>${Resource.msg('label.showfilter', 'search', null)}</span>
                                                         <span class="filter-icon">

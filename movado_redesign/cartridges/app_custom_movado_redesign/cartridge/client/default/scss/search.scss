@@ -436,7 +436,7 @@
       }
     }
 
-    .refine-wrapper {
+    .refine-wrapper,.refinement-wrapper {
       padding: rem(20) rem(5);
 
       @include media-breakpoint-down(sm) {
@@ -1337,7 +1337,7 @@
                     }
                 }
 
-                .refine-wrapper {
+                .refine-wrapper,.refinement-wrapper {
                     padding: rem(0);
 
                     .sort-order-menu-box {
@@ -1555,7 +1555,7 @@
         margin-top: 0;
       }
 
-      .refine-wrapper {
+      .refine-wrapper,.refinement-wrapper {
   
         .refinements {
           padding-top: rem(9);
@@ -1620,7 +1620,7 @@
       margin-top: rem(-51);
       z-index: 1024;
       
-      .refine-wrapper {
+      .refine-wrapper,.refinement-wrapper {
         padding: rem(8) rem(15) rem(8);
 
         .refinements {
@@ -1642,7 +1642,7 @@
       }
     }
 
-    .refine-wrapper {
+    .refine-wrapper,.refinement-wrapper {
       padding: rem(8) rem(0) rem(21) rem(0);
       position: relative;
 
@@ -3082,7 +3082,7 @@
               display: block;
             }
 
-            .refine-wrapper {
+            .refine-wrapper,.refinement-wrapper {
               padding: 0;
               display: flex;
               align-items: center;
