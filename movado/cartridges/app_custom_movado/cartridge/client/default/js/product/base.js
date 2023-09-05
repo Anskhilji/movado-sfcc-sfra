@@ -1960,7 +1960,15 @@ module.exports = {
                             '<div class="add-to-cart-messages"></div>'
                          );
                         }
-                        $('.minicart-quantity').html(data.totalQty);
+                        var $miniCartQuantity = $('.minicart-quantity');
+                        var $showMiniCartCounter = $('.minicart-quantity').data('counter');
+                        if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
+                            $miniCartQuantity.empty();
+                            $miniCartQuantity.removeClass('d-none').addClass('d-block');
+                        } else {
+                            $miniCartQuantity.html(data.totalQty);
+
+                        }
                         setTimeout(function () {
                             $('.add-to-basket-alert').remove();
                             if ($('.cart-page').length) {

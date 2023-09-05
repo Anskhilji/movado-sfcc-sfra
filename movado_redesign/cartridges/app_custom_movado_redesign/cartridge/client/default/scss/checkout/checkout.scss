@@ -18,6 +18,13 @@ header {
 
     .checkout-header-wrapper {
 
+        .minicart-quantity { 
+            right: rem(-3);
+            top: rem(-1);
+            width: rem(4);
+            height: rem(4);
+        }
+
         .header-left {
 
             .checkout-logo {
