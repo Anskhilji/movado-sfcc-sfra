@@ -3,7 +3,11 @@
     &-marketing-container {
     
         .checkmark {
-            left: rem(0);
+            left: 0;
+
+            @include media-breakpoint-down(sm) {
+                left: rem(30);
+            }
         }
     }
 
