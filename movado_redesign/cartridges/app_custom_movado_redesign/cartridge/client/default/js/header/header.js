@@ -576,3 +576,7 @@ var lastScrollTop = 0;
   $(window).on('beforeunload', function(){
     $(window).scrollTop(0);
   });
+
+$('.search-field-icon').on('click', function() {
+    $('.submit-search').submit();
+});

@@ -56,14 +56,14 @@
                         <div class="desktop-search show">
                             <div class="desktop-search-redesign">
                                 <div class="input-fields">
-                                    <div class="search-icon">
+                                    <div class="search-field-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M15.6092 16.6013C14.4011 17.5764 12.8661 18.1598 11.1954 18.1598C7.30133 18.1598 4.14453 14.99 4.14453 11.0799C4.14453 7.16978 7.30133 4 11.1954 4C15.0895 4 18.2463 7.16978 18.2463 11.0799C18.2463 12.7238 17.6884 14.2368 16.7522 15.4385L19.9062 18.6054C20.224 18.9245 20.224 19.4417 19.9062 19.7607C19.5885 20.0798 19.0734 20.0798 18.7557 19.7607L15.6092 16.6013ZM16.6192 10.9461C16.6192 13.9539 14.1909 16.3922 11.1954 16.3922C8.19997 16.3922 5.77166 13.9539 5.77166 10.9461C5.77166 7.9383 8.19997 5.5 11.1954 5.5C14.1909 5.5 16.6192 7.9383 16.6192 10.9461Z"
                                                 fill="white" />
                                         </svg>
                                     </div>
-                                    <form role="search" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
+                                    <form role="search" class="submit-search" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
                                         <button class="fa fa-search gtm-customEvent d-none" type="submit"
                                             data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
                                             <span class="sr-only">"${Resource.msg('label.header.search', 'common', null)}"</span>
