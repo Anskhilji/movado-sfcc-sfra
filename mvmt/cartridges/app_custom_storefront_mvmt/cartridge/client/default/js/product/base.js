@@ -871,7 +871,7 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
-    $('.formElement').on('click', function(e) {
+    $('.form-element').on('click', function(e) {
         e.preventDefault();
         var $backInStockDesktop = $('.back-in-Stock-desktop');
         var $backInStockMobile = $('.back-in-Stock-mobile');
