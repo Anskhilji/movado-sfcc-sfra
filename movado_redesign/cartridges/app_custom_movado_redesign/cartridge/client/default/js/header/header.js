@@ -596,13 +596,10 @@ setTimeout(function () {
     });
 }, 2000);
 
-setTimeout(function() {
-    // Iterate over each element with the class 'updated-input-style' within a form
-    $('form .updated-input-style').each(function() {
-        // Check if the input field within this element has a non-empty value
+$(function () {
+    $('form .updated-input-style').each(function () {
         if ($(this).find('input').val().length > 0) {
-            // Add the 'input-blur' class to this element
             $(this).addClass('input-blur');
         }
     });
-}, 500);
+});
