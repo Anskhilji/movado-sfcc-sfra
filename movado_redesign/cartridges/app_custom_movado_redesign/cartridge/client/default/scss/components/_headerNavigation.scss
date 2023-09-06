@@ -404,7 +404,7 @@
                         margin-top: rem(8);
 
                         @include media-breakpoint-down(lg) {
-                            padding: 0 0 0 rem(80);
+                            padding: 0 0 0 rem(48);
                         }
 
                         &.active {
@@ -416,6 +416,10 @@
                             padding: 0;
                             min-width: rem(200);
                             margin-top: rem(5);
+
+                            @include media-breakpoint-down(lg) {
+                                min-width: rem(190);
+                            }
 
                             .categories-image-container-second {
 
