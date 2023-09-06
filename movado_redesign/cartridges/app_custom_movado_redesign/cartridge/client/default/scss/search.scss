@@ -1054,6 +1054,16 @@
 
 .no-results-carousel {
 
+  .pdp-product-recommendation {
+
+    .cs-carousel-wrapper {
+
+      .carousel-title {
+        font-family: $movado-font;
+      }
+    }
+  }
+
   .product-tile {
     .tile-body {
       height: auto;
@@ -2512,6 +2522,13 @@
           .grid-header {
 
             .result-count {
+
+              .search-result-count {
+
+                .make-bold {
+                  font-family: $the-futura-font;
+                }
+              }
 
               @media (max-width:$custom-lg4) {
                 padding: 0;

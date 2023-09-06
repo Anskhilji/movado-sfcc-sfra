@@ -12,16 +12,16 @@
     }
 
     &-button {
-        font-family: $font-medium;
+        font-family: $movado-font;
     }
 
     &-confirmation-copy {
-        font-family: $font-medium;
+        font-family: $the-futura-font
     }
 
     &-email-notification-copy {
         color: $mine-shaft;
-        font-family: $font-medium;
+        font-family: $the-futura-font;
         font-size: rem(17);
         font-weight: 300;
         letter-spacing: rem(1);

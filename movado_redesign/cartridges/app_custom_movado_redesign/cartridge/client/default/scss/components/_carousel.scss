@@ -317,3 +317,13 @@ header {
         }
     }
 }
+
+.cs-carousel-wrapper {
+
+    &.cs-carousel-progress {
+
+        .carousel-title {
+            font-family: $movado-font;
+        }
+    }
+}
