@@ -365,7 +365,6 @@ function updateSortingRuleURL(response) {
             $(this).data('url', $($sortingURL[i]).val())
         });
     }
-
 }
 //custome: END
 
