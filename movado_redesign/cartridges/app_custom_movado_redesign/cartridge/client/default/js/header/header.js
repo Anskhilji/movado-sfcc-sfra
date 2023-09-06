@@ -297,7 +297,7 @@ function resetMenu() {
 $('.desktop-hamburger, .desktop-hamburger svg, .Menu-text').click(function () {
     $('.desktop-slide-up').addClass('desktop-slide-down');
     $('.desktop-slide-up').slideDown('300');
-    // $('.categories-image-container a, .main-category-image').removeClass('d-none');
+    $('.categories-image-container a, .main-category-image').removeClass('d-none');
     resetMenu();
     $('body, html').addClass('overflow-hide');
 
@@ -305,7 +305,7 @@ $('.desktop-hamburger, .desktop-hamburger svg, .Menu-text').click(function () {
 
 $('.desktop-slide-up .close-icons , .close-text').click(function () {
     $('.desktop-slide-up').removeClass('desktop-slide-down');
-    // $('.categories-image-container a, .main-category-image').addClass('d-none');
+    $('.categories-image-container a, .main-category-image').addClass('d-none');
     resetMenu();
     $('body, html').removeClass('overflow-hide');
 });
