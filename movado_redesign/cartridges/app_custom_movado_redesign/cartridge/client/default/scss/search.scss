@@ -1,5 +1,6 @@
 @import '~movado/search';
 @import 'vars';
+@import 'mixins';
 @import "animate.css/animate";
 @import "custom-animation";
 .plp-new-design {
@@ -106,6 +107,7 @@
       text-align: center;
       font-size:rem(15);
       @include font-book;
+      font-family: $the-futura-font;
     }
   }
 
@@ -161,6 +163,7 @@
       font-size: rem(16);
       height: rem(45);
       letter-spacing: normal;
+      font-family: $movado-font;
 
       &:hover, &:focus {
         color: $white;
@@ -433,7 +436,7 @@
       }
     }
 
-    .refine-wrapper {
+    .refine-wrapper,.refinement-wrapper {
       padding: rem(20) rem(5);
 
       @include media-breakpoint-down(sm) {
@@ -765,9 +768,7 @@
         transition: all 0.4s;
         text-decoration: none;
 
-        &:hover {
-            box-shadow: inset rem(0) rem(0) rem(0) rem(1) $black;
-        }
+        @include buttonOutline;
       }
 
       .tile-quick-view-btn {
@@ -1053,6 +1054,16 @@
 
 .no-results-carousel {
 
+  .pdp-product-recommendation {
+
+    .cs-carousel-wrapper {
+
+      .carousel-title {
+        font-family: $movado-font;
+      }
+    }
+  }
+
   .product-tile {
     .tile-body {
       height: auto;
@@ -1336,7 +1347,7 @@
                     }
                 }
 
-                .refine-wrapper {
+                .refine-wrapper,.refinement-wrapper {
                     padding: rem(0);
 
                     .sort-order-menu-box {
@@ -1554,7 +1565,7 @@
         margin-top: 0;
       }
 
-      .refine-wrapper {
+      .refine-wrapper,.refinement-wrapper {
   
         .refinements {
           padding-top: rem(9);
@@ -1619,7 +1630,7 @@
       margin-top: rem(-51);
       z-index: 1024;
       
-      .refine-wrapper {
+      .refine-wrapper,.refinement-wrapper {
         padding: rem(8) rem(15) rem(8);
 
         .refinements {
@@ -1641,7 +1652,7 @@
       }
     }
 
-    .refine-wrapper {
+    .refine-wrapper,.refinement-wrapper {
       padding: rem(8) rem(0) rem(21) rem(0);
       position: relative;
 
@@ -2245,6 +2256,33 @@
 // Custom:MSS-2347 end desktop 
 .plp-aruliden-tile {
 
+  .search-nav {
+
+    .nav-link {
+      font-family: $the-futura-font;
+    }
+  }
+
+  .selected-filters-nav {
+    
+    li {
+
+      &.filter-value {
+
+        a {
+          font-family: $the-futura-font;
+        }
+      }
+    }
+  }
+
+  &.cs-carousel-wrapper {
+
+    .cs-carousel-title {
+      font-family: $movado-font;
+    }
+  }
+
     .row {
 
         &.product-grid {
@@ -2357,9 +2395,13 @@
             }
 
             del {
-              
+
                 @include media-breakpoint-up(lg) {
                     font-size: rem(14);
+                }
+
+                .strike-through {
+                  color: $grey-suit;
                 }
             }
 
@@ -2438,6 +2480,16 @@
 
   }
 
+  .selected-filters-nav {
+
+    li {
+
+      a {
+        font-family: $the-futura-font;
+      }
+    }
+  }
+
   .search-results-sec {
 
     .search-result-desktop {
@@ -2470,6 +2522,13 @@
           .grid-header {
 
             .result-count {
+
+              .search-result-count {
+
+                .make-bold {
+                  font-family: $the-futura-font;
+                }
+              }
 
               @media (max-width:$custom-lg4) {
                 padding: 0;
@@ -3040,7 +3099,7 @@
               display: block;
             }
 
-            .refine-wrapper {
+            .refine-wrapper,.refinement-wrapper {
               padding: 0;
               display: flex;
               align-items: center;
@@ -3076,6 +3135,25 @@
                   text-transform: uppercase;
                   display: flex;
                   align-items: center;
+                  border: rem(1) solid transparent;
+                  
+                  &:hover {
+                    color: $neutrals-700;
+
+                    .filter-icon {
+
+                      svg {
+                          path {
+                            fill: $neutrals-700;
+                          }
+                      }
+                    }
+                  }
+                  
+                  &:focus {
+                    border: rem(1) dashed $black;
+                    box-shadow: none;
+                  }
 
                   @media(max-width:$custom-lg4) {
 
@@ -3124,12 +3202,32 @@
                     align-items: center;
                     cursor: pointer;
                     outline: none;
+                    border: rem(1) solid transparent;
 
                     @media(max-width:$custom-lg4) {
                     
                       span {
                         display: none;
                       }
+                    }
+
+                    &:hover {
+                      color: $neutrals-700;
+    
+                      .sort-by-icon {
+    
+                        svg {
+                            path {
+                              fill: $neutrals-700;
+                              stroke: $neutrals-700;
+                            }
+                        }
+                      }
+                    }
+                    
+                    &:focus {
+                      border: rem(1) dashed $black;
+                      box-shadow: none;
                     }
 
                     .sort-by-icon {

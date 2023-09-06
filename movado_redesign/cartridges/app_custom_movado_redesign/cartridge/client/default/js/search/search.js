@@ -57,6 +57,7 @@ function parseResults(response) {
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
+        '.refine-wrapper',
         '.refine-wrapper-sidebar',
         '.header-bar',
         '.header.page-title',
@@ -355,6 +356,17 @@ function moreFilterBtn($moreFilterBtn) {
     });
 }
  // Custom:MSS-2073 end
+
+//custome: update URL 2362
+function updateSortingRuleURL(response) {
+    var $sortingURL = $(response).find('.sorting-rule-options');
+    if ($sortingURL.length > 0) {
+        $('.sorting-rule-options-update').each(function (i) {
+            $(this).data('url', $($sortingURL[i]).val())
+        });
+    }
+}
+//custome: END
 
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
@@ -741,6 +753,7 @@ module.exports = {
                     },
                     method: 'GET',
                     success: function (response) {
+                        updateSortingRuleURL(response);
                     	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);

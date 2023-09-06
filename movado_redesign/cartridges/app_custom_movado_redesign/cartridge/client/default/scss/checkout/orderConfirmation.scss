@@ -36,3 +36,13 @@ body {
         }
     }
 }
+
+.receipt {
+    
+    .order-item-quantity {
+
+        &.grand-total-label {
+            font-family: $the-futura-font;
+        }
+    }
+}

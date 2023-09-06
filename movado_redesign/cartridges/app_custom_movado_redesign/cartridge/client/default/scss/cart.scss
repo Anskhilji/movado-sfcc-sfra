@@ -41,6 +41,13 @@
             .title {
                 font-family: $the-futura-font;
             }
+
+            .promo-code-submit {
+                
+                .promo-code-btn {
+                    border-radius: 0;
+                }
+            }
           }
         }
 
@@ -72,6 +79,7 @@
 
                 .paypal-btn, .apple-pay-cart, .google-pay-column {
                     font-family: $movado-font;
+                    border-radius: rem(120);
                 }
             }
         }

@@ -5,3 +5,35 @@ body {
 h1,h2,h3,h4,h5,h6,p,span,a {
     font-family: $font-ProximaNova;
 }
+
+a,p,span {
+    font-family: $the-futura-font;
+}
+
+.btn-primary {
+    border-radius: rem(0);
+    padding: rem(6) rem(12);
+    @include buttonFilled;
+}
+
+.btn-outline-primary,
+.btn-outline-dark {
+    border-radius: rem(0);
+    padding: rem(6) rem(12);
+    @include buttonOutline;
+
+    &:not(:disabled) {
+
+        &:not(.disabled) {
+
+            &:active {
+
+                &:focus {
+                    background-color: $black;
+                    color: $white;
+                    border-style: solid;
+                }
+            }
+        }
+    }
+}

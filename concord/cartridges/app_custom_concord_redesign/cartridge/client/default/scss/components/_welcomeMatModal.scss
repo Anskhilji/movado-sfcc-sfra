@@ -30,6 +30,13 @@
 
                     .esw-btn {
                         font-family: $font-raleway-book;
+
+                        &:focus,&:hover {
+                            background-color: $white;
+                            color: $black;
+                            outline: none;
+                            box-shadow: none;
+                        }
                     }
                 }
 

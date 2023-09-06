@@ -820,18 +820,15 @@ function handleVariantResponse(response, $productContainer) {
 
     // unslick Carousel 
     
-    if ($('.zoom-carousel').hasClass('slick-initialized')) {
+
         $('.zoom-carousel-slider').slick('unslick');
-    }
-    if ($('.zoom-carousel-slider').hasClass('slick-initialized')) {
+
+
         $('.zoom-carousel').slick('unslick');
-    }
-    if ($('.primary-images .carousel-nav').hasClass('slick-initialized')) {
+
         $('.primary-images .carousel-nav.slick-initialized').slick('unslick');
-    }
-    if ($('.primary-images .main-carousel').hasClass('slick-initialized')) {
+
         $('.primary-images .main-carousel.slick-initialized').slick('unslick');
-    }
 
 
     // Update primary images
@@ -939,10 +936,9 @@ function handleVariantResponse(response, $productContainer) {
     // intialize carousel
         initializePDPMainSlider();
         initializeSlickDots();
+        initializeZoomSlickDots();
         initializeZoomModelCarousel();
-        if (!$('.zoom-carousel').hasClass('slick-initialized')) {
-            initializeZoomSlickDots();
-        }
+
         $('.main-carousel .slick-active').addClass('slick-center');
 
     $(document).ready(function () {
@@ -1960,7 +1956,15 @@ module.exports = {
                             '<div class="add-to-cart-messages"></div>'
                          );
                         }
-                        $('.minicart-quantity').html(data.totalQty);
+                        var $miniCartQuantity = $('.minicart-quantity');
+                        var $showMiniCartCounter = $('.minicart-quantity').data('counter');
+                        if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
+                            $miniCartQuantity.empty();
+                            $miniCartQuantity.removeClass('d-none').addClass('d-block');
+                        } else {
+                            $miniCartQuantity.html(data.totalQty);
+
+                        }
                         setTimeout(function () {
                             $('.add-to-basket-alert').remove();
                             if ($('.cart-page').length) {

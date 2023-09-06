@@ -1,1 +1,14 @@
 @import "~concord/checkout/checkout";
+
+header {
+
+    .checkout-header-wrapper {
+
+        .minicart-quantity { 
+            right: rem(-3);
+            top: rem(-1);
+            width: rem(4);
+            height: rem(4);
+        }
+    }
+}

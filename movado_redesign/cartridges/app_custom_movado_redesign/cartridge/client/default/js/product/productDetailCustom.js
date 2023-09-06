@@ -506,3 +506,11 @@ function showMoreDescription() {
         return false;
     });
 }
+
+$('.back-in-stock-notification-container-main .back-in-stock-notification-email').focus(function () {
+    $('.back-in-stock-notification-container-main').addClass('input-blur');
+}).blur(function () {
+    if ($(this).val().length == 0) {
+        $('.back-in-stock-notification-container-main').removeClass('input-blur');
+    }
+});

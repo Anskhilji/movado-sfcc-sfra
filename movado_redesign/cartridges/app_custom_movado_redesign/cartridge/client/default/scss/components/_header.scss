@@ -243,8 +243,8 @@ header.new-header {
     }
 
     .minicart-quantity {
-      right: rem(-11);
-      top: rem(-6);
+      right: rem(-3);
+      top: rem(-1);
     }
   }
 
@@ -328,11 +328,11 @@ header.new-header {
           font-size: rem(16);
           @include font-medium;
           color: $grey8;
-          border-radius: 0;
+          border-radius: rem(30);
           white-space: unset;
 
           &:hover {
-            color: $white;
+            color: $black;
           }
 
           &:focus {
@@ -1488,6 +1488,18 @@ header.new-header {
           }
         }
       }
+    }
+  }
+
+  .minicart {
+
+    .popover-bottom {
+      opacity: 1;
+
+      &.mini-cart-hide {
+        opacity: 0;
+      }
+
     }
   }
 }

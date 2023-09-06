@@ -1,4 +1,11 @@
 .cs-carousel-update {
+    
+    &.cs-carousel-wrapper {
+
+        .carousel-title {
+            font-family: $movado-font;
+        }
+    }
 
     .cs-carousel {
 
@@ -307,6 +314,16 @@ header {
                     }
                 }
             }
+        }
+    }
+}
+
+.cs-carousel-wrapper {
+
+    &.cs-carousel-progress {
+
+        .carousel-title {
+            font-family: $movado-font;
         }
     }
 }

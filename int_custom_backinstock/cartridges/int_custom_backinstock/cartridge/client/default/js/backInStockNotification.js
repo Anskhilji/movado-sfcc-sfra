@@ -16,10 +16,14 @@ var processResponse = function ($selector, data) {
         if (!data.success) {
             if (!data.isValidEmail) {
                 $selector.find('.back-in-stock-notification-invalid-email').removeClass('d-none');
+                $('.back-in-stock-notification-container-main').addClass('input-validation-error');
+                
             } else if (data.isAlreadySubscribed) {
                 $selector.find('.back-in-stock-notification-already-subscribed').removeClass("d-none");
+                $('.back-in-stock-notification-container-main').addClass('input-validation-error');
             } else {
                 $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
+                $('.back-in-stock-notification-container-main').addClass('input-validation-error');
             }
         }
     }

@@ -14,4 +14,14 @@ body {
     .hidden-xs-down {
         font-family: $movado-font;
     }
+
+    .form-group {
+
+        .oauth-google,.oauth-facebook {
+            
+            @include media-breakpoint-down(md) {
+                font-size: rem(14);
+            }
+        }
+    }
 }

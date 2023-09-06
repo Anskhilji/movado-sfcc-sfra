@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import '~movad_redesign/global';
 @import "~concord/global";
+@import 'mixins';
 @import 'vars';
 @import "components/common";
 @import 'components/buttons';
@@ -22,3 +23,4 @@
 @import "components/productTiles";
 @import "bootstrapOverrides";
 @import "components/carousel";
+@import "components/pricing";
