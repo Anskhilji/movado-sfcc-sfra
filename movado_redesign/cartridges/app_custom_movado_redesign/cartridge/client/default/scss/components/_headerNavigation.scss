@@ -403,6 +403,10 @@
                         display: none;
                         margin-top: rem(8);
 
+                        @media (max-width:$container-1366) {
+                            padding: 0 0 0 rem(80);
+                        }
+
                         @include media-breakpoint-down(lg) {
                             padding: 0 0 0 rem(48);
                         }
