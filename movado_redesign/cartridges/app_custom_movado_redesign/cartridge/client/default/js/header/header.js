@@ -594,7 +594,7 @@ setTimeout(function () {
     $('.updated-input-style input:-webkit-autofill').each(function() {
         $(this).closest('.updated-input-style').addClass('input-blur');
     });
-}, 2000);
+}, 1000);
 
 $(function () {
     $('form .updated-input-style').each(function () {
