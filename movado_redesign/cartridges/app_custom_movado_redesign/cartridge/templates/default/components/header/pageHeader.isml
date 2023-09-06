@@ -63,7 +63,7 @@
                                                 fill="white" />
                                         </svg>
                                     </div>
-                                    <form role="search" class="submit-search" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
+                                    <form role="search" action="${URLUtils.url('Search-Show')}" method="get" name="search">
                                         <button class="fa fa-search gtm-customEvent d-none" type="submit"
                                             data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
                                             <span class="sr-only">"${Resource.msg('label.header.search', 'common', null)}"</span>

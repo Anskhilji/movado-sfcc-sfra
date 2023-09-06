@@ -578,5 +578,5 @@ var lastScrollTop = 0;
   });
 
 $('.search-field-icon').on('click', function() {
-    $('.submit-search').submit();
+    $("form[name='search']").submit();
 });
