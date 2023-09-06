@@ -597,3 +597,17 @@ $('.updated-input-style input').focus(function () {
         $(this).parent().removeClass('input-blur');
     }
 });
+
+setTimeout(function () {
+    $('.updated-input-style input:-webkit-autofill').each(function() {
+        $(this).closest('.updated-input-style').addClass('input-blur');
+    });
+}, 1000);
+
+$(function () {
+    $('form .updated-input-style').each(function () {
+        if ($(this).find('input').val().length > 0) {
+            $(this).addClass('input-blur');
+        }
+    });
+});

@@ -51,6 +51,10 @@ header {
                     .btn {
                         font-family: $font-HelveticaNeueLT-medium;
                         border-radius: 0;
+
+                        &:hover {
+                            color: $white;
+                        }
                     }
                 }
             }
