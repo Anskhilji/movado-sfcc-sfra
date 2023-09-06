@@ -338,11 +338,7 @@ $('.second-level').hover(
         $(this).addClass('active');
         $('.categories-image-container-second').removeClass('active-image');
 
-        $('.second-level.active').next('div').each(function (i) {
-            if (i==0) {
-                $(this).addClass('active-image');
-            }
-        });
+        $('.second-level.active + div:first').addClass('active-image');
         
         var $childCategoryId = $(this).data('category-id');
 
