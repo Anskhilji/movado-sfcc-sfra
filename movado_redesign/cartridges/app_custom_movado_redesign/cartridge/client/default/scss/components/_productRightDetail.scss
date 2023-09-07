@@ -30,6 +30,10 @@
                 margin-top: rem(87);
                 box-shadow: none;
 
+                @media (min-width:$custom-xlg) {
+                    max-width: rem(620);
+                }
+
                 @include media-breakpoint-down(md) {
                     padding: rem(0) rem(15);
                     max-width: rem(390);
@@ -174,6 +178,11 @@
                     margin-top: rem(27) 0 rem(83);
                     display: block;
 
+                    @media (min-width:$custom-xlg) {
+                        max-width: rem(480);
+                        margin: 0 auto;
+                    }
+
                     @include media-breakpoint-down(sm) {
                         margin: rem(32) 0 rem(48);
                     }
@@ -217,8 +226,24 @@
                     width: 100%;
                     margin: rem(29) auto 0 auto;
 
+                    @media (min-width:$custom-xlg) {
+                        max-width: 100%;
+                        width: 100%;
+                    }
+
                     .cart-and-ipay {
                         margin-bottom: rem(12);
+
+                        @media (min-width:$custom-xlg) {
+                            width: 100%;
+                        }
+
+                        .cta-add-to-cart {
+                            
+                            @media (min-width:$custom-xlg) {
+                                width: 100%;
+                            }
+                        }
 
                         .add-to-cart {
                             width: 100%;

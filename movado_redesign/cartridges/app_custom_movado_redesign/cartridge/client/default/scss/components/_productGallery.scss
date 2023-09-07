@@ -15,11 +15,8 @@
                 }
 
                 @include media-breakpoint-down(lg) {
-                    max-width: rem(480);
-                }
-
-                @include media-breakpoint-down(md) {
-                    max-width: rem(345);
+                    max-width: 50%;
+                    width: 50%;
                 }
 
                 .gallery {
