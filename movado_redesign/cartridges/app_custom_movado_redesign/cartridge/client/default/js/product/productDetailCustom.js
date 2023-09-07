@@ -471,9 +471,9 @@ $(document).ready(function () {
             }
         }
     }
-
+    
+    showMoreDescription();
 });
-showMoreDescription();
 
 function countNumberOfLines() {
     var $productDescription = $('.product-aruliden-sec .product-description p');
