@@ -1601,6 +1601,13 @@
               @include media-breakpoint-down(sm) {
                   padding-bottom: rem(0);
               }
+              
+              .count-sec {
+                  @include media-breakpoint-down(xs) {
+                      max-width: rem(100);
+                      width: 100%;
+                  }
+              }
           }
       }
   }
@@ -2475,6 +2482,14 @@
 
             .result-count {
 
+              .count-sec {
+
+                  @include media-breakpoint-down(xs) {
+                      max-width: rem(100);
+                      width: 100%;
+                  }
+              }
+
               @media (max-width:$custom-lg4) {
                 padding: 0;
 
@@ -2492,6 +2507,7 @@
 
                   @media (max-width:$custom-sm14) {
                     font-size: rem(13);
+                    margin-bottom: rem(-3);
                   }
                 }
 
