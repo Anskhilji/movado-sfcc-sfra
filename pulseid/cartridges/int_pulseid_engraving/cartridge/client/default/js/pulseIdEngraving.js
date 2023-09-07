@@ -1,5 +1,7 @@
 'use strict';
-var profanityfinder = require('./findprofanity');
+
+var Filter = require('@shopmacher/bad-words')
+var profanityFilter = new Filter();
 
 $('.pdp-v-one [pd-popup-open]').on('click', function (e) {
     var $engravingInputOne = $('.engraving-input-one').val();
@@ -157,7 +159,6 @@ $(document).mouseup(function (e) {
 
 $('.preview-btn').click(function (e) {
     var $clicked = e.target.closest('.preview-btn');
-    var findprofanity = profanityfinder.findprofanity;
 
     if (!$clicked) return;
     if ($clicked) {
@@ -201,11 +202,11 @@ $('.preview-btn').click(function (e) {
 
             if ($EngravingoptionTextone || $EngravingoptionTextTwo) {
                 if ($EngravingoptionTextone) {
-                    profaneTextOne = findprofanity($EngravingoptionTextone);
+                    profaneTextOne = profanityFilter.isProfane($EngravingoptionTextone);                    
                 }
 
                 if ($EngravingoptionTextTwo) {
-                    profaneTextTwo = findprofanity($EngravingoptionTextTwo);
+                    profaneTextTwo = profanityFilter.isProfane($EngravingoptionTextTwo);
                 }
             }
 
