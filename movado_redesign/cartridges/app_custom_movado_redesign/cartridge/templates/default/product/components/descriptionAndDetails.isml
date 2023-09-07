@@ -37,7 +37,9 @@
             <div class="accordion-heading  d-flex align-items-center justify-content-between collapsed" data-toggle="collapse"
                 data-target="#productReview" aria-expanded="true" aria-controls="reviews">
                 <h2 class="technical-detail-heading d-flex">
-                    <span>Reviews</span>
+                    <span>
+                        ${Resource.msg('product.yotpo.reviews', 'product', null)}
+                    </span>
                 </h2>
                 <div class="plus-minus-icons">
                     <div class="icon-minus">
