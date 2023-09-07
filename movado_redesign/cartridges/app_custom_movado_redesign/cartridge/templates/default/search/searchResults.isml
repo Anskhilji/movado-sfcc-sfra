@@ -28,7 +28,7 @@
                                         <div id="product-search-results">
                                             <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                 <div class="row m-0 grid-header">
-                                                    <div class="result-count">
+                                                    <div class="result-count search-count">
                                             <iselse>
                                                 <div class="row m-0 grid-header results-count justify-content-start">
                                                     <div class="result-count col">
