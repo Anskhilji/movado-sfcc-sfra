@@ -101,6 +101,54 @@
             }
         }
     }
+   
+    .product-tile {
+        background: $white;
+
+        .promotions, .plp-promotions {
+           
+            .callout.promo-msg {
+                font-family: $font-HelveticaNeueLT-medium;
+                color: $dark-blue2;
+            }
+        }
+
+        .out-of-stock, .pre-order {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+
+        .plp-botton-text {
+
+            .pre-order-text {
+                font-family: $font-HelveticaNeueLT-book;
+            } 
+        }
+
+        .new-product {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+
+        .tile-body {
+
+            .price {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+
+            .product-name {
+                font-family: $font-HelveticaNeueLT;
+            }
+
+            .tile-detail-btn {
+                font-family: $font-HelveticaNeueLT-medium;
+                @include buttonOutline;
+            }
+
+            .tile-discription, .product-not-available-msg {  
+                font-family: $font-HelveticaNeueLT-book;
+                max-height: rem(36);
+            }
+        }
+    }
 
     .hovered-tile {
 
@@ -161,16 +209,6 @@
     @media(max-width:$custom-lg4) {
       padding: 0 rem(24);
   
-    }
-  
-    .selected-filters-nav {
-  
-      li {
-  
-        a {
-          font-family: $the-futura-font;
-        }
-      }
     }
 
     .search-results-sec {
