@@ -33,13 +33,14 @@
         </div>
 
         
-        <div class="accordion-list">
+        <div class="accordion-list yotpo-accordion-section">
             <div class="accordion-heading  d-flex align-items-center justify-content-between collapsed" data-toggle="collapse"
                 data-target="#productReview" aria-expanded="true" aria-controls="reviews">
                 <h2 class="technical-detail-heading d-flex">
-                    <span>Reviews</span>
+                    <span>
+                        ${Resource.msg('product.yotpo.reviews', 'product', null)}
+                    </span>
                 </h2>
-                
                 <div class="plus-minus-icons">
                     <div class="icon-minus">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,32 +56,16 @@
                         </svg>
                     </div>
                 </div>
-
             </div>
             <div class="collapse" aria-labelledby="headingOne" id="productReview">
                     <div>
-                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                        <isset name="yotpoReviews" value="${JSON.parse(product.yotpoReviewsCustomAttribute)}" scope="page" />
-                            <div class="product-number-rating clearfix">
-                                <div class="product-number d-none hidden-xs-down pull-left">
-                                    <isinclude template="product/components/productNumber" />
-                                </div>
-                                <div class="ratings pull-left">
-                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                        <isinclude template="product/components/yotpoRatings" />
-                                    </div>
-                                </div>
-                                <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
-                            </div>
-                        <iselse/>
-                            <isinclude template="product/components/pidRating" />
-                        </isif>
+                        <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
+                        then appropriate template should be overridden. </iscomment>
+                        <isinclude template="widget/yotporeviewswidget" />
                     </div>
             </div>
         </div>
     </div>
-   
-
 
     <div class="detail-bottom-preposition d-flex justify-content-center">
         <isif condition="${pdict.productDetailAttribute1}">
