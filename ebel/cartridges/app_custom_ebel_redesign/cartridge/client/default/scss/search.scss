@@ -101,68 +101,24 @@
             }
         }
     }
-   
-    .product-tile {
-        background: $white;
 
-        .promotions, .plp-promotions {
-           
-            .callout.promo-msg {
-                font-family: $font-HelveticaNeueLT-medium;
-                color: $dark-blue2;
-            }
-        }
+    .hovered-tile {
 
-        .out-of-stock, .pre-order {
-            font-family: $font-HelveticaNeueLT-medium;
-        }
+      .tile-btns {
 
-        .plp-botton-text {
+        .product-detail {
 
-            .pre-order-text {
+          .cart-and-ipay {
+
+            >div {
+
+              .plpToCart {
                 font-family: $font-HelveticaNeueLT-book;
-            } 
+              }
+            }
+          }
         }
-
-        .new-product {
-            font-family: $font-HelveticaNeueLT-medium;
-        }
-
-        .tile-body {
-
-            .price {
-                font-family: $font-HelveticaNeueLT-book;
-            }
-
-            .product-name {
-                font-family: $font-HelveticaNeueLT;
-            }
-
-            .tile-detail-btn {
-                font-family: $font-HelveticaNeueLT-medium;
-                @include buttonOutline;
-            }
-
-            .tile-discription, .product-not-available-msg {  
-                font-family: $font-HelveticaNeueLT-book;
-                max-height: rem(36);
-            }
-        }
-    }
-
-    .filter-box {
-
-        &.filter-bar-sticky {
-            top: rem(98);
-            z-index: 800;
-            @include media-breakpoint-down(md) {
-                top: rem(60); 
-            }
-
-            @include media-breakpoint-down(sm) {
-                top: rem(44); 
-            }
-        }
+      }
     }
 }
 
@@ -197,3 +153,103 @@
     min-width: rem(64.05);
     min-height: rem(19);
 }
+
+.search-results-updated {
+    height: rem(80);
+    padding: 0 rem(40);
+  
+    @media(max-width:$custom-lg4) {
+      padding: 0 rem(24);
+  
+    }
+  
+    .selected-filters-nav {
+  
+      li {
+  
+        a {
+          font-family: $the-futura-font;
+        }
+      }
+    }
+
+    .search-results-sec {
+
+      .search-result-desktop {
+
+        .left-sec {
+
+          .filter-and-count {
+
+            .grid-header {
+
+              .result-count {
+
+                @media (max-width:$custom-lg4) {
+
+                  .mobile-category-name {
+                    color: $light-black;
+                  }
+
+                  span {
+                    color: $dark-gray;
+                  }
+                }
+
+                > .d-none {
+
+                    label {
+                    color: $light-black;
+                  }
+
+                  span {
+                    color: $dark-gray;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .right-sec {
+
+          .filter-box {
+
+            &.filter-bar-sticky {
+
+              .filter-and-count {
+
+                .grid-header {
+
+                  .result-count {
+
+                    @media (max-width:$custom-lg4) {
+
+                      .mobile-category-name {
+                        color: $light-black;
+                      }
+
+                      span {
+                        color: $dark-gray;
+                      }
+                    }
+
+                    > .d-none {
+
+                      label {
+                        color: $light-black;
+                      }
+
+                      span {
+                        color: $dark-gray;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
