@@ -1,6 +1,6 @@
 'use strict';
 
-var Filter = require('@shopmacher/bad-words')
+var Filter = require('@shopmacher/bad-words');
 var profanityFilter = new Filter();
 
 $('.pdp-v-one [pd-popup-open]').on('click', function (e) {
