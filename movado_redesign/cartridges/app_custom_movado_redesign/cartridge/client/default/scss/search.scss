@@ -3004,6 +3004,21 @@
                       margin: 0;
                     }
                   }
+
+                  &.search-count {
+                      margin-top: rem(15);
+    
+                      @include media-breakpoint-down(sm) {
+                          margin-top: rem(18);
+                          color: $black;
+                      }
+    
+                      span {
+                          @include media-breakpoint-down(sm) {
+                              color: $black;
+                          }
+                      }
+                  }
                   
 
                   > .d-none {
