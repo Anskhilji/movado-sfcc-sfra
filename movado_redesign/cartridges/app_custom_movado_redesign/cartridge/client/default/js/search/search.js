@@ -371,7 +371,12 @@ function updateSortingRuleURL(response) {
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
-    var screenWidth = 0;
+    var screenWidth = 130;
+
+    //  this var use for mobile scree 
+    if (window.innerWidth <= 1200) {
+        screenWidth = 60;
+    } 
 
     if (scroll > screenWidth) {
        $('.filter-box').addClass('filter-bar-sticky');
