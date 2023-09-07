@@ -193,6 +193,6 @@ function refreshAffirmUI() {
     }
 }
 
-$('.addToCartModal ').on('click',function () {
+$('.addToCartModal').on('click',function () {
     $('body').removeClass('remove-overflow');
 });

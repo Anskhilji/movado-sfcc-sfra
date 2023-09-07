@@ -484,8 +484,8 @@ function countNumberOfLines() {
 }
 
 function splitLastOccurrence(str, substring) {
-    var lastIndex = str.lastIndexOf(substring);
-    var $firstLine = str.slice(0, lastIndex);
+    var $lastIndex = str.lastIndexOf(substring);
+    var $firstLine = str.slice(0, $lastIndex);
     return $firstLine;
   }
 
