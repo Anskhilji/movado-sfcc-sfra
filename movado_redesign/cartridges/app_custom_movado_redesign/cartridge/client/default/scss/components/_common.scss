@@ -3,6 +3,12 @@
     font-family: $movado-font;
 }
 
+@include media-breakpoint-down(sm) {
+    .heading-one {
+        font-size: rem(20);
+    }
+}
+
 .body-text {
     font-family: $the-futura-font;
 }
