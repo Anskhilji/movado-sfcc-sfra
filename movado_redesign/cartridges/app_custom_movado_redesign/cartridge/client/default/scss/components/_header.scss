@@ -1466,6 +1466,12 @@ header.new-header {
 
                 .btn {
                   font-family: $movado-font;
+
+                  &:focus {
+                    background-color: $light-black2;
+                    border-color: $light-black2;
+                    color: $white;
+                  }
                 }
               }
             }

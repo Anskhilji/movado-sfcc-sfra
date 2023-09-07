@@ -29,9 +29,10 @@ a,p,span {
             &:active {
 
                 &:focus {
-                    background-color: transparent;
-                    color: $black;
-                    border-style: dashed;
+                    background-color: $light-black2;
+                    color: $white;
+                    border-style: none;
+                    box-shadow: none;
                 }
             }
         }

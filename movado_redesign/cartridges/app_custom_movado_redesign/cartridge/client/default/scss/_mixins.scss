@@ -7,15 +7,31 @@
     }
     
     &:focus {
-        border: rem(1) dashed $white;
+        background: transparent;
+        border: rem(1) solid $light-black2;
+        color: $light-black2;
         box-shadow: none;
-        background: $black;
-        color: $white;
     }
 
     &:has(> a) a {
         box-shadow: none;
         outline: none;
+    }
+
+    &:not(:disabled) {
+
+        &:not(.disabled) {
+
+            &:active {
+
+                &:focus {
+                    background-color: transparent;
+                    color: $light-black2;
+                    border-style: none;
+                    border-color: $light-black2;
+                }
+            }
+        }
     }
 }
 
@@ -26,10 +42,14 @@
         box-shadow: inset rem(0) rem(0) rem(0) rem(1) $black;
         background-color: transparent;
         color: $black;
+        border-color: $black;
     }
     
     &:focus,:active {
-        border-style: dashed;
+        background: $light-black2;
+        box-shadow: none;
+        color: $white;
+        border-color: $light-black2;
         box-shadow: none;
     }
 

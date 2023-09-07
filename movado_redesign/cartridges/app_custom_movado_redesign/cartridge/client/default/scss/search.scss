@@ -2262,6 +2262,27 @@
 
 // Custom:MSS-2347 end desktop 
 .plp-aruliden-tile {
+  
+  .plp-show-more {
+
+    .btn {
+
+      &.btn-outline-primary {
+
+        &:hover {
+          background-color: transparent;
+          color: $black;
+          border: rem(2) solid $black;
+        }
+
+        &:focus,&:active {
+          background-color: $light-black2;
+          border: rem(1) solid $light-black2;
+          color: $white;
+        }
+      }
+    }
+  }
 
   .search-nav {
 
