@@ -20,7 +20,7 @@ function processAdyenCancelledOrders(param) {
     var success = param.successCode;
 
 
-    var queryString = "custom.eventCode LIKE '" + eventCode + "' AND custom.success LIKE '" + success +"'";
+    var queryString = "custom.eventCode = '" + eventCode + "' AND custom.success = '" + success +"'";
 
     var searchQuery = CustomObjectMgr.queryCustomObjects('adyenNotification', queryString , null);
 
