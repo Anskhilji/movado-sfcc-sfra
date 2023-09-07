@@ -479,39 +479,35 @@ function countNumberOfLines() {
     var $productDescription = $('.product-aruliden-sec .product-description p');
     var $divHeight = $productDescription.height();
     var $lineHeight = parseInt($productDescription.css('line-height'), 10);
-    var numberOfLines = Math.round($divHeight / $lineHeight);
-    return numberOfLines;
+    var $numberOfLines = Math.round($divHeight / $lineHeight);
+    return $numberOfLines;
 }
 
 // Custom Start: [MSS-2360 To Show/Hide More Short Description on PDP]
 function showMoreDescription() {
-
-
-    var numberOfLines = countNumberOfLines();
-
-    var moretext = ' Read More';
-    var lesstext = ' show less';
+    var $numberOfLines = countNumberOfLines();
+    var $moreText = ' Read More';
+    var $lessText = ' show less';
     $('.product-aruliden-sec .product-description p').each(function() {
         var $content = $(this).html();
-        if(numberOfLines > 4) {
-            var $splittedDescriptionHTML = $content.split("<br>");
-            var firstLine = $splittedDescriptionHTML[0];
-            var charLenght = firstLine;
+        if($numberOfLines > 4) {
+            var $splittedDescriptionHTML = $content.split(/[.]/);
+            var $firstLine = $splittedDescriptionHTML[0];
             $splittedDescriptionHTML.shift();
-            var $html = '<span class="first-line">' + charLenght + '</span>' + '<span style="display:none" class="morecontent-wrapper"><span>' + $content + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a></div>';
+            var $html = '<span class="first-line">' + $firstLine + '</span>' + '<span style="display:none" class="morecontent-wrapper"><span>' + $content + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + $moreText + '</a></div>';
             $(this).html($html);
         }
     });
     $('.morelink-wrapper').on('click',function() {
         if($(this).hasClass('less')) {
             $(this).removeClass('less');
-            $(this).html(moretext);
+            $(this).html($moreText);
             $('.morelink-wrapper').css('margin-left','4px');
             $('.morecontent-wrapper').css('display','none');
             $('.first-line').css('display', 'inline');
         } else {
             $(this).addClass('less');
-            $(this).html(lesstext);
+            $(this).html($lessText);
             $('.morelink-wrapper').css('margin-left','4px');
             $('.morecontent-wrapper').css('display','inline');
             $('.first-line').css('display', 'none');
