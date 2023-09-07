@@ -41,7 +41,7 @@ function processAdyenCancelledOrders(param) {
     
             order = resultHandler.Order;
             orderID = customObject.custom.orderId.split('-', 1)[0];
-            if (resultHandler.status || resultHandler.status === 'SUCCESS' && order.custom.canceledViaAdyenHook == false) {   
+            if (!empty(order) && resultHandler.status || resultHandler.status === 'SUCCESS' && order.custom.canceledViaAdyenHook == false) {   
                 var sendMail = true;
                 var isJob = true;
                 var refundResponse = hooksHelper(
