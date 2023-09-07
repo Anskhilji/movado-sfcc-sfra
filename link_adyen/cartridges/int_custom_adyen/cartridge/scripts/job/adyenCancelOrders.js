@@ -15,7 +15,14 @@ function processAdyenCancelledOrders(param) {
     var orderStatusHelper = require('*/cartridge/scripts/lib/orderStatusHelper');
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
-    var searchQuery = CustomObjectMgr.queryCustomObjects('adyenNotification', "custom.eventCode = 'CANCELLATION'", null);
+
+    var eventCode = param.eventCode;
+    var success = param.successCode;
+
+
+    var queryString = "custom.eventCode LIKE '" + eventCode + "' AND custom.success LIKE '" + success +"'";
+
+    var searchQuery = CustomObjectMgr.queryCustomObjects('adyenNotification', queryString , null);
 
     Logger.info('Process notifications start with count {0}', searchQuery.count);
 
