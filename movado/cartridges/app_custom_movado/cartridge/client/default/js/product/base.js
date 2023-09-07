@@ -1780,6 +1780,7 @@ module.exports = {
     addToCart: function () {
         $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
             var $this = $(this);
+            $('body').addClass('remove-overflow');
             if (!$(this).data('plp-addtocart')) {
                 if (!$(this).data('pdp-product-set')) {
                     var clydeWidgets = Resources.CLYDE_WIDGET_ENABLED;

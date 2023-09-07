@@ -483,17 +483,28 @@ function countNumberOfLines() {
     return $numberOfLines;
 }
 
+function splitLastOccurrence(str, substring) {
+    var $lastIndex = str.lastIndexOf(substring);
+    var $firstLine = str.slice(0, $lastIndex);
+    return $firstLine;
+  }
+
 // Custom Start: [MSS-2360 To Show/Hide More Short Description on PDP]
 function showMoreDescription() {
     var $numberOfLines = countNumberOfLines();
     var $moreText = ' Read More';
     var $lessText = ' show less';
+
+    var $showChar = 245;  // Characters that are shown by default
+    if(window.innerWidth <= 544) {
+        $showChar = 175;  // Characters that are shown by default
+    }
+
     $('.product-aruliden-sec .product-description p').each(function() {
         var $content = $(this).html();
         if($numberOfLines > 4) {
-            var $splittedDescriptionHTML = $content.split(/[.]/);
-            var $firstLine = $splittedDescriptionHTML[0];
-            $splittedDescriptionHTML.shift();
+            var $charLenght = $content.substr(0, $showChar);
+            var $firstLine = splitLastOccurrence($charLenght, ".");
             var $html = '<span class="first-line">' + $firstLine + '</span>' + '<span style="display:none" class="morecontent-wrapper"><span>' + $content + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + $moreText + '</a></div>';
             $(this).html($html);
         }

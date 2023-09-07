@@ -12,6 +12,10 @@
                 line-height: rem(18);
                 letter-spacing: rem(0.25);
                 margin-bottom: 0;
+
+                span {
+                    font-family: $movado-font; 
+                }
             }
 
             .technical-detail {
