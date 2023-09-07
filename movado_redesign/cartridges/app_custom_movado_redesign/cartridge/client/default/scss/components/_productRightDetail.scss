@@ -226,24 +226,8 @@
                     width: 100%;
                     margin: rem(29) auto 0 auto;
 
-                    @media (min-width:$custom-xlg) {
-                        max-width: 100%;
-                        width: 100%;
-                    }
-
                     .cart-and-ipay {
                         margin-bottom: rem(12);
-
-                        @media (min-width:$custom-xlg) {
-                            width: 100%;
-                        }
-
-                        .cta-add-to-cart {
-                            
-                            @media (min-width:$custom-xlg) {
-                                width: 100%;
-                            }
-                        }
 
                         .add-to-cart {
                             width: 100%;
