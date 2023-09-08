@@ -4,11 +4,75 @@ header {
 
     .checkout-header-wrapper {
 
-        .minicart-quantity { 
+        .minicart-quantity {
             right: rem(-3);
             top: rem(-1);
             width: rem(4);
             height: rem(4);
+        }
+    }
+}
+
+.data-checkout-stage {
+
+    .order-total-summary {
+
+        .leading-lines {
+
+            .end-lines {
+
+                p {
+
+                    &.text-right {
+
+                        span {
+                            font-family: $font-HelveticaNeueLT-medium;
+                        }
+                    }
+                }
+            }
+
+            .start-lines {
+
+                .order-receipt-label {
+                    font-family: $font-HelveticaNeueLT-medium;
+
+                    span {
+                        font-family: $font-HelveticaNeueLT-medium;
+                    }
+                }
+            }
+
+            &.leading-lines-wrapper {
+
+                .order-label-wrapper {
+                    font-family: $font-HelveticaNeueLT-medium;
+
+                    span {
+                        font-family: $font-HelveticaNeueLT-medium;
+                    }
+                }
+            }
+        }
+
+
+
+    }
+
+    .order-product-summary {
+
+        .product-summary-block {
+
+            .product-line-item {
+
+                .line-item-name {
+                    font-family: $font-HelveticaNeueLT-medium;
+
+                    span {
+                        font-family: $font-HelveticaNeueLT-medium;
+                    }
+                }
+            }
         }
     }
 }
