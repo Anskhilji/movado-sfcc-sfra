@@ -1,11 +1,11 @@
 <isset name="inStock" value="${Resource.msg('label.instock', 'common', null)}" scope="page" />
 <isset name="preOrder" value="${Resource.msg('info.product.availability.preorder', 'common', null)}" scope="page" />
 <isset name="backOrder" value="${Resource.msg('info.product.availability.backorder', 'common', null)}" scope="page" />
+<isset name="outOfStock" value="${Resource.msg('label.not.available', 'common', null)}" scope="page" />
 <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
 <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
 <isinclude template="/components/modules" sf-toolkit="off" />
-
 <iscomment>Updated the bootstrap classes, new classes added</iscomment>
 <div class="row">
     <iscomment> <div class="col-12 col-sm-4">
@@ -27,13 +27,19 @@
                                         <iscontentasset aid="ca-low-stock-message" />
                                     </span>
                                 <iselse/>
-                                    <span class="availability-msg-text low-stock-message">${message}</span>
+                                    <isif condition="${message === outOfStock}">
+                                        <span class="availability-msg-text low-stock-message">${message}</span>
+                                    </isif>
                                 </isif> 
                             <iselse/>
-                                <span class="availability-msg-text low-stock-message">${message}</span>
+                                <isif condition="${message === outOfStock}">
+                                    <span class="availability-msg-text low-stock-message">${message}</span>
+                                </isif>
                             </isif>
                         <iselse/>
-                            <span class="availability-msg-text low-stock-message">${message}</span>
+                            <isif condition="${message === outOfStock}">
+                                <span class="availability-msg-text low-stock-message">${message}</span>
+                            </isif>
                         </isif>
                     </isloop>
                     <isif condition="${!(product.productATSValue <= lowStockThreshold) && (product.available && product.readyToOrder)}">

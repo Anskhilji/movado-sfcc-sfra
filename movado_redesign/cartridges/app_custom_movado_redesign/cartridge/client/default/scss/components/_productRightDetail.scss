@@ -185,6 +185,7 @@
                     @media (min-width:$custom-xlg) {
                         max-width: rem(480);
                         margin: 0 auto;
+                        margin-bottom: rem(40);
                     }
 
                     @include media-breakpoint-down(sm) {
@@ -215,6 +216,11 @@
                 }
 
                 .pdp-clyde {
+
+                    @media (min-width:$custom-xlg) {
+                        max-width: rem(408);
+                        margin: 0 auto;
+                    }
 
                     .clyde-widget {
                         max-width: 100%;
@@ -403,10 +409,6 @@
                         font-weight: 400;
                         letter-spacing: normal;
                         line-height: rem(13.8);
-
-                        .low-stock-message,> div {
-                            display: none;
-                        }
 
                         &-text {
                             
