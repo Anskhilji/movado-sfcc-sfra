@@ -1,7 +1,15 @@
 .product-card-wrapper {
     
     .line-item-name {
-        font-family: $font-HelveticaNeueLT-medium;  
+        font-family: $font-HelveticaNeueLT-medium;
+
+        a {
+            font-family: $font-HelveticaNeueLT-medium;
+
+            span {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
     }
 
     .item-info {
@@ -9,11 +17,21 @@
         .item-attributes {
 
             .total-amount {
-                font-family: $font-HelveticaNeueLT-medium;  
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+
+            .edit-add-to-wishlist {
+
+                .product-edit {
+  
+                    .move {
+                        font-family: $font-HelveticaNeueLT-book;
+                    }
+                }
             }
             
             .model-name, .original-price, .savings {
-                font-family: $font-HelveticaNeueLT-medium;  
+                font-family: $font-HelveticaNeueLT-medium;
             }
     
             .personalize-msg, .personalize-price {
