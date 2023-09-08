@@ -150,19 +150,23 @@
         }
     }
 
-    .filter-box {
+    .hovered-tile {
 
-        &.filter-bar-sticky {
-            top: rem(98);
-            z-index: 800;
-            @include media-breakpoint-down(md) {
-                top: rem(60); 
-            }
+      .tile-btns {
 
-            @include media-breakpoint-down(sm) {
-                top: rem(44); 
+        .product-detail {
+
+          .cart-and-ipay {
+
+            >div {
+
+              .plpToCart {
+                font-family: $font-HelveticaNeueLT-book;
+              }
             }
+          }
         }
+      }
     }
 }
 
@@ -197,3 +201,93 @@
     min-width: rem(64.05);
     min-height: rem(19);
 }
+
+.search-results-updated {
+    height: rem(80);
+    padding: 0 rem(40);
+  
+    @media(max-width:$custom-lg4) {
+      padding: 0 rem(24);
+  
+    }
+
+    .search-results-sec {
+
+      .search-result-desktop {
+
+        .left-sec {
+
+          .filter-and-count {
+
+            .grid-header {
+
+              .result-count {
+
+                @media (max-width:$custom-lg4) {
+
+                  .mobile-category-name {
+                    color: $light-black;
+                  }
+
+                  span {
+                    color: $dark-gray;
+                  }
+                }
+
+                > .d-none {
+
+                    label {
+                    color: $light-black;
+                  }
+
+                  span {
+                    color: $dark-gray;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .right-sec {
+
+          .filter-box {
+
+            &.filter-bar-sticky {
+
+              .filter-and-count {
+
+                .grid-header {
+
+                  .result-count {
+
+                    @media (max-width:$custom-lg4) {
+
+                      .mobile-category-name {
+                        color: $light-black;
+                      }
+
+                      span {
+                        color: $dark-gray;
+                      }
+                    }
+
+                    > .d-none {
+
+                      label {
+                        color: $light-black;
+                      }
+
+                      span {
+                        color: $dark-gray;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
