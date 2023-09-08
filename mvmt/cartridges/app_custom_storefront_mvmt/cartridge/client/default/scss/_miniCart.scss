@@ -507,15 +507,21 @@
             z-index: 1;
             padding-top: rem(25);
 
-            &.gm-scrollbar-container {
+            &.ps--active-y {
 
-                
-                .gm-scroll-view {
-                    height: 100% !important; // i'm using important to overwrite inline css
-                    overflow-y: scroll;
-                    overflow-x: hidden;
+                .ps__rail-y {
+                    position: unset !important;
+                    height: fit-content !important;
+
+                    .ps__thumb-y {
+                        height: rem(60) !important;
+                        width: rem(6) !important;
+                        background-color: #222 !important;
+                    }
                 }
+
             }
+
             .mini-cart-fixed {
                 margin: 0 rem(12) rem(12) rem(12);
                 padding-bottom: rem(20);

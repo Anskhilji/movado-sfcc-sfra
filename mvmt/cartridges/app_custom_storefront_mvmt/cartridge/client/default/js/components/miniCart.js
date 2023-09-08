@@ -1,6 +1,6 @@
 'use strict';
 
-var GeminiScrollbar = require('gemini-scrollbar');
+var PerfectScrollbar  = require('perfect-scrollbar/dist/perfect-scrollbar');
 
 var $formValidation = require('base/components/formValidation');
 var $createErrorNotification = require('base/components/errorNotification');
@@ -40,11 +40,10 @@ function isIE() {
 }
 
 function initializeScroll() {
-    var $productSummary = $('.product-summary');
-    if($productSummary.length == 1) {
-        var miniCartScrollBar = new GeminiScrollbar({
-            element: document.querySelector('.product-summary')
-        }).create();
+    const container =
+    document.querySelector('.product-summary');
+    if(container) {
+        const ps = new PerfectScrollbar(container);
     } else {
         setTimeout(initializeScroll, 500);
     }

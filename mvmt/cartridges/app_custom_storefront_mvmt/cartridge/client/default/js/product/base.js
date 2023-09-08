@@ -1,6 +1,10 @@
 'use strict';
 var movadoBase = require('movado/product/base');
-var GeminiScrollbar = require('gemini-scrollbar');
+var PerfectScrollbar  = require('perfect-scrollbar/dist/perfect-scrollbar');
+
+if (window.Resources.LISTRAK_ENABLED) {
+    var listrakBackInStock = require('custom_backinstock/listrakBackInStock.js');
+}
 
 if(Resources.IS_CLYDE_ENABLED){
     var clydeWidget = require('link_clyde/getClydeWidget.js');
@@ -34,11 +38,10 @@ function setMiniCartProductSummaryHeight () {
 }
 
 function initializeScroll() {
-    var $productSummary = $('.product-summary');
-    if($productSummary.length == 1) {
-        var miniCartScrollBar = new GeminiScrollbar({
-            element: document.querySelector('.product-summary')
-        }).create();
+    const container =
+    document.querySelector('.product-summary');
+    if(container) {
+        const ps = new PerfectScrollbar(container);
     } else {
         setTimeout(initializeScroll, 500);
     }
