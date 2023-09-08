@@ -5,10 +5,24 @@ header {
     .checkout-header-wrapper {
 
         .minicart-quantity { 
-            right: rem(-3);
-            top: rem(-1);
-            width: rem(4);
-            height: rem(4);
+            font-size: rem(12);
+            right: rem(-10);
+            top: rem(-10);
+            width: rem(19);
+            height: rem(19);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            letter-spacing: rem(1);
+        }
+
+        .minicart-link {
+            height: rem(20);
+            width: rem(20);
+            display: inline-block;
+            position: relative;
+            top: 0;
+            background: url(../../images/cart-icon-black.svg) 50% no-repeat;
         }
     }
 }
