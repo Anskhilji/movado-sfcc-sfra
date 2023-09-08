@@ -547,7 +547,7 @@ $arrow-height: 1.25em;
         padding: 2rem;
 
         @include media-breakpoint-down(sm) {
-            padding: 2rem 0;
+            padding: 2rem rem(15);
         }
 
         .attribute-name {
