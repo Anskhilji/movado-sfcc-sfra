@@ -8,6 +8,10 @@
 
             .eswModal {
 
+                span {
+                    font-size: rem(15);
+                }
+
                 .selector-container {
 
                     p {
@@ -57,7 +61,7 @@
                             .current-country {
 
                                 .selected-country {
-                                    font-family: $the-futura-font; 
+                                    font-family: $the-futura-font;
                                 }
                             }
 

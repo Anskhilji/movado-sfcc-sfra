@@ -18,6 +18,13 @@ body {
 
 .data-checkout-stage {
 
+    .order-summary-card {
+
+        .order-total-summary {
+            padding-left: 0;
+        }
+    }
+
     .form-group {
       
         .form-control-label {
@@ -138,6 +145,7 @@ body {
 
     .card-header {
         font-family: $the-futura-font;
+        padding-left: 0;
 
         h4 {
             font-family: $movado-font;

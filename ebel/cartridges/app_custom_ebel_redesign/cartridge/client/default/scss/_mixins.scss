@@ -17,6 +17,22 @@
         box-shadow: none;
         outline: none;
     }
+
+    &:not(:disabled) {
+
+        &:not(.disabled) {
+
+            &:active {
+
+                &:focus {
+                    color: $white;
+                    background-color: $black;
+                    border-color: $black;
+                    border-style: solid;
+                }
+            }
+        }
+    }
 }
 
 @mixin buttonOutline {
