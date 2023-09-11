@@ -18,6 +18,12 @@ header {
 
     .checkout-header-wrapper {
 
+        .minicart-link {
+            width: rem(16);
+            height: rem(16);
+            background: url(../../images/shopping-bag.svg) center center no-repeat;
+        }
+
         .minicart-quantity { 
             right: rem(-3);
             top: rem(-1);
