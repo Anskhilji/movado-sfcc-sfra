@@ -503,20 +503,23 @@
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
             width: 100%;
-            padding-bottom: 0 !important; // i'm using important to overwrite inline css
+            padding-bottom: rem(0) !important; // i'm using important to overwrite inline css
             z-index: 1;
             padding-top: rem(25);
+            position: relative;
 
             &.ps--active-y {
 
                 .ps__rail-y {
-                    position: unset !important;
-                    height: fit-content !important;
+                    height: fit-content !important; // i'm using important to overwrite perfect scroll styling
+
+                    &:hover {
+                        background-color: $white !important; // i'm using important to overwrite perfect scroll styling
+                    }
 
                     .ps__thumb-y {
-                        height: rem(60) !important;
                         width: rem(6) !important;
-                        background-color: #222 !important;
+                        background-color: $dark-gray !important; // i'm using important to overwrite perfect scroll styling
                     }
                 }
 
