@@ -33,6 +33,19 @@ header {
 
         .header-left {
 
+            .checkout-text {
+
+                h5 {
+                    align-items: center;
+
+                    &::before {
+                        width: rem(24);
+                        height: rem(24);
+                        background: url(../../images/lock.svg) center center no-repeat;
+                    }
+                }
+            }
+
             .checkout-logo {
 
                 .logo-checkout-text {
