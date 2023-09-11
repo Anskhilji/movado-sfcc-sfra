@@ -3,6 +3,22 @@
     font-family: $movado-font;
 }
 
+@include media-breakpoint-down(sm) {
+
+    .search-banner {
+            
+        &.category-banner {
+
+            .page-title {
+
+                &.heading-one {
+                    font-size: rem(20);
+                }
+            }
+        }
+    }
+}
+
 .body-text {
     font-family: $the-futura-font;
 }

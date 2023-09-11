@@ -116,7 +116,7 @@
         </div>
     </div>
 
-    <div class="hero search-banner plp-new-design container-fluid p-0">
+    <div class="hero search-banner plp-new-design container-fluid p-0 category-banner">
         <isif condition="${pdict.productSearch.isCategorySearch}">
             <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
                 <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
