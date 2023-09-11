@@ -44,12 +44,16 @@
         border-color: $black;
     }
     
-    &:focus,:active {
+    &:focus,&:active {
         background: $light-black2;
         box-shadow: none;
         color: $white;
         border-color: $light-black2;
         box-shadow: none;
+
+        a {
+            color: $white;
+        }
     }
 
     &:has(> a) a {

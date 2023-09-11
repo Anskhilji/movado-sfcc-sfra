@@ -82,7 +82,7 @@ function validateBasket(data) {
             var $showMiniCartCounter = $('.minicart-quantity').data('counter');
             if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
                 $miniCartQuantity.empty();
-                $miniCartQuantity.removeClass('d-none').addClass('d-block');
+                $miniCartQuantity.removeClass('d-block').addClass('d-none');
             } else {
                 $miniCartQuantity.empty().append(data.numItems);
             }
@@ -164,7 +164,7 @@ function updateCartTotals(data) {
     var $showMiniCartCounter = $('.minicart-quantity').data('counter');
     if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
         $miniCartQuantity.empty();
-        $miniCartQuantity.removeClass('d-none').addClass('d-block');
+        $miniCartQuantity.removeClass('d-block').addClass('d-none');
     } else {
         $miniCartQuantity.empty().append(data.numItems);
     }
@@ -640,7 +640,7 @@ module.exports = function () {
                     var $showMiniCartCounter = $('.minicart-quantity').data('counter');
                     if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
                         $miniCartQuantity.empty();
-                        $miniCartQuantity.removeClass('d-none').addClass('d-block');
+                        $miniCartQuantity.removeClass('d-block').addClass('d-none');
                     } else {
                         $miniCartQuantity.empty().append(data.basket.numItems);
                     }
