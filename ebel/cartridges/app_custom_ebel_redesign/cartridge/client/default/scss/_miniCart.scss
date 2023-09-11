@@ -1,4 +1,10 @@
 .minicart {
+
+    .minicart-quantity {
+        background-color: $grey10;
+        height: rem(20);
+        width: rem(20);
+    }
      
     .bonus-line-item-heading {
         font-family: $font-HelveticaNeueLT-book;
