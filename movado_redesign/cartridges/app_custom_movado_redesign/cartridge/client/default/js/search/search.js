@@ -362,7 +362,7 @@ function updateSortingRuleURL(response) {
     var $sortingURL = $(response).find('.sorting-rule-options');
     if ($sortingURL.length > 0) {
         $('.sorting-rule-options-update').each(function (i) {
-            $(this).data('url', $($sortingURL[i]).val())
+            $(this).attr('data-url', $($sortingURL[i]).val());
         });
     }
 }
@@ -758,9 +758,9 @@ module.exports = {
                     },
                     method: 'GET',
                     success: function (response) {
-                        updateSortingRuleURL(response);
-                    	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     	$('body').trigger('facet:success', [gtmFacetArray]);
+                        updateSortingRuleURL(response);
                         parseResults(response);
                         updatePageURLForFacets(filtersURL);
                         var $selectedFiltersNav = $('.selected-filters-nav');
