@@ -1,7 +1,7 @@
 <isscript>
     var assets = require('*/cartridge/scripts/assets');
     assets.addJs('/js/pulseIdEngraving.js');
-    assets.addJs('/js/cart.js');
+    assets.addJs('/js/pulseIdCart.js');
     assets.addCss('/css/pulseIdEngraving.css');
 </isscript>
 
