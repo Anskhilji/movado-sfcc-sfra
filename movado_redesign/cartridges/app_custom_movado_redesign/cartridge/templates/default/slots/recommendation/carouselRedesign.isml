@@ -33,7 +33,7 @@
                             </svg>
                             
                         </div>
-                    </div>
+                     </div>
 
 
                     <isif condition="${slotcontent.custom.bottomSectionCarousel}">
