@@ -11,8 +11,8 @@
                         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
                         <button class="upsell_input add-to-cart-recomendations" data-pid="${recommendation.id}" name="additionalProducts" value="${recommendation.id}"></button>
                         <div class="upsell_wrapper-inner">
-                            <img class="upsell_image" src="${!empty(recommendation.images) && !empty(recommendation.images.tile180[0]) && !empty(recommendation.images.tile180[0].url) ? recommendation.images.tile180[0].url : ''}"/>
-                            
+                            <img class="upsell_image" src="${!empty(recommendation.images) && !empty(recommendation.images.tile180[0]) && !empty(recommendation.images.tile180[0].url) ? recommendation.images.tile180[0].url : ''}" loading="lazy"/>
+
                              <div class="upsell_meta">
                                 <div class="upsell_price">
                                     <isset name="price" value="${recommendation.price}" scope="page" />
