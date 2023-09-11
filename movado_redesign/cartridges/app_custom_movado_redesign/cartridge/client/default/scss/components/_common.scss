@@ -4,8 +4,18 @@
 }
 
 @include media-breakpoint-down(sm) {
-    .heading-one {
-        font-size: rem(20);
+
+    .search-banner {
+            
+        &.category-banner {
+
+            .page-title {
+
+                &.heading-one {
+                    font-size: rem(20);
+                }
+            }
+        }
     }
 }
 
