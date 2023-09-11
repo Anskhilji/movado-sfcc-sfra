@@ -18,13 +18,6 @@ body {
 
 .data-checkout-stage {
 
-    .order-summary-card {
-
-        .order-total-summary {
-            padding-left: 0;
-        }
-    }
-
     .form-group {
       
         .form-control-label {
@@ -93,6 +86,23 @@ body {
 
 .data-checkout-stage {
 
+    .right-section {
+        
+        .right-content {
+
+            .card-header {
+                padding-left: 0;
+            }
+
+            .card-summary-wrapper-container {
+
+                .order-total-summary {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+
     .flex-box-contianer-bottom {
 
         .order-product-summary {
@@ -145,7 +155,6 @@ body {
 
     .card-header {
         font-family: $the-futura-font;
-        padding-left: 0;
 
         h4 {
             font-family: $movado-font;

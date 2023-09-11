@@ -31,7 +31,7 @@ a,p,span {
                 &:focus {
                     background-color: $light-black2;
                     color: $white;
-                    border-style: none;
+                    border-color: $light-black2;
                     box-shadow: none;
                 }
             }
