@@ -16,7 +16,6 @@
     &:has(> a) a {
         box-shadow: none;
         outline: none;
-        background-color: transparent;
     }
 
     &:not(:disabled) {
@@ -52,7 +51,7 @@
         color: $white;
         border-color: $light-black2;
         box-shadow: none;
-        
+
         a {
             color: $white;
         }
