@@ -1,11 +1,10 @@
-<div class="container">
 <isif condition="${slotcontent && !!slotcontent.content.length}">
     <script>
         $(document).ready(function() {
             window.slickSlider.initCarousel($('.custom-js-carousel'));
         });
     </script>
-    <div class="container custom-js-carousel">
+    <div class="container-fluid custom-js-carousel aruliden-carousel">
         <div class="row">
             <div class="col-12">
                 <div class="cs-carousel-wrapper cs-carousel-update plp-aruliden-tile">
@@ -21,6 +20,22 @@
                             </div>
                         </isloop>
                     </div>
+
+                     <div class="aruliden-carousel-arrow">
+                        <div class="aruliden-prev">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M23.4142 35.4287L11.4142 23.4287L23.4142 11.4287L22 10.0145L9.29287 22.7216C8.90234 23.1121 8.90234 23.7453 9.29287 24.1358L22 36.8429L23.4142 35.4287Z" fill="black"/>
+                            </svg>
+                        </div>
+                        <div class="aruliden-next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M24.5858 35.4287L36.5858 23.4287L24.5858 11.4287L26 10.0145L38.7071 22.7216C39.0977 23.1121 39.0977 23.7453 38.7071 24.1358L26 36.8429L24.5858 35.4287Z" fill="black"/>
+                            </svg>
+                            
+                        </div>
+                     </div>
+
+
                     <isif condition="${slotcontent.custom.bottomSectionCarousel}">
                         <div class="bottom-section">
                             <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
@@ -31,4 +46,3 @@
         </div>
     </div>
 </isif>
-</div>
