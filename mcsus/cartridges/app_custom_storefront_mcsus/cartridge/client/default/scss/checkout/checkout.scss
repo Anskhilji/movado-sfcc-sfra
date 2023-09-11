@@ -7,6 +7,21 @@ $checkout-font-weight: 600;
 header {
     &.checkout-header {
         .sticky-header-wrapper {
+
+            .desktop-menu-wrapper {
+
+                .minicart-link {
+
+                    &.header-icon {
+                        height: rem(20);
+                        width: rem(20);
+                        display: inline-block;
+                        position: relative;
+                        top: 0;
+                        background: url(../../images/cart-icon-black.svg) 50% no-repeat;
+                    }
+                }
+            }
             .mobile-menu-wrapper {
                 @include media-breakpoint-up(xs) {
                     display: block;
@@ -45,7 +60,15 @@ header {
                     }
 
                     .minicart-link {
+                        
                         &.header-icon {
+                            height: rem(20);
+                            width: rem(20);
+                            display: inline-block;
+                            position: relative;
+                            top: 0;
+                            background: url(../../images/cart-icon-black.svg) 50% no-repeat;
+
                             @include media-breakpoint-down(xs) {
                                 top: rem(-2);
                             }
