@@ -56,13 +56,15 @@ function setProductLineItemObj(lineItem, optionItem) {
                 ElementName: pulseIdConstants.PULSEID_SERVICE_ID.LINE1,
                 Text: optionItem.custom.engraveMessageLine1,
                 IsText: true
-            },
-            {
-                ElementName: pulseIdConstants.PULSEID_SERVICE_ID.LINE2,
-                Text: optionItem.custom.engraveMessageLine2,
-                IsText: true
             }
         ]
+    }
+    if (optionItem && optionItem.custom && optionItem.custom.engraveMessageLine2 && optionItem.custom.engraveMessageLine2 !== null) {
+        obj.Personalizations.push({
+            ElementName: pulseIdConstants.PULSEID_SERVICE_ID.LINE2,
+            Text: optionItem.custom.engraveMessageLine2,
+            IsText: true
+        });
     }
     return obj;
 }
