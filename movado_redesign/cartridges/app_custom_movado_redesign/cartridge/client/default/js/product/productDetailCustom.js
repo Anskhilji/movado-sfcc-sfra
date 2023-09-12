@@ -495,7 +495,6 @@ function showMoreDescription() {
         var $content = $(this).html();
         if($numberOfLines > 4) {
             var $splittedCharacters = $content.substring($showChar, $content.length - $showChar).split('.');
-            // var $splittedCharactersLength = $splittedCharacters[0].length;
             var $firstLine = $content.substring($content, $showChar + $splittedCharacters[0].length);
             var $html = '<span class="first-line">' + $firstLine + "." + '</span>' + '<span style="display:none" class="morecontent-wrapper"><span>' + $content + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + $moreText + '</a></div>';
             $(this).html($html);
