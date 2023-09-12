@@ -1,9 +1,9 @@
 <div class="description-and-detail">
     <div class="accordion-pdp" id="accordionPdp">
 
-        <div class="accordion-list">
-            <div class="accordion-heading d-flex align-items-center justify-content-between" data-toggle="collapse"
+        <div class="accordion-list" data-toggle="collapse"
                 data-target="#technicalDetail" aria-expanded="true" aria-controls="technical-detail">
+            <div class="accordion-heading d-flex align-items-center justify-content-between" >
                 <h2 class="technical-detail-heading">
                     ${Resource.msg('label.product.detail.details2', 'product', null)}
                 </h2>
