@@ -1,1 +1,22 @@
 @import "~concord/checkout/checkoutLogin";
+.receipt {
+    margin-bottom: rem(40);
+}
+
+.confirmation-hero-banner {
+    position: relative;
+    max-width: rem(1300);
+    width: 100%;
+    margin: 0 auto;
+
+    img {
+        width: 100%;
+    }
+
+    .content-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include translate(-50%, -50%);
+    }
+}
