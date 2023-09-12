@@ -377,9 +377,6 @@ nav {
                 @include media-breakpoint-down(md) {
                   display: block !important; // i'm using important to overwrite inine css
                   position: static;
-                  top: rem(70);
-                  left: 0;
-                  z-index: 99;
                   visibility: visible;
                 }
 
