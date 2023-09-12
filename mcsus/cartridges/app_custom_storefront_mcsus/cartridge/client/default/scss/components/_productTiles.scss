@@ -151,19 +151,32 @@
             li {
                 box-sizing: border-box;
                 list-style: none;
-                height: rem(2);
-                width: rem(5);
+                height: rem(3);
+                width: rem(8);
                 background: $silver1;
                 margin: 0;
                 border-radius: rem(1.2);
 
                 &.slick-active {
                     background: $black;
-                    width: rem(10);
+                    width: rem(12);
+                    height: rem(3);
+
+                    button {
+                        width: rem(18);
+                        height: rem(13);
+                    }
                 }
 
                 button {
                     opacity: 0;
+                    width: rem(14);
+                    height: rem(13);
+                    position: absolute;
+                    top: rem(-5);
+                    left: rem(-3);
+                    margin: 0;
+                    padding: 0;
                 }
             }
         }
