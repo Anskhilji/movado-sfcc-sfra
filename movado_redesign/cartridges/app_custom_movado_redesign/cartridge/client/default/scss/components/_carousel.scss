@@ -295,6 +295,13 @@ header {
                 position: relative;
                 margin-top: rem(-50);
 
+                .slick-hidden {
+                    
+                    svg {
+                        display: none;
+                    }
+                }
+
                 .aruliden-prev,
                 .aruliden-next,
                 .youMayLike-prev,
