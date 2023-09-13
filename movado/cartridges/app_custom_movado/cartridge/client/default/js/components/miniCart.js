@@ -6,8 +6,15 @@ module.exports = function () {
     cart();
 
     $('.minicart').on('count:update', function (event, count) {
+        var $miniCartQuantity = $('.minicart .minicart-quantity')
+        var $showMiniCartCounter = $('.minicart-quantity').data('counter');
         if (count && $.isNumeric(count.quantityTotal)) {
-            $('.minicart .minicart-quantity').text(count.quantityTotal);
+            if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
+                $miniCartQuantity.empty();
+                $miniCartQuantity.removeClass('d-none').addClass('d-block');
+            } else {
+                $miniCartQuantity.text(count.quantityTotal);
+            }
         }
     });
 

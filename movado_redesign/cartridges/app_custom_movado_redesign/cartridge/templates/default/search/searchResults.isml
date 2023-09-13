@@ -15,8 +15,108 @@
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
         <isinclude template="reporting/reportingUrls" />
     </isif>
-    
-    <div class="hero search-banner plp-new-design container-fluid p-0">
+
+    <div class="container-fluid plp-new-design search-results search-results-updated" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
+        <div class="search-results-sec">
+            <div class="tab-content p-sm-0">
+                <div class="tab-pane active" role="tabpanel" aria-expanded="true">
+                    <isif condition="${pdict.productSearch.productIds.length > 0}">
+                        <div class="mt-0">
+                            <div class="search-result-desktop">
+                                <div class="left-sec">
+                                    <div class="d-flex align-items-start search-result-counts filter-and-count">
+                                        <div>
+                                            <isif condition="${pdict.productSearch.productIds.length > 0}">
+                                                <div class="row m-0 grid-header">
+                                                    <div class="result-count search-count">
+                                            <iselse>
+                                                <div class="row m-0 grid-header results-count justify-content-start">
+                                                    <div class="result-count col">
+                                            </isif>
+                                            <isinclude template="search/resultsCount" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="right-sec">
+                                    <div class="dk-fillter-m d-md-flex align-items-cetner filter-box">
+                                        <div class="d-flex align-items-start search-result-counts filter-and-count">
+                                                <div>
+                                                    <isif condition="${pdict.productSearch.productIds.length > 0}">
+                                                        <div class="row m-0 grid-header">
+                                                            <div class="result-count search-count">
+                                                                <iselse>
+                                                                    <div class="row m-0 grid-header results-count justify-content-start">
+                                                                        <div class="result-count col">
+                                                    </isif>
+                                                    <isinclude template="search/resultsCount" />
+                                                </div>
+                                            </div>
+                                             </div>
+                                        </div>
+                                        <div class="desktop-search-refine-bar-redesing w-100">
+                                            <div class="refinement-wrapper">
+                                                <div class="filter-btn">
+                                                    <button class="filter-refinement-panel-btn" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" ><span>${Resource.msg('label.showfilter', 'search', null)}</span>
+                                                        <span class="filter-icon">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M11.0943 8.75C11.307 8.38228 11.4287 7.95536 11.4287 7.5C11.4287 7.41563 11.4245 7.33223 11.4164 7.25H21.4287V8.75H11.0943ZM6.76317 8.75H2.42871V7.25H6.44105C6.43289 7.33223 6.42871 7.41563 6.42871 7.5C6.42871 7.95536 6.55045 8.38228 6.76317 8.75Z"
+                                                                    fill="black" />
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M8.92871 5.75C7.96221 5.75 7.17871 6.5335 7.17871 7.5C7.17871 8.4665 7.96221 9.25 8.92871 9.25C9.89521 9.25 10.6787 8.4665 10.6787 7.5C10.6787 6.5335 9.89521 5.75 8.92871 5.75ZM5.67871 7.5C5.67871 5.70507 7.13379 4.25 8.92871 4.25C10.7236 4.25 12.1787 5.70507 12.1787 7.5C12.1787 9.29493 10.7236 10.75 8.92871 10.75C7.13379 10.75 5.67871 9.29493 5.67871 7.5Z"
+                                                                    fill="black" />
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M17.2207 16.5C17.3545 16.1938 17.4287 15.8556 17.4287 15.5C17.4287 15.3288 17.4115 15.1616 17.3787 15H21.4287V16.5H17.2207ZM12.6367 16.5H2.42871V15H12.4787C12.4459 15.1616 12.4287 15.3288 12.4287 15.5C12.4287 15.8556 12.5029 16.1938 12.6367 16.5Z"
+                                                                    fill="black" />
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M14.9287 13.75C13.9622 13.75 13.1787 14.5335 13.1787 15.5C13.1787 16.4665 13.9622 17.25 14.9287 17.25C15.8952 17.25 16.6787 16.4665 16.6787 15.5C16.6787 14.5335 15.8952 13.75 14.9287 13.75ZM11.6787 15.5C11.6787 13.7051 13.1338 12.25 14.9287 12.25C16.7236 12.25 18.1787 13.7051 18.1787 15.5C18.1787 17.2949 16.7236 18.75 14.9287 18.75C13.1338 18.75 11.6787 17.2949 11.6787 15.5Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="sort-order-menu-box order-md-1">
+                                                    <isif condition="${pdict.productSearch.productIds.length > 0}">
+                                                        <div class="sort-col sort-open-state-modal position-relative sort-order-mobile-menu">
+                                                            <div class="sortBy-btn">
+                                                                <button class="sortBy-refinement-panel-btn"><span>${Resource.msg('label.sortby', 'search', null)}</span>
+                                                                    <span class="sort-by-icon">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                            <path d="M9.42871 16H14.4287M6.42871 12H18.4287M3.42871 8H20.4287" stroke="black" stroke-width="1.5" />
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </isif>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="side-fliter">
+                                        <div class="refinement-bar refinement-bar-redesign col">
+                                            <isinclude url="${pdict.refineurl}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="side-sortBy">
+                                        <div class="sortby-bar sort-by-redesign col d-none">
+                                            <isinclude template="search/sortRefineBar" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </isif>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero search-banner plp-new-design container-fluid p-0 category-banner">
         <isif condition="${pdict.productSearch.isCategorySearch}">
             <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
                 <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
@@ -29,7 +129,7 @@
             <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
         </isif>
     </div>
-    <div class="container-fluid plp-new-design search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
+    <div class="container-fluid plp-new-design search-results plp-aruliden-tile" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
         <isif condition="${!pdict.productSearch.isCategorySearch}">
             <div class="row">
                 <div class="search-nav">
@@ -66,48 +166,8 @@
                             <div class="row py-2 py-sm-3">
                                 <div class="col-12">
                                     <div class="d-flex justify-content-between align-items-start search-result-counts filter-and-count">
-                                        <div id="product-search-results" class="d-none d-md-block">
-                                            <isif condition="${pdict.productSearch.productIds.length > 0}">
-                                                <div class="row m-0 grid-header">
-                                                    <div class="result-count">
-                                            <iselse>
-                                                <div class="row m-0 grid-header results-count justify-content-start">
-                                                    <div class="result-count col">
-                                            </isif>
-                                            <isinclude template="search/resultsCount" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="filter-btn d-none d-md-none">
-                                            <button class="filter-refinement-panel-btn" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" >${Resource.msg('label.selectedfilter', 'search', null)}</button>
-                                        </div>
                                         <iscomment> custom:MSS-1948 mobile filter button` </iscomment>
                                         <div class=" d-md-none w-100">
-                                            <div class="d-flex filter-box d-md-none justify-content-between align-items-start w-100 pb-2 mobile-filter-box">
-                                                <isif condition="${pdict.productSearch.productIds.length > 0}">
-                                                    <div class="d-md-none filter-btn ctm-filter-btn">
-                                                        <button type="button" class="filter-results filter-btn-mobile">
-                                                            <img src="${URLUtils.staticURL('/images/bytesize_filter.svg')}" alt="">
-                                                            <span class="filter-content-label">${Resource.msg('button.filterby', 'search', null)}</span>
-                                                        </button>
-                                                    </div>
-                                                </isif>
-                                                <iscomment> sort button for mobile     </iscomment>
-                                                <div class="d-md-none ctm-filter-btn">
-                                                    <button type="button" class=" filter-btn-mobile mobile-fliter-sort-btn-click">
-                                                        <img src="${URLUtils.staticURL('/images/icon-park_setting-config.svg')}" alt="">
-                                                        <span class="mobile-fliter-sort-button">
-                                                            <isif condition="${pdict.productSearch.productIds.length > 0 && pdict.productSearch.productSort.ruleId !== Resource.msg('label.relevance', 'search', null) && pdict.productSearch.productSort.ruleId !== Resource.msg('label.featured', 'search', null)}">
-                                                                <isloop items="${pdict.productSearch.productSort.options}" var="option">
-                                                                    ${pdict.productSearch.productSort.ruleId === option.id ? Resource.msg('label.sortbycol', 'search', null) + option.displayName : '' }
-                                                                </isloop>
-                                                                <iselse>
-                                                                    ${Resource.msg('label.sortby-bestsellers', 'search', null)}
-                                                            </isif>
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            </div>
                                             <div class="filter-bar m-0">
                                                 <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
                                                     <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
@@ -120,17 +180,6 @@
                             </div>
 
                             <div>
-                                <div class="dk-fillter-m d-md-flex align-items-cetner justify-content-between filter-box w-100">
-                                    <div class="desktop-search-refine-bar-redesing w-100">
-                                        <isinclude template="search/searchRefineBarDesktop" />
-                                    </div>                                    
-                                </div>
-                                <div class="side-fliter">
-                                    <div class="refinement-bar refinement-bar-redesign col">
-                                        <isinclude url="${pdict.refineurl}" />
-                                    </div>                                    
-                                </div>
-                                
                                 <div class="row filter-bar m-0 d-none d-md-block">
                                     <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
                                         <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>

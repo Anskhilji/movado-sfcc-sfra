@@ -1,31 +1,108 @@
 <div class="description-and-detail">
-    <div class="row">
-          <div class="col-sm-6 col-md-7 description">
-            <div class="row">
-                <div class="col-md-10">
-                    <isif condition="${!empty(dw.system.Site.current.preferences.custom.isHighlightEnabled) ? dw.system.Site.current.preferences.custom.isHighlightEnabled :false}">
-                        <isinclude template="product/components/highlights" />
-                    </isif>
+    <div class="accordion-pdp" id="accordionPdp">
+
+        <div class="accordion-list" data-toggle="collapse"
+                data-target="#technicalDetail" aria-expanded="true" aria-controls="technical-detail">
+            <div class="accordion-heading d-flex align-items-center justify-content-between" >
+                <h2 class="technical-detail-heading">
+                    ${Resource.msg('label.product.detail.details2', 'product', null)}
+                </h2>
+                <div class="plus-minus-icons">
+                    <div class="icon-minus">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.42871 12H19.4287" stroke="black" stroke-width="1.5" stroke-linecap="square"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="icon-plus">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.52 3.84009V11.5201H3.83997V12.4801H11.52V20.1601H12.48V12.4801H20.16V11.5201H12.48V3.84009H11.52Z"
+                                fill="black" />
+                        </svg>
+                    </div>
                 </div>
             </div>
-          </div>
-        <isif condition="${!pdict.isCompareableDisabled}">
-            <isif condition="${product.attributes && product.attributes.length}">
-                <div class="col-sm-6 col-md-4 p-0 product-attributes">
-                    <isinclude template="product/components/detailsAttributes" />
+            <div class="collapse show" aria-labelledby="headingOne" id="technicalDetail">
+                <isif condition="${!pdict.isCompareableDisabled}">
+                    <isif condition="${product.attributes && product.attributes.length}">
+                        <isinclude template="product/components/detailsAttributes" />
+                    </isif>
+                </isif>
+            </div>
+        </div>
+
+        
+        <div class="accordion-list yotpo-accordion-section">
+            <div class="accordion-heading  d-flex align-items-center justify-content-between collapsed" data-toggle="collapse"
+                data-target="#productReview" aria-expanded="true" aria-controls="reviews">
+                <h2 class="technical-detail-heading d-flex">
+                    <span>
+                        ${Resource.msg('product.yotpo.reviews', 'product', null)}
+                    </span>
+                </h2>
+                <div class="plus-minus-icons">
+                    <div class="icon-minus">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.42871 12H19.4287" stroke="black" stroke-width="1.5" stroke-linecap="square"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="icon-plus">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.52 3.84009V11.5201H3.83997V12.4801H11.52V20.1601H12.48V12.4801H20.16V11.5201H12.48V3.84009H11.52Z"
+                                fill="black" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse" aria-labelledby="headingOne" id="productReview">
+                    <div>
+                        <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
+                        then appropriate template should be overridden. </iscomment>
+                        <isinclude template="widget/yotporeviewswidget" />
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="detail-bottom-preposition d-flex justify-content-center">
+        <isif condition="${pdict.productDetailAttribute1}">
+            <div class="preposition-block product-detail-attribute-1 free-shipping-block">
+                <isprint value="${pdict.productDetailAttribute1}" encoding="off" />
+            </div>
+            <iselse>
+            <div class="preposition-block free-shipping-block">
+                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M29.5065 34H3.77368C3.34622 34 3 33.6508 3 33.2197V10.6517C3.00193 10.4957 3.04836 10.3455 3.13152 10.2147L6.2727 0.538427C6.37715 0.216534 6.67308 0 7.00771 0H26.2723C26.6069 0 26.9028 0.216544 27.0073 0.538427L30.1485 10.2147C30.2316 10.3455 30.2781 10.4957 30.28 10.6517V33.2197C30.28 33.4264 30.1988 33.6254 30.0537 33.7718C29.9086 33.9181 29.7115 34 29.5065 34ZM4.54761 32.4393H28.7331V11.518H20.509V21.4125C20.509 21.6193 20.4278 21.8183 20.2827 21.9647C20.1376 22.111 19.9403 22.1929 19.7353 22.1929H13.5458C13.1184 22.1929 12.7722 21.8437 12.7722 21.4126V11.518H4.54809L4.54761 32.4393ZM14.319 20.6325H18.9611V11.518H14.319V20.6325ZM20.4233 9.83243H28.4077L25.7076 1.52154H19.5181L20.4233 9.83243ZM14.4116 9.83243H18.868L17.9629 1.52154H15.3168L14.4116 9.83243ZM4.87194 9.83243H12.8563L13.7538 1.52154H7.56436L4.87194 9.83243Z" fill="black"/>
+                </svg>
+                <p>${Resource.msg('label.product.detail.shipping', 'product', null)}</p>
+            </div>
+        </isif>
+
+        <isif condition="${!pdict.isHideSwissmovement}">
+            <isif condition="${pdict.productDetailAttribute2}">
+                <div class="preposition-block product-detail-attribute-2 swiss-movement-block">
+                    <isprint value="${pdict.productDetailAttribute2}" encoding="off" />
+                </div>
+                <iselse>
+                <div class="preposition-block swiss-movement-block">
+                    <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M32.8667 1.13333H1.13333V32.8667H32.8667V1.13333ZM0 0V34H34V0H0Z" fill="black"/>
+                    <path d="M18.7502 15.2825H24.9333V18.783H18.7502V24.9333H15.2498V18.783H9.06667V15.2825H15.2498V9.06667H18.7502V15.2825Z" fill="black"/>
+                    </svg>
+                    <p>${Resource.msg('label.product.detail.swiss', 'product', 'null')}</p>
                 </div>
             </isif>
         </isif>
     </div>
-    <isslot id="cs_pdp_marketing-section-1" description="content section" context="global" />
-    <div class="pdp-content-asset-wrapper">
-        <isif condition="${!empty(product.pdpMarketingContentAssetHTML)}">
-            <isprint value="${product.pdpMarketingContentAssetHTML}" encoding="off" />
-        </isif>
-    </div>
-    <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
-    <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
-     then appropriate template should be overridden. </iscomment>
-    <isinclude template="widget/yotporeviewswidget" />
-    <hr />
 </div>
+
+<isslot id="cs_pdp_marketing-section-1" description="content section" context="global" />
+<div class="pdp-content-asset-wrapper">
+    <isif condition="${!empty(product.pdpMarketingContentAssetHTML)}">
+        <isprint value="${product.pdpMarketingContentAssetHTML}" encoding="off" />
+    </isif>
+</div>
+<isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />

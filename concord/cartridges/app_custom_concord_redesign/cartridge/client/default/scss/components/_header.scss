@@ -20,6 +20,14 @@ header {
 
     &.new-header {
 
+        .minicart-link {
+
+            .minicart-quantity {
+                right: rem(-11);
+                top: rem(-6);
+            }
+        }
+
         .desktop-search {
             min-height: rem(170);
 
@@ -76,6 +84,11 @@ header {
 
                     .btn {
                         font-family: $font-raleway-medium;
+                        border-radius: 0;
+
+                        &:hover {
+                            color: $white;
+                        }
                     }
                 }
             }

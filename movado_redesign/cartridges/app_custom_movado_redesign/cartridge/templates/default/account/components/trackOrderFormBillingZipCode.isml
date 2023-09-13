@@ -1,0 +1,16 @@
+<div class="form-group required updated-input-style">
+    <label class="form-control-label" for="trackorder-form-zip">
+        ${Resource.msg('label.input.trackorder.postalcode', 'login', null)}
+    </label>
+    <input
+        type="text"
+        required
+        placeholder="${Resource.msg('label.input.trackorder.postalcode', 'login', null)}"
+        class="form-control"
+        id="trackorder-form-zip"
+        name="trackOrderPostal"
+        pattern="(^\d{5}(-\d{4})?$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)">
+    <div class="invalid-feedback"></div>
+</div>
+
+      

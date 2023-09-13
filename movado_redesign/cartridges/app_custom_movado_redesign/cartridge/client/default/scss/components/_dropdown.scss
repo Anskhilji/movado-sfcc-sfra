@@ -1,0 +1,25 @@
+.custom-select-option {
+    &.form-control {
+        border: none;
+        border-bottom: rem(1) solid $black;
+        font-size: rem(16);
+        font-weight: 400;
+        color: $black;
+        font-family: $the-futura-font;
+        letter-spacing: rem(0.25);
+        padding: rem(14) rem(0);
+        
+        &:focus {
+            box-shadow: none;
+        }
+
+        & + i {
+            right: rem(5);
+            top: rem(18);
+        }
+        
+        &:not([size]):not([multiple]) {
+             height: rem(48); 
+        }
+    }
+}
