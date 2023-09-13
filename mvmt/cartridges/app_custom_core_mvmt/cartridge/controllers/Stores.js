@@ -34,14 +34,45 @@ server.append('Find', function (req, res, next) {
  * It returns the store data as JSON.
  */
 server.replace('FindStores', function (req, res, next) {
+    var Resource = require('dw/web/Resource');
+    var Site = require('dw/system/Site');
+
+    var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+
     var radius = req.querystring.radius;
     var showMap = req.querystring.showMap;
     var queryCountryCode = req.querystring.countryCode;
     var queryAddress = req.querystring.address;
+    var isSearched = req.querystring.isForm;
+    var googleRecaptchaToken = req.querystring.googleRecaptchaToken || '';
     var viewData = res.getViewData();
 
     var stores = null;
     var status = null;
+
+    var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+
+    if (isSearched == "true") {
+        if (isGoogleRecaptchaEnabled) {
+            var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+            if (empty(googleRecaptchaToken)) {
+                res.json ({
+                    success: false,
+                    errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
+                });
+                return next(); 
+            }
+
+            var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+            if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
+                res.json ({
+                    success: false,
+                    errorMessage: Resource.msg('error.no.results', 'storeLocator', null)
+                });
+                return next(); 
+            }
+        }
+    }
 
     if (queryAddress) {
         //Custom Start: Updated the regex of the queryAddress

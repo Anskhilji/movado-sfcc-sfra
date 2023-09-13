@@ -83,7 +83,7 @@ server.replace(
             productLineItem = orderLineItemsIterator.next();
             Transaction.wrap(function () {
                 if (productLineItem instanceof dw.order.ProductLineItem &&
-                    !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                    !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItems) {
                     productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
                 }
             });
@@ -247,7 +247,7 @@ server.append('Confirm', function (req, res, next) {
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
             if (productLineItem instanceof dw.order.ProductLineItem &&
-                !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItems) {
                 analyticsTrackingLineItems.push ({
                     item: stringUtils.removeSingleQuotes(productLineItem.productName),
                     quantity: productLineItem.quantityValue,
@@ -331,7 +331,7 @@ server.append('Confirm', function (req, res, next) {
     while (orderLineItemsIterator.hasNext()) {
         productLineItem = orderLineItemsIterator.next();
         if (productLineItem instanceof dw.order.ProductLineItem &&
-            !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+            !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItems) {
                 var apiProduct = productLineItem.getProduct();
                 var quantity = productLineItem.getQuantity().value;
                 marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
@@ -375,6 +375,10 @@ server.append('Confirm', function (req, res, next) {
     if (Site.current.preferences.custom.enablePulseIdEngraving) {
         var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
         pulseIdAPIHelper.setPulseJobID(order);
+
+        if (order.custom.IsPulseIDEngraved == true) {
+            pulseIdAPIHelper.savePulseObj(order.orderNo);
+        }
     }
     // custom end
 

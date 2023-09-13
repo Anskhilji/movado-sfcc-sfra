@@ -62,9 +62,14 @@
 
 .order-confirm-create-account {
   button {
-    background: $black;
-    border: rem(1) solid $black;
+    background: $dark-cyan;
+    border: rem(1) solid $dark-cyan;
     color: $white;
+      &:active,
+      &:focus {
+          background-color: $dark-cyan !important;
+          border: rem(1) solid $dark-cyan !important;
+      }
   }
 }
 
@@ -115,5 +120,15 @@
       letter-spacing: rem(1.5);
       font-weight: 300;
     }
+  }
+}
+
+.order-confirmation-continue-shopping {
+  background-color: $dark-cyan;
+  border: rem(1) solid $dark-cyan;
+  &:focus, 
+  &:active {
+      border: rem(1) solid $dark-cyan !important;
+      background-color: $dark-cyan !important;
   }
 }

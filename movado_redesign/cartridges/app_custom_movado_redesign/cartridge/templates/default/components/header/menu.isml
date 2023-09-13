@@ -1,22 +1,12 @@
-<nav class="navbar movado-desktop-header navbar-expand-lg bg-inverse col-12">
-  <div class="close-menu clearfix hidden-lg-up">
-    <a class="back" href="${'#'}" role="button">
-      <span class="caret-left"></span>
-      ${Resource.msg('link.header.menu.back', 'common', null)}
-    </a>
-    <a class="close-button" href="${'#'}" role="button">
-      ${Resource.msg('link.header.menu.close', 'common', null)}
-      <span class="close-icon"></span>
-    </a>
-  </div>
-  <div class="menu-group" aria-label="Main menu" role="navigation">
-    <ul class="nav navbar-nav" role="menu">
-      <isif condition="${pdict.categories}">
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+<div class="menubar-container">
+    <ul class="first-category">
+     <isif condition="${pdict.categories}">
         <isloop items="${pdict.categories}" var="category">
           <isif condition="${category.subCategories || category.disableSubCategories}">
             <iscomment> Custom: sub-dropdown class added</iscomment>
-            <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li data-image="${category.categoryBannerImage}" class="first-level gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="first-level-category">
                 ${category.name}
               </a>
              <isset name="topCat" value="${category}" scope="page"/>
@@ -25,16 +15,92 @@
               <isinclude template="components/header/menuItem" />
             </li>
           <iselse/>
-            <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
+            <li class="first-level" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>"  id="${category.id}" role="button" class="first-level-category">
                 ${category.name}
               </a>
             </li>
           </isif>
+          <isif condition="${!empty(category.categoryBannerImage)}">
+            <div class="categories-image-container gtm-customEvent d-none" data-id="${category.id}" data-gtm-tracking='${gtmCategoryVal}'>
+                <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>">
+                    <isprint value="${category.categoryBannerImage}" encoding="off" />
+                </a>
+            </div>
+          </isif>
         </isloop>
       </isif>
-      <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
-      <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
-    </ul> 
-  </div>
-</nav>
+    </ul>
+</div>
+
+<div class="mobile-container">
+    <div class="first">
+        <ul class="first-levels">
+            <isloop items="${pdict.categories}" var="mobileCategory">
+                <isif condition="${mobileCategory.subCategories || mobileCategory.disableSubCategories}">
+                    <li class="first-levels-items gtm-customEvent"  data-gtm-tracking="${JSON.stringify(mobileCategory.gtmNavVal)}">
+                        <p class="first-levels-items-category" data-id="${mobileCategory.id}">${mobileCategory.name}</p>
+                    </li>
+                    <div class="second-levls-section" data-sub-id="${mobileCategory.id}">
+                        <div class="back-section">
+                            <div class="back-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="17" viewBox="0 0 11 17" fill="none">
+                                    <path d="M9.77734 16L1.99957 8.5L9.77735 1" stroke="white" stroke-width="1.51" />
+                                </svg>
+                            </div>
+                            <a class="category-name" href="${mobileCategory.url}" id="${mobileCategory.id}" role="button" aria-haspopup="false">
+                               ${mobileCategory.name}
+                            </a>
+                        </div>
+
+                        <isset name="topCatMobile" value="${mobileCategory}" scope="page"/>
+                        <isset name="gtmCategoryValMobile" value="${JSON.stringify(mobileCategory.gtmNavVal)}" scope="page"/>
+                        <isset name="menuItemMobile" value="${mobileCategory}" scope="page" />
+
+                        <isif condition="${topCatMobile.disableSubCategories}">
+                            <div class="shop-by-collection-slide">
+                                <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
+                                    <isloop items="${menuItemMobile.subCategories}" var="topCatMobileCategory">
+                                        <p class="gtm-collections ga-collections">
+                                            <a href="${topCatMobileCategory.url}">
+                                                <img class="ga-collection-image" alt="${topCatMobileCategory.name}"src="${!empty(topCatMobileCategory.categoryImageURL) ? topCatMobileCategory.categoryImageURL : '#'}" loading="lazy" title="${topCatMobileCategory.name}" />
+                                            </a>
+                                            <span class="collection-title">
+                                                <span>${topCatMobileCategory.name}</span>
+                                            </span>
+                                        </p>
+                                    </isloop>
+                                </div>
+                            </div>
+                        <iselse/>
+                            <div class="second">
+                                <ul class="second-levels">
+                                    <isloop items="${menuItemMobile.subCategories}" var="secondLevelCategoryMobile">
+                                            <li class="second-levels-items gtm-customEvent" data-gtm-tracking="${JSON.stringify(secondLevelCategoryMobile.gtmCategoryValMobile)}">
+                                                <a href="${secondLevelCategoryMobile.url}" class="second-levels-items-category">${secondLevelCategoryMobile.name}</a>
+                                            </li>
+                                    </isloop>
+                                </ul>
+                            </div>
+                        </isif>
+                    </div>
+                <iselse/>
+                    <li class="first-levels-items gtm-customEvent"  data-gtm-tracking="${JSON.stringify(secondLevelCategoryMobile.gtmNavVal)}">
+                        <p class="first-levels-items-category">${secondLevelCategoryMobile.name}</p>
+                    </li>
+                </isif>
+            </isloop>
+        </ul>
+    </div>
+    <div class="mobile-accounts">
+        <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
+        <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
+        
+        <div class="country-selector">
+          <isif condition="${isEswEnabled}" >
+                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
+                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                </isif>
+        </div>
+    </div>
+</div>

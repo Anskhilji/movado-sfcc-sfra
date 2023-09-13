@@ -63,3 +63,23 @@ h2 {
 h1 {
     font-size: rem(60);
 }
+
+.contactus-page {
+
+  .btn-save {
+      background-color: $dark-cyan;
+      border: rem(1) solid $dark-cyan;
+
+      &:focus, 
+      &:hover {
+          background-color: $white;
+          color: $black;
+          border: rem(1) solid $black;
+      }
+      
+      &:active {
+          background-color: $dark-cyan !important;
+          border: rem(1) solid $dark-cyan !important;
+      }
+  }
+}

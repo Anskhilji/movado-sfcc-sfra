@@ -742,6 +742,7 @@ header~.container .promotions .callout a{
                         letter-spacing: rem(1);
                         line-height: rem(20);
                         text-transform: capitalize;
+                        padding: rem(6) rem(12);
                       
                         @include media-breakpoint-down(xs) {
                           font-size: rem(12);
@@ -750,6 +751,7 @@ header~.container .promotions .callout a{
 
                         &:hover {
                             background-color: transparent;
+                            box-shadow: none;
                         }
 
                         &:focus {

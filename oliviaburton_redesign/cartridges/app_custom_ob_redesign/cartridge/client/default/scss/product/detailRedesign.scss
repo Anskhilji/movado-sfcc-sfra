@@ -908,7 +908,7 @@
                                 &:hover {
                                     .upsell-text {
                                         p {
-                                            background-color: $black;
+                                            background-color: $dark-cyan;
                                             color: $white;
                                             transition: 0.3s ease;
                                         }
@@ -1341,18 +1341,20 @@
                                     letter-spacing: normal;
                                     line-height: rem(20);
                                     transition: 0.3s;
-                                    background: $black;
-                                    border-color: $black;
+                                    background: $dark-cyan;
+                                    border-color: $dark-cyan;
                                     color: $white;
                                     border-radius: rem(3);
 
                                     &:focus {
                                         box-shadow: none;
+                                        border-color: $black;
                                     }
 
                                     &:hover {
                                         background: transparent;
                                         color: $black;
+                                        border-color: $black;
                                     }
 
                                     span {
@@ -1449,10 +1451,14 @@
                             background: $black url("../../images/add-white.svg") left rem(12) center no-repeat;
                             background-size: rem(10);
                             color: $white;
+                            background-color: $dark-cyan;
+                            border: rem(1) solid $dark-cyan;
                         }
 
                         &:focus {
                             box-shadow: none;
+                            background-color: $dark-cyan;
+                            border: rem(1) solid $dark-cyan;
                         }
                     }
 
@@ -1536,13 +1542,13 @@
                     .add-to-cart {
                         width: 100%;
                         height: rem(45);
-                        background: $black;
+                        background: $dark-cyan;
                         @include font-gill ($font-weight: 600);
                         line-height: rem(20);
                         text-transform: uppercase;
                         color: $white;
                         font-family: $font-gill-std-semibold;
-                        border-color: $black;
+                        border-color: $dark-cyan;
                         border-radius: rem(3);
                         max-width: 100%;
                         margin: 0 auto;
@@ -1556,6 +1562,7 @@
                             background-color: $white;
                             box-shadow: none;
                             color: $black;
+                            border-color: $black;
                         }
                     }
                     .cart-and-ipay {
@@ -1906,13 +1913,13 @@
             button.add-to-cart {
                 width: 100%;
                 height: rem(45);
-                background: $black;
+                background: $dark-cyan;
                 @include font-gill($font-weight: 600);
                 line-height: rem(20);
                 text-transform: uppercase;
                 color: $white;
                 font-family: $font-gill-std-semibold;
-                border-color: $black;
+                border-color: $dark-cyan;
                 border-radius: rem(3);
                 margin: 0;
                 max-width: rem(330);
@@ -1932,6 +1939,7 @@
                     background-color: $white;
                     box-shadow: none;
                     color: $black;
+                    border-color: $black;
                 }
             }
         }

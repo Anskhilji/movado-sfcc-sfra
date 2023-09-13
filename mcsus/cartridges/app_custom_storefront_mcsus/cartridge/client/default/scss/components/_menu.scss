@@ -1011,7 +1011,7 @@ nav {
                           background-color: transparent;
                           padding: 0;
                           padding: 0 rem(70);
-                          border-right: rem(1) solid $grey-transparent-10;
+                          border-right: rem(1) solid $grey13;
                           max-width: 100%;
                           width: auto;
                           box-sizing: border-box;
@@ -1026,7 +1026,7 @@ nav {
                          
 
                           .dropdown-link {
-                            color: $grey-transparent-9;
+                            color: $grey13;
                             font-family: $font-book-std;
                             font-size: rem(12);
                             font-weight: 300;
@@ -1890,7 +1890,7 @@ nav {
                   }
 
                   .dropdown-link {
-                    color: $grey-transparent-9;
+                    color: $grey13;
                     font-family: $font-book-std;
                     font-size: rem(12);
                     font-weight: 500;
@@ -1942,13 +1942,9 @@ nav {
 }
 
 .dropdown-best-Seller {
-
-  .mcs-product-carousel-redesign {
-
     @include media-breakpoint-down(md) {
       display: none;
     }
-  }
 }
 
 .level-two::-webkit-scrollbar {
@@ -2051,4 +2047,8 @@ nav {
 
 .header-body-fixed {
   overflow: hidden;
+}
+
+.category-to-show {
+  display: block !important; // using !important to override inline style
 }

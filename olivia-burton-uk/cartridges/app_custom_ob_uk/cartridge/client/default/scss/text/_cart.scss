@@ -95,6 +95,16 @@
         letter-spacing: rem(0.4);
         font-weight: 300;
       }
+      .add-gift-message {
+        background-color: $dark-cyan;
+        border: rem(1) solid $dark-cyan;
+
+        &:hover,
+        &:focus {
+            background-color: $dark-cyan;
+            border: rem(1) solid $dark-cyan;
+        }
+      }
     }
   }
 
@@ -162,6 +172,55 @@
 
   .klarna-promo-parent-container {
       max-width: rem(350);
+  }
+
+  .modal {
+
+    .modal-dialog {
+
+        .modal-content {
+
+            .modal-footer {
+
+              .btn-outline-primary {
+
+                &:active {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+                }
+              }
+
+                .btn-primary {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+  
+                    &:hover {
+                        background-color: $white;
+                        color: $black;
+                        border: rem(1) solid $black;
+                    }
+                }
+            }
+        }
+    }
+  }
+
+  .cart-empty {
+    .continue-shopping {
+        background-color: $dark-cyan;
+        border: rem(1) solid $dark-cyan;
+        
+        &:hover {
+            background-color: $white;
+            color: $black;
+            border: rem(1) solid $black;
+        }
+        &:active {
+            color: $white;
+            background-color: $dark-cyan;
+            border: rem(1) solid $dark-cyan;
+        }
+    }
   }
 }
 
@@ -236,8 +295,8 @@ div.checkout-button-wrapper {
     font-family: $font-gill-std-bold;
     font-size: $font-size-text-heading1;
     letter-spacing: rem(2);
-    border: rem(1) solid $black;
-    background-color: $black;
+    border: rem(1) solid $dark-cyan;
+    background-color: $dark-cyan;
 
     &:hover,
     &:focus {
@@ -245,6 +304,10 @@ div.checkout-button-wrapper {
         border: rem(1) solid $black;
         color: $black;
     }
+    &:active {
+      background-color: $dark-cyan !important;
+      border: rem(1) solid $dark-cyan !important;
+  }
   }
 }
 
