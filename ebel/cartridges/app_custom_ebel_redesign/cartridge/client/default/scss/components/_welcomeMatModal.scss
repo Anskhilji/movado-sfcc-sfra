@@ -1,0 +1,89 @@
+@import '~ebel/components/_welcomeMatModal';
+
+.welcomeMat {
+    
+    .movado-welcome-mat {
+
+        .eswModalWrapper {
+
+            .eswModal {
+
+                .selector-container {
+
+                    p {
+                        font-family: $font-HelveticaNeueLT-book;
+                    }
+                }
+
+                .esw-header-wrapper, .esw-body-wrapper, .geolocation, .not-geolocation-country  {
+
+                    h1,h2,h3,h4,h5,h6 {
+                        font-family: $font-HelveticaNeueLT-book;
+                    }
+
+                    p {
+                        font-family: $font-HelveticaNeueLT-book;
+                    }
+                }
+
+                .geolocation, .not-geolocation-country {
+
+                    .esw-btn {
+                        font-family: $font-HelveticaNeueLT-book;
+                        
+                        &:focus {
+                            background-color: $white;
+                            color: $black;
+                            outline: none;
+                            box-shadow: none;
+                            border-style: solid;
+                            border-color: $black;
+                        }
+                    }
+                }
+
+                .shipping-country-message {
+                    font-family: $font-HelveticaNeueLT-book; 
+                }
+
+                .selector-container {
+
+                    .add-shipping-country-message {
+                        font-family: $font-HelveticaNeueLT-book;
+                    }
+
+                    .esw-country-selector {
+
+                        label {
+                            font-family: $font-HelveticaNeueLT-book;
+                        }
+
+                        span {
+                            font-size: rem(18);
+                        }
+
+                        .select-field {
+
+                            .current-country {
+
+                                .selected-country {
+                                    font-family: $font-HelveticaNeueLT-medium 
+                                }
+                            }
+
+                            .selector {
+
+                                .country {
+
+                                    .selected-link {
+                                        font-family: $font-HelveticaNeueLT-book 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

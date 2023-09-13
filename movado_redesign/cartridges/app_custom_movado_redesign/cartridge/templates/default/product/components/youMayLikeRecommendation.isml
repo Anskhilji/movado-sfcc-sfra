@@ -1,10 +1,10 @@
 <isif condition="${pdict.youMayLikeRecommendations && !!pdict.youMayLikeRecommendations.length}">
-  <div class="container-fluid pdp-v-one cs-product-recommendation">
+  <div class="container-fluid pdp-v-one cs-product-recommendation aruliden-carousel">
     <div class="row">
       <div class="col-12">
-        <div class="cs-carousel-wrapper">
+        <div class="cs-carousel-wrapper cs-carousel-update">
           <isif condition="${pdict.product.prefs.recommendationsTitle}">
-            <h3 class="carousel-title">${pdict.product.prefs.recommendationsTitle}</h3>
+            <h3 class="carousel-title text-left">${pdict.product.prefs.recommendationsTitle}</h3>
           </isif>
           <div class="js-carousel cs-carousel" data-carousel-config='${pdict.product.prefs.recommendationCarouselConfig}'>
             <isloop items="${pdict.youMayLikeRecommendations}" var="product" status="loopState">
@@ -13,6 +13,20 @@
               </div>
             </isloop>
           </div>
+
+          <div class="aruliden-carousel-arrow">
+              <div class="youMayLike-prev">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M23.4142 35.4287L11.4142 23.4287L23.4142 11.4287L22 10.0145L9.29287 22.7216C8.90234 23.1121 8.90234 23.7453 9.29287 24.1358L22 36.8429L23.4142 35.4287Z" fill="black"/>
+                  </svg>
+              </div>
+              <div class="youMayLike-next">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M24.5858 35.4287L36.5858 23.4287L24.5858 11.4287L26 10.0145L38.7071 22.7216C39.0977 23.1121 39.0977 23.7453 38.7071 24.1358L26 36.8429L24.5858 35.4287Z" fill="black"/>
+                  </svg>
+              </div>
+          </div>
+
           <isif condition="${pdict.product.prefs.bottomSectionRecommendation}">
             <div class="bottom-section">
               <isprint value="${pdict.product.prefs.bottomSectionRecommendation}" encoding="off" />

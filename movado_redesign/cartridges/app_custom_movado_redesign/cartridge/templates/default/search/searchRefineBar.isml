@@ -1,20 +1,12 @@
 <iscomment> Custom: HTML structure changed</iscomment>
-<div class="filter-header">
-    <div class="header-bar clearfix d-flex">
-        <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">
-        <span class="d-none d-md-block filter-more">${Resource.msg('label.filterMore', 'search', null)}</span>
-        <span class="d-none d-md-none sort-by">${Resource.msg('label.sortby', 'search', null)}</span>
-        </button>
-        <isif condition="${pdict.productSearch.productIds.length > 0}">
-            <div class="pull-right w-100 text-right reset-button-mt">
-                <div class="secondary-bar p-0">
-                    <a class="reset w-auto d-inline-block" data-reset-filter="true" href="${pdict.productSearch.resetLink}">
-                        ${Resource.msg('link.reset.new', 'search', null)}
-                    </a>
-                </div>
-            </div>
-        </isif>
-    </div>
+<div class="filter-header d-flex justify-content-between">
+    <span class="sort-by">Filters</span>
+    <svg class="close-bar" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+        <rect x="0.25" y="0.25" width="29.5" height="29.5" rx="14.75" fill="white"/>
+        <path d="M11.6739 11L19.0002 18.3263L18.3265 19L11.0002 11.6737L11.6739 11Z" fill="black"/>
+        <path d="M19 11.6737L11.6737 19L11 18.3263L18.3263 11L19 11.6737Z" fill="black"/>
+        <rect x="0.25" y="0.25" width="29.5" height="29.5" rx="14.75" stroke="#B2B2B4" stroke-width="0.5"/>
+    </svg>
 </div>
 
 <div class="refine-wrapper-sidebar">
@@ -52,7 +44,8 @@
     </div>
 </div>
  <div class="show-bottom-btn">
-    <div class="result-count">
-        <isinclude template="search/resultsCount" />
-    </div>
+    <a class="reset w-auto d-inline-block" data-reset-filter="true" href="${pdict.productSearch.resetLink}">${Resource.msg('button.clearAll', 'search', null)}</a>
+    <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">
+        <span class="d-none d-md-block filter-more">${Resource.msg('button.apply', 'search', null)}</span>
+    </button>
 </div>
