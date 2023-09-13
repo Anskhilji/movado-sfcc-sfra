@@ -18,8 +18,8 @@
                 <p>
                     <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
                     <span class="summary-details order-status">
-                        <isif condition="${pdict.orderStatus.omsOrderStatus != null && pdict.orderStatus.omsOrderStatus.status != null}">
-                            ${pdict.orderStatus.omsOrderStatus.status}
+                        <isif condition="${pdict.omsOrderStatus != null && pdict.omsOrderStatus != null}">
+                            ${pdict.omsOrderStatus}
                         <iselse/>
                             ${pdict.order.sapOrderStatus}    
                         </isif>
@@ -76,6 +76,11 @@
             <button ${pdict.isCancelOrderEnable == false ? 'disabled' : ''} class="cancel-order-btn" data-cancel-order-url="${URLUtils.url('Order-CancelOrder')}">${Resource.msg('label.order.cancel.btn.text', 'confirmation', null)}</button>
             <iscontentasset aid="cancel-order-dropdown" />
         </div>
+        <isif condition="${pdict.isCancelOrderEnable == false}">
+            <div class="cancel-order-oms-note col-12 mt-3">
+                <iscontentasset aid="cancel-order-oms-timeout-note" />
+            </div>
+        </isif>
         <div class="cancel-order-msg d-none mb-2 col-10"> ${Resource.msg('label.order.cancel.order', 'confirmation', null)}</div>
     </isif>
 </div>

@@ -338,10 +338,14 @@ function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal,
             cancelOrderEnable = true;
         }
 
+        var omsOrderStatus = filteredOrder[0].status;
+
     }
 
     responseObject.cancelOrderEnable = cancelOrderEnable;
     responseObject.orderModel = orderModel;
+    responseObject.omsOrderStatus = omsOrderStatus;
+
 
     return responseObject;
 }

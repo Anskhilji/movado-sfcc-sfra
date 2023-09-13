@@ -45,6 +45,7 @@ server.replace(
 
             return next();
         }
+
         var lastOrderID = Object.prototype.hasOwnProperty.call(req.session.raw.custom, 'orderID') ? req.session.raw.custom.orderID : null;
         if (lastOrderID === req.querystring.ID) {
             session.custom.orderJustPlaced = false;
@@ -417,7 +418,6 @@ server.post(
         if (req.form.trackOrderEmail
             && req.form.trackOrderPostal
             && req.form.trackOrderNumber) {
-            order = OrderMgr.getOrder(req.form.trackOrderNumber);
         } else {
             validForm = false;
         }
@@ -441,6 +441,36 @@ server.post(
                 order,
                 { config: config, countryCode: currentLocale.country, containerView: 'order' }
             );
+
+
+            var order = OrderMgr.getOrder(req.form.trackOrderNumber);
+
+            var productLineItem;
+            var orderLineItems = order.getAllProductLineItems();
+            var orderLineItemsIterator = orderLineItems.iterator();
+    
+            while (orderLineItemsIterator.hasNext()) {
+                productLineItem = orderLineItemsIterator.next();
+                Transaction.wrap(function () {
+                    if (productLineItem instanceof dw.order.ProductLineItem &&
+                        !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                        productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                    }
+                });
+    
+                // custom : PulseID engraving
+                if (Site.current.preferences.custom.enablePulseIdEngraving) {
+                    var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+                    var items = orderModel.items;
+                    pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
+
+                    req.session.raw.custom.appleProductId = '';
+                    req.session.raw.custom.appleEngraveOptionId = '';
+                    req.session.raw.custom.appleEngravedMessage = '';
+                    req.session.raw.custom.pulseIDPreviewURL = '';
+                }
+                // custom en
+            }
 
             // check the email and postal code of the form
             if (req.form.trackOrderEmail.toLowerCase()
@@ -483,6 +513,8 @@ server.post(
                  * Custom: End
                  */
 
+                var omsOrderStatus = filteredOrder[0].status;
+
                 var exitLinkText;
                 var exitLinkUrl;
 
@@ -500,7 +532,8 @@ server.post(
                     exitLinkUrl: exitLinkUrl,
                     orderStatus: orderStatus,
                     isCancelOrder: true,
-                    isCancelOrderEnable: cancelOrderEnable
+                    isCancelOrderEnable: cancelOrderEnable,
+                    omsOrderStatus: omsOrderStatus
                 });
             } else {
                 res.render('/account/login', {
@@ -540,6 +573,10 @@ server.get('OrderTracking', function (req, res, next) {
 
 server.get('GetOrderDetail', function (req, res, next) {
     var Locale = require('dw/util/Locale');
+    var OrderMgr = require('dw/order/OrderMgr');
+    var Site = require('dw/system/Site');
+    var Transaction = require('dw/system/Transaction');
+
     var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
     var currentLocale = Locale.getLocale(req.locale.id);
@@ -548,13 +585,44 @@ server.get('GetOrderDetail', function (req, res, next) {
     var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
     var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
 
+
+    var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
+    var productLineItem;
+    var orderLineItems = order.getAllProductLineItems();
+    var orderLineItemsIterator = orderLineItems.iterator();
+
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        Transaction.wrap(function () {
+            if (productLineItem instanceof dw.order.ProductLineItem &&
+                !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+            }
+        });
+
+        // custom : PulseID engraving
+        if (Site.current.preferences.custom.enablePulseIdEngraving) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            var items = responseObject.orderModel.items;
+            pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
+
+            //unset session for Apple pay
+            req.session.raw.custom.appleProductId = '';
+            req.session.raw.custom.appleEngraveOptionId = '';
+            req.session.raw.custom.appleEngravedMessage = '';
+            req.session.raw.custom.pulseIDPreviewURL = '';
+        }
+        // custom en
+    }
+
     if (!empty(responseObject) && !empty(responseObject.orderModel) && orderNumber.toLowerCase() == responseObject.orderModel.orderNumber.toLowerCase()) {
         res.render('account/orderDetails', {
             order: responseObject.orderModel,
             exitLinkText: exitLinkText,
             exitLinkUrl: exitLinkUrl,
             isCancelOrder: true,
-            isCancelOrderEnable: responseObject.cancelOrderEnable
+            isCancelOrderEnable: responseObject.cancelOrderEnable,
+            omsOrderStatus: responseObject.omsOrderStatus
         });
     } else {
         res.render('/order/orderTracking', {
@@ -567,12 +635,46 @@ server.get('GetOrderDetail', function (req, res, next) {
 
 server.post('OrderDetail', function (req, res, next) {
     var Locale = require('dw/util/Locale');
+    var OrderMgr = require('dw/order/OrderMgr');
+    var Site = require('dw/system/Site');
+    var Transaction = require('dw/system/Transaction');
+
     var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
     var currentLocale = Locale.getLocale(req.locale.id);
     var responseObject = orderCustomHelpers.orderDetail(currentLocale, false, req.form.trackOrderNumber, req.form.trackOrderPostal, req.form.trackOrderEmail);
     var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
     var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
+    
+
+    var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
+    var productLineItem;
+    var orderLineItems = order.getAllProductLineItems();
+    var orderLineItemsIterator = orderLineItems.iterator();
+
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        Transaction.wrap(function () {
+            if (productLineItem instanceof dw.order.ProductLineItem &&
+                !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+            }
+        });
+
+        // custom : PulseID engraving
+        if (Site.current.preferences.custom.enablePulseIdEngraving) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            var items = responseObject.orderModel.items;
+            pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
+
+            //unset session for Apple pay
+            req.session.raw.custom.appleProductId = '';
+            req.session.raw.custom.appleEngraveOptionId = '';
+            req.session.raw.custom.appleEngravedMessage = '';
+            req.session.raw.custom.pulseIDPreviewURL = '';
+        }
+        // custom en
+    }
 
     if (!empty(responseObject) && !empty(responseObject.orderModel) && req.form.trackOrderEmail.toLowerCase() == responseObject.orderModel.orderEmail.toLowerCase() && req.form.trackOrderPostal == responseObject.orderModel.billing.billingAddress.address.postalCode) {
         res.render('account/orderDetails', {
@@ -580,7 +682,9 @@ server.post('OrderDetail', function (req, res, next) {
             exitLinkText: exitLinkText,
             exitLinkUrl: exitLinkUrl,
             isCancelOrder: true,
-            isCancelOrderEnable: responseObject.cancelOrderEnable
+            isCancelOrderEnable: responseObject.cancelOrderEnable,
+            omsOrderStatus: responseObject.omsOrderStatus
+            
         });
     } else {
         res.render('/order/orderTracking', {

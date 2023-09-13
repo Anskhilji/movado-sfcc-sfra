@@ -98,6 +98,9 @@ server.replace(
         var OrderMgr = require('dw/order/OrderMgr');
         var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
+        var Site = require('dw/system/Site');
+        var Transaction = require('dw/system/Transaction');
+
         var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
 
         var order = OrderMgr.getOrder(req.querystring.orderID);
@@ -131,6 +134,37 @@ server.replace(
                 { config: config, countryCode: currentLocale.country, containerView: 'order' }
             );
 
+
+
+            var productLineItem;
+            var orderLineItems = order.getAllProductLineItems();
+            var orderLineItemsIterator = orderLineItems.iterator();
+        
+            while (orderLineItemsIterator.hasNext()) {
+                productLineItem = orderLineItemsIterator.next();
+                Transaction.wrap(function () {
+                    if (productLineItem instanceof dw.order.ProductLineItem &&
+                        !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                        productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                    }
+                });
+        
+                // custom : PulseID engraving
+                if (Site.current.preferences.custom.enablePulseIdEngraving) {
+                    var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+                    var items = orderModel.items;
+                    pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
+        
+                    //unset session for Apple pay
+                    req.session.raw.custom.appleProductId = '';
+                    req.session.raw.custom.appleEngraveOptionId = '';
+                    req.session.raw.custom.appleEngravedMessage = '';
+                    req.session.raw.custom.pulseIDPreviewURL = '';
+                }
+                // custom en
+            }
+
+
             var emailAddress = orderModel.orderEmail;
 
             var orders = SalesforceModel.getOrdersByCustomerEmail({
@@ -154,6 +188,8 @@ server.replace(
                 cancelOrderEnable = true;
             }
 
+            var omsOrderStatus = filteredOrder[0].status;
+
             var exitLinkText = Resource.msg('link.orderdetails.orderhistory', 'account', null);
             var exitLinkUrl =
                 URLUtils.https('Order-History', 'orderFilter', req.querystring.orderFilter);
@@ -163,7 +199,8 @@ server.replace(
                 exitLinkUrl: exitLinkUrl,
                 breadcrumbs: breadcrumbs,
                 isCancelOrder: true,
-                isCancelOrderEnable: cancelOrderEnable
+                isCancelOrderEnable: cancelOrderEnable,
+                omsOrderStatus: omsOrderStatus
             });
         } else {
             res.redirect(URLUtils.url('Account-Show'));
