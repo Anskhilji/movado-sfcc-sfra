@@ -45,7 +45,15 @@ function writeCatalogHeader(clydeContractStreamWriter, catalogID) {
  */
 function writeCatalogFileContent(result, fileWriter, productSearchHitsItr) {
     while (productSearchHitsItr.hasNext()) {
+        var productOptions;
         var product = productSearchHitsItr.next().product;
+        if(product && product.optionModel && product.optionModel.options && product.optionModel.options.length > 0){
+            var productOptions = product.optionModel.options.filter(function(option){
+                if(option.ID == 'pulseIdEngraving'){
+                    return option;
+                }
+            });
+        }
         // Default Option Product
         fileWriter.writeStartElement('product');
         fileWriter.writeAttribute('product-id', product.ID);
@@ -123,6 +131,80 @@ function writeCatalogFileContent(result, fileWriter, productSearchHitsItr) {
 
         fileWriter.writeEndElement();
         fileWriter.writeCharacters('\n');
+
+     if(productOptions && productOptions.ID == 'pulseIdEngraving'){
+        fileWriter.writeStartElement('option');
+        fileWriter.writeAttribute('option-id', 'pulseIdEngraving');
+
+        fileWriter.writeStartElement('sort-mode');
+        fileWriter.writeCharacters('price');
+        fileWriter.writeEndElement();
+        fileWriter.writeCharacters('\n');
+
+        fileWriter.writeStartElement('option-values');
+        fileWriter.writeStartElement('option-value');
+        fileWriter.writeAttribute('value-id', 'NONE');
+        fileWriter.writeAttribute('default', 'true');
+
+        fileWriter.writeStartElement('display-value');
+        fileWriter.writeAttribute('xml:lang', 'x-default');
+        fileWriter.writeCharacters('NONE');
+        fileWriter.writeEndElement();
+        fileWriter.writeCharacters('\n');
+
+        fileWriter.writeStartElement('product-id-modifier');
+        fileWriter.writeCharacters('NONE');
+        fileWriter.writeEndElement();
+        fileWriter.writeCharacters('\n');
+
+        fileWriter.writeStartElement('option-value-prices');
+        fileWriter.writeStartElement('option-value-price');
+        fileWriter.writeAttribute('currency', 'USD');
+        fileWriter.writeCharacters('0');
+        fileWriter.writeEndElement();
+        fileWriter.writeCharacters('\n');
+
+        fileWriter.writeEndElement();
+        fileWriter.writeCharacters('\n');
+
+        fileWriter.writeEndElement();
+        fileWriter.writeCharacters('\n');
+        for (var i = 0; i < 2; i++) {
+            fileWriter.writeStartElement('option-value');
+            fileWriter.writeAttribute('value-id', 'pulseIdEngraving');
+            fileWriter.writeAttribute('default', 'false');
+
+            fileWriter.writeStartElement('display-value');
+            fileWriter.writeAttribute('xml:lang', 'x-default');
+            fileWriter.writeCharacters('pulseIdEngraving');
+            fileWriter.writeEndElement();
+            fileWriter.writeCharacters('\n');
+
+            fileWriter.writeStartElement('product-id-modifier');
+            fileWriter.writeCharacters('pulseIdEngraving');
+            fileWriter.writeEndElement();
+            fileWriter.writeCharacters('\n');
+
+            fileWriter.writeStartElement('option-value-prices');
+
+            fileWriter.writeStartElement('option-value-price');
+            fileWriter.writeAttribute('currency', clydeHelper.CONSTANTS.OPTION_PRODUCT_DEFAULT_CURRENCY);
+            fileWriter.writeCharacters('100');
+            fileWriter.writeEndElement();
+            fileWriter.writeCharacters('\n');
+
+            fileWriter.writeEndElement();
+            fileWriter.writeCharacters('\n');
+
+            fileWriter.writeEndElement();
+            fileWriter.writeCharacters('\n');
+        }
+        fileWriter.writeEndElement();
+        fileWriter.writeCharacters('\n');
+
+        fileWriter.writeEndElement();
+        fileWriter.writeCharacters('\n');
+    }
 
         fileWriter.writeEndElement();
         fileWriter.writeCharacters('\n');
