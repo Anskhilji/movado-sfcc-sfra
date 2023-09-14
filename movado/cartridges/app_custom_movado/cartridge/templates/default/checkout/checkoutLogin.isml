@@ -1,6 +1,5 @@
 <isdecorate template="common/layout/old/checkout">
     <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
-    <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
 
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
@@ -37,16 +36,11 @@
                             ${Resource.msg('msg.guest.checkout1', 'checkout', null)}
                             ${Resource.msg('msg.guest.checkout2', 'checkout', null)}
                         </p>
-
-                        <isif condition="${!domesticAllowedCountry}">
-                            <isinclude template="account/components/eswEmailForm" />
-                        <iselse/>
-                            <a
-                                href="${URLUtils.https('Checkout-Begin')}"
-                                class="btn btn-block btn-primary checkout-as-guest">
-                                ${Resource.msg('button.checkout.as.guest', 'checkout', null)}
-                            </a>
-                        </isif>
+                        <a
+                            href="${URLUtils.https('Checkout-Begin')}"
+                            class="btn btn-block btn-primary checkout-as-guest">
+                            ${Resource.msg('button.checkout.as.guest', 'checkout', null)}
+                        </a>
                         <iscomment> Amazon Pay Button </iscomment>
                         <isif condition="${sitePreferences.amzPayEnabled}">
                             <div class="col-12">

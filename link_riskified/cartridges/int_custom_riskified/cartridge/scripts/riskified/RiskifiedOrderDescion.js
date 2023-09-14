@@ -61,6 +61,7 @@ function riskifiedPaymentReversal(order, paymentMethod) {
           if (order.getStatus() == Order.ORDER_STATUS_CREATED){
               message = '(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo;
               checkoutLogger.error(message);
+              checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
               OrderMgr.failOrder(order, true);  //Order must be in status CREATED
               order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
           } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
