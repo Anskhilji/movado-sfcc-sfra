@@ -955,8 +955,9 @@ $stored-payment-spacing: rem(16);
     }
 }
 
-body:has(#checkout-main) #INDblindNotif, #INDWrap {
-
-  display:none !important;
-
+body:has(.checkout-content) {
+  
+  #INDblindNotif {
+      display:none !important;
+  }
 }

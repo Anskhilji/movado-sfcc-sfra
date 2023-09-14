@@ -154,6 +154,15 @@ function getAddressFieldsFromUI(form) {
     return address;
 }
 
+function checkForInput(element) {
+    if ($(element).val().length > 0) {
+        $(element).addClass('auto-is-valid is-valid');
+    } else {
+        $(element).removeClass('auto-is-valid is-valid');
+    }
+}
+
+
 module.exports = {
     methods: {
         populateAddressSummary: populateAddressSummary,
@@ -192,6 +201,13 @@ module.exports = {
                 $option.prop('selected', 'selected');
                 $el.parents('[data-address-mode]').attr('data-address-mode', 'new');
                 $('.billing-form input').removeClass('is-valid auto-is-valid is-invalid auto-is-invalid');
+                $('.billing-form input').each(function () {
+                    var $input = $(this);
+                    if ($input.hasClass('cardNumber') || $input.hasClass('creditcard-holdername') || $input.hasClass('expirationDate') || $input.hasClass('creditcard-securitycode')) {
+                        checkForInput(this);
+                    }
+                });
+
                 $('.billing-form select').removeClass('auto-is-invalid auto-is-valid is-valid is-invalid');
             } else {
                 // Handle shipping address case
