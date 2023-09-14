@@ -58,4 +58,18 @@
         <isinclude template="common/surveyMonkeyPopUp.isml" />
     </isif>
 
+    <isif condition="${pdict.isPostCheckoutEnabled}">
+        <!-- Begin Talkable integration code -->
+        <isif condition="${empty(pdict.talkableSiteId)}">
+            <!-- Talkable Site ID is blank, check your Talkable extension settings -->
+        <iselsif condition="${empty(pdict.recentOrder)}">
+            <!-- Order could not be found -->
+        <iselse>
+            <script type="text/javascript">
+            _talkableq.push(["register_purchase", JSON.parse("<isprint value="${pdict.talkableData}" encoding="jsonvalue"/>")]);
+            </script>
+        </isif>
+        <!-- End Talkable integration code -->
+    </isif>
+
  </isdecorate>

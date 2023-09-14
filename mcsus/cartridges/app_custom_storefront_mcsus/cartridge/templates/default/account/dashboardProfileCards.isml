@@ -34,7 +34,10 @@
                 <isinclude template="account/wishlist/listCards"/>
             </div>
         </isif>
-        
+
+        <isif condition="${require("*/cartridge/scripts/talkable/libTalkable").TalkableEnabled() === true}">
+            <isinclude template="account/dashboardCard"/>
+        </isif>
         <!---MyWatches--->
         	<isinclude template="account/myWatches"/> 
     </div>
