@@ -21,22 +21,21 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-
-        <section class="sticky-bar" data-desktop-sticky-atc-bar>
-            <div class="sticky-bar-container">
-                <div>
-                    <strong>${Resource.msg('label.sticky.selected', 'product', null)}</strong>
-                    <span class="sticky-bar-name">${product.productName}</span>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span class="sticky-bar-price">
-                        <isset name="price" value="${product.price}" scope="page" />
-                        <isinclude template="product/components/pricing/main" />
-                    </span>
-                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
-                </div>
+    <section class="sticky-bar" data-desktop-sticky-atc-bar>
+        <div class="sticky-bar-container">
+            <div>
+                <strong>${Resource.msg('label.sticky.selected', 'product', null)}</strong>
+                <span class="sticky-bar-name">${product.productName}</span>
             </div>
-        </section>
+            <div class="d-flex align-items-center">
+                <span class="sticky-bar-price">
+                    <isset name="price" value="${product.price}" scope="page" />
+                    <isinclude template="product/components/pricing/main" />
+                </span>
+                <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
+            </div>
+        </div>
+    </section>
 
         <div class="product-breadcrumb">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
@@ -234,13 +233,12 @@
                                 </div>
                             </isif>
                         </div>
-                        
                         <div class="show-cart-button-below-price">
                             <div class="row">
                                 <div class="col-12 prices-add-to-cart-actions-top">
                                     <div class="d-block">
                                         <!-- Cart and [Optionally] Apple Pay -->
-                                        <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
+                                        <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
                                     </div>
                                 </div>
                             </div>
@@ -298,7 +296,7 @@
                                 <div class="col-12 prices-add-to-cart-actions">
                                     <div class="d-block show-cart-button-mobile-container">
                                         <!-- Cart and [Optionally] Apple Pay -->
-                                        <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
+                                        <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
                                         <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
                                         <isif condition="${isEswEnabled}">
                                             <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >

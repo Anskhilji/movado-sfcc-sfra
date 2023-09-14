@@ -11,6 +11,13 @@
         font-family: $font-gill-std-medium;
     }
 
+    .form-group {
+
+        .form-control-field-label {
+            font-family: $font-gill-std-medium;
+        }
+    }
+        
     .reset-password-form {
 
         .btn-primary {
@@ -94,5 +101,42 @@
     
     & a {
         font-family: $font-gill-std-medium;
+    }
+}
+
+.checkout-content {
+
+    .card.payment-form {
+
+        .payment-information {
+
+            .payment-options {
+
+                .nav-item {
+
+                    .credit-card-label {
+                        font-family: $font-gill-std-medium;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.container {
+    &.login-page {
+
+        .card-body {
+
+            .login-form-nav {
+
+                .form-group {
+
+                    .form-control-field-label {
+                        font-family: $font-gill-std-medium;
+                    }
+                }
+            }
+        }
     }
 }
