@@ -722,7 +722,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
             // Custom End
             // Custom Start : Added  product quantity
-            produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
+            produtObj.quantity = productLineItem.quantity ? productLineItem.quantity.value : productLineItem.product.priceModel.basePriceQuantity.value;
             // Custom End
             // Custom Start : Added  total product quantity
             produtObj.productQuantityTotal =  order.productQuantityTotal;

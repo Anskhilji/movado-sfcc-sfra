@@ -58,7 +58,14 @@ function updateCartTotals(data) {
             affirm.ui.refresh();
         });
     }
-    $('.minicart-quantity').empty().append(data.numItems);
+    var $miniCartQuantity = $('.minicart-quantity');
+    var $showMiniCartCounter = $('.minicart-quantity').data('counter');
+    if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
+        $miniCartQuantity.empty();
+        $miniCartQuantity.removeClass('d-none').addClass('d-block');
+    } else {
+        $miniCartQuantity.empty().append(data.numItems);
+    }
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
         $('.order-discount').removeClass('hide-order-discount');

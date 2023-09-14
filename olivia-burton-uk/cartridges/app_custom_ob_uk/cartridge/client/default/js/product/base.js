@@ -185,20 +185,37 @@ function updateAttrs(attrs, $productContainer) {
  * @param {jQuery} $productContainer - DOM element for a given product
  */
 function updateAvailability(response, $productContainer) {
-    var availabilityValue = '';
-    var availabilityMessages = response.product.availability.messages;
+    var $availabilityValue = '';
+    var $availabilityMessages = response.product.availability.messages;
+    var $productATSValue = response.product.productATSValue;
+    var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
+    var $inStockText = window.Resources.LABEL_IN_STOCK;
+    var $preOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_PREORDER;
+    var $backOrderText = window.Resources.INFO_PRODUCT_AVAILABILITY_BACK_ORDER;
+    var $lowStockMessage = window.Resources.LOW_STOCK_MESSAGE;
+
     if (!response.product.readyToOrder) {
-        availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
+        $availabilityValue = '<div>' + response.resources.info_selectforstock + '</div>';
     } else {
-        availabilityMessages.forEach(function (message) {
-            availabilityValue += '<div>' + message + '</div>';
-        });
+        if ($productATSValue && $lowStockThreshold && $productATSValue <= $lowStockThreshold) {
+            $availabilityMessages.forEach(function (message) {
+                if (message === $inStockText || message === $preOrderText || message === $backOrderText) {
+                    $availabilityValue += '<div>' + $lowStockMessage + '</div>';
+                } else {
+                    $availabilityValue += '<div>' + message + '</div>';
+                }
+            });
+        } else {
+            $availabilityMessages.forEach(function (message) {
+                $availabilityValue += '<div>' + message + '</div>';
+            });
+        }
     }
 
     $($productContainer).trigger('product:updateAvailability', {
         product: response.product,
         $productContainer: $productContainer,
-        message: availabilityValue,
+        message: $availabilityValue,
         resources: response.resources
     });
 }
@@ -727,12 +744,75 @@ function chooseBonusProducts(data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
-function handlePostCartAdd(response) {
+function handlePostCartAdd(response, addToCartRecommendationButton, currentRecommendedProduct, addToCartButtonText) {
     $('.minicart').trigger('count:update', response);
     var messageType = response.error ? 'text-danger' : 'text-success';
+
+    if ($('#addToCartModal').hasClass('addToCartModal-wrapper')) {
+        if(response.error == false) {
+            $('#addToCartModal').addClass('add-to-cart-redesign')
+            $('.recomendation-carousel-wrapper').removeClass('d-none');
+            $('#addToCartModal').removeClass('addToCartError');
+            if (!$('.recommendation-add-to-cart-error').hasClass('d-none')) {
+                $('.recommendation-add-to-cart-error').addClass('d-none');
+            }
+        } else {
+            $('#addToCartModal').addClass('addToCartError');
+            $('#addToCartModal').removeClass('add-to-cart-redesign');
+            $('.recomendation-carousel-wrapper').addClass('d-none');
+            if (addToCartRecommendationButton === true && response.error == true) {
+                $('#addToCartModal').addClass('add-to-cart-redesign')
+                $('.recomendation-carousel-wrapper').removeClass('d-none');
+                $('#addToCartModal').removeClass('addToCartError');
+                $('#addToCartModal .recommendation-add-to-cart-error').html(response.message);
+                $('#addToCartModal .recommendation-add-to-cart-error p').addClass(messageType);
+                $('.recommendation-add-to-cart-error').removeClass('d-none');
+            } else {
+                $('#addToCartModal').addClass('addToCartError');
+                $('#addToCartModal').removeClass('add-to-cart-redesign');
+                $('.recomendation-carousel-wrapper').addClass('d-none');
+                if (!$('.recommendation-add-to-cart-error').hasClass('d-none')) {
+                    $('.recommendation-add-to-cart-error').addClass('d-none');
+                }
+            }
+        }
+    }
+
+    var $modalContent = $('.add-to-cart-modal-content');
+    var $carouselContent = $('.new-rec-carosel-modal');
+    var $footerContent = $('.add-to-cart-modal-content-footer');
+    var $popUpContent = $('#addToCartModal .modal-success-text');
+
     // show add to cart modal
-    $('#addToCartModal .modal-body').html(response.message);
-    $('#addToCartModal .modal-body p').addClass(messageType);
+    if (addToCartRecommendationButton !== true) {
+        if (response.error === true || response.error.errorText) {
+            if ($modalContent.length > 0) {
+                $($popUpContent).html($modalContent);
+                $($popUpContent).addClass('d-none');
+            }
+            $('#addToCartModal .modal-body').html(response.message);
+            $('#addToCartModal .modal-body p').addClass(messageType);
+        } else {
+            if ($modalContent.length > 0) {
+                var $popUpContent = $modalContent;
+            }
+            
+            if ($modalContent.length > 0) {
+                $('#addToCartModal .modal-body').html($modalContent);
+            } else {
+                $('#addToCartModal .modal-body').html($popUpContent);
+            }
+            
+            $modalContent.removeClass('d-none');
+            $footerContent.removeClass('d-none');
+            $('.recomendation-carousel-wrapper').html($carouselContent);
+            $('#addToCartModal .modal-footer').html($footerContent);
+            $('#addToCartModal .modal-body p').addClass(messageType);
+        }
+    } else {
+        $footerContent.removeClass('d-none');
+    }
+
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {
             setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
@@ -747,8 +827,59 @@ function handlePostCartAdd(response) {
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
+        var $priceTitle = 'Estimated Cart Total: ';
+        var $addToBagText = window.Resources.BUTTON_ADD_TO_BAG ? window.Resources.BUTTON_ADD_TO_BAG : '';
+        var $addedToCartText = window.Resources.BUTTON_ADDED_TO_CART ? window.Resources.BUTTON_ADDED_TO_CART : '';
+        var $addedToBagText = window.Resources.BUTTON_ADDED_TO_BAG ? window.Resources.BUTTON_ADDED_TO_BAG : '';
+
+        if ($('#addToCartModal').find('.total-price').length > 0 && response && response.cart && response.cart.totals && response.cart.totals.grandTotal) {
+            $('#addToCartModal').find('.total-price').text($priceTitle + response.cart.totals.grandTotal);
+        }
+        if (addToCartRecommendationButton !== undefined && addToCartRecommendationButton === true) {
+            if (response.error !== true && !response.error.errorText) {
+                var $currentProduct = currentRecommendedProduct ? currentRecommendedProduct : '';
+                var $productIds = [];
+
+                $('#addToCartModal .add-to-cart-plp-redesign').each(function () {
+                    var $pid = $(this).data('rec-pid');
+                    $productIds.push($pid);
+                });
+
+                if ($productIds.indexOf($currentProduct) > -1) {
+                    var $currentAddedProduct = $('#addToCartModal').find('[data-rec-pid="' + $currentProduct + '"]').closest('.add-to-cart-plp-redesign');
+                    $currentAddedProduct.addClass('active');
+                    var $currentAddedProductText = $currentAddedProduct.find('.updated-text');
+
+                    if (addToCartButtonText === $addToBagText) {
+                        $currentAddedProductText.text($addedToBagText);
+                    } else {
+                        $currentAddedProductText.text($addedToCartText);
+                    }
+                }
+            }
+        }
+        $('.slick-slider').slick('refresh');
         $('#addToCartModal').modal('show');
     }
+}
+
+function slickSliderReinitialize() {
+    var $slickCarouselSlider = $('.recomendation-carousel-wrapper .js-carousel');
+    // Get the data value from the data-carousel-config attribute
+    var $slickCarouselConfig = $slickCarouselSlider.data('carousel-config');
+
+    // Unslick the slider to reset the configuration
+    if ($slickCarouselSlider.hasClass('slick-initialized')) {
+        $slickCarouselSlider.slick('unslick');
+    }
+    
+    $slickCarouselSlider.addClass('d-none');
+    
+    setTimeout(() => {
+        // Reinitialize the slider to reset the configuration
+        $slickCarouselSlider.slick($slickCarouselConfig);
+       $slickCarouselSlider.removeClass('d-none');
+    }, 2000);
 }
 
 /**
@@ -954,6 +1085,7 @@ module.exports = {
             var pidsObj;
             var setPids;
             var giftPid;
+            var addToCartRecommendationButton = $(this).data('recommendation-atc');
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -1048,11 +1180,15 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data);
+                        handlePostCartAdd(data, addToCartRecommendationButton);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                             ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
+                        
+                        if ($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
+                            slickSliderReinitialize();
                         }
                         $.spinner().stop();
                     },
@@ -1248,15 +1384,15 @@ module.exports = {
     getQuantitySelected: getQuantitySelected,
     addToCartPLP : function() {
         $(document).on('click', '.add-to-cart-plp-redesign', function (e) {
-            $.spinner().start();
             var addToCartUrl;
             var pid;
             var pidsObj;
             var setPids;
             var $this = $(this);
-
-            var addToCartLocation = $(this).data('atc');
+            var addToCartRecommendationButton = $this.data('recommendation-atc');
             $('body').trigger('product:beforeAddToCart', this);
+            $.spinner().stop();
+            $.spinner().start();
 
             addToCartUrl = getAddToCartUrl();
             if ($this.data('product-set') == true) {
@@ -1281,7 +1417,8 @@ module.exports = {
                 childProducts: getChildProducts(),
                 quantity: 1
             };
-
+            var $currentRecommendedProduct = $(this).data('rec-pid');
+            var $addToCartButtonText = $(this).data('add-to-cart-text')
             if (addToCartUrl) {
                 $.ajax({
                     url: addToCartUrl,
@@ -1289,11 +1426,15 @@ module.exports = {
                     data: form,
                     success: function (data) {
                         updateCartPage(data);
-                        handlePostCartAdd(data);
+                        handlePostCartAdd(data, addToCartRecommendationButton, $currentRecommendedProduct, $addToCartButtonText);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                             ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
+
+                        if ($('.recomendation-carousel-wrapper .js-carousel').length > 0 && addToCartRecommendationButton === undefined) {
+                            slickSliderReinitialize();
                         }
                         $.spinner().stop();
                     },

@@ -120,11 +120,21 @@ server.post('ProcessPayments',
             });
         }
 
-         // Added Smart Gift Logic
-         if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
-             session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
-         }
+        // Added Smart Gift Logic
+        if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
+            session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
+        }
 
+        // Basket level custom attribute set to true for shopperRecovery redirection in case of express payment
+        var isExpressPayment = false;
+        if (req.form.isGooglePayExpress == 'true' && currentBasket) {
+            isExpressPayment = true;
+        }
+
+        Transaction.wrap(function () {
+            currentBasket.custom.isExpressPayment = isExpressPayment;
+        });
+        
         var validatedProducts = validationHelpers.validateProducts(currentBasket);
 
         if (validatedProducts.error) {
@@ -317,15 +327,17 @@ server.post('ProcessPayments',
         } else {
             var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
             if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-                    // Riskified order declined response from decide API
-                    riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-                    if (riskifiedOrderDeclined) {
-                        res.json({
-                            error: false,
-                            redirectUrl: URLUtils.url('Checkout-Declined').toString()
-                        });
-                        return next();
-                    }
+                var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
+                // Riskified order declined response from decide API
+                riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
+
+                if (!riskifiedOrderDeclined.error) {
+                    res.json({
+                        error: false,
+                        redirectUrl: riskifiedOrderDeclined.returnUrl.toString()
+                    });
+                    return next();
+                }
             } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
                 // Riskified order approved response from decide API
                 RiskifiedOrderDescion.orderApproved(order);

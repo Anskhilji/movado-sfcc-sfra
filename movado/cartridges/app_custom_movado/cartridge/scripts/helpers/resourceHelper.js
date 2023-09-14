@@ -26,6 +26,9 @@ function getResources(pageContext) {
     fedexAddressNoRecommendation = fedexAddressNoRecommendation && fedexAddressNoRecommendation.custom.body ? fedexAddressNoRecommendation.custom.body.source : '';
     var giftMessageCartError = ContentMgr.getContent('ca-gift-message-cart-error');
     giftMessageCartError = giftMessageCartError && giftMessageCartError.custom.body ? giftMessageCartError.custom.body.source : '';
+    
+    var lowStockMessage = ContentMgr.getContent('ca-low-stock-message');
+    lowStockMessage = lowStockMessage && lowStockMessage.custom.body && lowStockMessage.custom.body.source ? lowStockMessage.custom.body.source : '';
 
     var isPickUpFromStore;
     if (currentBasket) {
@@ -126,7 +129,13 @@ function getResources(pageContext) {
         BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null),
         GIFT_MESSAGE_CART_ERROR: giftMessageCartError,
         CLYDE_WARRANTY: Constants.CLYDE_WARRANTY,
-        CLYDE_WIDGET_DISPLAY_PDP_ENABLED: Site.current.preferences.custom.clydeWidgetDisplayPDP ? true : false
+        CLYDE_WIDGET_DISPLAY_PDP_ENABLED: Site.current.preferences.custom.clydeWidgetDisplayPDP ? true : false,
+        BUTTON_ADDED_TO_CART: Resource.msg('button.addedtocart', 'common', null),
+        BUTTON_ADDED_TO_BAG: Resource.msg('button.addedtobag', 'common', null),
+        BUTTON_ADD_TO_BAG: Resource.msg('button.addtobag', 'common', null),
+        LOW_STOCK_THRESHOLD: !empty(Site.current.preferences.custom.lowStockThreshold) ? Site.current.preferences.custom.lowStockThreshold : false,
+        LABEL_IN_STOCK: Resource.msg('label.instock', 'common', null),
+        LOW_STOCK_MESSAGE: lowStockMessage
     };
     return resources;
 }

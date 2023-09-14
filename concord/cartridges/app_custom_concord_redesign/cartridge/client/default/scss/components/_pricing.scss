@@ -1,0 +1,14 @@
+@import "~concord/components/pricing";
+
+.product-tile {
+
+    .price {
+
+        del {
+
+            .strike-through {
+                color: $grey4;
+            }
+        }
+    }
+}

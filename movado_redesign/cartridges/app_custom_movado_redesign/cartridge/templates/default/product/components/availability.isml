@@ -1,3 +1,11 @@
+<isset name="inStock" value="${Resource.msg('label.instock', 'common', null)}" scope="page" />
+<isset name="preOrder" value="${Resource.msg('info.product.availability.preorder', 'common', null)}" scope="page" />
+<isset name="backOrder" value="${Resource.msg('info.product.availability.backorder', 'common', null)}" scope="page" />
+<isset name="outOfStock" value="${Resource.msg('label.not.available', 'common', null)}" scope="page" />
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+<isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+<isinclude template="/components/modules" sf-toolkit="off" />
 <iscomment>Updated the bootstrap classes, new classes added</iscomment>
 <div class="row">
     <iscomment> <div class="col-12 col-sm-4">
@@ -12,14 +20,41 @@
                     ${Resource.msg('info.selectforstock', 'product', 'Select Styles for Availability')}
                 <iselse>
                     <isloop items="${product.availability.messages}" var="message">
-                        <span class="availability-msg-text">${message}</span> 
+                        <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                            <isif condition="${product.productATSValue <= lowStockThreshold}">
+                                <isif condition="${(message === inStock || message === preOrder || message === backOrder) && (product.available && product.readyToOrder)}">
+                                    <span class="availability-msg-text low-stock-message">
+                                        <iscontentasset aid="ca-low-stock-message" />
+                                    </span>
+                                <iselse/>
+                                    <isif condition="${message === outOfStock}">
+                                        <span class="availability-msg-text low-stock-message">${message}</span>
+                                    </isif>
+                                </isif> 
+                            <iselse/>
+                                <isif condition="${message === outOfStock}">
+                                    <span class="availability-msg-text low-stock-message">${message}</span>
+                                </isif>
+                            </isif>
+                        <iselse/>
+                            <isif condition="${message === outOfStock}">
+                                <span class="availability-msg-text low-stock-message">${message}</span>
+                            </isif>
+                        </isif>
                     </isloop>
-                    <isif condition="${product.available && product.readyToOrder}">
-                        <span class="availability-msg-text">| ${Resource.msgf('label.product.detail.shipping2', 'product', null)} </span>
+                    <isif condition="${!(product.productATSValue <= lowStockThreshold) && (product.available && product.readyToOrder)}">
+                        <span class="availability-msg-text"><span>|</span> ${Resource.msgf('label.product.detail.shipping2', 'product', null)} </span>
                     </isif>
-                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                    <isif condition="${lowStockMessageEnabled && lowStockThreshold && (product.productATSValue <= lowStockThreshold)}">
+                        <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                         <isset name="availabilityDate" value="${dw.util.StringUtils.formatCalendar(new dw.util.Calendar(product.availability.inStockDate), 'MM/dd/yyyy')}" scope="page" />
-                        |  ${Resource.msgf('info.presale.order.shipment.by.date', 'common', null, availabilityDate)}
+                           ${Resource.msgf('info.presale.order.shipment.by.date', 'common', null, availabilityDate)}
+                    </isif>
+                    <iselse/>
+                        <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                        <isset name="availabilityDate" value="${dw.util.StringUtils.formatCalendar(new dw.util.Calendar(product.availability.inStockDate), 'MM/dd/yyyy')}" scope="page" />
+                        <span>|</span>  ${Resource.msgf('info.presale.order.shipment.by.date', 'common', null, availabilityDate)}
+                    </isif>
                     </isif>
                 </isif>
             </li>

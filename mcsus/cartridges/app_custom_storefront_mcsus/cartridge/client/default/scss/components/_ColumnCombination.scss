@@ -40,7 +40,7 @@
     }
 
     &~.tile-slide {
-        border-left: rem(1) solid $grey-transparent-10;
+        border-left: rem(1) solid $grey13;
         padding: rem(0) rem(20) rem(0);
         
         &:not(:has(.mcs-product-carousel-redesign)) {

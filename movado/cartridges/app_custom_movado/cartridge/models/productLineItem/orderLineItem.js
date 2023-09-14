@@ -38,7 +38,7 @@ module.exports = function mgOrderLineItem(product, apiProduct, options) {
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
 
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
-
+    var pulseIDPreviewURL = productCustomHelper.getPulseIDPreviewURL(options.lineItem);
     Object.defineProperty(product, 'familyName', {
         enumerable: true,
         value: !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : ''
@@ -55,6 +55,13 @@ module.exports = function mgOrderLineItem(product, apiProduct, options) {
         Object.defineProperty(product, 'isPulseIDEngravingEnabled', {
             enumerable: true,
             value: !empty(apiProduct.custom.enablepulseIDEngraving) ? apiProduct.custom.enablepulseIDEngraving : ''
+        });
+    }
+
+    if (!empty(pulseIDPreviewURL)) {
+        Object.defineProperty(product, 'pulseIDPreviewURL', {
+            enumerable: true,
+            value: pulseIDPreviewURL
         });
     }
 

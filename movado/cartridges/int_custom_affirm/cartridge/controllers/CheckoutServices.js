@@ -54,6 +54,7 @@ server.append('SubmitPayment',
                 var Transaction = require('dw/system/Transaction');
                 Transaction.wrap(function () {
                     billingAddress.setCompanyName(viewData1.address.companyName.value);
+                    currentBasket.custom.isExpressPayment = false;
                 });
                 var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
                 if (usingMultiShipping === true && currentBasket.shipments.length < 2) {
@@ -236,17 +237,18 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  } else {
 		var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
 		if (handlePaymentResult.result && handlePaymentResult.result.response && handlePaymentResult.result.response.order.status === 'declined') {
-				// Riskified order declined response from decide API
-				riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-				if (riskifiedOrderDeclined) {
-					res.json({
-						error: false,
-						orderID: order.orderNo,
-						orderToken: order.orderToken,
-						continueUrl: URLUtils.url('Checkout-Declined').toString()
-					});
-					return next();
-				}
+			var riskifiedOrderStatus = handlePaymentResult.result.response.order.category;
+			// Riskified order declined response from decide API
+			riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
+			if (!riskifiedOrderDeclined.error) {
+				res.json({
+					error: false,
+					orderID: order.orderNo,
+					orderToken: order.orderToken,
+					continueUrl: riskifiedOrderDeclined.returnUrl.toString()
+				});
+				return next();
+			}
 		} else if (handlePaymentResult.result && handlePaymentResult.result.response && handlePaymentResult.result.response.order.status === 'approved') {
 			// Riskified order approved response from decide API
 			RiskifiedOrderDescion.orderApproved(order);

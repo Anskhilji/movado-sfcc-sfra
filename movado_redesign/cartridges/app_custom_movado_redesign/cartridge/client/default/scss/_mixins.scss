@@ -1,0 +1,81 @@
+@mixin buttonFilled {
+    transition: all 0.4s;
+    &:hover,&:active {
+        background: transparent;
+        border: rem(1) solid $black;
+        color: $black;
+    }
+    
+    &:focus {
+        background: transparent;
+        border: rem(1) solid $light-black2;
+        color: $light-black2;
+        box-shadow: none;
+    }
+
+    &:has(> a) a {
+        box-shadow: none;
+        outline: none;
+    }
+
+    &:not(:disabled) {
+
+        &:not(.disabled) {
+
+            &:active {
+
+                &:focus {
+                    background-color: transparent;
+                    color: $light-black2;
+                    border-color: $light-black2;
+                }
+            }
+        }
+    }
+}
+
+@mixin buttonOutline {
+    transition: all 0.4s;
+
+    &:hover,&:active {
+        box-shadow: inset rem(0) rem(0) rem(0) rem(1) $black;
+        background-color: transparent;
+        color: $black;
+        border-color: $black;
+    }
+    
+    &:focus,&:active {
+        background: $light-black2;
+        box-shadow: none;
+        color: $white;
+        border-color: $light-black2;
+        box-shadow: none;
+
+        a {
+            color: $white;
+        }
+    }
+
+    &:has(> a) a {
+        box-shadow: none;
+        outline: none;
+    }
+}
+
+@mixin buttonLink {
+    transition: all 0.4s;
+
+    &:hover {
+        color: $black;
+    }
+    
+    &:focus {
+        border: rem(1) dashed $black;
+        box-shadow: none;
+    }
+
+    &:has(> a) a {
+        box-shadow: none;
+        outline: none;
+    }
+}

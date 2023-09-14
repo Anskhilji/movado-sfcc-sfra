@@ -47,12 +47,11 @@
     display: none;
     margin-bottom: rem(10);
     color: $black;
-    font-family: $font-medium;
+    font-family: $font-ivypresto-headline;
     font-size: rem(40);
     font-weight: 500;
-    letter-spacing: rem(4);
     line-height: rem(42);
-    text-transform: uppercase;
+    text-transform: capitalize;
 
     @include media-breakpoint-up(lg) {
       display: block;
@@ -1583,7 +1582,7 @@
           font-size: rem(34);
           line-height: rem(40);
           letter-spacing: rem(1.92);
-          text-transform: uppercase;
+          text-transform: capitalize;
           margin: 0;
 
           @include media-breakpoint-up(lg) {
@@ -1698,7 +1697,6 @@
       font-weight: 500;
       text-align: center;
       margin-bottom: 0;
-      text-transform: uppercase;
 
       @include media-breakpoint-up(md-down) {
         font-size: rem(32);

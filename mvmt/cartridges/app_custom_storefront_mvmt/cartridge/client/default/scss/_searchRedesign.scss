@@ -164,7 +164,7 @@
                     line-height: rem(20);
                     text-align: left;
                     margin-bottom: rem(10);
-                    text-transform: uppercase;
+                    text-transform: capitalize;
                     padding: 0 rem(10);
 
                     @include media-breakpoint-up(lg) {

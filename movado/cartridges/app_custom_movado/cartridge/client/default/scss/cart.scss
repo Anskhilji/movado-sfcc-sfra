@@ -50,13 +50,10 @@ $negative-spacer: -0.625rem;
 .checkout-continue {
     .google-pay-container {
        .gpay-button.black.short {
-          border-radius: rem(0);
+         border-radius: rem(120);
        }
        .gpay-button.black {
-          border-radius: rem(0);
-       }
-       .gpay-button.black {
-        border-radius: rem(0);
+        border-radius: rem(120);
       }
     } 
 
@@ -152,6 +149,8 @@ $negative-spacer: -0.625rem;
 }
 
 .product-info {
+  padding: rem(10);
+
   @include media-breakpoint-up(md) {
     height: auto;
   }
