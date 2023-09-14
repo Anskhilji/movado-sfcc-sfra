@@ -8,11 +8,11 @@
     }
 
     .product-name {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
     }
 
     .description {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
 
         .title {
             &.text-unset-wrapper {
@@ -30,19 +30,19 @@
     }
 
     .price {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
     }
 
     .affirm-as-low-as {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
        
         .affirm-modal-trigger {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
     }
 
     .availability-msg {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
 
         .availability-link {
             color: $storm-gray;
@@ -50,7 +50,7 @@
     }
 
     .add-to-cart {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
         background: $black;
         border-color: $black;
         color: $white;
@@ -59,19 +59,19 @@
     .engraving-btn, .debossing-btn {
 
         > a {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
     }
 
     .debossing-text, .engraved-text {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
     }
 
     .promotions {
         color: $danger;
 
         .callout {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
             color: $dark-green;
 
         }
@@ -80,47 +80,47 @@
     .exclusive-badges {
 
         .badge {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
     }
 
     .description-and-detail {
 
         .attribute-name {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
 
         .attribute-value {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
 
         .title {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
     }
 
     .drop-hint {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
     }
 
     .product-tile {
 
         .out-of-stock {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
 
         .new-product, .pre-order, .exclusive-product  { 
-            font-family: $font-HelveticaNeueLT-bold
+            font-family: $font-ProximaNova
         }
 
         .tile-body {
 
             .price {
-                font-family: $font-HelveticaNeueLT-bold
+                font-family: $font-ProximaNova
             }
 
             .product-name {
-                font-family: $font-HelveticaNeueLT-bold
+                font-family: $font-ProximaNova
             }
         }
 
@@ -130,7 +130,7 @@
     }
 
     .carousel-title {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
     }
 
     .detail-bottom-blocks {
@@ -138,7 +138,7 @@
         .bottom-block {
 
             p {
-                font-family: $font-HelveticaNeueLT-book;
+                font-family: $font-ProximaNova;
             }
         }
     }
@@ -148,14 +148,14 @@
         .popup-head {
 
             h1 {
-                font-family: $font-HelveticaNeueLT-book;
+                font-family: $font-ProximaNova;
             }
         }
 
         .popup-body {
 
             p {
-                font-family: $font-HelveticaNeueLT-book;
+                font-family: $font-ProximaNova;
             }
 
             .watch-image {
@@ -163,7 +163,7 @@
                 .text-on-watch{
 
                     pre, span {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                     }
                 }
             }
@@ -173,19 +173,19 @@
                 .option-message {
                  
                     .engraving-input, .debossing-input {
-                        font-family: $font-HelveticaNeueLT-book; 
+                        font-family: $font-ProximaNova; 
                     }
                 }
 
                 label.error {
-                    font-family: $font-HelveticaNeueLT-book;
+                    font-family: $font-ProximaNova;
                 }
             }
 
             .popup-action-btns {
 
                 .save, .cancel {
-                    font-family: $font-HelveticaNeueLT-book;
+                    font-family: $font-ProximaNova;
                 }
             }
         }
@@ -197,7 +197,7 @@
     @include media-breakpoint-down(md) {
 
         .carousel-title {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
     }
 }
@@ -207,11 +207,11 @@
     .smartgift {
 
         &-btn-redesign {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
 
         &-btn-popup {
-            font-family: $font-HelveticaNeueLT-medium;
+            font-family: $font-ProximaNova;
         }
     }
 }
@@ -219,25 +219,25 @@
 .custom-tooltipsmart {
 
     .smartgift-num-one {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
     }
 
     &-line-one{
-        font-family: $font-HelveticaNeueLT-medium;
+        font-family: $font-ProximaNova;
     }
 
     &-line-two{
-        font-family: $font-HelveticaNeueLT-medium;
+        font-family: $font-ProximaNova;
     }
 
     &-line-three{
-        font-family: $font-HelveticaNeueLT-medium;
+        font-family: $font-ProximaNova;
     }
 
     &-smartgift-heading{
 
         p {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
         }
     }
 }
