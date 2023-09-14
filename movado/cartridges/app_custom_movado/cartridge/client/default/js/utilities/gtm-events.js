@@ -283,7 +283,6 @@ var sliceProductImpressionArray = function (e, currency) {
                     ecommerce: {
                         currencyCode: currency,
                         impressions: productObj
-
                     }
                 });
             }
@@ -429,7 +428,8 @@ var updateCheckoutStage = function () {
              var productObj = dataLayerCheckout.splice(0, maxProducts);
              dataLayer.push({ ecommerce: { checkout: {
                  actionField: { step: checkoutStep, option: checkoutStage },
-                 products: productObj }
+                 products: productObj
+                }
              },
                  event: 'checkout' });
          }

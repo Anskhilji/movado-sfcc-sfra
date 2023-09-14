@@ -401,7 +401,6 @@ function getOCIPreOrderParameters(apiProduct) {
     }
 }
 
-
 /**
  * Method used to check if current product belongs to watches category
  * @param {Object} apiProduct - apiProduct is from ProductMgr

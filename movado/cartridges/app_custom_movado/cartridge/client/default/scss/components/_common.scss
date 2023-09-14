@@ -797,7 +797,7 @@ header~.container .promotions .callout a{
                         }
                     }
 
-                    &.is-invalid {
+                    &.is-invalid,&.auto-is-invalid {
                         border-color: $red;
                     }
                 }

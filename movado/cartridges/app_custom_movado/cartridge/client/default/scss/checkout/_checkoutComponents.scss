@@ -885,26 +885,63 @@ $stored-payment-spacing: rem(16);
                 padding: rem(0) rem(5);
             }
 
-          .credit-card-form-container {
-              @include custom-media-query-max($medium-screen-width) {
-                  padding: rem(0) rem(5);
-              }
+            .credit-card-form-container {
+                @include custom-media-query-max($medium-screen-width) {
+                    padding: rem(0) rem(5);
+                }
 
-              @include media-breakpoint-down(sm) {
-                  padding: rem(0);
-              }
+                @include media-breakpoint-down(sm) {
+                    padding: rem(0);
+                }
 
-              .mx-field-wrapper {
-                  @include media-breakpoint-down(xs) {
-                      padding: rem(0) rem(10);
-                  }
-              }
-              .dwfrm_billing_subscribetomovado {
-                  @include media-breakpoint-down(xs) {
-                      padding: rem(0) rem(10);
-                  }
-              }
-          }
+                .mx-field-wrapper {
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0) rem(10);
+                    }
+                }
+                .dwfrm_billing_subscribetomovado {
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0) rem(10);
+                    }
+                }
+
+                .form-group {
+
+                    .form-control {
+
+                        &.is-invalid,&.auto-is-invalid {
+                            border: rem(2.4) solid $invalid-red !important;
+                            @include red-tick-image;
+                            @include background-postion(33);
+                            
+                            @include media-breakpoint-down(sm) {
+                                @include background-postion(14);
+                            }
+                            
+                            @include card-icons;
+
+                          ~ .invalid-feedback {
+                              display: block!important;
+                          }
+                        }
+      
+                        &.is-valid,&.auto-is-valid {
+                          @include green-tick-image;
+                          @include background-postion(33);
+
+                          @include media-breakpoint-down(sm) {
+                              @include background-postion(14);
+                          }
+
+                          @include card-icons;
+                        }
+                    }
+
+                    .invalid-feedback{
+                        font-size: rem(16);
+                    }
+                }
+            }
         }
 
         .card-body {
@@ -943,7 +980,7 @@ $stored-payment-spacing: rem(16);
 
               &.info-icon-email {
                   position: absolute;
-                  right: rem(25);
+                  right: rem(64);
                   top: rem(11);
                   padding-bottom: rem(0);
 
@@ -962,7 +999,7 @@ $stored-payment-spacing: rem(16);
                       padding-bottom: rem(0);
 
                       @include media-breakpoint-down(sm) {
-                          right: rem(25);
+                          right: rem(48);
                       }
                   }
               }
@@ -1110,10 +1147,14 @@ $stored-payment-spacing: rem(16);
                   }
               }
 
-              &.is-invalid {
+              &.is-invalid,&.auto-is-invalid {
 
                   &:focus {
-                      border: rem(1) solid $invalid-red;
+                      border: rem(2.4) solid $invalid-red;
+                  }
+
+                  ~ .invalid-feedback {
+                    display: block!important;
                   }
               }
           }
@@ -1145,12 +1186,27 @@ $stored-payment-spacing: rem(16);
                 text-align: center;
             }
 
-              &.is-invalid {
+              &.is-invalid,&.auto-is-invalid {
 
                 &:focus {
-                    border: rem(1) solid $invalid-red;
+                    border: rem(2.4) solid $invalid-red;
+                }
+                ~ .invalid-feedback {
+                  display: block!important;
                 }
               }
+          }
+
+          &.is-valid,&.auto-is-valid {
+            
+            @include green-tick-image;
+            @include background-postion(33);
+
+            @include media-breakpoint-down(sm) {
+                @include background-postion(14);
+            }
+
+            @include card-icons;
           }
         }
 
@@ -1786,4 +1842,11 @@ $stored-payment-spacing: rem(16);
         }
        }
     }
+}
+
+body:has(.checkout-content) {
+  
+  #INDblindNotif {
+      display:none !important;
+  }
 }

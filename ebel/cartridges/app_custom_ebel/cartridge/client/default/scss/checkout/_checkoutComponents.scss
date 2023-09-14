@@ -499,7 +499,7 @@ $stored-payment-spacing: rem(16);
 
               &.info-icon-email {
                   position: absolute;
-                  right: rem(25);
+                  right: rem(64);
                   top: rem(11);
 
                   .icon {
@@ -516,7 +516,7 @@ $stored-payment-spacing: rem(16);
                       top: rem(11);
 
                       @include media-breakpoint-down(sm) {
-                          right: rem(25);
+                          right: rem(48);
                       }
                   }
               }
@@ -638,9 +638,10 @@ $stored-payment-spacing: rem(16);
                 }
 
                 &.is-invalid {
+                    border: rem(2.4) solid $invalid-red;
 
                     &:focus {
-                        border: rem(1) solid $invalid-red;
+                        border: rem(2.4) solid $invalid-red;
                     }
                 }
             }
@@ -664,7 +665,7 @@ $stored-payment-spacing: rem(16);
                 &.is-invalid {
 
                     &:focus {
-                        border: rem(1) solid $invalid-red;
+                        border: rem(2.4) solid $invalid-red;
                     }
                 }
             }
@@ -952,4 +953,11 @@ $stored-payment-spacing: rem(16);
             }
         }
     }
+}
+
+body:has(.checkout-content) {
+  
+  #INDblindNotif {
+      display:none !important;
+  }
 }

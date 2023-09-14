@@ -160,7 +160,6 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: masterProductID
         });
     }
-
     if (!empty(product)) {
         Object.defineProperty(product, 'posterFrame', {
             enumerable: true,
