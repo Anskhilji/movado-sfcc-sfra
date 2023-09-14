@@ -768,7 +768,7 @@ $arrow-height: 1.25em;
         .tile-body {
             text-align: left;
             padding: rem(10) 0;
-            overflow: hidden;
+            overflow: auto;
 
             @include media-breakpoint-down(md) {
                 background: $white-smoke;
