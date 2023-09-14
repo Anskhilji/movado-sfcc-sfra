@@ -573,6 +573,7 @@ server.get('OneReview', server.middleware.https, function (req, res, next) {
             var maskedEmail = checkoutCustomHelpers.maskEmail(email);
             checkoutLogger.info('(AmazonPay) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
         }
+
     } catch (error) {
         Logger.getLogger('AmazonPay', 'AmazonPay-CheckoutSession').error(error.toString());
     }

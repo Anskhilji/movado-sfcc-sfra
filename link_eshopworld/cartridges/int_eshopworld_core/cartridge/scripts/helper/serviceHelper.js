@@ -5,7 +5,6 @@
  **/
 var Site = require('dw/system/Site').getCurrent();
 
-var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var BasketMgr = require('dw/order/BasketMgr');
 var URLUtils = require('dw/web/URLUtils');
@@ -35,12 +34,12 @@ function forEach(collection, callback, scope) {
  * function to prepare pre order request object for API Version 2
  * @returns {Object} - request object
  */
-function preparePreOrderV2(eswEmail) {
+function preparePreOrderV2() {
     var currentBasket = BasketMgr.getCurrentBasket();
     var requestObj = {};
     if (currentBasket != null) {
         requestObj = {
-            'contactDetails': getContactDetails(eswEmail),
+            'contactDetails': getContactDetails(),
             'retailerPromoCodes': getRetailerPromoCodes(),
             'cartItems': getCartItemsV2(),
             'cartDiscounts': [],
@@ -421,8 +420,8 @@ function getRetailerCheckoutMetadataItems() {
 /*
  * function to get customer address
  */
-function getContactDetails(eswEmail) {
-    if (customer.profile == null && eswEmail == null) {
+function getContactDetails() {
+    if (customer.profile == null) {
         return [];
     }
     var addresses = (customer.profile != null) ? customer.profile.addressBook.addresses : null,
@@ -450,7 +449,7 @@ function getContactDetails(eswEmail) {
     } else {
         var address = {
             'contactDetailsType': 'isDelivery',
-            'email': customer && customer.profile && customer.profile.email ? customer.profile.email : eswEmail,
+            'email': customer.profile.email,
             'country': request.getHttpCookies()['esw.location'].value
         };
         addressObj.push(address);
@@ -679,18 +678,15 @@ function getNonGiftCertificateAmount(cart) {
 /*
  * Function to create order from cart with Created state
  */
-function createOrder(eswEmail) {
+function createOrder() {
     var cart = BasketMgr.getCurrentOrNewBasket(),
-    Transaction = require('dw/system/Transaction'),
-    logger = require('dw/system/Logger'),
-    PaymentInstrument = require('dw/order/PaymentInstrument'),
-    PaymentMgr = require('dw/order/PaymentMgr'),
-    OrderMgr = require('dw/order/OrderMgr'),
-    order;
-    
-    var isRakutenEnable = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
-    var isRakutenCrossBorderAllowed = !empty(Site.current.preferences.custom.rakutenCrossBorderAllowed) ? Site.current.preferences.custom.rakutenCrossBorderAllowed : false;
-    
+        Transaction = require('dw/system/Transaction'),
+        logger = require('dw/system/Logger'),
+        PaymentInstrument = require('dw/order/PaymentInstrument'),
+        PaymentMgr = require('dw/order/PaymentMgr'),
+        OrderMgr = require('dw/order/OrderMgr'),
+        order;
+
     if (cart.productQuantityTotal <= 0) {
         return {};
     }
@@ -719,13 +715,9 @@ function createOrder(eswEmail) {
         billingAddress.firstName = 'eswUser';
         billingAddress.lastName = 'eswUser';
         dw.system.HookMgr.callHook('dw.order.calculate', 'calculate', cart);
-        var email;
+
         var paymentInstrument = cart.createPaymentInstrument('ESW_PAYMENT', getNonGiftCertificateAmount(cart));
-        if (!empty(eswEmail)) {
-            email = eswEmail ? eswEmail : 'eswUser@gmail.com';
-        } else {
-            email = (customer && customer.authenticated && customer.profile.email !== null) ? customer.profile.email : 'eswUser@gmail.com';
-        }
+        var email = (customer.authenticated && customer.profile.email !== null) ? customer.profile.email : 'eswUser@gmail.com';
         cart.setCustomerEmail(email);
     });
     try {
@@ -734,11 +726,6 @@ function createOrder(eswEmail) {
         });
         //order = cart.createOrder();
         session.privacy.orderNo = order.orderNo;
-
-        if (isRakutenEnable && isRakutenCrossBorderAllowed) {
-            eswCustomHelper.saveRakutenOrderAttributes(order);
-        }
-
         Transaction.wrap(function () {
             order.paymentInstruments[0].paymentTransaction.paymentProcessor = PaymentMgr.getPaymentMethod(order.paymentInstruments[0].getPaymentMethod()).getPaymentProcessor();
         });

@@ -14,6 +14,7 @@ var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constant
 var Site = require('dw/system/Site');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
+
 /**
  * This method parse Riskified and Deco response and returns either data is successfully submited or not
  *
@@ -52,15 +53,6 @@ function parseResponse(callerModule, responseFromRiskified, action) {
         parsingResponse.error = true;
         parsingResponse.errorCode = Constants.BAD_JSON;
         parsingResponse.message = 'Riskified API JSON Error';
-        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, parseError.message, logLocation, parsingResponse.message);
-        return parsingResponse;
-    }
-
-    if (apiResponse == null) {
-        parsingResponse.error = true;
-        parsingResponse.errorCode = Constants.BAD_CALL;
-        parsingResponse.recoveryNeeded = RCUtilities.getRecoverySetting(action);
-        parsingResponse.message = 'Riskified API Service Error';
         return parsingResponse;
     }
 
@@ -119,8 +111,6 @@ function post(serviceType, callerModule, payload, action) {
         params = {};
         var message;
 
-        var message;
-
     if (empty(payload)) {
         message = 'Payload is missing, therefore cannot proceed further.', 'error', logLocation;
         RCLogger.logMessage(message);
@@ -165,6 +155,7 @@ function post(serviceType, callerModule, payload, action) {
         RCLogger.logMessage(e.message, 'error', logLocation);
         checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
     }
+
     // convert to json string before calculating the hashes
     payload = JSON.stringify(payload);
 
@@ -198,6 +189,7 @@ function post(serviceType, callerModule, payload, action) {
     } else {
         message = 'Riskified API Call failed.\nHTTP Status Code: ' + result.error + ',\nError Text is: ' + result.errorMessage, 'error', logLocation;
         RCLogger.logMessage(message);
+
         // try to get message out of riskified api response
         try {
             errorObj = JSON.parse(result.errorMessage);

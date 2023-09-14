@@ -8,6 +8,7 @@ var restService = require('int_riskified/cartridge/scripts/riskified/export/api/
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
+
 /**
  * Send a new order to Riskified.
  * Depending on your current plan, the newly created order might not be submitted automatically for review.

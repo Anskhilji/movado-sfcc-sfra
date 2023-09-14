@@ -14,8 +14,6 @@ var OrderMgr = require('dw/order/OrderMgr');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var Site = require('dw/system/Site');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
-var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
@@ -108,6 +106,7 @@ function parseRiskifiedResponse(order, reqBody) {
             } catch (ex) {
                 checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
                 checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex.fileName, ex.lineNumber, ex.stack);
+
             }
         }
 
@@ -117,6 +116,7 @@ function parseRiskifiedResponse(order, reqBody) {
             } catch (ex) {
                 checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to delete order from Yotpo against order number: ' + order.orderNo + ' and exception is: ' + ex);
                 checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex.fileName, ex.lineNumber, ex.stack);
+
             }
         }
         /* Send Cancellation Email*/
@@ -154,6 +154,7 @@ function parseRiskifiedResponse(order, reqBody) {
         } catch (error) {
             checkoutLogger.error('RiskifiedParseResponseResult.js -> COCustomHelpers.sendOrderConfirmationEmail() -> throw error on sending confirmation email, Error: ' + error);
             checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, error.message, 'RiskifiedParseResponseResult', error.fileName, error.lineNumber, error.stack);
+
         }
         
         /* Accept in OMS */

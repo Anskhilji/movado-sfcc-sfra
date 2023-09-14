@@ -16,7 +16,7 @@ var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
  * @returns {string} - if cookies not found then return blank string
  * otherwise, renders the landing page.
  */
-function handlePreOrderRequestV2(eswEmail) {
+function handlePreOrderRequestV2() {
     var eswCoreService = require('*/cartridge/scripts/services/EswCoreService').getEswServices(),
         preorderServiceObj = eswCoreService.getPreorderServiceV2(),
         oAuthObj = eswCoreService.getOAuthService(),
@@ -43,8 +43,8 @@ function handlePreOrderRequestV2(eswEmail) {
     }
     session.privacy.eswOAuthToken = JSON.parse(oAuthResult.object).access_token;
 
-    var requestObj = eswServiceHelper.preparePreOrderV2(eswEmail);
-    requestObj.retailerCartId = eswServiceHelper.createOrder(eswEmail);
+    var requestObj = eswServiceHelper.preparePreOrderV2();
+    requestObj.retailerCartId = eswServiceHelper.createOrder();
     var result = preorderServiceObj.call(JSON.stringify(requestObj));
     return result;
 }
@@ -53,9 +53,9 @@ function handlePreOrderRequestV2(eswEmail) {
  * @param {Object} req - current req object
  * @param {Object} res - current res object
  */
-function preOrderRequest(req, res, eswEmail) { // eslint-disable-line consistent-return
+function preOrderRequest(req, res) { // eslint-disable-line consistent-return
     try {
-        var result = handlePreOrderRequestV2(eswEmail);
+        var result = handlePreOrderRequestV2();
 
         if (result.status === 'REDIRECT') {
             res.json({

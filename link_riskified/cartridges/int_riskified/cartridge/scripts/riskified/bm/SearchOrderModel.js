@@ -76,6 +76,7 @@ function searchOrders(orderNo, startDateString, endDateString, pageSizeIn, modul
         endDate = helperCalendar.getTime();
         orders = OrderMgr.searchOrders(queryString, sortString, startDate, endDate);
     }
+
     message = 'The total number of orders found : ' + orders.count, 'debug', logLocation;
     RCLogger.logMessage(message);
     checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);

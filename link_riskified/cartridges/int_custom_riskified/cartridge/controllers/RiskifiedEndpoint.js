@@ -35,11 +35,13 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     var orderId = jsonObj.order.id;
     var order = OrderMgr.getOrder(orderId);
     var message;
+
 	
     if(!RCUtilities.isCartridgeEnabled()) {
         message = "riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further", "debug", logLocation;
         RCLogger.logMessage(message);
         checkoutNotificationHelpers.sendDebugNotification(constants.RISKIFIED, message, logLocation);
+
         res.render('riskified/riskifiedorderanalysisresponse', {
             CartridgeDisabled: true
         });
@@ -51,6 +53,7 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
         message = '(RiskifiedParseResponseResult) ->  Order is not completed yet therefore saving response in custom object and order number is: ' + order.orderNo;
         checkoutLogger.info(message);
         checkoutNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, logLocation);
+
         // res.setStatusCode(400);
         var response = decisionNotification.saveDecisionNotification(orderId, body);
         if (response) {
@@ -83,7 +86,6 @@ server.append('AnalysisNotificationEndpoint', function (req, res, next) {
     var viewData = res.getViewData();
     var isError = viewData.isError ? viewData.isError : false;
     var responseMessage = viewData.responseMessage ? viewData.responseMessage : "";
-    var message;
 
     if (order && !isError) {
         message = '(RiskifiedParseResponseResult) ->  parseRiskifiedResponse: Order is completed therefore going to update riskified status and order number is: ' + order.orderNo;
@@ -94,6 +96,7 @@ server.append('AnalysisNotificationEndpoint', function (req, res, next) {
         message = '(RiskifiedParseResponseResult) ->  parseRiskifiedResponse: There is an error with message ' + responseMessage + ' and going to cancel order in OMS and order number is: ' + order.orderNo;
         checkoutLogger.info(message);
         checkoutNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
+
         /* Reject in OMS - Do not process to fulfillment status */
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');

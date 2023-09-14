@@ -25,9 +25,9 @@ var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger'
 var RCUtilities = require('int_riskified/cartridge/scripts/riskified/util/RCUtilities');
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
 var RiskifiedAPI = require('int_riskified/cartridge/scripts/riskifiedhandler');
+var Transaction = require('dw/system/Transaction');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
-var Transaction = require('dw/system/Transaction');
 var Site = require('dw/system/Site');
 var isRiskifiedSyncIntegerationEnabled = !empty(Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled) ? Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled : false;
 
@@ -57,7 +57,6 @@ function handlePayment(paymentMethod) {
 
 function handlePaymentSFRAInfo(cardNumber) {
     var logLocation = _moduleName + '.handlePaymentSFRA()';
-    var message;
 
     if (!RCUtilities.isCartridgeEnabled()) {
         message = 'riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation
@@ -334,7 +333,6 @@ function sendDecision(orderNo, decisionDetails) {
     var logLocation = _moduleName + '.sendDecision()',
         currentDate,
         result;
-    var message;
 
     if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
         return false;

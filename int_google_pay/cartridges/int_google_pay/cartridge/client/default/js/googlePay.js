@@ -398,12 +398,6 @@ function addGooglePayButton() {
     }
 }
 
-function handlePostCartAdd(response) {
-    if (response && response.addCartGtmArray !== undefined) {
-        $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
-    }
-}
-
 /**
  * Provide Google Pay API with a payment amount, currency, and amount status
  *
@@ -425,7 +419,6 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
         var data = {
             googlePayEntryPoint: $selector.data('entry-point'),
             pid: $selector.data('pid') ? $selector.data('pid') : false,
-            addToCartLocation: $selector.data('atc') ? $selector.data('atc') : '',
             selectedShippingMethod: selectedShippingMethod,
             includeShippingDetails: includeShippingDetails,
             shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress,
@@ -491,7 +484,6 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
             method: 'POST',
             data: data,
             success: function (data) {
-                handlePostCartAdd(data);
                 resolve(data) // Resolve promise and go to then()
             },
             error: function (err) {

@@ -24,7 +24,6 @@ server.post('AnalysisNotificationEndpoint', function (req, res, next){
 	var logLocation = moduleName + " : Riskified~handleAnalysisResponse";
 	
 	var response = AnalysisResponseModel.handle(moduleName);
-	var message;
 	
 	if(response.error){
 		message = "There were errors while updating order analysis. Error Message: " + response.message, "error", logLocation;

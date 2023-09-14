@@ -189,10 +189,6 @@ server.append('NotifyV2', function(req, res, next) {
     // Custom Start: [MSS-1642 Call Facebook Api after ESW Conversion]
     var isFacebookConversionAPIEnabled = !empty(Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled')) ? Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled') : false;
     // Custom End
-
-    var isRakutenEnable = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
-    var isRakutenCrossBorderAllowed = !empty(Site.current.preferences.custom.rakutenCrossBorderAllowed) ? Site.current.preferences.custom.rakutenCrossBorderAllowed : false;
-    
     var obj = JSON.parse(req.body);
     Transaction.wrap(function () {
         var order = OrderMgr.getOrder(res.viewData.OrderNumber);
@@ -204,18 +200,6 @@ server.append('NotifyV2', function(req, res, next) {
             }
         }
     });
-    
-    if (isRakutenEnable && isRakutenCrossBorderAllowed) {
-        var order = OrderMgr.getOrder(res.viewData.OrderNumber);
-        if (order.custom.ranSiteIDTemp && order.custom.ranCookieDroppedDateTemp) {
-            Transaction.wrap(function () {
-                order.custom.ranSiteID  = order.custom.ranSiteIDTemp;
-                order.custom.ranCookieDroppedDate = order.custom.ranCookieDroppedDateTemp;
-                order.custom.ranSiteIDTemp = null;
-                order.custom.ranCookieDroppedDateTemp = null;
-            });
-        }
-    }
 
     // Salesforce Order Management attributes
     if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {

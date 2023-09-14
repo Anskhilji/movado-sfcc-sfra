@@ -61,6 +61,7 @@ function handleRetryError(rcDataObject, retryLimit, callerModule) {
         Transaction.wrap(function () {
             CustomObjectMgr.remove(rcDataObject);
         });
+
         message = 'The retry of data object export with ID ' + id +' has reached to maximum limit of ' + retryLimit +', therefore removed data object', 'debug', logLocation;
         RCLogger.logMessage(message);
         checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
@@ -150,6 +151,7 @@ function retryExport(callerModule) {
                     Transaction.wrap(function () {
                         CustomObjectMgr.remove(rcDataObject);
                     });
+
                     message = 'The order ' + order.orderNo + ' was missing important information in custom attributes, ' + 'therefore cannot execute recovey and removed data object with ID ' + dataObjectId, 'info', logLocation;
                     RCLogger.logMessage(message);
                     checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, logLocation);
@@ -203,7 +205,7 @@ function retryExport(callerModule) {
                         '\n Error Message: ' + response.message +
                         '\n Exception is: ' + e
                     , 'error', logLocation);
-                checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
+                    checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
 
                 handleRetryError(rcDataObject, retryLimit, logLocation);
             }
