@@ -71,5 +71,15 @@
             }
         }
     }
+
+    &-item {
+
+        h3 {
+            color: $light-black;
+            a {
+                color: $light-black;
+            }
+        }
+    }
 }
 

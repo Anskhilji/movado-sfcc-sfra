@@ -6,6 +6,15 @@ header {
 
     &.new-header {
 
+        .minicart-link {
+
+            .minicart-quantity {
+                right: rem(-11);
+                top: rem(-6);
+            }
+        }
+
+
         .desktop-search {
             min-height: rem(170);
 
@@ -207,4 +216,6 @@ header {
     }
 }
 
-
+.header-search-field{
+    border-bottom: rem(2) solid $dark-gray;
+  }

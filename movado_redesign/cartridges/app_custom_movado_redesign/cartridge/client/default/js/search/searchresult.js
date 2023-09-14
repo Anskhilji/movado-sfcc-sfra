@@ -13,6 +13,10 @@ function closeRefinementFilters() {
 
 }
 
+function closeSortBy() {
+    $('.search-results.plp-new-design .sortby-bar').removeClass('d-block').addClass('d-none');
+}
+
 $(document).ready(function () {
     $('.search-results.plp-new-design .filter-btn,.more-filter-btn').click(function () {
         closeRefinementFilters(); // close refinement filter before opening of sidebar more filter
@@ -56,6 +60,15 @@ $(document).ready(function () {
         }
     });
 
+    $('.search-results.plp-new-design .sortBy-btn').on('click', function() {
+        $('.header-menu-wrapper').addClass('sticky-bar-index');
+        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast').css('z-index', 9999);
+        $('body').addClass('no-overflow');
+        $('.search-results.plp-new-design .sortby-bar').removeClass('d-none').addClass('fast fadeInRight animated d-block');
+        $('.side-sortBy .custom-select').addClass('d-none');
+        $('.side-sortBy .sorting-rules-filters').addClass('d-block');
+    });
+
     // Custom:MSS-2073 start
     $('.refinement-btn-clicked').on('click', function() {
         if ($(this).closest('.refinement-box-filter-desktop').hasClass('active')) {
@@ -78,6 +91,7 @@ $(document).ready(function () {
 
     $('.modal-background').on('click', function(e){
         closeRefinementFilters();
+        closeSortBy();
     });
 
     $('.mobile-fliter-sort-btn-click').click(function(){
@@ -147,7 +161,7 @@ $('.search-results.plp-new-design .refinement-bar').keyup(function(event) {
     }
 });
 
-$(document).on('click', '.search-results.plp-new-design  .close-refinebar, .show-bottom-btn .result-count', function (e) {
+$(document).on('click', '.search-results.plp-new-design  .close-refinebar, .close-bar, .show-bottom-btn .result-count', function (e) {
     e.preventDefault();
     $('.modal-background').addClass('fadeOut').css('z-index', '');
     $('body').removeClass('no-overflow');
@@ -156,6 +170,7 @@ $(document).on('click', '.search-results.plp-new-design  .close-refinebar, .show
     $('.refinement-bar-redesign').removeClass('d-block');
     $('.modal-background').removeClass('d-block');
     $('.modal-background').removeAttr("style");
+    closeSortBy();
 });
 
 const $filter = $('.refinement-bar, .filter-btn, .more-filter-btn, .search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom');

@@ -8,6 +8,7 @@ body {
     font-size: $font-size-title6;
     letter-spacing: rem(1.8);
     text-transform: lowercase;
+    font-weight: 300;
 
     &::first-letter {
       text-transform: capitalize;
@@ -50,8 +51,8 @@ body {
   }
   
   &-cta {
-    background: $black;
-    border: rem(1) solid $black;
+    background: $dark-cyan;
+    border: rem(1) solid $dark-cyan;
     color: $white;
 
       &:hover {
@@ -88,6 +89,7 @@ select + i.fa {
   font-family: $font-gills-light;
   font-size: $font-size-title6;
   letter-spacing: rem(1.8);
+  font-weight: 300;
 }
 
 a {
@@ -98,18 +100,21 @@ a {
   font-family: $font-gills-light;
   font-size: $font-size-main-heading6;
   letter-spacing: rem(0.4);
+  font-weight: 300;
 }
 
 .heading-three {
   font-family: $font-gills-light;
   font-size: $font-size-heading1;
   letter-spacing: rem(0.4);
+  font-weight: 300;
 }
 
 .heading-four {
   font-family:  $font-gills-light;
   font-size: $font-size-heading3;
   letter-spacing: rem(0.4);
+  font-weight: 300;
 }
 
 .pt_customerservice {
@@ -117,18 +122,21 @@ a {
     font-family: $font-gills-light;
     font-size: rem(30);
     letter-spacing: rem(0.4);
+    font-weight: 300;
   }
 
   .heading-three {
     font-family: $font-gills-light;
     font-size: $font-size-heading1;
     letter-spacing: rem(0.4);
+    font-weight: 300;
   }
 
   .heading-four {
     font-family:  $font-gills-light;
     font-size: $font-size-heading3;
     letter-spacing: rem(0.4);
+    font-weight: 300;
   }
 }
 
@@ -139,7 +147,7 @@ body {
       font-family: $font-gills-light;
       font-size: $font-size-heading3;
       letter-spacing: rem(0.4);
-      font-weight: normal;
+      font-weight: 300;
     }
   }
 
@@ -171,6 +179,7 @@ form {
     font-size: $font-size-heading3;
     letter-spacing: rem(1.6);
     color: $black;
+    font-weight: 300;
   }
 }
 
@@ -211,6 +220,35 @@ form {
       }
     }
   }
+  .card-body {
+
+    .change-password-form {
+
+        .change-password-save {
+            background-color: $dark-cyan;
+            border: rem(1) solid $dark-cyan;
+
+            &:hover {
+                background-color: $white;
+                color: $black;
+                border: rem(1) solid $black;
+            }
+
+            &:active {
+              color: $white !important;
+              background-color: $dark-cyan !important;
+              border: rem(1) solid $dark-cyan !important;
+            }
+        }
+      }
+
+      .change-password-cancel {
+        &:active {
+          background-color: $dark-cyan !important;
+          border: rem(1) solid $dark-cyan !important;
+        }
+    }
+  }
 }
 
 .breadcrumb-item + .breadcrumb-item {
@@ -226,11 +264,13 @@ form {
 .invalid-feedback {
   font-family: $font-gills-light;
   letter-spacing: rem(1);
+  font-weight: 300;
 }
 
 .alert-danger,
 .error-message {
   font-family: $font-gills-light;
+  font-weight: 300;
 }
 
 .filter-bar {
@@ -243,6 +283,7 @@ form {
   font-family: $font-gills-light;
   font-size: $font-size-heading2;
   letter-spacing: rem(0.4);
+  font-weight: 300;
 }
 
 .description {
@@ -340,5 +381,65 @@ form {
   .heading-three {
     font-size: $font-size-main-heading5;
     letter-spacing: rem(0.6);
+  }
+}
+
+.content-asset-container {
+  
+    h2 {
+        font-weight: 300;
+    }
+
+    p {
+        font-weight: 300;
+    }
+}
+
+.page-not-found {
+
+  .continue-shopping {
+    background-color: $dark-cyan;
+    border: rem(1) solid $dark-cyan;
+
+      &:hover,
+      &:focus {
+          background-color: $white;
+          color: $black;
+          border: rem(1) solid $black;
+      }
+  }
+}
+
+.checkout-coupons-remove {
+
+  .modal {
+
+    .modal-dialog {
+
+        .modal-content {
+
+            .modal-footer {
+
+              .btn-outline-primary {
+                &:active {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+                }
+              }
+
+                .btn-primary {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+  
+                      &:hover,
+                      &:focus {
+                          background-color: $white;
+                          color: $black;
+                          border: rem(1) solid $black;
+                      }
+                  }
+              }
+          }
+      }
   }
 }

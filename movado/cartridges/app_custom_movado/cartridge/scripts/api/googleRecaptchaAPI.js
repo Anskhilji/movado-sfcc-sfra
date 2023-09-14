@@ -5,6 +5,7 @@ var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
 var googleRecaptchaAPIHelper = require('*/cartridge/scripts/helpers/googleRecaptchaAPIHelper');
 
 function googleRecaptcha(token) {
+    var service;
     var result = {
         message: 'Error Occured during googleRecaptchaApiCall',
         success: false

@@ -1023,7 +1023,7 @@
                     .close-refinebar {
                         background-color: transparent;
                         border: none;
-                        font-family: $font-futura-pt-demi;
+                        font-family: $font-gill-std;
                         font-size: rem(15);
                         font-weight: 600;
                         letter-spacing: normal;
@@ -1774,9 +1774,9 @@
 
                         &:not(.out-of-stock-btn) {
                             &:hover {
-                                background-color: $gray20;
+                                background-color: $dark-cyan;
                                 color: $white;
-                                border-color: $gray20;
+                                border-color: $dark-cyan;
                             }
                         }
 
@@ -1872,10 +1872,11 @@
             &:hover,
             &:focus,
             &:active:focus {
-                background-color: $black;
+                background-color: $dark-cyan;
                 color: $white;
                 outline: none;
                 box-shadow: none;
+                border: rem(1) solid $dark-cyan;
             }
         }
 

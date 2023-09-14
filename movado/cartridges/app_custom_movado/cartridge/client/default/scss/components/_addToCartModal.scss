@@ -1,4 +1,18 @@
 .addToCartModal {
+
+    &.addToCartError {
+
+        .modal-dialog {
+
+            .modal-content {
+
+                .modal-header, .modal-footer, .close {
+                    display: none;
+                }
+            }
+        }
+    }
+
     .modal-dialog {
         height: 100vh;
         margin: 0 auto;
@@ -7,11 +21,13 @@
         justify-content: center;
         padding: 1.7rem 0;
     }
+
     .modal-body {
         padding: rem(20) rem(10);
     }
+
     p {
-        font-weight: bold;
+        font-weight: 600;
         line-height: rem(25);
         letter-spacing: rem(1);
         margin-bottom: rem(30);
@@ -21,5 +37,619 @@
         text-decoration: underline;
         margin-top: rem(20);
     }
-
 }
+// AddTocartModalRedesign
+.add-to-cart-redesign {
+
+    &.addToCartModal {
+
+        .recommendation-add-to-cart-error {
+            text-align: center;
+            color: $invalid-red;
+            margin-top: rem(19);
+            font-weight: 500;
+
+            @include media-breakpoint-down(md) {
+                margin: 0 0 rem(19) 0;
+                font-size: rem(12);
+            }
+        }
+
+        .modal-header {
+            all: unset;
+
+            p {
+                margin: rem(30) 0 0 0;
+                font-size: rem(18);
+                color: $apple;
+                font-weight: bold;
+                text-align: center;
+            }
+        }
+
+        .recomendation-carousel-wrapper {
+
+            &:not(:has(.mcs-product-carousel)) {
+                margin-bottom: rem(31);
+            }
+
+            .new-rec-carosel {
+
+                .cs-carousel {
+
+                    @include media-breakpoint-down(md) {
+                        padding: 0 rem(10);
+                    }
+
+                    &.slick-initialized {
+                        display: block;
+                    }
+                }
+            }
+
+            .modal-footer {
+               
+                @include media-breakpoint-down(md) {
+                    margin-top: rem(7);
+                }
+            }
+
+            .cs-carousel-wrapper {
+
+                .slick-arrow {
+
+                    &.slick-next {
+                        right: 0;
+                    }
+
+                    &.slick-prev {
+                        left: 0;
+                    }
+                }
+            }
+        }
+
+        &.show {
+
+           .modal-dialog {
+
+                @include media-breakpoint-down(md) {
+                    transform: translate(0, 0%);
+                }
+           }
+        }
+
+
+        .mcs-product-carousel {
+
+            &.mcs-product-carousel-override {
+
+                &.mcs-product-carousel-redesign {
+
+                    .product-tile-plp-container {
+
+                        .tile-body {
+
+                            .cta-add-to-cart {
+                                display: block;
+
+                                .add-to-cart {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    text-decoration: none;
+                                    gap: rem(2);
+
+                                    .tick-icon {
+                                        width: rem(15);
+                                        height: rem(15);
+                                    }
+
+                                    &.active {
+                                        background: $black;
+                                        color: $white;
+
+                                        .tick-icon {
+                                            display: block;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    .mcs-product-carousel-container {
+                        margin: 0;
+
+                        @include media-breakpoint-down(md) {
+                            padding: 0;
+
+                            .mcs-product-carousel-column {
+                                padding: 0 rem(11);
+                            }
+                        }
+                        
+                        @include media-breakpoint-up(lg) {
+                            padding: 0 rem(42);
+                        }
+
+                        .cs-carousel-wrapper {
+
+                            @include media-breakpoint-down(md) {
+                                margin-bottom: rem(10);
+                            }
+                        }
+
+                        .carousel-title {
+                            color: $black;
+                            font-size: rem(20);
+                            font-weight: 500;
+                            letter-spacing: 0;
+                            line-height: rem(26);
+                            margin-bottom: rem(30);
+                            margin-top: rem(40);
+
+                            @include media-breakpoint-down(md) {
+                                font-size: rem(16);
+                                font-weight: 500;
+                                line-height: rem(21);
+                                margin-top: rem(11);
+                                margin-bottom: rem(20);
+                            }
+                        }
+
+                        .cs-carousel {
+                            margin: 0;
+                            padding: 0;
+
+                            .slick-dots {
+                               margin-top: rem(23);
+
+                                @include media-breakpoint-down(md) {
+                                    margin-top: rem(30);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .cs-carousel-wrapper {
+            margin: rem(40) 0 rem(30) 0;
+            padding: 0 rem(12);
+
+            @include media-breakpoint-down(md) {
+                margin-top: rem(0);
+            }
+            
+            .carousel-title {
+                color: $black;
+                font-size: rem(20);
+                font-weight: 500;
+                letter-spacing: 0;
+                line-height: rem(26);
+                margin-bottom: rem(30);
+
+                @include media-breakpoint-down(md) {
+                    font-size: rem(16);
+                    font-weight: 500;
+                    line-height: rem(21);
+                    margin-bottom: rem(20)
+
+                }
+            }
+    
+            .container {
+                padding: 0;
+    
+                @include media-breakpoint-up(sm) {
+                    max-width: 100%;
+                }
+            }
+
+            &.recommendation-carousel-pdp {
+                margin: rem(40) rem(0) rem(0) rem(0);
+                padding: 0 rem(42);
+
+                @include media-breakpoint-down(md) {
+                    margin-top: 0;
+                    padding: 0;
+
+                    .modal-footer {
+                        margin-top: rem(7);
+                    }
+                }
+
+                ul {
+
+                    &.slick-dots {
+                        bottom: rem(-7);
+    
+                        @include media-breakpoint-down(md) {
+                            bottom: rem(-14);
+                        }
+    
+                        @include media-breakpoint-down(sm) {
+                            bottom: rem(-14);
+                        }
+                    }
+                }
+
+                .cta-add-to-cart {
+                    display: block;
+                    margin-top: rem(8);
+
+                    @include media-breakpoint-up(lg) {
+                        margin-top: rem(15);
+                    }
+
+                    .btn {
+
+                        &.btn-primary {
+
+                            &.add-to-cart-plp-redesign {
+                                width: 100%;
+                                background: transparent;
+                                border: rem(1) solid $black;
+                                border-radius: rem(3);
+                                font-size: rem(13);
+                                color: $grey8;
+                                font-weight: 600;
+                                font-style: normal;
+                                letter-spacing: rem(0.5);
+                                padding: rem(5) rem(3);
+                                position: relative;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                line-height: rem(22.5);
+                                text-decoration: none;
+                                box-shadow: none;
+                                gap: rem(2);
+
+                                &:focus {
+                                    background: $black;
+                                }
+
+                                @include media-breakpoint-up(lg) {
+                                    font-size: rem(15);
+                                }
+
+                                @include media-breakpoint-down(md) {
+                                    line-height: inherit;
+                                }
+
+                                
+                                &:not(.out-of-stock-btn) {
+
+                                    &:hover {
+                                        background-color: $grey8;
+                                        color: $white;
+                                        border-color: $grey8;
+                                    }
+                                }
+
+                                &.out-of-stock-btn {
+                                    cursor: default;
+                                }
+        
+                                .tick-icon {
+                                    width: rem(15);
+                                    height: rem(15);
+                                }
+
+                                &:hover {
+                                    background-color: $grey8;
+                                    color: $white;
+                                    border-color: $grey8;
+                                }
+        
+                                &.active {
+                                    background: $grey8;
+                                    color: $white;
+        
+                                    .tick-icon {
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .carousel-title {
+                    color: $black;
+                    font-size: rem(20);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(26);
+                    margin-bottom: rem(30);
+
+                    @include media-breakpoint-down(md) {
+                        font-size: rem(16);
+                        font-weight: 500;
+                        line-height: rem(21);
+                        margin-top: rem(11);
+                        margin-bottom: rem(20);
+
+                    }
+                }
+
+                .cs-carousel {
+                    margin-bottom: rem(35);
+                    padding-bottom: rem(22);
+
+                    .slick-track {
+                        margin: 0;
+                    }
+
+                    .slick-dots {
+                        margin-top: rem(23);
+                    }
+        
+                }
+            }
+    
+            &.cs-carousel-update {
+    
+                .cs-carousel {
+                    padding-bottom: rem(11);
+
+                    @include media-breakpoint-down(md) {
+                        padding-bottom: rem(12);
+                    }
+                }
+
+                ul {
+
+                    &.slick-dots {
+                        bottom: rem(-7);
+                    }
+                }
+            }
+        }
+    
+        .modal-dialog {
+            height: auto;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.7rem 0;
+
+            @include media-breakpoint-down(md) {
+                transform: translate(0, 25%);
+                padding-bottom: 0;
+                justify-content: flex-end;
+                height: 100%;
+                padding-top: 0;
+            }
+    
+            &.modal-sm {
+                max-width: rem(1024);
+            }
+    
+            .modal-content {
+                border-radius: 0;
+    
+                @include media-breakpoint-down(md) {
+                    border: none;
+                    padding: rem(20) rem(10);
+                    overflow-y: auto;
+                }
+    
+                .close {
+                    position: absolute;
+                    top: rem(25);
+                    right: rem(25);
+                    width: rem(13);
+                    height: rem(13);
+                    display: flex;
+                    align-items: center;
+                    font-size: rem(21);
+                    z-index: 1;
+                    opacity: 1;
+                    outline: none;
+                    border-radius: 100%;
+
+                    @include media-breakpoint-down(md) {
+                        top: rem(20);
+                        right: rem(15);
+                    }
+    
+                    span {
+                        width: rem(13);
+                        height: rem(13);
+                        font-size: rem(20);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+    
+                        @include media-breakpoint-down(md) {
+                            width: rem(9);
+                            height: rem(9);
+                            position: absolute;
+                            transform: translate(-50%, -50%);
+                            left: 50%;
+                            top: 50%;
+                        }
+                    }
+    
+                    @include media-breakpoint-down(md) {
+                        height: rem(24);
+                        width: rem(24);
+                     }
+                }
+            }
+        }
+    
+        .modal-body {
+            padding: rem(30) 0;
+            padding-bottom: 0;
+
+            @include media-breakpoint-down(md) {
+                position: unset;
+                padding: 0;
+                height: rem(149);
+            }
+    
+            .modal-inner {
+    
+                .total-price {
+                    opacity: 0.55;
+                    color: $black;
+                    font-size: rem(16);
+                    font-weight: 300;
+                    letter-spacing: 0;
+                    line-height: rem(21);
+                    text-align: center;
+                    margin-bottom: rem(19);
+                }
+            }
+    
+            .checkmarks {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: rem(19);
+    
+                img {
+                    width: rem(25);
+                    height: rem(25);
+                    margin-right: rem(12);
+
+                    @include media-breakpoint-down(md) {
+                        width: rem(16);
+                        height: rem(16);
+                    }
+                }
+    
+                .add-to-cart-title {
+                    color: $grey8 !important; //I'm using important to overwrite inline css
+                    font-size: rem(24);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(41);
+                    margin-bottom: 0;
+    
+                    @include media-breakpoint-down(md) {
+                        font-size: rem(18);
+                    }
+                }
+            }
+    
+            .top-sec {
+                justify-content: center;
+                display: flex;
+
+                @include media-breakpoint-down(md) {
+                    display: flex;
+                    justify-content: center;
+                }
+    
+                .btn-primary {
+                    max-width: rem(240);
+                    width: 100%;
+                    padding: rem(12) 0;
+                    color: $white;
+                    font-size: rem(16);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(21);
+                    text-align: center;
+                    border: $grey26;
+                    border-radius: rem(3);
+                    
+                    &:hover {
+                        background: $black;
+                        border: none;
+                    }
+
+                    &:focus {
+                        background: $black;
+                    }
+    
+                    &.btn {
+                        
+                        @include media-breakpoint-down(md) {
+                            max-width: rem(167);
+                            width: 100%;
+                            height: rem(30);
+                            padding: 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: rem(12);
+                            font-weight: rem(500);
+                            letter-spacing: 0;
+                            line-height: rem(21);
+                            text-align: center;
+                        }
+                    }
+                }
+    
+                .btn-link {
+                    padding: rem(11) 0;
+                    width: 100%;
+                    max-width: rem(240);
+                    border: rem(1) solid $black;
+                    color: $grey8;
+                    font-size: rem(16);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(21);
+                    text-align: center;
+                    margin-left: rem(20);
+                    margin-top: 0;
+                    text-decoration: none;
+                    border-radius: rem(3);
+
+                    @include media-breakpoint-down(md) {
+                        max-width: rem(88);
+                        width: 100%;
+                        height: rem(30);
+                        padding: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: rem(12);
+                        font-weight: rem(500);
+                        letter-spacing: 0;
+                        line-height: rem(21);
+                        text-align: center;
+                        margin-left: rem(20);
+                        margin-top: 0;
+                    }
+    
+                    &.btn {
+                        
+                        @include media-breakpoint-down(md) {
+                            max-width: 100%;
+                            margin-left: rem(20);
+                            margin-top: 0;
+                        }
+                    }
+                }
+            }
+        }
+    
+        p {
+            font-weight: bold;
+            line-height: rem(25);
+            letter-spacing: rem(1);
+            margin-bottom: rem(30);
+        }
+        
+        .btn:last-child {
+            text-decoration: underline;
+            margin-top: rem(20);
+        }
+    
+    }
+}
+
+.tick-icon {
+    display: none;
+}
+

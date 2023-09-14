@@ -1,0 +1,109 @@
+<form action="${URLUtils.url('Account-SaveProfile')}" class="edit-profile-form" method="POST" <isprint value="${pdict.profileForm.attributes}" encoding="off" />>
+
+    <div class="form-group updated-input-style
+        <isif condition="${pdict.profileForm.customer.firstname.mandatory === true}">required</isif>">
+        <label class="form-control-label" for="firstName">
+            <isprint value="${pdict.profileForm.customer.firstname.label}" encoding="htmlcontent" />
+        </label>
+        <input placeholder="${pdict.profileForm.customer.firstname.label}" type="text" class="form-control" id="firstName"
+            <isprint value="${pdict.profileForm.customer.firstname.attributes}" encoding="off" />>
+        <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="form-group updated-input-style
+        <isif condition="${pdict.profileForm.customer.lastname.mandatory === true}">required</isif>">
+        <label class="form-control-label" for="lastName">
+            <isprint value="${pdict.profileForm.customer.lastname.label}" encoding="htmlcontent" />
+        </label>
+        <input placeholder="${pdict.profileForm.customer.lastname.label}" type="text" class="form-control" id="lastName"
+            <isprint value="${pdict.profileForm.customer.lastname.attributes}" encoding="off" />>
+        <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="form-group">
+     <span class="form-control-field-label">
+            <isprint value="${pdict.profileForm.customer.birthdate.label}" encoding="htmlcontent" />
+        </span>
+
+         <div class="dob-wrapper row">
+          	<div class="custom-select-wrapper col-6">
+			  	<label for="month" class="sr-only">${Resource.msg('label.input.dateofbirth.month','forms',null)}</label>
+				<select class="form-control custom-select" id="month" <isprint value="${pdict.profileForm.customer.birthmonth.attributes}" encoding="off" />>
+		           <isloop items=${pdict.profileForm.customer.birthmonth.options} var="month">
+		           	<option id="${'month-'+month.id}" value="${month.htmlValue}" <isif condition="${month.htmlValue == pdict.profileForm.customer.birthmonth.htmlValue}">selected</isif> >${month.label}</option>
+		           </isloop>
+		        </select>
+		        <i class="fa fa-angle-down"></i>
+        		<div class="invalid-feedback"></div>
+        	</div>
+        	<div class="custom-select-wrapper col-6">
+				<label for="date" class="sr-only">${Resource.msg('label.input.dateofbirth.day','forms',null)}</label>
+		        <select class="form-control custom-select" id="date" <isprint value="${pdict.profileForm.customer.birthdate.attributes}" encoding="off" /> >
+		           <isloop items=${pdict.profileForm.customer.birthdate.options} var="date">
+		           	 <option id="${'day-'+date.id}" value="${date.htmlValue}" <isif condition="${date.htmlValue == pdict.profileForm.customer.birthdate.htmlValue}">selected</isif> >${date.label}</option>
+		           </isloop>
+		        </select>
+		        <i class="fa fa-angle-down"></i>
+        		<div class="invalid-feedback"></div>
+        	</div>
+        </div>
+    </div>
+
+    <div class="form-group updated-input-style
+        <isif condition="${pdict.profileForm.customer.phone.mandatory === true}">required</isif>">
+        <label class="form-control-label" for="phone">
+            <isprint value="${pdict.profileForm.customer.phone.label}" encoding="htmlcontent" />
+        </label>
+        <input placeholder="${pdict.profileForm.customer.phone.label}" type="text" class="form-control" id="phone"
+            <isprint value="${pdict.profileForm.customer.phone.attributes}" encoding="off" />>
+        <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="form-group updated-input-style
+        <isif condition="${pdict.profileForm.customer.email.mandatory === true}">required</isif>">
+        <label class="form-control-label" for="email">
+            <isprint value="${pdict.profileForm.customer.email.label}" encoding="htmlcontent" />
+        </label>
+        <input placeholder="${pdict.profileForm.customer.email.label}" type="email" class="form-control" id="email"
+            <isprint value="${pdict.profileForm.customer.email.attributes}" encoding="off" />>
+        <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="form-group updated-input-style
+        <isif condition="${pdict.profileForm.customer.emailconfirm.mandatory === true}">required</isif>">
+        <label class="form-control-label" for="confirmEmail">
+            <isprint value="${pdict.profileForm.customer.emailconfirm.label}" encoding="htmlcontent" />
+        </label>
+        <input placeholder="${pdict.profileForm.customer.emailconfirm.label}" type="email" class="form-control" id="confirmEmail" <isprint value="${pdict.profileForm.customer.emailconfirm.attributes}" encoding="off" />>
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group updated-input-style
+        <isif condition="${pdict.profileForm.login.password.mandatory === true}">required</isif>">
+        <label class="form-control-label" for="password">
+            <isprint value="${pdict.profileForm.login.password.label}" encoding="htmlcontent" />
+        </label>
+        <input placeholder="${pdict.profileForm.customer.password.label}" type="password" class="form-control" id="password" autocomplete="off" <isprint value="${pdict.profileForm.login.password.attributes}" encoding="off" />>
+        <div class="invalid-feedback"></div>
+    </div>
+
+    <div class="form-group updated-input-style
+        <isif condition="${pdict.profileForm.login.passwordconfirm.mandatory === true}">required</isif>">
+        <label class="form-control-label" for="password">
+            <isprint value="${pdict.profileForm.login.passwordconfirm.label}" encoding="htmlcontent" />
+        </label>
+        <input placeholder="${pdict.profileForm.customer.passwordconfirm.label}" type="password" class="form-control" id="password" autocomplete="off" <isprint value="${pdict.profileForm.login.passwordconfirm.attributes}" encoding="off" />>
+        <div class="invalid-feedback"></div>
+    </div>
+
+    <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+
+    <div class="row">
+        <div class="col">
+            <a href="${URLUtils.url('Account-Show')}" class="btn btn-block btn-outline-primary">${Resource.msg('button.cancel','account',null)}</a>
+        </div>
+
+        <div class="col">
+            <button type="submit" name="save" class="btn btn-save btn-block btn-primary">${Resource.msg('button.save','account',null)}</button>
+        </div>
+    </div>
+</form>
