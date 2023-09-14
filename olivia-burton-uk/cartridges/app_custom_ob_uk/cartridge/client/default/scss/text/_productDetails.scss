@@ -195,6 +195,7 @@
 			font-style: normal;
 			letter-spacing: rem(1);
 			text-transform: lowercase;
+			font-weight: 300;
 
 			&::first-line {
 				text-transform: capitalize;
@@ -261,6 +262,7 @@
 		font-style: normal;
 		letter-spacing: rem(2);
 		text-transform: lowercase;
+		font-weight: 300;
 
 		&::first-letter {
 			text-transform: capitalize;
@@ -314,10 +316,12 @@
 		font-style: normal;
 		letter-spacing: rem(1);
 		text-transform: unset !important;
+		font-weight: 300;
 	}
 
 	.product-options {
 		font-family: $font-gills-light;
+		font-weight: 300;
 	}
 
 	.availability {
@@ -464,6 +468,7 @@
 				text-align: center;
 				padding-bottom: rem(10);
 				text-transform: capitalize;
+				font-weight: 300;
 			}
 		}
 	}
@@ -569,6 +574,7 @@
 					text-align: center;
 					margin: 0;
 					padding: rem(5);
+					font-weight: 300;
 				}
 
 				&-add {
@@ -698,6 +704,7 @@
 		letter-spacing: rem(1.23);
 		line-height: rem(18);
 		margin-top: 0;
+		font-weight: 300;
 
 		.col-12 {
 			flex: none;
