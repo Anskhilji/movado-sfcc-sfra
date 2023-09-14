@@ -43,7 +43,6 @@ function generatePulseIdOrderPayload(order, jobs) {
 }
 
 function setProductLineItemObj(lineItem, optionItem) {
-    var PersonalizationsObj = {};
     var obj = {
         Job: optionItem.custom.pulseIDJobId,
         ProductCode: lineItem.product.custom.pulseIDProductCode,
@@ -54,15 +53,17 @@ function setProductLineItemObj(lineItem, optionItem) {
         ProductLocation: lineItem.product.custom.ProductLocation,
         Quantity: lineItem.quantity.value,
         Personalizations: [{
-            ElementName: pulseIdConstants.PULSEID_SERVICE_ID.LINE1,
-            Text: optionItem.custom.engraveMessageLine1,
-            IsText: true
-        }]
+                ElementName: pulseIdConstants.PULSEID_SERVICE_ID.LINE1,
+                Text: optionItem.custom.engraveMessageLine1,
+                IsText: true
+            },
+            {
+                ElementName: pulseIdConstants.PULSEID_SERVICE_ID.LINE2,
+                Text: optionItem.custom.engraveMessageLine2 ? optionItem.custom.engraveMessageLine2 : '',
+                IsText: true
+            }
+        ]
     }
-    PersonalizationsObj.ElementName = pulseIdConstants.PULSEID_SERVICE_ID.LINE2,
-    optionItem && optionItem.custom && optionItem.custom.engraveMessageLine2 ? PersonalizationsObj.Text = optionItem.custom.engraveMessageLine2 : null,
-    PersonalizationsObj.IsText = true
-    obj.Personalizations.push(PersonalizationsObj);
     return obj;
 }
 module.exports = {
