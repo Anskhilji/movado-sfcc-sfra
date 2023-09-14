@@ -396,6 +396,7 @@ module.exports = function () {
             }
             else if (colSize == 6 && applePayLength == 0){
                 $('.shipping-paypal-btn img').css('height', '30px');
+                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px" });
                 function loadGpayWidth() {
                     if (document.readyState === 'complete') {
                         var $gpayBtn = $('#google-pay-container-mini-cart .gpay-button');

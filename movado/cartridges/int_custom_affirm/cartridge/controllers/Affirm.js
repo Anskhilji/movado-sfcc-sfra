@@ -124,12 +124,6 @@ server.replace(
             checkoutLogger.info('(Affirm) -> Success: Step-3: Customer Email is ' + maskedEmail);
         }
         
-        var email = order.customerEmail;
-        if (!empty(email)) {
-            var maskedEmail = COCustomHelpers.maskEmail(email);
-            checkoutLogger.info('(Affirm) -> Success: Step-3: Customer Email is ' + maskedEmail);
-        }
-    
         //set custom attirbute in session to avoid order confirmation page reload
         session.custom.orderJustPlaced = true;
         var URLUtils = require('dw/web/URLUtils');
