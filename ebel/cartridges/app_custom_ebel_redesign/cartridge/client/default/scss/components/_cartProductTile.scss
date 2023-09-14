@@ -1,15 +1,7 @@
 .product-card-wrapper {
     
     .line-item-name {
-        font-family: $font-HelveticaNeueLT-medium;
-
-        a {
-            font-family: $font-HelveticaNeueLT-medium;
-
-            span {
-                font-family: $font-HelveticaNeueLT-medium;
-            }
-        }
+        font-family: $font-ProximaNova;  
     }
 
     .item-info {
@@ -17,25 +9,15 @@
         .item-attributes {
 
             .total-amount {
-                font-family: $font-HelveticaNeueLT-medium;
-            }
-
-            .edit-add-to-wishlist {
-
-                .product-edit {
-  
-                    .move {
-                        font-family: $font-HelveticaNeueLT-book;
-                    }
-                }
+                font-family: $font-ProximaNova;  
             }
             
             .model-name, .original-price, .savings {
-                font-family: $font-HelveticaNeueLT-medium;
+                font-family: $font-ProximaNova;  
             }
     
             .personalize-msg, .personalize-price {
-                font-family: $font-HelveticaNeueLT-medium;
+                font-family: $font-ProximaNova;
                 font-weight: 500;
                 font-size: rem(14);
                 letter-spacing: rem(1.75);

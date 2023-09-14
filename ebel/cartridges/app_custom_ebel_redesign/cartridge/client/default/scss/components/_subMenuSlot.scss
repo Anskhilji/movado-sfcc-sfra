@@ -3,7 +3,7 @@
     .cs-carousel-wrapper {
 
         .carousel-title {
-            font-family: $font-HelveticaNeueLT-medium;   
+            font-family: $font-ProximaNova;   
         }
     }
 
@@ -12,21 +12,21 @@
         .product-tile {
 
             .out-of-stock {
-               font-family: $font-HelveticaNeueLT-book;
+               font-family: $font-ProximaNova;
             }
 
             .new-product, .pre-order, .out-of-stock  {       
-                font-family: $font-HelveticaNeueLT-book;
+                font-family: $font-ProximaNova;
             }
 
             .tile-body {
 
                 .price {       
-                    font-family: $font-HelveticaNeueLT-book;
+                    font-family: $font-ProximaNova;
                 }
     
                 .product-name {            
-                    font-family: $font-HelveticaNeueLT-medium;
+                    font-family: $font-ProximaNova;
                 }
             }
         }
