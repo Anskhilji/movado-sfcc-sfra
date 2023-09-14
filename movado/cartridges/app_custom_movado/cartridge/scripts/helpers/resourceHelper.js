@@ -49,7 +49,6 @@ function getResources(pageContext) {
         OBUK_SITE_ID: Resource.msg('info.obuk.site.id', 'common', null),
         OBUS_SITE_ID: Resource.msg('info.obus.site.id', 'common', null),
         INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
-        ESW_COUPON_VALIDATION_EMAIL_REQUIRE: Resource.msg('esw.guest.email.required', 'account', null),
         EMAIL_SUBSCRIPTION_SUCCESS: Resource.msg('newsletter.signup.success', 'common', null),
         EMAIL_SUBSCRIPTION_THANK_YOU: Resource.msg('newsletter.signup.thank.you', 'common', null),
         LINK_QUICKVIEW_VIEWDETAILS: Resource.msg('link.quickview.viewdetails', 'product', null),

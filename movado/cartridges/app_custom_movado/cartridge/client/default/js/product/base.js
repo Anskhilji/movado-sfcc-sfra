@@ -1779,20 +1779,6 @@ module.exports = {
 
     addToCart: function () {
         $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
-            var addToCartUrl;
-            var pid;
-            var pidsObj;
-            var setPids;
-            var giftPid;
-            var productQuantity = null;
-            var $this = $(this);
-            
-            if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
-                productQuantity = $('.quantity-selector > .quantity').val();
-                if (productQuantity == "") {
-                    productQuantity = null;
-                }
-            }
             var $this = $(this);
             $('body').addClass('remove-overflow');
             if (!$(this).data('plp-addtocart')) {

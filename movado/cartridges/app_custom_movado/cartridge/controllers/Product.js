@@ -390,7 +390,6 @@ server.get('ShowCartButton', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-    var addCartGtmArray = productCustomHelpers.getGtmObjForPdp(productMgr.getProduct(showProductPageHelperResult.product.id));
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
     res.setViewData(smartGift);
@@ -401,8 +400,7 @@ server.get('ShowCartButton', function (req, res, next) {
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
         ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
-        smartGiftAddToCartURL : smartGiftAddToCartURL,
-        addCartGtmArray: addCartGtmArray
+        smartGiftAddToCartURL : smartGiftAddToCartURL
     });
     next();
 });

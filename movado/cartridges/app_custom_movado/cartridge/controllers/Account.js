@@ -153,9 +153,9 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 
     if (isGoogleRecaptchaEnabled) {
         var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
-        var googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value; 
+        var googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value;
         if (empty(googleRecaptchaToken)) {
-            res.json({ 
+            res.json({
                 success: false,
                 errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
             });
@@ -802,63 +802,5 @@ server.prepend('Header', server.middleware.include, function (req, res, next) {
     res.setViewData(viewData);
     next();
 });
-
-server.post('EswCouponValidation', function (req, res, next) {
-    var BasketMgr = require('dw/order/BasketMgr');
-    var CouponMgr = require('dw/campaign/CouponMgr');
-    var ContentMgr = require('dw/content/ContentMgr');
-    var collections = require('*/cartridge/scripts/util/collections');
-    var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
-
-    var currentBasket = BasketMgr.getCurrentBasket();
-    var couponLineItems = currentBasket.couponLineItems;
-    var EswGuestemail = req.form.customerEmail;
-    var filterRedemptions = false;
-    var eswCouponErrorContent = ContentMgr.getContent('ca-esw-coupon-validation-error');
-    var couponValidationErrormessage = eswCouponErrorContent && eswCouponErrorContent.custom && eswCouponErrorContent.custom.body ? eswCouponErrorContent.custom.body : '';
-    
-    if (!empty(EswGuestemail)) {
-        
-        for (var i = 0; i < couponLineItems.length; i++) {
-            var couponLineItem = couponLineItems[i];
-            var couponCodeValue = couponLineItem.couponCode;
-
-            if (!empty(couponCodeValue)) {
-                var couponCode = CouponMgr.getCouponByCode(couponCodeValue);
-                var couponRedemptionLimitPerCustomer = couponCode.redemptionLimitPerCustomer;
-                var getRedemptions = CouponMgr.getRedemptions(couponCode.ID, couponCodeValue);
-
-                if (couponRedemptionLimitPerCustomer !== null) {
-
-                    collections.forEach(getRedemptions, function (item) {
-                        var redemptionEmail = item.customerEmail;
-
-                        if (redemptionEmail == EswGuestemail) {
-                            filterRedemptions = true;
-                            return;
-                        }
-                    });   
-                }
-            }
-        }
-    
-        if (filterRedemptions) {
-            res.json({
-                success: false,
-                error: true,
-                redirectUrl : URLUtils.url('Cart-Show', 'errormessage', couponValidationErrormessage).toString()
-            });
-        } else {
-            res.json({
-                success: true,
-                error: false,
-                redirectUrl : URLUtils.url('Checkout-Begin', 'eswEmail', EswGuestemail).toString()
-            });
-        }
-    }
-
-    return next();
-    }
-);
 
 module.exports = server.exports();

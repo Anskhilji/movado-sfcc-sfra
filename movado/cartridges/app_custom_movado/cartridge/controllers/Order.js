@@ -202,9 +202,6 @@ server.replace(
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var Site = require('dw/system/Site');
-
-    var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
-
     var viewData = res.getViewData();
     var marketingProductsData = [];
     var orderAnalyticsTrackingData;
@@ -397,11 +394,6 @@ server.append('Confirm', function (req, res, next) {
     res.setViewData(viewData);
     if (!empty(session.custom.orderNumber)) {
         session.custom.orderNumber = '';
-    }
-
-    var isRakutenEnabled = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
-    if (isRakutenEnabled) {
-        rakutenCookiesHelper.saveRakutenOrderAttributes(order);
     }
     next();
 });
