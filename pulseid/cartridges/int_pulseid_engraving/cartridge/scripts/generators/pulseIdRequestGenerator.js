@@ -59,7 +59,7 @@ function setProductLineItemObj(lineItem, optionItem) {
             },
             {
                 ElementName: pulseIdConstants.PULSEID_SERVICE_ID.LINE2,
-                Text: optionItem.custom.engraveMessageLine2 ? optionItem.custom.engraveMessageLine2 : '',
+                Text: optionItem.custom.engraveMessageLine2 ? optionItem.custom.engraveMessageLine2 : ' ',
                 IsText: true
             }
         ]
