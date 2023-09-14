@@ -187,50 +187,13 @@ $arrow-height: 1.25em;
         font-size: rem(16);
         letter-spacing: normal;
         width: 100%;
-        height: rem(46);
+        height: rem(38);
     }
 
     .slick-slide {
 
         img {
             margin: 0 auto;
-
-            @include media-breakpoint-up(lg) {
-
-                &.carousel-indicator-image {
-                    width: rem(98);
-                    height: rem(98);
-                }
-
-            }
-            
-            @media (max-width: $custom-sm4) {
-
-                &.carousel-indicator-image {
-                    width: rem(68);
-                    height: rem(68); 
-                }
-
-            }
-            
-            @media (max-width: $small-screen-width375) {
-
-                &.carousel-indicator-image {
-                    width: rem(57);
-                    height: rem(57);
-                }
-
-            }
-            
-            @media (max-width: $small-screen-width) {
-                
-                &.carousel-indicator-image {
-                    width: rem(46);
-                    height: rem(46);
-                }
-
-            }
-
         }
     }
 
@@ -390,23 +353,6 @@ $arrow-height: 1.25em;
                     @include media-breakpoint-up(xl) {
                         min-width: auto;
                         max-width: 100%;
-                        height: rem(600);
-                        width: rem(600);
-                    }
-
-                    @media (max-width: $custom-sm4) {
-                        width: rem(424);
-                        height: rem(424);
-                    }
-                    
-                    @media (max-width: $small-screen-width375) {
-                        height: rem(359);
-                        width: rem(359);
-                    }
-                    
-                    @media (max-width: $small-screen-width) {
-                        height: rem(304);
-                        width: rem(304);
                     }
                 }
             }
@@ -533,18 +479,6 @@ $arrow-height: 1.25em;
 
     .zoom-img {
        cursor: zoom-in;
-
-        @media (max-width: $custom-sm4) {
-            height: rem(409);
-        }
-
-        @media (max-width: $small-screen-width375) {
-            height: rem(359);
-        }
-
-        @media (max-width: $small-screen-width) {
-            height: rem(304);
-        }
 
         &.zoomed-img {
             cursor: zoom-out;

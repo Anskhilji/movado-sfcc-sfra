@@ -89,11 +89,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
     }
 
-    if(product.individualProducts) {
-        yotpoCustomHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
-        productCustomHelpers.setProductAvailability(product)
-    }
-
    /* get recommendations for product*/
    if (product) {
        product = productMgr.getProduct(product.id);

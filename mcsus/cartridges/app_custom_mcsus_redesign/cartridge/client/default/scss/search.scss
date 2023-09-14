@@ -569,7 +569,7 @@
                                 display: block;
                                 margin: 0;
                                 padding: 0;
-                                color: $light-grey10;
+                                color: $light-grey9;
                                 text-transform: uppercase;
                                 height: auto;
                             }
@@ -723,49 +723,13 @@
     }
 }
 
-.listrak-persistent-popup {
-    display: none !important;
-}
-.button-floting {
-    &.button-search-result {
-        bottom: rem(41);
-    }
-}
-
-.search-results-plp-redesign {
-
-    .search-results-container {
-
-        .product-counter-wrapper {
-
-            .searech-results-wrapper {
-
-                .tab-pane {
-
-                    .grid-header {
-
-                        .sort-col {
-                            display: none;
-                        }
-
-                        .filter-col {
-                            display: none;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 .filter-by-icon {
     display: none;
 }
-
 .sort-filters-button {
 
     &.sort-col{
-
+        
         &::before {
             display: none;
         }
