@@ -548,34 +548,39 @@ function cloneRecommendationSlot(selector) {
 // header hide on scroll
 var lastScrollTop = 0;
 
-  $(window).scroll(function() {
+  $(window).on('scroll',function() {
     var scrollTop = $(this).scrollTop();
 
-    if ((scrollTop != 0 && lastScrollTop != 0) && scrollTop >= lastScrollTop) {
+    if ((scrollTop > 0 && lastScrollTop > 0) && (scrollTop != 0 && lastScrollTop != 0) && scrollTop >= lastScrollTop) {
       // Scrolling down
         $('.transparent-header , .home-header-transparent').addClass('hide-header');
         $('.transparent-header .minicart .popover-bottom , .home-header-transparent .minicart .popover-bottom').addClass('mini-cart-hide' , '0');
         $('.header-banner-redesign').addClass('header-banner-hide');
+        $('.search-results-updated').addClass('sticky-search');
+        $('.header-placeholder-sec').addClass('header-section-set');
         $('.search-results-updated .filter-bar-sticky').addClass('filter-bar-updated');
         $('.checkout-header-redesign .sticky-header-wrapper').removeClass('fixed-header');
         $('.accessible-link').css('display','none');
         $('.search-results-updated .left-sec .result-count').css('display','none');
     } else {
       // Scrolling up
+      $('.header-placeholder-sec').removeClass('header-section-set');
         $('.transparent-header , .home-header-transparent').removeClass('hide-header');
         $('.header-banner-redesign').removeClass('header-banner-hide');
         $('.checkout-header-redesign .sticky-header-wrapper').addClass('fixed-header');
         $('.search-results-updated .filter-bar-sticky').removeClass('filter-bar-updated');
+        $('.search-results-updated').removeClass('sticky-search');
         $('.accessible-link').css('display','block');
         $('.transparent-header .minicart .popover-bottom , .home-header-transparent .minicart .popover-bottom').removeClass('mini-cart-hide');
         $('.search-results-updated .left-sec .result-count').css('display','block');
     }
 
     lastScrollTop = scrollTop;
+    console.log(scrollTop);
   });
 
 // on load scroll on top
-  $(window).on('beforeunload', function() {
+  $(window).on('load', function() {
     if ($('.modal-is-open').length == 0) {
         $(window).scrollTop(0);
     }

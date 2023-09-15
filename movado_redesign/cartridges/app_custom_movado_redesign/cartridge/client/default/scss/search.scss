@@ -2435,7 +2435,10 @@
 
   @media(max-width:$custom-lg4) {
     padding: 0 rem(24);
+  }
 
+  &.sticky-search {
+    position: absolute;
   }
 
   .search-results-sec {
