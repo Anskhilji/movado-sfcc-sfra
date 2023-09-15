@@ -53,7 +53,7 @@
           <key-binding alias="exportCustomers" key="exportCustomers"/>
           <key-binding alias="exportCatalogs" key="exportCatalogs"/>
           <key-binding alias="DaysToExportOrders" key="DaysToExportOrders"/>
-          <key-binding alias="DeltaCatalogExportInDays" key="DeltaCatalogExportInDays"/>
+          <key-binding alias="DeltaCatalogInDays" key="DeltaCatalogInDays"/>
           <key-binding alias="GenerateDeleteFeed" key="GenerateDeleteFeed"/>
           <key-binding alias="DaysToExportCustomers" key="DaysToExportCustomers"/>
           <key-binding alias="exportOrders" key="exportOrders"/>

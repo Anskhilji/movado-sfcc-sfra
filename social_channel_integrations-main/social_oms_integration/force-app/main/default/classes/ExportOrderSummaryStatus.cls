@@ -78,8 +78,8 @@ public class ExportOrderSummaryStatus {
                 	gen.writeNumberField('c_externalLineItemStatus',Integer.valueOf(getOrderLineStatus(item.Status)));
 				
              		for(ShipmentItem ship : item.ShipmentItems){
-                		gen.writeStringField('c_carrier',ship.Shipment.TrackingNumber);	
-						gen.writeStringField('c_trackingNumber',ship.Shipment.Provider);
+						gen.writeStringField('c_carrier',ship.Shipment.Provider);
+                        gen.writeStringField('c_trackingNumber',ship.Shipment.TrackingNumber);	
                		}
                 
             		gen.writeEndObject();

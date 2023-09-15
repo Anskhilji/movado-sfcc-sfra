@@ -1,5 +1,7 @@
 'use strict';
 
+var URLUtils = require('dw/web/URLUtils');
+
 /**
  * @module util/Browsing
  */
@@ -8,15 +10,15 @@
  * Recovers the last url from the click stream
  * @return {dw.web.URL} the last called URL
  */
-exports.lastUrl  = function lastUrl() {
-    var location = dw.web.URLUtils.url('Home-Show');
+exports.lastUrl = function lastUrl() {
+    var location = URLUtils.url('Home-Show');
     var click = session.clickStream.last;
     if (click) {
-        location = dw.web.URLUtils.url(click.pipelineName);
+        location = URLUtils.url(click.pipelineName);
         if (!empty(click.queryString) && click.queryString.indexOf('=') !== -1) {
             var params = click.queryString.split('&');
             params.forEach(function (param) {
-                location.append.apply(location,param.split('='));
+                location.append.apply(location, param.split('='));
             });
         }
     }
@@ -25,13 +27,14 @@ exports.lastUrl  = function lastUrl() {
 
 /**
  * Returns the last catalog URL or homepage URL if non found
- * @return {String} The last browsed catalog URL
+ * @return {string} The last browsed catalog URL
  */
 exports.lastCatalogURL = function lastCatalogURL() {
     var clicks = session.getClickStream().getClicks();
 
     for (var i = clicks.size() - 1; i >= 0; i--) {
         var click = clicks[i];
+        // eslint-disable-next-line default-case
         switch (click.getPipelineName()) {
             case 'Product-Show':
             case 'Search-Show':
@@ -41,8 +44,5 @@ exports.lastCatalogURL = function lastCatalogURL() {
         }
     }
 
-    return dw.web.URLUtils.httpHome().toString();
+    return URLUtils.httpHome().toString();
 };
-
-//add url parser (libUrl)
-//add continue shopping here

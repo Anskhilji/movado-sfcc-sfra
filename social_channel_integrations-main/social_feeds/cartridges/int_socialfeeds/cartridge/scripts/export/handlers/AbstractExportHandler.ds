@@ -49,7 +49,7 @@ var AbstractExportHandler = Class.extend(
              * @param {dw.catalog.Product} product The product to export
              * @return {Boolean} True if the product should be exported
              */
-            shouldExportProduct : function (product : dw.catalog.Product, locales, price) {
+            shouldExportProduct : function (product : dw.catalog.Product, locales, price, socialCategory) {
                 if (!this.includeOfflineProducts && !product.isOnline()) {
                     return false;
                 }
@@ -66,17 +66,23 @@ var AbstractExportHandler = Class.extend(
                     }
                 }
 
-                if ( empty(product.getPriceModel()) || empty(product.getPriceModel().getPrice()) ) {
+                if (!empty(socialCategory) && socialCategory == 'SocialChannelInstagram') {
+                    if (empty(price) || empty(product.getPriceModel()) || empty(product.getPriceModel().getPrice()) || product.getPriceModel().getPrice().isAvailable() == false) {
+                        return false;
+                    }
+                }
+
+                if (empty(price) || empty(product.getPriceModel()) || empty(product.getPriceModel().getPrice())) {
                     return false;
                 }
                 
                 if (this.tracker && 
-                    ((this.deltaCatalogExportInDays && this.deltaCatalogExportInDays > 0) || this.generateDeleteFeed)) {
+                    ((this.deltaCatalogInDays && this.deltaCatalogInDays > 0) || this.generateDeleteFeed)) {
                     Tracker.trackProduct(this.tracker, product, price);
                 }
 
                 //if delta feed is enabled with a postive integer, export only delta days of data
-                if (this.deltaCatalogExportInDays && this.deltaCatalogExportInDays > 0) {
+                if (this.deltaCatalogInDays && this.deltaCatalogInDays > 0) {
                     var lastModified;
                     var deltaFeedExport = false;
                     var lastModifiedExport = false;
@@ -89,7 +95,7 @@ var AbstractExportHandler = Class.extend(
                     }
 
                     // check if last modified enables the product for export
-                    if (Math.ceil(Math.abs(new Date() - lastModified) / 1000 / 3600 / 24) <= this.deltaCatalogExportInDays) {
+                    if (Math.abs(new Date() - lastModified) / 1000 / 3600 / 24 <= this.deltaCatalogInDays) {
                         lastModifiedExport = true;
                     }
 

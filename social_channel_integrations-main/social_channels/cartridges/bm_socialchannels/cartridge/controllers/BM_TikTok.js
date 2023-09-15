@@ -7,20 +7,18 @@
 
 var Encoding = require('dw/crypto/Encoding');
 var ISML = require('dw/template/ISML');
-var Logger = require('dw/system/Logger');
+var Logger = require('dw/system/Logger').getLogger('bm_socialchannels', 'BM_TikTok');
 var Mac = require('dw/crypto/Mac');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
-var System = require('dw/system/System');
 var Transaction = require('dw/system/Transaction');
 var URLAction = require('dw/web/URLAction');
 var URLUtils = require('dw/web/URLUtils');
-var OauthFactory = require('int_tiktok/cartridge/scripts/util/OauthFactory');
-var OauthService = require('int_tiktok/cartridge/scripts/services/OauthService');
 var constants = require('int_tiktok/cartridge/scripts/TikTokConstants');
 var customObjectHelper = require('int_tiktok/cartridge/scripts/customObjectHelper');
 var tiktokService = require('int_tiktok/cartridge/scripts/services/tiktokService');
+var validationHelper = require('*/cartridge/scripts/utils/validationHelper');
 
 var breadcrumbs = [
     {
@@ -55,34 +53,65 @@ function isShopConnected(extData) {
 }
 
 /**
+ * determines if TikTik Shop onboarding has completed
+ * @param {dw.object.CustomObject} tikTokSettings - TikTok settings
+ * @param {boolean} callService if true, call TikTok API instead of using custom object value
+ * @returns {boolean} true is TTS is connected
+ */
+function isTikTokShopConnected(tikTokSettings, callService) {
+    if (!tikTokSettings) return false;
+    if (callService) {
+        return isShopConnected(tikTokSettings.custom.externalData_base64);
+    }
+    return !!tikTokSettings.custom.tikTokShopConnected;
+}
+
+/**
+ * determines if TikTik Marketing onboarding has completed
+ * @param {dw.object.CustomObject} tikTokSettings - TikTok settings
+ * @returns {boolean} true is TT Marketing/Ads is connected
+ */
+function isTikTokMarketingConnected(tikTokSettings) {
+    if (!tikTokSettings) return false;
+    var hasAccessToken = !!tikTokSettings.custom.accessToken;
+    var hasPixelCode = !!tikTokSettings.custom.pixelCode;
+    return hasAccessToken && hasPixelCode;
+}
+
+/**
  * Landing page for TikTok
  */
 function start() {
     var tikTokSettings = customObjectHelper.getCustomObject();
 
-    // If the customer already authenticated, we know the pixelCode, we can directly render the 'Manage' page  additional if they already completed the onboarding for TikTok Shop
-    if (!empty(tikTokSettings.custom.pixelCode) || (!empty(tikTokSettings.custom.tikTokShopConnected) && tikTokSettings.custom.tikTokShopConnected == true)) {
-        ISML.renderTemplate('tiktok/setup', {
-            tikTokSettings: tikTokSettings,
-            breadcrumbs: breadcrumbs,
-            error: request.httpParameterMap.error.stringValue,
-            success: request.httpParameterMap.success.stringValue
-        });
-        return;
-    }
+    var addFeature = !!request.httpParameterMap.feature.booleanValue;
+    var showSDK = request.httpParameterMap.showsdk.booleanValue;
 
-    if (isShopConnected(tikTokSettings.custom.externalData_base64)) {
-        // check if TikTok shop onboarding completed
-        Transaction.wrap(function () {
-            tikTokSettings.custom.tikTokShopConnected = true;
-        });
-        ISML.renderTemplate('tiktok/setup', {
-            tikTokSettings: tikTokSettings,
-            breadcrumbs: breadcrumbs,
-            error: request.httpParameterMap.error.stringValue,
-            success: request.httpParameterMap.success.stringValue
-        });
-        return;
+    if (!addFeature) {
+        // If the customer already authenticated, we know the pixelCode, we can directly render the 'Manage' page  additional if they already completed the onboarding for TikTok Shop
+        if (isTikTokMarketingConnected(tikTokSettings) || isTikTokShopConnected(tikTokSettings, false)) {
+            ISML.renderTemplate('tiktok/setup', {
+                tikTokSettings: tikTokSettings,
+                breadcrumbs: breadcrumbs,
+                error: request.httpParameterMap.error.stringValue,
+                success: request.httpParameterMap.success.stringValue
+            });
+            return;
+        }
+
+        if (isShopConnected(tikTokSettings.custom.externalData_base64)) {
+            // check if TikTok shop onboarding completed
+            Transaction.wrap(function () {
+                tikTokSettings.custom.tikTokShopConnected = true;
+            });
+            ISML.renderTemplate('tiktok/setup', {
+                tikTokSettings: tikTokSettings,
+                breadcrumbs: breadcrumbs,
+                error: request.httpParameterMap.error.stringValue,
+                success: request.httpParameterMap.success.stringValue
+            });
+            return;
+        }
     }
 
     // get prior generated tenant ID
@@ -91,7 +120,6 @@ function start() {
         tenantId = require('dw/util/UUIDUtils').createUUID();
     }
 
-    var showSDK = request.httpParameterMap.showsdk.booleanValue;
     if (!showSDK) {
         // set form field values from custom object
         var form = customObjectHelper.fillFormFromCustomObject(tikTokSettings, tenantId, false);
@@ -105,6 +133,8 @@ function start() {
         ISML.renderTemplate('tiktok/start', {
             acceptTerms: tikTokSettings.custom.acceptTerms,
             breadcrumbs: breadcrumbs,
+            addFeature: addFeature,
+            error: request.httpParameterMap.error.stringValue,
             success: request.httpParameterMap.success.stringValue
         });
         return;
@@ -114,27 +144,42 @@ function start() {
 }
 
 /**
+ * Extracts the base URL from a URL
+ * @param {string} url - URL
+ * @returns {string|null} base URL
+ */
+function extractBaseUrl(url) {
+    if (!url) return null;
+    var index = url.indexOf('/', url.indexOf('://') + 3);
+    if (index > -1) {
+        return url.substring(0, index);
+    }
+    return url;
+}
+
+/**
  * Returns the URL to the create order page
- * @param {string} hostNameAlias hostname alias from form
- * @param {boolean} exitInError should exit in error or fail gracefully?
+ * @param {string} action - the controller action  ('Home-Show', 'OrderCreate-Social')
+ * @param {boolean} shouldExtractBaseUrl - if true, extracts the base URL from the URL
  * @returns {string|Object} create order URL or error object
  */
-function getCreateOrderUrl(hostNameAlias, exitInError) {
+function getStorefrontUrl(action, shouldExtractBaseUrl) {
     var currentSite = Site.getCurrent();
     var siteId = currentSite.getID();
     var locale = currentSite.getDefaultLocale();
-    var action = new URLAction('OrderCreate-Social', siteId, locale);
-    if (hostNameAlias) {
-        try {
-            action = new URLAction('OrderCreate-Social', siteId, locale, hostNameAlias);
-        } catch (e) {
-            Logger.error(e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
-            if (exitInError) {
-                return { error: e.javaMessage || e.toString() };
-            }
-        }
+
+    // make a web service call to the site to get the URL to ensure aliases are correctly set
+    var storefrontUrl = validationHelper.getStorefrontUrl(action, siteId, locale);
+
+    if (!storefrontUrl) {
+        storefrontUrl = URLUtils.https(new URLAction(action, siteId, locale)).toString();
     }
-    return URLUtils.https(action).toString();
+
+    if (shouldExtractBaseUrl) {
+        return extractBaseUrl(storefrontUrl);
+    }
+
+    return storefrontUrl;
 }
 
 /**
@@ -144,7 +189,7 @@ function getCreateOrderUrl(hostNameAlias, exitInError) {
  */
 function getDomain(url) {
     if (!url) return '';
-    var matches = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im);
+    var matches = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?=]+)/im);
     if (matches.length > 1) {
         return matches[1];
     }
@@ -165,8 +210,8 @@ function getCredentialsObjectFromFormData(form) {
         sfcc_bm_access_key: form.bmaccesskey.value,
         shopper_api_client_id: form.shopperclientid.value,
         shopper_api_client_secret: form.shopperclientsecret.value,
-        create_order_url: getCreateOrderUrl(form.hostNameAlias.value, false),
-        website_url: form.website.value.replace(/\/$/, '')
+        create_order_url: getStorefrontUrl('OrderCreate-Social', false),
+        website_url: getStorefrontUrl('Home-Show', true)
     };
 }
 
@@ -199,103 +244,97 @@ function encodeExternalData(externalData, tikTokSettings) {
 /**
  * Verifies the credentials
  * @param {string} template ISML template
+ * @param {Object} credentials - object created from getCredentialsObjectFromFormData function
  * @returns {boolean} true/false
  */
-function verifyCredentials(template) {
-    const CONSTANTS = OauthFactory.CONST_PARAMETERS;
+function verifyCredentials(template, credentials) {
+    var Status = require('dw/system/Status');
     var form = session.forms.tiktok;
     if (!template) {
         template = 'tiktok/start'; // eslint-disable-line no-param-reassign
     }
 
-    var requestDataContainer;
-    var svcResponse;
-    var tokenRes;
-    var verifyWebdav = !!Site.getCurrent().getCustomPreferenceValue('tiktokVerifyWebDav');
-    var verifyBM = !!Site.getCurrent().getCustomPreferenceValue('tiktokVerifyBM');
+    var currentSite = Site.getCurrent();
+    var siteId = currentSite.getID();
+    var verifyWebdav = !!currentSite.getCustomPreferenceValue('tiktokVerifyWebDav');
+    var verifyBM = !!currentSite.getCustomPreferenceValue('tiktokVerifyBM');
+    var addFeature = !!request.httpParameterMap.feature.booleanValue;
 
-    // var acctMngrClientId = form.amclientid.value;
-    // var acctMngrClientSecret = form.amclientsecret.value;
+    var acctMngrClientId = form.amclientid.value;
+    var acctMngrClientSecret = form.amclientsecret.value;
     var bizMngrUser = form.bmuser.value;
     var bizMngrAccessKey = form.bmaccesskey.value;
     var webDavClientId = form.shopperclientid.value;
     var webDavClientSecret = form.shopperclientsecret.value;
-    var hostNameAlias = form.hostNameAlias.value;
 
-    // validate hostname alias
-    if (hostNameAlias) {
-        var createOrderUrl = getCreateOrderUrl(hostNameAlias, true);
-        if (typeof createOrderUrl === 'object' && Object.hasOwnProperty.call(createOrderUrl, 'error') && createOrderUrl.error) {
-            Logger.info('error creating "create order url"');
-            ISML.renderTemplate(template, {
-                error: createOrderUrl.error,
-                acceptTerms: true,
-                breadcrumbs: breadcrumbs
-            });
-            return false;
-        }
-    }
+    var templateArgs = {
+        error: null,
+        acceptTerms: true,
+        breadcrumbs: breadcrumbs,
+        addFeature: addFeature
+    };
 
     // validate WebDAV credentials for OCAPI
     if (verifyWebdav) {
         if (!webDavClientId || !webDavClientSecret) {
-            Logger.info('WebDAV credentials were not fully provided');
-            ISML.renderTemplate(template, {
-                error: 'invalid.webDavCredentials',
-                acceptTerms: true,
-                breadcrumbs: breadcrumbs
-            });
+            Logger.warn('WebDAV credentials were not fully provided');
+            templateArgs.error = 'invalid.webDavCredentials';
+            ISML.renderTemplate(template, templateArgs);
             return false;
         }
-        requestDataContainer = OauthFactory.buildOCAPITokenRequestContainer(webDavClientId, webDavClientSecret);
-        var scvOCAPI = OauthService.getOAuthAccessTokenService(requestDataContainer);
-        scvOCAPI.URL = scvOCAPI.configuration.credential.URL + CONSTANTS.Q_MARK + CONSTANTS.GRANT_TYPE + CONSTANTS.EQL + requestDataContainer.grant_type;
-        svcResponse = scvOCAPI.call(requestDataContainer);
-        tokenRes = JSON.parse(svcResponse.object);
-        if (tokenRes != null && tokenRes && tokenRes.access_token) {
-            // credentials are valid
-            Logger.info('OCAPI credentials validated successfully');
-        } else {
-            // invalid OCAPI credentials
-            Logger.info('Invalid OCAPI credentials');
-            ISML.renderTemplate(template, {
-                error: 'invalid.webDavCredentials',
-                acceptTerms: true,
-                breadcrumbs: breadcrumbs
-            });
+        var clientCredentialsAccessToken = validationHelper.validateAMCredentials(webDavClientId, webDavClientSecret);
+        if (!clientCredentialsAccessToken) {
+            Logger.warn('Invalid WebDAV credentials');
+            templateArgs.error = 'invalid.webDavCredentials';
+            ISML.renderTemplate(template, templateArgs);
             return false;
         }
+
+        Logger.info('WebDAV credentials validated successfully');
     }
 
     // validate BM access credentials
     if (verifyBM) {
-        if (!webDavClientId || !webDavClientSecret || !bizMngrUser || !bizMngrAccessKey) {
-            Logger.info('Biz Mngr credentials were not fully provided');
-            ISML.renderTemplate(template, {
-                error: 'account.manager',
-                acceptTerms: true,
-                breadcrumbs: breadcrumbs
-            });
+        if (!acctMngrClientId || !acctMngrClientSecret || !bizMngrUser || !bizMngrAccessKey) {
+            Logger.warn('Biz Mngr credentials were not fully provided');
+            templateArgs.error = 'account.manager';
+            ISML.renderTemplate(template, templateArgs);
             return false;
         }
-        requestDataContainer = OauthFactory.buildBMTokenRequestContainer(webDavClientId, webDavClientSecret, bizMngrUser, bizMngrAccessKey);
-        var instanceHostname = System.getInstanceHostname();
-        var svcBM = OauthService.getOAuthAccessTokenService(requestDataContainer);
-        svcBM.URL = CONSTANTS.HTTPS + CONSTANTS.COLON + CONSTANTS.FSLASH + CONSTANTS.FSLASH + instanceHostname + svcBM.configuration.credential.URL + CONSTANTS.Q_MARK + CONSTANTS.GRANT_TYPE + CONSTANTS.EQL + requestDataContainer.grant_type + CONSTANTS.AMP + CONSTANTS.CLIENT_ID + CONSTANTS.EQL + webDavClientId;
 
-        svcResponse = svcBM.call(requestDataContainer);
-        tokenRes = JSON.parse(svcResponse.object);
-        if (tokenRes != null && tokenRes && tokenRes.access_token) {
-            // credentials are valid
-            Logger.info('BM credentials validated successfully');
-        } else {
+        var bmUserGrantAccessToken = validationHelper.validateBizMngrUserGrant(bizMngrUser, bizMngrAccessKey, acctMngrClientId, acctMngrClientSecret);
+        if (!bmUserGrantAccessToken) {
             // invalid Biz Mngr credentials
-            Logger.info('Invalid BM credentials');
-            ISML.renderTemplate(template, {
-                error: 'account.manager',
-                acceptTerms: true,
-                breadcrumbs: breadcrumbs
-            });
+            Logger.warn('Invalid BM credentials');
+            templateArgs.error = 'account.manager';
+            ISML.renderTemplate(template, templateArgs);
+            return false;
+        }
+
+        Logger.info('BM credentials validated successfully');
+
+        // use the biz mngr user grant access token to make a request to the create order endpoint
+        var createOrderUrlResult = validationHelper.validateCreateOrderUrl(credentials.create_order_url, bmUserGrantAccessToken);
+        if (createOrderUrlResult && createOrderUrlResult.status === Status.ERROR) {
+            Logger.warn('Could not make successful POST to: {0}', credentials.create_order_url);
+            templateArgs.error = Resource.msgf('tiktok.error.post.request', 'tiktok', null, credentials.create_order_url, (createOrderUrlResult.msg || ''));
+            ISML.renderTemplate(template, templateArgs);
+            return false;
+        }
+
+        // use the biz mngr user grant access token to make a request to the OCAPI shop endpoint
+        var ocapiShopPath = ['s', siteId, 'dw', 'shop', constants.OCAPI_VERSION].join('/');
+        var ocapiEndpoint = [
+            credentials.website_url,
+            ocapiShopPath,
+            'orders',
+            'debug_order_no'
+        ].join('/') + '?client_id=' + acctMngrClientId;
+        var ocapiResult = validationHelper.validateOcapiEndpoint(ocapiEndpoint, bmUserGrantAccessToken);
+        if (ocapiResult && ocapiResult.status === Status.ERROR) {
+            Logger.warn('Could not make successful POST to: {0}', ocapiEndpoint);
+            templateArgs.error = Resource.msgf('tiktok.error.post.request', 'tiktok', null, ocapiEndpoint, (ocapiResult.msg || ''));
+            ISML.renderTemplate(template, templateArgs);
             return false;
         }
     }
@@ -347,25 +386,41 @@ function pushCredentials(appId, extBusId, credentials, edBase64) {
  * @returns {boolean} true if credentials were successfully passed to TikTok
  */
 function updateCredentials() {
-    if (!verifyCredentials('tiktok/manageCredentials')) {
+    var form = session.forms.tiktok;
+    var credentials = getCredentialsObjectFromFormData(form);
+    var template = 'tiktok/manageCredentials';
+    var addFeature = !!request.httpParameterMap.feature.booleanValue;
+
+    var templateArgs = {
+        error: 'svc.credentials',
+        acceptTerms: true,
+        breadcrumbs: breadcrumbs,
+        addFeature: addFeature
+    };
+    var tikTokSettings = customObjectHelper.getCustomObject();
+    var externalData = customObjectHelper.getExternalData(tikTokSettings);
+
+    // exit early if no external data is present
+    if (!externalData || !Object.keys(externalData).length) {
+        Logger.warn('updateCredentials - external data was not found');
+        ISML.renderTemplate(template, templateArgs);
         return false;
     }
 
-    var tikTokSettings = customObjectHelper.getCustomObject();
-    var form = session.forms.tiktok;
-
-    var credentials = getCredentialsObjectFromFormData(form);
-    var externalData = customObjectHelper.getExternalData(tikTokSettings);
+    // validate credentials
+    if (!verifyCredentials(template, credentials)) {
+        // render template is not needed here, will be rendered in verifyCredentials function
+        return false;
+    }
 
     // update external data object with form data
     externalData.extra.organization_id = credentials.organization_id;
     externalData.extra.sfcc_api_client_id = credentials.sfcc_api_client_id;
     externalData.extra.sfcc_bm_user = credentials.sfcc_bm_user;
     externalData.extra.shopper_api_client_id = credentials.shopper_api_client_id;
-    externalData.extra.hostname_alias = form.hostNameAlias.value || '';
+    externalData.extra.create_order_url = credentials.create_order_url;
     externalData.website_url = credentials.website_url;
     externalData.domain = getDomain(credentials.website_url);
-    externalData.create_order_url = credentials.create_order_url;
 
     Transaction.wrap(function () {
         tikTokSettings.custom.shopperClientId = credentials.shopper_api_client_id;
@@ -379,7 +434,13 @@ function updateCredentials() {
 
     // call TikTok update credentials service
     var base64 = encodeExternalData(externalData, tikTokSettings);
-    return pushCredentials(tikTokSettings.custom.appId, tikTokSettings.custom.externalBusinessId, credentials, base64);
+    var svcResult = pushCredentials(tikTokSettings.custom.appId, tikTokSettings.custom.externalBusinessId, credentials, base64);
+    if (!svcResult) {
+        Logger.warn('updateCredentials - service call to TikTok failed');
+        ISML.renderTemplate(template, templateArgs);
+        return false;
+    }
+    return true;
 }
 
 /**
@@ -393,10 +454,8 @@ function manageCredentials() {
     });
 
     // if the customer has not on-boarded, redirect them to the start page.
-    var pixelCode = tikTokSettings.custom.pixelCode || null;
-    var tikTokShopConnected = !!tikTokSettings.custom.tikTokShopConnected;
     var tenantId = tikTokSettings.custom.externalBusinessId || null;
-    if (!tenantId || (!pixelCode && !tikTokShopConnected)) {
+    if (!tenantId || (!isTikTokMarketingConnected(tikTokSettings) && !isTikTokShopConnected(tikTokSettings))) {
         response.redirect(URLUtils.https('BM_TikTok-Start'));
         return;
     }
@@ -415,10 +474,6 @@ function manageCredentials() {
 
     var result = updateCredentials();
     if (!result) {
-        ISML.renderTemplate('tiktok/manageCredentials', {
-            error: 'svc.credentials',
-            breadcrumbs: breadcrumbs
-        });
         return;
     }
 
@@ -435,16 +490,18 @@ function manageCredentials() {
 function renderSDK(tikTokSettings, externalData, isConnected, credentials) {
     var site = Site.getCurrent();
     var base64 = encodeExternalData(externalData, tikTokSettings);
+    var addFeature = !!request.httpParameterMap.feature.booleanValue;
 
     // only push/send credentials first time when connecting
     if (!isConnected) {
-        var verifyWebdav = !!Site.getCurrent().getCustomPreferenceValue('tiktokVerifyWebDav');
-        var verifyBM = !!Site.getCurrent().getCustomPreferenceValue('tiktokVerifyBM');
+        var verifyWebdav = !!site.getCustomPreferenceValue('tiktokVerifyWebDav');
+        var verifyBM = !!site.getCustomPreferenceValue('tiktokVerifyBM');
         if ((verifyWebdav || verifyBM) && !pushCredentials(tikTokSettings.custom.appId, tikTokSettings.custom.externalBusinessId, credentials, base64)) {
             ISML.renderTemplate('tiktok/start', {
                 error: 'svc.credentials',
                 acceptTerms: tikTokSettings.custom.acceptTerms,
-                breadcrumbs: breadcrumbs
+                breadcrumbs: breadcrumbs,
+                addFeature: addFeature
             });
             return;
         }
@@ -455,21 +512,17 @@ function renderSDK(tikTokSettings, externalData, isConnected, credentials) {
     var rejected = '';
     if (!empty(tikTokSettings.custom.catalogOverview)) {
         var catalogOverview = JSON.parse(tikTokSettings.custom.catalogOverview);
-        if (!empty(catalogOverview) && catalogOverview != 'undefined') {
+        if (!empty(catalogOverview) && catalogOverview !== 'undefined') {
             approved = catalogOverview.approved;
             processing = catalogOverview.processing;
             rejected = catalogOverview.rejected;
         }
     }
 
-    var jsPluginV = site.getCustomPreferenceValue('tiktokPluginJS');
-    if (jsPluginV == null) {
-        jsPluginV = 'https://sf16-scmcdn-va.ibytedtos.com/obj/static-us/tiktok-business-plugin/tbp_external_platform-v2.3.10.js';
-    }
     ISML.renderTemplate('tiktok/tiktoksdk', {
         isConnected: isConnected,
         base64: base64,
-        pluginJS: jsPluginV,
+        pluginJS: site.getCustomPreferenceValue('tiktokPluginJS') || constants.PLUGIN_JS,
         breadcrumbs: breadcrumbs,
         tikTokSettings: {
             externalBusinessId: tikTokSettings.custom.externalBusinessId || '',
@@ -492,14 +545,17 @@ function renderSDK(tikTokSettings, externalData, isConnected, credentials) {
  * Launch TikTok and get auth token
  */
 function launch() {
-    if (!verifyCredentials('tiktok/start')) {
+    var form = session.forms.tiktok;
+    var credentials = getCredentialsObjectFromFormData(form);
+
+    if (!verifyCredentials('tiktok/start', credentials)) {
         return;
     }
 
     var site = Site.getCurrent();
     var tikTokSettings = customObjectHelper.getCustomObject();
-    var form = session.forms.tiktok;
     var redirectUri = URLUtils.https('BM_TikTok-Callback').toString();
+    var addFeature = !!request.httpParameterMap.feature.booleanValue;
 
     // Create the application and save the app details within the form so that it gets saved in the custom object afterward
     var createAppResponse = tiktokService.createApplication(form.tenantid.value, redirectUri);
@@ -510,7 +566,8 @@ function launch() {
             ISML.renderTemplate('tiktok/start', {
                 error: createAppResponse.errorCode,
                 acceptTerms: tikTokSettings.custom.acceptTerms,
-                breadcrumbs: breadcrumbs
+                breadcrumbs: breadcrumbs,
+                addFeature: addFeature
             });
             return;
         }
@@ -519,8 +576,6 @@ function launch() {
     form.tiktokappid.value = createAppResponse.result.data.app_id;
     form.tiktokappsecret.value = createAppResponse.result.data.app_secret;
     form.tiktokexternaldatakey.value = createAppResponse.result.data.external_data_key;
-
-    var credentials = getCredentialsObjectFromFormData(form);
 
     var externalData = {
         version: constants.EXTERNAL_DATA_VERSION,
@@ -532,7 +587,7 @@ function launch() {
             sfcc_api_client_id: form.amclientid.value,
             sfcc_bm_user: form.bmuser.value,
             shopper_api_client_id: form.shopperclientid.value,
-            hostname_alias: form.hostNameAlias.value || ''
+            create_order_url: credentials.create_order_url
         },
         industry_id: form.industryid.value,
         timezone: site.getTimezone(),
@@ -545,7 +600,6 @@ function launch() {
         website_url: credentials.website_url,
         domain: getDomain(credentials.website_url),
         redirect_uri: redirectUri,
-        create_order_url: credentials.create_order_url,
         close_method: 'redirect_inside_tiktok'
     };
 
@@ -578,86 +632,154 @@ function acceptTerms() {
 }
 
 /**
+ * get service response data
+ * @param {Object} svcResponse service response
+ * @param {string} attribute the service attribute to return
+ * @returns {string|null} service data or null
+ */
+function getServiceResultData(svcResponse, attribute) {
+    if (!svcResponse) return null;
+    return Object.hasOwnProperty.call(svcResponse, 'result')
+        && Object.hasOwnProperty.call(svcResponse.result, 'data')
+        && Object.hasOwnProperty.call(svcResponse.result.data, attribute)
+        ? svcResponse.result.data[attribute] : null;
+}
+
+/**
  * Callback URL for tiktok.
  */
 function callback() {
+    var controllerName = 'BM_TikTok-Callback';
+    var redirectUrl = URLUtils.https('BM_TikTok-Start');
     var tikTokSettings = customObjectHelper.getCustomObject();
+    if (!tikTokSettings || empty(tikTokSettings.custom.acceptTerms)) {
+        response.redirect(redirectUrl.toString());
+        return;
+    }
+
+    var isTTSActive = isTikTokShopConnected(tikTokSettings, false);
+    var isTTMActive = isTikTokMarketingConnected(tikTokSettings);
+    var accessToken = tikTokSettings.custom.accessToken || null;
+    var pixelCode = null;
+    var bcId = null;
+    var advertiserId = null;
+    var catalogId = null;
+    var enableAdvancedMatchingPhone = null;
+    var enableAdvancedMatchingEmail = null;
 
     // check if TikTok shop onboarding completed
     if (isShopConnected(tikTokSettings.custom.externalData_base64)) {
         Transaction.wrap(function () {
             tikTokSettings.custom.tikTokShopConnected = true;
-        });
-    } else {
-        // Authenticating against the TikTok API
-        var authCode = request.httpParameterMap.auth_code.value;
-        var accessTokenResponse = tiktokService.getAuthToken(tikTokSettings, authCode);
-        if (accessTokenResponse.error) {
-            customObjectHelper.clearValues(tikTokSettings);
-            ISML.renderTemplate('tiktok/start', {
-                error: accessTokenResponse.errorCode,
-                acceptTerms: tikTokSettings.custom.acceptTerms,
-                breadcrumbs: breadcrumbs
-            });
-            return;
-        }
-
-        Transaction.wrap(function () {
-            tikTokSettings.custom.accessToken = accessTokenResponse.result.data.access_token;
-        });
-
-        // Get the Business Profile of the customer
-        var getProfileResponse = tiktokService.getBusinessProfile(tikTokSettings);
-        if (getProfileResponse.error) {
-            customObjectHelper.clearValues(tikTokSettings);
-            ISML.renderTemplate('tiktok/start', {
-                error: getProfileResponse.errorCode,
-                acceptTerms: tikTokSettings.custom.acceptTerms,
-                breadcrumbs: breadcrumbs
-            });
-            return;
-        }
-        Transaction.wrap(function () {
-            tikTokSettings.custom.pixelCode = getProfileResponse.result.data.pixel_code;
-            tikTokSettings.custom.bcId = getProfileResponse.result.data.bc_id;
-            tikTokSettings.custom.advertiserId = getProfileResponse.result.data.adv_id;
-            tikTokSettings.custom.catalogId = getProfileResponse.result.data.catalog_id;
-        });
-
-        // Get the Pixel details of the customer's app
-        var getPixelResponse = tiktokService.getPixelDetails(tikTokSettings);
-        if (getPixelResponse.error) {
-            customObjectHelper.clearValues(tikTokSettings);
-            ISML.renderTemplate('tiktok/start', {
-                error: getPixelResponse.errorCode,
-                acceptTerms: tikTokSettings.custom.acceptTerms,
-                breadcrumbs: breadcrumbs
-            });
-            return;
-        }
-        Transaction.wrap(function () {
-            tikTokSettings.custom.enableAdvancedMatchingPhone = getPixelResponse.result.data.pixels[0].advanced_matching_fields.phone_number;
-            tikTokSettings.custom.enableAdvancedMatchingEmail = getPixelResponse.result.data.pixels[0].advanced_matching_fields.email;
-        });
-
-        // Get the catalog overview
-        var getCatalogOverview = tiktokService.getCatalogOverview(tikTokSettings);
-        if (getCatalogOverview.error) {
-            customObjectHelper.clearValues(tikTokSettings);
-            ISML.renderTemplate('tiktok/start', {
-                error: getCatalogOverview.errorCode,
-                acceptTerms: tikTokSettings.custom.acceptTerms,
-                breadcrumbs: breadcrumbs
-            });
-            return;
-        }
-        Transaction.wrap(function () {
-            tikTokSettings.custom.catalogOverview = JSON.stringify(getCatalogOverview.result.data);
+            isTTSActive = true;
         });
     }
 
-    // added redirect cuz reload window.opener.location.href not working for some browsers
-    response.redirect(URLUtils.https('BM_TikTok-Start', 'csrf_token', request.httpParameterMap.csrf_token.stringValue, 'success', 'setup').toString());
+    // Authenticating against the TikTok Marketing API
+    var authCode = request.httpParameterMap.auth_code.value;
+    if (!authCode) {
+        Logger.warn('{0}: no authCode provided; TikTok Shop = {1}; TT Marketing = {2}', controllerName, isTTSActive, isTTMActive);
+    }
+
+    if (authCode) {
+        var accessTokenResponse = tiktokService.getAuthToken(tikTokSettings, authCode);
+        if (accessTokenResponse.error) {
+            Logger.warn('{0}: error getting access token from auth code {1}; TikTok Shop = {2}; TT Marketing = {3}', controllerName, authCode, isTTSActive, isTTMActive);
+            if (!isTTSActive && !isTTMActive) {
+                customObjectHelper.clearValues(tikTokSettings);
+            }
+            redirectUrl.append('error', accessTokenResponse.errorCode);
+            response.redirect(redirectUrl.toString());
+            return;
+        }
+        accessToken = getServiceResultData(accessTokenResponse, 'access_token');
+    }
+
+    if (!accessToken) {
+        Logger.warn('{0}: no access token present, exiting callback function! auth code {1}; TikTok Shop = {2}; TT Marketing = {3}', controllerName, authCode, isTTSActive, isTTMActive);
+        redirectUrl.append('error', 'oauth.call');
+        response.redirect(redirectUrl.toString());
+        return;
+    }
+
+    Transaction.wrap(function () {
+        tikTokSettings.custom.accessToken = accessToken;
+    });
+
+    // Get the Business Profile of the customer
+    var getProfileResponse = tiktokService.getBusinessProfile(tikTokSettings);
+    if (getProfileResponse.error) {
+        Logger.warn('{0}: error calling getBusinessProfile; TikTok Shop = {1}; TT Marketing = {2}', controllerName, isTTSActive, isTTMActive);
+        if (!isTTSActive && !isTTMActive) {
+            customObjectHelper.clearValues(tikTokSettings);
+        }
+        redirectUrl.append('error', getProfileResponse.errorCode);
+        response.redirect(redirectUrl.toString());
+        return;
+    }
+
+    pixelCode = getServiceResultData(getProfileResponse, 'pixel_code');
+    bcId = getServiceResultData(getProfileResponse, 'bc_id');
+    advertiserId = getServiceResultData(getProfileResponse, 'adv_id');
+    catalogId = getServiceResultData(getProfileResponse, 'catalog_id');
+
+    Transaction.wrap(function () {
+        if (pixelCode) tikTokSettings.custom.pixelCode = pixelCode;
+        if (bcId) tikTokSettings.custom.bcId = bcId;
+        if (advertiserId) tikTokSettings.custom.advertiserId = advertiserId;
+        if (catalogId) tikTokSettings.custom.catalogId = catalogId;
+    });
+
+    if (advertiserId && pixelCode) {
+        var getPixelResponse = tiktokService.getPixelDetails(tikTokSettings);
+        if (getPixelResponse.error) {
+            Logger.warn('{0}: error calling getPixelDetails; TikTok Shop = {1}; TT Marketing = {2}', controllerName, isTTSActive, isTTMActive);
+            if (!isTTSActive && !isTTMActive) {
+                customObjectHelper.clearValues(tikTokSettings);
+            }
+            redirectUrl.append('error', getPixelResponse.errorCode);
+            response.redirect(redirectUrl.toString());
+            return;
+        }
+        if (Object.hasOwnProperty.call(getPixelResponse, 'result')
+            && Object.hasOwnProperty.call(getPixelResponse.result, 'data')
+            && Object.hasOwnProperty.call(getPixelResponse.result.data, 'pixels')
+            && getPixelResponse.result.data.pixels.length) {
+            var pixel = getPixelResponse.result.data.pixels[0];
+            if (Object.hasOwnProperty.call(pixel, 'advanced_matching_fields')) {
+                enableAdvancedMatchingPhone = Object.hasOwnProperty.call(pixel.advanced_matching_fields, 'phone_number') ? pixel.advanced_matching_fields.phone_number : null;
+                enableAdvancedMatchingEmail = Object.hasOwnProperty.call(pixel.advanced_matching_fields, 'phone_number') ? pixel.advanced_matching_fields.email : null;
+            }
+        }
+
+        Transaction.wrap(function () {
+            if (enableAdvancedMatchingPhone) tikTokSettings.custom.enableAdvancedMatchingPhone = enableAdvancedMatchingPhone;
+            if (enableAdvancedMatchingEmail) tikTokSettings.custom.enableAdvancedMatchingPhone = enableAdvancedMatchingEmail;
+        });
+    }
+
+    // Get the catalog overview
+    if (bcId && catalogId) {
+        var getCatalogOverview = tiktokService.getCatalogOverview(tikTokSettings);
+        if (getCatalogOverview.error) {
+            Logger.warn('{0}: error calling getCatalogOverview; TikTok Shop = {1}; TT Marketing = {2}', controllerName, isTTSActive, isTTMActive);
+            if (!isTTSActive && !isTTMActive) {
+                customObjectHelper.clearValues(tikTokSettings);
+            }
+            redirectUrl.append('error', getCatalogOverview.errorCode);
+            response.redirect(redirectUrl.toString());
+            return;
+        }
+        if (Object.hasOwnProperty.call(getCatalogOverview, 'result') && Object.hasOwnProperty.call(getCatalogOverview.result, 'data')) {
+            Transaction.wrap(function () {
+                tikTokSettings.custom.catalogOverview = JSON.stringify(getCatalogOverview.result.data);
+            });
+        }
+    }
+
+    // added redirect because reload window.opener.location.href not working for some browsers
+    redirectUrl.append('success', 'setup');
+    response.redirect(redirectUrl.toString());
 }
 
 /**
@@ -692,7 +814,9 @@ function disconnect() {
  */
 function manage() {
     var tikTokSettings = customObjectHelper.getCustomObject();
-    if ((empty(tikTokSettings.custom.tikTokShopConnected) || tikTokSettings.custom.tikTokShopConnected == false)) {
+    var addFeature = !!request.httpParameterMap.feature.booleanValue;
+
+    if (isTikTokMarketingConnected(tikTokSettings)) {
         // Refresh the catalog overview
         var getCatalogOverview = tiktokService.getCatalogOverview(tikTokSettings);
         if (getCatalogOverview.error) {
@@ -700,7 +824,8 @@ function manage() {
             ISML.renderTemplate('tiktok/start', {
                 error: getCatalogOverview.errorCode,
                 acceptTerms: tikTokSettings.custom.acceptTerms,
-                breadcrumbs: breadcrumbs
+                breadcrumbs: breadcrumbs,
+                addFeature: addFeature
             });
             return;
         }

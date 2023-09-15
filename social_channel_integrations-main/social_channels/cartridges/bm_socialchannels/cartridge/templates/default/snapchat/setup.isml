@@ -28,33 +28,46 @@
                     <div class="slds-grid slds-gutters">
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                             <div class="slds-tile__detail">
+                                <h2 class="slds-m-vertical_medium slds-text-heading_small"><strong>${Resource.msg('snapchat.details', 'snapchat', null)}</strong></h2>
                                 <div class="slds-form">
-                                    <div class="slds-form-element slds-form-element_readonly">
-                                        <span class="slds-form-element__label">${Resource.msg('snapchat.orgid.label', 'snapchat', null)}</span>
-                                        <div class="slds-form-element__control">
-                                            <div class="slds-form-element__static">${pdict.orgId} (${pdict.me.organization_id})</div>
+                                    <isif condition="${!empty(pdict.orgId)}">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">${Resource.msg('snapchat.orgid.label', 'snapchat', null)}</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">${!empty(pdict.orgName) ? pdict.orgName : pdict.orgId} ${empty(pdict.orgName) ? '' : '(' + pdict.orgId + ')'}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="slds-form-element slds-form-element_readonly">
-                                        <span class="slds-form-element__label">${Resource.msg('snapchat.user&email.label', 'snapchat', null)}</span>
-                                        <div class="slds-form-element__control">
-                                            <div class="slds-form-element__static">${pdict.me.display_name} - ${pdict.me.email}</div>
+                                    </isif>
+                                    <isif condition="${!empty(pdict.userInfo)}">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">${Resource.msg('snapchat.user&email.label', 'snapchat', null)}</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">${pdict.userInfo}</div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </isif>
                                     <div class="slds-form-element slds-form-element_readonly">
                                         <span class="slds-form-element__label">${Resource.msg('snapchat.addaccount.label', 'snapchat', null)}</span>
                                         <div class="slds-form-element__control">
-                                            <div class="slds-form-element__static">${pdict.advertiserAccount} (${pdict.advertiserId})</div>
+                                            <isif condition="${!empty(pdict.advertiserId)}">
+                                                <div class="slds-form-element__static">${!empty(pdict.advertiserAccount) ? pdict.advertiserAccount : pdict.advertiserId} ${empty(pdict.advertiserAccount) ? '' : '(' + pdict.advertiserId + ')'}</div>
+                                            <iselse/>
+                                                <div class="slds-form-element__static slds-text-color_error">${Resource.msg('snapchat.adAccount.not.created', 'snapchat', null)}</div>
+                                            </isif>
                                         </div>
                                     </div>
                                     <div class="slds-form-element slds-form-element_readonly">
                                         <span class="slds-form-element__label">${Resource.msg('snapchat.pixelid.label', 'snapchat', null)}</span>
                                         <div class="slds-form-element__control">
-                                            <div class="slds-form-element__static">${pdict.pixelCode}</div>
+                                            <isif condition="${!empty(pdict.pixelCode)}">
+                                                <div class="slds-form-element__static">${!empty(pdict.pixelName) ? pdict.pixelName : pdict.pixelCode} ${empty(pdict.pixelName) ? '' : '(' + pdict.pixelCode + ')'}</div>
+                                            <iselse/>
+                                                <div class="slds-form-element__static slds-text-color_error">${Resource.msg('snapchat.pixel.not.created', 'snapchat', null)}</div>
+                                            </isif>
                                         </div>
                                     </div>
                                     <div class="slds-form-element slds-m-top_small">
-                                        <a href="${URLUtils.url('BM_Snapchat-Manage')}" class="slds-button slds-button_neutral" target="_blank">
+                                        <a href="${URLUtils.url('BM_Snapchat-Manage')}" class="slds-button slds-button_brand" target="_blank">
                                             <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
                                                 <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#settings')}"></use>
                                             </svg>
@@ -65,15 +78,74 @@
                             </div>
                         </div>
                     </div>
-                    <hr />
 
-                    <div class="slds-form-element slds-m-top_small">
-                        <a href="${URLUtils.url('BM_Snapchat-CreateCatalogFeed')}" >
-                            ${Resource.msg('snapchat.catalogfeed', 'snapchat', null)}
-                        </a>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <div class="slds-tile__detail">
+                                <h2 class="slds-m-vertical_medium slds-text-heading_small"><strong>${Resource.msg('snapchat.form.catalog.title', 'snapchat', null)}</strong></h2>
+                                <div class="slds-form">
+                                    <isif condition="${!empty(pdict.catalogId)}">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">${Resource.msg('snapchat.catalog.label', 'snapchat', null)}</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">${!empty(pdict.catalogName) ? pdict.catalogName : pdict.catalogId} ${empty(pdict.catalogName) ? '' : '(' + pdict.catalogId + ')'}</div>
+                                            </div>
+                                        </div>
+                                    </isif>
+                                    <isif condition="${!empty(pdict.productFeedId)}">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">${Resource.msg('snapchat.productFeed.label', 'snapchat', null)}</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">${!empty(pdict.productFeedName) ? pdict.productFeedName : pdict.productFeedId} ${empty(pdict.productFeedName) ? '' : '(' + pdict.productFeedId + ')'}</div>
+                                            </div>
+                                        </div>
+                                    </isif>
+                                    <isif condition="${!empty(pdict.catalogId) && !empty(pdict.productFeedId)}">
+                                        <isinclude template="snapchat/productFeedUploadStatus" />
+
+                                        <div class="slds-form-element slds-m-top_small">
+                                            <a href="${URLUtils.url('BM_Snapchat-ManageCatalog')}" class="slds-button slds-button_brand" target="_blank">
+                                                <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                                    <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#variation_attribute_setup')}"></use>
+                                                </svg>
+                                                ${Resource.msg('snapchat.button.manage.catalog', 'snapchat', null)}
+                                            </a>
+                                        </div>
+                                    <iselse/>
+                                        <isif condition="${empty(pdict.catalogId)}">
+                                            <isset name="badgeText" value="${Resource.msg('snapchat.catalog.not.created', 'snapchat', null)}" scope="page" />
+                                            <isset name="buttonText" value="${Resource.msg('snapchat.catalog.create', 'snapchat', null)}" scope="page" />
+                                        <iselse/>
+                                            <isset name="badgeText" value="${Resource.msg('snapchat.product.not.created', 'snapchat', null)}" scope="page" />
+                                            <isset name="buttonText" value="${Resource.msg('snapchat.product.feed.create', 'snapchat', null)}" scope="page" />
+                                        </isif>
+                                        <p>
+                                            <span class="slds-badge slds-theme_error slds-m-top_small">
+                                                <span class="slds-badge__icon slds-badge__icon_left slds-badge__icon_inverse">
+                                                    <span class="slds-icon_container slds-icon-utility-variation_attribute_setup slds-current-color">
+                                                        <svg class="slds-icon slds-icon_xx-small" aria-hidden="true">
+                                                            <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                                                        </svg>
+                                                    </span>
+                                                </span>
+                                                <isprint value="${badgeText}" encoding="htmlcontent" />
+                                            </span>
+                                        </p>
+                                        <div class="slds-form-element slds-m-top_small">
+                                            <a href="${URLUtils.url('BM_Snapchat-CreateCatalogFeed')}" class="slds-button slds-button_brand">
+                                                <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                                    <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#variation_attribute_setup')}"></use>
+                                                </svg>
+                                                <isprint value="${buttonText}" encoding="htmlcontent" />
+                                            </a>
+                                        </div>
+                                    </isif>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
             </article>
         </div>
     </div>
+    <script defer type="module" src="${URLUtils.staticURL('/js/snapchat/setup.js')}"></script>
 </isdecorate>

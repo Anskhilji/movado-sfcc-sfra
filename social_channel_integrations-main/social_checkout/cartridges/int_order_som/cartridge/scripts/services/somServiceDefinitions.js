@@ -16,7 +16,6 @@ var endpoints = {
 };
 endpoints.query = endpoints.begin + version + endpoints.api.query;
 
-
 /**
  * Check if response type is JSON
  * @param {dw.net.HTTPClient} client - HTTPClient instance
@@ -60,8 +59,8 @@ var compositeDefinition = {
         svc.setRequestMethod('POST');
         svc.addHeader('Content-Type', 'application/json; charset=UTF-8');
         svc.URL += endpoints.begin + version + endpoints.api.composite;   // eslint-disable-line
-        Logger.info("compositeDefinition = " + svc.URL);
-        Logger.info("payload = " + payload);
+        Logger.info('compositeDefinition = ' + svc.URL);
+        Logger.info('payload = ' + payload);
         return payload;
     },
     parseResponse: parseResponse
@@ -83,8 +82,8 @@ var makeApiDefinition = function (url) {
             svc.setRequestMethod('POST');
             svc.addHeader('Content-Type', 'application/json; charset=UTF-8');
             svc.URL += endpoints.begin + version + url;   // eslint-disable-line
-            Logger.info("makeApiDefinition = " + svc.URL);
-            Logger.info("payload = " + payload);            
+            Logger.info('makeApiDefinition = ' + svc.URL);
+            Logger.info('payload = ' + payload);
             return payload;
         },
         parseResponse: parseResponse

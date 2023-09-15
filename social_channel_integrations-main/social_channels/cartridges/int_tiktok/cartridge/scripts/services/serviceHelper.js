@@ -5,11 +5,12 @@
 'use strict';
 
 var LocalServiceRegistry = require('dw/svc/LocalServiceRegistry');
+var serviceHelpers = require('*/cartridge/scripts/social/helpers/serviceHelpers');
 
 /**
  * Use this method to get countryCode from Current Locale
  *
- * @return {String} The country code found in the request, if any exists
+ * @return {string} The country code found in the request, if any exists
  */
 function getCountryCodeFromCurrentLocale() {
     if (empty(request.locale)) {
@@ -23,21 +24,21 @@ function getCountryCodeFromCurrentLocale() {
 /**
  * Get existing (configured in BM) service ID according to current Site and Country
  *
- * @param  {String} name The ID of the service to use while fetching the services
+ * @param  {string} name The ID of the service to use while fetching the services
  * @param  {dw.svc.serviceCallback} serviceCallback The serviceCallback to use to create the service
  *
- * @return {String} The service ID configured, or undefined if no service has been found
+ * @return {string} The service ID configured, or undefined if no service has been found
  */
 function getServiceID(name, serviceCallback) {
     var Logger = require('dw/system/Logger').getLogger('TikTokServiceHelper', 'getServiceID');
     var siteID = require('dw/system/Site').getCurrent().getID().toLowerCase();
     var countryID = getCountryCodeFromCurrentLocale().toLowerCase();
-    serviceCallback = serviceCallback || {};
+    serviceCallback = serviceCallback || {}; // eslint-disable-line no-param-reassign
     var possibleIDs = [
         name + '.' + siteID + '.' + countryID,
         name + '.' + siteID,
         name + '.' + countryID,
-        name,
+        name
     ];
 
     var existingIDs = possibleIDs.filter(function (id) {
@@ -71,29 +72,32 @@ var serviceCallback = {
         }
 
         // Need to check for object because stringify will escape quotes and invalidate login request
-        var payload = params.body === null || params.body === '' || typeof(params.body) === 'string' ? params.body : JSON.stringify(params.body);
+        var payload = params.body === null || params.body === '' || typeof (params.body) === 'string' ? params.body : JSON.stringify(params.body);
         return payload;
     },
     parseResponse: function (service, response) {
         return response;
     },
-    getRequestLogMessage: function (request) {
-        require('dw/system/Logger').getLogger('TikTok', 'serviceHelper').debug(JSON.stringify(request));
-    },
-    getResponseLogMessage: function (response) {
-        require('dw/system/Logger').getLogger('TikTok', 'serviceHelper').debug(JSON.stringify(response.getText()));
+    filterLogMessage: function (data) {
+        try {
+            var logObj = JSON.parse(data);
+            var result = serviceHelpers.iterate(logObj);
+            return result ? JSON.stringify(result) : data;
+        } catch (ex) {
+            return serviceHelpers.prepareFormLogData(data);
+        }
     }
 };
 
 /**
  * Returns a LocalServiceRegistry for passed service name.
- * @param {String} serviceName
- * @returns LocalServiceRegistry
+ * @param {string} serviceName service name
+ * @returns {dw.svc.LocalServiceRegistry}  local service registry
  */
 function getService(serviceName) {
     return LocalServiceRegistry.createService(getServiceID(serviceName, serviceCallback), serviceCallback);
 }
 
 module.exports = {
-    getService : getService
+    getService: getService
 };

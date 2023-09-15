@@ -13,4 +13,4 @@ jsdoc/
 /playwright/.cache/
 data/zips/
 *.zip
-package-lock.json
+tmp/

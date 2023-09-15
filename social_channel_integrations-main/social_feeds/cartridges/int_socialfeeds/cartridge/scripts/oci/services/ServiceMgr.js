@@ -7,13 +7,14 @@
 /**
  * @type {dw/system/Log}
  */
- var LOGGER = require('dw/system/Logger').getLogger('bm_socialfeeds', 'OCI:ServiceMgr');
- var config = require('../oci.config');
+var LOGGER = require('dw/system/Logger').getLogger('bm_socialfeeds', 'OCI:ServiceMgr');
+var config = require('../oci.config');
+var serviceHelpers = require('*/cartridge/scripts/social/helpers/serviceHelpers');
 
 /**
  * @description Returns the service related to the given {serviceId} initialized with the given {definition}.
  *
- * @param {String} serviceId The id of the service
+ * @param {string} serviceId The id of the service
  * @param {Object} definition The definition to use while initializing the service
  * @return {dw/svc/Service} A new service instance
  */
@@ -59,10 +60,10 @@ module.exports = {
                 if (!svcCredential || !svcCredential.getUser() || !svcCredential.getPassword()) {
                     throw new Error('Auth service, service configuration requires valid username and password');
                 }
-                if(!param.OrgId) {
+                if (!param.OrgId) {
                     throw new Error('Auth service, service configuration requires OrgId');
                 }
-                var orgId = 'SALESFORCE_COMMERCE_API:'+ param.OrgId;
+                var orgId = 'SALESFORCE_COMMERCE_API:' + param.OrgId;
                 svc.addHeader('Content-Type', 'application/x-www-form-urlencoded');
                 svc.setRequestMethod('POST');
                 svc.addParam('grant_type', 'client_credentials');
@@ -93,11 +94,14 @@ module.exports = {
             mockFull: function () {
                 return require('*/cartridge/scripts/oci/services/mocks/auth');
             },
-            getRequestLogMessage: function (request) {
-                LOGGER.debug(JSON.stringify(request));
-            },
-            getResponseLogMessage: function (response) {
-                LOGGER.debug(JSON.stringify(response.getText()));
+            filterLogMessage: function (data) {
+                try {
+                    var logObj = JSON.parse(data);
+                    var result = serviceHelpers.iterate(logObj);
+                    return result ? JSON.stringify(result) : data;
+                } catch (ex) {
+                    return serviceHelpers.prepareFormLogData(data);
+                }
             }
         });
     },
@@ -107,15 +111,13 @@ module.exports = {
      * @returns {dw/svc/Service} Returns the service definition that will be used to interact
      * with the Salesforce Core Platform and trigger OCI inventory export
      */
-    getFullExportService: function() {
+    getFullExportService: function () {
         return getService(config.services.export, {
-
             /**
              * @description Create the request for service authentication
-             *
-             * @param {dw/svc/HTTPService} svc Represents the service to be configured
-             * @param {Object} service options
-             * @throws {Error} Throws error when service credentials are missing
+             * @param {dw.svc.HTTPService} svc service
+             * @param {Object} options options
+             * @returns {string} request body
              */
             createRequest: function (svc, options) {
                 var svcCredential = svc.getConfiguration().getCredential();
@@ -132,9 +134,8 @@ module.exports = {
 
             /**
              * @description Parse the serviceResponse for the authToken and other relevant details
-             *
-             * @param {dw/svc/HTTPService} svc Represents the service being interacted with
-             * @param {dw/net/HTTPClient} client Represents the httpClient containing the service response
+             * @param {dw.svc.HTTPService} svc Represents the service being interacted with
+             * @param {dw.net.HTTPClient} client Represents the httpClient containing the service response
              * @returns {Object} Returns a responseObject driven by the httpClient
              */
             parseResponse: function (svc, client) {
@@ -144,11 +145,14 @@ module.exports = {
             mockFull: function () {
                 return require('*/cartridge/scripts/oci/services/mocks/fullExportTrigger');
             },
-            getRequestLogMessage: function (request) {
-                LOGGER.debug(JSON.stringify(request));
-            },
-            getResponseLogMessage: function (response) {
-                LOGGER.debug(JSON.stringify(response.getText()));
+            filterLogMessage: function (data) {
+                try {
+                    var logObj = JSON.parse(data);
+                    var result = serviceHelpers.iterate(logObj);
+                    return result ? JSON.stringify(result) : data;
+                } catch (ex) {
+                    return serviceHelpers.prepareFormLogData(data);
+                }
             }
         });
     },
@@ -158,15 +162,13 @@ module.exports = {
      * @returns {dw/svc/Service} Returns the service definition that will be used to interact
      * with the Salesforce Core Platform and trigger OCI inventory export
      */
-    getDownloadService: function() {
+    getDownloadService: function () {
         return getService(config.services.download, {
-
             /**
              * @description Create the request for service authentication
-             *
-             * @param {dw/svc/HTTPService} svc Represents the service to be configured
+             * @param {dw.svc.HTTPService} svc Represents the service to be configured
              * @param {Object} options options
-             * @throws {Error} Throws error when service credentials are missing
+             * @returns {*} request
              */
             createRequest: function (svc, options) {
                 svc.setRequestMethod('GET');
@@ -199,7 +201,7 @@ module.exports = {
                 svc.client.setTimeout(getServiceTimeout(svc));
                 svc.client.setRequestHeader('Authorization', 'Bearer ' + options.token);
 
-                if(options.file) {
+                if (options.file) {
                     svc.client.setRequestHeader('Content-Type', 'application/octet-stream');
                     svc.client.open('GET', url);
                     svc.client.sendAndReceiveToFile(options.file);
@@ -208,7 +210,7 @@ module.exports = {
                     svc.client.open('GET', url);
                     svc.client.send();
                 }
-                
+
                 return svc.client;
             },
             executeOverride: true,
@@ -216,11 +218,14 @@ module.exports = {
             mockFull: function () {
                 return require('*/cartridge/scripts/oci/services/mocks/download');
             },
-            getRequestLogMessage: function (request) {
-                LOGGER.debug(JSON.stringify(request));
-            },
-            getResponseLogMessage: function (response) {
-                LOGGER.debug(JSON.stringify(response.getText()));
+            filterLogMessage: function (data) {
+                try {
+                    var logObj = JSON.parse(data);
+                    var result = serviceHelpers.iterate(logObj);
+                    return result ? JSON.stringify(result) : data;
+                } catch (ex) {
+                    return serviceHelpers.prepareFormLogData(data);
+                }
             }
         });
     },
@@ -230,15 +235,13 @@ module.exports = {
      * @returns {dw/svc/Service} Returns the service definition that will be used to interact
      * with the Salesforce Core Platform and trigger OCI inventory export
      */
-    getDeltaService: function() {
+    getDeltaService: function () {
         return getService(config.services.delta, {
-
             /**
              * @description Create the request for service authentication
-             *
-             * @param {dw/svc/HTTPService} svc Represents the service to be configured
+             * @param {dw/svc/HTTPService} svc Represents the service being interacted with
              * @param {Object} options options
-             * @throws {Error} Throws error when service credentials are missing
+             * @returns {Error} Throws error when service credentials are missing
              */
             createRequest: function (svc, options) {
                 var svcCredential = svc.getConfiguration().getCredential();
@@ -268,12 +271,120 @@ module.exports = {
             mockFull: function () {
                 return require('*/cartridge/scripts/oci/services/mocks/delta');
             },
-            getRequestLogMessage: function (request) {
-                LOGGER.debug(JSON.stringify(request));
-            },
-            getResponseLogMessage: function (response) {
-                LOGGER.debug(JSON.stringify(response.getText()));
+            filterLogMessage: function (data) {
+                try {
+                    var logObj = JSON.parse(data);
+                    var result = serviceHelpers.iterate(logObj);
+                    return result ? JSON.stringify(result) : data;
+                } catch (ex) {
+                    return serviceHelpers.prepareFormLogData(data);
+                }
             }
         });
-    }    
-}
+    },
+
+    /**
+     * @description Get SKU availability by location, by group, or by both
+     * @returns {dw/svc/Service} Returns the service definition that will be used check the SKU availability
+     */
+    getAvailabilityService: function () {
+        return getService(config.services.download, {
+            /**
+             * @description Create the request for service authentication
+             * @param {dw.svc.HTTPService} svc Represents the service to be configured
+             * @param {Object} options options
+             * @returns {*} request
+             */
+            createRequest: function (svc, options) {
+                svc.setRequestMethod('POST');
+                var svcCredential = svc.getConfiguration().getCredential();
+                var url = svcCredential.URL + config.endpoints.reservation.availability;
+                var user = svcCredential.getUser();
+                svc.setURL(url.replace('tenant_group_id', user));
+                svc.addHeader('Content-Type', 'application/json');
+                svc.addHeader('Authorization', 'Bearer ' + options.token);
+                return JSON.stringify(options.body);
+            },
+
+            /**
+             * @description Parse the serviceResponse for the authToken and other relevant details
+             *
+             * @param {dw/svc/HTTPService} svc Represents the service being interacted with
+             * @param {dw/net/HTTPClient} client Represents the httpClient containing the service response
+             * @returns {Object} Returns a responseObject driven by the httpClient
+             */
+            parseResponse: function (svc, client) {
+                var responseObj = require('*/cartridge/scripts/oci/util/helpers').expandJSON(client.text, client.text);
+                return responseObj;
+            },
+
+            executeOverride: true,
+
+            mockFull: function () {
+                return require('*/cartridge/scripts/oci/services/mocks/availability');
+            },
+            filterLogMessage: function (data) {
+                try {
+                    var logObj = JSON.parse(data);
+                    var result = serviceHelpers.iterate(logObj);
+                    return result ? JSON.stringify(result) : data;
+                } catch (ex) {
+                    return serviceHelpers.prepareFormLogData(data);
+                }
+            }
+        });
+    },
+
+    /**
+     * @description Create or update reservations for a number of location groups, locations, or both.
+     * If any of the location groups or locations provided in the request are invalid, nothing is processed.
+     * @returns {dw/svc/Service} Returns the service definition that will be used to create or update reservations
+     */
+    getReservationService: function () {
+        return getService(config.services.download, {
+            /**
+             * @description Create the request for service authentication
+             * @param {dw.svc.HTTPService} svc Represents the service to be configured
+             * @param {Object} options options
+             * @returns {*} request
+             */
+            createRequest: function (svc, options) {
+                svc.setRequestMethod('PUT');
+                var svcCredential = svc.getConfiguration().getCredential();
+                var url = svcCredential.URL + config.endpoints.reservation.createReservation;
+                var user = svcCredential.getUser();
+                svc.setURL(url.replace('tenant_group_id', user).replace('reservation_id', options.body.externalRefId));
+                svc.addHeader('Content-Type', 'application/json');
+                svc.addHeader('Authorization', 'Bearer ' + options.token);
+                return JSON.stringify(options.body);
+            },
+
+            /**
+             * @description Parse the serviceResponse for the authToken and other relevant details
+             *
+             * @param {dw/svc/HTTPService} svc Represents the service being interacted with
+             * @param {dw/net/HTTPClient} client Represents the httpClient containing the service response
+             * @returns {Object} Returns a responseObject driven by the httpClient
+             */
+            parseResponse: function (svc, client) {
+                var responseObj = require('*/cartridge/scripts/oci/util/helpers').expandJSON(client.text, client.text);
+                return responseObj;
+            },
+
+            executeOverride: true,
+
+            mockFull: function () {
+                return require('*/cartridge/scripts/oci/services/mocks/reservation');
+            },
+            filterLogMessage: function (data) {
+                try {
+                    var logObj = JSON.parse(data);
+                    var result = serviceHelpers.iterate(logObj);
+                    return result ? JSON.stringify(result) : data;
+                } catch (ex) {
+                    return serviceHelpers.prepareFormLogData(data);
+                }
+            }
+        });
+    }
+};

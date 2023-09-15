@@ -2,20 +2,65 @@
   "step-types": {
       "script-module-step": [
         {
-          "@type-id": "custom.TikTok.BatchEvent",
-          "timeout-in-seconds": "60",
-          "description": "This job is used to send events to to TikTok.",
+          "@type-id": "custom.TikTok.BatchGroupEvent",
+          "@supports-parallel-execution": "false",
+          "@supports-site-context": "true",
+          "@supports-organization-context": "false",
+          "description": "This job is used to send event groups to TikTok.",
           "module": "int_tiktok_pixel/cartridge/scripts/jobs/TikTokEvent",
           "transactional": "true",
-          "function": "batchTikTokEvents",
+          "function": "batchTikTokGroups",
           "parameters": {
             "parameters": [
                 {
-                    "@name": "batchSize",
-                    "@description": "Batch Size",
+                  "@name": "runs",
+                  "description": "Number of runs",
+                  "@type": "long",
+                  "@required": "true",
+                  "default-value": 50,
+                  "enum-values":
+                  {
+                    "value":
+                    [
+                      25,
+                      50,
+                      100,
+                      200
+                    ]
+                  }  
+              }
+            ]
+          },
+          "status-codes": {
+            "status": [
+                {
+                    "@code": "ERROR",
+                    "description": "Used when an error occurred."
+                },
+                {
+                    "@code": "OK",
+                    "description": "Used when everything went well."
+                }
+            ]
+          }
+        },
+        {
+          "@type-id": "custom.TikTok.GroupEvent",
+          "@supports-parallel-execution": "false",
+          "@supports-site-context": "true",
+          "@supports-organization-context": "false",
+          "description": "This job is used to group the web event custom objects to be sent to TikTok.",
+          "module": "int_tiktok_pixel/cartridge/scripts/jobs/TikTokEvent",
+          "transactional": "true",
+          "function": "groupTikTokEvents",
+          "parameters": {
+            "parameters": [
+                {
+                    "@name": "groupSize",
+                    "description": "Group Size",
                     "@type": "long",
                     "@required": "true",
-                    "default-value":20,
+                    "default-value": 50,
                     "enum-values":
                     {
                       "value":
@@ -24,28 +69,12 @@
                         20,
                         30,
                         40,
-                        50
+                        50,
+                        100,
+                        200
                       ]
                     }                    
-                },
-                {
-                  "@name": "runs",
-                  "@description": "Number of runs",
-                  "@type": "long",
-                  "@required": "true",
-                  "default-value":50,
-                  "enum-values":
-                  {
-                    "value":
-                    [
-                      25,
-                      50,
-                      100,
-                      200,
-                      500
-                    ]
-                  }  
-              }
+                }
             ]
           },
           "status-codes": {

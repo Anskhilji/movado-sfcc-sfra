@@ -16,23 +16,23 @@ function getOrderItemSummariesQuery() {
     if (somPreferences.orderHistoryQuery && somPreferences.orderHistoryQuery.orderItemSummaries) {
         orderItemSummariesQuery = somPreferences.orderHistoryQuery.orderItemSummaries;
     } else {
-        orderItemSummariesQuery = 'SELECT+OrderItemSummary.Id,' +
-                                        'OrderItemSummary.ProductCode,' +
-                                        'OrderItemSummary.Description,' +
-                                        'OrderItemSummary.OrderDeliveryGroupSummaryId,' +
-                                        'OrderItemSummary.Quantity,' +
-                                        'OrderItemSummary.QuantityAvailableToFulfill,' +
-                                        'OrderItemSummary.QuantityAvailableToCancel,' +
-                                        'OrderItemSummary.QuantityAvailableToReturn,' +
-                                        'OrderItemSummary.QuantityOrdered,' +
-                                        'OrderItemSummary.QuantityCanceled,' +
-                                        'OrderItemSummary.QuantityReturned,' +
-                                        'OrderItemSummary.TotalPrice,' +
-                                        'OrderItemSummary.UnitPrice,' +
-                                        'OrderItemSummary.TotalTaxAmount,' +
-                                        'OrderItemSummary.Type,' +
-                                        'OrderItemSummary.TypeCode+' +
-                                    'FROM+OrderItemSummaries';
+        orderItemSummariesQuery = 'SELECT+OrderItemSummary.Id,'
+                                        + 'OrderItemSummary.ProductCode,'
+                                        + 'OrderItemSummary.Description,'
+                                        + 'OrderItemSummary.OrderDeliveryGroupSummaryId,'
+                                        + 'OrderItemSummary.Quantity,'
+                                        + 'OrderItemSummary.QuantityAvailableToFulfill,'
+                                        + 'OrderItemSummary.QuantityAvailableToCancel,'
+                                        + 'OrderItemSummary.QuantityAvailableToReturn,'
+                                        + 'OrderItemSummary.QuantityOrdered,'
+                                        + 'OrderItemSummary.QuantityCanceled,'
+                                        + 'OrderItemSummary.QuantityReturned,'
+                                        + 'OrderItemSummary.TotalPrice,'
+                                        + 'OrderItemSummary.UnitPrice,'
+                                        + 'OrderItemSummary.TotalTaxAmount,'
+                                        + 'OrderItemSummary.Type,'
+                                        + 'OrderItemSummary.TypeCode+'
+                                    + 'FROM+OrderItemSummaries';
     }
 
     return orderItemSummariesQuery;
@@ -48,13 +48,13 @@ function getOrderDeliveryGroupSummariesQuery() {
     if (somPreferences.orderHistoryQuery && somPreferences.orderHistoryQuery.orderDeliveryGroupSummaries) {
         orderDeliveryGroupSummariesQuery = somPreferences.orderHistoryQuery.orderDeliveryGroupSummaries;
     } else {
-        orderDeliveryGroupSummariesQuery = 'SELECT+OrderDeliveryGroupSummary.id,+' +
-                                                  'OrderDeliveryGroupSummary.DeliverToName,+' +
-                                                  'OrderDeliveryGroupSummary.DeliverToAddress,' +
-                                                  'OrderDeliveryGroupSummary.OrderDeliveryMethodId+' +
-                                                  'OrderDeliveryGroupSummary.PhoneNumber+' +
-                                                  'OrderDeliveryGroupSummary.EmailAddress+' +
-                                            'FROM+OrderDeliveryGroupSummaries';
+        orderDeliveryGroupSummariesQuery = 'SELECT+OrderDeliveryGroupSummary.id,+'
+                                                  + 'OrderDeliveryGroupSummary.DeliverToName,+'
+                                                  + 'OrderDeliveryGroupSummary.DeliverToAddress,'
+                                                  + 'OrderDeliveryGroupSummary.OrderDeliveryMethodId+'
+                                                  + 'OrderDeliveryGroupSummary.PhoneNumber+'
+                                                  + 'OrderDeliveryGroupSummary.EmailAddress+'
+                                            + 'FROM+OrderDeliveryGroupSummaries';
     }
     return orderDeliveryGroupSummariesQuery;
 }
@@ -69,11 +69,11 @@ function getOrderPaymentSummariesQuery() {
     if (somPreferences.orderHistoryQuery && somPreferences.orderHistoryQuery.orderPaymentSummariesQuery) {
         orderPaymentSummariesQuery = somPreferences.orderHistoryQuery.orderPaymentSummariesQuery;
     } else {
-        orderPaymentSummariesQuery = 'SELECT+' +
-            'OrderPaymentSummary.PaymentMethodId,+' +
-            'OrderPaymentSummary.FullName,+' +
-            'OrderPaymentSummary.Method+' +
-            'FROM+OrderPaymentSummaries';
+        orderPaymentSummariesQuery = 'SELECT+'
+            + 'OrderPaymentSummary.PaymentMethodId,+'
+            + 'OrderPaymentSummary.FullName,+'
+            + 'OrderPaymentSummary.Method+'
+            + 'FROM+OrderPaymentSummaries';
     }
 
     return orderPaymentSummariesQuery;
@@ -86,7 +86,6 @@ function getOrderPaymentSummariesQuery() {
  * @returns {string} api query.
  */
 function getOrderSummaryQuery(orderNumbers, orderSummaryId, filters) {
-    var query = '';
     var select = '';
     var from = '';
     var where = '';
@@ -97,24 +96,24 @@ function getOrderSummaryQuery(orderNumbers, orderSummaryId, filters) {
     var orderDeliveryGroupSummaries = getOrderDeliveryGroupSummariesQuery();
     var orderPaymentSummaries = getOrderPaymentSummariesQuery();
 
-    select = 'SELECT+Id,+' +
-                    'AccountId,+' +
-                    'OrderNumber,+' +
-                    'OrderedDate,+' +
-                    'Status,+' +
-                    'BillingAddress,+' +
-                    'BillingPhoneNumber,+' +
-                    'BillingEmailAddress,+' +
-                    'GrandTotalAmount,+' +
-                    'TotalAmount,+' +
-                    'TotalTaxAmount,+' +
-                    'TotalAdjustedDeliveryAmount,+' +
-                    'TotalAdjustedProductAmount,+' +
-                    'TotalDeliveryAdjDistAmount,+' +
-                    'TotalProductAdjDistAmount,+' +
-                    '(' + orderPaymentSummaries + '),+' +
-                    '(' + orderItemSummaries + '),+' +
-                    '(' + orderDeliveryGroupSummaries + ')';
+    select = 'SELECT+Id,+'
+                    + 'AccountId,+'
+                    + 'OrderNumber,+'
+                    + 'OrderedDate,+'
+                    + 'Status,+'
+                    + 'BillingAddress,+'
+                    + 'BillingPhoneNumber,+'
+                    + 'BillingEmailAddress,+'
+                    + 'GrandTotalAmount,+'
+                    + 'TotalAmount,+'
+                    + 'TotalTaxAmount,+'
+                    + 'TotalAdjustedDeliveryAmount,+'
+                    + 'TotalAdjustedProductAmount,+'
+                    + 'TotalDeliveryAdjDistAmount,+'
+                    + 'TotalProductAdjDistAmount,+'
+                    + '(' + orderPaymentSummaries + '),+'
+                    + '(' + orderItemSummaries + '),+'
+                    + '(' + orderDeliveryGroupSummaries + ')';
 
     from = 'FROM+OrderSummary';
 
@@ -153,12 +152,12 @@ function getOrderSummaryQuery(orderNumbers, orderSummaryId, filters) {
         where += '+AND+OrderedDate+<>+NULL';
     }
 
-    if (where.length <= 4000) {
-        query = select + '+' + from + '+' + where + '+' + orderBy;
-        return query;
-    } else if (where.length > 4000) {
-        Logger.error('Where clause has exceeded length limit of 4000 characters');
-        return null;
+    if (where) {
+        if (where.length > 4000) {
+            Logger.error('Where clause has exceeded length limit of 4000 characters');
+            return null;
+        }
+        return select + '+' + from + '+' + where + '+' + orderBy;
     }
     return null;
 }
@@ -173,13 +172,13 @@ function getFulfillmentOrderLineItemsQuery() {
     if (somPreferences.orderHistoryQuery && somPreferences.orderHistoryQuery.fulfillmentOrderLineItems) {
         fulfillmentOrderLineItemsQuery = somPreferences.orderHistoryQuery.fulfillmentOrderLineItems;
     } else {
-        fulfillmentOrderLineItemsQuery = 'SELECT+FulfillmentOrderLineItem.Id,' +
-                                                'FulfillmentOrderLineItem.OrderItemSummaryId,' +
-                                                'FulfillmentOrderLineItem.Quantity,' +
-                                                'FulfillmentOrderLineItem.TotalPrice,' +
-                                                'FulfillmentOrderLineItem.TotalTaxAmount+' +
-                                        'FROM+FulfillmentOrderLineItems+' +
-                                        "WHERE+FulfillmentOrderLineItem.TypeCode='Product'";
+        fulfillmentOrderLineItemsQuery = 'SELECT+FulfillmentOrderLineItem.Id,'
+                                                + 'FulfillmentOrderLineItem.OrderItemSummaryId,'
+                                                + 'FulfillmentOrderLineItem.Quantity,'
+                                                + 'FulfillmentOrderLineItem.TotalPrice,'
+                                                + 'FulfillmentOrderLineItem.TotalTaxAmount+'
+                                        + 'FROM+FulfillmentOrderLineItems+'
+                                        + "WHERE+FulfillmentOrderLineItem.TypeCode='Product'";
     }
 
     return fulfillmentOrderLineItemsQuery;
@@ -195,13 +194,13 @@ function getOrderShipmentsQuery(fulfillmentIdRef) {
     if (somPreferences.orderHistoryQuery && somPreferences.orderHistoryQuery.fulfillmentOrderShipments) {
         orderShipmentsQuery = somPreferences.orderHistoryQuery.fulfillmentOrderShipments;
     } else {
-        orderShipmentsQuery = 'SELECT+' +
-                                'Shipment.FulfillmentOrderId,' +
-                                'Shipment.Id,' +
-                                'Shipment.CreatedDate,' +
-                                'Shipment.ShipToName,' +
-                                'Shipment.Status,' +
-                                'Shipment.TrackingNumber+';
+        orderShipmentsQuery = 'SELECT+'
+                                + 'Shipment.FulfillmentOrderId,'
+                                + 'Shipment.Id,'
+                                + 'Shipment.CreatedDate,'
+                                + 'Shipment.ShipToName,'
+                                + 'Shipment.Status,'
+                                + 'Shipment.TrackingNumber+';
 
         if (fulfillmentIdRef) {
             orderShipmentsQuery += 'FROM+Shipment+';
@@ -223,18 +222,18 @@ function getAccountQuery(accounIdRef) {
     if (somPreferences.orderHistoryQuery && somPreferences.orderHistoryQuery.accountQuery) {
         accountQuery = somPreferences.orderHistoryQuery.accountQuery;
     } else {
-        accountQuery = 'SELECT+' +
-                            'FirstName,' +
-                            'LastName,' +
-                            'PersonEmail,' +
-                            'BillingAddress,' +
-                            'BillingCity,' +
-                            'BillingCountry,' +
-                            'BillingPostalCode,' +
-                            'BillingState,' +
-                            'BillingStreet,' +
-                            'Phone+' +
-                        'FROM+Account';
+        accountQuery = 'SELECT+'
+                            + 'FirstName,'
+                            + 'LastName,'
+                            + 'PersonEmail,'
+                            + 'BillingAddress,'
+                            + 'BillingCity,'
+                            + 'BillingCountry,'
+                            + 'BillingPostalCode,'
+                            + 'BillingState,'
+                            + 'BillingStreet,'
+                            + 'Phone+'
+                        + 'FROM+Account';
         if (accounIdRef) {
             accountQuery += "+WHERE+Id+=+'" + accounIdRef + "'";
         }
@@ -258,22 +257,21 @@ function getFulfillmentQuery(orderSummaryIdRef, ordersummariesIDsStr, fulfillmen
     var fulfillmentOrderLineItems = getFulfillmentOrderLineItemsQuery();
     var orderShipments = getOrderShipmentsQuery();
 
-    select = 'SELECT+' +
-        'FulfillmentOrder.OrderSummaryId,' +
-        'FulfillmentOrder.id,' +
-        'FulfillmentOrder.DeliveryMethodId,' +
-        'FulfillmentOrder.CreatedDate,' +
-        'FulfillmentOrder.ItemCount,' +
-        'FulfillmentOrder.Status,' +
-        'FulfillmentOrder.StatusCategory,' +
-        'FulfillmentOrder.FulfilledToAddress,' +
-        'FulfillmentOrder.TotalAmount,' +
-        'FulfillmentOrder.TotalTaxAmount,' +
-        '(' + fulfillmentOrderLineItems + ')';
+    select = 'SELECT+'
+        + 'FulfillmentOrder.OrderSummaryId,'
+        + 'FulfillmentOrder.id,'
+        + 'FulfillmentOrder.DeliveryMethodId,'
+        + 'FulfillmentOrder.CreatedDate,'
+        + 'FulfillmentOrder.ItemCount,'
+        + 'FulfillmentOrder.Status,'
+        + 'FulfillmentOrder.StatusCategory,'
+        + 'FulfillmentOrder.FulfilledToAddress,'
+        + 'FulfillmentOrder.TotalAmount,'
+        + 'FulfillmentOrder.TotalTaxAmount,'
+        + '(' + fulfillmentOrderLineItems + ')';
 
-    select +=
-        ',(' + orderShipments + ')';
-
+    select
+        += ',(' + orderShipments + ')';
 
     from = 'FROM+FulfillmentOrder';
 
@@ -304,15 +302,15 @@ function getPaymentMethodQuery(ref) {
     var from;
     var where;
 
-    select = 'SELECT+' +
-                'CardPaymentMethod.Id,' +
-                'CardPaymentMethod.DisplayCardNumber,' +
-                'CardPaymentMethod.CardHolderName,' +
-                'CardPaymentMethod.ExpiryMonth,' +
-                'CardPaymentMethod.ExpiryYear,' +
-                'CardPaymentMethod.CardCategory,' +
-                'CardPaymentMethod.CardType,' +
-                'CardPaymentMethod.CardTypeCategory';
+    select = 'SELECT+'
+                + 'CardPaymentMethod.Id,'
+                + 'CardPaymentMethod.DisplayCardNumber,'
+                + 'CardPaymentMethod.CardHolderName,'
+                + 'CardPaymentMethod.ExpiryMonth,'
+                + 'CardPaymentMethod.ExpiryYear,'
+                + 'CardPaymentMethod.CardCategory,'
+                + 'CardPaymentMethod.CardType,'
+                + 'CardPaymentMethod.CardTypeCategory';
     from = 'FROM+CardPaymentMethod';
     where = '';
     if (ref) {
@@ -340,7 +338,6 @@ function getDeliveryMethodQuery(ref) {
     query = select + '+' + from + '+' + where;
     return query;
 }
-
 
 /**
  * Forms a query to get orderSummaries and fulfillments from SOM
@@ -503,8 +500,8 @@ function getOrdersWithTwoRequests(customerOrders, filters) {
             }]
         };
         var req = JSON.stringify(orderSummariespayload);
-        Logger.info("getOrdersWithTwoRequests Service:" + svc);
-        Logger.info("getOrdersWithTwoRequests Request:" + req);
+        Logger.info('getOrdersWithTwoRequests Service:' + svc);
+        Logger.info('getOrdersWithTwoRequests Request:' + req);
         apiResponseOrdersummaries = svc.call(req);
         if (apiResponseOrdersummaries.ok) {
             var ordersummaries = apiResponseOrdersummaries.object.responseObj.compositeResponse[0].body.records;

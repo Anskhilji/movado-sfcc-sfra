@@ -8,7 +8,7 @@ var constants = require('int_tiktok/cartridge/scripts/TikTokConstants');
 /**
  * Returns the TikTok settings custom object, if it exists.
  * If it does not exist, then it creates a new custom object instance and return it
- * @param {boolean} isStorefrontRequest - is storefront reqeust?
+ * @param {boolean} isStorefrontRequest - is storefront request?
  * @returns {dw/object/CustomObject} - custom object
  */
 function getCustomObject(isStorefrontRequest) {
@@ -30,7 +30,7 @@ function getCustomObject(isStorefrontRequest) {
 
 /**
  * Clears the TikTok values from the custom object so that we can start again the process
- * @param {dw/object/CustomObject} tikTokSettings The custom object to clear
+ * @param {dw/object/CustomObject} tikTokSettings - the custom object to clear
  */
 function clearValues(tikTokSettings) {
     var valuesToClear = {
@@ -78,13 +78,37 @@ function clearValues(tikTokSettings) {
 
 /**
  * Removes the given custom object
- *
- * @param {dw/object/CustomObject} tikTokSettings The custom object to remove
+ * @param {dw/object/CustomObject} tikTokSettings - the custom object to remove
  */
 function removeCustomObject(tikTokSettings) {
     Transaction.wrap(function () {
         CustomObjectMgr.remove(tikTokSettings);
     });
+}
+
+/**
+ * Splits an array into smaller arrays
+ * @param {Object} array - original array
+ * @param {Object} quantity - how many items should each division of the original array have at most
+ * @return {Object} listOfArrays - a new array with all parts of original array
+ */
+function createListOfArrays(array, quantity) {
+    var listOfArrays = [];
+    for (var i = 0; i < array.length; i += quantity) {
+        listOfArrays.push(array.slice(i, i + quantity));
+    }
+    return listOfArrays;
+}
+
+/**
+ * Create a new custom object TikTokWebEventsBundle
+ * @param {Object} content - the content of new custom object TikTokWebEventsBundle
+ * @param {string} key - the unique key of new custom object TikTokWebEventsBundle
+*/
+function createNewTikTokWebEventsBundle(content, key) {
+    var customObject = CustomObjectMgr.createCustomObject('TikTokWebEventsBundle', key);
+    var strings = JSON.stringify(content);
+    customObject.custom.EventList = strings;
 }
 
 /**
@@ -125,13 +149,11 @@ function fillFormFromCustomObject(tikTokSettings, tenantId, fillCredentials) {
             organization_id: 'orgid',
             sfcc_api_client_id: 'amclientid',
             sfcc_bm_user: 'bmuser',
-            shopper_api_client_id: 'shopperclientid',
-            hostname_alias: 'hostNameAlias'
+            shopper_api_client_id: 'shopperclientid'
         },
         email: 'email',
         industry_id: 'industryid',
-        country_region: 'countrycode',
-        website_url: 'website'
+        country_region: 'countrycode'
     };
 
     Object.keys(externalValuesToSet).forEach(function (key) {
@@ -147,7 +169,7 @@ function fillFormFromCustomObject(tikTokSettings, tenantId, fillCredentials) {
 
     Object.keys(externalValuesToSet.extra).forEach(function (key) {
         var formKey = externalValuesToSet.extra[key];
-        if (externalData && Object.hasOwnProperty.call(externalData.extra, key)) {
+        if (externalData && Object.hasOwnProperty.call(externalData, 'extra') && Object.hasOwnProperty.call(externalData.extra, key)) {
             form[formKey].value = externalData.extra[key] || '';
         } else {
             form[formKey].value = '';
@@ -177,10 +199,75 @@ function fillFormFromCustomObject(tikTokSettings, tenantId, fillCredentials) {
     return form;
 }
 
+/**
+ * Create a list of events to be stored on a bundle custom object
+ * @param {number} groupSize - the number of itens to be return
+ * @returns {Array} batchEvents - array of TikTokWebEvents
+ */
+function getTikTokEventsByGroupSize(groupSize) {
+    var coTikTokEvents = CustomObjectMgr.queryCustomObjects('TikTokWebEvents', '', 'creationDate asc', null);
+    var batchEvents = [];
+
+    for (var idx = 0; idx < groupSize && coTikTokEvents.hasNext(); idx++) {
+        batchEvents.push(coTikTokEvents.next());
+    }
+
+    coTikTokEvents.close();
+
+    return batchEvents;
+}
+
+/**
+ * Convert a custom object event in a json object
+ * @param {Object} tikTokEvent - an Object with event information
+ * @returns {Object} jsonEvent - a json object with event information
+ */
+function getTreatedEvent(tikTokEvent) {
+    var jsonEvent = {
+        type: 'track',
+        event: tikTokEvent.custom.event,
+        event_id: tikTokEvent.custom.event_id,
+        timestamp: tikTokEvent.custom.EventTimestamp.split('_')[0],
+        context: {
+            ad: {
+                callback: ((tikTokEvent.custom.ttclid) ? tikTokEvent.custom.ttclid : '')
+            },
+            page: {
+                url: tikTokEvent.custom.url,
+                referrer: ((tikTokEvent.custom.referrer) ? tikTokEvent.custom.referrer : '')
+            },
+            user: {
+                external_id: ((tikTokEvent.custom.external_id) ? tikTokEvent.custom.external_id : ''),
+                phone_number: ((tikTokEvent.custom.phone_number) ? tikTokEvent.custom.phone_number : ''),
+                email: ((tikTokEvent.custom.email) ? tikTokEvent.custom.email : '')
+            },
+            user_agent: tikTokEvent.custom.user_agent
+        },
+        properties: tikTokEvent.custom.properties
+    };
+
+    return jsonEvent;
+}
+
+/**
+ * Create a string with actual Date
+ * @returns {string} - a formatted Date string
+ */
+function timestamp() {
+    var Calendar = require('dw/util/Calendar');
+    var StringUtils = require('dw/util/StringUtils');
+    return (StringUtils.formatCalendar(new Calendar(), "yyyy-MM-dd'T'HH:mm:ss'Z'"));
+}
+
 module.exports = {
     getCustomObject: getCustomObject,
     removeCustomObject: removeCustomObject,
     clearValues: clearValues,
     getExternalData: getExternalData,
-    fillFormFromCustomObject: fillFormFromCustomObject
+    fillFormFromCustomObject: fillFormFromCustomObject,
+    createListOfArrays: createListOfArrays,
+    createNewTikTokWebEventsBundle: createNewTikTokWebEventsBundle,
+    getTreatedEvent: getTreatedEvent,
+    getTikTokEventsByGroupSize: getTikTokEventsByGroupSize,
+    timestamp: timestamp
 };

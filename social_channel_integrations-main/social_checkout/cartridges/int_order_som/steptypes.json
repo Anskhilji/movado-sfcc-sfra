@@ -3,12 +3,26 @@
         "script-module-step": [
             {
                 "@type-id": "custom.GetSOMOrderStatus",
-                "@supports-site-context":"true",
-                "@supports-organization-context":"false",
-                "description":"Get Order Statuses from SF OMS",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Get Order Statuses from SF OMS",
                 "module": "int_order_som/cartridge/scripts/jobs/GetOMSOrderStatus.js",
-                "function":"updateOrderStatus",
-                "transactional":"true",
+                "function": "updateOrderStatus",
+                "transactional": "true",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "SocialChannel",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "description": "Social Channel for the orders we are updating",
+                            "enum-values": {
+                                "value": ["TikTok", "Snapchat"]
+                            }
+                        }
+                    ]
+                },
                 "status-codes": {
                     "status": [
                         {

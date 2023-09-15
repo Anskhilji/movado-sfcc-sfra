@@ -12,10 +12,26 @@ describe('customObjectHelper', function () {
         'dw/object/CustomObjectMgr': {
             getCustomObject: function(definition, objectId){ return objectId ? 'fetched': null; }
         },
-       'int_google/cartridge/scripts/GoogleConstants': require('../../../../social_channels/cartridges/int_google/cartridge/scripts/GoogleConstants.js')
+       'int_google/cartridge/scripts/GoogleConstants': require('../../../../social_channels/cartridges/int_google/cartridge/scripts/GoogleConstants.js'),
+       'dw/system/Logger': {
+        debug: function (text) {
+            return text;
+        },
+        error: function (text) {
+            return text;
+        },
+        getLogger: function(){
+            return {
+                error: function (text) {
+                    return text;
+                },
+                info: function(){}
+            };
+        }
+    },
     });
 
-    it('Should clear correctly all fields', function () {
+    it('It should clear correctly all fields', function () {
         var settings = {custom: {}};
 
         settings.custom.appId = 'valueTestId';
@@ -66,7 +82,7 @@ describe('customObjectHelper', function () {
         assert.isTrue(clearSettings);
     });
 
-    it('Should fetch the existing value', function () {
+    it('It should fetch the existing value', function () {
         var customObject = customObjectHelper.getCustomObject();
         assert.equal(customObject, 'fetched');
     });

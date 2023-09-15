@@ -1,4 +1,5 @@
 'use strict';
+
 var utilHelpers = require('~/cartridge/scripts/helpers/utilHelpers');
 
 /**

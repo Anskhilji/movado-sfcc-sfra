@@ -1,6 +1,20 @@
 'use strict';
 
 /**
+ * @returns {result} The SitePreference value.
+ * @param {string} key Job execution arguments (defined paramenters for job component).
+ */
+function getSitePreference(key) {
+    let result = null;
+    const Site = require('dw/system/Site');
+    result = Site.getCurrent().getCustomPreferenceValue(key);
+    if (empty(result)) {
+        result = '';
+    }
+    return result;
+}
+
+/**
  * @param {Object} params Job execution arguments (defined paramenters for job component).
  * @returns {SitePreference} The SitePreference.
  * Generate PDP URL Generation Feed Text File
@@ -46,8 +60,8 @@ function generateFile(params) {
                 locale = locales[j];
                 action = new URLAction('Product-Show', currentSiteID, locale);
                 url = URLUtils.https(
-                        action,
-                        new URLParameter('pid', prodid));
+                    action,
+                    new URLParameter('pid', prodid));
                 let exportWriter = url;
                 exportFileWriter.writeNext(exportWriter);
             }
@@ -63,19 +77,7 @@ function generateFile(params) {
 
     return new Status(Status.OK, 'Successfully export PDP URLs data.');
 }
-/**
- * @returns {result} The SitePreference value.
- * @param {string} key Job execution arguments (defined paramenters for job component).
-*/
-function getSitePreference(key) {
-    let result = null;
-    const Site = require('dw/system/Site');
-    result = Site.getCurrent().getCustomPreferenceValue(key);
-    if (empty(result)) {
-        result = '';
-    }
-    return result;
-}
+
 module.exports = {
     generateFile: generateFile
 };

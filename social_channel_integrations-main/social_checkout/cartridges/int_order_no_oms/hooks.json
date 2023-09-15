@@ -15,6 +15,10 @@
         {
             "name": "app.order.cancel.processCancelOrder",
             "script": "./cartridge/scripts/hooks/orderCancel.js"
-        }            
+        },
+        {
+            "name": "app.order.refund.processRefundOrder",
+            "script": "./cartridge/scripts/hooks/orderRefund.js"
+        }                
     ]
 }

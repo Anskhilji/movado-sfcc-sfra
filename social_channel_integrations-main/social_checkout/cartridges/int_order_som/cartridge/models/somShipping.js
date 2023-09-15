@@ -1,4 +1,5 @@
 'use strict';
+
 var Address = require('~/cartridge/models/somAddress');
 /**
  * Create a SOM shipping model

@@ -3,6 +3,33 @@
 var Status = require('dw/system/Status');
 
 /**
+ * Generate Category/Subcategory List for file
+ * @param {CategoryId} categoryId to get list of subcategories
+ * @returns {CategoriesList} categoy subcategory list.
+ */
+function writeCSV(categoryId) {
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
+    var ArrayList = require('dw/util/ArrayList');
+    var categoriesList = new ArrayList();
+    var category = CatalogMgr.getCategory(categoryId);
+    if (empty(category)) {
+        return categoriesList;
+    }
+    categoriesList.add(category);
+    if (category.hasOnlineSubCategories()) {
+        categoriesList.addAll(category.getOnlineSubCategories());
+    }
+    for (var i = 0, ilen = categoriesList.length; i < ilen; i++) {
+        if (categoriesList[i].hasOnlineSubCategories()) {
+            if (categoriesList[i] !== category) {
+                categoriesList.addAll(categoriesList[i].getOnlineSubCategories());
+            }
+        }
+    }
+    return categoriesList;
+}
+
+/**
  * @param {Object} params Job execution arguments (defined paramenters for job component).
  * @returns {Status} File is successfully generated.
  * Generate Category/Subcategory URL Generation Feed Text File
@@ -65,33 +92,6 @@ function generateFile(params) {
         }
     }
     return new Status(Status.OK, 'Successfully export Category URLs data.');
-}
-
-/**
- * Generate Category/Subcategory List for file
- * @param {CategoryId} categoryId to get list of subcategories
- * @returns {CategoriesList} categoy subcategory list.
-*/
-function writeCSV(categoryId) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
-    var ArrayList = require('dw/util/ArrayList');
-    var categoriesList = new ArrayList();
-    var category = CatalogMgr.getCategory(categoryId);
-    if (empty(category)) {
-        return categoriesList;
-    }
-    categoriesList.add(category);
-    if (category.hasOnlineSubCategories()) {
-        categoriesList.addAll(category.getOnlineSubCategories());
-    }
-    for (var i = 0, ilen = categoriesList.length; i < ilen; i++) {
-        if (categoriesList[i].hasOnlineSubCategories()) {
-            if (categoriesList[i] !== category) {
-                categoriesList.addAll(categoriesList[i].getOnlineSubCategories());
-            }
-        }
-    }
-    return categoriesList;
 }
 
 module.exports = {

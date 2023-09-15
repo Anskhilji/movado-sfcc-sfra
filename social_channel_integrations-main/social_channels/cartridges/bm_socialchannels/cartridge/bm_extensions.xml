@@ -8,7 +8,57 @@
 		<description xml:lang="x-default">Setup and Manage integrations with social channels</description>
 		<icon>icons/channels.svg</icon>
 	</menuitem>
-	<menuaction id="social_channels_tiktok" menupath="social_channels_customadminmenuextension" position="500" site="true">
+    <menuaction id="social_channels_instagram" menupath="social_channels_customadminmenuextension" position="500" site="true">
+		<name xml:lang="x-default">Facebook and Instagram Shops</name>
+		<short_description xml:lang="x-default">Facebook and Instagram integration setup</short_description>
+		<description xml:lang="x-default">Facebook and Instagram integration setup</description>
+		<!-- no icon specified -->
+		<exec pipeline="BM_Instagram" node="Start" />
+		<sub-pipelines>
+            <pipeline name="BM_Instagram-AcceptTerms" />
+			<pipeline name="BM_Instagram-Start" />
+            <pipeline name="BM_Instagram-Update" />
+            <pipeline name="BM_Instagram-Callback" />
+            <pipeline name="BM_Instagram-Disconnect" />
+		</sub-pipelines>
+        <icon>icons/meta-logo.png</icon>
+	</menuaction>
+	<menuaction id="social_channels_google" menupath="social_channels_customadminmenuextension" position="600" site="true">
+		<name xml:lang="x-default">Google Channel</name>
+		<short_description xml:lang="x-default">Google Channel integration setup</short_description>
+		<description xml:lang="x-default">Google Channel integration setup</description>
+		<!-- no icon specified -->
+		<exec pipeline="BM_Google" node="Start" />
+		<sub-pipelines>
+			<pipeline name="BM_Google-Start" />
+            <pipeline name="BM_Google-AcceptTerms" />
+            <pipeline name="BM_Google-Manage" />
+            <pipeline name="BM_Google-Disconnect" />
+		</sub-pipelines>
+        <icon>icons/google-logo.svg</icon>
+	</menuaction>
+    <menuaction id="social_channels_snapchat" menupath="social_channels_customadminmenuextension" position="700" site="true">
+		<name xml:lang="x-default">Snapchat Marketing API</name>
+		<short_description xml:lang="x-default">SnapChat integration setup</short_description>
+		<description xml:lang="x-default">SnapChat integration setup</description>
+		<!-- no icon specified -->
+		<exec pipeline="BM_Snapchat" node="Start" />
+        <sub-pipelines>
+			<pipeline name="BM_Snapchat-Start" />
+            <pipeline name="BM_Snapchat-AcceptTerms" />
+            <pipeline name="BM_Snapchat-Callback" />
+            <pipeline name="BM_Snapchat-Disconnect" />
+            <pipeline name="BM_Snapchat-Manage" />
+            <pipeline name="BM_Snapchat-ManageCatalog" />
+            <pipeline name="BM_Snapchat-CreateCatalogFeed" />
+            <pipeline name="BM_Snapchat-GetOrgDetails" />
+            <pipeline name="BM_Snapchat-GetAdAccountPixels" />
+            <pipeline name="BM_Snapchat-GetCatalogProductFeeds" />
+            <pipeline name="BM_Snapchat-GetProductFeedUploadStatus" />
+		</sub-pipelines>
+        <icon>icons/snapchat-logo.png</icon>
+	</menuaction>
+    <menuaction id="social_channels_tiktok" menupath="social_channels_customadminmenuextension" position="800" site="true">
 		<name xml:lang="x-default">TikTok for Business</name>
 		<short_description xml:lang="x-default">TikTok integration setup</short_description>
 		<description xml:lang="x-default">TikTok integration setup</description>
@@ -23,36 +73,6 @@
             <pipeline name="BM_TikTok-ManageCredentials" />
 		</sub-pipelines>
         <icon>icons/tiktok-logo.svg</icon>
-	</menuaction>
-    <menuaction id="social_channels_snapchat" menupath="social_channels_customadminmenuextension" position="700" site="true">
-		<name xml:lang="x-default">Snapchat Marketing API</name>
-		<short_description xml:lang="x-default">SnapChat integration setup</short_description>
-		<description xml:lang="x-default">SnapChat integration setup</description>
-		<!-- no icon specified -->
-		<exec pipeline="BM_Snapchat" node="Start" />
-        <sub-pipelines>
-			<pipeline name="BM_Snapchat-Start" />
-            <pipeline name="BM_Snapchat-AcceptTerms" />
-            <pipeline name="BM_Snapchat-Callback" />
-            <pipeline name="BM_Snapchat-Disconnect" />
-            <pipeline name="BM_Snapchat-Manage" />
-            <pipeline name="BM_Snapchat-CreateCatalogFeed" />
-		</sub-pipelines>
-        <icon>icons/snapchat-logo.png</icon>
-	</menuaction>
-    <menuaction id="social_channels_google" menupath="social_channels_customadminmenuextension" position="500" site="true">
-		<name xml:lang="x-default">Google Channel</name>
-		<short_description xml:lang="x-default">Google Channel integration setup</short_description>
-		<description xml:lang="x-default">Google Channel integration setup</description>
-		<!-- no icon specified -->
-		<exec pipeline="BM_Google" node="Start" />
-		<sub-pipelines>
-			<pipeline name="BM_Google-Start" />
-            <pipeline name="BM_Google-AcceptTerms" />
-            <pipeline name="BM_Google-Manage" />
-            <pipeline name="BM_Google-Disconnect" />
-		</sub-pipelines>
-        <icon>icons/google-logo.svg</icon>
 	</menuaction>
 </extensions>
 <!-- =============================================================== -->

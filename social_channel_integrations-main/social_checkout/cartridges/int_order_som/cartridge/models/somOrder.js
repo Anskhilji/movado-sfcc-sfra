@@ -49,6 +49,7 @@ function fillCanceledItemsGroup(orderSummary) {
 function SomOrderModel(somApiOrderSummary, somOrderToOrderItemSummariesMap, somOrderToFulfillmentMap, somOrderToOrderPaymentSummariesMap) {
     var STATUSORDERED = somPreferences.statusOrdered;
     var STATUSINPROGRESS = somPreferences.statusInProgress;
+    var STATUSALLOCATED = somPreferences.statusAllocated;
 
     var STATUSRETURNED = somPreferences.statusReturned;
 
@@ -61,6 +62,7 @@ function SomOrderModel(somApiOrderSummary, somOrderToOrderItemSummariesMap, somO
 
     this.orderedStatusGroupItems = [];
     this.inProgressStatusGroupItems = [];
+    this.allocatedStatusGroupItems = [];
     this.shippedStatusGroupItems = [];
     this.canceledStatusGroupItems = [];
     this.returnedStatusGroupItems = [];
@@ -124,6 +126,9 @@ function SomOrderModel(somApiOrderSummary, somOrderToOrderItemSummariesMap, somO
 
                     if (fulfillmentOrderDetails.fulfillmentStatus === STATUSINPROGRESS) {
                         this.inProgressStatusGroupItems.push(item);
+                        if (somApiFulfillmentOrder.Status === STATUSALLOCATED) {
+                            this.allocatedStatusGroupItems.push(item);
+                        }
                     } else {
                         this.shippedStatusGroupItems.push(item);
                     }

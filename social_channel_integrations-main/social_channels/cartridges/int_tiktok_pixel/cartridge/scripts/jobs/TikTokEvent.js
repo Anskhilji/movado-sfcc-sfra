@@ -1,92 +1,94 @@
 'use strict';
 
-var Status = require('dw/system/Status');
-var CustomObjectMgr = require ('dw/object/CustomObjectMgr');
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Logger = require('dw/system/Logger');
+var Status = require('dw/system/Status');
+var Transaction = require('dw/system/Transaction');
 
 /**
- * Read the que
- * @param {Object} args The argument object for the jobs
+ * Send grouped events to TikTok
+ * @param {Object} args The argument object for the job
  * @returns {boolean} - returns execute result
  */
- function batchTikTokEvents(args) {
-   try {
-    var tiktokService = require('int_tiktok/cartridge/scripts/services/tiktokService');
-    var customObjectHelper = require('int_tiktok/cartridge/scripts/customObjectHelper');
-    var tikTokSettings = customObjectHelper.getCustomObject();
-      var batchData;
-      var scvResponse;
-      var numRuns = args.runs;
-      var totalEvents = 0;
-      for (var i = 0; i < numRuns; i++) {
-        var deleteCO = [];
-        batchData = getEventBatch(args.batchSize,deleteCO);
-        if (batchData.length > 0) {
-          scvResponse = tiktokService.batchPixelTrack(tikTokSettings,batchData);
-          if (scvResponse) {
-            deleteCO.forEach(function (coTikTokEvent) {
-              CustomObjectMgr.remove(coTikTokEvent);
-            });
-            totalEvents = totalEvents + batchData.length;
-            Logger.info("Batch : " + (i+1) + "   events : " + batchData.length);
-          }
-          else {
-            return new Status(Status.ERROR, null, "Batch API Service call failed");
-          }
-        }
-        else {
-          Logger.info("No events to send, total send events : " + totalEvents);
-          return new Status(Status.OK);     
-        }
-      }
-   } catch (e) {
-       Logger.error('Update order status Job error: ' + e);
-       return new Status(Status.ERROR, null, e.message);
-   }
-   Logger.info("Total Events send = " + totalEvents);
-   return new Status(Status.OK);
-}
+function batchTikTokGroups(args) {
+    var totalEvents = 0;
+    var bundlesIter;
 
+    try {
+        var customObjectHelper = require('int_tiktok/cartridge/scripts/customObjectHelper');
+        var tiktokService = require('int_tiktok/cartridge/scripts/services/tiktokService');
+        var tikTokSettings = customObjectHelper.getCustomObject();
+        var svcResponse;
+        var numRuns = args.runs;
+
+        bundlesIter = CustomObjectMgr.queryCustomObjects('TikTokWebEventsBundle', '', 'creationDate asc', null);
+
+        if (!bundlesIter.hasNext()) {
+            Logger.info('No events to send');
+            bundlesIter.close();
+            return new Status(Status.OK);
+        }
+
+        for (var i = 0; i < numRuns && bundlesIter.hasNext(); i++) {
+            var currentBundle = bundlesIter.next();
+            var dataToSend = JSON.parse(currentBundle.custom.EventList);
+
+            svcResponse = tiktokService.batchPixelTrack(tikTokSettings, dataToSend);
+
+            if (svcResponse) {
+                customObjectHelper.removeCustomObject(currentBundle);
+                totalEvents += dataToSend.length;
+                Logger.info('Group: ' + (i + 1) + ', events : ' + dataToSend.length);
+            } else {
+                var eventTimestamp = currentBundle.custom.EventTimestamp;
+                Logger.info('Batch API Service call failed on TikTokWebEventBundle custom object with timestamp: ' + eventTimestamp);
+            }
+        }
+    } catch (e) {
+        Logger.error('batchTikTokGroups job error: ' + e.message);
+        bundlesIter.close();
+        return new Status(Status.ERROR, null, e.message);
+    }
+
+    Logger.info('Total events sent = ' + totalEvents);
+    bundlesIter.close();
+    return new Status(Status.OK);
+}
 
 /**
- * @description get batch of queued events to send to TikTok
+ * Group several TikTok web events and convert them into a new unique custom object
+ * @param {Object} args The argument object for the job
+ * @returns {boolean} - returns execute result
  */
+function groupTikTokEvents(args) {
+    try {
+        var customObjectHelper = require('int_tiktok/cartridge/scripts/customObjectHelper');
 
- function getEventBatch(batchSize, deleteCO) {
-  var coTikTokEvents = CustomObjectMgr.queryCustomObjects("TikTokWebEvents", "", "creationDate asc", null);
-  var coCounter = 0;
-  var batchEvents = [];
-  while (coTikTokEvents.hasNext() && coCounter < batchSize) {
-    var tikTokEvent = coTikTokEvents.next();
-    var jsonEvent = {
-      type: "track",
-      event: tikTokEvent.custom.event,
-      event_id: tikTokEvent.custom.event_id,
-      timestamp: tikTokEvent.custom.EventTimestamp.split("_")[0],
-      context: {
-          ad: {
-              callback: ((!!tikTokEvent.custom.ttclid) ? tikTokEvent.custom.ttclid : "")
-          },
-          page: {
-            url: tikTokEvent.custom.url,
-            referrer: ((!!tikTokEvent.custom.referrer) ? tikTokEvent.custom.referrer : "")
-          },
-          user: {
-            external_id:((!!tikTokEvent.custom.external_id) ? tikTokEvent.custom.external_id : ""),
-            phone_number: ((!!tikTokEvent.custom.phone_number) ? tikTokEvent.custom.phone_number : ""),
-            email: ((!!tikTokEvent.custom.email) ? tikTokEvent.custom.email : "")
-          },
-          user_agent: tikTokEvent.custom.user_agent  
-      },
-      properties: tikTokEvent.custom.properties
-    };
-    batchEvents.push(jsonEvent);
-    deleteCO.push(tikTokEvent)
-    coCounter++;
-  }
-  
-  return batchEvents;
+        var keyAttributeIdx = 0;
+        var nextEvents = customObjectHelper.getTikTokEventsByGroupSize(args.groupSize);
+
+        while (nextEvents.length > 0) {
+            var tikTokEvents = nextEvents.map(function (e) {
+                return customObjectHelper.getTreatedEvent(e);
+            });
+
+            // eslint-disable-next-line
+            Transaction.wrap(function () {
+                customObjectHelper.createNewTikTokWebEventsBundle(tikTokEvents, customObjectHelper.timestamp() + keyAttributeIdx++);
+                for (var i = 0; i < nextEvents.length; i++) {
+                    CustomObjectMgr.remove(nextEvents[i]);
+                }
+            });
+
+            nextEvents = customObjectHelper.getTikTokEventsByGroupSize(args.groupSize);
+        }
+    } catch (e) {
+        Logger.error('Update order status Job error: ' + e.message);
+        return new Status(Status.ERROR, null, e.message);
+    }
+
+    return new Status(Status.OK);
 }
 
-
-exports.batchTikTokEvents = batchTikTokEvents;
+exports.groupTikTokEvents = groupTikTokEvents;
+exports.batchTikTokGroups = batchTikTokGroups;

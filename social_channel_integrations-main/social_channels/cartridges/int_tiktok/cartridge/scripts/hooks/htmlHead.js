@@ -2,18 +2,15 @@
 
 /**
  * Render the pixel code from TikTok
- *
- * @param {Object} pdict The pdict coming from the htmlHead template
- *
- * @returns {String} The rendered template that shows the pixel if the pixel code is already setup
+ * @returns {string} The rendered template that shows the pixel if the pixel code is already setup
  */
- module.exports.htmlHead = function (pdict) {
+module.exports.htmlHead = function () {
     var HashMap = require('dw/util/HashMap');
     var Template = require('dw/util/Template');
     var customObjectHelper = require('~/cartridge/scripts/customObjectHelper');
     var tikTokSettings = customObjectHelper.getCustomObject(true);
 
-    if (tikTokSettings==null || empty(tikTokSettings.custom.pixelCode)) {
+    if (tikTokSettings == null || empty(tikTokSettings.custom.pixelCode)) {
         return '';
     }
 

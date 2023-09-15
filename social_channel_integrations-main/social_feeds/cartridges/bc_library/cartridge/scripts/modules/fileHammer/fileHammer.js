@@ -1,12 +1,12 @@
-/*global require:true, exports */
+/* global require:true, exports */
 
 /**
  * fileHammer module. Easiest and safest way to interact with files and streams
  * @module fileHammer
  */
 
-var Status = require('dw/system/Status'),
-	File = require('dw/io/File');
+var Status = require('dw/system/Status');
+var File = require('dw/io/File');
 
 function extend(target, source) {
     target = target || {};
@@ -19,7 +19,7 @@ function extend(target, source) {
 }
 
 function formatError(code, message, error) {
-    error =  error || {message: '', stack: ''};
+    error = error || { message: '', stack: '' };
     require('dw/system/Logger').getLogger('fileHammer').error(message + error.message + '\n' + error.stack);
 
     return new Status(Status.ERROR, code, message);
@@ -60,19 +60,19 @@ exports.SEPARATOR = File.SEPARATOR;
  * Open file with filename and options
  * and if success then run callback with file as first argument
  *
- * @param  {String}  filename path and filename to file relatively to IMPEX by default
+ * @param  {string}  filename path and filename to file relatively to IMPEX by default
  * @param  {Object}  [options] configuration
- * @param  {Boolean} [options.createFile=false] create file
- * @param  {String}  [options.rootDir=IMPEX] root directory for filenames
+ * @param  {boolean} [options.createFile=false] create file
+ * @param  {string}  [options.rootDir=IMPEX] root directory for filenames
  * @param  {fileCallback} callback
  * @return {dw.system.Status} Status
  */
 exports.getFile = function getFile(filename, options, callback) {
     var defaults = {
         createFile: false,
-        rootDir   : File.IMPEX
-    },
-    file;
+        rootDir: File.IMPEX
+    };
+    var file;
 
     if (filename) {
         if (typeof options === 'function') {
@@ -102,17 +102,15 @@ exports.getFile = function getFile(filename, options, callback) {
                 callback(file);
             } catch (e) {
                 return formatError('004',
-                'Error occurred in callback function (method getFile): ', e);
+                    'Error occurred in callback function (method getFile): ',
+                    e);
             }
 
             return new Status(Status.OK);
-        } else {
-            return formatError('002', 'The file "' + filename + '" is not a file (method getFile)');
         }
-
-    } else {
-        return formatError('001', 'Missing file name (method getFile)');
+        return formatError('002', 'The file "' + filename + '" is not a file (method getFile)');
     }
+    return formatError('001', 'Missing file name (method getFile)');
 };
 /**
  * Callback used by getFileReader
@@ -128,36 +126,37 @@ exports.getFile = function getFile(filename, options, callback) {
  * Open file in read mode
  * and if success then run callback with fileReader as first argument
  *
- * @param  {String}  name path and filename to file relatively to IMPEX by default
+ * @param  {string}  name path and filename to file relatively to IMPEX by default
  * @param  {Object}  [options] configuration
- * @param  {Boolean} [options.createFile=false] create file
- * @param  {String}  [options.encoding='UTF-8'] encoding of file
- * @param  {String}  [options.rootDir=IMPEX] root directory for filenames
+ * @param  {boolean} [options.createFile=false] create file
+ * @param  {string}  [options.encoding='UTF-8'] encoding of file
+ * @param  {string}  [options.rootDir=IMPEX] root directory for filenames
  * @param  {fileReaderCallback} callback
  * @return {dw.system.Status} Status
  */
 exports.getFileReader = function getFileReader(name, options, callback) {
     var defaults = {
-        encoding  : 'UTF-8',
+        encoding: 'UTF-8',
         createFile: false
-    },
-    status,
-    intStatus;
+    };
+    var status;
+    var intStatus;
 
     if (typeof options === 'function') {
         callback = options;
         options = {};
     }
     options = extend(defaults, options);
-    status = exports.getFile(name, options, function(file) {
-        var FileReader = require('dw/io/FileReader'),
-        fileReader = new FileReader(file, options.encoding);
+    status = exports.getFile(name, options, function (file) {
+        var FileReader = require('dw/io/FileReader');
+        var fileReader = new FileReader(file, options.encoding);
 
         try {
             callback(fileReader, file);
         } catch (e) {
             intStatus = formatError('005',
-            'Error occurred in callback function (method getFileReader). Error: ', e);
+                'Error occurred in callback function (method getFileReader). Error: ',
+                e);
         }
         fileReader.close();
     });
@@ -178,23 +177,23 @@ exports.getFileReader = function getFileReader(name, options, callback) {
  * Open file in write mode
  * and if success then run callback with fileWriter as first argument
  *
- * @param  {String}  name path and filename to file relatively to IMPEX by default
+ * @param  {string}  name path and filename to file relatively to IMPEX by default
  * @param  {Object}  [options] configuration
- * @param  {Boolean} [options.createFile=true] create file
- * @param  {String}  [options.encoding='UTF-8'] encoding of file
- * @param  {Boolean} [options.append=false] append data to end of file
- * @param  {String}  [options.rootDir=IMPEX] root directory for filenames
+ * @param  {boolean} [options.createFile=true] create file
+ * @param  {string}  [options.encoding='UTF-8'] encoding of file
+ * @param  {boolean} [options.append=false] append data to end of file
+ * @param  {string}  [options.rootDir=IMPEX] root directory for filenames
  * @param  {fileReaderCallback} callback
  * @return {dw.system.Status} Status
  */
 exports.getFileWriter = function getFileWriter(name, options, callback) {
     var defaults = {
-        append    : false,
-        encoding  : 'UTF-8',
+        append: false,
+        encoding: 'UTF-8',
         createFile: true
-    },
-    status,
-    intStatus;
+    };
+    var status;
+    var intStatus;
 
     if (typeof options === 'function') {
         callback = options;
@@ -202,15 +201,16 @@ exports.getFileWriter = function getFileWriter(name, options, callback) {
     }
     options = extend(defaults, options);
 
-    status = exports.getFile(name, options, function(file) {
-        var FileWriter = require('dw/io/FileWriter'),
-        fileWriter = new FileWriter(file, options.encoding, options.append);
+    status = exports.getFile(name, options, function (file) {
+        var FileWriter = require('dw/io/FileWriter');
+        var fileWriter = new FileWriter(file, options.encoding, options.append);
 
         try {
             callback(fileWriter, file);
         } catch (e) {
             intStatus = formatError('007',
-            'Error occurred in callback function (method getFileWriter). Error: ', e);
+                'Error occurred in callback function (method getFileWriter). Error: ',
+                e);
         }
         fileWriter.close();
     });
@@ -233,41 +233,42 @@ exports.getFileWriter = function getFileWriter(name, options, callback) {
  * Open csv file as stream in read mode
  * and if success then run callback with csvStreamReader as first argument
  *
- * @param  {String}  name path and filename to file relatively to IMPEX by default
+ * @param  {string}  name path and filename to file relatively to IMPEX by default
  * @param  {Object}  [options] configuration
- * @param  {Boolean} [options.createFile=false] create file
- * @param  {String}  [options.encoding='UTF-8'] encoding of file
- * @param  {Boolean} [options.append=false] append data to end of file
- * @param  {String}  [options.rootDir=IMPEX] root directory for filenames
- * @param  {String}  [options.separator=','] separator of columns in file
- * @param  {String}  [options.quote='"'] represent quotes in rows
- * @param  {Number}  [options.skip=0] represend how many line should be skipped
+ * @param  {boolean} [options.createFile=false] create file
+ * @param  {string}  [options.encoding='UTF-8'] encoding of file
+ * @param  {boolean} [options.append=false] append data to end of file
+ * @param  {string}  [options.rootDir=IMPEX] root directory for filenames
+ * @param  {string}  [options.separator=','] separator of columns in file
+ * @param  {string}  [options.quote='"'] represent quotes in rows
+ * @param  {number}  [options.skip=0] represend how many line should be skipped
  * @param  {CSVStreamReaderCallback} callback
  * @return {dw.system.Status} Status
  */
 exports.getCSVStreamReader = function getCSVStreamReader(name, options, callback) {
     var defaults = {
         separator: ',',
-        quote    : '"',
-        skip     : 0
-    },
-    status,
-    intStatus;
+        quote: '"',
+        skip: 0
+    };
+    var status;
+    var intStatus;
 
     if (typeof options === 'function') {
         callback = options;
         options = {};
     }
     options = extend(defaults, options);
-    status = exports.getFileReader(name, options, function(fileReader, file) {
-        var CSVStreamReader = require('dw/io/CSVStreamReader'),
-        streamReader = new CSVStreamReader(fileReader, options.separator, options.quote, options.skip);
+    status = exports.getFileReader(name, options, function (fileReader, file) {
+        var CSVStreamReader = require('dw/io/CSVStreamReader');
+        var streamReader = new CSVStreamReader(fileReader, options.separator, options.quote, options.skip);
 
         try {
             callback(streamReader, fileReader, file);
         } catch (e) {
             intStatus = formatError('008',
-            'Error occurred in callback function (method getCSVStreamReader). Error: ', e);
+                'Error occurred in callback function (method getCSVStreamReader). Error: ',
+                e);
         }
         streamReader.close();
     });
@@ -290,39 +291,40 @@ exports.getCSVStreamReader = function getCSVStreamReader(name, options, callback
  * Open csv file as stream in write mode
  * and if success then run callback with csvStreamWriter as first argument
  *
- * @param  {String}  name path and filename to file relatively to IMPEX by default
+ * @param  {string}  name path and filename to file relatively to IMPEX by default
  * @param  {Object}  [options] configuration
- * @param  {Boolean}  [options.createFile=true] create file
- * @param  {String}   [options.encoding='UTF-8'] encoding of file
- * @param  {Boolean}  [options.append=false] append data to end of file
- * @param  {String}   [options.rootDir=IMPEX] root directory for filenames
- * @param  {String}   [options.separator=','] separator of columns in file
- * @param  {String}   [options.quote='"'] represent quotes in rows
+ * @param  {boolean}  [options.createFile=true] create file
+ * @param  {string}   [options.encoding='UTF-8'] encoding of file
+ * @param  {boolean}  [options.append=false] append data to end of file
+ * @param  {string}   [options.rootDir=IMPEX] root directory for filenames
+ * @param  {string}   [options.separator=','] separator of columns in file
+ * @param  {string}   [options.quote='"'] represent quotes in rows
  * @param  {CSVStreamWriterCallback} callback
  * @return {dw.system.Status} Status
  */
 exports.getCSVStreamWriter = function getCSVStreamWriter(name, options, callback) {
     var defaults = {
         separator: ',',
-        quote    : '"'
-    },
-    status,
-    intStatus;
+        quote: '"'
+    };
+    var status;
+    var intStatus;
 
     if (typeof options === 'function') {
         callback = options;
         options = {};
     }
     options = extend(defaults, options);
-    status = exports.getFileWriter(name, options, function(fileWriter, file) {
-        var CSVStreamWriter = require('dw/io/CSVStreamWriter'),
-        streamWriter = new CSVStreamWriter(fileWriter, options.separator, options.quote);
+    status = exports.getFileWriter(name, options, function (fileWriter, file) {
+        var CSVStreamWriter = require('dw/io/CSVStreamWriter');
+        var streamWriter = new CSVStreamWriter(fileWriter, options.separator, options.quote);
 
         try {
             callback(streamWriter, fileWriter, file);
         } catch (e) {
             intStatus = formatError('006',
-            'Error occurred in callback function (method getCSVStreamWriter). Error: ', e);
+                'Error occurred in callback function (method getCSVStreamWriter). Error: ',
+                e);
         }
         streamWriter.close();
     });
@@ -356,24 +358,25 @@ exports.getCSVStreamWriter = function getCSVStreamWriter(name, options, callback
  */
 
 exports.getXMLStreamReader = function getXMLStreamReader(name, options, callback) {
-    var status,
-    intStatus,
-    defaults = {};
+    var status;
+    var intStatus;
+    var defaults = {};
 
     if (typeof options === 'function') {
         callback = options;
         options = {};
     }
     options = extend(defaults, options);
-    status = exports.getFileReader(name, options, function(fileWriter, file) {
-        var XMLStreamReader = require('dw/io/XMLStreamReader'),
-        streamReader = new XMLStreamReader(fileWriter);
+    status = exports.getFileReader(name, options, function (fileWriter, file) {
+        var XMLStreamReader = require('dw/io/XMLStreamReader');
+        var streamReader = new XMLStreamReader(fileWriter);
 
         try {
             callback(streamReader, fileWriter, file);
         } catch (e) {
             intStatus = formatError('009',
-            'Error occurred in callback function (method getXMLStreamReader). Error: ', e);
+                'Error occurred in callback function (method getXMLStreamReader). Error: ',
+                e);
         }
         streamReader.close();
     });
@@ -397,34 +400,35 @@ exports.getXMLStreamReader = function getXMLStreamReader(name, options, callback
  * Open xml file as stream in write mode
  * and if success then run callback with xmlStreamWriter as first argument
  *
- * @param  {String}  name path and filename to file relatively to IMPEX by default
+ * @param  {string}  name path and filename to file relatively to IMPEX by default
  * @param  {Object}  [options] configuration
- * @param  {Boolean}  [options.createFile=true] create file
- * @param  {String}   [options.encoding='UTF-8'] encoding of file
- * @param  {Boolean}  [options.append=false] append data to end of file
- * @param  {String}   [options.rootDir=IMPEX] root directory for filenames
+ * @param  {boolean}  [options.createFile=true] create file
+ * @param  {string}   [options.encoding='UTF-8'] encoding of file
+ * @param  {boolean}  [options.append=false] append data to end of file
+ * @param  {string}   [options.rootDir=IMPEX] root directory for filenames
  * @param  {XMLStreamWriterCallback} callback
  * @return {dw.system.Status} Status
  */
 exports.getXMLStreamWriter = function getXMLStreamWriter(name, options, callback) {
-    var status,
-    intStatus,
-    defaults = {};
+    var status;
+    var intStatus;
+    var defaults = {};
 
     if (typeof options === 'function') {
         callback = options;
         options = {};
     }
     options = extend(defaults, options);
-    status = exports.getFileWriter(name, options, function(fileWriter, file) {
-        var XMLStreamWriter = require('dw/io/XMLStreamWriter'),
-        streamWriter = new XMLStreamWriter(fileWriter);
+    status = exports.getFileWriter(name, options, function (fileWriter, file) {
+        var XMLStreamWriter = require('dw/io/XMLStreamWriter');
+        var streamWriter = new XMLStreamWriter(fileWriter);
 
         try {
             callback(streamWriter, fileWriter, file);
         } catch (e) {
             intStatus = formatError('010',
-            'Error occurred in callback function (method getXMLStreamWriter). Error: ', e);
+                'Error occurred in callback function (method getXMLStreamWriter). Error: ',
+                e);
         }
         streamWriter.close();
     });
@@ -432,7 +436,7 @@ exports.getXMLStreamWriter = function getXMLStreamWriter(name, options, callback
     return intStatus || status;
 };
 
-exports.mockEntry = function(name, newValue) {
+exports.mockEntry = function (name, newValue) {
     switch (name) {
         case 'require':
             require = newValue;

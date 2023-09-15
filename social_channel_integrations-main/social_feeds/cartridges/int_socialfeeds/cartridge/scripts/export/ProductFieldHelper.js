@@ -3,16 +3,16 @@
 const CATEGORY_ATTRIBUTE = {
     ID: 'ID',
     NAME: 'displayName'
-}
+};
 
 // object for storing data about excluded categories;
 // tip: this object can be used for DEBUG
-let excludedCategoriesCache = {};
-const jsObjectSizeQuotaLimit = 1500;
+// let excludedCategoriesCache = {};
+// const jsObjectSizeQuotaLimit = 1500;
 
 /**
  * Helper function for getting category path as an array.
- * 
+ *
  * @param {dw.catalog.Category} category Category to get parents from.
  * @param {string} categoryAttribute Attribute which will be collected.
  * @param {boolean} keepOrder Whether to keep categories order.
@@ -26,7 +26,7 @@ function getCategoryPath(
     keepOrder,
     locale,
     pid
-    ) {
+) {
     let categories = [];
     const attribute = categoryAttribute || CATEGORY_ATTRIBUTE.NAME;
 
@@ -34,8 +34,7 @@ function getCategoryPath(
         categories.push(category[attribute]);
 
         if (category.parent) {
-            categories = categories.concat(getCategoryPath(category.parent, attribute, true,
-                locale, pid));
+            categories = categories.concat(getCategoryPath(category.parent, attribute, true, locale, pid));
         }
     }
 
@@ -44,10 +43,11 @@ function getCategoryPath(
 
 /**
  * Helper function for getting category path as an array.
- * 
+ *
  * @param {dw.catalog.Product} product Product to get categories from.
  * @param {string} categoryAttribute Attribute which will be collected.
  * @param {string} separator to join the categories.
+ * @param {string} locale current locale
  * @returns {array} Categories paths as an array.
  */
 function getCategoriesAttribute(
@@ -55,9 +55,9 @@ function getCategoriesAttribute(
     categoryAttribute,
     separator,
     locale
-    ) {
+) {
     const masterProduct = product.isMaster() ? product : product.getVariationModel().getMaster();
-    const categoryPaths = masterProduct.getOnlineCategories().toArray().reduce(function(paths, category) {
+    const categoryPaths = masterProduct.getOnlineCategories().toArray().reduce(function (paths, category) {
         const categoryPath = getCategoryPath(
             category,
             categoryAttribute,
@@ -76,27 +76,33 @@ function getCategoriesAttribute(
     return categoryPaths;
 }
 
+/**
+ * Helper function for getting SEO URL.
+ *
+ * @param {dw.catalog.Product} product Product to get categories from.
+ * @param {string} locale current locale
+ * @returns {string} SEO URL.
+ */
 function getURLSEO(product, locale) {
     const Site = require('dw/system/Site');
     const URLAction = require('dw/web/URLAction');
     const URLUtils = require('dw/web/URLUtils');
     const URLParameter = require('dw/web/URLParameter');
-    const CustomObjectMgr = require('dw/object/CustomObjectMgr');
     const currentSiteID = Site.getCurrent().getID();
-    //const locale = this.currentFeedLocale ? dw.util.Locale.getLocale(this.currentFeedLocale) : dw.util.Locale.getLocale(dw.system.Site.getCurrent().defaultLocale);
+    // const locale = this.currentFeedLocale ? dw.util.Locale.getLocale(this.currentFeedLocale) : dw.util.Locale.getLocale(dw.system.Site.getCurrent().defaultLocale);
     const action = new URLAction('Product-Show', currentSiteID, locale.ID);
 
     let url = '';
-    let colorValue ='';
+    let colorValue = '';
     let colorAttributeHtmlName = '';
-    let sizeValue ='';
+    let sizeValue = '';
     let sizeAttributeHtmlName = '';
 
     const variationModel = product.getVariationModel();
     const masterProduct = product.isMaster ? product : variationModel.getMaster();
     const colorAttribute = variationModel.getProductVariationAttribute('color');
     const sizeAttribute = variationModel.getProductVariationAttribute('size');
-    
+
     if (!empty(colorAttribute)) {
         let color = variationModel.getSelectedValue(colorAttribute);
         colorAttributeHtmlName = variationModel.getHtmlName(colorAttribute);
@@ -138,9 +144,9 @@ function getURLSEO(product, locale) {
         );
     }
     // TO-DO: Localization
-    //const DomainCountriesType = 'DomainCountries';
-    //const DomainCountryCO = CustomObjectMgr.getCustomObject(DomainCountriesType, locale.country);
-    //let host = DomainCountryCO.custom.hostname;
+    // const DomainCountriesType = 'DomainCountries';
+    // const DomainCountryCO = CustomObjectMgr.getCustomObject(DomainCountriesType, locale.country);
+    // let host = DomainCountryCO.custom.hostname;
     let host = 'refarch.com';
     url = url.host(host);
 
@@ -148,7 +154,7 @@ function getURLSEO(product, locale) {
 }
 
 module.exports = {
-    'getCategoryPath': getCategoryPath,
-    'getCategoriesAttribute': getCategoriesAttribute,
-    'getURLSEO': getURLSEO
-}
+    getCategoryPath: getCategoryPath,
+    getCategoriesAttribute: getCategoriesAttribute,
+    getURLSEO: getURLSEO
+};

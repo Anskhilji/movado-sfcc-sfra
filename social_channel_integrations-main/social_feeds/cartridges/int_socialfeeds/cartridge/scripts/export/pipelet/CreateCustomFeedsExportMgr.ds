@@ -11,7 +11,7 @@
  * @input GroupLocaleExport : Object
  * @input CustomObjectIds : Object
  * @input Hostname : Object
- * @input DeltaCatalogExportInDays : Number
+ * @input DeltaCatalogInDays : Number
  * @input GenerateDeleteFeed : Object
  *----------- used with Community Suite Job Framework
  * @input WorkflowComponent : Object The WorkFlowComponentInstance of the current workflow
@@ -26,6 +26,7 @@ importPackage( dw.io );
 importScript('export/CustomFeedsExportMgr.ds');
 importScript('export/handlers/CSVExportHandler.ds');
 importScript('export/handlers/TemplateExportHandler.ds');
+importScript('helpers/customSocialFeeds.js');
 var CustomFeedsExportMgr = getCustomFeedsExportMgr();
 var CSVExportHandler = getCSVExportHandler();
 var TemplateExportHandler = getTemplateExportHandler();
@@ -38,8 +39,9 @@ function execute( args : PipelineDictionary ) : Number
                                 ExportCustomers : false,
                                 DaysToExportCustomers : 1,
                                 DaysToExportOrders : 1,
-                                DeltaCatalogExportInDays : 0,
-                                GenerateDeleteFeed : false
+                                DeltaCatalogInDays : 0,
+                                GenerateDeleteFeed : false,
+                                GeneratedFiles : []
                             };
 
     if(args.WorkflowComponent != null) {
@@ -53,7 +55,7 @@ function execute( args : PipelineDictionary ) : Number
         executionContexts.GroupLocaleExport = args.WorkflowComponent.getParameterValue('GroupLocaleExport');
         executionContexts.CustomObjectIds = args.WorkflowComponent.getParameterValue('CustomObjectIds');
         executionContexts.Hostname = args.WorkflowComponent.getParameterValue('Hostname');
-        executionContexts.DeltaCatalogExportInDays = args.WorkflowComponent.getParameterValue('DeltaCatalogExportInDays');
+        executionContexts.DeltaCatalogInDays = args.WorkflowComponent.getParameterValue('DeltaCatalogInDays');
         executionContexts.GenerateDeleteFeed = args.WorkflowComponent.getParameterValue('GenerateDeleteFeed');
     } else {
         //if we execute via Platform Job Framework
@@ -66,7 +68,7 @@ function execute( args : PipelineDictionary ) : Number
         executionContexts.GroupLocaleExport = args.GroupLocaleExport;
         executionContexts.CustomObjectIds = args.CustomObjectIds;
         executionContexts.Hostname = args.Hostname;
-        executionContexts.DeltaCatalogExportInDays = args.DeltaCatalogExportInDays;
+        executionContexts.DeltaCatalogInDays = args.DeltaCatalogInDays;
         executionContexts.GenerateDeleteFeed = args.GenerateDeleteFeed;
     }
 
@@ -92,6 +94,11 @@ function execute( args : PipelineDictionary ) : Number
         locales = [
             currentSite.defaultLocale
         ];
+    }
+
+    var localesForSocialCategory = getLocalesForSocialCategory(executionContexts);
+    if (!empty(localesForSocialCategory)) {
+        locales = localesForSocialCategory;
     }
 
     var exportMgr;
@@ -185,37 +192,44 @@ function registerConfigurableHandlers(exportMgr, cmp, currentSite, executionCont
         if(!folder.exists() && !folder.mkdirs()){
             throw new Error('Could not create folder '+co.custom.folderName);
         }
+
+        var deltaEnabled = executionContexts.DeltaCatalogInDays > 0;
+
         var fileName = co.custom.fileName.replace(/\{\{[^}]*\}\}/g,function(a : String){
             var parts : Array = a.split(/(?:\{\{| |\}\})/g);
             var variable = parts[1];
-            if(variable == 'timestamp'){
-                var format = 'yyyyMMddhhmmss';
-                parts.forEach(function(part : String){
-                    if(part.indexOf('format=') == 0){
-                        format = part.substring(0,part.length-1).substring(8);
-                    }
-                });
-                return dw.util.StringUtils.formatCalendar(Site.getCalendar(),format);
+
+            if (!variable) return '';
+
+            switch (variable) {
+                case 'timestamp':
+                    var format = 'yyyyMMddhhmmss';
+                    parts.forEach(function(part : String){
+                        if(part.indexOf('format=') == 0){
+                            format = part.substring(0,part.length-1).substring(8);
+                        }
+                    });
+                    return dw.util.StringUtils.formatCalendar(Site.getCalendar(),format);
+                case 'countrycode':
+                    return dw.util.Locale.getLocale(Site.getCurrent().defaultLocale).country;
+                case 'site_id':
+                case 'siteId':
+                    return Site.getCurrent().ID;
+                case 'siteName':
+                case 'site_name':
+                    return dw.system.Site.getCurrent().getName();
+                case 'languagecode':
+                    return dw.util.Locale.getLocale(Site.getCurrent().defaultLocale).getISO3Language();
+                case 'locale':
+                    return locale || Site.getCurrent().defaultLocale;
+                case 'updateType':
+                case 'update_type':
+                    return deltaEnabled ? 'delta' : 'full';
+                default:
+                    return '';
             }
-            if(variable == 'countrycode'){
-                return dw.util.Locale.getLocale(Site.getCurrent().defaultLocale).country;
-            }
-            if (variable == "site_id")
-            {
-            	return Site.getCurrent().ID;
-            }
-            if(variable == "siteName"){
-                return dw.system.Site.getCurrent().getName();
-            }
-	    if (variable == "languagecode")
-            {
-            	return dw.util.Locale.getLocale(Site.getCurrent().defaultLocale).getISO3Language();
-            }
-            if(variable == "locale"){
-                return locale || Site.getCurrent().defaultLocale;
-            }
-            return '';
         });
+
         var file = new File(folder,"TEMP_" + fileName);
         var encoding = co.custom.fileEncoding || 'UTF-8';
         if(!file.exists() && !file.createNewFile()){
@@ -242,7 +256,7 @@ function registerConfigurableHandlers(exportMgr, cmp, currentSite, executionCont
                     localeContext,
                     executionContexts.Locales,
                     executionContexts.LocalizedCategories,
-                    executionContexts.DeltaCatalogExportInDays,
+                    executionContexts.DeltaCatalogInDays,
                     co.custom.exportCategoryId
                 )
             );
@@ -266,9 +280,10 @@ function registerConfigurableHandlers(exportMgr, cmp, currentSite, executionCont
                 locale,
                 executionContexts.Locales,
                 executionContexts.LocalizedCategories,
-                executionContexts.DeltaCatalogExportInDays,
+                executionContexts.DeltaCatalogInDays,
                 executionContexts.GenerateDeleteFeed,
-                co.custom.exportCategoryId
+                co.custom.exportCategoryId,
+                executionContexts.GeneratedFiles
             ));
         }
     }
@@ -351,7 +366,7 @@ function getLocalesFromCountries(countries) { // eslint-disable-line no-shadow
  * @param {Object} parameters The job's parameters
  * @returns {dw/system/Status} The status of the job
  */
-function generate(parameters) {
+function generate(parameters, stepExecution) {
     var Pipeline = require('dw/system/Pipeline');
     var Status = require('dw/system/Status');
     var StepHelper = require('int_socialfeeds/cartridge/scripts/helpers/stepHelper');
@@ -365,6 +380,12 @@ function generate(parameters) {
 
     if (!result || result.EndNodeName !== 'OK') {
         return new Status(Status.ERROR);
+    }
+
+    var generatedFiles = result.CustomFeedsExportMgr.executionContexts.GeneratedFiles;
+    if(generatedFiles.length > 0){
+        stepExecution.getJobExecution().context.put('qtyFilesToCopy', generatedFiles.length);
+        generatedFiles.forEach(function(gf,idx){stepExecution.getJobExecution().context.put('copyFile' + idx, gf)});
     }
 
     return new Status(Status.OK);

@@ -3,42 +3,42 @@
 var Resource = require('dw/web/Resource');
 var URLUtils = require('dw/web/URLUtils');
 
-var orderItemSummaries = 'SELECT+OrderItemSummary.Id,' +
-                                'OrderItemSummary.ProductCode,' +
-                                'OrderItemSummary.OrderDeliveryGroupSummaryId,' +
-                                'OrderItemSummary.Quantity,' +
-                                'OrderItemSummary.QuantityAvailableToFulfill,' +
-                                'OrderItemSummary.QuantityAvailableToReturn,' +
-                                'OrderItemSummary.QuantityAvailableToCancel,' +
-                                'OrderItemSummary.QuantityOrdered,' +
-                                'OrderItemSummary.QuantityCanceled,' +
-                                'OrderItemSummary.QuantityReturned,' +
-                                'OrderItemSummary.TotalPrice,' +
-                                'OrderItemSummary.UnitPrice,' +
-                                'OrderItemSummary.TotalTaxAmount,' +
-                                'OrderItemSummary.Type,' +
-                                'OrderItemSummary.TypeCode+' +
-                        'FROM+OrderItemSummaries';
+var orderItemSummaries = 'SELECT+OrderItemSummary.Id,'
+                                + 'OrderItemSummary.ProductCode,'
+                                + 'OrderItemSummary.OrderDeliveryGroupSummaryId,'
+                                + 'OrderItemSummary.Quantity,'
+                                + 'OrderItemSummary.QuantityAvailableToFulfill,'
+                                + 'OrderItemSummary.QuantityAvailableToReturn,'
+                                + 'OrderItemSummary.QuantityAvailableToCancel,'
+                                + 'OrderItemSummary.QuantityOrdered,'
+                                + 'OrderItemSummary.QuantityCanceled,'
+                                + 'OrderItemSummary.QuantityReturned,'
+                                + 'OrderItemSummary.TotalPrice,'
+                                + 'OrderItemSummary.UnitPrice,'
+                                + 'OrderItemSummary.TotalTaxAmount,'
+                                + 'OrderItemSummary.Type,'
+                                + 'OrderItemSummary.TypeCode+'
+                        + 'FROM+OrderItemSummaries';
 
-var orderDeliveryGroupSummaries = 'SELECT+OrderDeliveryGroupSummary.id,' +
-                                        'OrderDeliveryGroupSummary.DeliverToName,+' +
-                                        'OrderDeliveryGroupSummary.DeliverToAddress,' +
-                                        'OrderDeliveryGroupSummary.OrderDeliveryMethodId+' +
-                                    'FROM+OrderDeliveryGroupSummaries';
+var orderDeliveryGroupSummaries = 'SELECT+OrderDeliveryGroupSummary.id,'
+                                        + 'OrderDeliveryGroupSummary.DeliverToName,+'
+                                        + 'OrderDeliveryGroupSummary.DeliverToAddress,'
+                                        + 'OrderDeliveryGroupSummary.OrderDeliveryMethodId+'
+                                    + 'FROM+OrderDeliveryGroupSummaries';
 
-var fulfillmentOrderLineItems = 'SELECT+FulfillmentOrderLineItem.Id,' +
-                                        'FulfillmentOrderLineItem.OrderItemSummaryId,' +
-                                        'FulfillmentOrderLineItem.Quantity,' +
-                                        'FulfillmentOrderLineItem.TotalPrice,' +
-                                        'FulfillmentOrderLineItem.TotalTaxAmount+' +
-                                  'FROM+FulfillmentOrderLineItems+' +
-                                 "WHERE+FulfillmentOrderLineItem.TypeCode='Product'";
+var fulfillmentOrderLineItems = 'SELECT+FulfillmentOrderLineItem.Id,'
+                                        + 'FulfillmentOrderLineItem.OrderItemSummaryId,'
+                                        + 'FulfillmentOrderLineItem.Quantity,'
+                                        + 'FulfillmentOrderLineItem.TotalPrice,'
+                                        + 'FulfillmentOrderLineItem.TotalTaxAmount+'
+                                  + 'FROM+FulfillmentOrderLineItems+'
+                                 + "WHERE+FulfillmentOrderLineItem.TypeCode='Product'";
 
-var orderShipments = 'SELECT+Shipment.FulfillmentOrderId,' +
-                        'Shipment.Id,' +
-                        'Shipment.CreatedDate,' +
-                        'Shipment.ShipToName+' +
-                    'FROM+FulfillmentOrderShipments';
+var orderShipments = 'SELECT+Shipment.FulfillmentOrderId,'
+                        + 'Shipment.Id,'
+                        + 'Shipment.CreatedDate,'
+                        + 'Shipment.ShipToName+'
+                    + 'FROM+FulfillmentOrderShipments';
 /*
 This object holds the vlue of units of time in ms
 e.g. a day is 86400000ms
@@ -89,8 +89,8 @@ examples
     displayValue: "All",
     optionValue: URLUtils.https('Order-Filtered', 'filterUnit', 'all').abs().toString(),
     units: filterUnits.years,
-	filterName: 'all',
-	multiplier: 0
+    filterName: 'all',
+    multiplier: 0
 }
 */
 var filters = [
@@ -157,6 +157,7 @@ module.exports = {
     returnShippingReductionFlag: false,
     statusOrdered: 'Ordered',
     statusInProgress: 'InProgress',
+    statusAllocated: 'Allocated',
     statusShipped: 'Shipped',
     statusCanceled: 'Canceled',
     statusReturned: 'Returned',

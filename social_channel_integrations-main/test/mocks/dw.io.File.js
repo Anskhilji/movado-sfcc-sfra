@@ -14,4 +14,25 @@ module.exports = function(folder, filename){
     this.path = filename;
     this.exists = function(){return true};
     this.mkdirs = function(){return true};
+    this.isDirectory = function(){return false};
+    this.getName = function() { return {
+        split: function() {
+            return {
+                pop: function() {
+                    return {
+                        toLowerCase: function () {
+                            
+                        }
+                    }
+                }
+            }
+        },
+        toLowerCase: function () {
+            return {
+                endsWith: function () {
+                    return true
+                }
+            }
+        },
+    }};
 };

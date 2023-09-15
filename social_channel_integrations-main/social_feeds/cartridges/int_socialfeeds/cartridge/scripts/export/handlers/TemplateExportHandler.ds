@@ -40,8 +40,9 @@ var TemplateExportHandler = AbstractExportHandler.extend(
                 locale,
                 locales,
                 localizedCategories,
-                deltaCatalogExportInDays,
-                exportCategoryId
+                deltaCatalogInDays,
+                exportCategoryId,
+                generatedFiles : Array
             ) {
                 this.handlesProducts = true;
                 this.writer = writer;
@@ -58,8 +59,10 @@ var TemplateExportHandler = AbstractExportHandler.extend(
                 this.file = file;
                 this.locales = locales;
                 this.localizedCategories = localizedCategories;
-                this.deltaCatalogExportInDays = deltaCatalogExportInDays;
+                this.deltaCatalogInDays = deltaCatalogInDays;
                 this.exportCategoryId = exportCategoryId;
+
+                 this.generatedFiles = generatedFiles;
 
                 this.handlesMasters = false;
                 this.handlesProducts = true;
@@ -114,6 +117,7 @@ var TemplateExportHandler = AbstractExportHandler.extend(
 
                     var newFile = new File(fileFinalName);
                     this.file.renameTo(newFile);
+                    this.generatedFiles.push(fileFinalName);
                 }
             }
         });

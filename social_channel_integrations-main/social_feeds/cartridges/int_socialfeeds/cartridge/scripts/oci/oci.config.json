@@ -15,6 +15,10 @@
         "export": {
             "full": "/inventory/impex/v1/organizations/tenant_group_id/availability-records/exports",
             "delta": "/inventory/availability/v1/organizations/tenant_group_id/availability-records/actions/get-deltas"
+        },
+        "reservation":{
+            "availability" : "/inventory/availability/v1/organizations/tenant_group_id/availability-records/actions/get-availability",
+            "createReservation" : "/inventory/reservation/v1/organizations/tenant_group_id/reservation-documents/reservation_id"
         }
     },
     "customObject": {

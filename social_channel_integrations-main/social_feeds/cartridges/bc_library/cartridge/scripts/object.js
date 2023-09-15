@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * @module object
  */
@@ -20,11 +21,15 @@ exports.extend = function (target, source) {
     for (var i = 1; i < arguments.length; i++) {
         _source = arguments[i];
         for (var prop in _source) {
-            // recurse for non-API objects
-            if (_source[prop] && 'object' === typeof _source[prop] && !_source[prop].class) {
-                target[prop] = this.extend(target[prop], _source[prop]);
-            } else {
-                target[prop] = _source[prop];
+            if (_source.hasOwnProperty(prop)) {
+                if (prop !== '__proto__' && prop !== 'constructor') {
+                    // recurse for non-API objects
+                    if (_source[prop] && typeof _source[prop] === 'object' && !_source[prop].class) {
+                        target[prop] = this.extend(target[prop], _source[prop]);
+                    } else {
+                        target[prop] = _source[prop];
+                    }
+                }
             }
         }
     }
@@ -36,7 +41,7 @@ exports.extend = function (target, source) {
  * Access given properties of an object recursively
  *
  * @param {Object} object The object
- * @param {String} propertyString The property string, i.e. 'data.myValue.prop1'
+ * @param {string} propertyString The property string, i.e. 'data.myValue.prop1'
  * @return {Object} The value of the given property or undefined
  * @example
  * var prop1 = require('~/object').resolve(obj, 'data.myValue.prop1')

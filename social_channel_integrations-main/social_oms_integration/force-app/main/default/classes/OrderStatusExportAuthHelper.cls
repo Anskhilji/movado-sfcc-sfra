@@ -72,10 +72,17 @@ public class OrderStatusExportAuthHelper {
     
     //Get the OAuth Info MetaData Parameters
     public Order_Status_Update_Params__mdt getOAuthConnInfo() {
+
 		Order_Status_Update_Params__mdt upgCreds = runningInASandbox()
-			? Order_Status_Update_Params__mdt.getInstance('Prod')
-			: Order_Status_Update_Params__mdt.getInstance('Non_Prod');
-		return upgCreds;
+		? Order_Status_Update_Params__mdt.getInstance('Non_Prod')
+		: Order_Status_Update_Params__mdt.getInstance('Prod');
+		/*Logic to check if the execution context is a test class, if so then use the test metadata. 
+		This is because it is not possible to create custom metadata records in the test class.*/
+		if (Test.isRunningTest()) {
+			return Order_Status_Update_Params__mdt.getInstance('Test_Class');
+		}else {
+			return upgCreds;
+		}
 	}
     
     public  Boolean runningInASandbox() {

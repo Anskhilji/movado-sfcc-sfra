@@ -1,4 +1,7 @@
+'use strict';
+
 var File = require('dw/io/File');
+var Logger = require('dw/system/Logger');
 
 const TEMP_PATH = File.SEPARATOR + File.TEMP + File.SEPARATOR;
 const IMPEX_PATH = File.SEPARATOR + File.IMPEX + File.SEPARATOR;
@@ -14,7 +17,7 @@ var fileImpex = new File(File.IMPEX);
  * @param {string} directoryPath (Absolute) Directory path to load from
  * @param {string} filePattern RegEx pattern that the filenames must match
  *
- * @returns {Array}
+ * @returns {Array} file array
  */
 var getFiles = function (directoryPath, filePattern) {
     var directory = new File(directoryPath);
@@ -34,17 +37,65 @@ var getFiles = function (directoryPath, filePattern) {
 };
 
 /**
+ * Get files from a directory, sorted by date
+ * @param {string} directoryPath (Absolute) Directory path to load from
+ * @param {string} sortDirection sort direction (ASCENDING/ASC or DESCENDING/DESC)
+ * @param {string} filePattern RegEx pattern that the filenames must match
+ * @param {boolean} onlyFiles include only files in the returned list?
+ * @returns {dw.util.SortedSet} array of sorted files
+ */
+var getSortedFiles = function (directoryPath, sortDirection, filePattern, onlyFiles) {
+    var SortedSet = require('dw/util/SortedSet');
+
+    var directory = new File(directoryPath);
+    if (!directory || !directory.isDirectory()) {
+        throw new Error('Source folder does not exist.');
+    }
+    var fileList = new SortedSet();
+    if (sortDirection === 'DESCENDING' || sortDirection === 'DESC') {
+        fileList = new SortedSet(function (o1, o2) {
+            if (o1 < o2) {
+                return 1;
+            }
+            if (o1 > o2) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    var regExp = new RegExp(filePattern, 'i');
+
+    fileList.addAll(directory.listFiles(function (file) {
+        if (onlyFiles && file.isDirectory()) {
+            return false;
+        }
+
+        if (filePattern) {
+            return regExp.test(file.name);
+        }
+
+        return true;
+    }));
+
+    return fileList;
+};
+
+/**
  * Loads files from a given directory that match the given pattern
  * recursive.
  * Throws Exception if directory does not exist.
  *
- * @param {string} directoryPath (Absolute) Directory path to load from
+ * @param {string} sourceDirectory (Absolute) Directory path to load from
  * @param {string} filePattern RegEx pattern that the filenames must match
- *
- * @returns {Array}
+ * @param {string} sourceFolder source folder
+ * @param {string} targetFolder target folder
+ * @param {boolean} recursive recursive search?
+ * @param {boolean} doOverwrite overwrite existing files?
+ * @param {boolean} getTargetFile get the target file?
+ * @returns {Array} files
  */
 var getFileListRecursive = function (sourceDirectory, filePattern, sourceFolder, targetFolder, recursive, doOverwrite, getTargetFile) {
-
     var regexp;
     if (!empty(filePattern)) {
         regexp = new RegExp(filePattern);
@@ -56,13 +107,13 @@ var getFileListRecursive = function (sourceDirectory, filePattern, sourceFolder,
         if (getTargetFile) {
             targetFile = new File(currentFile.getFullPath().replace(sourceFolder, targetFolder));
             if (targetFile.exists() && !doOverwrite) {
-                throw 'OverWriteWithoutPermission';
+                throw new Error('OverWriteWithoutPermission');
             }
         } else {
             // remove source and IMPEX folder path :
             targetFile = currentFile.getFullPath().replace(sourceFolder, '').replace(File.IMPEX, '');
             if (!currentFile.isDirectory()) {
-                // this is to avoid targetfileName + targetfileName from upload behavior
+                // this is to avoid targetFileName + targetFileName from upload behavior
                 targetFile = targetFile.replace(currentFile.getName(), '');
             }
             // add targetFolder
@@ -86,11 +137,11 @@ var getFileListRecursive = function (sourceDirectory, filePattern, sourceFolder,
             return true;
         }
         return false;
-    }
+    };
     if (sourceDirectory instanceof File) {
         sourceDirectory.listFiles(getFileList);
     } else {
-        sourceDirectory = new File(sourceDirectory);
+        sourceDirectory = new File(sourceDirectory); // eslint-disable-line no-param-reassign
         if (!sourceDirectory.isDirectory()) {
             throw new Error('Source folder does not exist.');
         }
@@ -103,10 +154,9 @@ var getFileListRecursive = function (sourceDirectory, filePattern, sourceFolder,
 /**
  * Check if a file with the given {filename} in the given {directoryPath} exists or not
  *
- * @param {string} directoryPath
- * @param {string} filename
- *
- * @returns {boolean}
+ * @param {string} directoryPath directory path
+ * @param {string} filename file name
+ * @returns {boolean} true if file exists
  */
 var isFileExists = function (directoryPath, filename) {
     var file = new File(directoryPath + File.SEPARATOR + filename);
@@ -116,8 +166,7 @@ var isFileExists = function (directoryPath, filename) {
 /**
  * Create the given {directoryPath} recursively if it does not exists
  *
- * @param {string} directoryPath
- *
+ * @param {string} directoryPath directory path
  * @returns {dw.io.File} The created directory instance
  */
 var createDirectory = function (directoryPath) {
@@ -134,7 +183,6 @@ var createDirectory = function (directoryPath) {
  * Returns the file name of the file from the file path.
  *
  * @param {string} filePath A file path to extract the file name from, e.g. '/directory/file.xml'.
- *
  * @returns {string} The file name e.g. 'file.xml'.
  */
 var getFileName = function (filePath) {
@@ -147,10 +195,9 @@ var getFileName = function (filePath) {
  *
  * @param {dw.io.File} fileToMove File to move
  * @param {dw.io.File} directory Directory where to move the file in
- *
  * @returns {boolean} Either the file has been successfully moved or not
  */
-var moveFile = function(fileToMove, directory) {
+var moveFile = function (fileToMove, directory) {
     if (empty(fileToMove) || empty(directory)) {
         return false;
     }
@@ -168,10 +215,9 @@ var moveFile = function(fileToMove, directory) {
  *
  * @param {dw.io.File} fileToCopy File to copy
  * @param {dw.io.File} directory Directory where to copy the file in
- *
  * @returns {boolean} Either the file has been successfully moved or not
  */
-var copyFile = function(fileToCopy, directory) {
+var copyFile = function (fileToCopy, directory) {
     if (empty(fileToCopy) || empty(directory)) {
         return false;
     }
@@ -189,7 +235,6 @@ var copyFile = function(fileToCopy, directory) {
  * the {TEMP_PATH} path if provided {filePath} is empty.
  *
  * @param {string} filePath The file path to append to the {TEMP_PATH}
- *
  * @returns {string} The final generated path
  */
 var getTempPath = function (filePath) {
@@ -207,7 +252,6 @@ var getTempPath = function (filePath) {
  * the {IMPEX_PATH} path if provided {filePath} is empty.
  *
  * @param {string} filePath The file path to append to the {IMPEX_PATH}
- *
  * @returns {string} The final generated path
  */
 var getImpexPath = function (filePath) {
@@ -228,23 +272,20 @@ var getImpexPath = function (filePath) {
  */
 var compressDirectory = function (directory, zipFile) {
     if (!directory.exists()) {
-        return undefined;
+        return;
     }
-
     directory.zip(zipFile);
 };
 
-
 /**
- * Removes all files and sub directories if the given {directory} is a directory
- * Also traverses through sub directories and the removes this directory.
+ * Removes all files and subdirectories if the given {directory} is a directory
+ * Also traverses through subdirectories and the removes this directory.
  * If the given {directory} is a file it removes it.
  *
- * @param {dw.io.File} directory Directory or file to remove
- *
+ * @param {dw.io.File} file Directory or file to remove
  * @returns {boolean} Either the directory has been successfully removed or not
  */
-var removeFile = function(file) {
+var removeFile = function (file) {
     if (!file.exists()) {
         return false;
     }
@@ -260,9 +301,8 @@ var removeFile = function(file) {
 
         // now the directory is empty and it should be possible to remove it
         return file.remove();
-    } else {
-        return file.remove();
     }
+    return file.remove();
 };
 
 /**
@@ -281,6 +321,7 @@ var unzipFiles = function (files, targetDirectoryPath, useArchiveNameAsFolder, r
     }
 
     var targetDirectory;
+    // eslint-disable-next-line no-param-reassign
     targetDirectoryPath = getImpexPath(targetDirectoryPath) + (targetDirectoryPath.charAt(targetDirectoryPath.length - 1).equals(File.SEPARATOR) ? '' : File.SEPARATOR);
 
     // Loop across found files and only process .zip files
@@ -333,10 +374,11 @@ var zipFiles = function (files, targetDirectoryPath, archiveName, removeFilesFro
 
     // Append the .zip extension in case it's missing
     if (!ZIP_FILE_REG_EXP.test(archiveName.toLowerCase())) {
-        archiveName += '.zip';
+        archiveName += '.zip'; // eslint-disable-line no-param-reassign
     }
 
-    targetDirectoryPath = targetDirectoryPath + (targetDirectoryPath.charAt(targetDirectoryPath.length - 1).equals(File.SEPARATOR) ? '' : File.SEPARATOR);
+    // eslint-disable-next-line no-param-reassign
+    targetDirectoryPath += (targetDirectoryPath.charAt(targetDirectoryPath.length - 1).equals(File.SEPARATOR) ? '' : File.SEPARATOR);
 
     // Copy files to a temporary folder
     // As we can only zip a folder or a unique file in SFCC
@@ -352,20 +394,19 @@ var zipFiles = function (files, targetDirectoryPath, archiveName, removeFilesFro
     });
 
     // zip archive directory
-	var zipFile = new File(tempFullPath.replace(TEMP_PATH, IMPEX_PATH));
-	compressDirectory(tempArchiveDirectory, zipFile);
+    var zipFile = new File(tempFullPath.replace(TEMP_PATH, IMPEX_PATH));
+    compressDirectory(tempArchiveDirectory, zipFile);
 
-	// remove temp archive directory
-	return removeFile(tempArchiveDirectory);
+    // remove temp archive directory
+    return removeFile(tempArchiveDirectory);
 };
 
 /**
  *
- * @param {Object} options
- * @param {string} options.directory
- * @param {string} options.fileNamePattern
- *
- * @returns {Iterator}
+ * @param {Object} options options object
+ * @param {string} options.directory directory
+ * @param {string} options.fileNamePattern file name patter
+ * @returns {Iterator} iterator
  */
 function listFiles(options) {
     var directoryFile = new File(fileImpex, options.directory);
@@ -391,39 +432,42 @@ function listFiles(options) {
  * @param {string} filePath - file path to update
  * @returns {string} updated file path
  */
-var addImpexPath = function(filePath) {
+var addImpexPath = function (filePath) {
     return filePath.indexOf(File.IMPEX) >= 0
         ? filePath
         : File.IMPEX + File.SEPARATOR + 'src' + File.SEPARATOR + filePath;
-}
+};
 
 /**
  * Creates a file to store inventory
- * @param {String} folderPath Folder where the file should be created
- * @param {String} filename filename
+ * @param {string} folderPath Folder where the file should be created
+ * @param {string} filename filename
+ * @param {string} siteId site id
  * @returns {dw.io.File} returns undefined or the created empty file
  */
 function createFile(folderPath, filename, siteId) {
-    var file,
-        dir,
-        folder;
+    var file;
+    var dir;
+    var folder;
 
-    if(folderPath.charAt( 0 ) === File.SEPARATOR) {
+    if (folderPath.charAt(0) === File.SEPARATOR) {
         dir = folderPath.slice(1);
     } else {
         dir = folderPath;
     }
     dir = File.IMPEX + File.SEPARATOR + 'src' + File.SEPARATOR + dir;
     folder = new File(dir);
-    if(!folder.exists() && !folder.mkdirs()){
-        Logger.error('Could not create folder: '+ folderPath);
+    if (!folder.exists() && !folder.mkdirs()) {
+        Logger.error('Could not create folder: ' + folderPath);
     }
 
-    if(filename.indexOf("_siteid_") > -1) {
+    if (filename.indexOf('_siteid_') > -1) {
+        // eslint-disable-next-line no-param-reassign
         filename = filename.replace(/_siteid_/, siteId);
     }
 
-    if(filename.indexOf("_timestamp_") > -1) {
+    if (filename.indexOf('_timestamp_') > -1) {
+        // eslint-disable-next-line no-param-reassign
         filename = filename.replace(/_timestamp_/, Date.now());
     }
     file = new File(folder, filename);
@@ -433,6 +477,7 @@ function createFile(folderPath, filename, siteId) {
 module.exports.createDirectory = createDirectory;
 module.exports.getFileName = getFileName;
 module.exports.getFiles = getFiles;
+module.exports.getSortedFiles = getSortedFiles;
 module.exports.getFileListRecursive = getFileListRecursive;
 module.exports.isFileExists = isFileExists;
 module.exports.removeFile = removeFile;

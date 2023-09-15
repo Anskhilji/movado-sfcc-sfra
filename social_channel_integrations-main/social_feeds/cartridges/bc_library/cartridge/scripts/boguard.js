@@ -1,5 +1,6 @@
 'use strict';
 
+/* global customer */
 /**
  * This is a collection of decorators for functions which performs several security checks.
  * They can be combined with each other to configure the necessary constraints for a function that is exposed to the Internet.
@@ -15,19 +16,22 @@
  * // allow only GET requests via HTTPS for logged in users
  * exports.Show = require('~/guard').ensure(['get','https','loggedIn'],show);
  */
+
+var URLUtils = require('dw/web/URLUtils');
 var browsing = require('~/cartridge/scripts/util/Browsing');
-var LOGGER   = dw.system.Logger.getLogger('guard');
+var LOGGER = require('dw/system/Logger').getLogger('guard');
 
 /**
  * This method contains the login to handle a not logged in customer
  *
- * @param {Object} params Parameters passed along by by ensure
+ * @param {Object} params Parameters passed along by ensure
+ * @return {boolean} true if the user is logged in, false otherwise
  */
 function requireLogin(params) {
     if (customer.authenticated) {
         return true;
     }
-    var redirectUrl = dw.web.URLUtils.https('Login-Show', 'original', browsing.lastUrl());
+    var redirectUrl = URLUtils.https('Login-Show', 'original', browsing.lastUrl());
 
     if (params && params.scope) {
         redirectUrl.append('scope', params.scope);
@@ -66,45 +70,61 @@ function switchToHttps() {
  * The available filters for endpoints, the names of the methods can be used in {@link module:guard~ensure}
  * @namespace
  */
+/* eslint-disable valid-jsdoc */
 var Filters = {
     /** Action must be accessed via HTTPS */
-    https: function() {
+    https: function () {
         return request.isHttpSecure();
     },
     /** Action must be accessed via HTTP */
-    http: function() {
+    http: function () {
         return !this.https();
     },
     /** Action must be accessed via a GET request */
-    get: function() {
+    get: function () {
         return request.httpMethod === 'GET';
     },
     /** Action must be accessed via a POST request */
-    post: function() {
+    post: function () {
         return request.httpMethod === 'POST';
     },
-    /** Action must only be accessed authenticated csutomers */
-    loggedIn: function() {
+    /** Action must only be accessed authenticated customers */
+    loggedIn: function () {
         return customer.authenticated;
     },
     /**
      * Deprecated function to ensure that permissions have adequately been granted to the current user.
      * That's been replaced by platform permission check, hence it has become obsolete, hence marked deprecated.
-     * 
+     *
      * @deprecated
      * @return {boolean}
      */
-    permissions: function() {
-    	LOGGER.info('Deprecated function \'permissions\' called.');
-    	return true;
+    permissions: function () {
+        LOGGER.info('Deprecated function \'permissions\' called.');
+        return true;
     },
     /** Action must only be used as remote include */
-    include: function() {
+    include: function () {
         // the main request will be something like kjhNd1UlX_80AgAK-0-00, all includes
         // have incremented trailing counters
         return request.httpHeaders['x-is-requestid'].indexOf('-0-00') === -1;
     }
 };
+/* eslint-enable valid-jsdoc */
+
+/**
+ * Exposes the given action to be accessible from the web. The action gets a property which marks it as exposed. This
+ * property is checked by the platform.
+ *
+ * @alias module:guard~expose
+ * @param {Function} action The action to expose
+ * @return {Function} The exposed action
+ */
+function expose(action) {
+    action.public = true;
+
+    return action;
+}
 
 /**
  * This function should be used to secure public endpoints by applying a set of predefined filters.
@@ -112,15 +132,18 @@ var Filters = {
  * @param  {string[]} filters The filters which need to be passed to access the page
  * @param  {function} action  The action which represents the resource to show
  * @param  {Object}   params  Additional parameters which are passed to all filters and the action
+ * @return {function}        The action which is secured by the filters
+ *
  * @see module:guard~Filters
  * @see module:guard
  */
 function ensure(filters, action, params) {
-    return expose(function(args) {
+    return expose(function (args) {
         var error;
         var filtersPassed = true;
         var errors = [];
 
+        // eslint-disable-next-line no-param-reassign
         params = require('~/cartridge/scripts/object').extend(params, args);
 
         for (var i = 0; i < filters.length; i++) {
@@ -141,7 +164,7 @@ function ensure(filters, action, params) {
         }
 
         if (!error) {
-            error = function() {
+            error = function () {
                 throw new Error('Guard(s) ' + errors.join('|') + ' did not match the incoming request.');
             };
         }
@@ -150,22 +173,11 @@ function ensure(filters, action, params) {
             LOGGER.debug('...passed.');
 
             return action(params);
-        } else {
-            LOGGER.debug('...failed. {0}', error.name);
-
-            return error(params);
         }
+        LOGGER.debug('...failed. {0}', error.name);
+
+        return error(params);
     });
-}
-
-/**
- * Exposes the given action to be accessible from the web. The action gets a property which marks it as exposed. This
- * property is checked by the platform.
- */
-function expose(action) {
-    action.public = true;
-
-    return action;
 }
 
 /*
@@ -178,19 +190,24 @@ exports.all = expose;
 /**
  * @see module:guard~https
  * @see module:guard~get
+ *
  * @deprecated Use ensure(['https','get'], action) instead
+ * @param {function} action The action which represents the resource to show
+ * @return {function} The action which is secured by the filters
  */
-exports.httpsGet = function(action) {
-    return ensure(['https','get'], action);
+exports.httpsGet = function (action) {
+    return ensure(['https', 'get'], action);
 };
 
 /**
  * @see module:guard~https
  * @see module:guard~post
  * @deprecated Use ensure(['https','post'], action) instead
+ * @param {function} action The action which represents the resource to show
+ * @return {function} The action which is secured by the filters
  */
-exports.httpsPost = function(action) {
-    return ensure(['https','post'], action);
+exports.httpsPost = function (action) {
+    return ensure(['https', 'post'], action);
 };
 
 /**

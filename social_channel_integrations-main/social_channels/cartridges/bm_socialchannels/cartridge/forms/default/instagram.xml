@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19" secure="false">
+    <field formid="businessmanagerid" type="string" />
+    <field formid="commercepartnerid" type="string" />
+    <field formid="orgid" type="string" />
+    <field formid="shortcode" type="string" />
+    <action formid="submit" valid-form="true" />
+    <action formid="accept" valid-form="false" />
+</form>

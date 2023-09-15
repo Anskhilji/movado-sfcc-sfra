@@ -1,5 +1,5 @@
 # Social Channel Integration Change History
-
 ## int_social_checkout/controllers/OrderCreate.js
-- Line No: Start from 154 to 156
-- Line No: Start from 261 to 276
+- Line No: Start from 202 to 216
+- Line No: Start from 241
+- Line No: Start from 260

@@ -2,14 +2,48 @@
 
 // https://ads.tiktok.com/marketing_api/docs?id=1710953580908545
 var Logger = require('dw/system/Logger').getLogger('TikTok', 'tiktokService');
-var Site = require('dw/system/Site');
-var StringUtils = require('dw/util/StringUtils');
 
 var serviceHelper = require('./serviceHelper');
 var constants = require('../TikTokConstants');
 
 var CONTENT_TYPE = 'application/json';
 var counter = 0;
+
+/**
+ * Parses the response and trigger the given {callback} in case of success or redirect ot the landing page in case of error
+ * @param {Object} result The result of the response
+ * @param {string} errorCode The error code from the response
+ * @returns {boolean} True if the response was successful, false otherwise
+ */
+function parseResponse(result, errorCode) {
+    if (!result.ok && result.error === '307') {
+        return {
+            error: false,
+            result: '307 redirection'
+        };
+    }
+    if (!result.ok) {
+        Logger.error('Error occurred while {0}. Error Message: {1}', errorCode.replace('.', ' ', 'g'), result.errorMessage);
+        return {
+            error: true,
+            errorCode: errorCode
+        };
+    }
+
+    var resultText = JSON.parse(result.object.text);
+    Logger.info(counter++ + ': result: ' + result.object.text + '\n');
+    if (resultText.code === 0) {
+        return {
+            error: false,
+            result: resultText
+        };
+    }
+    Logger.error('Error occurred while {0}. Error Message: {1}', errorCode.replace('.', ' ', 'g'), resultText.message);
+    return {
+        error: true,
+        errorCode: errorCode
+    };
+}
 
 /**
  * Get the authorization token from the TikTok REST API
@@ -137,7 +171,7 @@ function getCatalogOverview(tikTokSettings) {
 /**
  * Disconnect from TikTok
  * @param {dw/object/CustomObject} tikTokSettings The TikTok settings custom object instance
- * @returns {boolean} True if the disconnect process succeed, false othervise
+ * @returns {boolean} True if the disconnect process succeed, false otherwise
  */
 function disconnectFromTikTok(tikTokSettings) {
     var service = serviceHelper.getService(constants.SERVICES.TIKTOK.BASE);
@@ -170,7 +204,7 @@ function disconnectFromTikTok(tikTokSettings) {
  * @param {string} catalogId The ID of the catalog to store in TikTok
  * @param {Array} products The array of formated products to send to TikTok
  *
- * @returns {boolean} True if the upload process succeed, false othervise
+ * @returns {boolean} True if the upload process succeed, false otherwise
  */
 function uploadProducts(tikTokSettings, catalogId, products) {
     var service = serviceHelper.getService(constants.SERVICES.TIKTOK.BASE);
@@ -209,12 +243,14 @@ function uploadProducts(tikTokSettings, catalogId, products) {
  * @param {string} referrerUrl The referer URL
  * @param {string} ttclid The value of ttclid used to match website visitor events with TikTok ads
  * @param {Object} titokProperties The Basket/Order content
- *
- * @returns {boolean} True if the upload process succeed, false othervise
+ * @param {Object} userAgent The user agent
+ * @param {Object} tikTokUserInfo The user information from the tikTok API
+ * @returns {boolean} True if the upload process succeed, false otherwise
  */
 function pixelTrack(tikTokSettings, tEvent, tEventID, reqUrl, referrerUrl, ttclid, titokProperties, userAgent, tikTokUserInfo) {
     var service = serviceHelper.getService(constants.SERVICES.TIKTOK.TRACKING);
     var userData;
+
     if (tikTokUserInfo != null) {
         var userInfo = tikTokUserInfo.split('|');
         userData = {
@@ -249,6 +285,7 @@ function pixelTrack(tikTokSettings, tEvent, tEventID, reqUrl, referrerUrl, ttcli
                     referrer: referrerUrl
                 },
                 user: userData,
+                ip: request.httpRemoteAddress ? request.httpRemoteAddress : '',
                 user_agent: userAgent
             },
             properties: titokProperties
@@ -268,9 +305,8 @@ function pixelTrack(tikTokSettings, tEvent, tEventID, reqUrl, referrerUrl, ttcli
  * send server side batch event to TikTok
  *
  * @param {dw/object/CustomObject} tikTokSettings The TikTok settings custom object instance
- * @param {Object} titokProperties The Basket/Order content
- *
- * @returns {boolean} True if the upload process succeed, false othervise
+ * @param {Object} batchData pixel batch data
+ * @returns {boolean} True if the upload process succeed, false otherwise
  */
 function batchPixelTrack(tikTokSettings, batchData) {
     var service = serviceHelper.getService(constants.SERVICES.TIKTOK.TRACKING);
@@ -289,7 +325,7 @@ function batchPixelTrack(tikTokSettings, batchData) {
 
     var result = service.call(params);
     Logger.info('params ==> ' + params);
-    if (result.ok != true && result.errorMessage != null) {
+    if (result.ok !== true && result.errorMessage != null) {
         Logger.error('Error occurred calling TikTok batch API : ' + result);
         return false;
     }
@@ -298,11 +334,8 @@ function batchPixelTrack(tikTokSettings, batchData) {
 
 /**
  * send business credentials
- *
- * @param {dw/object/CustomObject} tikTokSettings The TikTok settings custom object instance
- * @param {Object} titokProperties The Basket/Order content
- *
- * @returns {boolean} True if the upload process succeed, false othervise
+ * @param {Object} extlDataB64 base64 encoded external data
+ * @returns {boolean} True if the upload process succeed, false otherwise
  */
 function checkConnectionStatus(extlDataB64) {
     var service = serviceHelper.getService(constants.SERVICES.TIKTOK.BUSINESS_API);
@@ -317,25 +350,21 @@ function checkConnectionStatus(extlDataB64) {
     };
 
     var result = service.call(params);
-    if (result.ok != true && result.errorMessage != null) {
+    if (result.ok !== true && result.errorMessage != null) {
         Logger.error('Error occurred calling checkConnectionStatus : ' + result);
         return false;
     }
 
     var resultText = JSON.parse(result.object.text);
-    if (resultText.hasOwnProperty('data') && resultText.data.hasOwnProperty('connect_info')
-                && resultText.data.connect_info.hasOwnProperty('connect_status') && resultText.data.connect_info.connect_status.hasOwnProperty('connect')) {
-        // if it is connected to TikTok Shop
-        if (resultText.data.connect_info.connect_status.connect == 2) {
-            return true;
-        }
-
-        return false;
+    if (Object.hasOwnProperty.call(resultText, 'data')
+        && Object.hasOwnProperty.call(resultText.data, 'connect_info')
+        && Object.hasOwnProperty.call(resultText.data.connect_info, 'connect_status')
+        && Object.hasOwnProperty.call(resultText.data.connect_info.connect_status, 'connect')
+        && resultText.data.connect_info.connect_status.connect === 2) {
+        return true;
     }
 
     return false;
-
-    return true;
 }
 
 /**
@@ -409,9 +438,9 @@ function sendBusinessCredentials(appId,
 
 /**
  * disconnect from TikTok Shop
- *
- * @param {string} tikTokSettings The TikTok settings custom object instance
- * @returns {boolean} True if the upload process succeed, false othervise
+ * @param {string} extBusinessId The TikTok Shop external business ID
+ * @param {string} externalData The external data
+ * @returns {boolean} True if the upload process succeed, false otherwise
  */
 function disconnectShop(extBusinessId, externalData) {
     var service = serviceHelper.getService(constants.SERVICES.TIKTOK.BUSINESS_API);
@@ -429,7 +458,7 @@ function disconnectShop(extBusinessId, externalData) {
 
     var result = service.call(params);
     Logger.info('params ==> ' + params);
-    if (result.ok != true && result.errorMessage != null) {
+    if (result.ok !== true && result.errorMessage != null) {
         Logger.error('Error occurred calling notify TikTok feed file : ' + result);
         return false;
     }
@@ -438,11 +467,12 @@ function disconnectShop(extBusinessId, externalData) {
 
 /**
  * send feed notification
- *
- * @param {dw/object/CustomObject} tikTokSettings The TikTok settings custom object instance
- * @param {Object} titokProperties The Basket/Order content
- *
- * @returns {boolean} True if the upload process succeed, false othervise
+ * @param {Object} tikTokSettings The TikTok settings
+ * @param {string} instance The instance
+ * @param {string} feedURL The feed URL
+ * @param {string} feedType The feed type
+ * @param {string} updateType The update type
+ * @returns {boolean} True if the upload process succeed, false otherwise
  */
 function notifyFeed(tikTokSettings, instance, feedURL, feedType, updateType) {
     var service;
@@ -472,9 +502,9 @@ function notifyFeed(tikTokSettings, instance, feedURL, feedType, updateType) {
     while (!success && retryCount < retryLimit) {
         try {
             Logger.info('retryCount: ' + (retryCount + 1) + ' |request:' + JSON.stringify(params));
-            service = serviceHelper.getService(constants.SERVICES.TIKTOK.BUSINESS_API);
+            service = serviceHelper.getService(constants.SERVICES.TIKTOK.ORDER_FEED);
             result = service.call(params);
-            if (result.ok != true) {
+            if (result.ok !== true) {
                 if (result.errorMessage != null) {
                     Logger.info('retryCount: ' + (retryCount + 1) + ' |Error occurred calling notify service: ' + result.errorMessage);
                 }
@@ -506,7 +536,7 @@ function notifyFeed(tikTokSettings, instance, feedURL, feedType, updateType) {
  * @param {string} catalogId The ID of the catalog to store in TikTok
  * @param {Array} products The array of formated products to send to TikTok
  *
- * @returns {boolean} True if the upload process succeed, false othervise
+ * @returns {boolean} True if the upload process succeed, false otherwise
  */
 function deleteProducts(tikTokSettings, catalogId, products) {
     var service = serviceHelper.getService(constants.SERVICES.TIKTOK.BASE);
@@ -527,43 +557,6 @@ function deleteProducts(tikTokSettings, catalogId, products) {
     var result = service.call(params);
     var response = parseResponse(result, 'delete.products.call');
     return response;
-}
-
-/**
- * Parses the response and trigger the given {callback} in case of success or redirect ot the landing page in case of error
- *
- * @param {string} errorCode The error code from the response
- * @param {Object} result The result of the response
- * @returns {boolean}
- */
-function parseResponse(result, errorCode) {
-    if (!result.ok && result.error == '307') {
-        return {
-            error: false,
-            result: '307 redirection'
-        };
-    }
-    if (!result.ok) {
-        Logger.error('Error occurred while {0}. Error Message: {1}', errorCode.replace('.', ' ', 'g'), result.errorMessage);
-        return {
-            error: true,
-            errorCode: errorCode
-        };
-    }
-
-    var resultText = JSON.parse(result.object.text);
-    Logger.info(counter++ + ': result: ' + result.object.text + '\n');
-    if (resultText.code == 0) {
-        return {
-            error: false,
-            result: resultText
-        };
-    }
-    Logger.error('Error occurred while {0}. Error Message: {1}', errorCode.replace('.', ' ', 'g'), resultText.message);
-    return {
-        error: true,
-        errorCode: errorCode
-    };
 }
 
 module.exports = {

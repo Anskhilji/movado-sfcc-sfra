@@ -3,11 +3,14 @@
  */
 importPackage( dw.system );
 importPackage( dw.io );
+importPackage( dw.catalog );
 importScript( 'export/handlers/AbstractExportHandler.ds' );
 importScript( 'export/ProductFieldMapper.ds' );
 
 var HashMap = require('dw/util/HashMap');
+var Logger = require('dw/system/Logger').getLogger('GlobalFeedExport', 'GlobalFeedExport');
 var FeedTracker = require('../FeedTrackerUtils.js');
+var CustomSocialFeedsHelper = require('../../helpers/customSocialFeeds.js');
 
 // Hack, because vars cannot be imported in DW, only functions
 function getCSVExportHandler() {
@@ -46,9 +49,10 @@ var CSVExportHandler = AbstractExportHandler.extend(
                 locale: String,
                 locales: String,
                 localizedCategories : Boolean,
-                deltaCatalogExportInDays : String,
+                deltaCatalogInDays : String,
                 generateDeleteFeed : Boolean,
-                exportCategoryId : String
+                exportCategoryId : String,
+                generatedFiles : Array
             ) {
                 if(separator == "\\t") {
                     separator = "\t";
@@ -68,15 +72,20 @@ var CSVExportHandler = AbstractExportHandler.extend(
                 this.includeNoPriceProducts = includeNoPriceProducts;
                 this.includeSearchableIfUnavailableProducts = includeSearchableIfUnavailableProducts;
                 this.socialCategory = socialCategory;
+                if (Object.hasOwnProperty.call(this.socialCategory, 'value') && this.socialCategory.value) {
+                    this.socialCategory = this.socialCategory.value;
+                }
                 this.googleShoppingCategories = googleShoppingCategories;
                 this.hostName = hostName || null;
                 this.locale = locale;
                 this.file = file;
                 this.locales = locales;
                 this.localizedCategories = localizedCategories;
-                this.deltaCatalogExportInDays = deltaCatalogExportInDays;
+                this.deltaCatalogInDays = deltaCatalogInDays;
                 this.generateDeleteFeed = generateDeleteFeed;
                 this.exportCategoryId = exportCategoryId;
+
+                this.generatedFiles = generatedFiles;
 
                 this.tracker = new HashMap();
                 this.previousTracker = null;
@@ -110,7 +119,7 @@ var CSVExportHandler = AbstractExportHandler.extend(
                 }
             },
             initPreviousTracker : function() {
-                if (this.deltaCatalogExportInDays && this.deltaCatalogExportInDays > 0) {
+                if (this.deltaCatalogInDays && this.deltaCatalogInDays > 0) {
                     var dirPath = this.file.getFullPath().split('').join(''); //make copy of the string
                     dirPath = dirPath.slice(0, dirPath.lastIndexOf('/'));
                     this.previousTracker = FeedTracker.getPreviousTracker(dirPath, this.locale);
@@ -123,10 +132,25 @@ var CSVExportHandler = AbstractExportHandler.extend(
              * @returns {Array} An array with the defined values
              */
             getProductFields : function(product : dw.catalog.Product){
+                var socialCategory = this.socialCategory;
+                var googleShoppingCategories = this.googleShoppingCategories;
                 result = [];
                 for each(var field : String in this.fields){
                     var f = this.fieldCache[field];
-                    result.push(ProductFieldMapper.getField(product, f.attribute, f.format, f.sep, f.type, f.sep2, f.postProcess, f.attributes, this.socialCategory, this.googleShoppingCategories));
+                    var data = ProductFieldMapper.getField(product, f.attribute, f.format, f.sep, f.type, f.sep2, f.postProcess, f.attributes, socialCategory, googleShoppingCategories);
+                    if (data instanceof Array) {
+                        if (socialCategory.toUpperCase() !== 'SOCIALCHANNELINSTAGRAM') {
+                            data = data.map(function(dataValue) {
+                                return !empty(dataValue) ? dataValue.toString().replace(/[\r\n|\n]/g, ' ') : '';
+                            });
+                        }
+                        result = result.concat(data);
+                    } else {
+                        if (socialCategory.toUpperCase() !== 'SOCIALCHANNELINSTAGRAM') {
+                            data = !empty(data) ? data.toString().replace(/[\r\n|\n]/g, ' ') : '';
+                        }
+                        result.push(data);
+                    }
                 }
                 return result;
             },
@@ -136,12 +160,13 @@ var CSVExportHandler = AbstractExportHandler.extend(
                 dict.put('p', product);
                 dict.put('t', this);
                 var content : dw.value.MimeEncodedText = tmpl.render(dict);
-
-                return content.getText().trim().split(this.separator);
+                return this.socialCategory.toUpperCase() !== 'SOCIALCHANNELINSTAGRAM'
+                    ? content.getText().trim().split(this.separator)
+                    : content.getText().split(this.separator);
             },
-            exportProduct : function (product : dw.catalog.Product, locales){
+            exportProduct : function (product : dw.catalog.Product, locales, socialCategory){
                 var line;
-                if (this.shouldExportProduct(product, locales, this.getPrice(product))) {
+                if (this.shouldExportProduct(product, locales, this.getPrice(product), socialCategory)) {
                     if (this.locale && this.locale !== dw.system.Site.getCurrent().defaultLocale) {
                         line = this.getLocalizedAttributeValue(product);
                     } else {
@@ -151,19 +176,47 @@ var CSVExportHandler = AbstractExportHandler.extend(
                 }
             },
             beginExport : function() {
-                this.writer.writeNext(this.header);
+                this.writer.writeNext(this.getHeader());
             },
             endExport: function () {
                 this.writer.close();
                 this.fileWriter.close();
 
-                if (typeof this.file !== 'undefined') {
-                    var fileFinalName = this.file.getFullPath();
-                    var n = fileFinalName.lastIndexOf("/TEMP_");
-                    fileFinalName = fileFinalName.substring(0,n) + fileFinalName.substring(n).replace("/TEMP_","/");
+                if (this.file && typeof this.file !== 'undefined') {
+                    var deleteFile = false;
 
-                    var newFile = new File(fileFinalName);
-                    this.file.renameTo(newFile);
+                    // if social channel is Snapchat, don't post empty files
+                    if (this.socialCategory.toUpperCase() == 'SOCIALCHANNELSNAPCHAT') {
+                        const FileReader = require('dw/io/FileReader');
+                        const reader = new FileReader(this.file);
+                        var line;
+                        var lineCount = 0;
+                        while ((reader.readLine()) != null && lineCount < 2) {
+                            lineCount++;
+                        }
+                        reader.close();
+                        if (lineCount <= 1) {
+                            deleteFile = true;
+                        }
+                    }
+
+                    if (deleteFile) {
+                        try {
+                            this.file.remove();
+                            Logger.debug('file was empty, deleted temp file {0}', this.file.name);
+                        } catch (e) {
+                            Logger.error(e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
+                        }
+                    } else {
+                        var fileFinalName = this.file.getFullPath();
+                        var n = fileFinalName.lastIndexOf("/TEMP_");
+                        fileFinalName = fileFinalName.substring(0,n) + fileFinalName.substring(n).replace("/TEMP_","/");
+
+                        var newFile = new File(fileFinalName);
+                        this.file.renameTo(newFile);
+
+                        this.generatedFiles.push(fileFinalName);
+                    }
                 }
 
             },
@@ -171,17 +224,21 @@ var CSVExportHandler = AbstractExportHandler.extend(
                 var fileGenereated = false;
                 var dirPath = this.file.getFullPath().split('').join(''); //make copy of the string
                 dirPath = dirPath.slice(0, dirPath.lastIndexOf('/'));
-                if(this.generateDeleteFeed || (this.deltaCatalogExportInDays && this.deltaCatalogExportInDays > 0)) {
-                    //save tracker into a file 
+                if(this.generateDeleteFeed || (this.deltaCatalogInDays && this.deltaCatalogInDays > 0)) {
+                    //save tracker into a file
                     var result = FeedTracker.storeTrackerDataToFile(this.tracker, dirPath, this.locale);
 
                     //generate delete file
                     if(result && this.generateDeleteFeed) {
                         fileGenereated = FeedTracker.generateDeleteFile(this.tracker, dirPath);
+                        //tiktok need an empty file for delete
+                        if(!fileGenereated && this.socialCategory.toUpperCase() == "SOCIALCHANNELTIKTOK"){
+                            fileGenereated = FeedTracker.createDeleteFile(result = [], dirPath);
+                        }
                     }
                 }
 
-                FeedTracker.trackJobRun(dirPath, fileGenereated, this.deltaCatalogExportInDays > 0);
+                FeedTracker.trackJobRun(dirPath, fileGenereated, this.deltaCatalogInDays > 0);
             },
             exportStoreTransaction : function (transactionDeatils) {
                 let transactionTime = this.getTransactionTime();
@@ -202,8 +259,7 @@ var CSVExportHandler = AbstractExportHandler.extend(
                     let result = transactionDeatils[field];
                     return result;
                 } catch(e) {
-                    let Logger = require('dw/system/Logger');
-                    Logger.getLogger('GlobalFeedExport', 'GlobalFeedExport').error('Error occured while mapping field {0} for customer profile {1}', field, transactionDeatils.customerNo);
+                    Logger.error('Error occured while mapping field {0} for customer profile {1}', field, transactionDeatils.customerNo);
                 }
                 return null;
             },
@@ -213,7 +269,7 @@ var CSVExportHandler = AbstractExportHandler.extend(
                 if (length > 0){
                     let lastField = this.fields[length-1];
                     let transactionAttribute = this.fieldCache[lastField].attribute;
-                    transactionAttribute = transactionAttribute.split('|'); 
+                    transactionAttribute = transactionAttribute.split('|');
                     try {
                         let regEx= /[-]/g;
                         transactionTime = transactionAttribute.length > 1 ? new Date(transactionAttribute[1].replace(regEx, '/')) : null;
@@ -224,8 +280,34 @@ var CSVExportHandler = AbstractExportHandler.extend(
                 return transactionTime;
             },
             getPrice : function (product) {
-                let price = ProductFieldMapper.getField(product, 'price');
+                let googleChannel = this.socialCategory == "SocialChannelGoogle";
+                let isLocaleSet = true;
+
+                if (googleChannel) {
+                   isLocaleSet = CustomSocialFeedsHelper.setSessionForLocale(this.locale);
+                   ProductFieldMapper.setCurrentLocale(this.locale);
+                }
+
+                let price = isLocaleSet ? ProductFieldMapper.getField(product, 'price') : null;
                 return price;
+            },
+            getHeader: function() {
+                let length  = this.header.length;
+                let header = length > 0 ? this.header : [];
+                let lastIndex = header.lastIndexOf('all');
+                if (lastIndex > 0 && lastIndex == header.length - 1) {
+                    var products : SeekableIterator = ProductMgr.queryAllSiteProducts();
+                    var product : Product = products.next();
+                    let allCustomAttributesKeys = ProductFieldMapper.getAllCustomAttributesDefinitions(product);
+                    if (allCustomAttributesKeys.length == 0) {
+                        return this.header;
+                    } else {
+                        header.splice(lastIndex);
+                        header = header.concat(allCustomAttributesKeys);
+                        return header;
+                    }
+                }
+                return this.header;
             }
         });
 

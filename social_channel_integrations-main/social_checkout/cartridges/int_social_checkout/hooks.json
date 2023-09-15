@@ -1,12 +1,28 @@
 {
     "hooks": [
         {
+            "name": "dw.ocapi.shop.basket.afterPATCH",
+            "script": "./cartridge/scripts/hooks/basket/basket.js"
+        },
+        {
+            "name": "dw.ocapi.shop.basket.afterPOST",
+            "script": "./cartridge/scripts/hooks/basket/basket.js"
+        },
+        {
             "name": "dw.ocapi.shop.order.afterPATCH",
             "script": "./cartridge/scripts/hooks/order/orderPatch.js"
         },
         {
             "name": "dw.ocapi.shop.order.beforeGET",
             "script": "./cartridge/scripts/hooks/order/orderDetail.js"
-        }                
+        },
+        {
+            "name": "dw.scapi.orders.beforePOST",
+            "script": "./cartridge/scripts/hooks/order/orderPost.js"
+        },
+        {
+            "name": "dw.scapi.orders.afterPOST",
+            "script": "./cartridge/scripts/hooks/order/orderPost.js"
+        }
     ]
 }

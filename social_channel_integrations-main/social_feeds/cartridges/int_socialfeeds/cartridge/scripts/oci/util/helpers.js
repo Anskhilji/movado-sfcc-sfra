@@ -11,7 +11,7 @@ var config = require('../oci.config');
  * @description Expands a JSON String into an object.  Takes a JSON string and attempts
  * to deserialize it.  A default value can be applied in the event that deserialization fails.
  *
- * @param {String} jsonString Represents the JSON String being expanded and deserialized.
+ * @param {string} jsonString Represents the JSON String being expanded and deserialized.
  * @param {*} defaultValue Represents the default value to be applied to the variable if the JSON
  * string could not be expanded / deserialized.
  * @returns {*} Returns undefined if empty string or exception encountered
@@ -44,7 +44,7 @@ function getAccessToken(param) {
 /**
  * @description Returns the org id saved in the custom object.
  * @param {Object} co custom object
- * @return {String} Org id
+ * @return {string} Org id
  */
 function getOrgId(co) {
     return co.custom.OrgId.substr(7);
@@ -52,26 +52,26 @@ function getOrgId(co) {
 
 /**
  * @description Returns configuration custom object
- * @param {String} customObjectId custom object id
+ * @param {string} customObjectId custom object id
  * @return {Object|undefined} custom object
  */
 function getConfigCO(customObjectId) {
-    var iter,
-        co;
+    var iter;
+    var co;
     try {
         iter = require('dw/object/CustomObjectMgr').getAllCustomObjects(config.customObject.extendedExportList);
 
-        while(iter.hasNext()) {
+        while (iter.hasNext()) {
             co = iter.next();
-            if (co.custom.ID.equals(customObjectId)){
+            if (co.custom.ID.equals(customObjectId)) {
                 break;
             }
         }
-    } catch(e) {
-        Logger.error("Error retrieving the location group information from the custom object.");
+    } catch (e) {
+        Logger.error('Error retrieving the location group information from the custom object.');
         return co;
     } finally {
-        if(iter) {
+        if (iter) {
             iter.close();
         }
     }

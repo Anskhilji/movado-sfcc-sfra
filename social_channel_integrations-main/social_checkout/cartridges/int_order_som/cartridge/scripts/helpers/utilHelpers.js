@@ -1,4 +1,5 @@
 'use strict';
+
 var Money = require('dw/value/Money');
 var StringUtils = require('dw/util/StringUtils');
 var Calendar = require('dw/util/Calendar');

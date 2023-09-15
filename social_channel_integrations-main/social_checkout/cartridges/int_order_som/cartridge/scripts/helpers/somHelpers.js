@@ -149,7 +149,6 @@ function getNoneFulfillOrderLineItems(config) {
     var hasFulfillment = config.hasFulfillment;
     var hasCanceled = config.hasCanceled;
 
-
     var noneFulfillOrderItemSummaries = [];
     var orderItemDetail;
 
@@ -269,4 +268,3 @@ module.exports = {
     getFulfillOrderLineItems: getFulfillOrderLineItems,
     expandJSON: expandJSON
 };
-

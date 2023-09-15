@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * All the nodes for Google BM extension
  * @module controllers/BM_Google
@@ -14,6 +15,81 @@ var googleService = require('int_google/cartridge/scripts/services/googleService
 var validationHelper = require('../scripts/utils/validationHelper');
 
 /**
+ * Force disconnect the current user from the current site.
+ */
+function forceDisconnect() {
+    var googleSettings = customObjectHelper.getCustomObject();
+    customObjectHelper.removeCustomObject(googleSettings);
+    response.redirect(require('dw/web/URLUtils').https('BM_Google-Start', 'csrf_token', request.httpParameterMap.csrf_token.stringValue));
+}
+
+/**
+ * Launch google and show the manage page
+ */
+function launch() {
+    var SEPARATOR = ':';
+
+    var form = session.forms.google;
+    var googleSettings = customObjectHelper.getCustomObject();
+    var siteId = Site.getCurrent().ID;
+    var orgId = form.orgid.value;
+
+    if (!validationHelper.validateOrgId(orgId)) {
+        ISML.renderTemplate('google/start', {
+            error: 'invalid.orgid',
+            acceptTerms: googleSettings.custom.acceptTerms
+        });
+        return;
+    }
+
+    var realmId = orgId.substr(7, 4);
+    var instanceType = orgId.substring(12);
+    if (['prd', 'stg'].indexOf(instanceType) === -1) {
+        instanceType = 'dev';
+    }
+
+    var appId = realmId + SEPARATOR + instanceType + SEPARATOR + siteId;
+
+    // validate the AM Credentials
+    if (!validationHelper.validateAMCredentials(form.amclientid.value, form.amclientsecret.value)) {
+        ISML.renderTemplate('google/start', {
+            error: 'invalid.amcredentials',
+            acceptTerms: googleSettings.custom.acceptTerms
+        });
+        return;
+    }
+
+    // Create the connection and save the app details within the form so that it gets saved in the custom object afterward
+    var response = googleService.createConnection(appId, form);
+    if (response.error) {
+        ISML.renderTemplate('google/start', {
+            error: response.errorCode,
+            acceptTerms: googleSettings.custom.acceptTerms
+        });
+        return;
+    }
+    var externalData = {
+        amclientid: form.amclientid.value,
+        orgId: form.orgid.value,
+        email: form.email.value
+    };
+
+    Transaction.wrap(function () {
+        googleSettings.custom.externalData = JSON.stringify(externalData);
+        googleSettings.custom.appId = appId;
+        googleSettings.custom.gmcid = form.gmcid.value;
+        var maxEventObjectAttrDef = googleSettings.describe().getCustomAttributeDefinition('maxNumberEvents');
+        if (maxEventObjectAttrDef) {
+            googleSettings.custom.maxNumberEvents = constants.MAX_TRACKING_EVENTS;
+        }
+    });
+
+    ISML.renderTemplate('google/setup', {
+        googleSettings: googleSettings
+    });
+}
+
+/**
  * Landing page for google
  */
 function start() {
@@ -27,7 +103,16 @@ function start() {
     // If the customer already authenticated, we know the gmcid, we can directly render the 'Manage' page
     if (!empty(googleSettings.custom.appId)) {
         var response = googleService.getConnection(googleSettings.custom.appId);
-        if (!response.error && response.result && response.result.state === constants.STATES.LIVE) {
+        if (response.error) {
+            if (response.errorCode === '404') {
+                Logger.error('Google Connection not found for appid:' + googleSettings.custom.appId);
+            }
+            Logger.error('Unexpected error in get connection. Reseting the connection');
+            forceDisconnect();
+            return;
+        }
+
+        if (response.result && response.result.state === constants.STATES.LIVE) {
             ISML.renderTemplate('google/manage', {
                 googleSettings: googleSettings,
                 externalData: externalData,
@@ -35,21 +120,13 @@ function start() {
                 error: request.httpParameterMap.error.stringValue
             });
             return;
-        } else if(!response.error) {
-            ISML.renderTemplate('google/setup', {
-                googleSettings: googleSettings,
-                error: request.httpParameterMap.error.stringValue
-            });
-            return;
         }
 
-        if (response.error) {
-            if (response.errorCode === '404') {
-                Logger.error('Google Connection not found for appid:' + googleSettings.custom.appId);
-            }
-            Logger.error('Unexpected error in get connection. Reseting the connection');
-            forceDisconnect();
-        }
+        ISML.renderTemplate('google/setup', {
+            googleSettings: googleSettings,
+            error: request.httpParameterMap.error.stringValue
+        });
+        return;
     }
 
     var formSubmitted = request.httpParameterMap.launch.booleanValue;
@@ -89,73 +166,8 @@ function acceptTerms() {
 }
 
 /**
- * Launch google and show the manage page
+ * Disconnect the Google account
  */
-function launch() {
-    var SEPARATOR = ':';
-
-    var form = session.forms.google;
-    var googleSettings = customObjectHelper.getCustomObject();
-    var siteId = Site.getCurrent().ID;
-    var orgId = form.orgid.value;
-
-    if (!validationHelper.validateOrgId(orgId)) {
-        ISML.renderTemplate('google/start', {
-            error: "invalid.orgid",
-            acceptTerms: googleSettings.custom.acceptTerms
-        });
-        return;
-    }
-
-    var realmId = orgId.substr(7, 4);
-    var instanceType = orgId.substring(12);
-    if (['prd','stg'].indexOf(instanceType) === -1) {
-        instanceType = 'dev';
-    }
-
-    var appId = realmId + SEPARATOR + instanceType + SEPARATOR + siteId;
-
-    //validate the AM Credentials
-    if (!validationHelper.validateAMCredentials(form.amclientid.value, form.amclientsecret.value)) {
-        ISML.renderTemplate('google/start', {
-            error: "invalid.amcredentials",
-            acceptTerms: googleSettings.custom.acceptTerms
-        });
-        return;
-    }
-
-    // Create the connection and save the app details within the form so that it gets saved in the custom object afterward
-    var response = googleService.createConnection(appId, form);
-    if (response.error) {
-        ISML.renderTemplate('google/start', {
-            error: response.errorCode,
-            acceptTerms: googleSettings.custom.acceptTerms
-        });
-        return;
-    } else {
-        var external_data = {
-            "amclientid": form.amclientid.value,
-            "orgId": form.orgid.value,
-            "email": form.email.value
-        };
-
-        Transaction.wrap(function () {
-            googleSettings.custom.externalData = JSON.stringify(external_data);
-            googleSettings.custom.appId = appId;
-            googleSettings.custom.gmcid = form.gmcid.value;
-            var maxEventObjectAttrDef = googleSettings.describe().getCustomAttributeDefinition('maxNumberEvents');
-            if (maxEventObjectAttrDef) {
-                googleSettings.custom.maxNumberEvents = constants.MAX_TRACKING_EVENTS;
-            }
-        });
-    }
-
-    ISML.renderTemplate('google/setup', {
-        "googleSettings": googleSettings
-    });
-    return;
-}
-
 function disconnect() {
     var googleSettings = customObjectHelper.getCustomObject();
 
@@ -166,20 +178,13 @@ function disconnect() {
             response.redirect(require('dw/web/URLUtils').https('BM_Google-Start', 'csrf_token', request.httpParameterMap.csrf_token.stringValue));
         } else {
             ISML.renderTemplate('google/setup', {
-                "googleSettings": googleSettings,
-                "error": res.errorCode
+                googleSettings: googleSettings,
+                error: res.errorCode
             });
-            return;
         }
     } else {
         forceDisconnect();
     }
-}
-
-function forceDisconnect() {
-    var googleSettings = customObjectHelper.getCustomObject();
-    customObjectHelper.removeCustomObject(googleSettings);
-    response.redirect(require('dw/web/URLUtils').https('BM_Google-Start', 'csrf_token', request.httpParameterMap.csrf_token.stringValue));
 }
 
 /**

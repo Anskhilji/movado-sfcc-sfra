@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="${URLUtils.staticURL('css/salesforce-lightning-design-system.min.css')}" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>jQuery.noConflict();</script>
 
 <style type="text/css">
     ${'#'}bm_content_column {

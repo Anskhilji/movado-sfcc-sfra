@@ -5,6 +5,21 @@
 
     <isinclude template="tiktok/breadcrumb" />
 
+    <isset name="isTikTokShopConnected" value="${!!pdict.tikTokSettings.custom.tikTokShopConnected}" scope="page" />
+    <isset name="isTikTokMarketingConnected" value="${!!pdict.tikTokSettings.custom.accessToken && !!pdict.tikTokSettings.custom.pixelCode}" scope="page" />
+    <isset name="setupHeader" value="${Resource.msg('tiktok.details', 'tiktok', null)}" scope="page" />
+    <isset name="addFeatureHeader" value="${null}" scope="page" />
+
+    <isif condition="${isTikTokShopConnected && isTikTokMarketingConnected}">
+        <isset name="setupHeader" value="${Resource.msg('tiktok.connected.marketing.shop', 'tiktok', null)}" scope="page" />
+    <iselseif condition="${isTikTokMarketingConnected}" />
+        <isset name="setupHeader" value="${Resource.msg('tiktok.shop.connected', 'tiktok', null)}" scope="page" />
+        <isset name="addFeatureHeader" value="${Resource.msg('tiktok.add.onboard.shop', 'tiktok', null)}" scope="page" />
+    <iselseif condition="${isTikTokShopConnected}" />
+        <isset name="setupHeader" value="${Resource.msg('tiktok.shop.connected', 'tiktok', null)}" scope="page" />
+        <isset name="addFeatureHeader" value="${Resource.msg('tiktok.add.onboard.marketing', 'tiktok', null)}" scope="page" />
+    </isif>
+
     <div class="slds-grid slds-m-top_medium">
         <div class="slds-col slds-size_1-of-1">
             <div class="slds-row">
@@ -28,26 +43,21 @@
                     <div class="slds-grid slds-gutters">
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                             <div class="slds-tile__detail">
-                                <h2 class="slds-m-vertical_medium slds-text-heading_small">
-                                    <isif condition="${!empty(pdict.tikTokSettings.custom.pixelCode) && (!empty(pdict.tikTokSettings.custom.tikTokShopConnected) && pdict.tikTokSettings.custom.tikTokShopConnected == true)}">
-                                        <b>${Resource.msg('tiktok.connected.marketing.shop', 'tiktok', null)}</b>
-                                        <isset name="isDisplayDetails" value="${false}" scope="page" />
-                                    <iselseif condition="${!empty(pdict.tikTokSettings.custom.pixelCode)}" />
-                                        <b>${Resource.msg('tiktok.marketing.connected', 'tiktok', null)}</b>
-                                        <isset name="isDisplayDetails" value="${true}" scope="page" />
-                                    <iselse/>
-                                        <b>${Resource.msg('tiktok.shop.connected', 'tiktok', null)}</b>
-                                        <isset name="isDisplayDetails" value="${false}" scope="page" />
-                                    </isif>
-                                </h2>
+                                <isif condition="${!empty(setupHeader)}">
+                                    <h2 class="slds-m-vertical_medium slds-text-heading_small">
+                                        <strong><isprint value="${setupHeader}" encoding="htmlcontent" /></strong>
+                                    </h2>
+                                </isif>
                                 <div class="slds-form">
-                                    <isif condition="${isDisplayDetails==true}">
+                                    <isif condition="${!empty(pdict.tikTokSettings.custom.bcId)}">
                                         <div class="slds-form-element slds-form-element_readonly">
                                             <span class="slds-form-element__label">${Resource.msg('tiktok.bcid.label', 'tiktok', null)}</span>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-form-element__static">${pdict.tikTokSettings.custom.bcId}</div>
                                             </div>
                                         </div>
+                                    </isif>
+                                    <isif condition="${!empty(pdict.tikTokSettings.custom.pixelCode)}">
                                         <div class="slds-form-element slds-form-element_readonly">
                                             <span class="slds-form-element__label">${Resource.msg('tiktok.pixelid.label', 'tiktok', null)}</span>
                                             <div class="slds-form-element__control">
@@ -67,6 +77,26 @@
                             </div>
                         </div>
                     </div>
+                    <isif condition="${!empty(addFeatureHeader)}">
+                        <hr />
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <div class="slds-tile__detail">
+                                    <h2 class="slds-m-vertical_medium slds-text-heading_small"><strong>${Resource.msg('tiktok.add.onboard.shop.marketing.header', 'tiktok', null)}</strong></h2>
+                                    <div class="slds-form">
+                                        <div class="slds-form-element slds-m-top_small">
+                                            <a href="${URLUtils.url('BM_TikTok-Start', 'feature', 'true')}" class="slds-button slds-button_brand">
+                                                <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                                    <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#add')}"></use>
+                                                </svg>
+                                                <isprint value="${addFeatureHeader}" encoding="htmlcontent" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </isif>
                     <hr />
                     <div class="slds-grid slds-gutters">
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
@@ -78,7 +108,7 @@
                                             <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
                                                 <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#reset_password')}"></use>
                                             </svg>
-                                            <isprint value="${Resource.msg('tiktok.manage.credentials.title', 'tiktok', null)}" encoding="off" />
+                                            <isprint value="${Resource.msg('tiktok.manage.credentials.title', 'tiktok', null)}" encoding="htmlcontent" />
                                         </a>
                                     </div>
                                 </div>
@@ -87,7 +117,7 @@
                     </div>
                     <hr/>
                     <div class="slds-grid slds-gutters">
-                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
                             <div class="slds-tile__detail">
                                 <h2 class="slds-m-vertical_medium slds-text-heading_small"><strong>${Resource.msg('tiktok.shopper.activitiessync.title', 'tiktok', null)}</strong></h2>
                                 <p><isprint value="${Resource.msg('tiktok.shopper.activitiessync.message', 'tiktok', null)}" encoding="off" /></p>

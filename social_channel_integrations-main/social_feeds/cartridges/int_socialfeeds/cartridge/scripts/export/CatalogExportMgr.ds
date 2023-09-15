@@ -170,7 +170,7 @@ CatalogExportMgr.prototype = {
          */
         handleProduct : function(product : Product){
             for each (var handler in this.handlers) {
-                handler.exportProduct(product, handler.locales);
+                handler.exportProduct(product, handler.locales, handler.socialCategory);
                 // delete handler;
                 handler = null;
             }

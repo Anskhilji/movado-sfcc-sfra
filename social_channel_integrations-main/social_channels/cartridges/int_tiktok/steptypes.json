@@ -32,8 +32,8 @@
                             "@type": "string",
                             "@trim": "true",
                             "@required": "false",
-                            "default-value": "",
-                            "description": "The parametter is used to export the specific category"
+                            "default-value": "large",
+                            "description": "this parameter is used to except a specific category"
                         }
                     ]
                 },
@@ -78,13 +78,6 @@
                         {
                             "@name": "UpdateType",
                             "@description": "Whether the feed is create, update or delete",
-                            "@type": "string",
-                            "@required": true,
-                            "@trim": true
-                        },
-                        {
-                            "@name": "BMHostDomain",
-                            "@description": "Business Host Domain",
                             "@type": "string",
                             "@required": true,
                             "@trim": true

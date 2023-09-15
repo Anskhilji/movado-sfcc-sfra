@@ -1,3 +1,5 @@
+'use strict';
+
 /* jshint strict: false */
 
 /**
@@ -48,7 +50,7 @@ function Class() {}
     var fnTest = /xyz/.test(function () {}) ? /\b_super\b/ : /.*/;
 
     // The base Class implementation (does nothing)
-    //this.Class = function(){};
+    // this.Class = function(){};
 
     /**
      * Create a new sub class
@@ -84,8 +86,7 @@ function Class() {}
         };
         for (var name in prop) {
             // Check if we're overwriting an existing function
-            prototype[name] =
-                typeof prop[name] === 'function' && typeof _super[name] === 'function' && fnTest.test(prop[name]) ? callback(name, prop[name]) : prop[name];
+            prototype[name] = typeof prop[name] === 'function' && typeof _super[name] === 'function' && fnTest.test(prop[name]) ? callback(name, prop[name]) : prop[name];
         }
 
         // The dummy class constructor
@@ -107,7 +108,7 @@ function Class() {}
 
         return Class;
     };
-})();
+}());
 
 /** @type {module:util/Class~Class} */
 exports.Class = Class;
