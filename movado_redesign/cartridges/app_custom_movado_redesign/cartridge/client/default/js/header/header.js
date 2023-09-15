@@ -576,7 +576,6 @@ var lastScrollTop = 0;
     }
 
     lastScrollTop = scrollTop;
-    console.log(scrollTop);
   });
 
 // on load scroll on top
