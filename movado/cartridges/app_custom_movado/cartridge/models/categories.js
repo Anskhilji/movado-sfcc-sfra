@@ -73,7 +73,7 @@ function categoryToObject(category) {
     }
 
     if (!empty(category.custom.categoryBannerImage)) {
-        result.categoryBannerImage = category.custom.categoryBannerImage;
+        result.categoryBannerImage = category.custom.categoryBannerImage.absURL;
     }
     
     if (!empty(category.custom.hexColor)) {
