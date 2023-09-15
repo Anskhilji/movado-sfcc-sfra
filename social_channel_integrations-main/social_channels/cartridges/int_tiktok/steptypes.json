@@ -32,7 +32,7 @@
                             "@type": "string",
                             "@trim": "true",
                             "@required": "false",
-                            "default-value": "large",
+                            "default-value": "",
                             "description": "this parameter is used to except a specific category"
                         }
                     ]
