@@ -125,11 +125,36 @@ function setOptionalLineItemUUID(modelItems, product) {
     }
 }
 
+/**
+ * Created new Pulse Object
+ * @param {Object} order 
+ */
+function getLineItemOnOrderDetailsForEngraving(order) {
+    var productLineItem;
+    var orderLineItems = order.getAllProductLineItems();
+    var orderLineItemsIterator = orderLineItems.iterator();
+
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+
+        // custom : PulseID engraving
+        var items = orderModel.items;
+        setOptionalLineItemUUID(items, productLineItem);
+
+        req.session.raw.custom.appleProductId = '';
+        req.session.raw.custom.appleEngraveOptionId = '';
+        req.session.raw.custom.appleEngravedMessage = '';
+        req.session.raw.custom.pulseIDPreviewURL = '';
+    // custom en
+    }
+}
+
 module.exports = {
     savePulseObj: savePulseObj,
     getPulseObjs: getPulseObjs,
     removePulseObjs: removePulseObjs,
     pulseIdAPICall: pulseIdAPICall,
     setPulseJobID: setPulseJobID,
-    setOptionalLineItemUUID: setOptionalLineItemUUID
+    setOptionalLineItemUUID: setOptionalLineItemUUID,
+    getLineItemOnOrderDetailsForEngraving: getLineItemOnOrderDetailsForEngraving
 }

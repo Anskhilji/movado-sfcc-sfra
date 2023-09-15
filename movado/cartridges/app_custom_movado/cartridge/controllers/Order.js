@@ -404,6 +404,7 @@ server.post(
     function (req, res, next) {
         var Locale = require('dw/util/Locale');
         var OrderMgr = require('dw/order/OrderMgr');
+        var Site = require('dw/system/Site');
 
         var OrderModel = require('*/cartridge/models/order');
         var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
@@ -444,32 +445,10 @@ server.post(
 
 
             var order = OrderMgr.getOrder(req.form.trackOrderNumber);
-
-            var productLineItem;
-            var orderLineItems = order.getAllProductLineItems();
-            var orderLineItemsIterator = orderLineItems.iterator();
     
-            while (orderLineItemsIterator.hasNext()) {
-                productLineItem = orderLineItemsIterator.next();
-                Transaction.wrap(function () {
-                    if (productLineItem instanceof dw.order.ProductLineItem &&
-                        !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
-                        productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
-                    }
-                });
-    
-                // custom : PulseID engraving
-                if (Site.current.preferences.custom.enablePulseIdEngraving) {
-                    var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-                    var items = orderModel.items;
-                    pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
-
-                    req.session.raw.custom.appleProductId = '';
-                    req.session.raw.custom.appleEngraveOptionId = '';
-                    req.session.raw.custom.appleEngravedMessage = '';
-                    req.session.raw.custom.pulseIDPreviewURL = '';
-                }
-                // custom en
+            if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order)) {
+                var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order);
             }
 
             // check the email and postal code of the form
@@ -575,7 +554,6 @@ server.get('GetOrderDetail', function (req, res, next) {
     var Locale = require('dw/util/Locale');
     var OrderMgr = require('dw/order/OrderMgr');
     var Site = require('dw/system/Site');
-    var Transaction = require('dw/system/Transaction');
 
     var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
@@ -587,32 +565,10 @@ server.get('GetOrderDetail', function (req, res, next) {
 
 
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
-    var productLineItem;
-    var orderLineItems = order.getAllProductLineItems();
-    var orderLineItemsIterator = orderLineItems.iterator();
 
-    while (orderLineItemsIterator.hasNext()) {
-        productLineItem = orderLineItemsIterator.next();
-        Transaction.wrap(function () {
-            if (productLineItem instanceof dw.order.ProductLineItem &&
-                !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
-                productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
-            }
-        });
-
-        // custom : PulseID engraving
-        if (Site.current.preferences.custom.enablePulseIdEngraving) {
-            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-            var items = responseObject.orderModel.items;
-            pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
-
-            //unset session for Apple pay
-            req.session.raw.custom.appleProductId = '';
-            req.session.raw.custom.appleEngraveOptionId = '';
-            req.session.raw.custom.appleEngravedMessage = '';
-            req.session.raw.custom.pulseIDPreviewURL = '';
-        }
-        // custom en
+    if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order)) {
+        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+        pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order);
     }
 
     if (!empty(responseObject) && !empty(responseObject.orderModel) && orderNumber.toLowerCase() == responseObject.orderModel.orderNumber.toLowerCase()) {
@@ -637,7 +593,6 @@ server.post('OrderDetail', function (req, res, next) {
     var Locale = require('dw/util/Locale');
     var OrderMgr = require('dw/order/OrderMgr');
     var Site = require('dw/system/Site');
-    var Transaction = require('dw/system/Transaction');
 
     var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
@@ -648,32 +603,10 @@ server.post('OrderDetail', function (req, res, next) {
     
 
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
-    var productLineItem;
-    var orderLineItems = order.getAllProductLineItems();
-    var orderLineItemsIterator = orderLineItems.iterator();
-
-    while (orderLineItemsIterator.hasNext()) {
-        productLineItem = orderLineItemsIterator.next();
-        Transaction.wrap(function () {
-            if (productLineItem instanceof dw.order.ProductLineItem &&
-                !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
-                productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
-            }
-        });
-
-        // custom : PulseID engraving
-        if (Site.current.preferences.custom.enablePulseIdEngraving) {
-            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-            var items = responseObject.orderModel.items;
-            pulseIdAPIHelper.setOptionalLineItemUUID(items, productLineItem);
-
-            //unset session for Apple pay
-            req.session.raw.custom.appleProductId = '';
-            req.session.raw.custom.appleEngraveOptionId = '';
-            req.session.raw.custom.appleEngravedMessage = '';
-            req.session.raw.custom.pulseIDPreviewURL = '';
-        }
-        // custom en
+    
+    if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order)) {
+        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+        pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order);
     }
 
     if (!empty(responseObject) && !empty(responseObject.orderModel) && req.form.trackOrderEmail.toLowerCase() == responseObject.orderModel.orderEmail.toLowerCase() && req.form.trackOrderPostal == responseObject.orderModel.billing.billingAddress.address.postalCode) {

@@ -19,7 +19,7 @@
                 <p>
                     <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
                     <span class="summary-details order-status">
-                        <isif condition="${pdict.omsOrderStatus != null && pdict.omsOrderStatus != null}">
+                        <isif condition="${pdict.omsOrderStatus != null}">
                             ${pdict.omsOrderStatus}
                         <iselse/>
                             ${pdict.order.sapOrderStatus}    
