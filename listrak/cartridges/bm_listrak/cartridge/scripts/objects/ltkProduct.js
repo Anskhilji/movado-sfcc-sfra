@@ -15,12 +15,14 @@ var Logger = require('dw/system/Logger').getLogger('Listrak');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
+var Constants = require('*/cartridge/scripts/util/Constants');
+
 /**
  * Object that holds inflated product information.
  * */
 function ltkProduct() {
     var viewtype = dw.system.Site.current.preferences.custom.Listrak_ProductImageViewType;
-
+    this.locale = '';
     this.sku = '';
     this.masterSku = '';
     this.variant = '';
@@ -83,6 +85,13 @@ function ltkProduct() {
     this.dialColor = '';
     // Custom End:
     this.familyName = '';
+    // 2385
+    this.productStyle = '';
+    this.productCaseDiameter = '';
+    this.caseMaterial = '';
+    this.attachmentTypeAttr = '';
+    this.strapColorAttr = '';
+    this.jewelryStyle = '';
 }
 
 /* Method to load product URLs only. */
@@ -105,6 +114,7 @@ ltkProduct.prototype.LoadProductURLOnly = function (product) {
 
 /* Method to load full product. */
 ltkProduct.prototype.LoadProduct = function (product) {
+    this.locale = this.setCurrentLocale();
     this.product = product;
 	// Sku
     if (product.variant) {
@@ -208,6 +218,13 @@ ltkProduct.prototype.LoadProduct = function (product) {
     this.caseDiameter = this.getCaseDiameter(product);
     // Custom End
     this.familyName = this.getFamilyName(product);
+    // 2385
+    this.productStyle = this.getProductStyle(product);
+    this.productCaseDiameter = this.getCaseDiameterWithUnit(product);
+    this.caseMaterial = this.getCaseMaterial(product);
+    this.attachmentTypeAttr = this.getAttachmentTypeAttr(product);
+    this.strapColorAttr = this.getStrapColorAttr(product);
+    this.jewelryStyle = this.getJewelryStyle(product);
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {
@@ -644,3 +661,169 @@ ltkProduct.prototype.getDialColor = function (product) {
     }
 }
 // Custom End
+
+// 2385
+ltkProduct.prototype.getProductStyle = function (product) {
+    var productStyle;
+    var productSKU = !empty(product.ID) ? product.ID : '';
+    var productSKUInitials = productSKU ? productSKU.substr(0, 3) : '';
+    var productSKUFourInitials = productSKU ? productSKU.substr(0, 4) : '';
+
+    if (!empty(productSKUInitials) && !empty(productSKUFourInitials)) {
+        if (productSKUInitials === Constants.WATCHES_INITIALS || productSKUInitials === Constants.STRAPS_INITIALS || productSKUFourInitials === Constants.WATCH_INITIALS) {
+            productStyle = Constants.WATCHES_CATEGORY;
+        } else if (productSKUInitials === Constants.JEWELRY_INITIALS || productSKUInitials === Constants.JEWELRY_INITIALS_CHAR) {
+            productStyle = Constants.JEWELRY_CATEGORY;
+        }
+    }
+
+    return productStyle;
+}
+
+ltkProduct.prototype.setCurrentLocale = function () {
+    var localeUS = Constants.EN_LOCALE;
+    var localeGB = Constants.EN_GB_LOCALE;
+
+    if (Site.current.ID === 'OliviaBurtonUS') {
+        request.setLocale(localeUS);
+    } else if (Site.current.ID === 'OliviaBurtonUK') {
+        request.setLocale(localeGB);
+    }
+}
+
+ltkProduct.prototype.getCaseDiameterWithUnit = function (product) {
+    var productCaseDiameter = !empty(product.custom.caseDiameter) ? product.custom.caseDiameter : '';
+    var caseDiameterUnit = Constants.SMALL_MM_UNIT;
+    productCaseDiameter = productCaseDiameter + caseDiameterUnit;
+    return productCaseDiameter;
+}
+
+ltkProduct.prototype.getCaseMaterial = function (product) {
+    var caseMaterial = '';
+    var caseMaterialAttr = '';
+    var caseMaterialArray = '';
+    var productFeedCaseMaterialJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedCaseMaterialAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedCaseMaterialAttribute : '';
+    productFeedCaseMaterialJson = !empty(productFeedCaseMaterialJson) ? JSON.parse(productFeedCaseMaterialJson) : '';
+
+    if (productFeedCaseMaterialJson) {
+        try {
+            caseMaterialAttr = !empty(product.custom.caseMaterial) ? product.custom.caseMaterial : '';
+    
+            if (!empty(caseMaterialAttr)) {
+                caseMaterialArray = caseMaterialAttr.split(',');
+            }
+            
+            if (!empty(productFeedCaseMaterialJson) && !empty(caseMaterialArray) && !empty(caseMaterialArray[0])) {
+                caseMaterial = productFeedCaseMaterialJson[caseMaterialArray[0]];
+            }
+    
+            return caseMaterial;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Case Material Attribute for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
+        }
+    }
+}
+
+ltkProduct.prototype.getColor = function (product) {
+    var color = '';
+    var colorAttr = '';
+    var colorArray = '';
+    var productFeedColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedColorAttribute : '';
+    productFeedColorJson = !empty(productFeedColorJson) ? JSON.parse(productFeedColorJson) : '';
+
+    if (productFeedColorJson) {
+        try {
+            colorAttr = !empty(product.custom.color) ? product.custom.color : '';
+    
+            if (!empty(colorAttr)) {
+                colorArray = colorAttr.split(',');
+            }
+            
+            if (!empty(productFeedColorJson) && !empty(colorArray) && !empty(colorArray[0])) {
+                color = productFeedColorJson[colorArray[0]];
+            }
+    
+            return color;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Color Attribute for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
+        }
+    }
+}
+
+ltkProduct.prototype.getAttachmentTypeAttr = function (product) {
+    var attachmentTypeAttribute = '';
+    var attachmentTypeAttr = '';
+    var attachmentTypeArray = '';
+    var productFeedAttachmentTypeJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedAttachmentTypeAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedAttachmentTypeAttribute : '';
+    productFeedAttachmentTypeJson = !empty(productFeedAttachmentTypeJson) ? JSON.parse(productFeedAttachmentTypeJson) : '';
+
+    if (productFeedAttachmentTypeJson) {
+        try {
+            attachmentTypeAttr = !empty(product.custom.attachmentType) ? product.custom.attachmentType : '';
+    
+            if (!empty(attachmentTypeAttr)) {
+                attachmentTypeArray = attachmentTypeAttr.split(',');
+            }
+            
+            if (!empty(productFeedAttachmentTypeJson) && !empty(attachmentTypeArray) && !empty(attachmentTypeArray[0])) {
+                attachmentTypeAttribute = productFeedAttachmentTypeJson[attachmentTypeArray[0]];
+            }
+    
+            return attachmentTypeAttribute;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Attachment Type Attribute for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
+        }
+    }
+}
+
+ltkProduct.prototype.getStrapColorAttr = function (product) {
+    var strapColorAttribute = '';
+    var strapColorAttr = '';
+    var strapColorArray = '';
+    var productFeedStrapColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedStrapColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedStrapColorAttribute : '';
+    productFeedStrapColorJson = !empty(productFeedStrapColorJson) ? JSON.parse(productFeedStrapColorJson) : '';
+
+    if (productFeedStrapColorJson) {
+        try {
+            strapColorAttr = !empty(product.custom.strapColor) ? product.custom.strapColor : '';
+    
+            if (!empty(strapColorAttr)) {
+                strapColorArray = strapColorAttr.split(',');
+            }
+            
+            if (!empty(productFeedStrapColorJson) && !empty(strapColorArray) && !empty(strapColorArray[0])) {
+                strapColorAttribute = productFeedStrapColorJson[strapColorArray[0]];
+            }
+    
+            return strapColorAttribute;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Strap Color Attribute for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
+        }
+    }
+}
+
+ltkProduct.prototype.getJewelryStyle = function (product) {
+    var jewelryStyle = '';
+    var jewelryStyleAttr = '';
+    var jewelryStyleArray = '';
+    var productFeedJewelryStyleJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedJewelryStyleAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedJewelryStyleAttribute : '';
+    productFeedJewelryStyleJson = !empty(productFeedJewelryStyleJson) ? JSON.parse(productFeedJewelryStyleJson) : '';
+
+    if (productFeedJewelryStyleJson) {
+        try {
+            jewelryStyleAttr = !empty(product.custom.jewelryStyle) ? product.custom.jewelryStyle : '';
+    
+            if (!empty(jewelryStyleAttr)) {
+                jewelryStyleArray = jewelryStyleAttr.split(',');
+            }
+            
+            if (!empty(productFeedJewelryStyleJson) && !empty(jewelryStyleArray) && !empty(jewelryStyleArray[0])) {
+                jewelryStyle = productFeedJewelryStyleJson[jewelryStyleArray[0]];
+            }
+    
+            return jewelryStyle;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Jewelry Style Attribute for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
+        }
+    }
+}
