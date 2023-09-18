@@ -9,6 +9,13 @@ var StringUtils = require('dw/util/StringUtils');
 var XMLStreamWriter = require('dw/io/XMLStreamWriter');
 var logger = require('dw/system/Logger').getLogger('CLYDE', 'importClydeContract');
 
+var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+
+if (enablePulseIdEngraving) {
+    var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
+}
+
+
 /**
  * Function used to get product search hits
  * @returns {Object} - productSearchHitsItr
@@ -48,16 +55,18 @@ function writeCatalogFileContent(result, fileWriter, productSearchHitsItr) {
         var productOptions;
         var pulseIdOptionValue = {};
         var product = productSearchHitsItr.next().product;
-        if (product && product.optionModel && product.optionModel.options && product.optionModel.options.length > 0) {
-            var getOption = product.optionModel.getOption('pulseIdEngraving');
+
+        if (enablePulseIdEngraving && product && product.optionModel && product.optionModel.options && product.optionModel.options.length > 0) {
+            var getOption = product.optionModel.getOption(pulseIdConstants.ENGRAVING_ID);
             if (getOption) {
-                var getOptionValue = product.optionModel.getOptionValue(getOption, 'Engraving');
+                var getOptionValue = product.optionModel.getOptionValue(getOption, pulseIdConstants.ENGRAVING_OPTION_PRODUCT_VALUE_ID);
                 var getPrice = product.optionModel.getPrice(getOptionValue);
                 pulseIdOptionValue.option = getOption;
                 pulseIdOptionValue.optionValue = getOptionValue;
                 pulseIdOptionValue.price = getPrice;
             }
         }
+
         // Default Option Product
         fileWriter.writeStartElement('product');
         fileWriter.writeAttribute('product-id', product.ID);
@@ -136,82 +145,82 @@ function writeCatalogFileContent(result, fileWriter, productSearchHitsItr) {
         fileWriter.writeEndElement();
         fileWriter.writeCharacters('\n');
 
-     if (pulseIdOptionValue && pulseIdOptionValue.option && pulseIdOptionValue.option.ID == 'pulseIdEngraving') {
-        fileWriter.writeStartElement('option');
-        fileWriter.writeAttribute('option-id', pulseIdOptionValue.option.ID);
+        if (enablePulseIdEngraving && pulseIdOptionValue && pulseIdOptionValue.option && pulseIdOptionValue.option.ID == pulseIdConstants.ENGRAVING_ID) {
+            fileWriter.writeStartElement('option');
+            fileWriter.writeAttribute('option-id', pulseIdOptionValue.option.ID);
 
-        fileWriter.writeStartElement('sort-mode');
-        fileWriter.writeCharacters('price');
-        fileWriter.writeEndElement();
-        fileWriter.writeCharacters('\n');
+            fileWriter.writeStartElement('sort-mode');
+            fileWriter.writeCharacters('price');
+            fileWriter.writeEndElement();
+            fileWriter.writeCharacters('\n');
 
-        fileWriter.writeStartElement('option-values');
-        fileWriter.writeStartElement('option-value');
-        fileWriter.writeAttribute('value-id', pulseIdOptionValue.option.defaultValue.ID);
-        fileWriter.writeAttribute('default', 'true');
-
-        fileWriter.writeStartElement('display-value');
-        fileWriter.writeAttribute('xml:lang', 'x-default');
-        fileWriter.writeCharacters(pulseIdOptionValue.option.defaultValue.ID);
-        fileWriter.writeEndElement();
-        fileWriter.writeCharacters('\n');
-
-        fileWriter.writeStartElement('product-id-modifier');
-        fileWriter.writeCharacters(pulseIdOptionValue.option.defaultValue.ID);
-        fileWriter.writeEndElement();
-        fileWriter.writeCharacters('\n');
-
-        fileWriter.writeStartElement('option-value-prices');
-        fileWriter.writeStartElement('option-value-price');
-        fileWriter.writeAttribute('currency', pulseIdOptionValue.price.currencyCode);
-        fileWriter.writeCharacters('0');
-        fileWriter.writeEndElement();
-        fileWriter.writeCharacters('\n');
-
-        fileWriter.writeEndElement();
-        fileWriter.writeCharacters('\n');
-
-        fileWriter.writeEndElement();
-        fileWriter.writeCharacters('\n');
-
-        //set option Values
-        if (pulseIdOptionValue.optionValue) {
+            fileWriter.writeStartElement('option-values');
             fileWriter.writeStartElement('option-value');
-            fileWriter.writeAttribute('value-id', pulseIdOptionValue.optionValue.ID);
-            fileWriter.writeAttribute('default', 'false');
+            fileWriter.writeAttribute('value-id', pulseIdOptionValue.option.defaultValue.ID);
+            fileWriter.writeAttribute('default', 'true');
 
             fileWriter.writeStartElement('display-value');
             fileWriter.writeAttribute('xml:lang', 'x-default');
-            fileWriter.writeCharacters(pulseIdOptionValue.optionValue.displayValue);
+            fileWriter.writeCharacters(pulseIdOptionValue.option.defaultValue.ID);
             fileWriter.writeEndElement();
             fileWriter.writeCharacters('\n');
 
             fileWriter.writeStartElement('product-id-modifier');
-            fileWriter.writeCharacters(pulseIdOptionValue.optionValue.productIDModifier);
+            fileWriter.writeCharacters(pulseIdOptionValue.option.defaultValue.ID);
             fileWriter.writeEndElement();
             fileWriter.writeCharacters('\n');
 
             fileWriter.writeStartElement('option-value-prices');
-
             fileWriter.writeStartElement('option-value-price');
             fileWriter.writeAttribute('currency', pulseIdOptionValue.price.currencyCode);
-            fileWriter.writeCharacters(pulseIdOptionValue.price.value);
+            fileWriter.writeCharacters('0');
             fileWriter.writeEndElement();
             fileWriter.writeCharacters('\n');
 
+            fileWriter.writeEndElement();
+            fileWriter.writeCharacters('\n');
+
+            fileWriter.writeEndElement();
+            fileWriter.writeCharacters('\n');
+
+           //set option Values
+            if (pulseIdOptionValue.optionValue) {
+                fileWriter.writeStartElement('option-value');
+                fileWriter.writeAttribute('value-id', pulseIdOptionValue.optionValue.ID);
+                fileWriter.writeAttribute('default', 'false');
+
+                fileWriter.writeStartElement('display-value');
+                fileWriter.writeAttribute('xml:lang', 'x-default');
+                fileWriter.writeCharacters(pulseIdOptionValue.optionValue.displayValue);
+                fileWriter.writeEndElement();
+                fileWriter.writeCharacters('\n');
+
+                fileWriter.writeStartElement('product-id-modifier');
+                fileWriter.writeCharacters(pulseIdOptionValue.optionValue.productIDModifier);
+                fileWriter.writeEndElement();
+                fileWriter.writeCharacters('\n');
+
+                fileWriter.writeStartElement('option-value-prices');
+
+                fileWriter.writeStartElement('option-value-price');
+                fileWriter.writeAttribute('currency', pulseIdOptionValue.price.currencyCode);
+                fileWriter.writeCharacters(pulseIdOptionValue.price.value);
+                fileWriter.writeEndElement();
+                fileWriter.writeCharacters('\n');
+
+                fileWriter.writeEndElement();
+                fileWriter.writeCharacters('\n');
+
+                fileWriter.writeEndElement();
+                fileWriter.writeCharacters('\n');
+            }
+            // close option tag
             fileWriter.writeEndElement();
             fileWriter.writeCharacters('\n');
 
             fileWriter.writeEndElement();
             fileWriter.writeCharacters('\n');
         }
-        // close option tag
-        fileWriter.writeEndElement();
-        fileWriter.writeCharacters('\n');
-
-        fileWriter.writeEndElement();
-        fileWriter.writeCharacters('\n');
-    }
 
         fileWriter.writeEndElement();
         fileWriter.writeCharacters('\n');
