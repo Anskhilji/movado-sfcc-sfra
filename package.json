@@ -160,7 +160,6 @@
     "jquery": "./node_modules/jquery",
     "beam": "./beam/cartridges/int_beam/cartridge/client/default/js",
     "pulseid": "./pulseid/cartridges/int_pulseid_engraving/cartridge/client/default/js"
-	
   },
   "scssAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/scss",
