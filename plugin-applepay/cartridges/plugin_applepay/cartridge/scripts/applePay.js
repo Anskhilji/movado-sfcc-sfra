@@ -62,7 +62,8 @@ function comparePostalCode(address) {
     var result = !postalCodeRegex.test(address);
     if (result) {
         // postal code validation for UK
-        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]?[0-9][ABD-HJLN-UW-Z]{2}|GIR0AA)$)/i
+        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? ?[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/i
+
         result = !postalCodeRegex.test(address);
     }
 
@@ -78,7 +79,6 @@ function getLastName(fullName) {
     var lastName = '';
     if (!empty(fullName)) {
         var splittedFullName;
-        if (empty(fullName)) {
             splittedFullName = fullName.split(" ");
             if (splittedFullName.length > 0) {
                 lastName = splittedFullName[1];
@@ -86,12 +86,10 @@ function getLastName(fullName) {
             if (empty(lastName)) {
                 var currentBasket = BasketMgr.getCurrentBasket();
                 if (currentBasket.customer.registered == true) {
-                    lastName = profileLastName;
-                } else {
-    
+                    var profileLastName = currentBasket.customer.profile && currentBasket.customer.profile.lastName ? currentBasket.customer.profile.lastName : '';
+                    var lastName = profileLastName;
                 }
             }
-        }
     }
     return lastName;
 }
