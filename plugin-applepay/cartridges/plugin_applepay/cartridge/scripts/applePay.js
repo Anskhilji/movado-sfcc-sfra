@@ -78,18 +78,18 @@ function comparePostalCode(address) {
 function getLastName(fullName) {
     var lastName = '';
     if (!empty(fullName)) {
-        var splittedFullName;
-            splittedFullName = fullName.split(" ");
-            if (splittedFullName.length > 0) {
-                lastName = splittedFullName[1];
+        var splittedFullName = fullName.split(" ");
+        if (splittedFullName.length > 0) {
+            lastName = splittedFullName[1];
+        }
+
+        if (empty(lastName)) {
+            var currentBasket = BasketMgr.getCurrentBasket();
+            if (currentBasket.customer.registered == true) {
+                var profileLastName = currentBasket.customer.profile && currentBasket.customer.profile.lastName ? currentBasket.customer.profile.lastName : '';
+                var lastName = profileLastName;
             }
-            if (empty(lastName)) {
-                var currentBasket = BasketMgr.getCurrentBasket();
-                if (currentBasket.customer.registered == true) {
-                    var profileLastName = currentBasket.customer.profile && currentBasket.customer.profile.lastName ? currentBasket.customer.profile.lastName : '';
-                    var lastName = profileLastName;
-                }
-            }
+        }
     }
     return lastName;
 }
