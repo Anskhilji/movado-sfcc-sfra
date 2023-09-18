@@ -310,7 +310,7 @@ exports.copyOCIFiles = function (args, stepExecution) {
 
     const pathFilesToCopy = [];
 
-    typeFilesToCopy.forEach(type => {
+    typeFilesToCopy.forEach(function (type) {
         var path = jobContext.get(type);
 
         if (path) {
@@ -333,7 +333,7 @@ exports.copyOCIFiles = function (args, stepExecution) {
 
     var destinationFolder = new File(File.IMPEX + File.SEPARATOR + 'src' + destinationPath);
 
-    pathFilesToCopy.forEach(nameFile => {
+    pathFilesToCopy.forEach(function (nameFile) {
         var originalFile = new File(nameFile);
         FileHelper.copyFile(originalFile, destinationFolder);
     });
