@@ -72,7 +72,7 @@ function comparePostalCode(address) {
 
 /**
  * This method is used to split the full name and return the last name if its applicable.
- * @param firstName
+ * @param fullName
  * @returns results
  */
 function getLastName(fullName) {
