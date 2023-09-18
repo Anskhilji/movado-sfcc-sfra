@@ -62,11 +62,38 @@ function comparePostalCode(address) {
     var result = !postalCodeRegex.test(address);
     if (result) {
         // postal code validation for UK
-        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g;
+        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]?[0-9][ABD-HJLN-UW-Z]{2}|GIR0AA)$)/i
         result = !postalCodeRegex.test(address);
     }
 
     return result;
+}
+
+/**
+ * This method is used to split the full name and return the last name if its applicable.
+ * @param firstName
+ * @returns results
+ */
+function getLastName(fullName) {
+    var lastName = '';
+    if (!empty(fullName)) {
+        var splittedFullName;
+        if (empty(fullName)) {
+            splittedFullName = fullName.split(" ");
+            if (splittedFullName.length > 0) {
+                lastName = splittedFullName[1];
+            }
+            if (empty(lastName)) {
+                var currentBasket = BasketMgr.getCurrentBasket();
+                if (currentBasket.customer.registered == true) {
+                    lastName = profileLastName;
+                } else {
+    
+                }
+            }
+        }
+    }
+    return lastName;
 }
 
 /**
@@ -164,7 +191,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
         var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
-        var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : '';
+        var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : getLastName(billingAddressFirstName);
         var billingAddressAddress1 = !empty(order.billingAddress.address1) ? order.billingAddress.address1.trim() : '';
         var billingAddressCity = !empty(order.billingAddress.city) ? order.billingAddress.city.trim() : '';
         if (empty(billingAddressFirstName) || empty(billingAddressLastName) || empty(billingAddressAddress1) || isBillingPostalNotValid || empty(billingAddressCity)) {
@@ -176,7 +203,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             orderShippingAddress = order.shipments[0].getShippingAddress();
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
             var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
-            var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
+            var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : getLastName(shippingAddressFirstName);
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
