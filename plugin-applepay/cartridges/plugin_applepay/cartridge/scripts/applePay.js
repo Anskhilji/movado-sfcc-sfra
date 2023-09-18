@@ -76,22 +76,27 @@ function comparePostalCode(address) {
  * @returns results
  */
 function getLastName(fullName) {
-    var lastName = '';
-    if (!empty(fullName)) {
-        var splittedFullName = fullName.split(" ");
-        if (splittedFullName.length > 0) {
-            lastName = splittedFullName[1];
-        }
+    try {
+        var lastName = '';
+        if (!empty(fullName)) {
+            var splittedFullName = fullName.split(" ");
+            if (splittedFullName.length > 0) {
+                lastName = splittedFullName[1];
+            }
 
-        if (empty(lastName)) {
-            var currentBasket = BasketMgr.getCurrentBasket();
-            if (currentBasket.customer.registered == true) {
-                var profileLastName = currentBasket.customer.profile && currentBasket.customer.profile.lastName ? currentBasket.customer.profile.lastName : '';
-                var lastName = profileLastName;
+            if (empty(lastName)) {
+                var currentBasket = BasketMgr.getCurrentBasket();
+                if (currentBasket.customer.registered == true) {
+                    var profileLastName = currentBasket.customer.profile && currentBasket.customer.profile.lastName ? currentBasket.customer.profile.lastName : '';
+                    var lastName = profileLastName;
+                }
             }
         }
+        return lastName;
+    } catch (e) {
+        Logger.error('(applePay.js) --> Something went wrong while getting last name. Error: {0} \n Message: {1} \n lineNumber: {2} \n fileName: {3} \n', 
+        e.stack, e.message, e.lineNumber, e.fileName);
     }
-    return lastName;
 }
 
 /**
