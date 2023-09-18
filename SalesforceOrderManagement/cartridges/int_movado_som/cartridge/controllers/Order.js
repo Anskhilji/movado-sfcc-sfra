@@ -98,7 +98,6 @@ server.replace(
         var OrderMgr = require('dw/order/OrderMgr');
         var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
-        var Site = require('dw/system/Site');
         
         var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
 
@@ -135,9 +134,9 @@ server.replace(
 
 
 
-            if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order)) {
+            if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
                 var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order);
+                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
             }
 
 

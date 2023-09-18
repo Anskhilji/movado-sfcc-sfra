@@ -404,7 +404,6 @@ server.post(
     function (req, res, next) {
         var Locale = require('dw/util/Locale');
         var OrderMgr = require('dw/order/OrderMgr');
-        var Site = require('dw/system/Site');
 
         var OrderModel = require('*/cartridge/models/order');
         var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
@@ -419,6 +418,7 @@ server.post(
         if (req.form.trackOrderEmail
             && req.form.trackOrderPostal
             && req.form.trackOrderNumber) {
+            var order = OrderMgr.getOrder(req.form.trackOrderNumber);
         } else {
             validForm = false;
         }
@@ -443,12 +443,10 @@ server.post(
                 { config: config, countryCode: currentLocale.country, containerView: 'order' }
             );
 
-
-            var order = OrderMgr.getOrder(req.form.trackOrderNumber);
     
-            if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order)) {
+            if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
                 var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order);
+                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
             }
 
             // check the email and postal code of the form
@@ -553,7 +551,8 @@ server.get('OrderTracking', function (req, res, next) {
 server.get('GetOrderDetail', function (req, res, next) {
     var Locale = require('dw/util/Locale');
     var OrderMgr = require('dw/order/OrderMgr');
-    var Site = require('dw/system/Site');
+    var OrderModel = require('*/cartridge/models/order');
+
 
     var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
@@ -565,10 +564,18 @@ server.get('GetOrderDetail', function (req, res, next) {
 
 
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
+    var config = {
+        numberOfLineItems: '*'
+    };
 
-    if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order)) {
+    var orderModel = new OrderModel(
+        order,
+        { config: config, countryCode: currentLocale.country, containerView: 'order' }
+    );
+
+    if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
         var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-        pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order);
+        pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
     }
 
     if (!empty(responseObject) && !empty(responseObject.orderModel) && orderNumber.toLowerCase() == responseObject.orderModel.orderNumber.toLowerCase()) {
@@ -592,7 +599,7 @@ server.get('GetOrderDetail', function (req, res, next) {
 server.post('OrderDetail', function (req, res, next) {
     var Locale = require('dw/util/Locale');
     var OrderMgr = require('dw/order/OrderMgr');
-    var Site = require('dw/system/Site');
+    var OrderModel = require('*/cartridge/models/order');
 
     var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
@@ -603,10 +610,17 @@ server.post('OrderDetail', function (req, res, next) {
     
 
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
+    var config = {
+        numberOfLineItems: '*'
+    };
+    var orderModel = new OrderModel(
+        order,
+        { config: config, countryCode: currentLocale.country, containerView: 'order' }
+    );
     
-    if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order)) {
+    if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
         var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-        pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order);
+        pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
     }
 
     if (!empty(responseObject) && !empty(responseObject.orderModel) && req.form.trackOrderEmail.toLowerCase() == responseObject.orderModel.orderEmail.toLowerCase() && req.form.trackOrderPostal == responseObject.orderModel.billing.billingAddress.address.postalCode) {
