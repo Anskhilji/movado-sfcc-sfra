@@ -9,12 +9,19 @@
     }
 }
 
+.page {
+
+  &.page-set {
+    margin-top: rem(40);
+  }
+}
+
 .header-placeholder-sec {
 
   &.header-section-set {
     position: absolute;
  }
- 
+
 }
 .header-banner {
 
