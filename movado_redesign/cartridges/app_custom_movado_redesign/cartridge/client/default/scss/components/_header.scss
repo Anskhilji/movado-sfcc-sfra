@@ -13,6 +13,10 @@
 
   &.page-set {
     margin-top: rem(40);
+
+    .checkout-page {
+      padding-bottom: rem(20);
+    }
   }
 }
 
@@ -1206,9 +1210,39 @@ header.new-header {
 }
 
 .checkout-header-redesign {
+  transition: .4s ease all;
 
-  .sticky-header-wrapper {
+  .desktop-menu-wrapper {
     transition: .4s ease all;
+  }
+  
+  &.fixed-header-wrapper {
+    position: absolute;
+    top: rem(-120);
+  
+    .fixed-header {
+  
+      .header-menu-wrapper {
+  
+        &.desktop-menu-wrapper {
+          top: rem(-120) !important;
+        }
+      }
+  
+      .mobile-menu-wrapper {
+        
+        @include media-breakpoint-down(md) {
+  
+          .header-wrapper {
+            top: rem(-120);
+          }
+        }
+      }
+    }
+  
+    .sticky-header-wrapper {
+      transition: .4s ease all;
+    }
   }
 
   .white-logo {
