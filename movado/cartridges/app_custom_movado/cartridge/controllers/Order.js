@@ -404,8 +404,8 @@ server.post(
     function (req, res, next) {
         var Locale = require('dw/util/Locale');
         var OrderMgr = require('dw/order/OrderMgr');
-
         var OrderModel = require('*/cartridge/models/order');
+        
         var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
 
         var order;
@@ -443,7 +443,6 @@ server.post(
                 { config: config, countryCode: currentLocale.country, containerView: 'order' }
             );
 
-    
             if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
                 var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
                 pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
@@ -553,7 +552,6 @@ server.get('GetOrderDetail', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var OrderModel = require('*/cartridge/models/order');
 
-
     var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
     var currentLocale = Locale.getLocale(req.locale.id);
@@ -561,13 +559,10 @@ server.get('GetOrderDetail', function (req, res, next) {
     var responseObject = orderCustomHelpers.orderDetail(currentLocale, true, orderNumber);
     var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
     var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
-
-
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
     var config = {
         numberOfLineItems: '*'
     };
-
     var orderModel = new OrderModel(
         order,
         { config: config, countryCode: currentLocale.country, containerView: 'order' }
@@ -607,8 +602,6 @@ server.post('OrderDetail', function (req, res, next) {
     var responseObject = orderCustomHelpers.orderDetail(currentLocale, false, req.form.trackOrderNumber, req.form.trackOrderPostal, req.form.trackOrderEmail);
     var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
     var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
-    
-
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
     var config = {
         numberOfLineItems: '*'

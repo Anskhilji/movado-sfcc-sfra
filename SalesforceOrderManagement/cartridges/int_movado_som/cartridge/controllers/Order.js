@@ -124,21 +124,16 @@ server.replace(
             var config = {
                 numberOfLineItems: '*'
             };
-
             var currentLocale = Locale.getLocale(req.locale.id);
-
             var orderModel = new OrderModel(
                 order,
                 { config: config, countryCode: currentLocale.country, containerView: 'order' }
             );
 
-
-
             if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
                 var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
                 pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
             }
-
 
             var emailAddress = orderModel.orderEmail;
 
