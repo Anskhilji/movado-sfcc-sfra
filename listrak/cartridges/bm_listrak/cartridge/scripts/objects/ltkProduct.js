@@ -85,13 +85,15 @@ function ltkProduct() {
     this.dialColor = '';
     // Custom End:
     this.familyName = '';
-    // 2385
+
+    // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
     this.productStyle = '';
     this.productCaseDiameter = '';
     this.caseMaterial = '';
     this.attachmentTypeAttr = '';
     this.strapColorAttr = '';
     this.jewelryStyle = '';
+    // Custom End
 }
 
 /* Method to load product URLs only. */
@@ -218,13 +220,15 @@ ltkProduct.prototype.LoadProduct = function (product) {
     this.caseDiameter = this.getCaseDiameter(product);
     // Custom End
     this.familyName = this.getFamilyName(product);
-    // 2385
+
+    // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
     this.productStyle = this.getProductStyle(product);
     this.productCaseDiameter = this.getCaseDiameterWithUnit(product);
     this.caseMaterial = this.getCaseMaterial(product);
     this.attachmentTypeAttr = this.getAttachmentTypeAttr(product);
     this.strapColorAttr = this.getStrapColorAttr(product);
     this.jewelryStyle = this.getJewelryStyle(product);
+    // Custom End
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {
@@ -662,7 +666,7 @@ ltkProduct.prototype.getDialColor = function (product) {
 }
 // Custom End
 
-// 2385
+// Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
 ltkProduct.prototype.getProductStyle = function (product) {
     var productStyle;
     var productSKU = !empty(product.ID) ? product.ID : '';
@@ -670,14 +674,18 @@ ltkProduct.prototype.getProductStyle = function (product) {
     var productSKUFourInitials = productSKU ? productSKU.substr(0, 4) : '';
 
     if (!empty(productSKUInitials) && !empty(productSKUFourInitials)) {
-        if (productSKUInitials === Constants.WATCHES_INITIALS || productSKUInitials === Constants.STRAPS_INITIALS || productSKUFourInitials === Constants.WATCH_INITIALS) {
-            productStyle = Constants.WATCHES_CATEGORY;
-        } else if (productSKUInitials === Constants.JEWELRY_INITIALS || productSKUInitials === Constants.JEWELRY_INITIALS_CHAR) {
-            productStyle = Constants.JEWELRY_CATEGORY;
+        try {
+            if (productSKUInitials === Constants.WATCHES_INITIALS || productSKUInitials === Constants.STRAPS_INITIALS || productSKUFourInitials === Constants.WATCH_INITIALS) {
+                productStyle = Constants.WATCHES_CATEGORY;
+            } else if (productSKUInitials === Constants.JEWELRY_INITIALS || productSKUInitials === Constants.JEWELRY_INITIALS_CHAR) {
+                productStyle = Constants.JEWELRY_CATEGORY;
+            }
+
+            return productStyle;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Product Style for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
         }
     }
-
-    return productStyle;
 }
 
 ltkProduct.prototype.setCurrentLocale = function () {
@@ -713,7 +721,7 @@ ltkProduct.prototype.getCaseMaterial = function (product) {
                 caseMaterialArray = caseMaterialAttr.split(',');
             }
             
-            if (!empty(productFeedCaseMaterialJson) && !empty(caseMaterialArray) && !empty(caseMaterialArray[0])) {
+            if (!empty(caseMaterialArray) && !empty(caseMaterialArray[0])) {
                 caseMaterial = productFeedCaseMaterialJson[caseMaterialArray[0]];
             }
     
@@ -739,7 +747,7 @@ ltkProduct.prototype.getColor = function (product) {
                 colorArray = colorAttr.split(',');
             }
             
-            if (!empty(productFeedColorJson) && !empty(colorArray) && !empty(colorArray[0])) {
+            if (!empty(colorArray) && !empty(colorArray[0])) {
                 color = productFeedColorJson[colorArray[0]];
             }
     
@@ -765,7 +773,7 @@ ltkProduct.prototype.getAttachmentTypeAttr = function (product) {
                 attachmentTypeArray = attachmentTypeAttr.split(',');
             }
             
-            if (!empty(productFeedAttachmentTypeJson) && !empty(attachmentTypeArray) && !empty(attachmentTypeArray[0])) {
+            if (!empty(attachmentTypeArray) && !empty(attachmentTypeArray[0])) {
                 attachmentTypeAttribute = productFeedAttachmentTypeJson[attachmentTypeArray[0]];
             }
     
@@ -791,7 +799,7 @@ ltkProduct.prototype.getStrapColorAttr = function (product) {
                 strapColorArray = strapColorAttr.split(',');
             }
             
-            if (!empty(productFeedStrapColorJson) && !empty(strapColorArray) && !empty(strapColorArray[0])) {
+            if (!empty(strapColorArray) && !empty(strapColorArray[0])) {
                 strapColorAttribute = productFeedStrapColorJson[strapColorArray[0]];
             }
     
@@ -817,7 +825,7 @@ ltkProduct.prototype.getJewelryStyle = function (product) {
                 jewelryStyleArray = jewelryStyleAttr.split(',');
             }
             
-            if (!empty(productFeedJewelryStyleJson) && !empty(jewelryStyleArray) && !empty(jewelryStyleArray[0])) {
+            if (!empty(jewelryStyleArray) && !empty(jewelryStyleArray[0])) {
                 jewelryStyle = productFeedJewelryStyleJson[jewelryStyleArray[0]];
             }
     
@@ -827,3 +835,4 @@ ltkProduct.prototype.getJewelryStyle = function (product) {
         }
     }
 }
+// Custom End
