@@ -27,7 +27,7 @@
     	</isif>
       <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
         <div class="page" data-action="${pdict.action}" data-querystring="${pdict.queryString}" >
-            <isinclude template="/components/header/pageHeaderNomenu" />
+            <isinclude template="/components/header/old/pageHeaderNomenu" />
             <div id="mainContent">
               <isreplace/>
             </div>
