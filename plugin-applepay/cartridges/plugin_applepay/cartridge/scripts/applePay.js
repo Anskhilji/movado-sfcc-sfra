@@ -75,7 +75,7 @@ function comparePostalCode(address) {
  * @param fullName
  * @returns results
  */
-function getLastName(fullName) {
+function getLastName(fullName, order) {
     try {
         var lastName = '';
         if (!empty(fullName)) {
@@ -85,9 +85,9 @@ function getLastName(fullName) {
             }
 
             if (empty(lastName)) {
-                var currentBasket = BasketMgr.getCurrentBasket();
-                if (currentBasket.customer.registered == true) {
-                    var profileLastName = currentBasket.customer.profile && currentBasket.customer.profile.lastName ? currentBasket.customer.profile.lastName : '';
+                var currentCustomer = order.getCustomer();
+                if (currentCustomer && currentCustomer.registered) {
+                    var profileLastName = currentCustomer.profile && currentCustomer.profile.lastName ? currentCustomer.profile.lastName : '';
                     var lastName = profileLastName;
                 }
             }
@@ -194,7 +194,20 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
         var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
-        var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : getLastName(billingAddressFirstName);
+        var billingAddressLastName;
+
+        if (!empty(order.billingAddress.lastName)) {
+            billingAddressLastName = order.billingAddress.lastName.trim();
+        } else {
+            billingAddressLastName = getLastName(billingAddressFirstName, order);
+
+            if (billingAddressLastName) {
+                Transaction.wrap(function () {
+                    order.billingAddress.lastName = billingAddressLastName;
+                });
+            }
+        }
+
         var billingAddressAddress1 = !empty(order.billingAddress.address1) ? order.billingAddress.address1.trim() : '';
         var billingAddressCity = !empty(order.billingAddress.city) ? order.billingAddress.city.trim() : '';
         if (empty(billingAddressFirstName) || empty(billingAddressLastName) || empty(billingAddressAddress1) || isBillingPostalNotValid || empty(billingAddressCity)) {
@@ -206,7 +219,20 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             orderShippingAddress = order.shipments[0].getShippingAddress();
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
             var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
-            var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : getLastName(shippingAddressFirstName);
+            var shippingAddressLastName;
+
+            if (!empty(orderShippingAddress.lastName)) {
+                shippingAddressLastName = orderShippingAddress.lastName.trim()
+            } else {
+                shippingAddressLastName = getLastName(shippingAddressFirstName, order);
+
+                if (shippingAddressLastName) {
+                    Transaction.wrap(function () {
+                        orderShippingAddress.setLastName(shippingAddressLastName);
+                    });
+                }
+            }
+
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
