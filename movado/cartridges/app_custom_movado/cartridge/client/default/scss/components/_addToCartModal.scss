@@ -43,6 +43,13 @@
 
     &.addToCartModal {
 
+        .modal-footer {
+               
+            @include media-breakpoint-down(md) {
+                display: none;
+            }
+        }
+
         .recommendation-add-to-cart-error {
             text-align: center;
             color: $invalid-red;
@@ -50,7 +57,7 @@
             font-weight: 500;
 
             @include media-breakpoint-down(md) {
-                margin: 0 0 rem(19) 0;
+                margin-top: rem(10);
                 font-size: rem(12);
             }
         }
@@ -71,6 +78,10 @@
 
             &:not(:has(.mcs-product-carousel)) {
                 margin-bottom: rem(31);
+
+                @include media-breakpoint-down(md) {
+                    margin-bottom: rem(15);
+                }
             }
 
             .new-rec-carosel {
@@ -84,13 +95,22 @@
                     &.slick-initialized {
                         display: block;
                     }
-                }
-            }
 
-            .modal-footer {
-               
-                @include media-breakpoint-down(md) {
-                    margin-top: rem(7);
+                    .carousel-tile {
+
+                        .product {
+
+                            .product-tile {
+
+                                .tile-body {
+                                    
+                                    @include media-breakpoint-down(md) {
+                                        padding: rem(10);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -194,7 +214,7 @@
                                 font-weight: 500;
                                 line-height: rem(21);
                                 margin-top: rem(11);
-                                margin-bottom: rem(20);
+                                margin-bottom: rem(10);
                             }
                         }
 
@@ -235,7 +255,7 @@
                     font-size: rem(16);
                     font-weight: 500;
                     line-height: rem(21);
-                    margin-bottom: rem(20)
+                    margin-bottom: rem(10)
 
                 }
             }
@@ -258,6 +278,7 @@
 
                     .modal-footer {
                         margin-top: rem(7);
+                        display: none;
                     }
                 }
 
@@ -371,7 +392,7 @@
                         font-weight: 500;
                         line-height: rem(21);
                         margin-top: rem(11);
-                        margin-bottom: rem(20);
+                        margin-bottom: rem(10);
 
                     }
                 }
@@ -379,6 +400,10 @@
                 .cs-carousel {
                     margin-bottom: rem(35);
                     padding-bottom: rem(22);
+                    @include media-breakpoint-down(md) {
+                        margin-bottom: rem(15);
+                        padding-bottom: rem(10);
+                    }
 
                     .slick-track {
                         margin: 0;
@@ -387,8 +412,7 @@
                     .slick-dots {
                         margin-top: rem(23);
                     }
-        
-                }
+                } 
             }
     
             &.cs-carousel-update {
@@ -435,7 +459,7 @@
     
                 @include media-breakpoint-down(md) {
                     border: none;
-                    padding: rem(20) rem(10);
+                    padding: rem(10);
                     overflow-y: auto;
                 }
     
@@ -491,7 +515,7 @@
             @include media-breakpoint-down(md) {
                 position: unset;
                 padding: 0;
-                height: rem(149);
+                height: auto;
             }
     
             .modal-inner {
@@ -505,6 +529,10 @@
                     line-height: rem(21);
                     text-align: center;
                     margin-bottom: rem(19);
+
+                    @include media-breakpoint-down(md) {
+                        margin-bottom: rem(10);
+                    }
                 }
             }
     
@@ -513,6 +541,10 @@
                 align-items: center;
                 justify-content: center;
                 margin-bottom: rem(19);
+
+                @include media-breakpoint-down(md) {
+                    margin-bottom: rem(10);
+                }
     
                 img {
                     width: rem(25);
