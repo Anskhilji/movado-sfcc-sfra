@@ -1,6 +1,6 @@
 'use strict';
 
-var Filter = require('@shopmacher/bad-words');
+var Filter = require('@duckodas/badwords');
 var profanityFilter = new Filter();
 
 $('.pdp-v-one [pd-popup-open]').on('click', function (e) {
@@ -50,6 +50,10 @@ $('.engraving-input').on('input', function () {
 });
 
 $('.engraving-input-one').on('change', function () {
+    $('.engraving-save.save').prop('disabled', true);
+});
+
+$('.engraving-input-two').on('change', function () {
     $('.engraving-save.save').prop('disabled', true);
 });
 
