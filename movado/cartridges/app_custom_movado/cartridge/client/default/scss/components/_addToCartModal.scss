@@ -653,3 +653,6 @@
     display: none;
 }
 
+.modal-open {
+    overflow: clip !important; //I'm using important to overwrite inline css
+}
