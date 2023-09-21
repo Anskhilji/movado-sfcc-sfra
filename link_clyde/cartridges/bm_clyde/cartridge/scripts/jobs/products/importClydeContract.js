@@ -9,6 +9,7 @@ var StringUtils = require('dw/util/StringUtils');
 var XMLStreamWriter = require('dw/io/XMLStreamWriter');
 var logger = require('dw/system/Logger').getLogger('CLYDE', 'importClydeContract');
 
+var pulseIdConstants = require('int_pulseid_engraving/cartridge/scripts/utils/pulseIdConstants');
 /**
  * Function used to get product search hits
  * @returns {Object} - productSearchHitsItr
@@ -44,18 +45,15 @@ function writeCatalogHeader(clydeContractStreamWriter, catalogID) {
  * @returns {void}
  */
 function writeCatalogFileContent(result, fileWriter, productSearchHitsItr) {
-    var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
 
-    if (enablePulseIdEngraving) {
-        var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
-    }
+
 
     while (productSearchHitsItr.hasNext()) {
         var productOptions;
         var pulseIdOptionValue = {};
         var product = productSearchHitsItr.next().product;
 
-        if (enablePulseIdEngraving && product && product.optionModel && product.optionModel.options && product.optionModel.options.length > 0) {
+        if (product && product.optionModel && product.optionModel.options && product.optionModel.options.length > 0) {
             var getOption = product.optionModel.getOption(pulseIdConstants.ENGRAVING_ID);
             if (getOption) {
                 var getOptionValue = product.optionModel.getOptionValue(getOption, pulseIdConstants.ENGRAVING_OPTION_PRODUCT_VALUE_ID);
@@ -144,7 +142,7 @@ function writeCatalogFileContent(result, fileWriter, productSearchHitsItr) {
         fileWriter.writeEndElement();
         fileWriter.writeCharacters('\n');
 
-        if (enablePulseIdEngraving && pulseIdOptionValue && pulseIdOptionValue.option && pulseIdOptionValue.option.ID == pulseIdConstants.ENGRAVING_ID) {
+        if (pulseIdOptionValue && pulseIdOptionValue.option && pulseIdOptionValue.option.ID == pulseIdConstants.ENGRAVING_ID) {
             fileWriter.writeStartElement('option');
             fileWriter.writeAttribute('option-id', pulseIdOptionValue.option.ID);
 
