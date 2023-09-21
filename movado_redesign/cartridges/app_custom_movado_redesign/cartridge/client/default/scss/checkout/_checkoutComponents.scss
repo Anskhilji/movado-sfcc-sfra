@@ -1,8 +1,9 @@
 @import '~movado/checkout/_checkoutComponents';
 @import "../vars";
+@import "../mixins";
 
 body {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .data-checkout-stage {
@@ -10,7 +11,7 @@ body {
     .form-group {
 
         .form-control-label {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
     }
 }
@@ -20,7 +21,7 @@ body {
     .form-group {
       
         .form-control-label {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
 
             a {
                 font-family: $the-futura-font;
@@ -37,7 +38,7 @@ body {
     }
 
     .custom-select {
-        font-family: $movado-font;
+        font-family: $the-futura-font;
     }
 
     .order-total-summary {
@@ -45,14 +46,14 @@ body {
         .order-receipt-label,
         .text-right,
         .sub-total {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
 
         .grand-total {
 
             .order-receipt-label,
             .text-right {
-                font-family: $movado-font;
+                font-family: $the-futura-font;
             }
         }
       }
@@ -60,11 +61,11 @@ body {
 
 
 .summary-details {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .summary-section-label {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .payment-form {
@@ -76,7 +77,7 @@ body {
           .nav-item {
 
               .credit-card-label {
-                  font-family: $movado-font;
+                  font-family: $the-futura-font;
               }
           }
       }
@@ -84,6 +85,23 @@ body {
 }
 
 .data-checkout-stage {
+
+    .right-section {
+        
+        .right-content {
+
+            .card-header {
+                padding-left: 0;
+            }
+
+            .card-summary-wrapper-container {
+
+                .order-total-summary {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
 
     .flex-box-contianer-bottom {
 
@@ -108,7 +126,7 @@ body {
                                             .line-item-brand-name {
 
                                                 span {
-                                                    font-family: $movado-font;
+                                                    font-family: $the-futura-font;
                                                 }
                                             }
                                         }
@@ -151,6 +169,8 @@ body {
 
                 .btn {
                     font-family: $movado-font;
+                    border-radius: rem(120);
+                    @include buttonFilled;
                 }
             }
         } 
@@ -162,7 +182,7 @@ body {
     .product-summary-block {
 
         .line-item-name {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
     } 
 }

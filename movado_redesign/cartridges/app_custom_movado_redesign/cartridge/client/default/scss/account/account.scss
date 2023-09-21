@@ -2,7 +2,7 @@
 @import "../vars";
 
 body {
-  font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 .account-pages {
@@ -15,7 +15,7 @@ body {
   }
 
   .card-body.form-control-label {
-      font-family: $movado-font;
+      font-family: $the-futura-font;
   }
 
   .card {
@@ -31,7 +31,7 @@ body {
           }
 
           dt,.field-label {
-              font-family: $movado-font;
+              font-family: $the-futura-font;
           }
 
           & > div {
@@ -53,7 +53,7 @@ body {
       .card-footer {
 
           .field-label {
-              font-family: $movado-font;
+              font-family: $the-futura-font;
           }
       }
   }
@@ -88,5 +88,9 @@ body {
 
     .card-header h4 {
         font-family: $movado-font;
-    } 
+    }
+
+    .custom-select {
+        font-family: $the-futura-font;
+    }
 } 

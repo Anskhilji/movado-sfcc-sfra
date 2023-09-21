@@ -33,7 +33,7 @@
   <div class="cs-carousel-wrapper mvd-carousel-wrapper">
       <div class="js-carousel main-carousel main-carousel-movado traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
-          <isloop items="${product.images['pdp600']}" var="image" status="loopStatus">
+          <isloop items="${product.images['pdp430X540']}" var="image" status="loopStatus">
               <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
                   <div class="carousel-tile poster-frame-video d-block">
                       <video class="slide-video" loop muted autoplay playsinline >
@@ -85,40 +85,4 @@
 	      </button>
       </isif>
   </isif>
-</div>
-<iscomment> Zoom Modal </iscomment>
-<div class="modal fade zoom-modal" id="zoomProduct" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="pinchZoom zoomedImage d-none"><img alt="${product.resources.Zoom}" src="${!empty(product.images['pdp533'][0]) && !empty(product.images['pdp533'][0].url) ? product.images['pdp533'][0].url : ''}"/></div>
-                <div class="zoom-carousel zoom-model-carousel-images">
-                    <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-                        <div class="carousel-tile zoomit" data-src="${product.images.zoom1660[loopStatus.count-1].url}">
-                            <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
-                            <isset name="isImageExist" value="true" scope="page" />
-                        </div>
-                    </isloop>
-                </div>
-                <span class="zoom-model-images" data-zoom-model-images=""></span>
-                <div class="zoom-carousel-nav hidden-md-down">
-                    <div class="zoom-carousel-slider carousel-nav-variation-redesing">
-                        <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-                            <div class="carousel-tile">
-                                <picture>
-                                  <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
-                                  <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
-                                  <img src="${!empty(product.images) && !empty(product.images.pdp533) && !empty(product.images.pdp533[loopStatus.count-1]) && !empty(product.images.pdp533[loopStatus.count-1].url) ? product.images.pdp533[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoompdp533) && !empty(product.images.zoompdp533[loopStatus.count-1]) && !empty(product.images.zoompdp533[loopStatus.count-1].url) ? product.images.zoompdp533[loopStatus.count-1].url : ''}" />
-                                  <isset name="isImageExist" value="true" scope="page" />
-                                </picture>
-                            </div>
-                        </isloop>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

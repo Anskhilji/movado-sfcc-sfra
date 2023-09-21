@@ -8,10 +8,20 @@ body {
 .checkout-page {
 
     input[placeholder],label {
-        font-family: $movado-font;
+        font-family: $the-futura-font;
     }
 
     .hidden-xs-down {
         font-family: $movado-font;
+    }
+
+    .form-group {
+
+        .oauth-google,.oauth-facebook {
+            
+            @include media-breakpoint-down(md) {
+                font-size: rem(14);
+            }
+        }
     }
 }

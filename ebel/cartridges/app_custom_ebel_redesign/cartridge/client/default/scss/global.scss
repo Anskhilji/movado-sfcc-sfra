@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import "~ebel/typography";
 @import '~movad_redesign/global';
+@import 'mixins';
 @import 'vars';
 @import "components/common";
 @import "components/buttons";
@@ -17,7 +18,9 @@
 @import "components/addToCartModal";
 @import "components/cartProductTile";
 @import "miniCart";
+@import "components/welcomeMatModal";
 @import "components/login";
 @import "components/productTiles";
 @import "bootstrapOverrides";
 @import "components/carousel";
+@import "components/pricing";

@@ -22,21 +22,16 @@
 
 .login-page {
 
-    input[placeholder],label,button {
+    .custom-select {
         font-family: $the-futura-font;
     }
-}
 
-.login-oauth {
-
-    .oauth-google {
+    input[placeholder],label {
         font-family: $the-futura-font;
-        font-weight: 400;
     }
-    
-    .oauth-facebook {
-        font-family: $the-futura-font;
-        font-weight: 400;
+
+    button {
+        font-family: $movado-font;
     }
 }
 

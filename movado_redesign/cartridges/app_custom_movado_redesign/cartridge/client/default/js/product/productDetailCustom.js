@@ -433,6 +433,7 @@ function removeRatings() {
     var $noReviews = $('.yotpo-no-reviews');
     var $yotpoWrapper = $('.yotpo.bottomLine');
     var $reviewsSection = $('#yotpo-reviews-top-div');
+    var $yotpoAccordian = $('.yotpo-accordion-section');
     
     if ($noReviews.length > 0) {
         $ratings.css('opacity', 0);
@@ -441,6 +442,7 @@ function removeRatings() {
         $noReviews.hide();
         $yotpoWrapper.hide();
         $reviewsSection.hide();
+        $yotpoAccordian.hide();
     } else {
         setTimeout(function () {
             removeRatings();
@@ -469,36 +471,57 @@ $(document).ready(function () {
             }
         }
     }
-
+    
     showMoreDescription();
 });
 
+function countNumberOfLines() {
+    var $productDescription = $('.product-aruliden-sec .product-description p');
+    var $divHeight = $productDescription.height();
+    var $lineHeight = parseInt($productDescription.css('line-height'), 10);
+    var $numberOfLines = Math.round($divHeight / $lineHeight);
+    return $numberOfLines;
+}
+
 // Custom Start: [MSS-2360 To Show/Hide More Short Description on PDP]
 function showMoreDescription() {
-    var showChar = 245;  // Characters that are shown by default
-    var moretext = ' Read More';
-    var lesstext = ' show less';
+    var $lessText = ' show less';
+    var $moreText = ' Read More';
+    var $numberOfLines = countNumberOfLines();
+    var $showChar = 245;
+
+
     $('.product-aruliden-sec .product-description p').each(function() {
-        var content = $(this).html();
-        if(content.length > showChar) {
-            var c = content.substr(0, showChar);
-            var h = content.substr(showChar, content.length - showChar);
-            var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a></div>';
-            $(this).html(html);
+        var $content = $(this).html();
+        if($numberOfLines > 4) {
+            var $splittedCharacters = $content.substring($showChar, $content.length - $showChar).split('.');
+            var $firstLine = $content.substring($content, $showChar + $splittedCharacters[0].length);
+            var $html = '<span class="first-line">' + $firstLine + "." + '</span>' + '<span style="display:none" class="morecontent-wrapper"><span>' + $content + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + $moreText + '</a></div>';
+            $(this).html($html);
         }
     });
     $('.morelink-wrapper').on('click',function() {
         if($(this).hasClass('less')) {
             $(this).removeClass('less');
-            $(this).html(moretext);
+            $(this).html($moreText);
             $('.morelink-wrapper').css('margin-left','4px');
             $('.morecontent-wrapper').css('display','none');
+            $('.first-line').css('display', 'inline');
         } else {
             $(this).addClass('less');
-            $(this).html(lesstext);
+            $(this).html($lessText);
             $('.morelink-wrapper').css('margin-left','4px');
             $('.morecontent-wrapper').css('display','inline');
+            $('.first-line').css('display', 'none');
         }
         return false;
     });
 }
+
+$('.back-in-stock-notification-container-main .back-in-stock-notification-email').focus(function () {
+    $('.back-in-stock-notification-container-main').addClass('input-blur');
+}).blur(function () {
+    if ($(this).val().length == 0) {
+        $('.back-in-stock-notification-container-main').removeClass('input-blur');
+    }
+});

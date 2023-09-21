@@ -6,10 +6,10 @@
 .gm-style-iw {
 
     .store-details {
-        font-family: $movado-font;
+        font-family: $the-futura-font;
         
         .store-name {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
     }
 }
@@ -19,5 +19,48 @@
 
     h1.page-title {
         font-family: $movado-font;
+    }
+}
+
+.store-locator-container {
+
+    .results-card {
+
+        .store-map,.store-hours {
+            font-family: $the-futura-font;
+        }
+
+        label {
+            font-family: $the-futura-font;
+        }
+    }
+
+    .search-form {
+        
+        .find-store-form {
+
+            .store-locator {
+
+               .form-group {
+
+                   .form-control-label {
+                       font-family: $the-futura-font;
+                   }
+
+                   input[placeholder] {
+                       font-family: $the-futura-font;
+                   }
+               }
+            }
+        }
+    }
+
+
+}
+
+.find-store-select {
+
+    .custom-select  {
+        font-family: $the-futura-font;
     }
 }

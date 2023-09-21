@@ -3,27 +3,53 @@
 @import "../vars";
 
 body {
-    font-family: $movado-font !important;
+    font-family: $the-futura-font;
 }
 
 .shipping-method-option {
-    font-family: $movado-font !important;
+    font-family: $the-futura-font;
 }
 
 .shipping-method-pricing {
-    font-family: $movado-font;
+    font-family: $the-futura-font;
 }
 
 header {
 
     .checkout-header-wrapper {
 
+        .minicart-link {
+            width: rem(16);
+            height: rem(16);
+            background: url(../../images/shopping-bag.svg) center center no-repeat;
+        }
+
+        .minicart-quantity { 
+            right: rem(-3);
+            top: rem(-1);
+            width: rem(4);
+            height: rem(4);
+        }
+
         .header-left {
+
+            .checkout-text {
+
+                h5 {
+                    align-items: center;
+
+                    &::before {
+                        width: rem(24);
+                        height: rem(24);
+                        background: url(../../images/lock.svg) center center no-repeat;
+                    }
+                }
+            }
 
             .checkout-logo {
 
                 .logo-checkout-text {
-                    font-family: $movado-font;
+                    font-family: $the-futura-font;
                 }
             }
         }
@@ -34,10 +60,10 @@ header {
 .pac-container {
 
     .pac-item {
-        font-family: $movado-font;
+        font-family: $the-futura-font;
 
         .pac-item-query {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
     }
 }

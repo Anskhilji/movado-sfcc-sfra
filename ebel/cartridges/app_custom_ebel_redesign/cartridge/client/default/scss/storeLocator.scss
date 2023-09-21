@@ -1,1 +1,13 @@
 @import "~ebel/storeLocator";
+
+.store-details {
+    address {
+        p {
+            span {
+                .storelocator-phone {
+                    font-family: $font-HelveticaNeueLT-medium;
+                }
+            }
+        }
+    }
+}

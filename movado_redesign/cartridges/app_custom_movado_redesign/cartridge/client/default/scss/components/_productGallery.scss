@@ -5,7 +5,7 @@
         .product-aruliden-sec {
 
             .product-gallery {
-                max-width: rem(720);
+                max-width: 50%;
                 width: 100%;
 
                 display: none;
@@ -15,21 +15,19 @@
                 }
 
                 @include media-breakpoint-down(lg) {
-                    max-width: rem(480);
-                }
-
-                @include media-breakpoint-down(md) {
-                    max-width: rem(345);
+                    max-width: 50%;
+                    width: 50%;
                 }
 
                 .gallery {
-                    
+
                     &-image {
 
                         .carousel-tile {
                             margin-bottom: rem(2);
                             position: relative;
                             background: $grey-silver-light;
+                            display: block;
 
                             img {
                                 aspect-ratio: 0.9/1;
@@ -41,15 +39,20 @@
                                 }
                             }
 
-                            .slide-video {
-                                position: static;
-                                aspect-ratio: 0.9/1;
-                                min-width: 100%;
+                            &.poster-frame-video {
                                 max-width: 100%;
                                 height: 100%;
-                                width: inherit;
-                                max-height: 100%;
-                                object-fit: cover;
+                                
+                                .slide-video {
+                                    position: static;
+                                    aspect-ratio: 0.9/1;
+                                    min-width: 100%;
+                                    max-width: 100%;
+                                    height: 100%;
+                                    width: inherit;
+                                    max-height: 100%;
+                                    object-fit: cover;
+                                }
                             }
                         }
                     }
@@ -58,10 +61,42 @@
 
             .cs-carousel-wrapper {
 
-                .carousel-tile {
+                .traditional-main-carousel {
                     
-                    @include media-breakpoint-down(sm) {
-                        background-color: $grey-silver-light;
+                    .slick-slide {
+
+                        .carousel-tile {
+
+                            @include media-breakpoint-down(sm) {
+                                background-color: $grey-silver-light;
+                            }
+
+
+                            img {
+
+                                @include media-breakpoint-up(xl) {
+                                    min-width: auto;
+                                    max-width: 100%;
+                                    height: 100%;
+                                    width: 100%;
+                                }
+
+                                @media (max-width: $custom-sm4) {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+
+                                @media (max-width: $small-screen-width375) {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+
+                                @media (max-width: $small-screen-width) {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+                            }
+                        }
                     }
                 }
             }

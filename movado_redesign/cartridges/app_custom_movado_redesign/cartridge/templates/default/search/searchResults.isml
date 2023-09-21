@@ -19,16 +19,16 @@
     <div class="container-fluid plp-new-design search-results search-results-updated" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
         <div class="search-results-sec">
             <div class="tab-content p-sm-0">
-                <div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
+                <div class="tab-pane active" role="tabpanel" aria-expanded="true">
                     <isif condition="${pdict.productSearch.productIds.length > 0}">
                         <div class="mt-0">
                             <div class="search-result-desktop">
                                 <div class="left-sec">
                                     <div class="d-flex align-items-start search-result-counts filter-and-count">
-                                        <div id="product-search-results">
+                                        <div>
                                             <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                 <div class="row m-0 grid-header">
-                                                    <div class="result-count">
+                                                    <div class="result-count search-count">
                                             <iselse>
                                                 <div class="row m-0 grid-header results-count justify-content-start">
                                                     <div class="result-count col">
@@ -43,10 +43,10 @@
                                 <div class="right-sec">
                                     <div class="dk-fillter-m d-md-flex align-items-cetner filter-box">
                                         <div class="d-flex align-items-start search-result-counts filter-and-count">
-                                                <div id="product-search-results">
+                                                <div>
                                                     <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                         <div class="row m-0 grid-header">
-                                                            <div class="result-count">
+                                                            <div class="result-count search-count">
                                                                 <iselse>
                                                                     <div class="row m-0 grid-header results-count justify-content-start">
                                                                         <div class="result-count col">
@@ -57,7 +57,7 @@
                                              </div>
                                         </div>
                                         <div class="desktop-search-refine-bar-redesing w-100">
-                                            <div class="refine-wrapper">
+                                            <div class="refinement-wrapper">
                                                 <div class="filter-btn">
                                                     <button class="filter-refinement-panel-btn" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" ><span>${Resource.msg('label.showfilter', 'search', null)}</span>
                                                         <span class="filter-icon">
@@ -116,7 +116,7 @@
         </div>
     </div>
 
-    <div class="hero search-banner plp-new-design container-fluid p-0">
+    <div class="hero search-banner plp-new-design container-fluid p-0 category-banner">
         <isif condition="${pdict.productSearch.isCategorySearch}">
             <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
                 <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>

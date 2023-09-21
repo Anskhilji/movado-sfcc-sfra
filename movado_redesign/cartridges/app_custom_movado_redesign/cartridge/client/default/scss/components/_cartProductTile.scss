@@ -18,20 +18,15 @@
       .item-attributes {
 
           .total-amount {
-              font-family: $movado-font;
-              font-weight: 500;
-
+              font-family: $the-futura-font;
           }
 
           .model-name, .original-price, .savings {
-              font-family: $movado-font;
-
+              font-family: $the-futura-font;
           }
 
           .personalize-msg, .personalize-price {
-              font-family: $movado-font;
-              font-weight: 500;
-
+              font-family: $the-futura-font;
           }
 
           .edit-add-to-wishlist {
@@ -48,12 +43,11 @@
         .engraving-box {
 
             .remove-engraved {
-                font-family: $movado-font;
-                font-weight: 600;
+                font-family: $the-futura-font;
             }
 
             .engraved-text {
-                font-family: $movado-font;
+                font-family: $the-futura-font;
             }
 
         }
@@ -66,7 +60,7 @@
     .gift-message-wrapper {
 
         .gift-description-font {
-            font-family: $movado-font;
+            font-family: $the-futura-font;
         }
 
         .is-gift-row {
@@ -74,21 +68,21 @@
             .character-limit {
 
                 span {
-                    font-family: $movado-font;
+                    font-family: $the-futura-font;
                 }
             }
 
            .gift-textarea {
 
                 textarea[placeholder] {
-                    font-family: $movado-font;
+                    font-family: $the-futura-font;
                 }
            } 
 
            .gift-error-wrapper {
 
                span {
-                font-family: $movado-font;
+                font-family: $the-futura-font;
                }
            }
 
