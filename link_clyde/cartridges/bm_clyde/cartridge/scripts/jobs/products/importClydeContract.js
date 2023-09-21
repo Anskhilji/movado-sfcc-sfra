@@ -9,13 +9,6 @@ var StringUtils = require('dw/util/StringUtils');
 var XMLStreamWriter = require('dw/io/XMLStreamWriter');
 var logger = require('dw/system/Logger').getLogger('CLYDE', 'importClydeContract');
 
-var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
-
-if (enablePulseIdEngraving) {
-    var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
-}
-
-
 /**
  * Function used to get product search hits
  * @returns {Object} - productSearchHitsItr
@@ -51,6 +44,12 @@ function writeCatalogHeader(clydeContractStreamWriter, catalogID) {
  * @returns {void}
  */
 function writeCatalogFileContent(result, fileWriter, productSearchHitsItr) {
+    var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+
+    if (enablePulseIdEngraving) {
+        var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
+    }
+
     while (productSearchHitsItr.hasNext()) {
         var productOptions;
         var pulseIdOptionValue = {};
