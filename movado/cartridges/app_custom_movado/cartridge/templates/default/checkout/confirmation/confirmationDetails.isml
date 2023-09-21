@@ -69,10 +69,14 @@
     </div>
 
     <isif condition="${pdict.isCancelOrder && dw.system.Site.current.preferences.custom.enableOrderCancellation}">
-        <div class="col-12">
-            <iscontentasset aid="cancel-order-time-msg" />
-        </div>
-        <div class="order-cancel-container col-12">
+        <isif condition="${!pdict.cancelOrderMessage}">
+            <isif condition="${pdict.omsOrderStatus != null && pdict.isCancelOrderEnable == true}">
+                <div class="col-12">
+                    <iscontentasset aid="cancel-order-time-msg" />
+                </div>
+            </isif>
+        </isif>
+        <div class="order-cancel-container col-12 ${pdict.isCancelOrderEnable == false ? 'd-none' : ''}">
             <button ${pdict.isCancelOrderEnable == false ? 'disabled' : ''} class="cancel-order-btn" data-cancel-order-url="${URLUtils.url('Order-CancelOrder')}">${Resource.msg('label.order.cancel.btn.text', 'confirmation', null)}</button>
             <iscontentasset aid="cancel-order-dropdown" />
         </div>

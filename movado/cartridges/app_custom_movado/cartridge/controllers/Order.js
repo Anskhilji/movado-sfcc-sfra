@@ -411,6 +411,7 @@ server.post(
         var order;
         var validForm = true;
         var cancelOrderEnable = false;
+        var cancelOrderMessage = false;
 
         var profileForm = server.forms.getForm('profile');
         profileForm.clear();
@@ -485,11 +486,18 @@ server.post(
                 if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Approved') {
                     cancelOrderEnable = true;
                 }
+
+                if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Cancelled') {
+                    cancelOrderMessage = true;
+                }
+
                 /**
                  * Custom: End
                  */
 
-                var omsOrderStatus = filteredOrder[0].status;
+                if (!empty(filteredOrder && filteredOrder.length > 0)) {
+                    var omsOrderStatus = filteredOrder[0].status;
+                }
 
                 var exitLinkText;
                 var exitLinkUrl;
@@ -509,7 +517,8 @@ server.post(
                     orderStatus: orderStatus,
                     isCancelOrder: true,
                     isCancelOrderEnable: cancelOrderEnable,
-                    omsOrderStatus: omsOrderStatus
+                    omsOrderStatus: omsOrderStatus,
+                    cancelOrderMessage: cancelOrderMessage
                 });
             } else {
                 res.render('/account/login', {
@@ -556,7 +565,7 @@ server.get('GetOrderDetail', function (req, res, next) {
 
     var currentLocale = Locale.getLocale(req.locale.id);
     var orderNumber = req.querystring.trackOrderNumber;
-    var responseObject = orderCustomHelpers.orderDetail(currentLocale, true, orderNumber);
+    var responseObject = orderCustomHelpers.orderDetail(currentLocale, true, orderNumber, req);
     var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
     var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
@@ -568,10 +577,6 @@ server.get('GetOrderDetail', function (req, res, next) {
         { config: config, countryCode: currentLocale.country, containerView: 'order' }
     );
 
-    if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
-        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-        pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
-    }
 
     if (!empty(responseObject) && !empty(responseObject.orderModel) && orderNumber.toLowerCase() == responseObject.orderModel.orderNumber.toLowerCase()) {
         res.render('account/orderDetails', {
@@ -580,7 +585,8 @@ server.get('GetOrderDetail', function (req, res, next) {
             exitLinkUrl: exitLinkUrl,
             isCancelOrder: true,
             isCancelOrderEnable: responseObject.cancelOrderEnable,
-            omsOrderStatus: responseObject.omsOrderStatus
+            omsOrderStatus: responseObject.omsOrderStatus,
+            cancelOrderMessage: responseObject.cancelOrderMessage
         });
     } else {
         res.render('/order/orderTracking', {
@@ -599,7 +605,7 @@ server.post('OrderDetail', function (req, res, next) {
     var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
     var currentLocale = Locale.getLocale(req.locale.id);
-    var responseObject = orderCustomHelpers.orderDetail(currentLocale, false, req.form.trackOrderNumber, req.form.trackOrderPostal, req.form.trackOrderEmail);
+    var responseObject = orderCustomHelpers.orderDetail(currentLocale, false, req.form.trackOrderNumber, req.form.trackOrderPostal, req.form.trackOrderEmail, req);
     var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
     var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
@@ -610,11 +616,6 @@ server.post('OrderDetail', function (req, res, next) {
         order,
         { config: config, countryCode: currentLocale.country, containerView: 'order' }
     );
-    
-    if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
-        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-        pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
-    }
 
     if (!empty(responseObject) && !empty(responseObject.orderModel) && req.form.trackOrderEmail.toLowerCase() == responseObject.orderModel.orderEmail.toLowerCase() && req.form.trackOrderPostal == responseObject.orderModel.billing.billingAddress.address.postalCode) {
         res.render('account/orderDetails', {
@@ -623,8 +624,8 @@ server.post('OrderDetail', function (req, res, next) {
             exitLinkUrl: exitLinkUrl,
             isCancelOrder: true,
             isCancelOrderEnable: responseObject.cancelOrderEnable,
-            omsOrderStatus: responseObject.omsOrderStatus
-            
+            omsOrderStatus: responseObject.omsOrderStatus,
+            cancelOrderMessage: responseObject.cancelOrderMessage
         });
     } else {
         res.render('/order/orderTracking', {
@@ -662,7 +663,8 @@ server.post('CancelOrder', function (req, res, next) {
 
             res.json({
                 isCancelOrder: order.custom && order.custom.isOrderCancelled ? order.custom.isOrderCancelled : false,
-                orderCancelResponse: responseFraudUpdateStatus.ok
+                orderCancelResponse: responseFraudUpdateStatus.ok,
+                cancelOrderMessageTime: responseFraudUpdateStatus.ok ? true : false
             });
         }
     } catch (error) {

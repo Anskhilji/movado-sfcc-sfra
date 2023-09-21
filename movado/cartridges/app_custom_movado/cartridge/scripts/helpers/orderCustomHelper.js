@@ -285,13 +285,14 @@ function getCountryCode(request) {
     return countryCode;
 }
 
-function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal, trackOrderEmail) {
+function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal, trackOrderEmail, req) {
     var OrderMgr = require('dw/order/OrderMgr');
 
     var OrderModel = require('*/cartridge/models/order');
     var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
     var order;
     var cancelOrderEnable = false;
+    var cancelOrderMessage = false;
     var orderModel = '';
     var responseObject = {};
 
@@ -314,6 +315,11 @@ function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal,
                 containerView: 'order'
             }
         );
+
+        if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
+        }
 
         var emailAddress = orderModel.orderEmail;
 
@@ -338,11 +344,18 @@ function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal,
             cancelOrderEnable = true;
         }
 
-        var omsOrderStatus = filteredOrder[0].status;
+        if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Cancelled') {
+            cancelOrderMessage = true;
+        }
+
+        if (!empty(filteredOrder && filteredOrder.length > 0)) {
+            var omsOrderStatus = filteredOrder[0].status;
+        }
 
     }
 
     responseObject.cancelOrderEnable = cancelOrderEnable;
+    responseObject.cancelOrderMessage = cancelOrderMessage;
     responseObject.orderModel = orderModel;
     responseObject.omsOrderStatus = omsOrderStatus;
 

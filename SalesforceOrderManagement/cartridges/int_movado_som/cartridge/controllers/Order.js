@@ -105,6 +105,7 @@ server.replace(
         var orderCustomerNo = req.currentCustomer.profile.customerNo;
         var currentCustomerNo = !empty(order) ? order.customer.profile.customerNo : '';
         var cancelOrderEnable = false;
+        var cancelOrderMessage = false;
         var breadcrumbs = [
             {
                 htmlValue: Resource.msg('global.home', 'common', null),
@@ -158,7 +159,13 @@ server.replace(
                 cancelOrderEnable = true;
             }
 
-            var omsOrderStatus = filteredOrder[0].status;
+            if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Cancelled') {
+                cancelOrderMessage = true;
+            }
+
+            if (!empty(filteredOrder && filteredOrder.length > 0)) {
+                var omsOrderStatus = filteredOrder[0].status;
+            }
 
             var exitLinkText = Resource.msg('link.orderdetails.orderhistory', 'account', null);
             var exitLinkUrl =
@@ -170,7 +177,8 @@ server.replace(
                 breadcrumbs: breadcrumbs,
                 isCancelOrder: true,
                 isCancelOrderEnable: cancelOrderEnable,
-                omsOrderStatus: omsOrderStatus
+                omsOrderStatus: omsOrderStatus,
+                cancelOrderMessage: cancelOrderMessage
             });
         } else {
             res.redirect(URLUtils.url('Account-Show'));
