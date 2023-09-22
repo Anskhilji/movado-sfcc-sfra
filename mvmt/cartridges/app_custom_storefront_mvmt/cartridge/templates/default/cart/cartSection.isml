@@ -2,6 +2,8 @@
 <iscontent type="text/html" charset="UTF-8" compact="true" />
 <isset name="itemsLength" value="${pdict.items.length}" scope="page" />
 <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
+
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -40,21 +42,23 @@
     </div>
 </isif>
 
-<isloop items="${pdict.items}" var="lineItem" status="loopStatus">
-    <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
-        <div class="container cart-error-messaging cart-error mt-2">
-            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div>
-                    <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+<isif condition="${isEswProductRestrictionsEnabled}">
+    <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
+        <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+            <div class="container cart-error-messaging cart-error mt-2">
+                <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div>
+                        <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                    </div>
                 </div>
             </div>
-        </div>
-        <isbreak/>
-    </isif>
-</isloop>
+            <isbreak/>
+        </isif>
+    </isloop>
+</isif>
 
 <isif condition="${pdict.lastNameError}">
     <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">

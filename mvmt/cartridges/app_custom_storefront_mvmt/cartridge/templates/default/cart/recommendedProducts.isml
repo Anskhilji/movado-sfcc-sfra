@@ -1,4 +1,5 @@
 <iscomment> Custom: Start new template added for recommendation products </iscomment>
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
 <div class="mini-cart-product-list">
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
         <button class="mini-cart-show-recommendations" id="btn-${pdict.pid}">${Resource.msg('label.minicart.recommendatation.text', 'cart', null)}</button>
@@ -23,7 +24,7 @@
                                 </div>
                             </div>
                         </div>
-                        <isif condition="${recommendation.isProductNotRestrictedOnEswCountries && !recommendation.isCurrentDomesticAllowedCountry}">
+                        <isif condition="${isEswProductRestrictionsEnabled && recommendation.isProductNotRestrictedOnEswCountries && !recommendation.isCurrentDomesticAllowedCountry}">
                             <div class="">
                                 <isprint value="${recommendation.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                             </div>

@@ -471,12 +471,14 @@ function getProductATSValue(apiProduct) {
 
 function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry) {
     try {
+        var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
         var isProductNotRestrictedOnEswCountries = true;
 
-        if (!isCurrentDomesticAllowedCountry) {
+        if (isEswProductRestrictionsEnabled && !isCurrentDomesticAllowedCountry) {
             var productNotRestrictedOnEswCountries = apiProduct.custom.hasOwnProperty('productNotRestrictedOnEswCountries') ? apiProduct.custom.productNotRestrictedOnEswCountries : false;
     
             if (productNotRestrictedOnEswCountries) {
+
                 productNotRestrictedOnEswCountries.forEach(function(countryCode) {
                     if (countryCode === currentCountry) {
                         isProductNotRestrictedOnEswCountries = false;
@@ -487,7 +489,7 @@ function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurren
         
         return isProductNotRestrictedOnEswCountries;
     } catch (e) {
-        Logger.error('(productCustomHelper.js -> productNotRestrictedOnEswCountries) Error occured while getting product available to sell value. Product {0}: \n Error: {1} \n', apiProduct.ID, e);
+        Logger.error('(productCustomHelper.js -> productNotRestrictedOnEswCountries) Error occured while checking is esw restricted countries product or not {0}: \n Error: {1} \n', apiProduct.ID, e);
     }
 }
 

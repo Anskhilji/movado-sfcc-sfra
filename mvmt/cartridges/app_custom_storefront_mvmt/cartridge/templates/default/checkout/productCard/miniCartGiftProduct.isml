@@ -1,102 +1,103 @@
-        <isset name="lineItem" value="${childlineItem}" scope="page" />
-        
-        <div class="gift-lineitem-container gift-product-id-${lineItem.id} gift-lineitem-container-${lineItem.UUID} gift-item-total-${lineItem.UUID} align-items-center product-line-item-details item-info d-flex flex-row">
-            <div class="item-image">
-                <img class="product-image"
-                    src="${lineItem.images.tile150[0] && lineItem.images.tile150[0].url ? lineItem.images.tile150[0].url : ''}"
-                    alt="${lineItem.images.tile150[0] && lineItem.images.tile150[0].alt ? lineItem.images.tile150[0].alt : ''}"
-                    title="${lineItem.images.tile150[0] && lineItem.images.tile150[0].title ? lineItem.images.tile150[0].title : ''}">
-            </div>
-            <div class="item-attributes flex-column">
-                <div class="line-item-header">
-                    <isif condition=${miniCart}>
-                        <isinclude template="checkout/productCard/miniCartProductCardProductNameAndRemove" />
-                    <iselse>
-                        <isinclude template="checkout/productCard/productCardProductName" />
-                    </isif>
-                </div>
-                <isloop items="${lineItem.variationAttributes}" var="attribute">
-                    <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
-                </isloop>
-                <div class="item-options">
-                    <isloop items="${lineItem.options}" var="option">
-                        <isif condition="${option.optionId != lineItem.resources.Engraved &&
-                            option.optionId != lineItem.resources.Embossed &&
-                            option.optionId != lineItem.resources.GiftWrapped}">
-                            <isif condition="${lineItem.customAttributes['emboss']}">
-                                <div class="line-item-option">${Resource.msg('label.personalization.debossed', 'confirmation', null)}</div>
-                            <iselseif condition="${option.optionId != lineItem.resources.Engraved &&
-                                option.optionId != lineItem.resources.GiftWrapped}" >
-                                <div class="line-item-option">${Resource.msg('label.personalization.debossed.off', 'confirmation', null)}</div>
-                            <iselse>
-                                <div class="line-item-option">${option.displayName}</div>
-                            </isif>
-                        </isif>
-                    </isloop>
-                </div>
-                <div class="item-personalization">
-                    <isif condition="${lineItem.customAttributes['engrave']}">
-                        <div class="line-item-option">
-                            <div class="personalize-price">${Resource.msgf('label.personalization.engrave', 'confirmation', null, lineItem.customAttributes['engrave'].price)}</div>
-                            <div class="personalize-msg">${lineItem.customAttributes['engrave'].msgLine1}
-                                <isif condition="${lineItem.customAttributes['engrave'].msgLine2}">
-                                    <br/>
-                                    ${lineItem.customAttributes['engrave'].msgLine2}
-                                </isif>
-                            </div>
-                        </div>
-                    </isif>
+<isset name="lineItem" value="${childlineItem}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
 
-                    <isif condition="${lineItem.customAttributes['emboss']}">
-                        <div class="line-item-option">
-                            <div class="personalize-price">${Resource.msgf('label.personalization.deboss', 'confirmation', null, lineItem.customAttributes['emboss'].price)} <span class="personalize-msg">${lineItem.customAttributes['emboss'].msgLine1}</span></div>
-                        </div>
-                    </isif>
-
-                    <isif condition="${lineItem.customAttributes['giftWrap']}">
-                        <div class="line-item-option">
-                            <div class="personalize-price">${Resource.msgf('label.personalization.giftWrap', 'confirmation', null, lineItem.customAttributes['giftWrap'].price)}</div>
-                        </div>
-                    </isif>
-
-                    <isif condition="${lineItem.customAttributes['giftMessage']}">
-                        <div class="line-item-option">
-                            <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>>
-                            <div class="personalize-msg">${lineItem.customAttributes['giftMessage']}</div>
-                        </div>
-                    </isif>
-                </div>
-                <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
-                    <isinclude template="cart/productCard/cartProductCardAvailability" />
-                </isif>
-                <isif condition="${lineItem.price}">
-                    <p class="line-item-pricing-info">
-                        <isset name="price" value="${lineItem.price}" scope="page"/>
-                        <isinclude template="/product/components/pricing/giftMain" />
-                    </p>
-                </isif>
-                <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
-                    <div class="full-cart-esw-restricted-countries-msg">
-                        <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
-                    </div>
-                </isif>
-                <iscomment> Custom Start: Remove actionUrls object from Pdict </iscomment>
-                <div class="remove-line-item d-block mb-2">
-                    <button type="button" class="remove-btn remove-product-from-mini-cart btn btn-light"
-                            data-pid="${lineItem.id}"
-                            data-name="${lineItem.productName}"
-                            data-action="${pdict.removeProductLineItemUrl}"
-                            data-gift="true"
-                            data-parent-pid="${lineItem.giftParentUUID}"
-                            data-uuid="${lineItem.UUID}"
-                            data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}"
-                            aria-label="remove">
-                        <span aria-hidden="true">${Resource.msg('label.cart.remove','cart',null)}</span>
-                    </button>
-                </div>
-                <iscomment> Custom End </iscomment>
-            </div>
-            <div class="">
-                <isinclude template="checkout/productCard/miniCartProductCardQuantitySelector" />
-            </div>
+<div class="gift-lineitem-container gift-product-id-${lineItem.id} gift-lineitem-container-${lineItem.UUID} gift-item-total-${lineItem.UUID} align-items-center product-line-item-details item-info d-flex flex-row">
+    <div class="item-image">
+        <img class="product-image"
+            src="${lineItem.images.tile150[0] && lineItem.images.tile150[0].url ? lineItem.images.tile150[0].url : ''}"
+            alt="${lineItem.images.tile150[0] && lineItem.images.tile150[0].alt ? lineItem.images.tile150[0].alt : ''}"
+            title="${lineItem.images.tile150[0] && lineItem.images.tile150[0].title ? lineItem.images.tile150[0].title : ''}">
+    </div>
+    <div class="item-attributes flex-column">
+        <div class="line-item-header">
+            <isif condition=${miniCart}>
+                <isinclude template="checkout/productCard/miniCartProductCardProductNameAndRemove" />
+            <iselse>
+                <isinclude template="checkout/productCard/productCardProductName" />
+            </isif>
         </div>
+        <isloop items="${lineItem.variationAttributes}" var="attribute">
+            <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+        </isloop>
+        <div class="item-options">
+            <isloop items="${lineItem.options}" var="option">
+                <isif condition="${option.optionId != lineItem.resources.Engraved &&
+                    option.optionId != lineItem.resources.Embossed &&
+                    option.optionId != lineItem.resources.GiftWrapped}">
+                    <isif condition="${lineItem.customAttributes['emboss']}">
+                        <div class="line-item-option">${Resource.msg('label.personalization.debossed', 'confirmation', null)}</div>
+                    <iselseif condition="${option.optionId != lineItem.resources.Engraved &&
+                        option.optionId != lineItem.resources.GiftWrapped}" >
+                        <div class="line-item-option">${Resource.msg('label.personalization.debossed.off', 'confirmation', null)}</div>
+                    <iselse>
+                        <div class="line-item-option">${option.displayName}</div>
+                    </isif>
+                </isif>
+            </isloop>
+        </div>
+        <div class="item-personalization">
+            <isif condition="${lineItem.customAttributes['engrave']}">
+                <div class="line-item-option">
+                    <div class="personalize-price">${Resource.msgf('label.personalization.engrave', 'confirmation', null, lineItem.customAttributes['engrave'].price)}</div>
+                    <div class="personalize-msg">${lineItem.customAttributes['engrave'].msgLine1}
+                        <isif condition="${lineItem.customAttributes['engrave'].msgLine2}">
+                            <br/>
+                            ${lineItem.customAttributes['engrave'].msgLine2}
+                        </isif>
+                    </div>
+                </div>
+            </isif>
+
+            <isif condition="${lineItem.customAttributes['emboss']}">
+                <div class="line-item-option">
+                    <div class="personalize-price">${Resource.msgf('label.personalization.deboss', 'confirmation', null, lineItem.customAttributes['emboss'].price)} <span class="personalize-msg">${lineItem.customAttributes['emboss'].msgLine1}</span></div>
+                </div>
+            </isif>
+
+            <isif condition="${lineItem.customAttributes['giftWrap']}">
+                <div class="line-item-option">
+                    <div class="personalize-price">${Resource.msgf('label.personalization.giftWrap', 'confirmation', null, lineItem.customAttributes['giftWrap'].price)}</div>
+                </div>
+            </isif>
+
+            <isif condition="${lineItem.customAttributes['giftMessage']}">
+                <div class="line-item-option">
+                    <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>>
+                    <div class="personalize-msg">${lineItem.customAttributes['giftMessage']}</div>
+                </div>
+            </isif>
+        </div>
+        <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
+            <isinclude template="cart/productCard/cartProductCardAvailability" />
+        </isif>
+        <isif condition="${lineItem.price}">
+            <p class="line-item-pricing-info">
+                <isset name="price" value="${lineItem.price}" scope="page"/>
+                <isinclude template="/product/components/pricing/giftMain" />
+            </p>
+        </isif>
+        <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+            <div class="full-cart-esw-restricted-countries-msg">
+                <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+            </div>
+        </isif>
+        <iscomment> Custom Start: Remove actionUrls object from Pdict </iscomment>
+        <div class="remove-line-item d-block mb-2">
+            <button type="button" class="remove-btn remove-product-from-mini-cart btn btn-light"
+                    data-pid="${lineItem.id}"
+                    data-name="${lineItem.productName}"
+                    data-action="${pdict.removeProductLineItemUrl}"
+                    data-gift="true"
+                    data-parent-pid="${lineItem.giftParentUUID}"
+                    data-uuid="${lineItem.UUID}"
+                    data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}"
+                    aria-label="remove">
+                <span aria-hidden="true">${Resource.msg('label.cart.remove','cart',null)}</span>
+            </button>
+        </div>
+        <iscomment> Custom End </iscomment>
+    </div>
+    <div class="">
+        <isinclude template="checkout/productCard/miniCartProductCardQuantitySelector" />
+    </div>
+</div>

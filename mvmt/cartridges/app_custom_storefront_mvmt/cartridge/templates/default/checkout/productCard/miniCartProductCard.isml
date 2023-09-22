@@ -2,6 +2,7 @@
 <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
 <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
 
 <div class="card product-line-item product-card-wrapper item-total-${lineItem.UUID}" data-product-line-item="${lineItem.UUID}">
 
@@ -93,7 +94,7 @@
                         </button>
                     </div>
                 </div>
-                <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+                <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
                     <div>
                         <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                     </div>

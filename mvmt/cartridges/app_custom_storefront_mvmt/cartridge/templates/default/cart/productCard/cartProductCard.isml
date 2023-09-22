@@ -6,6 +6,7 @@
 <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
 <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
 
 <div class="card ${JSON.stringify(lineItem)} product-info pb-0 ${bonusproductlineitem} uuid-${lineItem.UUID} product-card-wrapper">
     <!--- name and remove buttons --->
@@ -65,7 +66,7 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
-                        <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+                        <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
                             <div class="full-cart-esw-restricted-countries-msg">
                                 <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                             </div>

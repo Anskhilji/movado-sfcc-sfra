@@ -9,6 +9,7 @@
         assets.addCss('/css/product/detail.css');
         assets.addCss('/css/lib/product-tile-name.css');
     </isscript>
+    <isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
     <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
     <isif condition="${isListrakEnable}">
         <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>
@@ -32,7 +33,7 @@
                     <isset name="price" value="${product.price}" scope="page" />
                     <isinclude template="product/components/pricing/main" />
                 </span>
-                <div class="${product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
+                <div class="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
                     <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
                 </div>
             </div>
@@ -240,7 +241,7 @@
                                 <div class="col-12 prices-add-to-cart-actions-top">
                                     <div class="d-block">
                                         <!-- Cart and [Optionally] Apple Pay -->
-                                        <isif condition="${product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
+                                        <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
                                             <div class="pdp-mobile-esw-restricted-country-msg">
                                                 <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                                             </div>
@@ -304,23 +305,22 @@
                                 <div class="col-12 prices-add-to-cart-actions">
                                     <div class="d-block show-cart-button-mobile-container">
                                         <!-- Cart and [Optionally] Apple Pay -->
-                                        <div class="${product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
+                                        <div class="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
                                             <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
                                         </div>
                                         <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
                                         <isif condition="${isEswEnabled}">
                                             <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
                                                 <isif condition="${product.available && product.readyToOrder}">
-                                                    <div class="${product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
+                                                    <div class="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
                                                         <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
-                                                        
                                                     </div>
                                                 </isif>
                                             </isif>
                                         <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
                                         <iselse/>
                                             <isif condition="${product.available && product.readyToOrder}">
-                                               <div class="${product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
+                                               <div class="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
                                                     <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
                                                 </div>
                                             </isif>
@@ -371,7 +371,7 @@
                         <div class="show-cart-button-desktop">
                             <div class="row">
                                 <div class="col-12 prices-add-to-cart-actions">
-                                    <isif condition="${product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
+                                    <isif condition="${isEswProductRestrictionsEnabled && isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
                                         <div class="mb-3">
                                             <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                                         </div>
