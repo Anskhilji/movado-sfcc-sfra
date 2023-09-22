@@ -1,1 +1,0 @@
-exports.OMS_ORDER_STATUS_CANCELLED = 'Cancelled'
