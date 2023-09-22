@@ -39,9 +39,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row movado-pdp-row">
+            <div class="row movado-pdp-row product-aruliden-sec">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
+                <isinclude template="product/components/productGalleryDesktop" />
                 <div class="col-12 col-lg-5 detail-sec pt-sm-5">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
