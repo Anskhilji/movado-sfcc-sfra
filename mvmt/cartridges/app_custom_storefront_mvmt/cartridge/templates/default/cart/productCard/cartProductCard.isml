@@ -71,6 +71,11 @@
                                   <isinclude template="cart/productCard/cartProductCardEdit" />
                              </div>
                         </isif>
+                        <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+                            <div class="full-cart-esw-restricted-countries-msg">
+                                <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                            </div>
+                        </isif>
                     </div>
                     <div class="remove-line-item remove-line-item-mobile d-lg-none">
                         <isif condition="${lowStockMessageEnabled && lowStockThreshold}">

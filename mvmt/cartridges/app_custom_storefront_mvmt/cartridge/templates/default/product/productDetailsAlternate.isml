@@ -36,7 +36,13 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </span>
-                    <isinclude template="product/components/showCartButtonProduct" />
+                    <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+                        <div>
+                            <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                        </div>
+                            <iselse/>
+                        <isinclude template="product/components/showCartButtonProduct" />
+                    </isif>
                 </div>
             </div>
         </section>
@@ -278,7 +284,13 @@
                         <div class="col-12 prices-add-to-cart-actions">
                             <div class="d-block alternate-pdp-cart-button-mobile-container">
                                 <!-- Cart and [Optionally] Apple Pay -->
-                                <isinclude template="product/components/showCartButtonProduct" />
+                                <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+                                    <div>
+                                        <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                    </div>
+                                        <iselse/>
+                                    <isinclude template="product/components/showCartButtonProduct" />
+                                </isif>
                                 <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
                                 <isif condition="${isEswEnabled}">
                                     <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >

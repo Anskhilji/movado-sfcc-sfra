@@ -23,7 +23,13 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="mini-cart-add-to-cart btn " data-pid="${recommendation.id}" data-url="${URLUtils.url('Cart-AddProduct')}"> Add To Cart</button>
+                        <isif condition="${recommendation.isProductNotRestrictedOnEswCountries && !recommendation.isCurrentDomesticAllowedCountry}">
+                            <div class="">
+                                <isprint value="${recommendation.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                            </div>
+                        <iselse/>
+                            <button class="mini-cart-add-to-cart btn " data-pid="${recommendation.id}" data-url="${URLUtils.url('Cart-AddProduct')}"> Add To Cart</button>
+                        </isif>
                     </div>
                 </isif>
             </isloop>

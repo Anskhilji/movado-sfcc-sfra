@@ -1,7 +1,12 @@
 <isset name="product" value="${pdict.product}" scope="page"/>
 <isif condition="${typeof recommendationRail != 'undefined' ? recommendationRail : false}">
-    <isinclude template="product/components/recommendationRailaddToCart" />
+    <isif condition="${product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
+        <div class="recommendation-restricted-country-msg">
+            <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+        </div>
+    <iselse/>
+        <isinclude template="product/components/recommendationRailaddToCart" />
+    </isif>
 <iselse/>
     <isinclude template="product/components/addToCartProduct" />
 </isif>
-

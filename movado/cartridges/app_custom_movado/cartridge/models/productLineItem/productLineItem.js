@@ -2,6 +2,7 @@
 
 var Site = require('dw/system/Site');
 
+var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
 var productDecorators = require('*/cartridge/models/product/decorators/index');
 var productLineItemDecorators = require('*/cartridge/models/productLineItem/decorators/index');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
@@ -46,6 +47,17 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
     productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
+
+    var currentCountry = productCustomHelper.getCurrentCountry();
+    var isCurrentDomesticAllowedCountry = eswCustomHelper.isCurrentDomesticAllowedCountry();
+    var isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
+
+    if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+        var ContentMgr = require('dw/content/ContentMgr');
+
+        var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
+        var eswNotRestrictedCountriesProductMsgBody = eswNotRestrictedCountriesProductMsg && eswNotRestrictedCountriesProductMsg.custom && eswNotRestrictedCountriesProductMsg.custom.body && !empty(eswNotRestrictedCountriesProductMsg.custom.body.markup) ? eswNotRestrictedCountriesProductMsg.custom.body : '';
+    }
 
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
     var plpCustomUrl = productCustomHelper.getPLPCustomURL(apiProduct);
@@ -121,5 +133,23 @@ module.exports = function productLineItem(product, apiProduct, options) {
             value: productATSValue
         });
     }
+
+    Object.defineProperty(product, 'isCurrentDomesticAllowedCountry', {
+        enumerable: true,
+        value: isCurrentDomesticAllowedCountry
+    });
+
+    Object.defineProperty(product, 'isProductNotRestrictedOnEswCountries', {
+        enumerable: true,
+        value: isProductNotRestrictedOnEswCountries
+    });
+
+    if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+        Object.defineProperty(product, 'eswNotRestrictedCountriesProductMsgBody', {
+            enumerable: true,
+            value: eswNotRestrictedCountriesProductMsgBody
+        });
+    }
+    
     return product;
 };

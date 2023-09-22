@@ -16,8 +16,8 @@ var PromotionMgr = require('dw/campaign/PromotionMgr');
 
 module.exports = function productTile(product, apiProduct, productType, params) {
     baseProductTile.call(this, product, apiProduct, productType, params);
+    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
-    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     
     var colorVariations;
     var defaultVariantImage;
@@ -32,6 +32,20 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
+    if (product.id == '28000075') {
+        var abc = product;
+    }
+    var currentCountry = productCustomHelper.getCurrentCountry();
+    var isCurrentDomesticAllowedCountry = eswCustomHelper.isCurrentDomesticAllowedCountry();
+    var isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
+    
+    if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+        var ContentMgr = require('dw/content/ContentMgr');
+
+        var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
+        var eswNotRestrictedCountriesProductMsgBody = eswNotRestrictedCountriesProductMsg && eswNotRestrictedCountriesProductMsg.custom && eswNotRestrictedCountriesProductMsg.custom.body && !empty(eswNotRestrictedCountriesProductMsg.custom.body.markup) ? eswNotRestrictedCountriesProductMsg.custom.body : '';
+    }
+
     var variationParam = '';
     var variationParamValue = '';
     var otherVariantValues = '';
@@ -405,13 +419,29 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: color
         });
     }
-    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    // var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var saveMessage = productCustomHelper.getSaveMessage(apiProduct);
     Object.defineProperty(product, 'saveMessage', {
         enumerable: true,
         value: saveMessage
     });
 
-    
+    Object.defineProperty(product, 'isCurrentDomesticAllowedCountry', {
+        enumerable: true,
+        value: isCurrentDomesticAllowedCountry
+    });
+
+    Object.defineProperty(product, 'isProductNotRestrictedOnEswCountries', {
+        enumerable: true,
+        value: isProductNotRestrictedOnEswCountries
+    });
+
+    if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+        Object.defineProperty(product, 'eswNotRestrictedCountriesProductMsgBody', {
+            enumerable: true,
+            value: eswNotRestrictedCountriesProductMsgBody
+        });
+    }
+
     return product;
 };

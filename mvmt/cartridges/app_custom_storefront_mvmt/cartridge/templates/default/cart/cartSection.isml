@@ -40,6 +40,21 @@
     </div>
 </isif>
 
+<isloop items="${pdict.items}" var="lineItem" status="loopStatus">
+    <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div>
+                    <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                </div>
+            </div>
+        </div>
+    </isif>
+</isloop>
+
 <isif condition="${pdict.lastNameError}">
     <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">
         ${Resource.msg('error.last.name', 'checkout', null)}

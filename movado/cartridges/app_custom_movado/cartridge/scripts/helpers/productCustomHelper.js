@@ -24,7 +24,9 @@ function getExplicitRecommendations(pid) {
     var recommendation;
     var recommendationTilesList = [];
     var productRecommendationTile = {};
-    
+    var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
+    var abcd = eswNotRestrictedCountriesProductMsg.custom.body.markup;
+
     try {
         if (productRecommendations) {
             for (var i = 0; i < productRecommendations.length; i++) {
@@ -469,6 +471,25 @@ function getProductATSValue(apiProduct) {
     }
 }
 
+function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry) {
+    var isProductNotRestrictedOnEswCountries = true;
+
+    if (!isCurrentDomesticAllowedCountry) {
+        var productNotRestrictedOnEswCountries = apiProduct.custom.hasOwnProperty('productNotRestrictedOnEswCountries') ? apiProduct.custom.productNotRestrictedOnEswCountries : false;
+
+        if (productNotRestrictedOnEswCountries) {
+            productNotRestrictedOnEswCountries.forEach(function(countryCode) {
+                if (countryCode === currentCountry) {
+                    isProductNotRestrictedOnEswCountries = false;
+                }
+            });
+        }
+    }
+
+    
+    return isProductNotRestrictedOnEswCountries;
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
@@ -486,5 +507,6 @@ module.exports = {
     getRunningABTestSegments: getRunningABTestSegments,
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
     getPulseIDPreviewURL: getPulseIDPreviewURL,
-    getProductATSValue: getProductATSValue
+    getProductATSValue: getProductATSValue,
+    productNotRestrictedOnEswCountries: productNotRestrictedOnEswCountries
 };
