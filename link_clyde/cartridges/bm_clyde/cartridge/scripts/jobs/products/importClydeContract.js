@@ -9,7 +9,6 @@ var StringUtils = require('dw/util/StringUtils');
 var XMLStreamWriter = require('dw/io/XMLStreamWriter');
 var logger = require('dw/system/Logger').getLogger('CLYDE', 'importClydeContract');
 
-var pulseIdConstants = require('int_pulseid_engraving/cartridge/scripts/utils/pulseIdConstants');
 /**
  * Function used to get product search hits
  * @returns {Object} - productSearchHitsItr
@@ -46,8 +45,8 @@ function writeCatalogHeader(clydeContractStreamWriter, catalogID) {
  */
 function writeCatalogFileContent(result, fileWriter, productSearchHitsItr) {
 
-
-
+    var pulseIdConstants = require('int_pulseid_engraving/cartridge/scripts/utils/pulseIdConstants');
+    
     while (productSearchHitsItr.hasNext()) {
         var productOptions;
         var pulseIdOptionValue = {};
