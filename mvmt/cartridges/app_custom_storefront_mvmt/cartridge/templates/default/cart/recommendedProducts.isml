@@ -28,7 +28,7 @@
                                 <isprint value="${recommendation.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                             </div>
                         <iselse/>
-                            <button class="mini-cart-add-to-cart btn " data-pid="${recommendation.id}" data-url="${URLUtils.url('Cart-AddProduct')}"> Add To Cart</button>
+                            <button class="mini-cart-add-to-cart btn " data-pid="${recommendation.id}" data-url="${URLUtils.url('Cart-AddProduct')}">${Resource.msg('label.add-to-cart', 'cart', null)}</button>
                         </isif>
                     </div>
                 </isif>

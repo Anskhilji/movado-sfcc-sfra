@@ -34,7 +34,13 @@
 
                         </div>
                         <div class="upsell_text">
-                            <p class="upsell_text-add">${Resource.msg('label.add.redesign', 'product', null)}</p>
+                             <isif condition="${recommendation.isProductNotRestrictedOnEswCountries && !recommendation.isCurrentDomesticAllowedCountry}">
+                                <div class="pdp-recommendation-esw-restricted-country-msg">
+                                    <isprint value="${recommendation.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                </div>
+                            <iselse>
+                                <p class="upsell_text-add">${Resource.msg('label.add.redesign', 'product', null)}</p>
+                            </isif>
                         </div>
                     </div>
                 </isif>

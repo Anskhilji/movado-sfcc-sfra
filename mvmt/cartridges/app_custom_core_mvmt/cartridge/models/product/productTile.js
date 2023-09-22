@@ -32,9 +32,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
-    if (product.id == '28000075') {
-        var abc = product;
-    }
     var currentCountry = productCustomHelper.getCurrentCountry();
     var isCurrentDomesticAllowedCountry = eswCustomHelper.isCurrentDomesticAllowedCountry();
     var isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
@@ -419,7 +416,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: color
         });
     }
-    // var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var saveMessage = productCustomHelper.getSaveMessage(apiProduct);
     Object.defineProperty(product, 'saveMessage', {
         enumerable: true,

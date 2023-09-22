@@ -52,6 +52,7 @@
                 </div>
             </div>
         </div>
+        <isbreak/>
     </isif>
 </isloop>
 

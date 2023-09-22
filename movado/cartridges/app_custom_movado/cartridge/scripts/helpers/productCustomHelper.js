@@ -24,8 +24,6 @@ function getExplicitRecommendations(pid) {
     var recommendation;
     var recommendationTilesList = [];
     var productRecommendationTile = {};
-    var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
-    var abcd = eswNotRestrictedCountriesProductMsg.custom.body.markup;
 
     try {
         if (productRecommendations) {
@@ -472,22 +470,25 @@ function getProductATSValue(apiProduct) {
 }
 
 function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry) {
-    var isProductNotRestrictedOnEswCountries = true;
+    try {
+        var isProductNotRestrictedOnEswCountries = true;
 
-    if (!isCurrentDomesticAllowedCountry) {
-        var productNotRestrictedOnEswCountries = apiProduct.custom.hasOwnProperty('productNotRestrictedOnEswCountries') ? apiProduct.custom.productNotRestrictedOnEswCountries : false;
-
-        if (productNotRestrictedOnEswCountries) {
-            productNotRestrictedOnEswCountries.forEach(function(countryCode) {
-                if (countryCode === currentCountry) {
-                    isProductNotRestrictedOnEswCountries = false;
-                }
-            });
-        }
-    }
-
+        if (!isCurrentDomesticAllowedCountry) {
+            var productNotRestrictedOnEswCountries = apiProduct.custom.hasOwnProperty('productNotRestrictedOnEswCountries') ? apiProduct.custom.productNotRestrictedOnEswCountries : false;
     
-    return isProductNotRestrictedOnEswCountries;
+            if (productNotRestrictedOnEswCountries) {
+                productNotRestrictedOnEswCountries.forEach(function(countryCode) {
+                    if (countryCode === currentCountry) {
+                        isProductNotRestrictedOnEswCountries = false;
+                    }
+                });
+            }
+        }
+        
+        return isProductNotRestrictedOnEswCountries;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> productNotRestrictedOnEswCountries) Error occured while getting product available to sell value. Product {0}: \n Error: {1} \n', apiProduct.ID, e);
+    }
 }
 
 module.exports = {

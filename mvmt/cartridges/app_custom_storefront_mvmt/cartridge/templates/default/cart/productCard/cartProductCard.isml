@@ -65,16 +65,15 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
-
-                        <isif condition="${pdict.loggedIn}">
-                             <div class="hidden-xs-down edit-add-to-wishlist">
-                                  <isinclude template="cart/productCard/cartProductCardEdit" />
-                             </div>
-                        </isif>
                         <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
                             <div class="full-cart-esw-restricted-countries-msg">
                                 <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                             </div>
+                        </isif>
+                        <isif condition="${pdict.loggedIn}">
+                             <div class="hidden-xs-down edit-add-to-wishlist">
+                                  <isinclude template="cart/productCard/cartProductCardEdit" />
+                             </div>
                         </isif>
                     </div>
                     <div class="remove-line-item remove-line-item-mobile d-lg-none">
