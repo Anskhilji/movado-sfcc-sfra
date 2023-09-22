@@ -36,13 +36,9 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </span>
-                    <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
-                        <div>
-                            <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
-                        </div>
-                            <iselse/>
+                    <div class="${product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
                         <isinclude template="product/components/showCartButtonProduct" />
-                    </isif>
+                    </div>
                 </div>
             </div>
         </section>
@@ -284,11 +280,11 @@
                         <div class="col-12 prices-add-to-cart-actions">
                             <div class="d-block alternate-pdp-cart-button-mobile-container">
                                 <!-- Cart and [Optionally] Apple Pay -->
-                                <isif condition="${lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
-                                    <div>
-                                        <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                <isif condition="${product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
+                                    <div class="d-none d-md-block">
+                                        <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                                     </div>
-                                        <iselse/>
+                                    <iselse/>
                                     <isinclude template="product/components/showCartButtonProduct" />
                                 </isif>
                                 <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
