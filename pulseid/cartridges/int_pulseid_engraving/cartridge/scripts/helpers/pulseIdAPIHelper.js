@@ -129,7 +129,7 @@ function setOptionalLineItemUUID(modelItems, product) {
  * Created new Pulse Object
  * @param {Object} order 
  */
-function getLineItemOnOrderDetailsForEngraving(order, orderModel, req) {
+function getLineItemOnOrderDetailsForEngraving(order, orderModel, session) {
     var productLineItem;
     var orderLineItems = order.getAllProductLineItems();
     var orderLineItemsIterator = orderLineItems.iterator();
@@ -141,10 +141,10 @@ function getLineItemOnOrderDetailsForEngraving(order, orderModel, req) {
         var items = orderModel.items;
         setOptionalLineItemUUID(items, productLineItem);
 
-        req.session.raw.custom.appleProductId = '';
-        req.session.raw.custom.appleEngraveOptionId = '';
-        req.session.raw.custom.appleEngravedMessage = '';
-        req.session.raw.custom.pulseIDPreviewURL = '';
+        session.raw.custom.appleProductId = '';
+        session.raw.custom.appleEngraveOptionId = '';
+        session.raw.custom.appleEngravedMessage = '';
+        session.raw.custom.pulseIDPreviewURL = '';
     // custom end
     }
 }

@@ -285,11 +285,12 @@ function getCountryCode(request) {
     return countryCode;
 }
 
-function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal, trackOrderEmail, req) {
+function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal, trackOrderEmail, session) {
     var OrderMgr = require('dw/order/OrderMgr');
 
     var OrderModel = require('*/cartridge/models/order');
     var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+    var constants = require('*/cartridge/scripts/helpers/constants');
     var order;
     var cancelOrderEnable = false;
     var cancelOrderMessage = false;
@@ -318,7 +319,7 @@ function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal,
 
         if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
             var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-            pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
+            pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, session);
         }
 
         var emailAddress = orderModel.orderEmail;
@@ -344,7 +345,7 @@ function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal,
             cancelOrderEnable = true;
         }
 
-        if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Cancelled') {
+        if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === constants.OMS_ORDER_STATUS_CANCELLED) {
             cancelOrderMessage = true;
         }
 

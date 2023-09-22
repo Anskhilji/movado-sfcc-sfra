@@ -407,6 +407,7 @@ server.post(
         var OrderModel = require('*/cartridge/models/order');
         
         var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+        var constants = require('*/cartridge/scripts/helpers/constants');
 
         var order;
         var validForm = true;
@@ -446,7 +447,7 @@ server.post(
 
             if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
                 var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
+                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req.session);
             }
 
             // check the email and postal code of the form
@@ -487,7 +488,7 @@ server.post(
                     cancelOrderEnable = true;
                 }
 
-                if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Cancelled') {
+                if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === constants.OMS_ORDER_STATUS_CANCELLED) {
                     cancelOrderMessage = true;
                 }
 
@@ -565,7 +566,7 @@ server.get('GetOrderDetail', function (req, res, next) {
 
     var currentLocale = Locale.getLocale(req.locale.id);
     var orderNumber = req.querystring.trackOrderNumber;
-    var responseObject = orderCustomHelpers.orderDetail(currentLocale, true, orderNumber, req);
+    var responseObject = orderCustomHelpers.orderDetail(currentLocale, true, orderNumber, req.session);
     var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
     var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
@@ -605,7 +606,7 @@ server.post('OrderDetail', function (req, res, next) {
     var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
     var currentLocale = Locale.getLocale(req.locale.id);
-    var responseObject = orderCustomHelpers.orderDetail(currentLocale, false, req.form.trackOrderNumber, req.form.trackOrderPostal, req.form.trackOrderEmail, req);
+    var responseObject = orderCustomHelpers.orderDetail(currentLocale, false, req.form.trackOrderNumber, req.form.trackOrderPostal, req.form.trackOrderEmail, req.session);
     var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
     var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);

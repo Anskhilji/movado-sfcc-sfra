@@ -11,6 +11,7 @@ var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var constants = require('*/cartridge/scripts/helpers/constants');
 
 server.replace(
     'History',
@@ -133,7 +134,7 @@ server.replace(
 
             if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
                 var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req);
+                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req.session);
             }
 
             var emailAddress = orderModel.orderEmail;
@@ -159,7 +160,7 @@ server.replace(
                 cancelOrderEnable = true;
             }
 
-            if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Cancelled') {
+            if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === constants.OMS_ORDER_STATUS_CANCELLED) {
                 cancelOrderMessage = true;
             }
 
