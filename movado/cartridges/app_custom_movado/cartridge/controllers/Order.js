@@ -384,8 +384,9 @@ server.append('Confirm', function (req, res, next) {
 
 
     //custom Start : MSS-2339-integration-Talkable-Marketing-platform
-    var talkableHelper = require("*/cartridge/scripts/talkable/libTalkable");
-    if (talkableHelper.TalkableEnabled()) { 
+    var isTalkableEnabled = Site.current.getCustomPreferenceValue("talkableEnabled") || "";
+    if (isTalkableEnabled) { 
+        var talkableHelper = require("*/cartridge/scripts/talkable/libTalkable");
         var talkable = new talkableHelper.TalkableHelper();
         viewData.isPostCheckoutEnabled = talkable.isPostCheckoutEnabled();
         viewData.talkableSiteId = talkable.getSiteId();
