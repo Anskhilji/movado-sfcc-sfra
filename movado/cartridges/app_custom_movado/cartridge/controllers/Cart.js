@@ -202,15 +202,15 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
             }
 
             if (productLineItem) {
-                customCartHelpers.removeNullClydeWarrantyLineItem(productLineItem);
+                customCartHelpers.removeNullClydeWarrantyLineItem(productLineItem, currentBasket);
             }
             
             if (productLineItem) {
-                customCartHelpers.removeNullEngravingLineItem(productLineItem);
+                customCartHelpers.removeNullEngravingLineItem(productLineItem, currentBasket);
             }
 
             if (productLineItem) {
-                customCartHelpers.removeNullOptions(productLineItem);
+                customCartHelpers.removeNullOptions(productLineItem, currentBasket);
             }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
@@ -397,15 +397,15 @@ server.prepend(
         var productLineItem = productLineItems.next();
 
         if (productLineItem) {
-            customCartHelpers.removeNullClydeWarrantyLineItem(productLineItem);
+            customCartHelpers.removeNullClydeWarrantyLineItem(productLineItem, currentBasket);
         }
 
-        if (productLineItem) {
-            customCartHelpers.removeNullEngravingLineItem(productLineItem);
+        if (productLineItem && currentBasket) {
+            customCartHelpers.removeNullEngravingLineItem(productLineItem, currentBasket);
         }
 
-        if (productLineItem) {
-            customCartHelpers.removeNullOptions(productLineItem);
+        if (productLineItem && currentBasket) {
+            customCartHelpers.removeNullOptions(productLineItem, currentBasket);
         }
     }
 
@@ -511,15 +511,15 @@ server.append(
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
 
             if (productLineItem) {
-                customCartHelpers.removeNullClydeWarrantyLineItem(productLineItem);
+                customCartHelpers.removeNullClydeWarrantyLineItem(productLineItem, currentBasket);
             }
 
             if (productLineItem) {
-                customCartHelpers.removeNullEngravingLineItem(productLineItem);
+                customCartHelpers.removeNullEngravingLineItem(productLineItem, currentBasket);
             }
 
             if (productLineItem) {
-                customCartHelpers.removeNullOptions(productLineItem);
+                customCartHelpers.removeNullOptions(productLineItem, currentBasket);
             }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);

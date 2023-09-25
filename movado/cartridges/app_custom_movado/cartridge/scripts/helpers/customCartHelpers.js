@@ -372,7 +372,7 @@ function getCountrySwitch() {
 
 };
 
-function removeNullClydeWarrantyLineItem(productLineItem) {
+function removeNullClydeWarrantyLineItem(productLineItem, currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
     
     Transaction.wrap(function () {
@@ -382,7 +382,7 @@ function removeNullClydeWarrantyLineItem(productLineItem) {
     });
 };
 
-function removeNullEngravingLineItem(productLineItem) {
+function removeNullEngravingLineItem(productLineItem, currentBasket) {
     var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
     var PULSE_ID_ENGRAVING = 'pulseIdEngraving';
     var pulseIdConstants;
@@ -398,7 +398,7 @@ function removeNullEngravingLineItem(productLineItem) {
     });
 };
 
-function removeNullOptions(productLineItem) {
+function removeNullOptions(productLineItem, currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
     
     Transaction.wrap(function () {
