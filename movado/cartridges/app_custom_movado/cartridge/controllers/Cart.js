@@ -208,9 +208,9 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
             if (productLineItem) {
                 customCartHelpers.removeNullEngravingLineItem(productLineItem);
             }
-            
+
             if (productLineItem) {
-                customCartHelpers.removeNULLOptions(productLineItem);
+                customCartHelpers.removeNullOptions(productLineItem);
             }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
@@ -405,7 +405,7 @@ server.prepend(
         }
 
         if (productLineItem) {
-            customCartHelpers.removeNULLOptions(productLineItem);
+            customCartHelpers.removeNullOptions(productLineItem);
         }
     }
 
@@ -519,7 +519,7 @@ server.append(
             }
 
             if (productLineItem) {
-                customCartHelpers.removeNULLOptions(productLineItem);
+                customCartHelpers.removeNullOptions(productLineItem);
             }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);

@@ -29,6 +29,7 @@ server.replace(
         var Constants = require('*/cartridge/utils/Constants');
         var OrderModel = require('*/cartridge/models/order');
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
+
         var abTestSegment;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;

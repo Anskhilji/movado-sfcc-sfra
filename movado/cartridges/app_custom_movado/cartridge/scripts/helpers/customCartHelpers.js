@@ -398,7 +398,7 @@ function removeNullEngravingLineItem(productLineItem) {
     });
 };
 
-function removeNULLOptions(productLineItem) {
+function removeNullOptions(productLineItem) {
     var Constants = require('*/cartridge/utils/Constants');
     
     Transaction.wrap(function () {
@@ -542,7 +542,7 @@ module.exports = {
     removeClydeWarranty: removeClydeWarranty,
     removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem,
     removeNullEngravingLineItem: removeNullEngravingLineItem,
-    removeNULLOptions: removeNULLOptions,
+    removeNullOptions: removeNullOptions,
     removeGiftMessaging: removeGiftMessaging,
     updateOptionLineItemAfterShopperRecovery: updateOptionLineItemAfterShopperRecovery
 };
