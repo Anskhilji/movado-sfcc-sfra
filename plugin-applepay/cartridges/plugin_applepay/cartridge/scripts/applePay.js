@@ -498,7 +498,7 @@ exports.beforeAuthorization = function (order, payment, custom) {
         pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
     }
 
-    if (Site.current.preferences.custom.isClydeEnabled) {
+    if (Site.current.preferences.custom.isClydeEnabled || enablePulseIdEngraving) {
         var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
         Transaction.wrap(function () {
             while (orderLineItemsIterator.hasNext()) {
