@@ -1,7 +1,6 @@
 'use strict';
 
-var Filter = require('@duckodas/badwords');
-var profanityFilter = new Filter();
+var profanityFilter = require('./profanityFilter');
 
 $('.pdp-v-one [pd-popup-open]').on('click', function (e) {
     var $engravingInputOne = $('.engraving-input-one').val();

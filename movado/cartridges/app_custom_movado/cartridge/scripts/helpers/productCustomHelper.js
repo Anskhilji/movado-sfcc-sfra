@@ -469,6 +469,13 @@ function getProductATSValue(apiProduct) {
     }
 }
 
+function getBadWordsList() {
+    var badWordsList = !empty(Site.current.preferences.custom.badWordsList) ? JSON.parse(Site.current.preferences.custom.badWordsList) : '';
+    badWordsList = !empty(badWordsList) && !empty(badWordsList.words) ? badWordsList.words : '';
+
+    return badWordsList;
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
@@ -486,5 +493,6 @@ module.exports = {
     getRunningABTestSegments: getRunningABTestSegments,
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
     getPulseIDPreviewURL: getPulseIDPreviewURL,
-    getProductATSValue: getProductATSValue
+    getProductATSValue: getProductATSValue,
+    getBadWordsList: getBadWordsList
 };
