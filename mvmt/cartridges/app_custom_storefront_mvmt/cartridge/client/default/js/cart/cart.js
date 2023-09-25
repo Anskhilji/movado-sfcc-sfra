@@ -574,6 +574,7 @@ function updateCartQuantity(quantitySelector, isKeyEvent) {
             updateAvailability(data, $uuid);
             validateBasket(data);
             $(quantitySelector).data('pre-select-qty', $quantity);
+            checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
             $.spinner().stop();
             //Custom Start: [MSS-1451] Listrak SendSCA on Cart Quantity Update
             if (window.Resources.LISTRAK_ENABLED) {
@@ -626,6 +627,23 @@ function enterGiftMessageHandler($element) {
     if ($this.val() !== '') {
         addGiftButton.removeAttr('disabled').find('.apply-button').removeClass('d-none');
         addGiftButton.find('.saved-button').addClass('d-none');
+    }
+}
+
+/**
+ * Check out btn disabled if in the cart having esw countries restricted product
+ * @param {data} - current ajax response
+ */
+function checkoutBtnDisabledOnEswCountriesRestrictedProduct(data) {
+    var $isEswProductRestrictionsEnabled = $('.esw-product-restrictions-enabled').data('esw-product-restrictions-enabled');
+    var items = (data?.basket?.items || data?.items) ?? [];
+
+    for (var i = 0; i < items.length > 0; i++) {
+        var item = items[i];
+
+        if ($isEswProductRestrictionsEnabled && item.isProductNotRestrictedOnEswCountries && !item.isCurrentDomesticAllowedCountry) {
+            $('.checkout-btn').addClass('disabled');
+        }
     }
 }
 
@@ -806,6 +824,7 @@ module.exports = function () {
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 if (data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
                     setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
@@ -923,6 +942,7 @@ module.exports = function () {
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 //Custom Start: [MSS-1451] Listrak SendSCA on Remove
                 if (window.Resources.LISTRAK_ENABLED) {

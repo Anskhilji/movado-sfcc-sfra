@@ -1,4 +1,14 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePreferences.eswProductRestrictionsEnabled) ? sitePreferences.eswProductRestrictionsEnabled : false}" scope="page" />
+<span class="esw-product-restrictions-enabled" data-esw-product-restrictions-enabled="${isEswProductRestrictionsEnabled}"></span>
+<isset name="isEswRestrictedProduct"
+    value="false"
+    scope="page" />
+<isloop items="${pdict.items}" var="lineItem" status="loopStatus">
+    <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+        <isset name="isEswRestrictedProduct" value="true" scope="page" />
+    </isif>
+</isloop>
 <div class="row">
     <div class="col-sm-12">
         <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
@@ -13,7 +23,7 @@
         <a href="${URLUtils.https('Checkout-Login')}"
             data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="<isif condition=" ${eswHelper.getEShopWorldModuleEnabled() && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != null && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn
             btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
-            ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
+            ${!empty(pdict.countrySwitch) ? 'disabled' : ''} ${isEswRestrictedProduct == 'true' ? 'disabled' : ''}"
             role="button" aria-pressed="true">
             ${checkoutBtn}
         </a>
