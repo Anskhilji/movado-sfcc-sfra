@@ -1,4 +1,4 @@
-<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+<isset name="sitePreferences" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 <header class="checkout-header">
   <nav>
     <div class="sticky-header-wrapper">
