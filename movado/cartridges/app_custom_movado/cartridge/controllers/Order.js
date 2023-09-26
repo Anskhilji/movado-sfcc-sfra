@@ -10,6 +10,7 @@ var Money = require('dw/value/Money');
 var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
 
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
@@ -26,7 +27,6 @@ server.replace(
         var Site = require('dw/system/Site');
         var Transaction = require('dw/system/Transaction');
 
-        var Constants = require('*/cartridge/utils/Constants');
         var OrderModel = require('*/cartridge/models/order');
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
 
@@ -35,14 +35,6 @@ server.replace(
         var token = req.querystring.token ? req.querystring.token : null;
         var userIPAddress = request.httpRemoteAddress || '';
         var currencyCode = order.getCurrencyCode();
-        var pulseIdConstants;
-        var PULSE_ID_ENGRAVING = 'pulseIdEngraving';
-
-        var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
-
-        if (enablePulseIdEngraving) {
-            pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
-        }
 
         if (!order
             || !token
@@ -88,20 +80,19 @@ server.replace(
         var productLineItem;
         var orderLineItems = order.getAllProductLineItems();
         var orderLineItemsIterator = orderLineItems.iterator();
+        var optionProductLineItem;
 
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
+            optionProductLineItem = productLineItem.optionProductLineItems.iterator();
             Transaction.wrap(function () {
                 if (productLineItem instanceof dw.order.ProductLineItem &&
                     !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItem) {
                     productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
                 }
 
-
-                if (productLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                    order.removeProductLineItem(productLineItem);
-                } else if ((productLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == PULSE_ID_ENGRAVING)) {
-                    order.removeProductLineItem(productLineItem);
+                if (!empty(optionProductLineItem)) {
+                    customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
                 }
             });
 

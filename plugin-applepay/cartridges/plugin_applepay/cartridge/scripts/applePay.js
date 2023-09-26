@@ -10,6 +10,7 @@ var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
 
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
 var RiskifiedService = require('int_riskified');
@@ -487,6 +488,7 @@ exports.beforeAuthorization = function (order, payment, custom) {
     var orderLineItems = order.getAllProductLineItems();
     var orderLineItemsIterator = orderLineItems.iterator();
     var productLineItem;
+    var optionProductLineItem;
     var pulseIdConstants;
 
     /**
@@ -524,16 +526,15 @@ exports.beforeAuthorization = function (order, payment, custom) {
      * Custom: End
      */
 
-    Transaction.wrap(function () {
-        while (orderLineItemsIterator.hasNext()) {
-            productLineItem = orderLineItemsIterator.next();
-            if (productLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                order.removeProductLineItem(productLineItem);
-            } else if ((productLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == PULSEID_ENGRAVING)) {
-                order.removeProductLineItem(productLineItem);
-            }
+    // remove null option line item
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+        
+        if (!empty(optionProductLineItem)) {
+            customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
         }
-    });
+    }
 
     var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);
     RiskifiedService.storePaymentDetails({

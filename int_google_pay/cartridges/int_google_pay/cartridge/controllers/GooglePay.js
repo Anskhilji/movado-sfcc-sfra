@@ -13,6 +13,7 @@ var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var checkoutLogger = require('app_custom_movado/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
 var googlePayHelper = require('*/cartridge/scripts/helpers/googlePayHelpers.js');
@@ -95,22 +96,15 @@ server.post('ProcessPayments',
         var OrderMgr = require('dw/order/OrderMgr');
         var PaymentManager = require('dw/order/PaymentMgr');
 
-        var Constants = require('*/cartridge/utils/Constants');
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
         
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var referralUrl = req.referer;
         var googlePayEntryPoint = referralUrl && (referralUrl.indexOf('Cart-Show') > -1) || (referralUrl.indexOf('shopping-bag') > -1) ? false : true;
         var productID = (!empty(currentBasket)) ? currentBasket.productLineItems[0].productID : '';
-        var pulseIdEngraving = 'pulseIdEngraving';
-        var pulseIdConstants;
 
         var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
 		var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
-
-        if (enablePulseIdEngraving) {
-            pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
-        }
 
         if (!currentBasket) {
             res.json({
@@ -395,6 +389,10 @@ server.post('ProcessPayments',
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 
         var Order = OrderMgr.getOrder(order.orderNo);
+        var productLineItems = order.getAllProductLineItems().iterator();
+        var productLineItem;
+        var optionProductLineItem;
+
         Transaction.wrap(function () {
             Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
         });
@@ -429,21 +427,15 @@ server.post('ProcessPayments',
 		/**
 		 * Custom: End
 		 */
-            
-        var orderLineItems = order.getAllProductLineItems();
-        var orderLineItemsIterator = orderLineItems.iterator();
-        var productLineItem;
-        
-        Transaction.wrap(function () {
-            while (orderLineItemsIterator.hasNext()) {
-                productLineItem = orderLineItemsIterator.next();
-                if (productLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                    order.removeProductLineItem(productLineItem);
-                } else if ((productLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
-                    order.removeProductLineItem(productLineItem);
-                }
+
+        // remove null option line item
+        while (productLineItems.hasNext()) {
+            productLineItem = productLineItems.next();
+            optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
             }
-        });
+        }
 
         // SOM API call
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
