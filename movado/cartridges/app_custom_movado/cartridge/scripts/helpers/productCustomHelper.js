@@ -470,7 +470,7 @@ function getProductATSValue(apiProduct) {
 }
 
 function getBadWordsList() {
-    var badWordsList = !empty(Site.current.preferences.custom.badWordsList) ? JSON.parse(Site.current.preferences.custom.badWordsList) : '';
+    var badWordsList = !empty(Site.current.preferences.custom.pulseIDBadWordsList) ? JSON.parse(Site.current.preferences.custom.pulseIDBadWordsList) : '';
     badWordsList = !empty(badWordsList) && !empty(badWordsList.words) ? badWordsList.words : '';
 
     return badWordsList;
