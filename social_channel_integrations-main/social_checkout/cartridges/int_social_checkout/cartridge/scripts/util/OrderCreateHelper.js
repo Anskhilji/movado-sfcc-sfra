@@ -17,67 +17,6 @@ var DEFAULT_VALUES = {
     LAST_NAME: 'Shop'
 };
 
-/**
- * converts state code to state name or state name to state code
- * @param {string} input - the state code or state name
- * @param {string} to - code or name, based on the value that needs to be returned
- * @param {dw.web.FormFieldOptions} options - form field options
- * @returns {string} the state name or code
- */
-function convertField(input, to, options) {
-    if (!input) return '';
-    var Resource = require('dw/web/Resource');
-
-    var option;
-    var values = []; // [['Alabama', 'AL'], ['Alaska', 'AK']]
-    var retValue = StringUtils.trim(input);
-
-    if (options && Object.keys(options).length) {
-        Object.keys(options).forEach(function (key) {
-            var fieldOption = options[key];
-            if (fieldOption.value && fieldOption.label) {
-                var exists = values.find(s => String(s[1]).toLowerCase() === String(fieldOption.value).toLowerCase());
-                if (!exists) {
-                    values.push([Resource.msg(fieldOption.label, 'forms', retValue), fieldOption.value]);
-                }
-            }
-        });
-    }
-
-    if (to === 'name') {
-        option = values.find(s => String(s[1]).toLowerCase() === String(input).toLowerCase());
-        if (option) retValue = option[0];
-    } else {
-        option = values.find(s => String(s[0]).toLowerCase() === String(input).toLowerCase());
-        if (option) retValue = option[1];
-    }
-
-    return retValue;
-}
-
-/**
- * converts state code to state name or state name to state code
- * @param {string} input - the state code or state name
- * @param {string} to - code or name, based on the value that needs to be returned
- * @returns {string} the state name or code
- */
-function convertState(input, to) {
-    if (!input) return '';
-    var options = session.forms.address.states.stateCode.getOptions();
-    return convertField(input, to, options);
-}
-
-/**
- * converts country code to country name or country name to country code
- * @param {string} input - the country code or country name
- * @param {string} to - code or name, based on the value that needs to be returned
- * @returns {string} the country name or code
- */
-function convertCountry(input, to) {
-    if (!input) return '';
-    var options = session.forms.address.country.getOptions();
-    return convertField(input, to, options);
-}
 
 /**
  * splits a full name into first and last name
@@ -141,10 +80,10 @@ function setAddressFields(orderAddress, addressJson) {
         orderAddress.setPostalCode(addressJson.postal_code);
     }
     if (addressJson.state_code) {
-        orderAddress.setStateCode(convertState(addressJson.state_code, 'code'));
+        orderAddress.setStateCode(addressJson.state_code);
     }
     if (addressJson.country_code) {
-        orderAddress.setCountryCode(convertCountry(addressJson.country_code, 'code'));
+        orderAddress.setCountryCode(addressJson.country_code);
     }
     if (addressJson.phone) {
         orderAddress.setPhone(addressJson.phone);
@@ -608,8 +547,8 @@ function validateShipments(shipmentItems) {
         var availableShippingMethods = ShippingMgr.getAllShippingMethods().toArray();
         var invalidShipment = null;
 
-        var shippingMethodIds = shipmentItems.toArray().map((si) => si.shippingMethod);
-        var availableShippingMethodIds = availableShippingMethods.map((m) => m.getID());
+        var shippingMethodIds = shipmentItems.toArray().map(function(si) {si.shippingMethod});
+        var availableShippingMethodIds = availableShippingMethods.map(function(m) { m.getID()});
 
         for (var i = 0; i < shippingMethodIds.length; i++) {
             if (availableShippingMethodIds.indexOf(shippingMethodIds[i]) < 0) {
@@ -648,8 +587,6 @@ function setCurrencySession(order) {
 }
 
 module.exports = {
-    convertState: convertState,
-    convertCountry: convertCountry,
     setBillingAddress: setBillingAddress,
     setShippingAddress: setShippingAddress,
     getCustomerName: getCustomerName,
