@@ -23,6 +23,7 @@ server.append('Show', consentTracking.consent, cache.applyDefaultCache, function
     var FolderSearch = require('*/cartridge/models/search/folderSearch');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
+
     var viewData = res.getViewData();
     var content = ContentMgr.getContent('ca-home-hreflang');
 

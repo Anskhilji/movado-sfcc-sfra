@@ -147,7 +147,6 @@
             <isinclude template="cart/productCard/cartGiftProduct" />
         </isif>
     </isloop>
-
     <isset name="itemLevelGiftMessage" value="${parentLineItemId.customAttributes['itemLevelGiftMessage'] ? parentLineItemId.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}" scope="page" />
     <isset name="isCartPage" value="${true}" scope="page" />
     <isif condition="${!empty(itemLevelGiftMessage) || !empty(parentLineItemId.giftPid)}">
