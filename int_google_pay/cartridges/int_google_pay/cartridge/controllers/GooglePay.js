@@ -104,7 +104,7 @@ server.post('ProcessPayments',
         var productID = (!empty(currentBasket)) ? currentBasket.productLineItems[0].productID : '';
 
         var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
-		var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
 
         if (!currentBasket) {
             res.json({
