@@ -4,7 +4,6 @@ var productDecorators = require('*/cartridge/models/product/decorators/index');
 var productLineItemDecorators = require('*/cartridge/models/productLineItem/decorators/index');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
-
 /**
  * Decorate product with product line item information from within an order
  * @param {Object} product - Product Model to be decorated

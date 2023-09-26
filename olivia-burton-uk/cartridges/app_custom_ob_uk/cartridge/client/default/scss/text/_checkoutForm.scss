@@ -62,6 +62,7 @@
       font-size: $font-size-heading2;
       letter-spacing: rem(1.6);
       border: rem(1) solid $black;
+      font-weight: 300;
     }
 
     select.form-control {
@@ -85,45 +86,9 @@
 .billing-address,
 .shipping-form{
     .form-group {
-        .form-control {
-            &.is-invalid {
-                border: rem(1) solid $invalid-red;
-                background: url("../../images/invalid.svg") center right no-repeat;
-                background-position-x: 97%;
-                @include media-breakpoint-down(sm) {
-                  background: none;
-                }
-            }
-
-            &#shippingState,
-            &#shippingCountrydefault,
-            &#billingState,
-            &#billingCountry {
-                &.form-control {
-                    &.is-invalid {
-                        background-position-x: 90%;
-                    }
-                }
-            }
-
-            &#shippingZipCode,
-            &#shippingLastName,
-            &#shippingFirstName,
-            &#shippingAddressCity,
-            &#billingZipCode,
-            &#billingAddressCity,
-            &#billingFirstName,
-            &#billingLastName {
-                &.form-control {
-                    &.is-invalid {
-                        background-position-x: 93.5%;
-                    }
-                }
-            }
-        }
 
         .invalid-feedback {
-          font-size: rem(11);
+          font-size: rem(16);
           font-weight: 500;
           letter-spacing: rem(0.33);
           line-height: rem(24);
@@ -211,6 +176,7 @@
       font-family: $font-gills-light;
       font-size: $font-size-heading2;
       letter-spacing: rem(1);
+      font-weight: 300;
     }
   }
 }
@@ -225,10 +191,32 @@
   }
 }
 
-.checkout-page {
-  label {
-    font-family: $font-gills-light;
-  }
+.container {
+    &.checkout-page {
+
+      .card {
+
+          .card-body {
+
+              .form-group {
+
+                  input[placeholder] {
+                      font-family: $font-gills-light;
+                      font-weight: 300;
+                  }
+
+                  label {
+                      font-family: $font-gills-light;
+                      font-weight: 300;
+                  }
+              }
+              
+              .hidden-xs-down {
+                  font-family: $font-gills-light;
+              }
+          }
+      }
+    }
 }
 
 @include media-breakpoint-up(sm) {
@@ -390,7 +378,7 @@
                                             
                                               .item-quantity-wrapper {
                                                   font-size: rem(14);
-                                                  font-weight: 500;
+                                                  font-weight: 300;
                                                   letter-spacing: rem(1);
                                                   line-height: rem(10);
                                                   color: $black3;
@@ -416,7 +404,7 @@
                                             
                                               .total-amount {
                                                   font-size: rem(14);
-                                                  font-weight: 500;
+                                                  font-weight: 300;
                                                   letter-spacing: rem(1);
                                                   line-height: rem(10);
                                                   color: $black;
@@ -429,7 +417,7 @@
                             
                                               .original-price {
                                                   font-size: rem(14);
-                                                  font-weight: 500;
+                                                  font-weight: 300;
                                                   letter-spacing: rem(1);
                                                   line-height: rem(10);
                                                   color: $black3;
@@ -442,7 +430,7 @@
                             
                                               .savings {
                                                   font-size: rem(14);
-                                                  font-weight: 500;
+                                                  font-weight: 300;
                                                   letter-spacing: rem(0.86);
                                                   line-height: rem(10);
                                                   color: $light-green3;
@@ -714,7 +702,7 @@
                                     
                                       .item-quantity-wrapper {
                                           font-size: rem(14);
-                                          font-weight: 500;
+                                          font-weight: 300;
                                           letter-spacing: rem(1);
                                           line-height: rem(10);
                                           color: $black3;
@@ -849,11 +837,11 @@
 
                 .form-control {
                     &.input-wrapper-checkout {
-                        font-weight: 600;
+                        font-weight: 400;
                     }
 
                     &.custom-select-box {
-                        font-weight: 600;
+                        font-weight: 400;
                     }
                 }
             }
@@ -863,11 +851,11 @@
 
             .form-control {
                 &.input-wrapper-checkout {
-                    font-weight: 600;
+                    font-weight: 500;
                 }
 
                 &.custom-select-box {
-                    font-weight: 600;
+                    font-weight: 500;
                 }
             }
         }
@@ -877,4 +865,28 @@
 :focus {
     outline: none;
     box-shadow: none;
+}
+
+.checkout-content {
+  
+    .card {
+
+      &.payment-form {
+
+          .payment-information {
+
+              .payment-options {
+
+                  .nav-item {
+
+                      label {
+                          &.credit-card-label {
+                              font-family: $font-gill-std-medium;
+                          }
+                      }
+                  }
+              }
+          }
+      }
+    }
 }
