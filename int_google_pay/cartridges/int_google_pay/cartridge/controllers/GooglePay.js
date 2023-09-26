@@ -95,13 +95,22 @@ server.post('ProcessPayments',
         var OrderMgr = require('dw/order/OrderMgr');
         var PaymentManager = require('dw/order/PaymentMgr');
 
+        var Constants = require('*/cartridge/utils/Constants');
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
+        
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var referralUrl = req.referer;
         var googlePayEntryPoint = referralUrl && (referralUrl.indexOf('Cart-Show') > -1) || (referralUrl.indexOf('shopping-bag') > -1) ? false : true;
         var productID = (!empty(currentBasket)) ? currentBasket.productLineItems[0].productID : '';
         var pulseIdEngraving = 'pulseIdEngraving';
         var pulseIdConstants;
+
+        var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+		var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
+
+        if (enablePulseIdEngraving) {
+            pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
+        }
 
         if (!currentBasket) {
             res.json({
@@ -398,30 +407,14 @@ server.post('ProcessPayments',
             ltkSendOrder.SendPost();
         }
 
-		/**~
+		/**
 		 * Custom Start: Clyde Integration && Pulse (Engraving)
 		 */
-		var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
-		if (enablePulseIdEngraving) {
-		    pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
-		}
-		if (Site.current.preferences.custom.isClydeEnabled || enablePulseIdEngraving) {
-		    var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
-		    var Constants = require('*/cartridge/utils/Constants');
 
-		    var orderLineItems = order.getAllProductLineItems();
-		    var orderLineItemsIterator = orderLineItems.iterator();
-		    var productLineItem;
+		if (isClydeEnabled) {
+		    var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 
 		    Transaction.wrap(function () {
-		        while (orderLineItemsIterator.hasNext()) {
-		            productLineItem = orderLineItemsIterator.next();
-		            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-		                order.removeProductLineItem(productLineItem);
-		            } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
-		                order.removeProductLineItem(productLineItem);
-		            }
-		        }
 		        order.custom.isContainClydeContract = false;
 		        order.custom.clydeContractProductMapping = '';
 		    });
@@ -436,22 +429,21 @@ server.post('ProcessPayments',
 		/**
 		 * Custom: End
 		 */
-
-        if (!Site.getCurrent().preferences.custom.isClydeEnabled) {
-            var Constants = require('*/cartridge/utils/Constants');
             
-            var orderLineItems = order.getAllProductLineItems();
-            var orderLineItemsIterator = orderLineItems.iterator();
-            var productLineItem;
-            Transaction.wrap(function () {
-                while (orderLineItemsIterator.hasNext()) {
-                    productLineItem = orderLineItemsIterator.next();
-                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                        order.removeProductLineItem(productLineItem);
-                    }
+        var orderLineItems = order.getAllProductLineItems();
+        var orderLineItemsIterator = orderLineItems.iterator();
+        var productLineItem;
+        
+        Transaction.wrap(function () {
+            while (orderLineItemsIterator.hasNext()) {
+                productLineItem = orderLineItemsIterator.next();
+                if (productLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                    order.removeProductLineItem(productLineItem);
+                } else if ((productLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
+                    order.removeProductLineItem(productLineItem);
                 }
-            });
-        }
+            }
+        });
 
         // SOM API call
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {

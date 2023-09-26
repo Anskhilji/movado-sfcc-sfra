@@ -204,15 +204,7 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
             var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
 
             if (!empty(optionProductLineItem)) {
-                customCartHelpers.removeNullClydeWarrantyLineItem(optionProductLineItem, currentBasket);
-            }
-    
-            if (!empty(optionProductLineItem)) {
-                customCartHelpers.removeNullEngravingLineItem(optionProductLineItem, currentBasket);
-            }
-    
-            if (!empty(optionProductLineItem)) {
-                customCartHelpers.removeNullOptions(optionProductLineItem, currentBasket);
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, currentBasket);
             }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
@@ -400,15 +392,7 @@ server.prepend(
         var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
 
         if (!empty(optionProductLineItem)) {
-            customCartHelpers.removeNullClydeWarrantyLineItem(optionProductLineItem, currentBasket);
-        }
-
-        if (!empty(optionProductLineItem)) {
-            customCartHelpers.removeNullEngravingLineItem(optionProductLineItem, currentBasket);
-        }
-
-        if (!empty(optionProductLineItem)) {
-            customCartHelpers.removeNullOptions(optionProductLineItem, currentBasket);
+            customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, currentBasket);
         }
     }
 
@@ -516,15 +500,7 @@ server.append(
             var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
 
             if (!empty(optionProductLineItem)) {
-                customCartHelpers.removeNullClydeWarrantyLineItem(optionProductLineItem, currentBasket);
-            }
-    
-            if (!empty(optionProductLineItem)) {
-                customCartHelpers.removeNullEngravingLineItem(optionProductLineItem, currentBasket);
-            }
-    
-            if (!empty(optionProductLineItem)) {
-                customCartHelpers.removeNullOptions(optionProductLineItem, currentBasket);
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, currentBasket);
             }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
