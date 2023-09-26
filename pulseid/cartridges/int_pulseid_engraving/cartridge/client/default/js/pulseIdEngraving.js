@@ -172,11 +172,13 @@ $('.preview-btn').click(function (e) {
         var $engravingErrorMsg = $('.engraving-error-msg');
         var $engravedTextOne = $('.engraved-text-one');
         var $engravedTextTwo = $('.engraved-text-two');
+        var $engravingProfanityErrorMsg = $('.engraving-profanity-error-msg');
         var profaneTextOne;
         var profaneTextTwo;
         $engravedTextOne.text('');
         $engravedTextTwo.text('');
         $engravingErrorMsg.text('');
+        $engravingProfanityErrorMsg.text('');
 
         if ($engravingInputOne.length > 0) {
             $EngravingoptionTextone = $engravingInputOne.val().trim();
@@ -246,7 +248,7 @@ $('.preview-btn').click(function (e) {
                     });
                 }
             } else {
-                $engravingErrorMsg.text(window.Resources.ENGRAVING_PROFANE_ERROR_MESSAGE);
+                $engravingProfanityErrorMsg.text(window.Resources.ENGRAVING_PROFANE_ERROR_MESSAGE);
             }
         }
     }
