@@ -489,7 +489,7 @@ function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurren
         
         return isProductNotRestrictedOnEswCountries;
     } catch (e) {
-        Logger.error('(productCustomHelper.js -> productNotRestrictedOnEswCountries) Error occured while checking is esw restricted countries product or not {0}: \n Error: {1} \n', apiProduct.ID, e);
+        Logger.error('(productCustomHelper.js -> productNotRestrictedOnEswCountries) Error occured while checking is esw restricted countries product or not. Error: {0} : in {1}', e.toString(), e.lineNumber);
     }
 }
 
