@@ -1875,7 +1875,9 @@ module.exports = {
                             $('body').trigger('facet:success', [gtmFacetArray]);
                             $('.grid-footer').replaceWith(response);
                             updateSortOptions(response);
-                            updatePageURLForShowMore(showMoreUrl);
+                            if (showMoreUrl) {
+                                updatePageURLForShowMore(showMoreUrl);
+                            }
                             loadMoreInProcessing = false;
                             if ($windowWidth < $mediumWidth) {
                                 if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
