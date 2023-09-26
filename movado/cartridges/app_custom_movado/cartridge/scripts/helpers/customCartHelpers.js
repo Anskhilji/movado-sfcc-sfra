@@ -376,7 +376,6 @@ function removeNullClydeWarrantyLineItem(productLineItems, currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
     while (productLineItems.hasNext()) {
         var optionProductLineItem = productLineItems.next();
-        var ff = optionProductLineItem.optionID;
         Transaction.wrap(function () {
             if (optionProductLineItem.optionID == Constants.CLYDE_WARRANTY) {
                 currentBasket.removeProductLineItem(optionProductLineItem);
