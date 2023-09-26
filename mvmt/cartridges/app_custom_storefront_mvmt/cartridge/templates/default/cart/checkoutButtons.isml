@@ -1,4 +1,5 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="sitePreferences" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 <isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePreferences.eswProductRestrictionsEnabled) ? sitePreferences.eswProductRestrictionsEnabled : false}" scope="page" />
 <span class="esw-product-restrictions-enabled" data-esw-product-restrictions-enabled="${isEswProductRestrictionsEnabled}"></span>
 <isset name="isEswRestrictedProduct"
@@ -54,8 +55,6 @@
                     </div>
                 </isif>
             </div>
-        <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}"
-            scope="page" />
         <isif condition="${sitePreferences.amzPayEnabled}">
             <div class="mb-sm-3">
                 <div id="AmazonPayButtonCart"></div>
@@ -76,8 +75,6 @@
         </div>
         <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show', 'true')}" sf-toolkit="on"/>
     </div>
-    <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}"
-        scope="page" />
     <isif condition="${sitePreferences.amzPayEnabled}">
         <div class="mb-sm-3">
             <div id="AmazonPayButtonCart"></div>

@@ -9,12 +9,12 @@
         assets.addCss('/css/product/detail.css');
         assets.addCss('/css/lib/product-tile-name.css');
     </isscript>
-    <isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
-    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
+    <isset name="isListrakEnable" value="${!empty(sitePref.Listrak_Cartridge_Enabled) ? sitePref.Listrak_Cartridge_Enabled : false}" scope="page" />
     <isif condition="${isListrakEnable}">
         <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>
     </isif>
-    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
+    <isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePref.eswProductRestrictionsEnabled) ? sitePref.eswProductRestrictionsEnabled : false}" scope="page" />
     <isif condition="${sitePref.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>

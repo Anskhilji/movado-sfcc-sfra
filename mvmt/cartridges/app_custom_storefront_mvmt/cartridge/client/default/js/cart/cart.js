@@ -994,6 +994,7 @@ module.exports = function () {
                     updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 $.spinner().stop();
             },
@@ -1038,6 +1039,7 @@ module.exports = function () {
                     $miniCartSelector.length > 0 ? updateMiniCartTotals(data) : updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 $('.coupon-code-field').val('');
                 $('.minicart-promo-code-form').spinner().stop();
@@ -1089,6 +1091,7 @@ module.exports = function () {
                     $miniCartSelector.length > 0 ? updateMiniCartTotals(data) : updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 $('.coupon-code-field').val('');
                 $.spinner().stop();
@@ -1138,6 +1141,7 @@ module.exports = function () {
                 updateApproachingDiscounts(data.approachingDiscounts);
                 $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
                 validateBasket(data);
+                checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 $('.coupon-price-adjustment').spinner().stop();
                 setMiniCartProductSummaryHeight();
             },
