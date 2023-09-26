@@ -1254,6 +1254,7 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
     $('.ats-value').text($productATSValue)
+    handelRestrictedEswProducts(response.product);
 }
 
 /**
@@ -1272,6 +1273,15 @@ function updateQuantities(quantities, $productContainer) {
     }
 }
 
+
+function handelRestrictedEswProducts(product) {
+    $('.add-to-cart').addClass('d-none');
+    $('.esw-restricted-product-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
+    if (!product.isProductNotRestrictedOnEswCountries) {
+        $('.add-to-cart').removeClass('d-none');
+        $('.esw-restricted-product-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
+    }
+}
 /**
  * updates the product view when a product attribute is selected or deselected or when
  *         changing quantity
