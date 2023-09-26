@@ -201,16 +201,18 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
                 marketingProductsData.push(marketingProductData);
             }
 
-            if (productLineItem) {
-                customCartHelpers.removeNullClydeWarrantyLineItem(productLineItem, currentBasket);
-            }
-            
-            if (productLineItem) {
-                customCartHelpers.removeNullEngravingLineItem(productLineItem, currentBasket);
-            }
+            var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
 
-            if (productLineItem) {
-                customCartHelpers.removeNullOptions(productLineItem, currentBasket);
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNullClydeWarrantyLineItem(optionProductLineItem, currentBasket);
+            }
+    
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNullEngravingLineItem(optionProductLineItem, currentBasket);
+            }
+    
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNullOptions(optionProductLineItem, currentBasket);
             }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
@@ -395,17 +397,18 @@ server.prepend(
 
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
+        var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
 
-        if (productLineItem) {
-            customCartHelpers.removeNullClydeWarrantyLineItem(productLineItem, currentBasket);
+        if (!empty(optionProductLineItem)) {
+            customCartHelpers.removeNullClydeWarrantyLineItem(optionProductLineItem, currentBasket);
         }
 
-        if (productLineItem && currentBasket) {
-            customCartHelpers.removeNullEngravingLineItem(productLineItem, currentBasket);
+        if (!empty(optionProductLineItem)) {
+            customCartHelpers.removeNullEngravingLineItem(optionProductLineItem, currentBasket);
         }
 
-        if (productLineItem && currentBasket) {
-            customCartHelpers.removeNullOptions(productLineItem, currentBasket);
+        if (!empty(optionProductLineItem)) {
+            customCartHelpers.removeNullOptions(optionProductLineItem, currentBasket);
         }
     }
 
@@ -510,16 +513,18 @@ server.append(
             // custom end
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
 
-            if (productLineItem) {
-                customCartHelpers.removeNullClydeWarrantyLineItem(productLineItem, currentBasket);
-            }
+            var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
 
-            if (productLineItem) {
-                customCartHelpers.removeNullEngravingLineItem(productLineItem, currentBasket);
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNullClydeWarrantyLineItem(optionProductLineItem, currentBasket);
             }
-
-            if (productLineItem) {
-                customCartHelpers.removeNullOptions(productLineItem, currentBasket);
+    
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNullEngravingLineItem(optionProductLineItem, currentBasket);
+            }
+    
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNullOptions(optionProductLineItem, currentBasket);
             }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);

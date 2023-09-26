@@ -372,17 +372,20 @@ function getCountrySwitch() {
 
 };
 
-function removeNullClydeWarrantyLineItem(productLineItem, currentBasket) {
+function removeNullClydeWarrantyLineItem(productLineItems, currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
-    
-    Transaction.wrap(function () {
-        if (productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-            currentBasket.removeProductLineItem(productLineItem);
-        }
-    });
+    while (productLineItems.hasNext()) {
+        var optionProductLineItem = productLineItems.next();
+        var ff = optionProductLineItem.optionID;
+        Transaction.wrap(function () {
+            if (optionProductLineItem.optionID == Constants.CLYDE_WARRANTY) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            }
+        });
+    }
 };
 
-function removeNullEngravingLineItem(productLineItem, currentBasket) {
+function removeNullEngravingLineItem(productLineItems, currentBasket) {
     var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
     var PULSE_ID_ENGRAVING = 'pulseIdEngraving';
     var pulseIdConstants;
@@ -390,26 +393,30 @@ function removeNullEngravingLineItem(productLineItem, currentBasket) {
     if (enablePulseIdEngraving) {
         pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
     }
-    
-    Transaction.wrap(function () {
-        if ((pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == PULSE_ID_ENGRAVING)) {
-            currentBasket.removeProductLineItem(productLineItem);
-        }
-    });
+    while (productLineItems.hasNext()) {
+        var optionProductLineItem = productLineItems.next();
+        Transaction.wrap(function () {
+            if ((pulseIdConstants && optionProductLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && optionProductLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && optionProductLineItem.optionID == PULSE_ID_ENGRAVING)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            }
+        });
+    }
 };
 
-function removeNullOptions(productLineItem, currentBasket) {
+function removeNullOptions(productLineItems, currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
-    
-    Transaction.wrap(function () {
-        if ((productLineItem.optionID == EMBOSSED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
-            currentBasket.removeProductLineItem(productLineItem);
-        } else if ((productLineItem.optionID == ENGRAVED && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE)) {
-            currentBasket.removeProductLineItem(productLineItem);
-        } else if ((productLineItem.optionID == GIFTWRAPPED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
-            currentBasket.removeProductLineItem(productLineItem);
-        }
-    });
+    while (productLineItems.hasNext()) {
+        var optionProductLineItem = productLineItems.next();
+        Transaction.wrap(function () {
+            if ((optionProductLineItem.optionID == EMBOSSED && optionProductLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((optionProductLineItem.optionID == ENGRAVED && optionProductLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((optionProductLineItem.optionID == GIFTWRAPPED && optionProductLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            }
+        });
+    }
 }
 
 function removeClydeWarranty(currentItems) {
