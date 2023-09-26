@@ -371,7 +371,7 @@
                         <div class="show-cart-button-desktop">
                             <div class="row">
                                 <div class="col-12 prices-add-to-cart-actions">
-                                    <isif condition="${isEswProductRestrictionsEnabled && isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
+                                    <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
                                         <div class="mb-3">
                                             <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                                         </div>

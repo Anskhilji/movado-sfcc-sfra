@@ -3,14 +3,7 @@
 scope="page" />
 <isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePreferences.eswProductRestrictionsEnabled) ? sitePreferences.eswProductRestrictionsEnabled : false}" scope="page" />
 <span class="esw-product-restrictions-enabled" data-esw-product-restrictions-enabled="${isEswProductRestrictionsEnabled}"></span>
-<isset name="isEswRestrictedProduct"
-    value="false"
-    scope="page" />
-<isloop items="${items}" var="lineItem" status="loopStatus">
-    <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
-        <isset name="isEswRestrictedProduct" value="true" scope="page" />
-    </isif>
-</isloop>
+<isinclude template="cart/productCard/eswRestrictedProduct" />
 <iscomment> Custom Start: Adding amazonpay and applepay button </iscomment>
 <div class="row checkout-button-wrapper">
     <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />

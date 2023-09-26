@@ -76,11 +76,7 @@
                 <isinclude template="/product/components/pricing/giftMain" />
             </p>
         </isif>
-        <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
-            <div class="full-cart-esw-restricted-countries-msg">
-                <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
-            </div>
-        </isif>
+        <isinclude template="cart/productCard/eswRestrictedProductMessage" />
         <iscomment> Custom Start: Remove actionUrls object from Pdict </iscomment>
         <div class="remove-line-item d-block mb-2">
             <button type="button" class="remove-btn remove-product-from-mini-cart btn btn-light"

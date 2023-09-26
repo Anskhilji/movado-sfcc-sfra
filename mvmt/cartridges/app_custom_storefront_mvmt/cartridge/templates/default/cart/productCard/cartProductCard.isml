@@ -66,11 +66,7 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
-                        <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
-                            <div class="full-cart-esw-restricted-countries-msg">
-                                <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
-                            </div>
-                        </isif>
+                        <isinclude template="cart/productCard/eswRestrictedProductMessage" />
                         <isif condition="${pdict.loggedIn}">
                              <div class="hidden-xs-down edit-add-to-wishlist">
                                   <isinclude template="cart/productCard/cartProductCardEdit" />

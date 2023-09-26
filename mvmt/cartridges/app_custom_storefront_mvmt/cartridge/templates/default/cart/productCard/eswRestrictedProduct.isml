@@ -1,0 +1,6 @@
+<isset name="isEswRestrictedProduct" value="false" scope="page" />
+<isloop items="${items}" var="lineItem" status="loopStatus">
+    <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+        <isset name="isEswRestrictedProduct" value="true" scope="page" />
+    </isif>
+</isloop>

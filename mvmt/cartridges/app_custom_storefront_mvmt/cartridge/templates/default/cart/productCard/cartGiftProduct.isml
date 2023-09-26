@@ -61,11 +61,7 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
-                        <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
-                            <div class="full-cart-esw-restricted-countries-msg">
-                                <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
-                            </div>
-                        </isif>
+                        <isinclude template="cart/productCard/eswRestrictedProductMessage" />
                         <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
                             <div class="product-edit">
                                 <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
