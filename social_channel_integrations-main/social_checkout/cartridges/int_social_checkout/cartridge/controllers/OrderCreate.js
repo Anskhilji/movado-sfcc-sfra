@@ -256,10 +256,7 @@ server.post('Social', function (req, res, next) {
             return next();
         }
         order.custom.externalChannelOrderStatus = OrderUtilCode.EXTERNAL_ORDER_STATUS.NEW;
-
-        if (Object.hasOwnProperty.call(orderJSON, 'customChannelType')) {
-            order.custom.customChannelType = orderJSON.customChannelType;
-        }
+        order.custom.customChannelType = OrderUtilCode.SOCIAL_CHANNEL_ORDER.TYPE;
 
         if (Object.hasOwnProperty.call(orderJSON, 'c_buyerNote')) {
             order.custom.buyerNote = orderJSON.c_buyerNote;

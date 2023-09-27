@@ -152,7 +152,12 @@ var OrderUtilCode = {
         RETURNED: 4,
         PARTIAL_RETURN: 5,
         REFUNDED: 8
-    }
+    },
+
+    SOCIAL_CHANNEL_ORDER: {
+        TYPE : 'TikTok'
+    },
+
 };
 
 module.exports = OrderUtilCode;
