@@ -117,7 +117,9 @@ function productSync() {
             // Custom End
 
             // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
-            productFile.AddRowItem('Meta4');
+            if (Site.current.ID === 'MCSUS') {
+                productFile.AddRowItem('Meta4');
+            }
             // Custom End
 
             // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
@@ -305,7 +307,9 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
-                productFile.AddRowItem(prd.movement, true);
+                if (Site.current.ID === 'MCSUS') {
+                    productFile.AddRowItem(prd.movement, true);
+                }
                 // Custom End
 
                 // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
