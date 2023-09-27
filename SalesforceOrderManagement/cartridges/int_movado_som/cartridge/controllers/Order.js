@@ -104,7 +104,7 @@ server.replace(
 
         var order = OrderMgr.getOrder(req.querystring.orderID);
         var orderCustomerNo = req.currentCustomer.profile.customerNo;
-        var currentCustomerNo = !empty(order) ? order.customer.profile.customerNo : '';
+        var currentCustomerNo = !empty(order) && !empty(order.customer) && !empty(order.customer.profile) && !empty(order.customer.profile.customerNo) ? order.customer.profile.customerNo : '';
         var cancelOrderEnable = false;
         var cancelOrderMessage = false;
         var breadcrumbs = [
@@ -164,8 +164,8 @@ server.replace(
                 cancelOrderMessage = true;
             }
 
-            if (!empty(filteredOrder && filteredOrder.length > 0)) {
-                var omsOrderStatus = filteredOrder[0].status;
+            if (!empty(filteredOrder) && filteredOrder.length > 0) {
+                var omsOrderStatus = filteredOrder[0].status ? filteredOrder[0].status : '';
             }
 
             var exitLinkText = Resource.msg('link.orderdetails.orderhistory', 'account', null);

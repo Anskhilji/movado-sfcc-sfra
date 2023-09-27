@@ -349,8 +349,8 @@ function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal,
             cancelOrderMessage = true;
         }
 
-        if (!empty(filteredOrder && filteredOrder.length > 0)) {
-            var omsOrderStatus = filteredOrder[0].status;
+        if (!empty(filteredOrder) && filteredOrder.length > 0) {
+            var omsOrderStatus = filteredOrder[0].status ? filteredOrder[0].status : '';
         }
 
     }

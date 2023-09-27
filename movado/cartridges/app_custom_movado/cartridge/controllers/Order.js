@@ -413,9 +413,12 @@ server.post(
         var validForm = true;
         var cancelOrderEnable = false;
         var cancelOrderMessage = false;
+        var target = req.querystring.rurl || 1;
+        var actionUrl = URLUtils.url('Account-Login', 'rurl', target);
 
         var profileForm = server.forms.getForm('profile');
         profileForm.clear();
+        
 
         if (req.form.trackOrderEmail
             && req.form.trackOrderPostal
@@ -426,11 +429,14 @@ server.post(
         }
 
         if (!order) {
+
+
             res.render('/account/login', {
                 navTabValue: 'login',
                 orderTrackFormError: validForm,
                 profileForm: profileForm,
-                userName: ''
+                userName: '',
+                actionUrl: actionUrl
             });
             next();
         } else {
@@ -496,8 +502,8 @@ server.post(
                  * Custom: End
                  */
 
-                if (!empty(filteredOrder && filteredOrder.length > 0)) {
-                    var omsOrderStatus = filteredOrder[0].status;
+                if (!empty(filteredOrder) && filteredOrder.length > 0) {
+                    var omsOrderStatus = filteredOrder[0].status ? filteredOrder[0].status : '';
                 }
 
                 var exitLinkText;
@@ -526,7 +532,8 @@ server.post(
                     navTabValue: 'login',
                     profileForm: profileForm,
                     orderTrackFormError: !validForm,
-                    userName: ''
+                    userName: '',
+                    actionUrl: actionUrl
                 });
             }
 
