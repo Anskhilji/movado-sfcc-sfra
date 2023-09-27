@@ -183,9 +183,6 @@
         <div class="form-group
             ${addressFields.city.mandatory === true ? 'required' : ''}
             ${addressFields.city.htmlName}">
-            <label class="form-control-label" for="shippingAddressCity">
-                <isprint value="${addressFields.city.label}" encoding="htmlcontent" />
-            </label>
             <input type="text" class="form-control input-wrapper-checkout shippingAddressCity" id="shippingAddressCity"
                 value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeCity || '' : shippingAddress.city || ''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
                 autocomplete="shipping address-level2">
