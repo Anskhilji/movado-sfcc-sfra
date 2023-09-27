@@ -93,6 +93,7 @@ function ltkProduct() {
     this.attachmentTypeAttr = '';
     this.strapColorAttr = '';
     this.jewelryStyle = '';
+    this.color = '';
     // Custom End
 }
 
@@ -228,6 +229,7 @@ ltkProduct.prototype.LoadProduct = function (product) {
     this.attachmentTypeAttr = this.getAttachmentTypeAttr(product);
     this.strapColorAttr = this.getStrapColorAttr(product);
     this.jewelryStyle = this.getJewelryStyle(product);
+    this.color = this.getColor(product);
     // Custom End
 };
 // MOD 16.3 Extra Prod Attributes
