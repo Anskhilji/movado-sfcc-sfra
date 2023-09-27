@@ -341,6 +341,37 @@ function getCountrySwitch() {
 
 };
 
+function removeNUllOptionLineItem(productLineItems, currentBasket) {
+    var Constants = require('*/cartridge/utils/Constants');
+
+    var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+    var PULSE_ID_ENGRAVING = 'pulseIdEngraving';
+    var pulseIdConstants;
+    var optionProductLineItem;
+
+    if (enablePulseIdEngraving) {
+        pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
+    }
+
+    while (productLineItems.hasNext()) {
+        optionProductLineItem = productLineItems.next();
+        
+        Transaction.wrap(function () {
+            if (optionProductLineItem.optionID == Constants.CLYDE_WARRANTY && optionProductLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((pulseIdConstants && optionProductLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && optionProductLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && optionProductLineItem.optionID == PULSE_ID_ENGRAVING)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((optionProductLineItem.optionID == EMBOSSED && optionProductLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((optionProductLineItem.optionID == ENGRAVED && optionProductLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((optionProductLineItem.optionID == GIFTWRAPPED && optionProductLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            }
+        });
+    }
+}
+
 function removeNullClydeWarrantyLineItemAndEngraving(currentBasket) {
     var Transaction = require('dw/system/Transaction');
 
@@ -434,5 +465,6 @@ module.exports = {
     getCountrySwitch: getCountrySwitch,
     removeClydeWarranty: removeClydeWarranty,
     removeNullClydeWarrantyLineItemAndEngraving: removeNullClydeWarrantyLineItemAndEngraving,
-    removeGiftMessaging: removeGiftMessaging
+    removeGiftMessaging: removeGiftMessaging,
+    removeNUllOptionLineItem: removeNUllOptionLineItem
 };
