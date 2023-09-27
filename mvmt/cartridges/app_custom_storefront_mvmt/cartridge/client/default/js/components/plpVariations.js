@@ -366,7 +366,6 @@ module.exports = function () {
                 $addToCartRecRailSelector.prop('disabled', true);
             }
         }
-
     }
 
 
@@ -425,6 +424,9 @@ module.exports = function () {
                     method: 'GET',
                     success: function (data) {
                         handleVariantResponse(data, $productContainer, pdpURL);
+                        if (Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED) {
+                            handelRestrictedEswProducts(data.product, $productContainer);
+                        }
                         setTimeout(function () {
                             $.spinner().stop();
                         }, 1500);
@@ -444,3 +446,13 @@ module.exports = function () {
         }
     }
 };
+
+function handelRestrictedEswProducts(product, $productContainer) {
+    if (!product.isCurrentDomesticAllowedCountry) {
+        $productContainer.find('.add-to-cart').addClass('d-none');
+        $productContainer.find('.plp-esw-restricted-country-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
+        if (!product.isProductNotRestrictedOnEswCountries) {
+            $productContainer.find('.add-to-cart').removeClass('d-none');
+        }
+    }
+}

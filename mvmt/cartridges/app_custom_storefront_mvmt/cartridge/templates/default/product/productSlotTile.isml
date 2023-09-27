@@ -91,9 +91,8 @@
                             <div class="plp-esw-restricted-country-msg">
                                 <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                             </div>
-                        <iselse/>
-                            <isinclude template="product/components/showCartButtonProduct" />
                         </isif>
+                        <isinclude template="product/components/showCartButtonProduct" />
                     </isif>
                 </div>
             </div>
@@ -105,9 +104,8 @@
                 <div class="plp-esw-restricted-country-msg">
                     <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                 </div>
-            <iselse/>
-                <isinclude template="product/components/showCartButtonProduct" />
             </isif>
+            <isinclude template="product/components/showCartButtonProduct" />
         </isif>
     </div>
 

@@ -493,6 +493,29 @@ function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurren
     }
 }
 
+function checkRestrictedProducts() {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+    var CartModel = require('*/cartridge/models/cart');
+
+    var isRestrictedCheckout = false;
+
+    var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
+    if (isEswProductRestrictionsEnabled) {
+        var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var basketModel = new CartModel(currentBasket);
+        for (var i = 0; i < basketModel.items.length; i++) {
+            var lineItem = basketModel.items[i];
+            if (isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry) {
+                isRestrictedCheckout = true;
+                break;
+            }
+        }
+    }
+
+    return isRestrictedCheckout;
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
@@ -511,5 +534,6 @@ module.exports = {
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
     getPulseIDPreviewURL: getPulseIDPreviewURL,
     getProductATSValue: getProductATSValue,
-    productNotRestrictedOnEswCountries: productNotRestrictedOnEswCountries
+    productNotRestrictedOnEswCountries: productNotRestrictedOnEswCountries,
+    checkRestrictedProducts: checkRestrictedProducts
 };

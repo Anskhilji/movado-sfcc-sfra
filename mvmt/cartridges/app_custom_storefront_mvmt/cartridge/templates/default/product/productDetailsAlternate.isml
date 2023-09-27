@@ -276,16 +276,15 @@
                     </isif>
 
                     <div class="row">
-                        <div class="col-12 prices-add-to-cart-actions">
+                        <div class="col-12 prices-add-to-cart-actions ${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
                             <div class="d-block alternate-pdp-cart-button-mobile-container">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
                                     <div class="d-none d-md-block">
                                         <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                                     </div>
-                                <iselse/>
-                                    <isinclude template="product/components/showCartButtonProduct" />
                                 </isif>
+                                <isinclude template="product/components/showCartButtonProduct" />
                                 <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
                                 <isif condition="${isEswEnabled}">
                                     <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >

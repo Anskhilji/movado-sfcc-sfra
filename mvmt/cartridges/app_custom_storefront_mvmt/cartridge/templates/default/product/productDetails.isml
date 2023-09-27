@@ -303,7 +303,7 @@
                         </div>
                         <div class="show-cart-button-mobile">
                             <div class="row">
-                                <div class="col-12 prices-add-to-cart-actions">
+                                <div class="col-12 prices-add-to-cart-actions ${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
                                     <div class="d-block show-cart-button-mobile-container">
                                         <!-- Cart and [Optionally] Apple Pay -->
                                         <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />

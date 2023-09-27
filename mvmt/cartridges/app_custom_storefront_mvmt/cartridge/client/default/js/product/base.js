@@ -1254,7 +1254,9 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
     $('.ats-value').text($productATSValue)
-    handelRestrictedEswProducts(response.product);
+    if (window.Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED) {
+        handelRestrictedEswProducts(response.product);
+    }
 }
 
 /**
@@ -1275,11 +1277,15 @@ function updateQuantities(quantities, $productContainer) {
 
 
 function handelRestrictedEswProducts(product) {
-    $('.add-to-cart').addClass('d-none');
-    $('.esw-restricted-product-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
-    if (!product.isProductNotRestrictedOnEswCountries) {
-        $('.add-to-cart').removeClass('d-none');
+    if (!product.isCurrentDomesticAllowedCountry) {
+        $('.add-to-cart').addClass('d-none');
+        $('.show-cart-button-mobile').addClass('d-none');
         $('.esw-restricted-product-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
+        if (!product.isProductNotRestrictedOnEswCountries) {
+            $('.add-to-cart').removeClass('d-none');
+            $('.show-cart-button-mobile').removeClass('d-none');
+            $('.prices-add-to-cart-actions').removeClass('d-none');
+        }
     }
 }
 /**
