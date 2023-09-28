@@ -19,20 +19,7 @@
         <isinclude template="reporting/reportingUrls" />
     </isif>
     <div class="container checkout-page">
-    <isif condition="${pdict.error}">
-        <div class="container cart-error-messaging cart-error mt-2">
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-sm-8 p-2">
-                    <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <iscontentasset aid="ca-esw-not-restricted-countries-product-msg" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </isif>
+        <isinclude template="components/cart/eswRestrictedProductErrorMsg" />
         <div class="row d-sm-none">
             <div class="col-12 cleafix">
                 <span class="total-items-label pull-left">${Resource.msgf('label.number.items.in.cart','cart', null, pdict.details.totalQuantity)}</span>

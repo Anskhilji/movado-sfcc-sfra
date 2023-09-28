@@ -1,7 +1,6 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="sitePreferences" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 <isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePreferences.eswProductRestrictionsEnabled) ? sitePreferences.eswProductRestrictionsEnabled : false}" scope="page" />
-<span class="esw-product-restrictions-enabled" data-esw-product-restrictions-enabled="${isEswProductRestrictionsEnabled}"></span>
 <isset name="items" value="${pdict.items}" scope="page" />
 <isinclude template="cart/productCard/eswRestrictedProduct" />
 <div class="row">

@@ -497,23 +497,26 @@ function checkRestrictedProducts() {
     var BasketMgr = require('dw/order/BasketMgr');
     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     var CartModel = require('*/cartridge/models/cart');
+    try {
+        var isRestrictedCheckout = false;
 
-    var isRestrictedCheckout = false;
-
-    var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
-    if (isEswProductRestrictionsEnabled) {
-        var currentBasket = BasketMgr.getCurrentOrNewBasket();
-        var basketModel = new CartModel(currentBasket);
-        for (var i = 0; i < basketModel.items.length; i++) {
-            var lineItem = basketModel.items[i];
-            if (isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry) {
-                isRestrictedCheckout = true;
-                break;
+        var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
+        if (isEswProductRestrictionsEnabled) {
+            var currentBasket = BasketMgr.getCurrentOrNewBasket();
+            var basketModel = new CartModel(currentBasket);
+            for (var i = 0; i < basketModel.items.length; i++) {
+                var lineItem = basketModel.items[i];
+                if (isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry) {
+                    isRestrictedCheckout = true;
+                    break;
+                }
             }
         }
-    }
 
-    return isRestrictedCheckout;
+        return isRestrictedCheckout;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> checkRestrictedProducts) An error occurred during checkout for products restricted in certain countries. Error: {0} : in {1}', e.toString(), e.lineNumber);
+    }
 }
 
 module.exports = {

@@ -635,7 +635,7 @@ function enterGiftMessageHandler($element) {
  * @param {data} - current ajax response
  */
 function checkoutBtnDisabledOnEswCountriesRestrictedProduct(data) {
-    var $isEswProductRestrictionsEnabled = $('.esw-product-restrictions-enabled').data('esw-product-restrictions-enabled');
+    var $isEswProductRestrictionsEnabled = window.Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED;
     var items = (data?.basket?.items || data?.items) ?? [];
 
     for (var i = 0; i < items.length > 0; i++) {

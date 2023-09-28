@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <isif condition="${isEswProductRestrictionsEnabled && recommendation.isProductNotRestrictedOnEswCountries && !recommendation.isCurrentDomesticAllowedCountry}">
-                            <div class="">
+                            <div>
                                 <isprint value="${recommendation.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                             </div>
                         <iselse/>
