@@ -547,7 +547,7 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
             for (var i = 0; i < productCategories.length; i++) {
                 productCategory = product.categories[i];
                 percentProductCategory = productCategory.displayName;
-                percentResult = percentProductCategory.indexOf("%");
+                percentResult = percentProductCategory ? percentProductCategory.indexOf("%") : '';
                 if (percentResult > -1) {
                     specifiedMeta4 = productCategory.displayName;
                     continue;
@@ -576,7 +576,7 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
         }
         return specifiedCategories;
     } catch (error) {
-        Logger.error('Listrak Collection Category Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        Logger.error('Listrak Product Current Category Processing Failed for Product: {0}, Error: {1}', product.ID, error);
         return specifiedCategories;
     }
 }
