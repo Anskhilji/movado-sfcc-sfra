@@ -18,6 +18,7 @@ function getResources(pageContext) {
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ArrayList = require('dw/util/ArrayList');
+    var domesticAllowedCountry = require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()
     var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
     var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
     var fedexAddressNoRecommendation =  ContentMgr.getContent('checkout-address-validation-no-recommendation');
@@ -87,7 +88,8 @@ function getResources(pageContext) {
         INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
         BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null),
         LOW_STOCK_THRESHOLD: !empty(Site.current.preferences.custom.lowStockThreshold) ? Site.current.preferences.custom.lowStockThreshold : false,
-        ESW_PRODUCT_RESTRICTIONS_ENABLED: !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false
+        ESW_PRODUCT_RESTRICTIONS_ENABLED: !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false,
+        DOMESTIC_ALLOWED_COUNTRY: !empty(domesticAllowedCountry) ? domesticAllowedCountry : false
     };
     return resources;
 }

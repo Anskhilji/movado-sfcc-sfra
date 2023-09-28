@@ -506,7 +506,7 @@ function checkRestrictedProducts() {
             var basketModel = new CartModel(currentBasket);
             for (var i = 0; i < basketModel.items.length; i++) {
                 var lineItem = basketModel.items[i];
-                if (isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry) {
+                if (isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !eswCustomHelper.isCurrentDomesticAllowedCountry()) {
                     isRestrictedCheckout = true;
                     break;
                 }

@@ -448,7 +448,7 @@ module.exports = function () {
 };
 
 function handelRestrictedEswProducts(product, $productContainer) {
-    if (!product.isCurrentDomesticAllowedCountry) {
+    if (!Resources.DOMESTIC_ALLOWED_COUNTRY) {
         $productContainer.find('.add-to-cart').addClass('d-none');
         $productContainer.find('.plp-esw-restricted-country-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
         if (!product.isProductNotRestrictedOnEswCountries) {

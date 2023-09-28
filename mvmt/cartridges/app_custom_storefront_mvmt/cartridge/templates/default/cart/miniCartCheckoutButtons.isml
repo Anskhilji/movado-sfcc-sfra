@@ -1,6 +1,6 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
-<isset name="sitePreferences" value="${dw.system.Site.current.preferences.custom}" 
-scope="page" />
+<isset name="sitePreferences" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
 <isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePreferences.eswProductRestrictionsEnabled) ? sitePreferences.eswProductRestrictionsEnabled : false}" scope="page" />
 <isinclude template="cart/productCard/eswRestrictedProduct" />
 <iscomment> Custom Start: Adding amazonpay and applepay button </iscomment>

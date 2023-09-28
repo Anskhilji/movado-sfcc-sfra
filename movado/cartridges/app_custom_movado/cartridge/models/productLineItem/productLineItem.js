@@ -134,11 +134,6 @@ module.exports = function productLineItem(product, apiProduct, options) {
         });
     }
 
-    Object.defineProperty(product, 'isCurrentDomesticAllowedCountry', {
-        enumerable: true,
-        value: isCurrentDomesticAllowedCountry
-    });
-
     Object.defineProperty(product, 'isProductNotRestrictedOnEswCountries', {
         enumerable: true,
         value: isProductNotRestrictedOnEswCountries

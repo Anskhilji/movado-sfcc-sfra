@@ -94,7 +94,7 @@
                         </button>
                     </div>
                 </div>
-                <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !lineItem.isCurrentDomesticAllowedCountry}">
+                <isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
                     <div>
                         <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                     </div>

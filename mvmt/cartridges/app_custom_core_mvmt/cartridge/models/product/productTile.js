@@ -422,11 +422,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         value: saveMessage
     });
 
-    Object.defineProperty(product, 'isCurrentDomesticAllowedCountry', {
-        enumerable: true,
-        value: isCurrentDomesticAllowedCountry
-    });
-
     Object.defineProperty(product, 'isProductNotRestrictedOnEswCountries', {
         enumerable: true,
         value: isProductNotRestrictedOnEswCountries

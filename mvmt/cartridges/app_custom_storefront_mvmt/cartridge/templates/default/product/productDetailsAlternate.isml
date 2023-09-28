@@ -15,6 +15,7 @@
     <isif condition="${isListrakEnable}">
         <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
     </isif>
+    <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
     <isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePref.eswProductRestrictionsEnabled) ? sitePref.eswProductRestrictionsEnabled : false}" scope="page" />
     <isif condition="${sitePref.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
@@ -35,7 +36,7 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </span>
-                    <div class="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
+                    <div class="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry ? 'd-none' : ''}">
                         <isinclude template="product/components/showCartButtonProduct" />
                     </div>
                 </div>
@@ -193,7 +194,6 @@
                     <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                     <isif condition="${isEswEnabled}" >
-                        <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
                         <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
                         <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
                             <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
@@ -276,10 +276,10 @@
                     </isif>
 
                     <div class="row">
-                        <div class="col-12 prices-add-to-cart-actions ${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry ? 'd-none' : ''}">
+                        <div class="col-12 prices-add-to-cart-actions ${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry ? 'd-none' : ''}">
                             <div class="d-block alternate-pdp-cart-button-mobile-container">
                                 <!-- Cart and [Optionally] Apple Pay -->
-                                <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !product.isCurrentDomesticAllowedCountry}">
+                                <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
                                     <div class="d-none d-md-block">
                                         <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                                     </div>

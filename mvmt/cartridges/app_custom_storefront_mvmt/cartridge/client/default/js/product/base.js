@@ -1275,9 +1275,8 @@ function updateQuantities(quantities, $productContainer) {
     }
 }
 
-
 function handelRestrictedEswProducts(product) {
-    if (!product.isCurrentDomesticAllowedCountry) {
+    if (!window.Resources.DOMESTIC_ALLOWED_COUNTRY) {
         $('.add-to-cart').addClass('d-none');
         $('.show-cart-button-mobile').addClass('d-none');
         $('.esw-restricted-product-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
@@ -1288,6 +1287,7 @@ function handelRestrictedEswProducts(product) {
         }
     }
 }
+
 /**
  * updates the product view when a product attribute is selected or deselected or when
  *         changing quantity

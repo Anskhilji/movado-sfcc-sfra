@@ -641,7 +641,7 @@ function checkoutBtnDisabledOnEswCountriesRestrictedProduct(data) {
     for (var i = 0; i < items.length > 0; i++) {
         var item = items[i];
 
-        if ($isEswProductRestrictionsEnabled && item.isProductNotRestrictedOnEswCountries && !item.isCurrentDomesticAllowedCountry) {
+        if ($isEswProductRestrictionsEnabled && item.isProductNotRestrictedOnEswCountries && window.Resources.DOMESTIC_ALLOWED_COUNTRY) {
             $('.checkout-btn').addClass('disabled');
         }
     }
