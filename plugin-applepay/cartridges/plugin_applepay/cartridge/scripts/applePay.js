@@ -80,14 +80,7 @@ function getLastName(fullName, order) {
         var lastName = '';
         if (!empty(fullName)) {
             var splittedFullName = fullName.split(" ");
-            if (splittedFullName.length == 2) {
-                lastName = splittedFullName[1];
-            } else if (splittedFullName.length == 3) {
-                lastName = splittedFullName[2];
-            }
-            else {
-                lastName = fullName;
-            }
+            lastName = splittedFullName[splittedFullName.length - 1];
 
             if (empty(lastName)) {
                 var currentCustomer = order.getCustomer();
