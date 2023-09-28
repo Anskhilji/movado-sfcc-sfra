@@ -68,6 +68,7 @@ $('.remove-value').click(function (e) {
         $('.add-engraving').removeClass('d-none');
         $('.remove-engraving').addClass('d-none');
         $('.engraving-error-msg').text('');
+        $('.engraving-profanity-error-msg').text('');
     }
 });
 
