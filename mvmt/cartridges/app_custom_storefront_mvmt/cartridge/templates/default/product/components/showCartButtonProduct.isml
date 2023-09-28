@@ -5,8 +5,9 @@
         <div class="recommendation-restricted-country-msg">
             <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
         </div>
+    <iselse/>
+        <isinclude template="product/components/recommendationRailaddToCart" />
     </isif>
-    <isinclude template="product/components/recommendationRailaddToCart" />
 <iselse/>
     <isinclude template="product/components/addToCartProduct" />
 </isif>
