@@ -134,9 +134,6 @@ server.post('Social', function (req, res, next) {
     try {
         // create Basket for order
         var socialBasket = BasketMgr.getCurrentOrNewBasket();
-        var productLineItems = socialBasket.allProductLineItems.iterator();
-        var productLineItem;
-        var optionProductLineItem;
 
         Transaction.begin();
         inTransaction = true;
@@ -170,16 +167,19 @@ server.post('Social', function (req, res, next) {
 
         // Create product line items and set cost
         var itemStockInfo = orderCreateHelper.addItemsToBasket(socialBasket, shipment, orderJSON.product_lineitems, socialInventoryList, defaultPromoID);
-
-
+        
         // Custom Start: add logic to remove null clyde warrenty from basket
+        var productLineItems = socialBasket.productLineItems.iterator();
+        var productLineItem;
+        var optionProductLineItem;
+
         while(productLineItems.hasNext()) {
             productLineItem = productLineItems.next();
             optionProductLineItem = productLineItem.optionProductLineItems.iterator();
             customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, socialBasket);
         }
         // Custom End
-
+        
         // check item availability
         if (itemStockInfo.error === true) {
             Transaction.rollback();
