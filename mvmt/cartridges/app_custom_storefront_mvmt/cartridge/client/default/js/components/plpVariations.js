@@ -425,7 +425,7 @@ module.exports = function () {
                     success: function (data) {
                         handleVariantResponse(data, $productContainer, pdpURL);
                         if (Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED) {
-                            handelRestrictedEswProducts(data.product, $productContainer);
+                            handleRestrictedEswProducts(data.product, $productContainer);
                         }
                         setTimeout(function () {
                             $.spinner().stop();
@@ -447,7 +447,7 @@ module.exports = function () {
     }
 };
 
-function handelRestrictedEswProducts(product, $productContainer) {
+function handleRestrictedEswProducts(product, $productContainer) {
     if (!Resources.DOMESTIC_ALLOWED_COUNTRY) {
         $productContainer.find('.add-to-cart').addClass('d-none');
         $productContainer.find('.plp-esw-restricted-country-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');

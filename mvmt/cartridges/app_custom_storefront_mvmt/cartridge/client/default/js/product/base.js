@@ -1255,7 +1255,7 @@ function handleVariantResponse(response, $productContainer) {
     }
     $('.ats-value').text($productATSValue)
     if (window.Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED) {
-        handelRestrictedEswProducts(response.product);
+        handleRestrictedEswProducts(response.product);
     }
 }
 
@@ -1275,7 +1275,7 @@ function updateQuantities(quantities, $productContainer) {
     }
 }
 
-function handelRestrictedEswProducts(product) {
+function handleRestrictedEswProducts(product) {
     if (!window.Resources.DOMESTIC_ALLOWED_COUNTRY) {
         $('.add-to-cart').addClass('d-none');
         $('.show-cart-button-mobile').addClass('d-none');
