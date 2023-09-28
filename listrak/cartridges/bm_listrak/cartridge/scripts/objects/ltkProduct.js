@@ -576,7 +576,7 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
         }
         return specifiedCategories;
     } catch (error) {
-        Logger.error('Listrak Product Current Category Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        Logger.error('Listrak Product Current Category Processing Failed for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
         return specifiedCategories;
     }
 }
