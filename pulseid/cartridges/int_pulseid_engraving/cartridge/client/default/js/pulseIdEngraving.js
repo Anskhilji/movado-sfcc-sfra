@@ -40,14 +40,18 @@ $('.pdp-v-one .close-option-popup').on('click', function (e) {
 });
 
 $('.engraving-input').on('input', function () {
+    var $engraveInputOne = $('.engraving-input-one');
+    var $engraveInputTwo = $('.engraving-input-two');
 
     if ($(this).val().length > 0) {
         $(this).next().removeClass('d-none');
     } else {
         $(this).next().addClass('d-none');
-        $('.engraving-input-one').removeClass('input-highlight');
-        $('.engraving-profanity-error-msg').text('');
+        $(this).removeClass('input-highlight');
         $('.engraving-error-msg').text('');
+        if (!$engraveInputOne.hasClass('input-highlight') && !$engraveInputTwo.hasClass('input-highlight')) {
+            $('.engraving-profanity-error-msg').text('');
+        }
     }
 });
 
