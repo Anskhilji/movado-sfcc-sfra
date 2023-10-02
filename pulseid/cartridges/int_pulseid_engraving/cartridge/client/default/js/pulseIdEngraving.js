@@ -45,6 +45,9 @@ $('.engraving-input').on('input', function () {
         $(this).next().removeClass('d-none');
     } else {
         $(this).next().addClass('d-none');
+        $('.engraving-input-one').removeClass('input-highlight');
+        $('.engraving-profanity-error-msg').text('');
+        $('.engraving-error-msg').text('');
     }
 });
 
@@ -58,6 +61,8 @@ $('.engraving-input-two').on('change', function () {
 
 $('.remove-value').click(function (e) {
     var $isEngravingInput = $(this).prev();
+    var $engraveInputOne = $('.engraving-input-one');
+    var $engraveInputTwo = $('.engraving-input-two');
 
     if ($isEngravingInput.val().length > 0) {
         $isEngravingInput.val('');
@@ -68,7 +73,11 @@ $('.remove-value').click(function (e) {
         $('.add-engraving').removeClass('d-none');
         $('.remove-engraving').addClass('d-none');
         $('.engraving-error-msg').text('');
-        $('.engraving-profanity-error-msg').text('');
+        $('.engraving-input-one').removeClass('input-highlight');
+        
+        if (!$engraveInputOne.hasClass('input-highlight') && !$engraveInputTwo.hasClass('input-highlight')) {
+            $('.engraving-profanity-error-msg').text('');
+        }
     }
 });
 
@@ -190,6 +199,7 @@ $('.preview-btn').click(function (e) {
                 $engravingErrorMsg.text(window.Resources.ENGRAVING_ERROR_MESSAGE);
                 $EngravingoptionTextone = '';
                 $EngravingoptionTextTwo = '';
+                $('.engraving-input-two').removeClass('input-highlight');
                 return;
             }
 
@@ -241,6 +251,14 @@ $('.preview-btn').click(function (e) {
                             } else {
                                 $engravingErrorMsg.text(response.message);
                             }
+
+                            if (!profaneTextOne) {
+                                $('.engraving-input-one').removeClass('input-highlight');
+                            }
+            
+                            if (!profaneTextTwo) {
+                                $('.engraving-input-two').removeClass('input-highlight');
+                            }
                             $.spinner().stop();
                         },
                         error: function () {
@@ -250,6 +268,18 @@ $('.preview-btn').click(function (e) {
                 }
             } else {
                 $engravingProfanityErrorMsg.text(window.Resources.ENGRAVING_PROFANE_ERROR_MESSAGE);
+
+                if (profaneTextOne) {
+                    $('.engraving-input-one').addClass('input-highlight');
+                } else {
+                    $('.engraving-input-one').removeClass('input-highlight');
+                }
+
+                if (profaneTextTwo) {
+                    $('.engraving-input-two').addClass('input-highlight');
+                } else {
+                    $('.engraving-input-two').removeClass('input-highlight');
+                }
             }
         }
     }
