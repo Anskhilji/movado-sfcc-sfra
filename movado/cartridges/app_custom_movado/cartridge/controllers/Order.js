@@ -617,6 +617,12 @@ server.post('OrderDetail', function (req, res, next) {
     var exitLinkText = !req.currentCustomer.profile ? Resource.msg('link.continue.shop', 'order', null) : Resource.msg('link.orderdetails.myaccount', 'account', null);
     var exitLinkUrl = !req.currentCustomer.profile ? URLUtils.url('Home-Show') : URLUtils.https('Account-Show');
     var order = OrderMgr.getOrder(responseObject.orderModel.orderNumber);
+    if(!order){
+        res.render('/order/orderTracking', {
+            invalidOrder: true
+        });
+        return next();
+    }
     var config = {
         numberOfLineItems: '*'
     };

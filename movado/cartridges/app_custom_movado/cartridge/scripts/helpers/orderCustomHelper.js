@@ -317,7 +317,7 @@ function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal,
             }
         );
 
-        if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
+        if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel) && session) {
             var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
             pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, session);
         }
