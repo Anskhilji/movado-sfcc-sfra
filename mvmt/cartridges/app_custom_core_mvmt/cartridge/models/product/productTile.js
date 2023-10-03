@@ -34,14 +34,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     var currentCountry = productCustomHelper.getCurrentCountry();
     var isCurrentDomesticAllowedCountry = eswCustomHelper.isCurrentDomesticAllowedCountry();
-    var isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
-    
-    if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
-        var ContentMgr = require('dw/content/ContentMgr');
-
-        var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
-        var eswNotRestrictedCountriesProductMsgBody = eswNotRestrictedCountriesProductMsg && eswNotRestrictedCountriesProductMsg.custom && eswNotRestrictedCountriesProductMsg.custom.body && !empty(eswNotRestrictedCountriesProductMsg.custom.body.markup) ? eswNotRestrictedCountriesProductMsg.custom.body : '';
-    }
 
     var variationParam = '';
     var variationParamValue = '';
@@ -374,6 +366,20 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         Logger.error('Variation exception: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
     
+    //custom start: [MSS-2351 - Prevent International Orders on a SKU Level to set default variant values in master]
+    if (product.productType == 'master' && product.defaultVariant && product.defaultVariant.custom && product.defaultVariant.custom.productNotRestrictedOnEswCountries.length > 0) {
+        isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, product.defaultVariant, isCurrentDomesticAllowedCountry);
+    } else {
+        var isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
+
+        if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+            var ContentMgr = require('dw/content/ContentMgr');
+
+            var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
+            var eswNotRestrictedCountriesProductMsgBody = eswNotRestrictedCountriesProductMsg && eswNotRestrictedCountriesProductMsg.custom && eswNotRestrictedCountriesProductMsg.custom.body && !empty(eswNotRestrictedCountriesProductMsg.custom.body.markup) ? eswNotRestrictedCountriesProductMsg.custom.body : '';
+        }
+    }
+    //custom end:
     if (!empty(apiProduct)) {
         Object.defineProperty(product, 'apiProduct', {
             enumerable: true,

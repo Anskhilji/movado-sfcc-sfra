@@ -476,17 +476,17 @@ function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurren
 
         if (isEswProductRestrictionsEnabled && !isCurrentDomesticAllowedCountry) {
             var productNotRestrictedOnEswCountries = apiProduct.custom.hasOwnProperty('productNotRestrictedOnEswCountries') ? apiProduct.custom.productNotRestrictedOnEswCountries : false;
-    
+
             if (productNotRestrictedOnEswCountries) {
 
-                productNotRestrictedOnEswCountries.forEach(function(countryCode) {
+                productNotRestrictedOnEswCountries.forEach(function (countryCode) {
                     if (countryCode === currentCountry) {
                         isProductNotRestrictedOnEswCountries = false;
                     }
                 });
             }
         }
-        
+
         return isProductNotRestrictedOnEswCountries;
     } catch (e) {
         Logger.error('(productCustomHelper.js -> productNotRestrictedOnEswCountries) Error occured while checking is esw restricted countries product or not. Error: {0} : in {1}', e.toString(), e.lineNumber);
