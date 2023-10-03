@@ -35,11 +35,11 @@
                     <isinclude template="product/components/pricing/main" />
                 </span>
                 <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
-                <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
                     <div class="esw-restricted-product-msg">
-                        <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                        <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+                            <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                        </isif>
                     </div>
-                </isif>
             </div>
         </div>
     </section>
@@ -244,11 +244,11 @@
                                 <div class="col-12 prices-add-to-cart-actions-top">
                                     <div class="d-block">
                                         <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
-                                        <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
                                             <div class="esw-restricted-product-msg">
-                                                <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                                <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+                                                    <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                                </isif>
                                             </div>
-                                        </isif>
                                     </div>
                                 </div>
                             </div>
@@ -367,11 +367,11 @@
                             <div class="row">
                                 <div class="col-12 prices-add-to-cart-actions">
                                     <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
-                                    <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
                                         <div class="esw-restricted-product-msg mb-3">
-                                            <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                            <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+                                                <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                            </isif>
                                         </div>
-                                    </isif>
                                 </div>
                             </div>
                         </div>
