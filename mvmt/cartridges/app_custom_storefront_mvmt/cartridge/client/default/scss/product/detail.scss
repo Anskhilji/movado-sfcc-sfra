@@ -4475,7 +4475,11 @@
                     text-transform: uppercase;
 
                     .pdp-stras{
-                        margin-left: rem(5);
+                        margin-left: rem(30);
+
+                        @include media-breakpoint-up(lg) {
+                            margin-left: rem(5);
+                        }
                     }
 
                     .yotpo {
