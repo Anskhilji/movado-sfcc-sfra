@@ -88,7 +88,7 @@
                 </isif>
                 <div class="d-lg-none d-block mt-3">
                     <isif condition="${pdict.display.showAddToCart}">
-                        <div class="plp-esw-restricted-country-msg 1">
+                        <div class="plp-esw-restricted-country-msg">
                             <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
                                 <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                             </isif>
@@ -101,7 +101,7 @@
     </div>
     <div class="d-none d-lg-block">
         <isif condition="${pdict.display.showAddToCart}">
-            <div class="plp-esw-restricted-country-msg 2">
+            <div class="plp-esw-restricted-country-msg">
                 <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
                     <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
                 </isif>
