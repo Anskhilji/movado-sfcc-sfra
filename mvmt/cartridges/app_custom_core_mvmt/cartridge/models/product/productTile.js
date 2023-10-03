@@ -48,6 +48,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var defaultVariantLifeStyleImage300X300;
     var productId;
     var productVariants;
+    var isProductNotRestrictedOnEswCountries;
 
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -370,14 +371,14 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     if (product.productType == 'master' && product.defaultVariant && product.defaultVariant.custom && product.defaultVariant.custom.productNotRestrictedOnEswCountries.length > 0) {
         isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, product.defaultVariant, isCurrentDomesticAllowedCountry);
     } else {
-        var isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
+        isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
+    }
 
-        if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
-            var ContentMgr = require('dw/content/ContentMgr');
+    if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+        var ContentMgr = require('dw/content/ContentMgr');
 
-            var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
-            var eswNotRestrictedCountriesProductMsgBody = eswNotRestrictedCountriesProductMsg && eswNotRestrictedCountriesProductMsg.custom && eswNotRestrictedCountriesProductMsg.custom.body && !empty(eswNotRestrictedCountriesProductMsg.custom.body.markup) ? eswNotRestrictedCountriesProductMsg.custom.body : '';
-        }
+        var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
+        var eswNotRestrictedCountriesProductMsgBody = eswNotRestrictedCountriesProductMsg && eswNotRestrictedCountriesProductMsg.custom && eswNotRestrictedCountriesProductMsg.custom.body && !empty(eswNotRestrictedCountriesProductMsg.custom.body.markup) ? eswNotRestrictedCountriesProductMsg.custom.body : '';
     }
     //custom end:
     if (!empty(apiProduct)) {
