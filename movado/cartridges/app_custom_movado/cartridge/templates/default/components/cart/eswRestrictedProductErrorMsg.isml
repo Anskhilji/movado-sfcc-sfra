@@ -6,7 +6,7 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <iscontentasset aid="ca-esw-not-restricted-countries-product-msg" />
+                        <iscontentasset aid="ca-esw-not-restricted-countries-product-cart-error-msg" />
                     </div>
                 </div>
             </div>

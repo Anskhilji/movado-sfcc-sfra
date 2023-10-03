@@ -636,14 +636,20 @@ function enterGiftMessageHandler($element) {
  */
 function checkoutBtnDisabledOnEswCountriesRestrictedProduct(data) {
     var $isEswProductRestrictionsEnabled = window.Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED;
+    var $removeError = true
     var items = (data?.basket?.items || data?.items) ?? [];
 
     for (var i = 0; i < items.length > 0; i++) {
         var item = items[i];
 
-        if ($isEswProductRestrictionsEnabled && item.isProductNotRestrictedOnEswCountries && window.Resources.DOMESTIC_ALLOWED_COUNTRY) {
+        if ($isEswProductRestrictionsEnabled && item.isProductNotRestrictedOnEswCountries && !window.Resources.DOMESTIC_ALLOWED_COUNTRY) {
             $('.checkout-btn').addClass('disabled');
+            $removeError = false;
         }
+    }
+
+    if($removeError){
+        $('.esw-restricted-countries-msg').addClass('d-none');
     }
 }
 
