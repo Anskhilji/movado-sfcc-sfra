@@ -120,7 +120,7 @@ function formatProduct(variant, viewType) {
 
     var shortDesc = !empty(variant.getShortDescription()) ? variant.getShortDescription().getMarkup() : '';
     var longDesc = !empty(variant.getLongDescription()) ? variant.getLongDescription().getMarkup() : '';
-    var imageLink = getProductImageURL(variant, viewType);
+    var imageLink = getProductImageURL(variant);
     // remove any spaces in the image name
     if (!empty(imageLink)) {
         while (imageLink.indexOf(' ') > 0) {
@@ -221,7 +221,7 @@ function getProductSearchHitIt(categoryID) {
  *
  * @param {dw/catalog/Product} product product to genrate image URL
  */
-function getProductImageURL(product, viewType) {
+function getProductImageURL(product) {
     try {
         var ProductFactory = require('*/cartridge/scripts/factories/product');
         var tikTokproductImageUrl = null;
@@ -233,7 +233,7 @@ function getProductImageURL(product, viewType) {
         if (!empty(productFactory) && !empty(productFactory.images) && !empty(productFactory.images.pdp600[0])) {
             tikTokproductImageUrl = productFactory.images.pdp600[0].url != null ? productFactory.images.pdp600[0].url : null;
         }
-        
+
         return tikTokproductImageUrl;
     } catch (error) {
         Logger.error('Error occurred while genrating product image Url into feed . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
