@@ -472,32 +472,28 @@ function getProductATSValue(apiProduct) {
 function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry) {
     try {
         var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
-        var eswNotRestrictedProducts = !empty(Site.current.preferences.custom.eswNotRestrictedProducts) ? Site.current.preferences.custom.eswNotRestrictedProducts : false;
-        var notRestrictedProduct = false;
-        var isProductNotRestrictedOnEswCountries = true;
-        
-        if (eswNotRestrictedProducts.length > 0) {
-            eswNotRestrictedProducts.filter(function (id) {
-                if (apiProduct.ID == id) {
-                    notRestrictedProduct = true;
+        var eswRestrictedProducts = !empty(Site.current.preferences.custom.eswRestrictedProducts) ? Site.current.preferences.custom.eswRestrictedProducts : '';
+        var isProductNotRestrictedOnEswCountries = false;
+        var productId = apiProduct && apiProduct.ID ? apiProduct.ID : apiProduct.id;
+
+        if (eswRestrictedProducts.length > 0) {
+            eswRestrictedProducts.filter(function (id) {
+                if (productId == id) {
+                    if (isEswProductRestrictionsEnabled && !isCurrentDomesticAllowedCountry) {
+                        var productNotRestrictedOnEswCountries = apiProduct.custom.hasOwnProperty('productNotRestrictedOnEswCountries') ? apiProduct.custom.productNotRestrictedOnEswCountries : false;
+                        isProductNotRestrictedOnEswCountries = true;
+                        if (productNotRestrictedOnEswCountries) {
+                            productNotRestrictedOnEswCountries.forEach(function (countryCode) {
+                                if (countryCode === currentCountry) {
+                                    isProductNotRestrictedOnEswCountries = false;
+                                }
+                            });
+                        }
+                    }
                     return;
                 }
             });
         }
-
-        if (isEswProductRestrictionsEnabled && !isCurrentDomesticAllowedCountry && notRestrictedProduct) {
-            var productNotRestrictedOnEswCountries = apiProduct.custom.hasOwnProperty('productNotRestrictedOnEswCountries') ? apiProduct.custom.productNotRestrictedOnEswCountries : false;
-
-            if (productNotRestrictedOnEswCountries) {
-
-                productNotRestrictedOnEswCountries.forEach(function (countryCode) {
-                    if (countryCode === currentCountry) {
-                        isProductNotRestrictedOnEswCountries = false;
-                    }
-                });
-            }
-        }
-
         return isProductNotRestrictedOnEswCountries;
     } catch (e) {
         Logger.error('(productCustomHelper.js -> productNotRestrictedOnEswCountries) Error occured while checking is esw restricted countries product or not. Error: {0} : in {1}', e.toString(), e.lineNumber);

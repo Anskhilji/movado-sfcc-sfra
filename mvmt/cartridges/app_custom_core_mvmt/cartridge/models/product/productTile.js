@@ -312,7 +312,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
 
                 Object.defineProperty(product, 'defaultVariantCollectionName', {
                     enumerable: true,
-                    value: !empty(defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
+                    value: !empty(defaultVariant && defaultVariant.custom && defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
                 });
                 
                 var variant = apiProduct.variationModel.defaultVariant;
@@ -366,9 +366,9 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     } catch (e) {
         Logger.error('Variation exception: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
-    
+
     //custom start: [MSS-2351 - Prevent International Orders on a SKU Level to set default variant values in master]
-    if (product.productType == 'master' && product.defaultVariant && product.defaultVariant.custom && product.defaultVariant.custom.productNotRestrictedOnEswCountries.length > 0) {
+    if (product.productType == 'master' && product.defaultVariant && product.defaultVariant.custom) {
         isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, product.defaultVariant, isCurrentDomesticAllowedCountry);
     } else {
         isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
