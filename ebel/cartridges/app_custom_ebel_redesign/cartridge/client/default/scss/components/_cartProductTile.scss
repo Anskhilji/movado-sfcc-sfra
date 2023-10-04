@@ -2,6 +2,12 @@
     
     .line-item-name {
         font-family: $font-ProximaNova;  
+
+        a,span {
+            font-family: $font-ProximaNova;
+            font-weight: 500;
+            color: $dark-gray;
+        }
     }
 
     .item-info {

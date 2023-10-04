@@ -2,6 +2,12 @@
     
     .line-item-name {
         font-family: $font-raleway-medium;  
+        
+        a,span {
+            font-family: $font-raleway-medium;
+            font-weight: 500;
+            color: $grey-dark-1;
+        }
     }
 
     .item-info {

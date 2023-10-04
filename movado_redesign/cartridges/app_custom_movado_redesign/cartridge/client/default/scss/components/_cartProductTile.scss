@@ -1,9 +1,17 @@
 @import "../vars";
 
 .product-card-wrapper {
+    border-radius: rem(15);
 
   .line-item-name {
-      font-family: $the-futura-font;
+      font-family: $movado-font;
+
+      a,span {
+        font-weight: 400;
+        color: $black;
+        font-family: $movado-font;
+      }
+
   }
 
   .line-item-brand-name {
