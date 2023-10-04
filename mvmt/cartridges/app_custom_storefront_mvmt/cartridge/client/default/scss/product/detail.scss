@@ -4473,12 +4473,15 @@
                     color: $light-black;
                     letter-spacing: rem(0);
                     text-transform: uppercase;
+                    display: flex;
+                    align-items: center;
 
                     .pdp-stras{
-                        margin-left: rem(30);
+                        margin-left: rem(5);
+                        margin-top: rem(-3);
 
-                        @include media-breakpoint-up(lg) {
-                            margin-left: rem(5);
+                        .yotpo-bottomline {
+                            align-items: center;
                         }
                     }
 
@@ -4494,13 +4497,14 @@
                             letter-spacing: 0 !important;
                             line-height: rem(20); 
                             text-decoration: underline !important;
+                            margin-left: rem(5);
                         }
                         .yotpo-stars {
                             .yotpo-icon {
-                                font-size: rem(20);
+                                font-size: rem(15);
 
                                 &::before {
-                                    font-size: rem(20);
+                                    font-size: rem(15);
                                 }
                             }
                         }
