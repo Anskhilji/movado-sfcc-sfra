@@ -120,11 +120,12 @@ function formatProduct(variant, viewType) {
 
     var shortDesc = !empty(variant.getShortDescription()) ? variant.getShortDescription().getMarkup() : '';
     var longDesc = !empty(variant.getLongDescription()) ? variant.getLongDescription().getMarkup() : '';
-    var imageLink = variant.getImage(viewType).getAbsURL().toString();
-
+    var imageLink = getProductImageURL(variant, viewType);
     // remove any spaces in the image name
-    while (imageLink.indexOf(' ') > 0) {
-        imageLink = imageLink.replace(' ', '%20');
+    if (!empty(imageLink)) {
+        while (imageLink.indexOf(' ') > 0) {
+            imageLink = imageLink.replace(' ', '%20');
+        }
     }
 
     var product = {
@@ -202,7 +203,7 @@ function ensureChunkSize(product, parameters, tikTokSettings, previouslyExported
 /**
  * get the product search model on base of provide category
  *
- * @param {dw/object/CustomObject} categoryID The hidden category to export
+ * @param {dw/catalog/Product} categoryID The hidden category to export
  */
 function getProductSearchHitIt(categoryID) {
     var CatalogMgr = require('dw/catalog/CatalogMgr');
@@ -214,6 +215,35 @@ function getProductSearchHitIt(categoryID) {
     var productSearchHitsItr = productSearchModel.getProductSearchHits();
     return productSearchHitsItr;
 }
+
+/**
+ * get the product model on base of provide product
+ *
+ * @param {dw/catalog/Product} product product to genrate image URL
+ */
+function getProductImageURL(product, viewType) {
+    try {
+        var ProductFactory = require('*/cartridge/scripts/factories/product');
+        var tikTokproductImageUrl = null;
+        var params = {
+            pid: product.ID
+        }
+        var productFactory = ProductFactory.get(params);
+        var imageViewType = product.getImage(viewType) != null ? product.getImage(viewType).getAbsURL().toString() : null;
+
+        if (!empty(productFactory) && !empty(productFactory.images) && !empty(productFactory.images.pdp600[0]) && !empty(imageViewType)) {
+            tikTokproductImageUrl = productFactory.images.pdp600[0].url != null ? productFactory.images.pdp600[0].url : null;
+        } else {
+            tikTokproductImageUrl = imageViewType;
+        }
+
+        return tikTokproductImageUrl;
+    } catch (error) {
+        Logger.error('Error occurred while genrating product image Url into feed . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+        product.ID, e.stack, e.message, e.lineNumber, e.fileName);
+    }
+}
+
 
 /**
  * Exports the current site's catalog. Only online products are exported
