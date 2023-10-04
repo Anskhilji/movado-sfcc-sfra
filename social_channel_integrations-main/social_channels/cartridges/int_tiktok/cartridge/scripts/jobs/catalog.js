@@ -229,14 +229,11 @@ function getProductImageURL(product, viewType) {
             pid: product.ID
         }
         var productFactory = ProductFactory.get(params);
-        var imageViewType = product.getImage(viewType) != null ? product.getImage(viewType).getAbsURL().toString() : null;
 
-        if (!empty(productFactory) && !empty(productFactory.images) && !empty(productFactory.images.pdp600[0]) && !empty(imageViewType)) {
+        if (!empty(productFactory) && !empty(productFactory.images) && !empty(productFactory.images.pdp600[0])) {
             tikTokproductImageUrl = productFactory.images.pdp600[0].url != null ? productFactory.images.pdp600[0].url : null;
-        } else {
-            tikTokproductImageUrl = imageViewType;
         }
-
+        
         return tikTokproductImageUrl;
     } catch (error) {
         Logger.error('Error occurred while genrating product image Url into feed . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
