@@ -98,10 +98,9 @@ function productSync() {
 
             // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
             var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
-            if (Site.current.ID !== 'MCSUS') {
-                if (!empty(productFeedJson)) {
-                    productFile.AddRowItem('Gender');
-                }
+
+            if (!empty(productFeedJson)) {
+                productFile.AddRowItem('Gender');
             }
             // Custom End
 
@@ -206,8 +205,8 @@ function productSync() {
                 // Custom End
 
                 if (Site.current.ID === 'MCSUS') {
-                    if (!empty(productFeedJson)) {
-                        productFile.AddRowItem(prd.watchGender, true);
+                    if (!empty(productFeedJewelryJson)) {
+                        productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
                     }
                     productFile.AddRowItem(prd.familyName, true);
                 } else {
@@ -288,10 +287,8 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-                if (Site.current.ID !== 'MCSUS') {
-                    if (!empty(productFeedJson)) {
-                        productFile.AddRowItem(prd.watchGender, true);
-                    }
+                if (!empty(productFeedJson)) {
+                    productFile.AddRowItem(prd.watchGender, true);
                 }
                 // Custom End
 
