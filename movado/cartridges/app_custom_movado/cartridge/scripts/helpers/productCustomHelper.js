@@ -472,9 +472,20 @@ function getProductATSValue(apiProduct) {
 function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry) {
     try {
         var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
+        var eswNotRestrictedProducts = !empty(Site.current.preferences.custom.eswNotRestrictedProducts) ? Site.current.preferences.custom.eswNotRestrictedProducts : false;
+        var notRestrictedProduct = false;
         var isProductNotRestrictedOnEswCountries = true;
+        
+        if (eswNotRestrictedProducts.length > 0) {
+            eswNotRestrictedProducts.filter(function (id) {
+                if (apiProduct.ID == id) {
+                    notRestrictedProduct = true;
+                    return;
+                }
+            });
+        }
 
-        if (isEswProductRestrictionsEnabled && !isCurrentDomesticAllowedCountry) {
+        if (isEswProductRestrictionsEnabled && !isCurrentDomesticAllowedCountry && notRestrictedProduct) {
             var productNotRestrictedOnEswCountries = apiProduct.custom.hasOwnProperty('productNotRestrictedOnEswCountries') ? apiProduct.custom.productNotRestrictedOnEswCountries : false;
 
             if (productNotRestrictedOnEswCountries) {
