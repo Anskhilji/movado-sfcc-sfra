@@ -203,7 +203,7 @@ function ensureChunkSize(product, parameters, tikTokSettings, previouslyExported
 /**
  * get the product search model on base of provide category
  *
- * @param {dw/catalog/Product} categoryID The hidden category to export
+ * @param {dw/object/CustomObject} categoryID The hidden category to export
  */
 function getProductSearchHitIt(categoryID) {
     var CatalogMgr = require('dw/catalog/CatalogMgr');
