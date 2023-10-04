@@ -77,6 +77,30 @@ const getCustomFieldDetails = function (str){
     return result;
 };
 
+const getProductImageURL = function (product) {
+    try {
+        var ProductFactory = require('*/cartridge/scripts/factories/product');
+        var tikTokproductImageUrlArry = [];
+        var params = {
+            pid: product.ID
+        }
+
+        var productFactory = ProductFactory.get(params);
+
+        if (!empty(productFactory) && !empty(productFactory.images) && !empty(productFactory.images.pdp600)) {
+            var images = productFactory.images.pdp600;
+            for each (var image in images) {
+                tikTokproductImageUrlArry.push(image.url);
+            }
+        }
+
+        return tikTokproductImageUrlArry;
+    } catch (error) {
+        Logger.error('Error occurred while genrating product image Url into feed . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+        product.ID, e.stack, e.message, e.lineNumber, e.fileName);
+    }
+}
+
 const cleanField = function (str) {
     if (!str) return '';
     // if this is a custom field, do not clean the field
@@ -109,18 +133,13 @@ ProductFieldMapper.getField = function(product : dw.catalog.Product, field : Str
         }
 
         if (field == 'image' || field == 'additionalimage') {
-            return !empty(type) ? product.getImages(type || format).get(0).getAbsURL().toString() :
-                product.getImages('large').get(0).getAbsURL().toString();
+            return getProductImageURL(product);
         }
 
         if (field == 'imagejsondata') {
-            var images = !empty(type) ? product.getImages(type || format) :  product.getImages('large');
-            var arr = [];
-            for each (var image in images) {
-                arr.push(image.getAbsURL().toString());
-            }
+            var images = getProductImageURL(product);
             var jsonData = {
-                "images": arr
+                "images": images
             };
             return JSON.stringify(jsonData);
         }
