@@ -8,7 +8,7 @@ const Logger = require('dw/system/Logger').getLogger('social-checkout', 'helpers
  * @param {string|number} socialChannel - social channel as string (TikTok) or integer (14)
  * @returns {number|null} channel type number or null
  */
-const getChannelType = (socialChannel) => {
+const getChannelType = function (socialChannel) {
     var channelType = null;
     if (!socialChannel) return channelType;
     try {
