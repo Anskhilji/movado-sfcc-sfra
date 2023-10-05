@@ -1283,7 +1283,7 @@ function handleRestrictedEswProducts(product) {
         if (!product.isProductNotRestrictedOnEswCountries) {
             $('.add-to-cart').removeClass('d-none');
             $('.show-cart-button-mobile').removeClass('d-none');
-            $('.prices-add-to-cart-actions').removeClass('d-none');
+            $('.prices-add-to-cart-actions,.atc-btn-hide').removeClass('d-none');
         }
     }
 }
