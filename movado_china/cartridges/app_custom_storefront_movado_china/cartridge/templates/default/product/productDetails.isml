@@ -50,7 +50,7 @@
                         </div>
 	                </div>
                     <!-- Product Name -->
-                    <h2 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h2>
+                    <h1 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h1>
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
