@@ -38,6 +38,9 @@ function productSync() {
     var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
     var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
+    var productFeedMaterialJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute : '';
+    var productFeedDialColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedDialColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedDialColorAttribute : '';
+
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
     } // if not set, use default of 1
@@ -124,12 +127,21 @@ function productSync() {
             // Custom End:
 
             // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
-            if (Site.current.ID === 'MovadoUS') {
+            if (!empty(productFeedMaterialJson)) {
                 productFile.AddRowItem('Meta2');
+            }
+
+            if (Site.current.ID === 'MovadoUS') {
                 productFile.AddRowItem('Meta3');
                 productFile.AddRowItem('Meta4');
                 productFile.AddRowItem('Color');
+            }
+
+            if (!empty(productFeedDialColorJson)) {
                 productFile.AddRowItem('Style');
+            }
+
+            if (Site.current.ID === 'MovadoUS') {
                 productFile.AddRowItem('Size');
             }
             // Custom End
@@ -303,12 +315,21 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
-                if (Site.current.ID === 'MovadoUS') {
+                if (!empty(productFeedMaterialJson)) {
                     productFile.AddRowItem(prd.meta2, true);
+                }
+
+                if (Site.current.ID === 'MovadoUS') {
                     productFile.AddRowItem(prd.meta3, true);
                     productFile.AddRowItem(prd.movement, true);
                     productFile.AddRowItem(prd.strapColor, true);
+                }
+
+                if (!empty(productFeedDialColorJson)) {
                     productFile.AddRowItem(prd.dialColor, true);
+                }
+
+                if (Site.current.ID === 'MovadoUS') {
                     productFile.AddRowItem(prd.caseDiameter, true);
                 }
                 // Custom End
