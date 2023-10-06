@@ -8,13 +8,14 @@ const Logger = require('dw/system/Logger').getLogger('social-checkout', 'helpers
  * @param {string|number} socialChannel - social channel as string (TikTok) or integer (14)
  * @returns {number|null} channel type number or null
  */
-const getChannelType = function (socialChannel) {
+var getChannelType = function (socialChannel) {
     var channelType = null;
     if (!socialChannel) return channelType;
     try {
         channelType = parseInt(socialChannel, 10);
-        if (Number.isNaN(channelType)) {
-            channelType = LineItemCtnr[`CHANNEL_TYPE_${String(socialChannel.toUpperCase())}`];
+        if (channelType) {
+            var channel = 'CHANNEL_TYPE_' + new String(socialChannel.toUpperCase())
+            channelType = LineItemCtnr[channel];
         }
     } catch (e) {
         channelType = null;
@@ -24,5 +25,5 @@ const getChannelType = function (socialChannel) {
 };
 
 module.exports = {
-    getChannelType
+    getChannelType: getChannelType
 };
