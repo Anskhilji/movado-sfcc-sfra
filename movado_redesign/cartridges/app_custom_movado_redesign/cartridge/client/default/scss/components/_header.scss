@@ -693,7 +693,9 @@ header.new-header {
 
       .minicart-link {
         background: url("../images/cart-icon-black.svg") center center no-repeat;
-        padding: rem(22);
+        @include media-breakpoint-down (sm) {
+          padding: rem(22);
+        }
       }
 
       .logo-link {
@@ -1335,7 +1337,7 @@ header.new-header {
           align-items: center;
           gap: rem(12);
           cursor: pointer;
-          @include media-breakpoint-down(md) {
+          @include media-breakpoint-down(sm) {
             padding: rem(17.5) rem(13);
             margin-left: rem(-14.5);
           }
@@ -1369,7 +1371,7 @@ header.new-header {
 
             .minicart {
 
-              @include media-breakpoint-down(md) {
+              @include media-breakpoint-down(sm) {
                 width: rem(44);
                 height: rem(44);
                 margin-right: rem(-14);
@@ -1420,7 +1422,7 @@ header.new-header {
             .search-icon {
               background: url("../images/search.svg") center center no-repeat;
               
-              @include media-breakpoint-down(md) {
+              @include media-breakpoint-down(sm) {
                 padding: rem(22px);
                 margin-right: rem(-9);
               }
