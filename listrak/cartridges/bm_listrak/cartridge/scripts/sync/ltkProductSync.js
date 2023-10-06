@@ -41,14 +41,6 @@ function productSync() {
     var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
     var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
-    
-    // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
-    var productFeedCaseMeterialJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedCaseMaterialAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedCaseMaterialAttribute : '';
-    var productFeedColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedColorAttribute : '';
-    var productFeedAttachmentTypeJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedAttachmentTypeAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedAttachmentTypeAttribute : '';
-    var productFeedStrapColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedStrapColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedStrapColorAttribute : '';
-    var productFeedJewelryStyleJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedJewelryStyleAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedJewelryStyleAttribute : '';
-    // Custom End
 
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
