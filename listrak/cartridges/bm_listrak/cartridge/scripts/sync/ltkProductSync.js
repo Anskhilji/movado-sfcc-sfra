@@ -38,6 +38,10 @@ function productSync() {
     var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
     var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
+    var productFeedMaterialJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute : '';
+    var productFeedDialBackgroundColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedDialBackgroundColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedDialBackgroundColorAttribute : '';
+    var productFeedJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedGenderAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedGenderAttribute : '';
+
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
     } // if not set, use default of 1
@@ -97,7 +101,7 @@ function productSync() {
             // Custom End
 
             // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-            if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU' || Site.current.ID === 'MCSUS') {
+            if (!empty(productFeedJson)) {
                 productFile.AddRowItem('Gender');
             }
             // Custom End
@@ -133,11 +137,19 @@ function productSync() {
                 productFile.AddRowItem('Color');
                 productFile.AddRowItem('Style');
                 productFile.AddRowItem('Size');
-            } else if (Site.current.ID === 'MCSUS') {  // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+            } 
+            
+            if (Site.current.ID === 'MCSUS') {  // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
                 productFile.AddRowItem('Color');
                 productFile.AddRowItem('Size');
                 productFile.AddRowItem('Style');
+            }
+
+            if (!empty(productFeedMaterialJson)) {
                 productFile.AddRowItem('Meta2');
+            }
+            
+            if (!empty(productFeedDialBackgroundColorJson)) {
                 productFile.AddRowItem('Meta3');
             }
             // Custom End
@@ -203,7 +215,9 @@ function productSync() {
                 // Custom End
 
                 if (Site.current.ID === 'MCSUS') {
-                    productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
+                    if (!empty(productFeedJewelryJson)) {
+                        productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
+                    }
                     productFile.AddRowItem(prd.familyName, true);
                 } else {
                     // Category
@@ -283,7 +297,7 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-                if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU' || Site.current.ID === 'MCSUS') {
+                if (!empty(productFeedJson)) {
                     productFile.AddRowItem(prd.watchGender, true);
                 }
                 // Custom End
@@ -319,11 +333,20 @@ function productSync() {
                     productFile.AddRowItem(prd.strapColor, true);
                     productFile.AddRowItem(prd.dialColor, true);
                     productFile.AddRowItem(prd.caseDiameter, true);
-                } else if (Site.current.ID === 'MCSUS') {  // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+                } 
+
+                // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+                if (Site.current.ID === 'MCSUS') {  
                     productFile.AddRowItem(prd.strapColor, true);
                     productFile.AddRowItem(prd.caseDiameter, true);
                     productFile.AddRowItem(prd.meta3, true);
+                }
+
+                if (!empty(productFeedMaterialJson)) {
                     productFile.AddRowItem(prd.meta2, true);
+                }
+
+                if (!empty(productFeedDialBackgroundColorJson)) {
                     productFile.AddRowItem(prd.dialBackgroundColor, true);
                 }
                 // Custom End
