@@ -693,6 +693,7 @@ header.new-header {
 
       .minicart-link {
         background: url("../images/cart-icon-black.svg") center center no-repeat;
+        
         @include media-breakpoint-down (sm) {
           padding: rem(22);
         }
@@ -1337,6 +1338,7 @@ header.new-header {
           align-items: center;
           gap: rem(12);
           cursor: pointer;
+
           @include media-breakpoint-down(sm) {
             padding: rem(17.5) rem(13);
             margin-left: rem(-14.5);
