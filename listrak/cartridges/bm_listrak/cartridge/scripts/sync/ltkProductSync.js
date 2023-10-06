@@ -149,7 +149,7 @@ function productSync() {
 
             // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
             if (Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
-                if (!empty(productFeedAttachmentTypeJson) || !empty(productFeedJewelryStyleJson)) {
+                if (!empty(productFeedAttachmentTypeJson) && !empty(productFeedJewelryStyleJson)) {
                     productFile.AddRowItem('Style');
                 }
                 productFile.AddRowItem('Size');
