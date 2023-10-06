@@ -372,7 +372,9 @@ function productSync() {
                             productFile.AddRowItem(prd.strapColorAttr, true);
                         }
                     } else {
-                        productFile.AddRowItem('', true);
+                        if (!empty(productFeedStrapColorJson)) {
+                            productFile.AddRowItem('', true);                            
+                        }
                     }                 
                 }
                 // Custom End
