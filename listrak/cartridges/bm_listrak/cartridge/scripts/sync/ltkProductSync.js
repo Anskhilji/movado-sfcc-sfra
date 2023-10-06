@@ -42,6 +42,15 @@ function productSync() {
     var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
 
+    // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
+    var productFeedCaseMeterialJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedCaseMaterialAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedCaseMaterialAttribute : '';
+    var productFeedColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedColorAttribute : '';
+    var productFeedAttachmentTypeJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedAttachmentTypeAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedAttachmentTypeAttribute : '';
+    var productFeedStrapColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedStrapColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedStrapColorAttribute : '';
+    var productFeedJewelryStyleJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedJewelryStyleAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedJewelryStyleAttribute : '';
+    // Custom End
+
+
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
     } // if not set, use default of 1
@@ -213,10 +222,14 @@ function productSync() {
                     productFile.AddRowItem(prd.familyName, true);
                 } else if (Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
-                        productFile.AddRowItem(prd.caseMaterial, true);
+                        if (!empty(productFeedCaseMeterialJson)) {
+                            productFile.AddRowItem(prd.caseMaterial, true);
+                        }
                         productFile.AddRowItem(prd.familyName, true);
                     } else if (prd.productStyle === Constants.JEWELRY_CATEGORY) {
-                        productFile.AddRowItem(prd.color, true);
+                        if (!empty(productFeedColorJson)) {
+                            productFile.AddRowItem(prd.color, true);
+                        }
                         productFile.AddRowItem(prd.familyName, true);
                     }
                 } else {
@@ -336,15 +349,22 @@ function productSync() {
                 // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
                 if (Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
-                        productFile.AddRowItem(prd.attachmentTypeAttr, true);
+                        if (!empty(productFeedAttachmentTypeJson)) {
+                            productFile.AddRowItem(prd.attachmentTypeAttr, true);
+                        }
                     } else if (prd.productStyle === Constants.JEWELRY_CATEGORY) {
-                        productFile.AddRowItem(prd.jewelryStyle, true);
+                        if (!empty(productFeedJewelryStyleJson)) {
+                            productFile.AddRowItem(prd.jewelryStyle, true);
+                        }
                     }
+
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
                         productFile.AddRowItem(prd.productCaseDiameter, true);
                     }
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
-                        productFile.AddRowItem(prd.strapColorAttr, true);
+                        if (!empty(productFeedStrapColorJson)) {
+                            productFile.AddRowItem(prd.strapColorAttr, true);
+                        }
                     }                    
                 }
                 // Custom End
