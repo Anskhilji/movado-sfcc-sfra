@@ -221,14 +221,10 @@ function productSync() {
                     productFile.AddRowItem(prd.familyName, true);
                 } else if (Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
-                        if (!empty(productFeedCaseMeterialJson)) {
-                            productFile.AddRowItem(prd.caseMaterial, true);
-                        }
+                        productFile.AddRowItem(prd.caseMaterial, true);
                         productFile.AddRowItem(prd.familyName, true);
                     } else if (prd.productStyle === Constants.JEWELRY_CATEGORY) {
-                        if (!empty(productFeedColorJson)) {
-                            productFile.AddRowItem(prd.color, true);
-                        }
+                        productFile.AddRowItem(prd.color, true);
                         productFile.AddRowItem(prd.familyName, true);
                     }
                 } else {
@@ -348,21 +344,15 @@ function productSync() {
                 // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
                 if (Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
-                        if (!empty(productFeedAttachmentTypeJson)) {
-                            productFile.AddRowItem(prd.attachmentTypeAttr, true);
-                        }
+                        productFile.AddRowItem(prd.attachmentTypeAttr, true);
                     } else if (prd.productStyle === Constants.JEWELRY_CATEGORY) {
-                        if (!empty(productFeedJewelryStyleJson)) {
-                            productFile.AddRowItem(prd.jewelryStyle, true);
-                        }
+                        productFile.AddRowItem(prd.jewelryStyle, true);
                     }
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
                         productFile.AddRowItem(prd.productCaseDiameter, true);
                     }
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
-                        if (!empty(productFeedStrapColorJson)) {
-                            productFile.AddRowItem(prd.strapColorAttr, true);
-                        }
+                        productFile.AddRowItem(prd.strapColorAttr, true);
                     }                    
                 }
                 // Custom End
