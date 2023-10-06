@@ -149,9 +149,13 @@ function productSync() {
 
             // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
             if (Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
-                productFile.AddRowItem('Style');
+                if (!empty(productFeedAttachmentTypeJson) || !empty(productFeedJewelryStyleJson)) {
+                    productFile.AddRowItem('Style');
+                }
                 productFile.AddRowItem('Size');
-                productFile.AddRowItem('Color');
+                if (!empty(productFeedStrapColorJson)) {
+                    productFile.AddRowItem('Color');
+                }
             }
             // Custom End
 
@@ -360,12 +364,16 @@ function productSync() {
 
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
                         productFile.AddRowItem(prd.productCaseDiameter, true);
+                    } else {
+                        productFile.AddRowItem('', true);
                     }
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
                         if (!empty(productFeedStrapColorJson)) {
                             productFile.AddRowItem(prd.strapColorAttr, true);
                         }
-                    }                    
+                    } else {
+                        productFile.AddRowItem('', true);
+                    }                 
                 }
                 // Custom End
 
