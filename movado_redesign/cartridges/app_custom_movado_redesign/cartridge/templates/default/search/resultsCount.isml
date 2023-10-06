@@ -1,10 +1,10 @@
 <isif condition="${pdict.productSearch.isCategorySearch}">
     <iscomment> Custom Start: category name added</iscomment>
         <span class="d-none d-md-inline-flex">
-            <label class="category-name" data-result-counts="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}">${pdict.productSearch.category.name}</label> <span> <isprint value="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}" encoding="off"></span>
+            <h1 class="category-name" data-result-counts="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}">${pdict.productSearch.category.name}</h1> <span> <isprint value="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}" encoding="off"></span>
         </span>
         <span class="d-inline-flex d-md-none">
-            <label class="category-name mobile-category-name" data-result-counts="${Resource.msgf('label.results.mobile', 'search', null, pdict.productSearch.count)}">${pdict.productSearch.category.name}</label> 
+            <h1 class="category-name mobile-category-name" data-result-counts="${Resource.msgf('label.results.mobile', 'search', null, pdict.productSearch.count)}">${pdict.productSearch.category.name}</h1> 
             <span class="count-sec"> <isprint value="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}" encoding="off"></span>
         </span>
     <iscomment> Custom End: category name added</iscomment>

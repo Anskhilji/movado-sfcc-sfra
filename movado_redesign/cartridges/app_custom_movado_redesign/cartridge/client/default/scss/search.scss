@@ -2636,7 +2636,7 @@
                 align-items: center;
                 font-family: $movado-font;
 
-                label {
+                h1 {
                   color: $light-black7;
                   font-family: $movado-font;
                   font-size: rem(24);
@@ -2644,6 +2644,7 @@
                   font-weight: 400;
                   line-height: rem(32);
                   margin: 0;
+                  letter-spacing: normal;
                 }
 
                 span {
