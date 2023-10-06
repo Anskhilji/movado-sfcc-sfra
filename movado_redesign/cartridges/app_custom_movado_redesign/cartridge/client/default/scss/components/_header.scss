@@ -1371,6 +1371,11 @@ header.new-header {
 
             .minicart {
 
+              @include media-breakpoint-down(md) {
+                width: rem(16);
+                height: rem(16);
+              }
+              
               @include media-breakpoint-down(sm) {
                 width: rem(44);
                 height: rem(44);
