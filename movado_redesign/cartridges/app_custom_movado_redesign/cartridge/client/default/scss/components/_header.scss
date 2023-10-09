@@ -246,7 +246,7 @@ header.new-header {
       right: rem(-3);
       top: rem(-1);
 
-      @include  media-breakpoint-down(sm) {
+      @include media-breakpoint-down(sm) {
         right: rem(11);
         top: rem(11);
       }
