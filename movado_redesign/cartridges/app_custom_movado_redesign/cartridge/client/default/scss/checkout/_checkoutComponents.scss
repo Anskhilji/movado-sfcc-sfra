@@ -8,6 +8,29 @@ body {
 
 .data-checkout-stage {
 
+    .grand-total {
+
+        &.grand-total-wrapper {
+
+            .start-lines {
+
+                .order-receipt-label {
+                    font-weight: 500;
+                }
+            }
+
+            .end-lines {
+
+                .text-right {
+
+                    .grand-total-sum {
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+
     .form-group {
 
         .form-control-label {
@@ -185,5 +208,27 @@ body {
             font-family: $the-futura-font;
         }
     } 
+}
+
+.leading-lines {
+
+    &.leading-lines-wrapper {
+        
+        .order-label-wrapper {
+            font-weight: 300;
+
+            span {
+                font-weight: 300;
+            }
+        }
+
+        .product-label-wrapper {
+            font-weight: 300;
+
+            span {
+                font-weight: 300;
+            }
+        }
+    }
 }
 

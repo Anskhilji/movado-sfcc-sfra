@@ -1,4 +1,4 @@
-<isif condition="${pdict.marketingProductData}">
+	<isif condition="${pdict.marketingProductData}">
     <div id="marketingProductData" data-marketing-product-data="${pdict.marketingProductData}" class="d-none"></div>
 </isif>
 <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">

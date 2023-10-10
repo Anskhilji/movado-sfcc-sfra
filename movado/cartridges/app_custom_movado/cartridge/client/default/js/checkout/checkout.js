@@ -89,22 +89,23 @@ require('./fedexAddressValidate');
                 $('.checkout-pickup-items').removeClass('d-none');
                 $('.personalize-price').addClass('option-wrapper');
                 $('.personalize-msg').addClass('option-wrapper');
-
                 var customerData = $('.submit-shipping').data('customer');
                 if (!customerData) {
                     if (window.Resources.PICKUP_FROM_STORE) {
                         var form = $('form[name=dwfrm_billing]');
                         if (!form) return;
-                
-                        $('input[name$=_firstName]', form).val('');
-                        $('input[name$=_lastName]', form).val('');
-                        $('input[name$=_companyName]', form).val('');
-                        $('input[name$=_address1]', form).val('');
-                        $('input[name$=_address2]', form).val('');
-                        $('input[name$=_city]', form).val('');
-                        $('input[name$=_postalCode]', form).val('');
-                        $('select[name$=_stateCode],input[name$=_stateCode]', form).val('');
-                        $('select[name$=_country]', form).val('');
+
+                        $('input[name$=_firstName]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_lastName]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_companyName]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_address1]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_address2]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_city]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('input[name$=_postalCode]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('select[name$=_stateCode],input[name$=_stateCode]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('select[name$=_country]', form).val('').removeClass('auto-is-valid is-valid');
+                        $('select[name$=_country]', form).closest('field-label-wrapper').removeClass('input-has-value');
+                        $('select[name$=_stateCode],input[name$=_stateCode]', form).closest('field-label-wrapper').removeClass('input-has-value');
                     }
                 }
             }
@@ -214,9 +215,9 @@ require('./fedexAddressValidate');
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                     '<span aria-hidden="true">&times;</span>' +
                     '</button>' + errorMsg + '</div>';
-                                  $('.shipping-error').append(errorHtml);
-                                  $('.fedex-btn-popup-call').attr('data-fedex', 'false');
-                                  
+                                $('.shipping-error').append(errorHtml);
+                                $('.fedex-btn-popup-call').attr('data-fedex', 'false');
+
                                   defer.reject();
                               }
                           },
@@ -288,6 +289,7 @@ require('./fedexAddressValidate');
                                   $('.saved-payment-instrument.' +
                         'selected-payment ' +
                     '.form-control').addClass('is-invalid');
+                                  shippingHelpers.methods.checkoutFieldValidationIcon();
                                   defer.reject();
                                   return defer;
                               }
@@ -348,7 +350,7 @@ require('./fedexAddressValidate');
 
                               $('#cardNumber').val($('#originalCardNumber').val());
                               $('#securityCode').val('');
-
+                              shippingHelpers.methods.checkoutFieldValidationIcon();
                               defer.reject();
                           } else {
                   //
@@ -368,7 +370,7 @@ require('./fedexAddressValidate');
                   ) {
                                   $('.cancel-new-payment').removeClass('checkout-hidden');
                               }
-
+                              shippingHelpers.methods.checkoutFieldValidationIcon();
                               defer.resolve(data);
                           }
                       },
@@ -469,13 +471,16 @@ require('./fedexAddressValidate');
                     $('.shipping-express-checkout').removeClass('d-none');
                   }
                   members.gotoStage('shipping');
+                  $('.creditcard-securitycode').removeClass('is-valid auto-is-valid');
               });
 
               $('.payment-summary .edit-button', plugin).on('click', function () {
+                  $('.card-number-wrapper').addClass('card-number-mr');
                   if($('.shipping-express-checkout').length && !$('.shipping-express-checkout').is(':visible')) {
                       $('.shipping-express-checkout').removeClass('d-none');
                   }  
                   members.gotoStage('payment');
+                  $('.creditcard-securitycode').removeClass('is-valid auto-is-valid');
               });
 
           //

@@ -18,7 +18,7 @@
 	<div class="col-12 mx-field-wrapper">
 		<div class="form-group required ${creditFields.cardNumber.htmlName}">            
 			<div class="card-number-wrapper">
-				<input inputmode="numeric" pattern="[0-9]*" type="text" class="form-control cardNumber input-wrapper-checkout" id="cardNumber"
+				<input inputmode="numeric" pattern="[0-9]*" type="text" class="form-control cardNumber input-wrapper-checkout auto-validation" id="cardNumber"
                     value="${pdict.order.billing.payment.selectedPaymentInstruments
                         && pdict.order.billing.payment.selectedPaymentInstruments.length > 0
                         ? pdict.order.billing.payment.selectedPaymentInstruments[0].maskedCreditCardNumber||''
@@ -35,7 +35,7 @@
 <div class="row credit-card-form-container">
 	<div class="col-12 mx-field-wrapper">
 		<div class="form-group required ${creditFields.cardOwner.htmlName}">            
-			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName creditcard-holdername input-wrapper-checkout" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
+			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName creditcard-holdername input-wrapper-checkout auto-validation" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
 			<label class="form-control-label field-label-wrapper field-label-wrapper-card-1" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
 			<div class="invalid-feedback">${Resource.msg('error.card.holderName','creditCard',null)}</div>
 		</div>
@@ -44,8 +44,8 @@
 
 <div class="row credit-card-form-container">
 	<div class="col-md-6 col-sm-12 field-left mx-field-wrapper">
-		<div class="form-group required relative">			
-			<input inputmode="numeric" type="text" class="form-control expirationDate input-wrapper-checkout"
+		<div class="form-group required relative creditcard-expiration-date">			
+			<input inputmode="numeric" type="text" class="form-control expirationDate input-wrapper-checkout auto-validation"
 				id="expirationDate">				
 			</input>
 			<label class="form-control-label field-label-wrapper field-label-wrapper-card-2" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
@@ -57,7 +57,7 @@
 			<span class="info-icon info-icon-email"> <span class="icon"></span>
 				<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 			</span>
-			 <input inputmode="numeric" type="password" class="form-control securityCode creditcard-securitycode input-wrapper-checkout" id="securityCode" data-encrypted-name="cvc" maxlength="3">
+			 <input inputmode="numeric" type="password" class="form-control securityCode creditcard-securitycode input-wrapper-checkout auto-validation" id="securityCode" data-encrypted-name="cvc" maxlength="3">
 			 <label class="form-control-label field-label-wrapper field-label-wrapper-card-3" for="securityCode">${Resource.msg('field.credit.card.security.code','creditCard',null)}</label>
 			<div class="invalid-feedback security-code">${Resource.msg('error.credit.card.security.code.validate','creditCard',null)}</div>
 		</div>

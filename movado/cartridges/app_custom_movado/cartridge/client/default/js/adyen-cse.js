@@ -89,30 +89,54 @@ function showValidation(validationResult) {
                     $('#holderName').addClass('is-invalid');
                     break;
                 case 'number':
-                    $('#cardNumber').addClass('is-invalid');
+                    $('#cardNumber').removeClass('auto-is-valid').addClass('is-invalid auto-is-invalid');
+                    $('.invalid-feedback').removeClass('d-none');
                     break;
                 case 'expiryMonth':
-                    $('#expirationDate').addClass('is-invalid');
+                    $('#expirationDate').removeClass('auto-is-valid').addClass('is-invalid auto-is-invalid');
                     break;
                 case 'expiryYear':
-                    $('#expirationDate').addClass('is-invalid');
+                    $('#expirationDate').removeClass('auto-is-valid').addClass('is-invalid auto-is-invalid')
                     break;
                 case 'cvc':
-                    $('#securityCode').addClass('is-invalid');
+                    $('#securityCode').removeClass('auto-is-valid').addClass('auto-is-invalid is-invalid');
+                    var $securityCode = $('.security-code').text();
+                    if ($securityCode == undefined || $securityCode == '') {
+                        $('.security-code').text(Resources.CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION);
+                    }
                     break;
                 default:
                     break;
             }
+        } else if (validationResult[key] === true) {
+            switch (key) {
+                case 'holderName':
+                    $('#holderName').addClass('is-valid');
+                    break;
+                case 'number':
+                    $('#cardNumber').addClass('is-valid');
+                    break;
+                case 'cvc':
+                    $('#securityCode').addClass('is-valid');
+                    $('.info-icon.info-icon-email').addClass('d-none');
+                    break;
+                default:
+                    break;
+            }
+            if (validationResult['expiryMonth'] === true && validationResult['expiryYear'] === true) {
+                $('#expirationDate').addClass('is-valid');
+            }
         }
     }
     $('#invalidCardDetails').show();
+    $('.card-number-wrapper').addClass('card-number-mr');
 }
 
 function clearValidations() {
-    $('#holderName').removeClass('is-invalid');
-    $('#cardNumber').removeClass('is-invalid');
-    $('#expirationDate').removeClass('is-invalid');
-    $('#securityCode').removeClass('is-invalid');
+    $('#holderName').removeClass('is-invalid is-valid');
+    $('#cardNumber').removeClass('is-invalid is-valid');
+    $('#expirationDate').removeClass('is-invalid is-valid');
+    $('#securityCode').removeClass('is-invalid is-valid');
 }
 
 function maskValue(value) {
