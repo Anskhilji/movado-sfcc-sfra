@@ -10,6 +10,7 @@ var Money = require('dw/value/Money');
 var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
 
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
@@ -28,6 +29,7 @@ server.replace(
 
         var OrderModel = require('*/cartridge/models/order');
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
+
         var abTestSegment;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
@@ -79,13 +81,19 @@ server.replace(
         var productLineItem;
         var orderLineItems = order.getAllProductLineItems();
         var orderLineItemsIterator = orderLineItems.iterator();
+        var optionProductLineItem;
 
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
+            optionProductLineItem = productLineItem.optionProductLineItems.iterator();
             Transaction.wrap(function () {
                 if (productLineItem instanceof dw.order.ProductLineItem &&
-                    !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItems) {
+                    !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItem) {
                     productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                }
+
+                if (!empty(optionProductLineItem)) {
+                    customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
                 }
             });
 
@@ -248,7 +256,7 @@ server.append('Confirm', function (req, res, next) {
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
             if (productLineItem instanceof dw.order.ProductLineItem &&
-                !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItems) {
+                !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItem) {
                 analyticsTrackingLineItems.push ({
                     item: stringUtils.removeSingleQuotes(productLineItem.productName),
                     quantity: productLineItem.quantityValue,
@@ -332,7 +340,7 @@ server.append('Confirm', function (req, res, next) {
     while (orderLineItemsIterator.hasNext()) {
         productLineItem = orderLineItemsIterator.next();
         if (productLineItem instanceof dw.order.ProductLineItem &&
-            !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItems) {
+            !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItem) {
                 var apiProduct = productLineItem.getProduct();
                 var quantity = productLineItem.getQuantity().value;
                 marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
