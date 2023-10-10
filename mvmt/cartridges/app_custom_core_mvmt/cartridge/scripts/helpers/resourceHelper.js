@@ -114,6 +114,7 @@ function getResources(pageContext) {
         INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
         BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null),
         LOW_STOCK_THRESHOLD: !empty(Site.current.preferences.custom.lowStockThreshold) ? Site.current.preferences.custom.lowStockThreshold : false,
+        LISTRAK_ENABLE_BACK_IN_STOCK_EMAIL: !empty(Site.current.preferences.custom.Listrak_EnableBackInStockEmail) ? Site.current.preferences.custom.Listrak_EnableBackInStockEmail : false,
         ESW_PRODUCT_RESTRICTIONS_ENABLED: !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false,
         DOMESTIC_ALLOWED_COUNTRY: !empty(domesticAllowedCountry) ? domesticAllowedCountry : false
     };

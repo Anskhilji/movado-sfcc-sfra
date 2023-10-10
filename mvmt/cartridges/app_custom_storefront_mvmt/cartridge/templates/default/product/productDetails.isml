@@ -8,6 +8,8 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
         assets.addCss('/css/lib/product-tile-name.css');
+        assets.addJs('/js/backInStockNotification.js');
+        assets.addJs('/js/listrakBackInStock.js');
     </isscript>
     <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
     <isset name="isListrakEnable" value="${!empty(sitePref.Listrak_Cartridge_Enabled) ? sitePref.Listrak_Cartridge_Enabled : false}" scope="page" />
@@ -255,8 +257,9 @@
                         </div>
                         <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                         <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
-                        <isif condition="${!product.available}">
-                            <div class="d-block d-md-none back-in-Stock-mobile">
+                        
+                        <div class="d-block d-md-none back-in-Stock-mobile">
+                            <isif condition="${!product.available}">
                                 <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
                                 <iselseif condition="${isListrakEnable}">
@@ -269,8 +272,8 @@
                                 <iselse>
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                                 </isif>
-                            </div>
-                        </isif>
+                            </isif>
+                        </div>
                         <isif condition="${product.available && !empty(product.isGiftBoxAllowed) && typeof product.giftBoxSKUData != 'undefined' && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-mobile custom-checkbox-pdp pdp-gift-box-container-wrapper">
                                 <label for="gift-allowed-checkout-mob" class="gift-box-wrapper-label custom-control-label-pdp">
@@ -375,8 +378,9 @@
                                 </div>
                             </div>
                         </div>
-                        <isif condition="${!product.available}">
-                            <div class="d-none d-md-block back-in-Stock-desktop">
+                        
+                        <div class="d-none d-md-block back-in-Stock-desktop">
+                            <isif condition="${!product.available}">
                                 <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
                                 <iselseif condition="${isListrakEnable}">
@@ -389,8 +393,8 @@
                                 <iselse>
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                                 </isif>
-                            </div>
-                        </isif>
+                            </isif>
+                        </div>
                         <isif condition="${product.available && !empty(product.isGiftBoxAllowed) && typeof product.giftBoxSKUData != 'undefined' && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-desktop custom-checkbox-pdp">
                                 <label for="gift-allowed-checkout" class="gift-box-wrapper-label custom-control-label-pdp">
@@ -573,5 +577,11 @@
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
         </isif>
         <!-- End: Listrak persistent popup -->
+
+        <isif condition="${sitePref.enableBackInStock}">
+            <div class="bis-slot-content d-none">
+                <isslot id="cs-pdp-back-in-stock-notification" context="global" description="Content slot for back in stock notification on pdp" />
+            </div>
+        </isif>
     </isobject>
 </isdecorate>
