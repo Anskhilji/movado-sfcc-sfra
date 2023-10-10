@@ -200,6 +200,12 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
             if (marketingProductData !== null) {
                 marketingProductsData.push(marketingProductData);
             }
+
+            var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, currentBasket);
+            }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
         res.setViewData({marketingProductData : marketingProductsData});
@@ -217,8 +223,6 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
         } else {
             quantityTotal = 0;
         }
-
-        customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
 
         // Custom Start MSS-1930 Added code for Listrak Cart Tracking
         if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
@@ -382,10 +386,14 @@ server.prepend(
         delete session.custom.applePaySku;
         delete session.privacy.applePayBasketReOpen;
     }
-    customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
 
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
+        var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+
+        if (!empty(optionProductLineItem)) {
+            customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, currentBasket);
+        }
     }
 
 next();
@@ -488,6 +496,12 @@ server.append(
             }
             // custom end
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+
+            var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, currentBasket);
+            }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
         res.setViewData({
@@ -507,7 +521,7 @@ server.append(
         });
 
         customCartHelpers.removeClydeWarranty(viewData);
-        customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
+        
 
         if (!empty(req.querystring.lastNameError)) {
             res.setViewData({ 

@@ -347,6 +347,7 @@ nav {
         }
 
         .suggestions-dropdown {
+          overflow: inherit;
 
           &.suggestions {
 
@@ -359,6 +360,7 @@ nav {
               box-shadow: none;
               flex-direction: unset;
               top: rem(25);
+              display: block;
             }
 
             .term {
@@ -374,10 +376,7 @@ nav {
 
                 @include media-breakpoint-down(md) {
                   display: block !important; // i'm using important to overwrite inine css
-                  position: absolute;
-                  top: rem(70);
-                  left: 0;
-                  z-index: 99;
+                  position: static;
                   visibility: visible;
                 }
 
@@ -1818,7 +1817,7 @@ nav {
 
                       .suggestions-dropdown {
 
-                        .do-you-mean,.term {
+                        .do-you-mean,.term,.product-text {
                           padding: 0 rem(15);
                         }
                       }

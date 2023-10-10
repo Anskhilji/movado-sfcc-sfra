@@ -11,6 +11,7 @@ var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var constants = require('*/cartridge/scripts/helpers/constants');
 
 server.replace(
     'History',
@@ -98,10 +99,14 @@ server.replace(
         var OrderMgr = require('dw/order/OrderMgr');
         var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
+        
+        var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
 
         var order = OrderMgr.getOrder(req.querystring.orderID);
         var orderCustomerNo = req.currentCustomer.profile.customerNo;
-        var currentCustomerNo = !empty(order) ? order.customer.profile.customerNo : '';
+        var currentCustomerNo = !empty(order) && !empty(order.customer) && !empty(order.customer.profile) && !empty(order.customer.profile.customerNo) ? order.customer.profile.customerNo : '';
+        var cancelOrderEnable = false;
+        var cancelOrderMessage = false;
         var breadcrumbs = [
             {
                 htmlValue: Resource.msg('global.home', 'common', null),
@@ -121,13 +126,48 @@ server.replace(
             var config = {
                 numberOfLineItems: '*'
             };
-
             var currentLocale = Locale.getLocale(req.locale.id);
-
             var orderModel = new OrderModel(
                 order,
                 { config: config, countryCode: currentLocale.country, containerView: 'order' }
             );
+
+            if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel)) {
+                var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+                pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, req.session);
+            }
+
+            var emailAddress = orderModel.orderEmail;
+
+            var orders = SalesforceModel.getOrdersByCustomerEmail({
+                emailAddress: emailAddress,
+                salesChannel: Site.getCurrent().getID()
+            });
+
+            var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
+            var orderNumberParam = orderModel.orderNumber;
+
+            if (!empty(ordersArray) && !empty(orderNumberParam)) {
+                var filteredOrder = ordersArray.filter(function (orderObject) {
+                    return orderObject.num == orderNumberParam
+                });
+            }
+            var orderStatus = {
+                omsOrderStatus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
+            }
+
+            if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Approved') {
+                cancelOrderEnable = true;
+            }
+
+            if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === constants.OMS_ORDER_STATUS_CANCELLED) {
+                cancelOrderMessage = true;
+            }
+
+            if (!empty(filteredOrder) && filteredOrder.length > 0) {
+                var omsOrderStatus = filteredOrder[0].status ? filteredOrder[0].status : '';
+            }
+
             var exitLinkText = Resource.msg('link.orderdetails.orderhistory', 'account', null);
             var exitLinkUrl =
                 URLUtils.https('Order-History', 'orderFilter', req.querystring.orderFilter);
@@ -135,7 +175,11 @@ server.replace(
                 order: orderModel,
                 exitLinkText: exitLinkText,
                 exitLinkUrl: exitLinkUrl,
-                breadcrumbs: breadcrumbs
+                breadcrumbs: breadcrumbs,
+                isCancelOrder: true,
+                isCancelOrderEnable: cancelOrderEnable,
+                omsOrderStatus: omsOrderStatus,
+                cancelOrderMessage: cancelOrderMessage
             });
         } else {
             res.redirect(URLUtils.url('Account-Show'));

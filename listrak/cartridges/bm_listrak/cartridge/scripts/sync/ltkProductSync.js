@@ -18,6 +18,9 @@ var Site = require('dw/system/Site');
 var ErrorHandling = require('~/cartridge/scripts/util/ltkErrorHandling.js');
 importScript('sync/ltkExportUtils.js');
 importScript('objects/ltkProduct.js');
+
+var Constants = require('*/cartridge/scripts/util/Constants');
+
 /**
  *  buildsp product file to send to Listrak
  */
@@ -38,7 +41,18 @@ function productSync() {
     var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
     var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
+
+    // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
+    var productFeedCaseMeterialJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedCaseMaterialAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedCaseMaterialAttribute : '';
+    var productFeedColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedColorAttribute : '';
+    var productFeedAttachmentTypeJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedAttachmentTypeAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedAttachmentTypeAttribute : '';
+    var productFeedStrapColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedStrapColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedStrapColorAttribute : '';
+    var productFeedJewelryStyleJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedJewelryStyleAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedJewelryStyleAttribute : '';
+    // Custom End
+
     var productFeedMaterialJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedMaterialAttribute : '';
+    var productFeedDialBackgroundColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedDialBackgroundColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedDialBackgroundColorAttribute : '';
+    var productFeedJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedGenderAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedGenderAttribute : '';
     var productFeedDialColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedDialColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedDialColorAttribute : '';
 
     if (subCategoryLevels <= 0) {
@@ -100,11 +114,8 @@ function productSync() {
             // Custom End
 
             // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-            var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
-            if (Site.current.ID !== 'MCSUS') {
-                if (!empty(productFeedJson)) {
-                    productFile.AddRowItem('Gender');
-                }
+            if (!empty(productFeedJson)) {
+                productFile.AddRowItem('Gender');
             }
             // Custom End
 
@@ -119,9 +130,14 @@ function productSync() {
             }
             // Custom End
 
+            // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+            if (Site.current.ID === 'MCSUS') {
+                productFile.AddRowItem('Meta4');
+            }
+            // Custom End
+
             // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
             if (!empty(getAssignedCategories)) {
-                productFile.AddRowItem('Meta4');
                 productFile.AddRowItem('Meta5');
             }
             // Custom End:
@@ -143,6 +159,32 @@ function productSync() {
 
             if (Site.current.ID === 'MovadoUS') {
                 productFile.AddRowItem('Size');
+            } 
+            
+            if (Site.current.ID === 'MCSUS') {  // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+                productFile.AddRowItem('Color');
+                productFile.AddRowItem('Size');
+                productFile.AddRowItem('Style');
+            }
+
+            if (!empty(productFeedMaterialJson)) {
+                productFile.AddRowItem('Meta2');
+            }
+            
+            if (!empty(productFeedDialBackgroundColorJson)) {
+                productFile.AddRowItem('Meta3');
+            }
+            // Custom End
+
+            // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
+            if (Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
+                if (!empty(productFeedAttachmentTypeJson) && !empty(productFeedJewelryStyleJson)) {
+                    productFile.AddRowItem('Style');
+                }
+                productFile.AddRowItem('Size');
+                if (!empty(productFeedStrapColorJson)) {
+                    productFile.AddRowItem('Color');
+                }
             }
             // Custom End
 
@@ -207,10 +249,22 @@ function productSync() {
                 // Custom End
 
                 if (Site.current.ID === 'MCSUS') {
-                    if (!empty(productFeedJson)) {
-                        productFile.AddRowItem(prd.watchGender, true);
+                    if (!empty(productFeedJewelryJson)) {
+                        productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
                     }
                     productFile.AddRowItem(prd.familyName, true);
+                } else if (Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
+                    if (prd.productStyle === Constants.WATCHES_CATEGORY) {
+                        if (!empty(productFeedCaseMeterialJson)) {
+                            productFile.AddRowItem(prd.caseMaterial, true);
+                        }
+                        productFile.AddRowItem(prd.familyName, true);
+                    } else if (prd.productStyle === Constants.JEWELRY_CATEGORY) {
+                        if (!empty(productFeedColorJson)) {
+                            productFile.AddRowItem(prd.color, true);
+                        }
+                        productFile.AddRowItem(prd.familyName, true);
+                    }
                 } else {
                     // Category
                     productFile.AddRowItem(prd.categories[0], true); // Category
@@ -277,7 +331,7 @@ function productSync() {
                 }
 
                 // Custom Start: Adding Sales info [MSS-1473]
-                productFile.AddRowItem(!empty(prd.salePrice) && prd.salePrice < prd.price && prd.onSale ? true : false, true);
+                productFile.AddRowItem(!empty(prd.salePrice) && (parseInt(prd.salePrice) < parseInt(prd.price)) && prd.onSale ? true : false, true);
                 // Custom End
 
                 // Custom Start: Adding Category Value [MSS-1473]
@@ -289,10 +343,8 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-                if (Site.current.ID !== 'MCSUS') {
-                    if (!empty(productFeedJson)) {
-                        productFile.AddRowItem(prd.watchGender, true);
-                    }
+                if (!empty(productFeedJson)) {
+                    productFile.AddRowItem(prd.watchGender, true);
                 }
                 // Custom End
 
@@ -307,9 +359,14 @@ function productSync() {
                 }
                 // Custom End
 
+                // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+                if (Site.current.ID === 'MCSUS') {
+                    productFile.AddRowItem(prd.movement, true);
+                }
+                // Custom End
+
                 // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
                 if (!empty(getAssignedCategories)) {
-                    productFile.AddRowItem(prd.meta4, true);
                     productFile.AddRowItem(prd.meta5, true);
                 }
                 // Custom End
@@ -331,6 +388,50 @@ function productSync() {
 
                 if (Site.current.ID === 'MovadoUS') {
                     productFile.AddRowItem(prd.caseDiameter, true);
+                } 
+
+                // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+                if (Site.current.ID === 'MCSUS') {  
+                    productFile.AddRowItem(prd.strapColor, true);
+                    productFile.AddRowItem(prd.caseDiameter, true);
+                    productFile.AddRowItem(prd.meta3, true);
+                }
+
+                if (!empty(productFeedMaterialJson)) {
+                    productFile.AddRowItem(prd.meta2, true);
+                }
+
+                if (!empty(productFeedDialBackgroundColorJson)) {
+                    productFile.AddRowItem(prd.dialBackgroundColor, true);
+                }
+                // Custom End
+
+                // Custom Start: [MSS-2385 Listrak - Olivia Burton - Product Feed Changes]
+                if (Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
+                    if (prd.productStyle === Constants.WATCHES_CATEGORY) {
+                        if (!empty(productFeedAttachmentTypeJson)) {
+                            productFile.AddRowItem(prd.attachmentTypeAttr, true);
+                        }
+                    } else if (prd.productStyle === Constants.JEWELRY_CATEGORY) {
+                        if (!empty(productFeedJewelryStyleJson)) {
+                            productFile.AddRowItem(prd.jewelryStyle, true);
+                        }
+                    }
+
+                    if (prd.productStyle === Constants.WATCHES_CATEGORY) {
+                        productFile.AddRowItem(prd.productCaseDiameter, true);
+                    } else {
+                        productFile.AddRowItem('', true);
+                    }
+                    if (prd.productStyle === Constants.WATCHES_CATEGORY) {
+                        if (!empty(productFeedStrapColorJson)) {
+                            productFile.AddRowItem(prd.strapColorAttr, true);
+                        }
+                    } else {
+                        if (!empty(productFeedStrapColorJson)) {
+                            productFile.AddRowItem('', true);                            
+                        }
+                    }                 
                 }
                 // Custom End
 

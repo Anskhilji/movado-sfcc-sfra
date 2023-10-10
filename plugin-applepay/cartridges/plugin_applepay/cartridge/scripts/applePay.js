@@ -10,6 +10,7 @@ var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
 
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
 var RiskifiedService = require('int_riskified');
@@ -80,9 +81,7 @@ function getLastName(fullName, order) {
         var lastName = '';
         if (!empty(fullName)) {
             var splittedFullName = fullName.split(" ");
-            if (splittedFullName.length > 0) {
-                lastName = splittedFullName[1];
-            }
+            lastName = splittedFullName[splittedFullName.length - 1];
 
             if (empty(lastName)) {
                 var currentCustomer = order.getCustomer();
@@ -194,11 +193,9 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
         var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
-        var billingAddressLastName;
+        var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : '';
 
-        if (!empty(order.billingAddress.lastName)) {
-            billingAddressLastName = order.billingAddress.lastName.trim();
-        } else {
+        if (empty(billingAddressLastName)) {
             billingAddressLastName = getLastName(billingAddressFirstName, order);
 
             if (billingAddressLastName) {
@@ -219,11 +216,9 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             orderShippingAddress = order.shipments[0].getShippingAddress();
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
             var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
-            var shippingAddressLastName;
+            var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
 
-            if (!empty(orderShippingAddress.lastName)) {
-                shippingAddressLastName = orderShippingAddress.lastName.trim()
-            } else {
+            if (empty(shippingAddressLastName)) {
                 shippingAddressLastName = getLastName(shippingAddressFirstName, order);
 
                 if (shippingAddressLastName) {
@@ -541,56 +536,53 @@ exports.beforeAuthorization = function (order, payment, custom) {
     var Status = require('dw/system/Status');
     var orderLineItems = order.getAllProductLineItems();
     var orderLineItemsIterator = orderLineItems.iterator();
-    var pulseIdEngraving = 'pulseIdEngraving';
     var productLineItem;
+    var optionProductLineItem;
     var pulseIdConstants;
-    /**~
+
+    /**
      * Custom Start: Clyde Integration
      */
 
     var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+    var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
+    
     if (enablePulseIdEngraving) {
         pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
     }
 
-    if (Site.current.preferences.custom.isClydeEnabled) {
+    if (isClydeEnabled) {
         var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+
         Transaction.wrap(function () {
-            while (orderLineItemsIterator.hasNext()) {
-                productLineItem = orderLineItemsIterator.next();
-                if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                    order.removeProductLineItem(productLineItem);
-                } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
-                    order.removeProductLineItem(productLineItem);
-                }
-            }
             order.custom.isContainClydeContract = false;
             order.custom.clydeContractProductMapping = '';
         });
+
         addClydeContract.createOrderCustomAttr(order);
-        //custom : PulseID engraving
+        /** 
+         * Custom Start : PulseID engraving 
+        */
         if (enablePulseIdEngraving) {
             var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
             pulseIdAPIHelper.setPulseJobID(order);
         }
-        // custom end
+        /**
+        * Custom: End
+        */ 
     }
     /**
      * Custom: End
      */
 
-     if (!Site.getCurrent().preferences.custom.isClydeEnabled) {
-        var orderLineItems = order.getAllProductLineItems();
-        var orderLineItemsIterator = orderLineItems.iterator();
-        var productLineItem;
-        Transaction.wrap(function () {
-            while (orderLineItemsIterator.hasNext()) {
-                productLineItem = orderLineItemsIterator.next();
-                if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                    order.removeProductLineItem(productLineItem);
-                }
-            }
-        });
+    // remove null option line item
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+        
+        if (!empty(optionProductLineItem)) {
+            customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
+        }
     }
 
     var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);

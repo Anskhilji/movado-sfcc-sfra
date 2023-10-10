@@ -13,6 +13,7 @@ var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var checkoutLogger = require('app_custom_movado/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
 var googlePayHelper = require('*/cartridge/scripts/helpers/googlePayHelpers.js');
@@ -96,12 +97,14 @@ server.post('ProcessPayments',
         var PaymentManager = require('dw/order/PaymentMgr');
 
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
+        
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var referralUrl = req.referer;
         var googlePayEntryPoint = referralUrl && (referralUrl.indexOf('Cart-Show') > -1) || (referralUrl.indexOf('shopping-bag') > -1) ? false : true;
         var productID = (!empty(currentBasket)) ? currentBasket.productLineItems[0].productID : '';
-        var pulseIdEngraving = 'pulseIdEngraving';
-        var pulseIdConstants;
+
+        var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
 
         if (!currentBasket) {
             res.json({
@@ -382,46 +385,14 @@ server.post('ProcessPayments',
             return next(new Error('Could not place order'));
         }
 
-        // Send order confirmation based upon Riskified
-        COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-
-        var Order = OrderMgr.getOrder(order.orderNo);
-        Transaction.wrap(function () {
-            Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-        });
-
-        // Listrack Integeration
-        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
-            var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
-            session.privacy.SendOrder = true;
-            session.privacy.OrderNumber = order.orderNo;
-            ltkSendOrder.SendPost();
-        }
-
-		/**~
+        /**~
 		 * Custom Start: Clyde Integration && Pulse (Engraving)
 		 */
-		var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
-		if (enablePulseIdEngraving) {
-		    pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
-		}
-		if (Site.current.preferences.custom.isClydeEnabled || enablePulseIdEngraving) {
-		    var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
-		    var Constants = require('*/cartridge/utils/Constants');
 
-		    var orderLineItems = order.getAllProductLineItems();
-		    var orderLineItemsIterator = orderLineItems.iterator();
-		    var productLineItem;
+		if (isClydeEnabled) {
+		    var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 
 		    Transaction.wrap(function () {
-		        while (orderLineItemsIterator.hasNext()) {
-		            productLineItem = orderLineItemsIterator.next();
-		            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-		                order.removeProductLineItem(productLineItem);
-		            } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
-		                order.removeProductLineItem(productLineItem);
-		            }
-		        }
 		        order.custom.isContainClydeContract = false;
 		        order.custom.clydeContractProductMapping = '';
 		    });
@@ -437,20 +408,29 @@ server.post('ProcessPayments',
 		 * Custom: End
 		 */
 
-        if (!Site.getCurrent().preferences.custom.isClydeEnabled) {
-            var Constants = require('*/cartridge/utils/Constants');
-            
-            var orderLineItems = order.getAllProductLineItems();
-            var orderLineItemsIterator = orderLineItems.iterator();
-            var productLineItem;
-            Transaction.wrap(function () {
-                while (orderLineItemsIterator.hasNext()) {
-                    productLineItem = orderLineItemsIterator.next();
-                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                        order.removeProductLineItem(productLineItem);
-                    }
-                }
-            });
+        // remove null option line item
+        while (productLineItems.hasNext()) {
+            productLineItem = productLineItems.next();
+            optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
+            }
+        }
+        
+        // Send order confirmation based upon Riskified
+        COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
+
+        var Order = OrderMgr.getOrder(order.orderNo);
+        Transaction.wrap(function () {
+            Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+        });
+
+        // Listrack Integeration
+        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+            var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
+            session.privacy.SendOrder = true;
+            session.privacy.OrderNumber = order.orderNo;
+            ltkSendOrder.SendPost();
         }
 
         // SOM API call

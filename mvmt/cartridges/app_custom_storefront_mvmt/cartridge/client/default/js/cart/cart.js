@@ -574,6 +574,7 @@ function updateCartQuantity(quantitySelector, isKeyEvent) {
             updateAvailability(data, $uuid);
             validateBasket(data);
             $(quantitySelector).data('pre-select-qty', $quantity);
+            checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
             $.spinner().stop();
             //Custom Start: [MSS-1451] Listrak SendSCA on Cart Quantity Update
             if (window.Resources.LISTRAK_ENABLED) {
@@ -626,6 +627,29 @@ function enterGiftMessageHandler($element) {
     if ($this.val() !== '') {
         addGiftButton.removeAttr('disabled').find('.apply-button').removeClass('d-none');
         addGiftButton.find('.saved-button').addClass('d-none');
+    }
+}
+
+/**
+ * Check out btn disabled if in the cart having esw countries restricted product
+ * @param {data} - current ajax response
+ */
+function checkoutBtnDisabledOnEswCountriesRestrictedProduct(data) {
+    var $isEswProductRestrictionsEnabled = window.Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED;
+    var $removeError = true
+    var items = (data?.basket?.items || data?.items) ?? [];
+
+    for (var i = 0; i < items.length > 0; i++) {
+        var item = items[i];
+
+        if ($isEswProductRestrictionsEnabled && item.isProductNotRestrictedOnEswCountries && !window.Resources.DOMESTIC_ALLOWED_COUNTRY) {
+            $('.checkout-btn').addClass('disabled');
+            $removeError = false;
+        }
+    }
+
+    if($removeError){
+        $('.esw-restricted-countries-msg').addClass('d-none');
     }
 }
 
@@ -806,6 +830,7 @@ module.exports = function () {
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 if (data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
                     setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
@@ -923,6 +948,7 @@ module.exports = function () {
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 //Custom Start: [MSS-1451] Listrak SendSCA on Remove
                 if (window.Resources.LISTRAK_ENABLED) {
@@ -974,6 +1000,7 @@ module.exports = function () {
                     updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 $.spinner().stop();
             },
@@ -1018,6 +1045,7 @@ module.exports = function () {
                     $miniCartSelector.length > 0 ? updateMiniCartTotals(data) : updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 $('.coupon-code-field').val('');
                 $('.minicart-promo-code-form').spinner().stop();
@@ -1069,6 +1097,7 @@ module.exports = function () {
                     $miniCartSelector.length > 0 ? updateMiniCartTotals(data) : updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
+                    checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 }
                 $('.coupon-code-field').val('');
                 $.spinner().stop();
@@ -1118,6 +1147,7 @@ module.exports = function () {
                 updateApproachingDiscounts(data.approachingDiscounts);
                 $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
                 validateBasket(data);
+                checkoutBtnDisabledOnEswCountriesRestrictedProduct(data);
                 $('.coupon-price-adjustment').spinner().stop();
                 setMiniCartProductSummaryHeight();
             },
