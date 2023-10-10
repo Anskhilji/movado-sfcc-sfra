@@ -80,9 +80,7 @@ function getLastName(fullName, order) {
         var lastName = '';
         if (!empty(fullName)) {
             var splittedFullName = fullName.split(" ");
-            if (splittedFullName.length > 0) {
-                lastName = splittedFullName[1];
-            }
+            lastName = splittedFullName[splittedFullName.length - 1];
 
             if (empty(lastName)) {
                 var currentCustomer = order.getCustomer();
@@ -194,11 +192,9 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
         var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
-        var billingAddressLastName;
+        var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : '';
 
-        if (!empty(order.billingAddress.lastName)) {
-            billingAddressLastName = order.billingAddress.lastName.trim();
-        } else {
+        if (empty(billingAddressLastName)) {
             billingAddressLastName = getLastName(billingAddressFirstName, order);
 
             if (billingAddressLastName) {
@@ -219,11 +215,9 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             orderShippingAddress = order.shipments[0].getShippingAddress();
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
             var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
-            var shippingAddressLastName;
+            var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
 
-            if (!empty(orderShippingAddress.lastName)) {
-                shippingAddressLastName = orderShippingAddress.lastName.trim()
-            } else {
+            if (empty(shippingAddressLastName)) {
                 shippingAddressLastName = getLastName(shippingAddressFirstName, order);
 
                 if (shippingAddressLastName) {
