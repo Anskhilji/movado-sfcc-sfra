@@ -408,6 +408,10 @@ server.post('ProcessPayments',
 		 * Custom: End
 		 */
 
+        var productLineItems = order.getAllProductLineItems().iterator();
+        var productLineItem;
+        var optionProductLineItem;
+
         // remove null option line item
         while (productLineItems.hasNext()) {
             productLineItem = productLineItems.next();
