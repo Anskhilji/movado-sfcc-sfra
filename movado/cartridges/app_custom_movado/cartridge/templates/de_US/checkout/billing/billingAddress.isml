@@ -4,7 +4,7 @@
         <div class="form-group
             ${billingFields.firstName.mandatory === true ? 'required' : ''}
             ${billingFields.firstName.htmlName}">
-            <input autofocus type="text" class="form-control input-wrapper-checkout billingFirstName" id="billingFirstName"
+            <input autofocus type="text" class="form-control input-wrapper-checkout billingFirstName auto-validation" id="billingFirstName"
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.firstName
                     ? pdict.order.billing.billingAddress.address.firstName
@@ -19,7 +19,7 @@
         <div class="form-group
             ${billingFields.lastName.mandatory === true ? 'required' : ''}
             ${billingFields.lastName.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout billingLastName" id="billingLastName"
+            <input type="text" class="form-control input-wrapper-checkout billingLastName auto-validation" id="billingLastName"
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.lastName
                     ? pdict.order.billing.billingAddress.address.lastName
@@ -38,7 +38,7 @@
         <div class="form-group
             ${billingFields.companyName.mandatory === true ? 'required' : ''}
             ${billingFields.companyName.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout billingCompanyName" id="billingCompanyName"
+            <input type="text" class="form-control input-wrapper-checkout billingCompanyName auto-validation optional-field" id="billingCompanyName"
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.companyName ?
                     pdict.order.billing.billingAddress.address.companyName : ''}" <isprint value="${billingFields.companyName.attributes}" encoding="off" />
@@ -56,7 +56,7 @@
         <div class="form-group
             ${billingFields.address1.mandatory === true ? 'required' : ''}
             ${billingFields.address1.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout billingAddressOne" id="billingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
+            <input type="text" class="form-control input-wrapper-checkout billingAddressOne auto-validation auto-address" id="billingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.address1
                     ? pdict.order.billing.billingAddress.address.address1
@@ -74,7 +74,7 @@
         <div class="form-group
             ${billingFields.address2.mandatory === true ? 'required' : ''}
             ${billingFields.address2.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout billingAddressTwo" id="billingAddressTwo"
+            <input type="text" class="form-control input-wrapper-checkout billingAddressTwo auto-validation optional-field" id="billingAddressTwo"
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.address2
                     ? pdict.order.billing.billingAddress.address.address2
@@ -119,7 +119,7 @@
             ${billingFields.states.stateCode.mandatory === true ? 'required' : ''}
             ${billingFields.states.stateCode.htmlName} relative">
             <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="billingState">${Resource.msg('field.billing.address.state','address',null)}</label>
-            <select class="form-control custom-select-box billingState custom-select" id="billingState"
+            <select class="form-control custom-select-box billingState custom-select auto-validation states" id="billingState"
                 <isprint value=${billingFields.states.stateCode.attributes} encoding="off"/>
                 autocomplete="billing address-level1">
                     <isloop items=${billingFields.states.stateCode.options} var="state">
@@ -144,7 +144,7 @@
         <div class="form-group
             ${billingFields.city.mandatory === true ? 'required' : ''}
             ${billingFields.city.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout billingAddressCity" id="billingAddressCity"
+            <input type="text" class="form-control input-wrapper-checkout billingAddressCity auto-validation" id="billingAddressCity"
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.city
                     ? pdict.order.billing.billingAddress.address.city
@@ -159,7 +159,7 @@
         <div class="form-group
             ${billingFields.postalCode.mandatory === true ? 'required' : ''}
             ${billingFields.postalCode.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout billingZipCode" id="billingZipCode"
+            <input type="text" class="form-control input-wrapper-checkout billingZipCode auto-validation" id="billingZipCode"
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.postalCode
                     ? pdict.order.billing.billingAddress.address.postalCode

@@ -165,7 +165,6 @@ function gtmModel(req) {
     this.runningABTests = runningABTests || '';
 }
 
-
 /**
  * Function return pageType on the basis of page action
  * @param action

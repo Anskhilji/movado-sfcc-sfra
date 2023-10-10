@@ -75,7 +75,6 @@
                 </div>
             </isloop>
         </div>
-
         <iscomment>Custom Start: Recomendation Carousel </iscomment>
         <isif condition="${enableCartRecomendations}">
             <div class="recommendation-rail-wrapper">

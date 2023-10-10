@@ -9,10 +9,12 @@ body {
 
     input[placeholder],label {
         font-family: $the-futura-font;
+        font-weight: 500;
     }
 
     .hidden-xs-down {
         font-family: $movado-font;
+        font-weight: 500;
     }
 
     .form-group {

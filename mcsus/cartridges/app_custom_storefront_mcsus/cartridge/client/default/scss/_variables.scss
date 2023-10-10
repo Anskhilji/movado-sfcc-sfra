@@ -133,7 +133,7 @@ $grey-light13: rgba(196,193,193,0.45);
 $grey-light14: rgba(0,0,0,0.6) !default;
 $grey-light15: rgba(0,0,0,0.7) !default;
 $grey-light6: rgba(0,0,0,0.5) !default;
-$font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
+$font-futura-demi: "futura-pt", sans-serif;
 
 $grid-breakpoints: (
     xs: 0,
@@ -212,9 +212,9 @@ $font-primary: $font-book;
 $font-regular: "proxima-nova";
 $font-awesome: "FontAwesome";
 $font-proxima-nova: "proxima-nova-bold";
-$font-book-std: "FuturaStd-Book", Arial, sans-serif !default;
-$font-std-medium: "FuturaStd-Medium", Arial, sans-serif !default;
+$font-book-std: "futura-pt", sans-serif !default;
+$font-std-medium: "futura-pt", sans-serif !default;
 $width: 100%;
 $spaceLeft: rem(20);
 $marginLeftlg : 60%;
-$futura-book : "FuturaStd-Book", Arial, sans-serif !default;
+$futura-book: "futura-pt", sans-serif !default;

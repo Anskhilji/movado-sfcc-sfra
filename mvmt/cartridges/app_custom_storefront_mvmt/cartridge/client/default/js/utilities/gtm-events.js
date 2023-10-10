@@ -383,7 +383,7 @@ var showProductImpressionCaraousel = function (e, currency) {
         ecommerce: {
             impressions: {
                 products: productObj
-            } 
+            }
         }
     });
 };
@@ -505,7 +505,8 @@ var updateCheckoutStage = function () {
              var productObj = dataLayerCheckout.splice(0, maxProducts);
              dataLayer.push({ ecommerce: { checkout: {
                  actionField: { step: checkoutStep },
-                 products: productObj }
+                 products: productObj
+                }
              },
                  event: 'checkout' });
          }
