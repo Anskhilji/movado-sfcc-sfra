@@ -115,15 +115,27 @@ function maps() {
 function updateStoresResults(data) {
     var $resultsDiv = $('.results');
     var $mapDiv = $('.map-canvas');
-    var hasResults = data.stores.length > 0;
-    if (!hasResults) {
-        $('.store-locator-no-results').show();
-    } else {
+
+    if (data.hasOwnProperty('success') && data.success == false) {
         $('.store-locator-no-results').hide();
+        $('.store-locator-recaptcha-error').removeClass('d-none');
+        $('.store-locator-recaptcha-error').text(data.errorMessage);
+    } else {
+        $('.store-locator-recaptcha-error').addClass('d-none');
+        $('.store-locator-recaptcha-error').text('');
+        
+        var $hasResults = data.stores.length > 0;
+        if (!$hasResults) {
+            $('.store-locator-no-results').show();
+        } else {
+            $('.store-locator-no-results').hide();
+        }
     }
 
+    
+
     $resultsDiv.empty()
-        .data('has-results', hasResults)
+        .data('has-results', $hasResults)
         .data('radius', data.radius)
         .data('search-key', data.searchKey);
 
@@ -155,11 +167,15 @@ function search(element) {
     var url = $form.attr('action');
     var countryCode = $form.find('[name="countryCode"]').val();
     var address = $form.find('[name="address"]').val();
+    var isForm = true;
+    var googleRecaptchaToken = $('.g-recaptcha-token').val();
 
     var urlParams = {
         radius: radius,
         countryCode: countryCode,
-        address: address
+        address: address,
+        isForm: isForm,
+        googleRecaptchaToken: googleRecaptchaToken
     };
 
     var payload = $form.is('form') ? $form.serialize() : {
@@ -213,10 +229,12 @@ module.exports = {
                 var $detectLocationButton = $('.detect-location');
                 var url = $detectLocationButton.data('action');
                 var radius = $('.results').data('radius');
+                var googleRecaptchaToken = $('.g-recaptcha-token').val();
                 var urlParams = {
                     radius: radius,
                     lat: position.coords.latitude,
-                    long: position.coords.longitude
+                    long: position.coords.longitude,
+                    googleRecaptchaToken: googleRecaptchaToken
                 };
 
                 url = appendToUrl(url, urlParams);
@@ -255,18 +273,24 @@ module.exports = {
             var radius = $(this).val();
             var searchKeys = $('.results').data('search-key');
             var url = $('.radius').data('action-url');
+            var googleRecaptchaToken = $('.g-recaptcha-token').val();
+            var isForm = false;
             var urlParams = {};
 
             if (searchKeys.postalCode) {
                 urlParams = {
                     radius: radius,
-                    postalCode: searchKeys.postalCode
+                    postalCode: searchKeys.postalCode,
+                    isForm: isForm,
+                    googleRecaptchaToken: googleRecaptchaToken
                 };
             } else if (searchKeys.lat && searchKeys.long) {
                 urlParams = {
                     radius: radius,
                     lat: searchKeys.lat,
-                    long: searchKeys.long
+                    long: searchKeys.long,
+                    isForm: isForm,
+                    googleRecaptchaToken: googleRecaptchaToken
                 };
             }
 

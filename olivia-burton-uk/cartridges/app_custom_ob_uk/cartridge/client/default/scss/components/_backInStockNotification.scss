@@ -4,6 +4,20 @@
 
     .btn-primary {
         font-family: $font-gill-std-semibold;
+        background-color: $dark-cyan;
+        border: rem(1) solid $dark-cyan;
+
+        &:hover,
+        &:focus {
+            background-color: $white;
+            color: $black;
+            border: rem(1) solid $black;
+        }
+
+        &:active {
+            background-color: $dark-cyan !important;
+            border: rem(1) solid $dark-cyan !important;
+        }
     }
     .back-in-stock-notification-email-notification-copy {
         height: auto;
@@ -13,6 +27,7 @@
         letter-spacing: rem(1.71);
         line-height: rem(25);
         font-style: initial;
+        font-weight: 300;
     }
     
     .back-in-stock-notification {
@@ -117,6 +132,7 @@
             letter-spacing: rem(1.71);
             line-height: rem(25);
             font-style: initial;
+            font-weight: 300;
         }
     
     }

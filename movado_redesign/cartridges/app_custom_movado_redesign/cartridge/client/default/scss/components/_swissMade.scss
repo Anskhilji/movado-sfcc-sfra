@@ -1,0 +1,137 @@
+.swiss-made-sec {
+    max-width: rem(1440);
+    margin: rem(70) auto 0 auto;
+    padding: rem(0) rem(130) rem(102);
+
+    @include media-breakpoint-down(lg) {
+        padding: rem(0) rem(48) rem(102);
+    }
+
+    @include media-breakpoint-down(custom-md) {
+        margin: rem(70) auto rem(50) auto;
+    }
+
+    @include media-breakpoint-down(sm) {
+        padding: 0;
+        margin: rem(80) auto rem(93) auto;
+    }
+
+    .container-fluid {
+        padding: 0;
+
+        @include media-breakpoint-down(sm) {
+            padding: 0 rem(15);
+        }
+    }
+
+
+    .swiss-made-heading {
+        color: $black;
+        text-align: center;
+        font-family: $movado-font;
+        font-size: rem(32);
+        font-style: normal;
+        font-weight: 400;
+        line-height: rem(40);
+        margin-bottom: rem(80);
+
+        @include media-breakpoint-down(sm) {
+            font-size: rem(24);
+            line-height: rem(32);
+            margin-bottom: rem(78);
+        }
+    }
+
+    .swiss-made-explore {
+        border-radius: rem(30);
+        border: rem(1) solid $black;
+        background: $black;
+        max-width: rem(338);
+        width: 100%;
+        padding: rem(14) rem(32);
+        color: $white;
+        text-align: center;
+        font-family: $movado-font;
+        font-size: rem(12);
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: rem(0.48);
+        text-transform: uppercase;
+        display: block;
+        margin: rem(80) auto rem(0);
+        text-decoration: none;
+
+        @include media-breakpoint-down(sm) {
+            margin: rem(90) auto rem(0);
+        }
+
+        @include buttonFilled;
+    }
+
+    .swiss-made-list {
+        display: none;
+
+        &.slick-initialized {
+            display: block;
+
+            .slick-list {
+                
+                &.draggable {
+                    margin: rem(0) rem(-69.5);
+
+                    @include media-breakpoint-down(lg) {
+                        margin: 0 rem(0);
+                    }
+                }
+            }
+
+            .slick-slide {
+                margin: 0 rem(69.5);
+
+                @include media-breakpoint-down(lg) {
+                    margin: 0 rem(30);
+                }
+
+                >div {
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    .swiss-card {
+        text-align: center;
+        max-width: rem(191);
+        width: 100%;
+
+        &-image {
+            width: rem(191);
+            height: rem(191);
+            margin-bottom: rem(25);
+            border-radius: 100%;
+            overflow: hidden;
+
+            img {
+                height: 100%;
+                width: 100%;
+                margin-bottom: rem(25);
+
+            }
+        }
+
+        &-detail {
+
+            p {
+                font-family: $the-futura-font;
+                font-size: rem(16);
+                font-style: normal;
+                font-weight: 400;
+                line-height: rem(22);
+                letter-spacing: rem(0.25);
+                color: $black;
+                margin: 0;
+            }
+        }
+    }
+}

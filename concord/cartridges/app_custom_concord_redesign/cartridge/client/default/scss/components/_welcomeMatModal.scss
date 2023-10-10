@@ -1,0 +1,87 @@
+@import "~concord/components/welcomeMatModal";
+
+.welcomeMat {
+    
+    .movado-welcome-mat {
+
+        .eswModalWrapper {
+
+            .eswModal {
+
+                .selector-container {
+
+                    p {
+                        font-family: $font-raleway-book;
+                    }
+                }
+
+                .esw-header-wrapper, .esw-body-wrapper, .geolocation, .not-geolocation-country  {
+
+                    h1,h2,h3,h4,h5,h6 {
+                        font-family: $font-raleway-medium;
+                    }
+
+                    p {
+                        font-family: $font-raleway-book; 
+                    }
+                }
+
+                .geolocation, .not-geolocation-country {
+
+                    .esw-btn {
+                        font-family: $font-raleway-book;
+
+                        &:focus,&:hover {
+                            background-color: $white;
+                            color: $black;
+                            outline: none;
+                            box-shadow: none;
+                        }
+                    }
+                }
+
+                .shipping-country-message {
+                    font-family: $font-raleway-book; 
+                }
+
+                .selector-container {
+
+                    .add-shipping-country-message {
+                        font-family: $font-raleway-book; 
+                    }
+
+                    .esw-country-selector {
+
+                        label {
+                            font-family: $font-raleway-book; 
+                        }
+
+                        span {
+                            font-size: rem(18);
+                        }
+
+                        .select-field {
+
+                            .current-country {
+
+                                .selected-country {
+                                    font-family: $font-raleway-book; 
+                                }
+                            }
+
+                            .selector {
+
+                                .country {
+
+                                    .selected-link {
+                                        font-family: $font-raleway-book; 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

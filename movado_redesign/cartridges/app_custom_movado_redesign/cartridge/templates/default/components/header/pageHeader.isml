@@ -19,10 +19,18 @@
             <div class="header-menu-wrapper non-sticky">
                 <div class="header-wrapper">
                     <div class="container-fluid px-0">
-                    <div class="row overlay"></div>
-                        <div class="row header-container m-0">
-                            <div class="col-3 col-md-2 navbar-header header-logo">
-                                <div class="d-none d-lg-inline-block">
+                    <div class="overlay"></div>
+                        <div class="header-container m-0">
+                        <div class="desktop-hamburger">
+                            <svg width="18" height="9" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0.413086H18V2.41309H0V0.413086Z" fill="black"/>
+                                <path d="M0 7.58691H18V9.58691H0V7.58691Z" fill="black"/>
+                            </svg>
+
+                            <div class="Menu-text">${Resource.msg('link.header.menu', 'common', null)}</div>
+                        </div>
+                            <div class="navbar-header header-logo">
+                                <div class="logos">
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
                                 <iscomment>Custom Start: Adding ESW Logic </iscomment>
@@ -30,25 +38,8 @@
                                     <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
                                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                                 </isif>
-                                <iscomment> Custom End </iscomment>
-                                <button class="navbar-toggler-custom navbar-toggler d-lg-none"
-                                    role="tab" type="button" aria-controls="sg-navbar-collapse"
-                                    aria-expanded="false" disabled>
-                                    <i class="fa fa-bars"></i> 
-                                    <span class="menu-text d-md-inline-block d-lg-none">
-                                        ${Resource.msg('link.header.menu', 'common', null)}
-                                    </span>
-                                </button>
                             </div>
-                            <div class="col-6 col-md-8 p-0 justify-content-center main-menu desktop-menu">
-                                <div class="d-none d-lg-inline-block">
-                                    <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
-                                </div>
-                                <div class="d-block text-center d-lg-none">
-                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
-                                </div>
-                            </div>
-                            <div class="col-3 col-md-2 justify-content-end right">
+                            <div class="justify-content-end right">
                                 <a href="javascript:void(0);" class="search-icon header-icon" tabindex="0" aria-label="Search" role="search"></a>
                                 <div class="hidden-md-down  navbar-header account-wrapper search">
                                     <isinclude url="${URLUtils.url('Account-Header')}" />
@@ -62,52 +53,47 @@
                             </div>
                         </div>
 
-                        <div class="desktop-search pb-md-4 show w-100">
-                            <div class="row justify-content-center">
-                                <div class="col-md-3 hidden-md-down">
-                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
-                                </div>
-                                <div class="col-sm-9 col-lg-6 m-0 p-md-0">
-                                    <form role="search" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
-                                        <button class="fa fa-search gtm-customEvent d-none" type="submit" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+                        <div class="desktop-search show">
+                            <div class="desktop-search-redesign">
+                                <div class="input-fields">
+                                    <div class="search-field-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M15.6092 16.6013C14.4011 17.5764 12.8661 18.1598 11.1954 18.1598C7.30133 18.1598 4.14453 14.99 4.14453 11.0799C4.14453 7.16978 7.30133 4 11.1954 4C15.0895 4 18.2463 7.16978 18.2463 11.0799C18.2463 12.7238 17.6884 14.2368 16.7522 15.4385L19.9062 18.6054C20.224 18.9245 20.224 19.4417 19.9062 19.7607C19.5885 20.0798 19.0734 20.0798 18.7557 19.7607L15.6092 16.6013ZM16.6192 10.9461C16.6192 13.9539 14.1909 16.3922 11.1954 16.3922C8.19997 16.3922 5.77166 13.9539 5.77166 10.9461C5.77166 7.9383 8.19997 5.5 11.1954 5.5C14.1909 5.5 16.6192 7.9383 16.6192 10.9461Z"
+                                                fill="white" />
+                                        </svg>
+                                    </div>
+                                    <form role="search" action="${URLUtils.url('Search-Show')}" method="get" name="search">
+                                        <button class="fa fa-search gtm-customEvent d-none" type="submit"
+                                            data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
                                             <span class="sr-only">"${Resource.msg('label.header.search', 'common', null)}"</span>
                                         </button>
-                                        <input class="form-control search-field header-search-field"
-                                            type="search" name="q"
+                                        <input class="form-control search-field header-search-field" type="search" name="q"
                                             title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-                                            value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
-                                            placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-                                            autocomplete="off"
+                                            value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords) ? pdict.productSearch.searchKeywords : ''}"
+                                            placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}" autocomplete="off"
                                             data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
                                         <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
                                         <input type="hidden" value="${pdict.locale}" name="lang" />
-                                        <a href="javascript:void(0);" class="search-close search-close-mobile hidden-lg-up"></a>
                                     </form>
-                                    <div class="row search-recomendation justify-content-center">
-                                        <div class="col-12">
-                                            <div class="search-suggestions">
-                                                <div><isslot id="top-search-product-name" description="Top Search Product Name" context="global" /></div>
-                                                <div><isslot id="top-search-product" description="Top Search Product" context="global" /></div>
+                                    <div class="text-right">
+                                        <a href="javascript:void(0);" class="search-close"></a>
+                                    </div>
+                                </div>
+                                <div class="row search-recomendation justify-content-center">
+                                    <div class="col-12">
+                                        <div class="search-suggestions">
+                                            <div class="search-terms">
+                                                <isslot id="top-search-product-name" description="Top Search Product Name" context="global" />
+                                            </div>
+                                            <div class="top-product">
+                                                <isslot id="top-search-product" description="Top Search Product" context="global" />
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                </div>
-                                <div class="col-md-3 text-right hidden-md-down">
-                                    <a href="javascript:void(0);" class="search-close">${Resource.msg('label.button.close', 'common', null)}</a>
                                 </div>
                             </div>
-
-
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="main-menu navbar-toggleable-sm mobile-menu menu-toggleable-left multilevel-dropdown d-inline-block d-lg-none" id="sg-navbar-collapse">
-                <div class="container">
-                    <div class="row">
-                        <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
                     </div>
                 </div>
             </div>
@@ -135,3 +121,32 @@
     </nav>
 </header>
 
+<div class="desktop-slide-up">
+    <div class="close-sec">
+        <div class="close-icons">
+            <div class="desktop-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M5.75111 5L18.5721 17.821L17.3932 19L4.57216 6.17895L5.75111 5Z" fill="white" />
+                    <path d="M18.5718 6.17897L5.75072 19L4.57178 17.8211L17.3928 5.00003L18.5718 6.17897Z"
+                        fill="white" />
+                </svg>
+            </div>
+            <div class="mobile-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M1.17077 0L13.8987 12.7279L12.7283 13.8983L0.000382514 1.17038L1.17077 0Z" fill="white" />
+                    <path d="M13.8983 1.17041L1.17038 13.8983L0 12.7279L12.7279 2.65326e-05L13.8983 1.17041Z"
+                        fill="white" />
+                </svg>
+            </div>
+            <span class="close-text">close</span>
+        </div>
+        <div class="white-header-logo">
+            <isslot id="brand-logo" description="Brand Logo" context="global" />
+        </div>
+    </div>
+    <div class="main-menu-redesign desktop-menu-redesign">
+        <div class="navigation-sec">
+            <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+        </div>
+    </div>
+</div>

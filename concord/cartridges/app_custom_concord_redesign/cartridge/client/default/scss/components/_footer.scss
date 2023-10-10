@@ -10,6 +10,7 @@
 
                 a {
                     font-weight: 500;
+                    font-size: rem(14);
                 }
             }
 
@@ -22,6 +23,18 @@
 
                     &.active .title:after {
                         content: "";
+                    }
+                }
+            }
+
+            .content {
+
+                li {
+                    
+                    a {
+                        font-weight: 400;   
+                        font-size: rem(13);
+                        font-family: $font-raleway;
                     }
                 }
             }

@@ -571,8 +571,6 @@ function checkVideoStatus() {
             $imageSlide.css('pointer-events', 'none');
             $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
         }
-        $slideVideo.removeClass('d-none');
-
         clearInterval(videoStatusChecker);
     } else if (document.readyState == 'complete') {
         clearInterval(videoStatusChecker);
@@ -839,6 +837,7 @@ function handleVariantResponse(response, $productContainer) {
             videoStatusChecker = setInterval(function () {
                 checkVideoStatus();
             }, 1000);
+            $videoSlide.removeClass('d-none');
         }
 
         setTimeout(function () {
@@ -1059,7 +1058,7 @@ function handleVariantResponse(response, $productContainer) {
         }
         if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
             if ($productContainer.find('.pd-desc-mvmt.product-description').length > 0) {
-                $productContainer.find('.pd-desc-mvmt.product-description').text(response.product.shortDescription);
+                $productContainer.find('.pd-desc-mvmt.product-description').html(response.product.shortDescription);
             }
         }
         $.ajax({
@@ -1237,6 +1236,24 @@ function handleVariantResponse(response, $productContainer) {
             zoomfeature();
         },500)
     })
+
+    var $lowStockMessage = $('.low-stock-message');
+    if (response && response.product && response.product.productATSValue) {
+        var $productATSValue = response.product.productATSValue;
+        var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
+        if ($lowStockMessage.length > 0) {
+            if ($productATSValue <= $lowStockThreshold) {
+                $lowStockMessage.removeClass('d-none');
+            } else {
+                $lowStockMessage.addClass('d-none');
+            }
+        }
+    } else {
+        if ($lowStockMessage.length > 0 && (!$lowStockMessage.hasClass('d-none'))) {
+            $lowStockMessage.addClass('d-none');
+        }
+    }
+    $('.ats-value').text($productATSValue)
 }
 
 /**
@@ -1520,7 +1537,5 @@ movadoBase.addToCart = function () {
         }
     });
 }
-
-
 
 module.exports = movadoBase; 

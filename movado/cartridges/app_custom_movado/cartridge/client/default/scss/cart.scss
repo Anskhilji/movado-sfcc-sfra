@@ -50,10 +50,10 @@ $negative-spacer: -0.625rem;
 .checkout-continue {
     .google-pay-container {
        .gpay-button.black.short {
-         border-radius: rem(0);
+         border-radius: rem(120);
        }
        .gpay-button.black {
-        border-radius: rem(0);
+        border-radius: rem(120);
       }
     } 
 
@@ -81,6 +81,7 @@ $negative-spacer: -0.625rem;
   font-size: 0.813rem;
   margin: 0;
   font-family: $font-primary;
+  font-weight: 500;
 }
 
 .item-attributes {
@@ -149,6 +150,8 @@ $negative-spacer: -0.625rem;
 }
 
 .product-info {
+  padding: rem(10);
+
   @include media-breakpoint-up(md) {
     height: auto;
   }
@@ -210,7 +213,7 @@ $negative-spacer: -0.625rem;
 }
 
 .sub-total {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .grand-total {
@@ -372,7 +375,7 @@ $negative-spacer: -0.625rem;
     .gift-check + label {
       color: $grey14;
       font-family: $font-book;
-      font-weight: 300;
+      font-weight: 500;
       font-size: rem(14);
       letter-spacing: rem(1);
       line-height: rem(17);

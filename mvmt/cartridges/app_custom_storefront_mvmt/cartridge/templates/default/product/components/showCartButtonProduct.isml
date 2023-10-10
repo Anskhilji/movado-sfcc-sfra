@@ -4,4 +4,3 @@
 <iselse/>
     <isinclude template="product/components/addToCartProduct" />
 </isif>
-
