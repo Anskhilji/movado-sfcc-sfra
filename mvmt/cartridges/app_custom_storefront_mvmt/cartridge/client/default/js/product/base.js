@@ -575,8 +575,6 @@ function checkVideoStatus() {
             $imageSlide.css('pointer-events', 'none');
             $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
         }
-        $slideVideo.removeClass('d-none');
-
         clearInterval(videoStatusChecker);
     } else if (document.readyState == 'complete') {
         clearInterval(videoStatusChecker);
@@ -982,6 +980,7 @@ function handleVariantResponse(response, $productContainer) {
             videoStatusChecker = setInterval(function () {
                 checkVideoStatus();
             }, 1000);
+            $videoSlide.removeClass('d-none');
         }
 
         setTimeout(function () {
@@ -1202,7 +1201,7 @@ function handleVariantResponse(response, $productContainer) {
         }
         if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
             if ($productContainer.find('.pd-desc-mvmt.product-description').length > 0) {
-                $productContainer.find('.pd-desc-mvmt.product-description').text(response.product.shortDescription);
+                $productContainer.find('.pd-desc-mvmt.product-description').html(response.product.shortDescription);
             }
         }
         $.ajax({
@@ -1408,6 +1407,9 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
     $('.ats-value').text($productATSValue)
+    if (window.Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED) {
+        handleRestrictedEswProducts(response.product);
+    }
 }
 
 /**
@@ -1423,6 +1425,19 @@ function updateQuantities(quantities, $productContainer) {
                 selected + '>' + quantity.value + '</option>';
         }).join('');
         getQuantitySelector($productContainer).empty().html(optionsHtml);
+    }
+}
+
+function handleRestrictedEswProducts(product) {
+    if (!window.Resources.DOMESTIC_ALLOWED_COUNTRY) {
+        $('.add-to-cart').addClass('d-none');
+        $('.show-cart-button-mobile').addClass('d-none');
+        $('.esw-restricted-product-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
+        if (!product.isProductNotRestrictedOnEswCountries) {
+            $('.add-to-cart').removeClass('d-none');
+            $('.show-cart-button-mobile').removeClass('d-none');
+            $('.prices-add-to-cart-actions,.atc-btn-hide').removeClass('d-none');
+        }
     }
 }
 
@@ -1691,7 +1706,5 @@ movadoBase.addToCart = function () {
         }
     });
 }
-
-
 
 module.exports = movadoBase; 

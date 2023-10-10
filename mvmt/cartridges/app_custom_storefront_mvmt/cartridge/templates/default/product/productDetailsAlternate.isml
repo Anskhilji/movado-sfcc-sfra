@@ -12,13 +12,13 @@
         assets.addJs('/js/backInStockNotification.js');
         assets.addJs('/js/listrakBackInStock.js');
     </isscript>
-
-    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
+    <isset name="isListrakEnable" value="${!empty(sitePref.Listrak_Cartridge_Enabled) ? sitePref.Listrak_Cartridge_Enabled : false}" scope="page" />
     <isif condition="${isListrakEnable}">
         <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
     </isif>
-
-    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
+    <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+    <isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePref.eswProductRestrictionsEnabled) ? sitePref.eswProductRestrictionsEnabled : false}" scope="page" />
     <isif condition="${sitePref.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
@@ -38,7 +38,9 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </span>
-                    <isinclude template="product/components/showCartButtonProduct" />
+                    <div class="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry ? 'd-none' : ''}">
+                        <isinclude template="product/components/showCartButtonProduct" />
+                    </div>
                 </div>
             </div>
         </section>
@@ -194,7 +196,6 @@
                     <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                     <isif condition="${isEswEnabled}" >
-                        <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
                         <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
                         <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
                             <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
@@ -279,10 +280,17 @@
                     </isif>
 
                     <div class="row">
+                        <div class="d-none d-md-block esw-restricted-product-msg">
+                            <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+                                <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                            </isif>
+                        </div>
                         <div class="col-12 prices-add-to-cart-actions">
                             <div class="d-block alternate-pdp-cart-button-mobile-container">
                                 <!-- Cart and [Optionally] Apple Pay -->
-                                <isinclude template="product/components/showCartButtonProduct" />
+                                <div class="atc-btn-hide ${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry ? 'd-none' : ''}">
+                                    <isinclude template="product/components/showCartButtonProduct" />
+                                </div>
                                 <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
                                 <isif condition="${isEswEnabled}">
                                     <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >

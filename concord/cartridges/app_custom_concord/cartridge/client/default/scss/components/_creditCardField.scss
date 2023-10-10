@@ -13,6 +13,13 @@
         top: 5px;
     }
 
+    &.card-number-mr {
+
+        &::after {
+            right: 38px;
+        }
+    }
+    
     &[data-type="visa"]::after {
         background-image: url('../../images/payment-types.png');
         background-size: auto;

@@ -285,6 +285,85 @@ function getCountryCode(request) {
     return countryCode;
 }
 
+function orderDetail(currentLocale, isEmail, trackOrderNumber, trackOrderPostal, trackOrderEmail, session) {
+    var OrderMgr = require('dw/order/OrderMgr');
+
+    var OrderModel = require('*/cartridge/models/order');
+    var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+    var constants = require('*/cartridge/scripts/helpers/constants');
+    var order;
+    var cancelOrderEnable = false;
+    var cancelOrderMessage = false;
+    var orderModel = '';
+    var responseObject = {};
+
+    if (isEmail && trackOrderNumber) {
+        order = OrderMgr.getOrder(trackOrderNumber);
+    }
+    else if (trackOrderEmail && trackOrderPostal && trackOrderNumber) {
+        order = OrderMgr.getOrder(trackOrderNumber);
+    }
+
+    if (order) {
+        var config = {
+            numberOfLineItems: '*'
+        };
+
+        orderModel = new OrderModel(
+            order, {
+                config: config,
+                countryCode: currentLocale.country,
+                containerView: 'order'
+            }
+        );
+
+        if (Site.current.preferences.custom.enablePulseIdEngraving && !empty(order) && !empty(orderModel) && session) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            pulseIdAPIHelper.getLineItemOnOrderDetailsForEngraving(order, orderModel, session);
+        }
+
+        var emailAddress = orderModel.orderEmail;
+
+        var orders = SalesforceModel.getOrdersByCustomerEmail({
+            emailAddress: emailAddress,
+            salesChannel: Site.getCurrent().getID()
+        });
+
+        var ordersArray = !empty(orders) && !empty(orders.object) && !empty(orders.object.orders) ? orders.object.orders : '';
+        var orderNumberParam = trackOrderNumber;
+
+        if (!empty(ordersArray) && !empty(orderNumberParam)) {
+            var filteredOrder = ordersArray.filter(function (orderObject) {
+                return orderObject.num == orderNumberParam
+            });
+        }
+        var orderStatus = {
+            omsOrderStatus: !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
+        }
+
+        if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === 'Approved') {
+            cancelOrderEnable = true;
+        }
+
+        if (orderStatus && orderStatus.omsOrderStatus && orderStatus.omsOrderStatus.status && orderStatus.omsOrderStatus.status === constants.OMS_ORDER_STATUS_CANCELLED) {
+            cancelOrderMessage = true;
+        }
+
+        if (!empty(filteredOrder) && filteredOrder.length > 0) {
+            var omsOrderStatus = filteredOrder[0].status ? filteredOrder[0].status : '';
+        }
+
+    }
+
+    responseObject.cancelOrderEnable = cancelOrderEnable;
+    responseObject.cancelOrderMessage = cancelOrderMessage;
+    responseObject.orderModel = orderModel;
+    responseObject.omsOrderStatus = omsOrderStatus;
+
+
+    return responseObject;
+}
+
 module.exports = {
     formatOrderDate: formatOrderDate,
     getTrackingURL: getTrackingURL,
@@ -299,7 +378,8 @@ module.exports = {
     isPreOrder: isPreOrder,
     getPaymentMethod: getPaymentMethod,
     getSelectedPaymentMethod: getSelectedPaymentMethod,
-    getCountryCode: getCountryCode
+    getCountryCode: getCountryCode,
+    orderDetail: orderDetail
 };
 
 function getTrackingURL(trackingUrl, vendorCode, trackingNum) {

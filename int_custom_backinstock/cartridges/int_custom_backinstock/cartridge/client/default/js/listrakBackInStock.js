@@ -307,6 +307,8 @@ $('.form').submit(function(e) {
     } else {
         listrakBackInStockFormSubmission();
     }
+    backInStockErrorHandler();
+    e.stopImmediatePropagation();
 });
 
 $('.back-in-stock-notification-phone').on('keyup', function () {
@@ -330,7 +332,16 @@ $('.back-in-stock-notification-phone').on('keyup', function () {
             $backInStockDesktop.find('.back-in-stock-sms-subscription').prop('checked', false);
         }
     }
-})
+});
+
+function backInStockErrorHandler() {
+    if ($('.back-in-stock-notification-error-invalid,.back-in-stock-notification-error-required').text().length > 0) {
+        $('.back-in-stock-notification-error-invalid,.back-in-stock-notification-error-required').closest('.updated-input-style').addClass('input-validation-error');
+    } 
+    if ($('.back-in-stock-notification-invalid-phone').text().length > 0) {
+        $('.back-in-stock-notification-invalid-phone').closest('.updated-input-style').addClass('input-validation-error')
+    }
+}
 
 module.exports = {
     listrakBackInStockDesktop: listrakBackInStockDesktop,

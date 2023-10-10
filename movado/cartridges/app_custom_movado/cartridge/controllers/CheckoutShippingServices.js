@@ -316,6 +316,7 @@ server.replace(
                 checkoutLogger.info('(CheckoutShippingServices) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
             }
         }
+
         return next();
     }
 );
