@@ -114,7 +114,7 @@ $stored-payment-spacing: rem(16);
     }
   }
   .custom-select {
-    font-family: $font-HelveticaNeueLT-medium;
+    font-family: $font-ProximaNova;
     font-size: rem(14);
     line-height: rem(17);
     letter-spacing: rem(0.4);
@@ -153,7 +153,7 @@ $stored-payment-spacing: rem(16);
     .order-receipt-label,
     .text-right,
     .sub-total {
-      font-family: $font-HelveticaNeueLT-medium;
+      font-family: $font-ProximaNova;
       font-size: rem(16);
       letter-spacing: rem(0.4);
       line-height: rem(21);
@@ -164,7 +164,7 @@ $stored-payment-spacing: rem(16);
     .grand-total {
       .order-receipt-label,
       .text-right {
-        font-family: $font-HelveticaNeueLT-bold;
+        font-family: $font-ProximaNova;
         font-size: rem(18);
         letter-spacing: rem(0.4);
         line-height: rem(22);
@@ -319,7 +319,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-details {
-  font-family: $font-HelveticaNeueLT-book;
+  font-family: $font-ProximaNova;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(21);
@@ -333,7 +333,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-section-label {
-  font-family: $font-HelveticaNeueLT-medium;
+  font-family: $font-ProximaNova;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(17);
@@ -499,7 +499,7 @@ $stored-payment-spacing: rem(16);
 
               &.info-icon-email {
                   position: absolute;
-                  right: rem(25);
+                  right: rem(64);
                   top: rem(11);
 
                   .icon {
@@ -516,7 +516,7 @@ $stored-payment-spacing: rem(16);
                       top: rem(11);
 
                       @include media-breakpoint-down(sm) {
-                          right: rem(25);
+                          right: rem(48);
                       }
                   }
               }
@@ -638,9 +638,10 @@ $stored-payment-spacing: rem(16);
                 }
 
                 &.is-invalid {
+                    border: rem(2.4) solid $invalid-red;
 
                     &:focus {
-                        border: rem(1) solid $invalid-red;
+                        border: rem(2.4) solid $invalid-red;
                     }
                 }
             }
@@ -664,7 +665,7 @@ $stored-payment-spacing: rem(16);
                 &.is-invalid {
 
                     &:focus {
-                        border: rem(1) solid $invalid-red;
+                        border: rem(2.4) solid $invalid-red;
                     }
                 }
             }
@@ -986,5 +987,12 @@ $stored-payment-spacing: rem(16);
       height: rem(30);
       max-width: rem(250);
       width: 100%;
+  }
+}
+
+body:has(.checkout-content) {
+  
+  #INDblindNotif {
+      display:none !important;
   }
 }

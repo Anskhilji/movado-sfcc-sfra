@@ -29,23 +29,24 @@
     font-size: $font-size-heading3;
     letter-spacing: rem(1.6);
     border-radius: rem(3);
+    font-weight: 300;
   }
 
   .summary-section-label {
-    font-weight: normal;
+    font-weight: 300;
   }
 
   .order-total-summary {
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
     letter-spacing: rem(0.4);
-    font-weight: normal;
+    font-weight: 300;
 
     .grand-total {
       span {
         font-size: $font-size-heading1;
         letter-spacing: rem(0.4);
-        font-weight: $font-semi-bold;
+        font-weight: 300;
       }
     }
   }
@@ -55,14 +56,20 @@
     font-family: $font-gills-light;
     font-size: $font-size-text-heading1;
     letter-spacing: rem(0.4);
+    font-weight: 300;
   }
 }
 
 .order-confirm-create-account {
   button {
-    background: $black;
-    border: rem(1) solid $black;
+    background: $dark-cyan;
+    border: rem(1) solid $dark-cyan;
     color: $white;
+      &:active,
+      &:focus {
+          background-color: $dark-cyan !important;
+          border: rem(1) solid $dark-cyan !important;
+      }
   }
 }
 
@@ -111,6 +118,7 @@
       font-style: normal;
       font-size: $font-size-main-heading1;
       letter-spacing: rem(1.5);
+      font-weight: 300;
     }
   }
 }
@@ -120,6 +128,7 @@
 .check-order-status-btn {
   background-color: $dark-cyan;
   border: rem(1) solid $dark-cyan;
+  
   &:focus,
   &:active {
       border: rem(1) solid $dark-cyan !important;

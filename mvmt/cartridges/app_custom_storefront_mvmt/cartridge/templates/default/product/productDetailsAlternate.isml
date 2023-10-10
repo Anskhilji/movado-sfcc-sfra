@@ -87,15 +87,15 @@
                             <div class="category-watches">
                                 <h1 class="product-center-text">
                                     <isif condition="${!empty(product.collectionName)}">
-                                        <span class="watches-collection-name text-uppercase" data-selected-variation-attr="collectionName">${product.collectionName}</span>
+                                        <span class="watches-collection-name text-capitalize" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
                                     <isif condition="${product.productName.length > 40}">
-                                        <span class="product-name text-uppercase watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm product-center-text">${product.productName}
+                                        <span class="product-name text-capitalize watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm product-center-text">${product.productName}
                                             <isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('pdp.product.specs.separator', 'product', null)}</isif>
                                             <isif condition="${!empty(pdict.caseDiameter)}"><span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span></isif>
                                         </span>
                                     <iselse>
-                                        <span class="product-name text-uppercase watches-product-name product-title-for-gtm">${product.productName}
+                                        <span class="product-name text-capitalize watches-product-name product-title-for-gtm">${product.productName}
                                             <isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('pdp.product.specs.separator', 'product', null)}</isif>
                                             <isif condition="${!empty(pdict.caseDiameter)}"><span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span></isif>
                                         </span>
@@ -105,19 +105,19 @@
                         <iselseif condition="${(product.isCategory) == "jewelry"}">
                         <div class="category-jewlery">
                             <h1 class="product-center-text">
-                                <span class="product-name jewlery-product-name text-truncate-wrapper product-title-for-gtm text-uppercase product-center-text">${product.productName}</span>
+                                <span class="product-name jewlery-product-name text-truncate-wrapper product-title-for-gtm text-capitalize product-center-text">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="jewlery-heading text-uppercase"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
+                                    <span class="jewlery-heading text-capitalize"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
                                 </isif>
                             </h1>
                         </div>
                         <iselseif condition="${(product.isCategory) == "eyewear"}">
                         <div class="category-eyewear">
                             <h1 class="product-center-text">
-                                <span class="product-name eyewear-product-name text-truncate-wrapper product-title-for-gtm text-uppercase product-center-text">${product.productName}</span>
-                                <span class="eyewear-heading text-uppercase">
+                                <span class="product-name eyewear-product-name text-truncate-wrapper product-title-for-gtm text-capitalize product-center-text">${product.productName}</span>
+                                <span class="eyewear-heading text-capitalize">
                                     <isif condition="${!empty(product.color)}">
-                                        <span class="color eyewear-colors text-uppercase" data-selected-variation-attr="color">${product.color}</span>
+                                        <span class="color eyewear-colors text-capitalize" data-selected-variation-attr="color">${product.color}</span>
                                     </isif>
                                     <isif condition="${product.variationAttributes.length > 0}">
                                         <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
@@ -143,12 +143,12 @@
                             </h1>
                         </div>
                         <iselseif condition="${(product.isCategory) == "strapguide"}">
-                            <h1 class="product-name product-name-strapguide text-truncate-wrapper product-title-for-gtm text-uppercase product-center-text">${product.productName}</h1>
+                            <h1 class="product-name product-name-strapguide text-truncate-wrapper product-title-for-gtm text-capitalize product-center-text">${product.productName}</h1>
                         <iselseif condition="${(product.isCategory) !== "watches" && (product.isCategory) !== "jewelry" && (product.isCategory) !== "eyewear" && (product.isCategory) !== "strapguide"}">
                             <h1>
-                                <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
+                                <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-capitalize">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="color product-colors text-uppercase" data-selected-variation-attr="color">${product.color}</span>
+                                    <span class="color product-colors text-capitalize" data-selected-variation-attr="color">${product.color}</span>
                                 </isif>
                             </h1>
                         </isif>
@@ -249,20 +249,30 @@
                         <isinclude template="product/components/variationAttributes" />
                     </isif>
 
-                    <div class="back-in-Stock-desktop">
-                        <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">">
-                            <isinclude template="product/backInStockNotification" sf-toolkit="on" />
-                        <iselseif condition="${isListrakEnable}">
-                            <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
-                                <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                    <isif condition="${!product.available}">
+                        <div class="back-in-Stock-desktop">
+                            <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                            <iselseif condition="${isListrakEnable}">
+                                <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                                    <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                                <iselse>
+                                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                                </isif>
+                            </iselseif> 
                             <iselse>
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
-                        </iselseif> 
-                        <iselse>
-                            <isinclude template="product/backInStockNotification" sf-toolkit="on" />
-                        </isif>
-                    </div>
+                        </div>
+                    </isif>
+
+                    <isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+                    <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+                    <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                        <div class="text-left low-stock-message ${product.productATSValue <= lowStockThreshold ? '' : 'd-none'}">
+                            <iscontentasset aid="ca-low-stock-message" />
+                        </div>
+                    </isif>
 
                     <div class="row">
                         <div class="col-12 prices-add-to-cart-actions">

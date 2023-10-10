@@ -56,6 +56,7 @@ function categoryToObject(category) {
     if (category.custom.abTestSegmentID) {
         var abTestSegmentIDs = new ArrayList(category.custom.abTestSegmentID);
     }
+
     var result = {
         name: category.getDisplayName(),
         url: getCategoryUrl(category),
@@ -65,10 +66,16 @@ function categoryToObject(category) {
         disableSubCategories: category.custom.disableSubCategories,
         gender: category.custom.gender,
         staticContentAsset: staticContentAsset,
-        abTestSegmentIDs: abTestSegmentIDs
+        abTestSegmentIDs: abTestSegmentIDs,
+        isCategoryShow: category.custom.isCategoryShow,
+        categoryColor: category.custom.hexColor
     };
     if (!empty(category.custom.categoryImageURL)) {
         result.categoryImageURL = category.custom.categoryImageURL.absURL;
+    }
+
+    if (!empty(category.custom.categoryBannerImage)) {
+        result.categoryBannerImage = category.custom.categoryBannerImage;
     }
     
     if (!empty(category.custom.hexColor)) {

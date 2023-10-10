@@ -4,12 +4,12 @@
     method="POST"
     <isprint value="${pdict.addressForm.attributes}" encoding="off" />>
     <!-- Address Title -->
-    <div class="form-group
+    <div class="form-group updated-input-style
         ${pdict.addressForm.addressId.mandatory === true ? 'required' : ''}">
         <label class="form-control-label" for="addressId">
             <isprint value="${pdict.addressForm.addressId.label}" encoding="htmlcontent" />
         </label>
-        <input type="text" class="form-control" id="addressId"
+        <input placeholder="${pdict.addressForm.addressId.label}" type="text" class="form-control" id="addressId"
             <isprint value="${pdict.addressForm.addressId.attributes}" encoding="off" />>
         <div class="invalid-feedback"></div>
     </div>
@@ -18,12 +18,12 @@
     <div class="row">
         <!-- First Name -->
         <div class="col-6">
-            <div class="form-group
+            <div class="form-group updated-input-style
                 ${pdict.addressForm.firstName.mandatory === true ? 'required' : ''}">
                 <label class="form-control-label" for="firstName">
                     <isprint value="${pdict.addressForm.firstName.label}" encoding="htmlcontent" />
                 </label>
-                <input type="text" class="form-control" id="firstName"
+                <input placeholder="${pdict.addressForm.firstName.label}" type="text" class="form-control" id="firstName"
                     <isprint value="${pdict.addressForm.firstName.attributes}" encoding="off" />
                     autocomplete="given-name">
                 <div class="invalid-feedback"></div>
@@ -32,12 +32,12 @@
 
         <!-- Last Name -->
         <div class="col-6">
-            <div class="form-group
+            <div class="form-group updated-input-style
                 ${pdict.addressForm.lastName.mandatory === true ? 'required' : ''}">
                 <label class="form-control-label" for="lastName">
                     <isprint value="${pdict.addressForm.lastName.label}" encoding="htmlcontent" />
                 </label>
-                <input type="text" class="form-control" id="lastName"
+                <input placeholder="${pdict.addressForm.lastName.label}" type="text" class="form-control" id="lastName"
                     <isprint value="${pdict.addressForm.lastName.attributes}" encoding="off" />
                     autocomplete="family-name">
                 <div class="invalid-feedback"></div>
@@ -46,36 +46,36 @@
     </div>
 
    <!-- companyName -->
-    <div class="form-group
+    <div class="form-group updated-input-style
         ${pdict.addressForm.companyName.mandatory === true ? 'required' : ''}">
         <label class="form-control-label" for="companyName">
             <isprint value="${pdict.addressForm.companyName.label}" encoding="htmlcontent" />
         </label>
-        <input type="text" class="form-control" id="companyName"
+        <input placeholder="${pdict.addressForm.companyName.label}" type="text" class="form-control" id="companyName"
             <isprint value="${pdict.addressForm.companyName.attributes}" encoding="off" />
             autocomplete="company-name">
         <div class="invalid-feedback"></div>
     </div>
    
     <!-- Address 1 -->
-    <div class="form-group
+    <div class="form-group updated-input-style
         ${pdict.addressForm.address1.mandatory === true ? 'required' : ''}">
         <label class="form-control-label" for="address1">
             <isprint value="${pdict.addressForm.address1.label}" encoding="htmlcontent" />
         </label>
-        <input type="text" class="form-control" id="address1"
+        <input placeholder="${pdict.addressForm.address1.label}" type="text" class="form-control" id="address1"
             <isprint value="${pdict.addressForm.address1.attributes}" encoding="off" />
             autocomplete="address-line1">
         <div class="invalid-feedback"></div>
     </div>
 
     <!-- Address 2 -->
-    <div class="form-group
+    <div class="form-group updated-input-style
         ${pdict.addressForm.address2.mandatory === true ? 'required' : ''}">
         <label class="form-control-label" for="address2">
             <isprint value="${pdict.addressForm.address2.label}" encoding="htmlcontent" />
         </label>
-        <input type="text" class="form-control" id="address2"
+        <input placeholder="${pdict.addressForm.address2.label}" type="text" class="form-control" id="address2"
             <isprint value="${pdict.addressForm.address2.attributes}" encoding="off" />
             autocomplete="billing address-line2">
         <div class="invalid-feedback"></div>
@@ -102,13 +102,13 @@
         </div>
 
         <!-- State  -->
-        <div class="col-6">
-            <div class="form-group
+        <div class="col-6 d-flex align-items-center mt-4">
+            <div class="form-group updated-input-style
                 ${pdict.addressForm.states.stateCode.mandatory === true ? 'required' : ''}">
                 <label class="form-control-label" for="state">
                     <isprint value="${pdict.addressForm.states.stateCode.label}" encoding="htmlcontent" />
                 </label>
-                <input class="form-control" id="state"
+                <input placeholder="${pdict.addressForm.states.stateCode.label}" class="form-control" id="state"
                     <isprint value="${pdict.addressForm.states.stateCode.attributes}" encoding="off" />
                     autocomplete="region">
                 </input>
@@ -121,12 +121,12 @@
     <div class="row">
         <div class="col-6">
         <!-- City  -->
-            <div class="form-group
+            <div class="form-group updated-input-style
                 ${pdict.addressForm.city.mandatory === true ? 'required' : ''}">
                 <label class="form-control-label" for="city">
                     <isprint value="${pdict.addressForm.city.label}" encoding="htmlcontent" />
                 </label>
-                <input type="text" class="form-control" id="city"
+                <input placeholder="${pdict.addressForm.city.label}" type="text" class="form-control" id="city"
                     <isprint value="${pdict.addressForm.city.attributes}" encoding="off" />
                     autocomplete="locality">
                 <div class="invalid-feedback"></div>
@@ -135,12 +135,12 @@
 
         <!-- ZIP Code -->
         <div class="col-6">
-            <div class="form-group
+            <div class="form-group updated-input-style
                 ${pdict.addressForm.postalCode.mandatory === true ? 'required' : ''}">
                 <label class="form-control-label" for="zipCode">
                     <isprint value="${pdict.addressForm.postalCode.label}" encoding="htmlcontent" />
                 </label>
-                <input type="text" class="form-control" id="zipCode"
+                <input placeholder="${pdict.addressForm.postalCode.label}" type="text" class="form-control" id="zipCode"
                     <isprint value="${pdict.addressForm.postalCode.attributes}" encoding="off" />
                     autocomplete="postal-code">
                 <div class="invalid-feedback"></div>
@@ -149,12 +149,12 @@
     </div>
 
      <!-- Phone Number -->
-    <div class="form-group
+    <div class="form-group updated-input-style
         ${pdict.addressForm.phone.mandatory === true ? 'required' : ''}">
         <label class="form-control-label" for="phone">
             <isprint value="${pdict.addressForm.phone.label}" encoding="htmlcontent" />
         </label>
-        <input type="text" class="form-control" id="phone"
+        <input placeholder="${pdict.addressForm.phone.label}" type="text" class="form-control" id="phone"
             <isprint value="${pdict.addressForm.phone.attributes}" encoding="off" />
             autocomplete="tel">
         <div class="invalid-feedback"></div>

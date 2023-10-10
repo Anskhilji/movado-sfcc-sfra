@@ -1,0 +1,71 @@
+@import "vars";
+@import '~movado/staticContent';
+
+body {
+  font-family: $the-futura-font;
+}
+
+.pt_customerservice {
+
+    aside {
+
+        nav {
+
+            ul {
+
+                li {
+
+                    a {
+                        font-family: $the-futura-font;
+                    }
+                }
+            }
+        }
+    }
+
+  .right-content {
+
+    a,p {
+      font-family: $the-futura-font;
+    }
+
+    h1,h2,h3,h4,h5,h6 {
+      font-family: $movado-font;
+    }
+  }
+
+    .contactus-page {
+
+        .contactus {
+
+            .form-group {
+
+                .form-control-label {
+                    font-family: $the-futura-font;
+                }
+
+                input[placeholder] {
+                    font-family: $the-futura-font;
+                }
+
+                .myquestion-wrapper {
+                    
+                    .custom-select-wrapper {
+
+                        .custom-select {
+                            font-family: $the-futura-font;
+    
+                            option {
+                                font-family: $the-futura-font;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .btn-save {
+            font-family: $movado-font;
+        }
+    }
+}

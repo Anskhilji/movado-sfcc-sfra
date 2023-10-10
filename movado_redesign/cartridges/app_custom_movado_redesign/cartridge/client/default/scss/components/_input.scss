@@ -1,0 +1,169 @@
+.form-group {
+
+    &.updated-input-style {
+        position: relative;
+
+        &.input-validation-error {
+
+            &:hover {
+
+                .form-control {
+                    border-color: $invalidRed;
+                }
+            }
+
+            &.input-blur {
+
+                .form-control-label {
+                    color: $invalidRed;
+                }
+            }
+
+            .form-control {
+                border-color: $invalidRed;
+            }
+        }
+
+        &:hover {
+
+            .form-control {
+                border-bottom: rem(2) solid $black;
+            }
+        }
+
+        &.input-blur {
+
+            .form-control-label {
+                top: 0;
+                color: $black;
+                font-family: $the-futura-font;
+                font-size: rem(10);
+                font-style: normal;
+                font-weight: 500;
+                line-height: rem(10);
+                letter-spacing: rem(0.5);
+            }
+        }
+
+        .form-control-label {
+            color: $black;
+            font-family: $the-futura-font;
+            font-size: rem(16);
+            font-style: normal;
+            font-weight: 400;
+            line-height: rem(20);
+            letter-spacing: rem(0.25);
+            position: absolute;
+            margin: 0;
+            top: rem(20);
+            transition: .4s ease all;
+            text-transform: capitalize;
+        }
+
+        .form-control {
+            border: 0;
+            border-bottom: rem(1) solid $black;
+            padding: rem(13) 0 rem(10) 0;
+            box-shadow: none;
+            outline: none;
+            transition: .4s ease all;
+            color: $black;
+            font-family: $the-futura-font;
+            font-size: rem(16);
+            font-style: normal;
+            font-weight: 400;
+            line-height: rem(20);
+            letter-spacing: rem(0.25);
+            height: rem(48);
+
+            &.back-in-stock-notification-email {
+                padding-right: rem(100);
+            }
+
+            &::placeholder {
+                color: transparent;
+                font-family: $the-futura-font;
+                font-size: rem(16);
+                font-weight: 400;
+            }
+
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            &:-webkit-autofill:focus {
+                -webkit-text-fill-color: $black;
+                -webkit-box-shadow: 0 0 0px rem(1000) $white inset;
+                transition: background-color 5000s ease-in-out 0s;
+            }
+
+            &.is-invalid {
+                border-color: $invalidRed;
+            }
+
+            &.is-invalid {
+
+                &:focus {
+
+                    .form-control-label {
+                        color: $invalidRed;
+                    }
+                }
+            }
+        }
+
+        &+.back-in-stock {
+
+            &-notification {
+
+                &-invalid-email {
+                    @extend .invalid-feedback;
+                }
+            }
+        }
+
+        .invalid-feedback {
+            color: $invalidRed;
+            font-family: $the-futura-font;
+            font-size: rem(10);
+            font-style: normal;
+            font-weight: 500;
+            line-height: rem(10);
+            letter-spacing: rem(0.5);
+            margin-top: rem(9);
+        }
+    }
+
+    .back-in-stock-notification-button {
+        top: rem(5);
+    }
+}
+
+.back-in-stock-notification-container-main {
+
+    .updated-input-style {
+        margin-bottom: 0;
+
+        &:hover {
+
+            .form-control {
+                border-bottom: rem(2) solid $black;
+            }
+        }
+    }
+    
+    .back-in-stock-notification-form {
+        max-width: 100%;
+    }
+
+    &.input-validation-error {
+
+        .back-in-stock-notification-form {
+
+            .back-in-stock-notification-email {
+
+                &.form-control {
+                    border-color: $invalidRed;
+                }
+            }
+        }
+    }
+}

@@ -38,6 +38,7 @@
       font-style: normal;
       letter-spacing: rem(1.8);
       text-transform: capitalize;
+      font-weight: 300;
     }
   }
 
@@ -45,6 +46,7 @@
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
     letter-spacing: rem(0.4);
+    font-weight: 300;
 
     .estimated-total {
       color: $black-opacity-6;
@@ -69,6 +71,7 @@
         font-family: $font-gills-light;
         font-size: $font-size-text-heading2;
         letter-spacing: rem(1.3);
+        font-weight: 300;
       }
 
       &::after {
@@ -82,6 +85,7 @@
         font-size: $font-size-text-heading1;
         letter-spacing: rem(0.4);
         border: rem(1) solid $black-opacity-6;
+        font-weight: 300;
       }
 
       .character-limit {
@@ -89,6 +93,17 @@
         font-family: $font-gills-light;
         font-size: $font-size-text1;
         letter-spacing: rem(0.4);
+        font-weight: 300;
+      }
+      .add-gift-message {
+        background-color: $dark-cyan;
+        border: rem(1) solid $dark-cyan;
+
+        &:hover,
+        &:focus {
+            background-color: $dark-cyan;
+            border: rem(1) solid $dark-cyan;
+        }
       }
     }
   }
@@ -147,6 +162,7 @@
     font-size: $font-size-heading3;
     letter-spacing: rem(1.6);
     color: $dark-grey3;
+    font-weight: 300;
   }
 
   .promo-code-btn,
@@ -156,6 +172,55 @@
 
   .klarna-promo-parent-container {
       max-width: rem(350);
+  }
+
+  .modal {
+
+    .modal-dialog {
+
+        .modal-content {
+
+            .modal-footer {
+
+              .btn-outline-primary {
+
+                &:active {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+                }
+              }
+
+                .btn-primary {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+  
+                    &:hover {
+                        background-color: $white;
+                        color: $black;
+                        border: rem(1) solid $black;
+                    }
+                }
+            }
+        }
+    }
+  }
+
+  .cart-empty {
+    .continue-shopping {
+        background-color: $dark-cyan;
+        border: rem(1) solid $dark-cyan;
+        
+        &:hover {
+            background-color: $white;
+            color: $black;
+            border: rem(1) solid $black;
+        }
+        &:active {
+            color: $white;
+            background-color: $dark-cyan;
+            border: rem(1) solid $dark-cyan;
+        }
+    }
   }
 }
 
@@ -182,6 +247,7 @@
         font-family: $font-gills-light;
         font-size: $font-size-text-heading1;
         letter-spacing: rem(0.4);
+        font-weight: 300;
       }
 
       .model-name {
@@ -229,8 +295,8 @@ div.checkout-button-wrapper {
     font-family: $font-gill-std-bold;
     font-size: $font-size-text-heading1;
     letter-spacing: rem(2);
-    border: rem(1) solid $black;
-    background-color: $black;
+    border: rem(1) solid $dark-cyan;
+    background-color: $dark-cyan;
 
     &:hover,
     &:focus {
@@ -238,6 +304,10 @@ div.checkout-button-wrapper {
         border: rem(1) solid $black;
         color: $black;
     }
+    &:active {
+      background-color: $dark-cyan !important;
+      border: rem(1) solid $dark-cyan !important;
+  }
   }
 }
 
@@ -254,6 +324,7 @@ div.checkout-button-wrapper {
     font-style: normal;
     letter-spacing: rem(2);
     text-transform: capitalize;
+    font-weight: 300;
   }
 
   .estimated-total {

@@ -1,0 +1,16 @@
+<iscomment>Yotpo Reviews Widget</iscomment>
+<isif condition="${product.yotpoBundleProductData && product.yotpoBundleProductData.isReviewEnabled}">
+	<div id="yotpo-reviews-top-div" class="yotpo yotpo-main-widget"
+	    data-appkey="${product.yotpoBundleProductData.yotpoAppKey}"
+	    data-domain="${product.yotpoBundleProductData.domainAddress}"
+	    data-product-id="${product.yotpoBundleProductData.productID}"
+	    data-product-models="${product.yotpoBundleProductData.productModel}"
+	    data-name="${product.yotpoBundleProductData.productName}"
+	    data-url="${product.yotpoBundleProductData.productURL}"
+	    data-image-url="${product.yotpoBundleProductData.imageURL}"
+	    data-description="${product.yotpoBundleProductData.productDesc}"
+	    data-bread-crumbs="${product.yotpoBundleProductData.productCategory}">
+	    
+	    <iscomponent pipeline ="Yotpo-ImportReviews" productid="${product.yotpoBundleProductData.productID}" yotporeviewspage="1" isreview="true" />
+	</div>
+</isif>
