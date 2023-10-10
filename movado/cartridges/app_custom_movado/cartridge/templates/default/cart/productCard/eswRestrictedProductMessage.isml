@@ -1,0 +1,5 @@
+<isif condition="${isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+    <div class="full-cart-esw-restricted-countries-msg">
+        <isprint value="${lineItem.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+    </div>
+</isif>

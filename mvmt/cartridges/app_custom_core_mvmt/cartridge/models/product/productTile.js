@@ -16,8 +16,8 @@ var PromotionMgr = require('dw/campaign/PromotionMgr');
 
 module.exports = function productTile(product, apiProduct, productType, params) {
     baseProductTile.call(this, product, apiProduct, productType, params);
+    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
-    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     
     var colorVariations;
     var defaultVariantImage;
@@ -32,6 +32,9 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
+    var currentCountry = productCustomHelper.getCurrentCountry();
+    var isCurrentDomesticAllowedCountry = eswCustomHelper.isCurrentDomesticAllowedCountry();
+
     var variationParam = '';
     var variationParamValue = '';
     var otherVariantValues = '';
@@ -45,6 +48,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var defaultVariantLifeStyleImage300X300;
     var productId;
     var productVariants;
+    var isProductNotRestrictedOnEswCountries;
 
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -308,7 +312,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
 
                 Object.defineProperty(product, 'defaultVariantCollectionName', {
                     enumerable: true,
-                    value: !empty(defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
+                    value: !empty(defaultVariant && defaultVariant.custom && defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
                 });
                 
                 var variant = apiProduct.variationModel.defaultVariant;
@@ -362,7 +366,21 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     } catch (e) {
         Logger.error('Variation exception: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
-    
+
+    //custom start: [MSS-2351 - Prevent International Orders on a SKU Level to set default variant values in master]
+    if (product.productType == 'master' && product.defaultVariant && product.defaultVariant.custom) {
+        isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, product.defaultVariant, isCurrentDomesticAllowedCountry);
+    } else {
+        isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
+    }
+
+    if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+        var ContentMgr = require('dw/content/ContentMgr');
+
+        var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
+        var eswNotRestrictedCountriesProductMsgBody = eswNotRestrictedCountriesProductMsg && eswNotRestrictedCountriesProductMsg.custom && eswNotRestrictedCountriesProductMsg.custom.body && !empty(eswNotRestrictedCountriesProductMsg.custom.body.markup) ? eswNotRestrictedCountriesProductMsg.custom.body : '';
+    }
+    //custom end:
     if (!empty(apiProduct)) {
         Object.defineProperty(product, 'apiProduct', {
             enumerable: true,
@@ -405,13 +423,23 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: color
         });
     }
-    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var saveMessage = productCustomHelper.getSaveMessage(apiProduct);
     Object.defineProperty(product, 'saveMessage', {
         enumerable: true,
         value: saveMessage
     });
 
-    
+    Object.defineProperty(product, 'isProductNotRestrictedOnEswCountries', {
+        enumerable: true,
+        value: isProductNotRestrictedOnEswCountries
+    });
+
+    if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+        Object.defineProperty(product, 'eswNotRestrictedCountriesProductMsgBody', {
+            enumerable: true,
+            value: eswNotRestrictedCountriesProductMsgBody
+        });
+    }
+
     return product;
 };

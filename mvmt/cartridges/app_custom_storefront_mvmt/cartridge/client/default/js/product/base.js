@@ -1254,6 +1254,9 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
     $('.ats-value').text($productATSValue)
+    if (window.Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED) {
+        handleRestrictedEswProducts(response.product);
+    }
 }
 
 /**
@@ -1269,6 +1272,19 @@ function updateQuantities(quantities, $productContainer) {
                 selected + '>' + quantity.value + '</option>';
         }).join('');
         getQuantitySelector($productContainer).empty().html(optionsHtml);
+    }
+}
+
+function handleRestrictedEswProducts(product) {
+    if (!window.Resources.DOMESTIC_ALLOWED_COUNTRY) {
+        $('.add-to-cart').addClass('d-none');
+        $('.show-cart-button-mobile').addClass('d-none');
+        $('.esw-restricted-product-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
+        if (!product.isProductNotRestrictedOnEswCountries) {
+            $('.add-to-cart').removeClass('d-none');
+            $('.show-cart-button-mobile').removeClass('d-none');
+            $('.prices-add-to-cart-actions,.atc-btn-hide').removeClass('d-none');
+        }
     }
 }
 
