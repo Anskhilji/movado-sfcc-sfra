@@ -468,6 +468,13 @@ function getProductATSValue(apiProduct) {
     }
 }
 
+function getBadWordsList() {
+    var badWordsList = !empty(Site.current.preferences.custom.pulseIDBadWordsList) ? JSON.parse(Site.current.preferences.custom.pulseIDBadWordsList) : '';
+    badWordsList = !empty(badWordsList) && !empty(badWordsList.words) ? badWordsList.words : '';
+
+    return badWordsList;
+}
+
 function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry) {
     try {
         var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
@@ -543,6 +550,7 @@ module.exports = {
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
     getPulseIDPreviewURL: getPulseIDPreviewURL,
     getProductATSValue: getProductATSValue,
+    getBadWordsList: getBadWordsList,
     productNotRestrictedOnEswCountries: productNotRestrictedOnEswCountries,
     checkRestrictedProducts: checkRestrictedProducts
 };
