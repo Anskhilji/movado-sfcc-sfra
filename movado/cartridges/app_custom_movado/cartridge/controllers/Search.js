@@ -312,7 +312,6 @@ server.append('UpdateGrid', function (req, res, next) {
         isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(res.viewData.productSearch);
         isEyewearTile = searchCustomHelper.getEyewearTile(res.viewData.productSearch);
     }
-    
 
     res.setViewData({
         compareBoxEnabled: compareBoxEnabled,

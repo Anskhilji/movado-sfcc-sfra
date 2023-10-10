@@ -63,11 +63,39 @@ function comparePostalCode(address) {
     var result = !postalCodeRegex.test(address);
     if (result) {
         // postal code validation for UK
-        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g;
+        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? ?[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/i
+
         result = !postalCodeRegex.test(address);
     }
 
     return result;
+}
+
+/**
+ * This method is used to split the full name and return the last name if its applicable.
+ * @param fullName
+ * @returns results
+ */
+function getLastName(fullName, order) {
+    try {
+        var lastName = '';
+        if (!empty(fullName)) {
+            var splittedFullName = fullName.split(" ");
+            lastName = splittedFullName[splittedFullName.length - 1];
+
+            if (empty(lastName)) {
+                var currentCustomer = order.getCustomer();
+                if (currentCustomer && currentCustomer.registered) {
+                    var profileLastName = currentCustomer.profile && currentCustomer.profile.lastName ? currentCustomer.profile.lastName : '';
+                    var lastName = profileLastName;
+                }
+            }
+        }
+        return lastName;
+    } catch (e) {
+        Logger.error('(applePay.js) --> Something went wrong while getting last name. Error: {0} \n Message: {1} \n lineNumber: {2} \n fileName: {3} \n', 
+        e.stack, e.message, e.lineNumber, e.fileName);
+    }
 }
 
 /**
@@ -166,6 +194,17 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
         var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
         var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : '';
+
+        if (empty(billingAddressLastName)) {
+            billingAddressLastName = getLastName(billingAddressFirstName, order);
+
+            if (billingAddressLastName) {
+                Transaction.wrap(function () {
+                    order.billingAddress.lastName = billingAddressLastName;
+                });
+            }
+        }
+
         var billingAddressAddress1 = !empty(order.billingAddress.address1) ? order.billingAddress.address1.trim() : '';
         var billingAddressCity = !empty(order.billingAddress.city) ? order.billingAddress.city.trim() : '';
         if (empty(billingAddressFirstName) || empty(billingAddressLastName) || empty(billingAddressAddress1) || isBillingPostalNotValid || empty(billingAddressCity)) {
@@ -178,6 +217,17 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
             var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
             var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
+
+            if (empty(shippingAddressLastName)) {
+                shippingAddressLastName = getLastName(shippingAddressFirstName, order);
+
+                if (shippingAddressLastName) {
+                    Transaction.wrap(function () {
+                        orderShippingAddress.setLastName(shippingAddressLastName);
+                    });
+                }
+            }
+
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
@@ -366,7 +416,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
-
     var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {

@@ -385,27 +385,7 @@ server.post('ProcessPayments',
             return next(new Error('Could not place order'));
         }
 
-        // Send order confirmation based upon Riskified
-        COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-
-        var Order = OrderMgr.getOrder(order.orderNo);
-        var productLineItems = order.getAllProductLineItems().iterator();
-        var productLineItem;
-        var optionProductLineItem;
-
-        Transaction.wrap(function () {
-            Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-        });
-
-        // Listrack Integeration
-        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
-            var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
-            session.privacy.SendOrder = true;
-            session.privacy.OrderNumber = order.orderNo;
-            ltkSendOrder.SendPost();
-        }
-
-		/**
+        /**~
 		 * Custom Start: Clyde Integration && Pulse (Engraving)
 		 */
 
@@ -435,6 +415,22 @@ server.post('ProcessPayments',
             if (!empty(optionProductLineItem)) {
                 customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
             }
+        }
+        
+        // Send order confirmation based upon Riskified
+        COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
+
+        var Order = OrderMgr.getOrder(order.orderNo);
+        Transaction.wrap(function () {
+            Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+        });
+
+        // Listrack Integeration
+        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+            var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
+            session.privacy.SendOrder = true;
+            session.privacy.OrderNumber = order.orderNo;
+            ltkSendOrder.SendPost();
         }
 
         // SOM API call

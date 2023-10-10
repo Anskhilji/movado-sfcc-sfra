@@ -37,6 +37,12 @@ server.prepend(
     'Begin',
     function (req, res, next) {
         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+        var isRestrictedCheckout = productCustomHelper.checkRestrictedProducts();
+        if (isRestrictedCheckout) {
+            res.redirect(URLUtils.url('Checkout-Login', 'error', true));
+            return next();
+        }
         var session = req.session.raw;
         if (eswHelper.getEShopWorldModuleEnabled()) {
             var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');

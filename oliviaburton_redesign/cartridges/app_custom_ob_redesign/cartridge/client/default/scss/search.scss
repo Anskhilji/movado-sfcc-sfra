@@ -1023,7 +1023,7 @@
                     .close-refinebar {
                         background-color: transparent;
                         border: none;
-                        font-family: $font-futura-pt-demi;
+                        font-family: $font-gill-std;
                         font-size: rem(15);
                         font-weight: 600;
                         letter-spacing: normal;
@@ -2007,6 +2007,7 @@
 .pagination-wrapper {
     margin-top: rem(30);
 }
+
 .filter-and-count {
     visibility: hidden
 }
@@ -2030,7 +2031,6 @@
             max-width: rem(1140);
         }
   }
-
 
 .filter-count-visible { 
     visibility: visible;

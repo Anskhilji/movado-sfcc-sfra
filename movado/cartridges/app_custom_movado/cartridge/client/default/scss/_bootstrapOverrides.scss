@@ -200,7 +200,7 @@ html.modal-is-open {
   &::-ms-clear {
     display: none;
   }
-  &.is-invalid {
+  &.is-invalid,&.auto-is-invalid {
     background-image: none;
   }
 }

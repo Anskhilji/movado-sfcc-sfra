@@ -51,11 +51,11 @@
     .hidden-xs-down{
         text-decoration: underline;
         font-size: rem(14);
-        font-family: $font-HelveticaNeueLT-medium;
+        font-family: $font-ProximaNova;
     }
     .privacy-policy{
         margin-top: rem(16);
-        font-family: $font-HelveticaNeueLT-medium;
+        font-family: $font-ProximaNova;
     }
     .add-to-email-list {
         text-transform: none;
@@ -76,7 +76,7 @@
         align-self: self-start;
     }
     input[placeholder],label{
-        font-family: $font-HelveticaNeueLT-medium;
+        font-family: $font-ProximaNova;
     }
 }
 .alert.alert-danger.alert-custom{
