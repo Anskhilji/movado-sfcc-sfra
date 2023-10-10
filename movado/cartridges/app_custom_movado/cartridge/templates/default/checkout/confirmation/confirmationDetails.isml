@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <div class="card confirm-details">
     <div class="card-header">
         <h4 class="heading-four text-uppercase">${Resource.msg('title.receipt', 'confirmation', null)}</h4>
@@ -6,7 +7,7 @@
     <div class="card-body">
             <p class="order-info">
                 <span class="summary-section-label order-number-label">${Resource.msg('label.order.number','confirmation', null)}</span>
-                <span class="summary-details order-number">${pdict.order.orderNumber}</span>
+                <span data-orderID = "${pdict.order.orderNumber}" class="summary-details order-number">${pdict.order.orderNumber}</span>
             </p>
              <p class="order-info">
                 <span class="summary-section-label order-date-label">${Resource.msg('label.order.date', 'confirmation',null)}</span>
@@ -17,8 +18,8 @@
                 <p>
                     <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
                     <span class="summary-details order-status">
-                        <isif condition="${pdict.orderStatus.omsOrderStatus != null && pdict.orderStatus.omsOrderStatus.status != null}">
-                            ${pdict.orderStatus.omsOrderStatus.status}
+                        <isif condition="${pdict.omsOrderStatus != null}">
+                            ${pdict.omsOrderStatus}
                         <iselse/>
                             ${pdict.order.sapOrderStatus}    
                         </isif>
@@ -66,4 +67,24 @@
             <isinclude template="checkout/orderTotalSummary" />
         </div>
     </div>
+
+    <isif condition="${pdict.isCancelOrder && dw.system.Site.current.preferences.custom.enableOrderCancellation}">
+        <isif condition="${!pdict.cancelOrderMessage}">
+            <isif condition="${pdict.omsOrderStatus != null && pdict.isCancelOrderEnable == true}">
+                <div class="col-12">
+                    <iscontentasset aid="cancel-order-time-msg" />
+                </div>
+            </isif>
+        </isif>
+        <div class="order-cancel-container col-12 ${pdict.isCancelOrderEnable == false ? 'd-none' : ''}">
+            <button ${pdict.isCancelOrderEnable == false ? 'disabled' : ''} class="cancel-order-btn" data-cancel-order-url="${URLUtils.url('Order-CancelOrder')}">${Resource.msg('label.order.cancel.btn.text', 'confirmation', null)}</button>
+            <iscontentasset aid="cancel-order-dropdown" />
+        </div>
+        <isif condition="${pdict.omsOrderStatus == null}">
+            <div class="cancel-order-oms-note col-12 mt-3">
+                <iscontentasset aid="cancel-order-oms-timeout-note" />
+            </div>
+        </isif>
+        <div class="cancel-order-msg d-none mb-2 col-10"> ${Resource.msg('label.order.cancel.order', 'confirmation', null)}</div>
+    </isif>
 </div>

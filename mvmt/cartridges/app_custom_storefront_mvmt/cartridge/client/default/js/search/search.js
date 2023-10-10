@@ -1821,13 +1821,10 @@ module.exports = {
                     return;
                 }
 
-                if (totalProductCount == $('#product-search-results .product-tile').length) {
-                    return;
-                }
-
                 var productTileHeigth = $('#product-search-results .product-tile').outerHeight();
                 var scrollPostion = $(window).scrollTop() + productTileHeigth;
-                var nextLoadMorePosition = $('#product-search-results .product-tile').eq(loadMoreIndex).offset().top;
+                var productTileSize = Math.floor($('#product-search-results .product-tile').length / 4);
+                var nextLoadMorePosition = $('#product-search-results .product-tile').eq(productTileSize).offset().top;
 
                 if ($windowWidth < $mediumWidth) {
                     if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) != 0) {

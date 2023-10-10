@@ -1923,6 +1923,10 @@
       @include media-breakpoint-up(lg) {
         padding: rem(0) rem(4);
       }
+
+      .plp-esw-restricted-country-msg {
+        text-align: center;
+      }
     }
   }
 }

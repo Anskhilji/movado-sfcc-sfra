@@ -4637,6 +4637,13 @@
                         &_wrapper {
                             text-align: center;
                             position: relative;
+
+                            .upsell_text {
+                                
+                                .pdp-recommendation-esw-restricted-country-msg {
+                                    font-size: rem(12);
+                                }
+                            }
         
                             &:hover {
                                 .upsell_text {

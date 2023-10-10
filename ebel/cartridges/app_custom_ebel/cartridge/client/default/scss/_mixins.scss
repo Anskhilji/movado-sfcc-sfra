@@ -105,13 +105,13 @@ $base-font-size: 16px;
       font-size: rem($fontSize);
       letter-spacing: rem(0.4);
       font-weight: 500;
-      font-family: $font-HelveticaNeueLT-medium;
+      font-family: $font-ProximaNova;
   }
   @mixin formlabel($fontSize:14){
     font-size: rem($fontSize);
     letter-spacing: rem(0.4);
     font-weight: 300;
-    font-family: $font-HelveticaNeueLT-book;
+    font-family: $font-ProximaNova;
 }
 
 @mixin boxShadow($horizantal,$vertical,$blur,$spread,$color){

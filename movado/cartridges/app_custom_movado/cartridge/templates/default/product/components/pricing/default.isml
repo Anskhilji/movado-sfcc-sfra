@@ -41,7 +41,6 @@
     <iselse>
         <isset name="price" value="${!empty(finalOrigPrice) ? finalOrigPrice.sales : ''}" scope="page" />
     </isif>
-
     <isif condition="${isEswEnabled}">
         <span class="sales sale-price-mvmt">
             <isif condition="${isLowPrice == 'range-low'}">

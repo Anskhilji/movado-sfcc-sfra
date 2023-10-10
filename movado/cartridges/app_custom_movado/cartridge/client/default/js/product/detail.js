@@ -192,3 +192,7 @@ function refreshAffirmUI() {
         }
     }
 }
+
+$('.addToCartModal').on('click',function () {
+    $('body').removeClass('remove-overflow');
+});

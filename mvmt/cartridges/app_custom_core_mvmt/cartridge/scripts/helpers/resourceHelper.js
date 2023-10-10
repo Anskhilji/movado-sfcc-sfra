@@ -18,6 +18,7 @@ function getResources(pageContext) {
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ArrayList = require('dw/util/ArrayList');
+    var domesticAllowedCountry = require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()
     var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
     var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
     var fedexAddressNoRecommendation =  ContentMgr.getContent('checkout-address-validation-no-recommendation');
@@ -78,15 +79,43 @@ function getResources(pageContext) {
         PHONE_NUMBER_INVALID: Resource.msg('listrak.invalid.phone', 'product', null),
         PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
-        LISTRAK_SMS_API_CLIENT_SECRET: !empty(Site.current.preferences.custom.Listrak_SMS_ClientSecret) ? Site.current.preferences.custom.Listrak_SMS_ClientSecret : '',
-        LISTRAK_ENABLE_BACK_IN_STOCK_SMS: !empty(Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? Site.current.preferences.custom.Listrak_EnableBackInStockSms : false,
         INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null),
+        CHECKOUT_FIRST_NAME_VALIDATION: Resource.msg('error.message.parse.firstname.invalid', 'forms', null),
+        CHECKOUT_FIRST_NAME_REQUIRED: Resource.msg('error.message.parse.firstname', 'forms', null),
+        CHECKOUT_LAST_NAME_VALIDATION: Resource.msg('error.message.parse.lastname.invalid', 'forms', null),
+        CHECKOUT_LAST_NAME_REQUIRED: Resource.msg('error.message.parse.lastname', 'forms', null),
+        CHECKOUT_EMAIL_VALIDATION: Resource.msg('error.message.email.invalid', 'forms', null),
+        CHECKOUT_EMAIL_REQUIRED: Resource.msg('error.message.parse.email', 'forms', null),
+        CHECKOUT_COMPANY_NAME_VALIDATION: Resource.msg('error.message.parse.companyName.invalid', 'forms', null),
+        CHECKOUT_CITY_NAME_VALIDATION: Resource.msg('error.message.parse.city.invalid', 'forms', null),
+        CHECKOUT_CITY_NAME_REQUIRED: Resource.msg('error.message.parse.city', 'forms', null),
+        CHECKOUT_ZIP_CODE_VALIDATION: Resource.msg('error.message.parse.zip', 'forms', null),
+        CHECKOUT_ZIP_CODE_REQUIRED: Resource.msg('error.message.parse.postalCode', 'forms', null),
+        CHECKOUT_PHONE_NUMBER_VALIDATION: Resource.msg('error.message.parse.phone', 'forms', null),
+        CHECKOUT_PHONE_NUMBER_REQUIRED: Resource.msg('error.message.parse.phone.required', 'forms', null),
+        CHECKOUT_STATE_VALIDATION: Resource.msg('invalid.state.error', 'forms', null),
+        CHECKOUT_STATE_REQUIRED: Resource.msg('error.message.parse.states', 'forms', null),
+        CHECKOUT_COUNTRY_REQUIRED: Resource.msg('error.message.parse.country', 'forms', null),
+        CHECKOUT_ADDRESS_1_VALIDATION: Resource.msg('error.message.parse.address1PObox', 'forms', null),
+        CHECKOUT_ADDRESS_1_REQUIRED: Resource.msg('error.message.parse.address1', 'forms', null),
+        CHECKOUT_ADDRESS_2_VALIDATION: Resource.msg('error.message.parse.address2PObox', 'forms', null),
+        CHECKOUT_ADDRESS_2_REQUIRED: Resource.msg('error.message.parse.address2', 'forms', null),
+        CHECKOUT_CARD_NUMBER_VALIDATION: Resource.msg('error.card.number', 'creditCard', null),
+        CHECKOUT_CARD_NUMBER_REQUIRED: Resource.msg('error.card.number', 'creditCard', null),
+        CHECKOUT_CARD_EXPIRY_DATE_VALIDATION: Resource.msg('error.credit.card.expiry', 'creditCard', null),
+        CHECKOUT_CARD_HOLDER_NAME_VALIDATION: Resource.msg('error.card.holderName', 'creditCard', null),
+        CHECKOUT_CARD_SECUIRTY_CODE_VALIDATION: Resource.msg('error.credit.card.security.code.validate', 'creditCard', null),
+        CHECKOUT_COUNTRY_US: 'US',
+        CHECKOUT_COUNTRY_GB: 'GB',
+        CHECKOUT_COUNTRY_CH: 'CH',
         FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
         FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
         INFO_PRODUCT_AVAILABILITY_PREORDER: Resource.msg('info.product.availability.preorder', 'common', null),
         INFO_PRODUCT_AVAILABILITY_BACK_ORDER: Resource.msg('info.product.availability.backorder', 'common', null),
         BUTTON_PREORDER_NOW: Resource.msg('button.preorder.now', 'common', null),
-        LOW_STOCK_THRESHOLD: !empty(Site.current.preferences.custom.lowStockThreshold) ? Site.current.preferences.custom.lowStockThreshold : false
+        LOW_STOCK_THRESHOLD: !empty(Site.current.preferences.custom.lowStockThreshold) ? Site.current.preferences.custom.lowStockThreshold : false,
+        ESW_PRODUCT_RESTRICTIONS_ENABLED: !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false,
+        DOMESTIC_ALLOWED_COUNTRY: !empty(domesticAllowedCountry) ? domesticAllowedCountry : false
     };
     return resources;
 }

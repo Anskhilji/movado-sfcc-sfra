@@ -2,6 +2,8 @@
 <iscontent type="text/html" charset="UTF-8" compact="true" />
 <isset name="itemsLength" value="${pdict.items.length}" scope="page" />
 <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
+
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -38,6 +40,10 @@
            ${Resource.msg('cart.optional.product.country.error', 'cart', null)}
         </div>
     </div>
+</isif>
+
+<isif condition="${isEswProductRestrictionsEnabled}">
+    <isinclude template="cart/productCard/eswRestrictedProductErrorAlert" />
 </isif>
 
 <isif condition="${pdict.lastNameError}">

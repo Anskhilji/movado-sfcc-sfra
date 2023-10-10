@@ -1,0 +1,40 @@
+@font-face {
+    font-family: "Movado Sans";
+    src: url('fonts/MovadoSans-Regular.woff2') format('woff2'),
+        url('fonts/MovadoSans-Regular.woff') format('woff'),
+        url('fonts/MovadoSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "The Future";
+    src: url('fonts/TheFuture-Medium.woff2') format('woff2'),
+        url('fonts/TheFuture-Medium.woff') format('woff'),
+        url('fonts/TheFuture-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "The Future";
+    src: url('fonts/TheFuture-Bold.woff2') format('woff2'),
+        url('fonts/TheFuture-Bold.woff') format('woff'),
+        url('fonts/TheFuture-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "The Future";
+    src: url('fonts/TheFuture-Regular.woff2') format('woff2'),
+        url('fonts/TheFuture-Regular.woff') format('woff'),
+        url('fonts/TheFuture-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+

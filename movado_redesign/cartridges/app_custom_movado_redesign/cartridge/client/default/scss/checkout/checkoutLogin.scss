@@ -1,0 +1,29 @@
+@import '~movado/checkout/checkoutLogin';
+@import "../vars";
+
+body {
+    font-family: $movado-font;
+}
+
+.checkout-page {
+
+    input[placeholder],label {
+        font-family: $the-futura-font;
+        font-weight: 500;
+    }
+
+    .hidden-xs-down {
+        font-family: $movado-font;
+        font-weight: 500;
+    }
+
+    .form-group {
+
+        .oauth-google,.oauth-facebook {
+            
+            @include media-breakpoint-down(md) {
+                font-size: rem(14);
+            }
+        }
+    }
+}

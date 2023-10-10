@@ -1,0 +1,55 @@
+@import '~movado/checkout/orderConfirmation';
+@import "../vars";
+
+body {
+    font-family: $the-futura-font;
+}
+
+.order-thank-you-email-msg {
+    font-family: $the-futura-font;
+}
+
+.order-summary-title {
+
+    h5 {
+        font-family: $movado-font;
+    }
+}
+
+.order-confirmation-continue-shopping {
+    font-family: $movado-font;
+}
+
+.order-summary-title {
+
+    .grand-total-label {
+        font-family: $the-futura-font;
+    }
+}
+
+.checkout-registration {
+
+    .form-group {
+        
+        .password-description, .invalid-feedback,.form-control-label {
+            font-family: $the-futura-font;
+        }
+    }
+}
+
+.receipt {
+    
+    .order-item-quantity {
+
+        &.grand-total-label {
+            font-family: $the-futura-font;
+        }
+    }
+}
+.grand-total {
+    font-weight: 700;
+}
+
+.order-item-quantity {
+    font-weight: 500;
+}
