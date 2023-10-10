@@ -588,6 +588,7 @@ var lastScrollTop = 0;
         $('.search-results-updated .filter-bar-sticky').addClass('filter-bar-updated');
         $('.checkout-header-redesign').addClass('fixed-header-wrapper');
         $('.accessible-link').css('display','none');
+        $('.search-results-updated .left-sec .result-count').css('display','none');
     } else {
       // Scrolling up
         $('.page').removeClass('page-set');
@@ -598,6 +599,7 @@ var lastScrollTop = 0;
         $('.header-placeholder-sec').removeClass('header-section-set');
         $('.accessible-link').css('display','block');
         $('.transparent-header .minicart .popover-bottom , .home-header-transparent .minicart .popover-bottom').removeClass('mini-cart-hide');
+        $('.search-results-updated .left-sec .result-count').css('display','block');
     }
 
     lastScrollTop = scrollTop;
