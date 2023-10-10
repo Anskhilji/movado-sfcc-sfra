@@ -342,3 +342,8 @@ function backInStockErrorHandler() {
         $('.back-in-stock-notification-invalid-phone').closest('.updated-input-style').addClass('input-validation-error')
     }
 }
+
+module.exports = {
+    listrakBackInStockDesktop: listrakBackInStockDesktop,
+    listrakBackInStockFormSubmission: listrakBackInStockFormSubmission
+ }

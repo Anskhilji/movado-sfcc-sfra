@@ -257,21 +257,6 @@ function updatePageURLForSortRule(href) {
     }
 }
 
-/**
- * Replace URL params
- *
- * @param {string} url - url
- * @param {string} paramName - paramter name to be replaced
- * @param {string} paramValue - paramter value to be replaced
- * @return {undefined}
- */
-
-function replaceUrlParamPmid(url, pmid, pmidValue) {
-    var newUrl = url;
-    newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + pmid + '=' + pmidValue;
-    return newUrl;
-}
-
 function replaceUrlParamSrule(url, srule, sruleValue) {
     var newUrl = url;
     newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + srule + '=' + sruleValue;
@@ -1687,6 +1672,26 @@ function mobileFilterSelect(currentElement) {
     checkClearAllBtn();
 }
 }
+
+/**
+ * Replace URL params
+ *
+ * @param {string} url - url
+ * @param {string} paramName - paramter name to be replaced
+ * @param {string} paramValue - paramter value to be replaced
+ * @return {undefined}
+ */
+function replaceUrlParam(url, paramName, paramValue) {
+    var pattern = new RegExp('(\\?|\\&)('+ paramName +'=).*?(&|$)');
+    var newUrl = url;
+    if (url.search(pattern) >= 0 ) {
+        newUrl = url.replace(pattern, (newUrl.indexOf('&') > 0 ? '&' : '?') + paramName + '=' + paramValue);
+    }
+    else {
+        newUrl = newUrl + (newUrl.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
+    }
+    return newUrl;
+}
 // Added container-fluid class alongside container
 
 module.exports = {
@@ -1821,13 +1826,10 @@ module.exports = {
                     return;
                 }
 
-                if (totalProductCount == $('#product-search-results .product-tile').length) {
-                    return;
-                }
-
                 var productTileHeigth = $('#product-search-results .product-tile').outerHeight();
                 var scrollPostion = $(window).scrollTop() + productTileHeigth;
-                var nextLoadMorePosition = $('#product-search-results .product-tile').eq(loadMoreIndex).offset().top;
+                var productTileSize = Math.floor($('#product-search-results .product-tile').length / 4);
+                var nextLoadMorePosition = $('#product-search-results .product-tile').eq(productTileSize).offset().top;
 
                 if ($windowWidth < $mediumWidth) {
                     if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) != 0) {
@@ -1870,7 +1872,9 @@ module.exports = {
                             $('body').trigger('facet:success', [gtmFacetArray]);
                             $('.grid-footer').replaceWith(response);
                             updateSortOptions(response);
-                            updatePageURLForShowMore(showMoreUrl);
+                            if (showMoreUrl) {
+                                updatePageURLForShowMore(showMoreUrl);
+                            }
                             loadMoreInProcessing = false;
                             if ($windowWidth < $mediumWidth) {
                                 if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * initiallyLoadedProducts)) === 0) {
@@ -1989,122 +1993,16 @@ module.exports = {
                     var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
 
                     if (parentSelectorOuter) {
-                        var parentSelector = parentSelectorOuter.querySelectorAll('.filter-refinement-container');
-                        var prefv = '';
-                        var indexValue = 1;
-                        var params = '';
-                        var pminValue = '';
-                        var pmaxValue = '';
-                        var prefn;
-
-                        parentSelector.forEach(function (el, index) {
-                                if (el.hasChildNodes()) {
-                                    prefn = el.dataset.filterId;
-                                    var childElement = el.querySelectorAll('.filter-element');
-                                    
-                                    childElement.forEach(function (e, i) {
-                                        var hasFilerSelected = e.querySelector('.check-filter-selected');
-    
-                                        if (hasFilerSelected) {
-                                            if (prefv.indexOf('%7C') == -1) {
-                                                prefv +='%7C';
-                                            }
-                                            if (e.dataset.filterId == 'price') {
-                                                pminValue += e.dataset.valuePmin;
-                                                pmaxValue += e.dataset.valuePmax;
-                                            } else {
-                                                prefv += e.dataset.selectedFilter;
-                                            }
-                                            if (prefv.indexOf('%7C') !== -1) {
-                                                prefv +='%7C';
-                                            } 
-                                        }
-                                    });
-                                    if (prefv) {
-                                        if (params.indexOf('?') == -1) {
-                                            params += '?';
-                                        } else {
-                                            params +='&';
-                                        }
-                                        prefv = prefv.slice(3, -3);
-                                        if(prefn == "pmid"){
-                                            params += `pmid=${prefv}`;
-                                            indexValue--;
-                                        } else if (prefn == 'price') {
-                                            // making url for pmin & pmax example: ?pmin=500.00&pmax=1000.00
-                                            if (pminValue !== '' && pmaxValue !== '') {
-                                                params += `pmin=${pminValue}&pmax=${pmaxValue}`;
-                                                indexValue--;
-                                            }
-                                        }else{
-                                            params += `prefn${indexValue}=${prefn}&prefv${indexValue}=${prefv}`;
-                                        }
-                                        indexValue++;
-                                    }
-                                    
-                                };
-                            // Example url: ?prefn1=color&prefv1=Brown&prefn2=pmid&prefv2=Product_level_Promotion
-                            prefv = '';
-                        });
-    
-                        
+                        var filtersURL = clicked.dataset.targetUrl;
                         var urlparams = getUrlParamObj(document.location.href);
-                        var filtersURL = params;
                         var currentSelectedSortId = '';
-    
-                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                        if (urlparams.hasOwnProperty('srule') == true) {
                             if (urlparams.srule) {
                                 currentSelectedSortId = urlparams.srule;
-                                filtersURL = replaceUrlParamSrule(filtersURL, 'srule', currentSelectedSortId);
-                                
+                                filtersURL = removeParam('srule', filtersURL);
+                                filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
                             }
                         }
-                        // ?prefn1=color&prefv1=Brown%7CGreen&pmid=product_level_promotion&srule=best-sellers
-                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
-                            if (urlparams.pmid && urlparams.srule) {
-                                var paramSrule = urlparams.srule;
-                                var paramPmid = urlparams.pmid;
-                                filtersURL = replaceUrlParamPmidSrule(filtersURL, 'pmid', paramPmid, 'srule', paramSrule);
-                            }
-                        }
-    
-                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == true) {
-                            if (urlparams.q) {
-                                var paramSearchQuery = urlparams.q;
-                                filtersURL = replaceUrlParamSearchQuery(filtersURL, 'q', paramSearchQuery);
-                            }
-                        }
-
-                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == true) {
-                            if (urlparams.q && urlparams.srule) {
-                                var paramSrule = urlparams.srule;
-                                var paramSearchQuery = urlparams.q;
-                                filtersURL = replaceUrlParamSruleQ(filtersURL, 'srule', paramSrule, 'q', paramSearchQuery);
-                            }
-                        }
-    
-                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == false) {
-                            if (urlparams.q) {
-                                var paramSearchQuery = urlparams.q;
-                                var paramPmid = urlparams.pmid;
-                                filtersURL = replaceUrlParamSearchQueryPmid(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid);
-                            }
-                        }
-    
-                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == true) {
-                            if (urlparams.q) {
-                                var paramSearchQuery = urlparams.q;
-                                var paramPmid = urlparams.pmid;
-                                var paramSrule = urlparams.srule;
-                                filtersURL = replaceUrlParamSearchQueryPmidSrule(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid, 'srule', paramSrule);
-                            }
-                        }
-
-                        var baseUrl = document.location.href;
-                        if (baseUrl.indexOf('?') !== -1) {
-                            baseUrl = baseUrl.split('?')[0];
-                        }
-                        filtersURL = baseUrl + filtersURL;
                         $.spinner().start();
                         $(this).trigger('search:filter', e);
                         $.ajax({
@@ -2121,7 +2019,6 @@ module.exports = {
                                 parseResults(response);
                                 updatePageURLForFacets(filtersURL);
                                 $.spinner().stop();
-
                                 moveFocusToTop();
                                 swatches.showSwatchImages();
     
@@ -2265,117 +2162,16 @@ module.exports = {
                     }
 
                     if (selectedFiltersAll) {
-                        var prefv = '';
-                        var indexValue = 1;
-                        var params = '';
-                        var pminValue = '';
-                        var pmaxValue = '';
-                        var prefn;
-
-                        selectedFiltersAll.forEach(function (el, index) {
-                                if (el.hasChildNodes()) {
-                                    prefn = el.dataset.filterId;
-                                    var childElement = el.querySelectorAll('.filter-element');
-                                    
-                                    childElement.forEach(function (e, i) {
-                                        var hasFilerSelected = e.querySelector('.check-filter-selected');
-    
-                                        if (hasFilerSelected) {
-                                            if (prefv.indexOf('%7C') == -1) {
-                                                prefv +='%7C';
-                                            }
-                                            if (e.dataset.filterId == 'price') {
-                                                pminValue += e.dataset.valuePmin;
-                                                pmaxValue += e.dataset.valuePmax;
-                                            } else {
-                                                prefv += e.dataset.selectedFilter;
-                                            }
-                                            if (prefv.indexOf('%7C') !== -1) {
-                                                prefv +='%7C';
-                                            } 
-                                        }
-                                    });
-                                    if (prefv) {
-                                        if (params.indexOf('?') == -1) {
-                                            params += '?';
-                                        } else {
-                                            params +='&';
-                                        }
-                                        prefv = prefv.slice(3, -3);
-                                        if(prefn == "pmid"){
-                                            params += `pmid=${prefv}`;
-                                            indexValue--;
-                                        } else if (prefn == 'price') {
-                                            // ?pmin=500.00&pmax=1000.00
-                                            if (pminValue !== '' && pmaxValue !== '') {
-                                                params += `pmin=${pminValue}&pmax=${pmaxValue}`;
-                                                indexValue--;
-                                            }
-                                        }else{
-                                            params += `prefn${indexValue}=${prefn}&prefv${indexValue}=${prefv}`;
-                                        }
-                                        indexValue++;
-                                    }
-                                    
-                                };
-                            prefv = '';
-                        });
-       
+                        var filtersURL = clicked.dataset.targetUrl;
                         var urlparams = getUrlParamObj(document.location.href);
-                        var filtersURL = params;    
                         var currentSelectedSortId = '';
-    
-                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                        if (urlparams.hasOwnProperty('srule') == true) {
                             if (urlparams.srule) {
                                 currentSelectedSortId = urlparams.srule;
-                                filtersURL = replaceUrlParamSrule(filtersURL, 'srule', currentSelectedSortId);
-                                
+                                filtersURL = removeParam('srule', filtersURL);
+                                filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
                             }
                         }
-                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == true) {
-                            if (urlparams.q && urlparams.srule) {
-                                var paramSrule = urlparams.srule;
-                                var paramSearchQuery = urlparams.q;
-                                filtersURL = replaceUrlParamSruleQ(filtersURL, 'srule', paramSrule, 'q', paramSearchQuery);
-                            }
-                        }
-                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
-                            if (urlparams.pmid && urlparams.srule) {
-                                var paramSrule = urlparams.srule;
-                                var paramPmid = urlparams.pmid;
-                                filtersURL = replaceUrlParamPmidSrule(filtersURL, 'pmid', paramPmid, 'srule', paramSrule);
-                            }
-                        }
-    
-                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == true) {
-                            if (urlparams.q) {
-                                var paramSearchQuery = urlparams.q;
-                                filtersURL = replaceUrlParamSearchQuery(filtersURL, 'q', paramSearchQuery);
-                            }
-                        }
-    
-                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == false) {
-                            if (urlparams.q) {
-                                var paramSearchQuery = urlparams.q;
-                                var paramPmid = urlparams.pmid;
-                                filtersURL = replaceUrlParamSearchQueryPmid(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid);
-                            }
-                        }
-    
-                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == true) {
-                            if (urlparams.q) {
-                                var paramSearchQuery = urlparams.q;
-                                var paramPmid = urlparams.pmid;
-                                var paramSrule = urlparams.srule;
-                                filtersURL = replaceUrlParamSearchQueryPmidSrule(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid, 'srule', paramSrule);
-                            }
-                        }
-
-                        var baseUrl = document.location.href;
-                        if (baseUrl.indexOf('?') !== -1) {
-                            baseUrl = baseUrl.split('?')[0];
-                        }
-                        filtersURL = baseUrl + filtersURL;
                         $.spinner().start();
                         $(this).trigger('search:filter', e);
                         $.ajax({
@@ -2389,7 +2185,7 @@ module.exports = {
                                 var params = '';
                                 var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                                 $('body').trigger('facet:success', [gtmFacetArray]);
-                                parseResults(response);
+                                parseMobileResults(response);
                                 updatePageURLForFacets(filtersURL);
                                 $.spinner().stop();
                                 moveFocusToTop();

@@ -325,12 +325,19 @@ function updateShippingSummaryInformation(shipping, order) {
         var $shippingSummaryLabel = $container.find('.shipping-method-label');
         var $summaryDetails = $container.find('.row.summary-details');
         var giftMessageSummary = $container.find('.gift-summary');
+        
 
         var address = shipping.shippingAddress;
         var selectedShippingMethod = shipping.selectedShippingMethod;
         var isGift = shipping.isGift;
 
         addressHelpers.methods.populateAddressSummary($addressContainer, address);
+
+        var $shippingCompany = $('.shippingCompanyName');
+        if (!$shippingCompany.val()) {
+            $shippingCompany.removeClass('is-valid auto-is-valid');
+        }
+        
 
         if (address && address.phone) {
             $shippingPhone.text(address.phone);
@@ -584,13 +591,14 @@ function shippingFormResponse(defer, data) {
                         if ($('.data-checkout-stage').data('customer-type') === 'registered') {
                             $('.shipping-address .saveShippingAddress').trigger('click');
                         }
-
+                        checkoutFieldValidationIcon();
                         $('.btn-show-details').click();
                     }
                 }
 
                 $('.checkout-form-error').removeClass('d-none')
             });
+            checkoutFieldValidationIcon();
             defer.reject(data);
         }
 
@@ -627,9 +635,10 @@ function shippingFormResponse(defer, data) {
         if (data.customer && data.customer.profile && data.customer.profile.email) {
             $('#email').val(data.customer.profile.email);
         }
-
+        checkoutFieldValidationIcon();
         defer.resolve(data);
     }
+
 }
 /**
  * Clear out all the shipping form values and select the new address in the drop down
@@ -790,6 +799,38 @@ function editOrEnterMultiShipInfo(element, mode) {
     root.data('saved-state', JSON.stringify(savedState));
 }
 
+function checkoutFieldValidationIcon() {
+    $('.mx-field-wrapper input.input-wrapper-checkout,.mx-field-wrapper select.custom-select-box').each(function () {
+        if ($(this)[0].id == 'billingCountry') {
+            var selectedOption = $(this).siblings('.field-label-wrapper');
+            $(this).removeClass('is-valid');
+            if (!Resources.PICKUP_FROM_STORE) {
+                if (selectedOption.hasClass('input-has-value')) {
+                    $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                    $(this).addClass('is-valid');
+                    $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+                }
+            }
+        } else if ($(this)[0].id == 'billingState') {
+            var selectedOption = $(this).siblings('.field-label-wrapper');
+            $(this).removeClass('is-valid');
+            if (!Resources.PICKUP_FROM_STORE) {
+                if (selectedOption.hasClass('input-has-value')) {
+                    $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                    $(this).addClass('is-valid');
+                    $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+                }
+            }
+        } else if (!$(this).hasClass('is-invalid') && $(this).val().length > 0) {
+            $(this).addClass('is-valid');
+            $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+        } else {
+            $(this).removeClass('is-valid');
+            $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('d-none');
+        }
+    });
+}
+
 function showMoreBtn() {
     var $showChar = 40;  // Characters that are shown by default
     var $moretext = 'show more';
@@ -845,6 +886,7 @@ module.exports = {
         editOrEnterMultiShipInfo: editOrEnterMultiShipInfo,
         createErrorNotification: createErrorNotification,
         viewMultishipAddress: viewMultishipAddress,
+        checkoutFieldValidationIcon: checkoutFieldValidationIcon,
         showMoreBtn: showMoreBtn
     },
 

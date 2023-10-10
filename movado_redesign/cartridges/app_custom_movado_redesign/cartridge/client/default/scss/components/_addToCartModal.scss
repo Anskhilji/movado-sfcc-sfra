@@ -3,6 +3,12 @@
     .btn-link {
         font-family: $the-futura-font;
     }
+
+    p {
+        font-weight: bold;
+    }
 }
 
-
+.modal-open {
+    overflow: clip !important; //i'm using important to overwrite inline css
+}

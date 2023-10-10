@@ -94,6 +94,9 @@ function ltkProduct() {
     this.strapColorAttr = '';
     this.jewelryStyle = '';
     this.color = '';
+    
+    // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+    this.dialBackgroundColor = '';
     // Custom End
 }
 
@@ -230,6 +233,9 @@ ltkProduct.prototype.LoadProduct = function (product) {
     this.strapColorAttr = this.getStrapColorAttr(product);
     this.jewelryStyle = this.getJewelryStyle(product);
     this.color = this.getColor(product);
+
+    // Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+    this.dialBackgroundColor = this.getDialBackgroundColor(product);
     // Custom End
 };
 // MOD 16.3 Extra Prod Attributes
@@ -384,7 +390,7 @@ ltkProduct.prototype.getCategoriesValue = function (product) {
         }
         return categoryArray ? categoryArray.join(',') : categoryArray;
     } catch (error) {
-        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
         return categoryArray;
     }
 }
@@ -437,13 +443,13 @@ ltkProduct.prototype.getGender = function (product) {
         if (!empty(watchGenderAttr)) {
             var watchGenderArr = watchGenderAttr.split(',');
         }
-        if (!empty(productFeedJson) && !empty(watchGenderArr[0])) {
+        if (!empty(productFeedJson) && !empty(watchGenderArr) && !empty(watchGenderArr[0])) {
             gender = productFeedJson[watchGenderArr[0]];
         }
 
         return gender;
     } catch (error) {
-        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
         return gender;
     }
 };
@@ -593,13 +599,13 @@ ltkProduct.prototype.getJewelryType = function (product) {
         if (!empty(JewelryAttr)) {
             var JewelryArr = JewelryAttr.split(',');
         }
-        if (!empty(productFeedJewelryJson) && !empty(JewelryArr[0])) {
+        if (!empty(productFeedJewelryJson) && !empty(JewelryArr) && !empty(JewelryArr[0])) {
             jewelry = productFeedJewelryJson[JewelryArr[0]];
         }
 
         return jewelry;
     } catch (error) {
-        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
         return jewelry;
     }
 };
@@ -633,13 +639,13 @@ ltkProduct.prototype.getMaterial = function (product) {
             if (!empty(materialAttr)) {
                 var materialArray = materialAttr.split(',');
             }
-            if (!empty(productFeedMaterialJson) && !empty(materialArray[0])) {
+            if (!empty(productFeedMaterialJson) && !empty(materialArray) && !empty(materialArray[0])) {
                 material = productFeedMaterialJson[materialArray[0]];
             }
     
             return material;
         } catch (error) {
-            Logger.error('Listrak Product Processing Failed while getting Material Attribute for Product: {0}, Error: {1}', product.ID, error);
+            Logger.error('Listrak Product Processing Failed while getting Material Attribute for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
         } 
     }
 }
@@ -656,13 +662,13 @@ ltkProduct.prototype.getDialColor = function (product) {
             if (!empty(dialColorAttr)) {
                 var dialColorArray = dialColorAttr.split(',');
             }
-            if (!empty(productFeedDialColorJson) && !empty(dialColorArray[0])) {
+            if (!empty(productFeedDialColorJson) && !empty(dialColorArray) && !empty(dialColorArray[0])) {
                 dialColor = productFeedDialColorJson[dialColorArray[0]];
             }
     
             return dialColor;
         } catch (error) {
-            Logger.error('Listrak Product Processing Failed while getting Dial Color Attribute for Product: {0}, Error: {1}', product.ID, error);
+            Logger.error('Listrak Product Processing Failed while getting Dial Color Attribute for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
         }
     }
 }
@@ -834,6 +840,34 @@ ltkProduct.prototype.getJewelryStyle = function (product) {
             return jewelryStyle;
         } catch (error) {
             Logger.error('Listrak Product Processing Failed while getting Jewelry Style Attribute for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
+        }
+    }
+}
+// Custom End
+
+// Custom Start: [MSS-2376 MCS - Listrak Product Feed Update]
+ltkProduct.prototype.getDialBackgroundColor = function (product) {
+    var dialBackgroundColor = '';
+    var dialBackgroundColorAttr = '';
+    var dialBackgroundColorArray = '';
+    var productFeedDialBackgroundColorJson = !empty(Site.current.preferences.custom.Listrak_ProductFeedDialBackgroundColorAttribute) ? Site.current.preferences.custom.Listrak_ProductFeedDialBackgroundColorAttribute : '';
+    productFeedDialBackgroundColorJson = !empty(productFeedDialBackgroundColorJson) ? JSON.parse(productFeedDialBackgroundColorJson) : '';
+
+    if (productFeedDialBackgroundColorJson) {
+        try {
+            dialBackgroundColorAttr = !empty(product.custom.dialBackgroundColor) ? product.custom.dialBackgroundColor : '';
+    
+            if (!empty(dialBackgroundColorAttr)) {
+                dialBackgroundColorArray = dialBackgroundColorAttr.split(',');
+            }
+            
+            if (!empty(productFeedDialBackgroundColorJson) && !empty(dialBackgroundColorArray) && !empty(dialBackgroundColorArray[0])) {
+                dialBackgroundColor = productFeedDialBackgroundColorJson[dialBackgroundColorArray[0]];
+            }
+    
+            return dialBackgroundColor;
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed while getting Dial Background Color Attribute for Product: {0}, Error: {1}, File Name: {2}, Line No: {3}', product.ID, error, error.fileName, error.lineNumber);
         }
     }
 }

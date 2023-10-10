@@ -20,11 +20,11 @@
         </isif>
 
         <isif condition="${pdict.suggestions.product && pdict.suggestions.product.available}">
-            <div class="row items-header d-none">
-                <div class="col-xs-12 col-sm-10">${Resource.msg('label.suggest.products', 'search', null)}</div>
+            <div class="row items-header products-header">
+                <div class="col-xs-12 col-sm-10 product-text">${Resource.msg('label.suggest.products', 'search', null)}</div>
             </div>
 
-            <div class="row product-serach-items items d-none">
+            <div class="row product-serach-items items">
                 <isloop items="${pdict.suggestions.product.products}" var="product">
                     <div class="col-12 item">
                         <div class="row">
@@ -33,7 +33,7 @@
                                     <img class="swatch-circle" alt="${product.name}" src="${product.imageUrl}" />
                                 </a>
                             </div>
-                            <div class="name align-self-center gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+                            <div class="name searched-text align-self-center gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
                                 <a class="product-serach-container" href="${product.url}">${product.name}</a>
                             </div>
                         </div>

@@ -1,4 +1,6 @@
 <iscomment> Custom: Start new template added for recommendation products </iscomment>
+<isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
 <div class="linked-product-list">
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
         <div class="linked-head-uppsell">
@@ -9,7 +11,7 @@
                 <isif condition="${recommendation != null}">
                     <div class="upsell_wrapper">
                         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
-                        <button class="upsell_input add-to-cart-recomendations" data-pid="${recommendation.id}" name="additionalProducts" value="${recommendation.id}"></button>
+                        <button class="upsell_input add-to-cart-recomendations" data-pid="${recommendation.id}" name="additionalProducts" value="${recommendation.id}" ${isEswProductRestrictionsEnabled && recommendation.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry ? 'disabled' : ''}></button>
                         <div class="upsell_wrapper-inner">
                             <img class="upsell_image" src="${!empty(recommendation.images) && !empty(recommendation.images.tile180[0]) && !empty(recommendation.images.tile180[0].url) ? recommendation.images.tile180[0].url : ''}" loading="lazy"/>
 
@@ -34,7 +36,13 @@
 
                         </div>
                         <div class="upsell_text">
-                            <p class="upsell_text-add">${Resource.msg('label.add.redesign', 'product', null)}</p>
+                             <isif condition="${isEswProductRestrictionsEnabled && recommendation.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+                                <div class="pdp-recommendation-esw-restricted-country-msg">
+                                    <isprint value="${recommendation.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                </div>
+                            <iselse>
+                                <p class="upsell_text-add">${Resource.msg('label.add.redesign', 'product', null)}</p>
+                            </isif>
                         </div>
                     </div>
                 </isif>

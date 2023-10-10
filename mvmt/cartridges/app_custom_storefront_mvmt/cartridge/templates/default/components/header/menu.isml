@@ -3,16 +3,14 @@
       <div class="menu-group" aria-label="Main menu" role="navigation">
       <ul class="nav navbar-nav" role="menu">
         <isif condition="${pdict.categories}">
-            <isset name="headerRedesignSegment" value="${dw.campaign.ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')}" scope="page" />
             <isloop items="${pdict.categories}" var="category">
               <isif condition="${category.abTestSegmentIDs}">
                 <isloop items="${category.abTestSegmentIDs}" var="abTestID">
-                  <isif condition="${headerRedesignSegment && abTestID == "header-redesign"}">
                   <isif condition="${category.subCategories || category.disableSubCategories}">
                   <iscomment> Custom: sub-dropdown class added</iscomment>
                   <isif condition="${!category.isDesktopCategoryHidden}">
                     <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                      <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>
                         ${category.name}
                       </a>
                       <isset name="topCat" value="${category}" scope="page"/>
@@ -24,13 +22,12 @@
                 <iselse/>
                   <isif condition="${!category.isDesktopCategoryHidden}">
                     <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                      <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
+                      <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>
                         ${category.name}
                       </a>
                     </li>
                   </isif>
                 </isif>
-                  </isif>
                 </isloop>
               </isif>
             </isloop>
@@ -46,13 +43,13 @@
           <isloop items="${pdict.categories}" begin="0" end="1" var="category">
             <isif condition="${category.subCategories || category.disableSubCategories}">
               <li class="header-mobile-category header-border-right gtm-customEvent"  data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                <span id="${category.id}" data-trigger-menu="${category.name}" class="header-mobile-category-text">
+                <span id="${category.id}" data-trigger-menu="${category.name}" class="header-mobile-category-text" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>
                   ${category.name}
                 </span>
               </li>
             <iselse/>
               <li class="header-mobile-category header-border-right gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
+                <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>
                   ${category.name}
                 </a>
               </li>
@@ -69,7 +66,7 @@
         <ul class="mobile-category-list" data-mobile-category="${category.name}">
           <isloop items="${category.subCategories}" var="subCategory">
             <isif condition="${!subCategory.subCategories}">
-              <li class="mobile-category-item"><a class="mobile-category-link" href="${category.url}">${subCategory.name}</a></li>
+              <li class="mobile-category-item"><a class="mobile-category-link" href="${category.url}" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>${subCategory.name}</a></li>
             <iselse>
               <li class="mobile-category-item">
                 <button class="mobile-subnav-btn">${subCategory.name}</button>
@@ -78,7 +75,7 @@
                     <li class="menu-list-item">
                       <a href="${thirdLevelCategory.url}" class="menu-item-link">
                         <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'no-img' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL ? thirdLevelCategory.categoryImageURL : '#'}" title="${thirdLevelCategory.name}" loading="lazy" />
-                        <span>${thirdLevelCategory.name}</span>
+                        <span <isif condition="${category.categoryColor}">style="color:${thirdLevelCategory.categoryColor}; --dark-black:${thirdLevelCategory.categoryColor}; --dark-blue-btn:${thirdLevelCategory.categoryColor};"</isif>>${thirdLevelCategory.name}</span>
                       </a>
                     </li>
                   </isloop>
@@ -114,7 +111,7 @@
                       <isif condition="${category.id == "mens" || category.id == "womens"}" >
                           <li class="nav-item tab-link current gtm-customEvent" role="menuitem" data-tab="${category.name}" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                             <span  id="${category.id}" role="button">
-                              <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
+                              <span class="image-text" style="color: ${category.hexColor}" <isif condition="${category.categoryColor}">style="color:${category.categoryColor}; --dark-black:${category.categoryColor}; --dark-blue-btn:${category.categoryColor};"</isif>>${category.name}</span>
                             </span>
                           </li>
                       </isif>

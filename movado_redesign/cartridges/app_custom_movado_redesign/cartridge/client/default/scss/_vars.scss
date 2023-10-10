@@ -49,32 +49,32 @@ $dark-light-grey: #B2B2B4;
 $grey-silver-light: #F8F8F8;
 $silver-light: #E2E3E4;
 
-$font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
-$font-fotter: "futura-pt", "FuturaStd-Medium", sans-serif;
+$font-futura-demi: "futura-pt", sans-serif;
+$font-fotter: "futura-pt", sans-serif;
 $heart-icon: "\F004";
 $movado-font: "Movado Sans";
 $the-futura-font:  "The Future";
 
 @mixin font-bold {
-    font-family: "futura-pt-bold", "FuturaStd-Bold", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 700;
     font-style: normal;
 }
 
 @mixin font-medium {
-    font-family: "futura-pt", "FuturaStd-Medium", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 500;
     font-style: normal;
 }
 
 @mixin font-light {
-    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 300;
     font-style: normal;
 }
 
 @mixin font-book {
-    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 400;
     font-style: normal;
 }

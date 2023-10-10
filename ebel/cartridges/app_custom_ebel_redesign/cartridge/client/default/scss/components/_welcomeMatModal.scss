@@ -11,25 +11,25 @@
                 .selector-container {
 
                     p {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                     }
                 }
 
                 .esw-header-wrapper, .esw-body-wrapper, .geolocation, .not-geolocation-country  {
 
                     h1,h2,h3,h4,h5,h6 {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                     }
 
                     p {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                     }
                 }
 
                 .geolocation, .not-geolocation-country {
 
                     .esw-btn {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                         
                         &:focus {
                             background-color: $white;
@@ -43,19 +43,19 @@
                 }
 
                 .shipping-country-message {
-                    font-family: $font-HelveticaNeueLT-book; 
+                    font-family: $font-ProximaNova; 
                 }
 
                 .selector-container {
 
                     .add-shipping-country-message {
-                        font-family: $font-HelveticaNeueLT-book;
+                        font-family: $font-ProximaNova;
                     }
 
                     .esw-country-selector {
 
                         label {
-                            font-family: $font-HelveticaNeueLT-book;
+                            font-family: $font-ProximaNova;
                         }
 
                         span {
@@ -67,7 +67,7 @@
                             .current-country {
 
                                 .selected-country {
-                                    font-family: $font-HelveticaNeueLT-medium 
+                                    font-family: $font-ProximaNova; 
                                 }
                             }
 
@@ -76,7 +76,7 @@
                                 .country {
 
                                     .selected-link {
-                                        font-family: $font-HelveticaNeueLT-book 
+                                        font-family: $font-ProximaNova;
                                     }
                                 }
                             }

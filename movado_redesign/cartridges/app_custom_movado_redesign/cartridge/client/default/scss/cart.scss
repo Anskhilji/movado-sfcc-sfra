@@ -10,6 +10,7 @@
 
 .line-item-attributes {
     font-family: $the-futura-font;
+    font-weight: 500;
 }
 
 .more-ways-text {
@@ -135,3 +136,6 @@
     }
 }
 
+.sub-total {
+    font-weight: bolder;
+  }
