@@ -473,6 +473,7 @@ $(document).ready(function () {
     }
     
     showMoreDescription();
+    $('.apple-pay-pdp').attr('aria-label','Checkout with Applepay');
 });
 
 function countNumberOfLines() {

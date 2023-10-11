@@ -33,7 +33,7 @@
         <div class="row more-options">
             <div class="col col-sm-12">
                 <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
-                    role="button" aria-pressed="true">
+                    role="button" aria-pressed="true" aria-label="Checkout with PayPal">
                     <isprint value="${pdict.paypalButtonImg}" encoding="off" />
                 </a>
             </div>
@@ -52,7 +52,7 @@
         <div class="row more-options">
             <div class="col col-sm-12">
                 <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
-                    role="button" aria-pressed="true">
+                    role="button" aria-pressed="true" aria-label="Checkout with PayPal">
                     <isprint value="${pdict.paypalButtonImg}" encoding="off" />
                 </a>
             </div>
