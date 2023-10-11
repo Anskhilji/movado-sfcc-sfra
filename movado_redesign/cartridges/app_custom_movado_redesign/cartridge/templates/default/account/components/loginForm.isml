@@ -1,3 +1,6 @@
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
+
 <form action="${pdict.actionUrl}" class="login" method="POST" name="login-form">
     <div class="form-group updated-input-style required">
         <label class="form-control-label" for="login-form-email">
