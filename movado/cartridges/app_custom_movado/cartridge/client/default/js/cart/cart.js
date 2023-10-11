@@ -1,6 +1,7 @@
 'use strict';
 
 var base = require('../product/base');
+var $applePayButtonLabel = window.Resources.APPLEPAY_BUTTON_LABEL;
 
 require('../utilities/spaceBelowBodyOnFixedButton');
 /**
@@ -53,7 +54,7 @@ $(
 $( document ).ready(function() {
     $('.cart-page .bonus-product-line-item.product-card-wrapper > div.card.bonus-product-button').siblings('.item-info').css('border-bottom','none').children('.col-12:last').hide();
     setTimeout(function() {
-        $('.apple-pay-cart').attr('aria-label', 'Checkout with Applepay');
+        $('.apple-pay-cart').attr('aria-label', $applePayButtonLabel);
     }, 2000);
 });
 

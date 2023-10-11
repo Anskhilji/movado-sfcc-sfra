@@ -1,6 +1,7 @@
 'use strict';
 var mediumWidth = 992;
 var $zoomSlick = true;
+var $applePayButtonLabel = window.Resources.APPLEPAY_BUTTON_LABEL;
 
 function copyText() {
     var $text = $('.promotions .promo-icon .icon').text();
@@ -475,7 +476,7 @@ $(document).ready(function () {
     showMoreDescription();
 
     setTimeout(function() {
-        $('.apple-pay-pdp').attr('aria-label','Checkout with Applepay');
+        $('.apple-pay-pdp').attr('aria-label', $applePayButtonLabel);
     }, 2000);
 });
 
