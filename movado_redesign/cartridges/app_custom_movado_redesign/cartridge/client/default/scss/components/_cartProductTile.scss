@@ -3,16 +3,24 @@
 .product-card-wrapper {
     border-radius: rem(15);
 
-  .line-item-name {
-      font-family: $movado-font;
-
-      a,span {
+    .line-items-name {
         font-weight: 400;
         color: $black;
         font-family: $movado-font;
-      }
+    }
 
-  }
+    .line-item-name {
+        font-family: $movado-font;
+        font-weight: 400;
+        color: $black;
+
+        a,span {
+            font-weight: 400;
+            color: $black;
+            font-family: $movado-font;
+        }
+
+    }
 
   .line-item-brand-name {
 

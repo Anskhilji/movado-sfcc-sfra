@@ -1,14 +1,22 @@
 .product-card-wrapper {
-    
+
+    .line-items-name {
+        font-size: rem(14);
+        font-weight: 400;
+        font-family: $font-raleway-medium;
+    }
+   
     .line-item-name {
         font-family: $font-raleway-medium;  
+        font-weight: 500;
+        color: $dark-black;
         
         a,span {
             font-family: $font-raleway-medium;
             font-weight: 500;
             color: $grey-dark-1;
         }
-    }
+    } 
 
     .item-info {
 
