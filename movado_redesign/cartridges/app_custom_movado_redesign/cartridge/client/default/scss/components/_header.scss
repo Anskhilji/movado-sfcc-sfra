@@ -1332,6 +1332,23 @@ header.new-header {
       }
     }
 
+      .header-menu-wrapper {
+        transition: .4s ease all;
+      }
+
+      &.hide-header {
+
+        .sticky-header-wrapper {
+
+          .header-menu-wrapper {
+            
+            &.non-sticky {
+              top: rem(-150) !important; //i'm using important to overwrite inline css
+            }
+          }
+        }
+      }
+
   .overlay {
 
     height: rem(80);
@@ -1497,6 +1514,30 @@ header.new-header {
           }
         }
       }
+    }
+  }
+
+  .minicart {
+
+    .popover-bottom {
+      opacity: 1;
+
+      &.mini-cart-hide {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+// Hide-header
+.site-tophat-main-sec {
+
+  .header-banner {
+    top: 0;
+    transition: .4s ease all;
+    
+    &.header-banner-hide {
+      top: rem(-50);
     }
   }
 }
