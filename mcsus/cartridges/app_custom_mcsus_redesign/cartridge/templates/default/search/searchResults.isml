@@ -65,7 +65,7 @@
 
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<div class="col-12 show-resultcount-not-zero">
-						    <isset name="mcsHeaderABTest" value="${dw.campaign.ABTestMgr.isParticipant('MCSHeaderRedesign','render-new-design')}" scope="page" />
+						    <isset name="mcsHeaderABTest" value="${session.privacy.mcsHeaderABTest}" scope="page" />
 							<div class="row ${mcsHeaderABTest ? 'filter-redesign' : 'search-filter-bar'} ">
 								<div class="col-6 col-sm-8 order-sm-1 sort-filters-button sort-col">
 									<div class="d-flex">

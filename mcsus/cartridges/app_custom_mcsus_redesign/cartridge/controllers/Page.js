@@ -22,8 +22,10 @@ server.get(
         // Custom Start: A/B Test for Header Redesign
         if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
             headerTemplate = '/components/header/pageHeader';
+            session.privacy.mcsHeaderABTest = true;
         } else {
             headerTemplate = '/components/header/old/pageHeader';
+            session.privacy.mcsHeaderABTest = false;
         }
         // Custom End
 
