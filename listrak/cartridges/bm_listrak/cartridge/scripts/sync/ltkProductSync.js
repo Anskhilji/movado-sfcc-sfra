@@ -257,12 +257,19 @@ function productSync() {
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
                         if (!empty(productFeedCaseMeterialJson)) {
                             productFile.AddRowItem(prd.caseMaterial, true);
+                        } else {
+                            productFile.AddRowItem('', true);
                         }
                         productFile.AddRowItem(prd.familyName, true);
                     } else if (prd.productStyle === Constants.JEWELRY_CATEGORY) {
                         if (!empty(productFeedColorJson)) {
                             productFile.AddRowItem(prd.color, true);
+                        } else {
+                            productFile.AddRowItem('', true);
                         }
+                        productFile.AddRowItem(prd.familyName, true);
+                    } else {
+                        productFile.AddRowItem('', true);
                         productFile.AddRowItem(prd.familyName, true);
                     }
                 } else {
@@ -416,6 +423,10 @@ function productSync() {
                         if (!empty(productFeedJewelryStyleJson)) {
                             productFile.AddRowItem(prd.jewelryStyle, true);
                         }
+                    } else {
+                        if (!empty(productFeedAttachmentTypeJson) && !empty(productFeedJewelryStyleJson)) {
+                            productFile.AddRowItem('', true);
+                        }
                     }
 
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
@@ -423,6 +434,7 @@ function productSync() {
                     } else {
                         productFile.AddRowItem('', true);
                     }
+                    
                     if (prd.productStyle === Constants.WATCHES_CATEGORY) {
                         if (!empty(productFeedStrapColorJson)) {
                             productFile.AddRowItem(prd.strapColorAttr, true);

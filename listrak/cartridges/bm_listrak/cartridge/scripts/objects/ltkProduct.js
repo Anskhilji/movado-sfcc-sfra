@@ -710,7 +710,7 @@ ltkProduct.prototype.setCurrentLocale = function () {
 ltkProduct.prototype.getCaseDiameterWithUnit = function (product) {
     var productCaseDiameter = !empty(product.custom.caseDiameter) ? product.custom.caseDiameter : '';
     var caseDiameterUnit = Constants.SMALL_MM_UNIT;
-    productCaseDiameter = productCaseDiameter + caseDiameterUnit;
+    productCaseDiameter = !empty(productCaseDiameter) ? productCaseDiameter + caseDiameterUnit : '';
     return productCaseDiameter;
 }
 
