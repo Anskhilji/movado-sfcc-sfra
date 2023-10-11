@@ -265,6 +265,10 @@ body {
 
         .product-summary-block {
 
+            .product-card-wrapper {
+                border-radius: rem(3);
+            }
+
             .line-item-name {
                 font-weight: 500;
                 color: $dark-black;
