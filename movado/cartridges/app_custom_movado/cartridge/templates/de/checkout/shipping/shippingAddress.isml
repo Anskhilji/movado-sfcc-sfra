@@ -119,7 +119,7 @@
             <isif condition="${sitePref.custom.enableCalloutMsgAddress1 === true}">
                 <iscontentasset aid="calloutMsgAddress1"/>
             </isif>
-            <span><input type="text" class="form-control input-wrapper-checkout shippingAddressOne auto-validation auto-address" id="shippingAddressOne"
+            <span><input type="text" class="form-control input-wrapper-checkout shippingAddressOne auto-validation auto-address" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeAddress || '' : shippingAddress.address1 || ''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
             <label class="form-control-label field-label-wrapper" for="shippingAddressOne"><isprint value="${addressFields.address1.label}" encoding="htmlcontent" /></label>
