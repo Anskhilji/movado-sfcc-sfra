@@ -747,6 +747,7 @@ header {
 
                 &.is-invalid,
                 &.auto-is-invalid {
+                    
                     & ~ .validation-icon{
                         @include media-breakpoint-down(sm) {
                             right: rem(33);
@@ -756,6 +757,7 @@ header {
 
                 &.is-valid,
                 &.auto-is-valid {
+
                     & ~ .validation-icon{
                         @include media-breakpoint-down(sm) {
                             right: rem(33);
