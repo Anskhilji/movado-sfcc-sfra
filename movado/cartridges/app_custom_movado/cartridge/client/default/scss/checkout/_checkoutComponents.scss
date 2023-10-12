@@ -935,6 +935,27 @@ $stored-payment-spacing: rem(16);
 
                           @include card-icons;
                         }
+
+                        &.custom-select {
+
+                          &.is-invalid,
+                          &.auto-is-invalid {
+                            & ~ .validation-icon{
+                              @include media-breakpoint-down(sm) {
+                                  right: rem(33);
+                              }
+                            }
+                          }
+
+                          &.is-valid,
+                          &.auto-is-valid {
+                            & ~ .validation-icon{
+                              @include media-breakpoint-down(sm) {
+                                  right: rem(33);
+                              }
+                            }
+                          }
+                        }
                     }
 
                     .invalid-feedback{
@@ -1207,6 +1228,27 @@ $stored-payment-spacing: rem(16);
             }
 
             @include card-icons;
+          }
+
+          &.custom-select {
+
+            &.is-invalid,
+            &.auto-is-invalid {
+              & ~ .validation-icon{
+                @include media-breakpoint-down(sm) {
+                    right: rem(33);
+                }
+            }
+            }
+
+            &.is-valid,
+            &.auto-is-valid {
+              & ~ .validation-icon{
+                @include media-breakpoint-down(sm) {
+                    right: rem(33);
+                }
+            }
+            }
           }
         }
 
