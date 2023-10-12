@@ -172,7 +172,7 @@ $('.preview-btn').click(function (e) {
 
         if ($engravingInputOne.length > 0) {
             $EngravingoptionTextone = $engravingInputOne.val().trim();
-            var $regex = /^[a-zA-Z0-9\s-!.,“/]*$/;
+            var $regex = /^[a-zA-Z0-9\s-!.,“"/]*$/;
             var $isValid = $regex.test($EngravingoptionTextone);
 
             if ($EngravingoptionTextone == '' || $EngravingoptionTextone.length > 15 || !$isValid) {
