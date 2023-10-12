@@ -113,7 +113,7 @@
         <div class="form-group
             ${addressFields.address1.mandatory === true ? 'required' : ''}
             ${addressFields.address1.htmlName}">
-            <span><input type="text" class="form-control input-wrapper-checkout shippingAddressOne auto-validation auto-address" id="shippingAddressOne"
+            <span><input type="text" class="form-control input-wrapper-checkout shippingAddressOne auto-validation auto-address" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeAddress || '' : shippingAddress.address1 || ''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
             <label class="form-control-label field-label-wrapper" for="shippingAddressOne"><isprint value="${addressFields.address1.label}" encoding="htmlcontent" /></label>
@@ -183,9 +183,6 @@
         <div class="form-group
             ${addressFields.city.mandatory === true ? 'required' : ''}
             ${addressFields.city.htmlName}">
-            <label class="form-control-label" for="shippingAddressCity">
-                <isprint value="${addressFields.city.label}" encoding="htmlcontent" />
-            </label>
             <input type="text" class="form-control input-wrapper-checkout shippingAddressCity auto-validation" id="shippingAddressCity"
                 value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeCity || '' : shippingAddress.city || ''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
                 autocomplete="shipping address-level2">

@@ -1,5 +1,7 @@
 'use strict';
 
+var profanityFilter = require('./profanityFilter');
+
 $('.pdp-v-one [pd-popup-open]').on('click', function (e) {
     var $engravingInputOne = $('.engraving-input-one').val();
 
@@ -38,11 +40,18 @@ $('.pdp-v-one .close-option-popup').on('click', function (e) {
 });
 
 $('.engraving-input').on('input', function () {
+    var $engraveInputOne = $('.engraving-input-one');
+    var $engraveInputTwo = $('.engraving-input-two');
 
     if ($(this).val().length > 0) {
         $(this).next().removeClass('d-none');
     } else {
         $(this).next().addClass('d-none');
+        $(this).removeClass('input-highlight');
+        $('.engraving-error-msg').text('');
+        if (!$engraveInputOne.hasClass('input-highlight') && !$engraveInputTwo.hasClass('input-highlight')) {
+            $('.engraving-profanity-error-msg').text('');
+        }
     }
 });
 
@@ -50,8 +59,14 @@ $('.engraving-input-one').on('change', function () {
     $('.engraving-save.save').prop('disabled', true);
 });
 
+$('.engraving-input-two').on('change', function () {
+    $('.engraving-save.save').prop('disabled', true);
+});
+
 $('.remove-value').click(function (e) {
     var $isEngravingInput = $(this).prev();
+    var $engraveInputOne = $('.engraving-input-one');
+    var $engraveInputTwo = $('.engraving-input-two');
 
     if ($isEngravingInput.val().length > 0) {
         $isEngravingInput.val('');
@@ -62,6 +77,11 @@ $('.remove-value').click(function (e) {
         $('.add-engraving').removeClass('d-none');
         $('.remove-engraving').addClass('d-none');
         $('.engraving-error-msg').text('');
+        $('.engraving-input-one').removeClass('input-highlight');
+        
+        if (!$engraveInputOne.hasClass('input-highlight') && !$engraveInputTwo.hasClass('input-highlight')) {
+            $('.engraving-profanity-error-msg').text('');
+        }
     }
 });
 
@@ -166,9 +186,13 @@ $('.preview-btn').click(function (e) {
         var $engravingErrorMsg = $('.engraving-error-msg');
         var $engravedTextOne = $('.engraved-text-one');
         var $engravedTextTwo = $('.engraved-text-two');
+        var $engravingProfanityErrorMsg = $('.engraving-profanity-error-msg');
+        var profaneTextOne;
+        var profaneTextTwo;
         $engravedTextOne.text('');
         $engravedTextTwo.text('');
         $engravingErrorMsg.text('');
+        $engravingProfanityErrorMsg.text('');
 
         if ($engravingInputOne.length > 0) {
             $EngravingoptionTextone = $engravingInputOne.val().trim();
@@ -179,6 +203,7 @@ $('.preview-btn').click(function (e) {
                 $engravingErrorMsg.text(window.Resources.ENGRAVING_ERROR_MESSAGE);
                 $EngravingoptionTextone = '';
                 $EngravingoptionTextTwo = '';
+                $('.engraving-input-two').removeClass('input-highlight');
                 return;
             }
 
@@ -195,39 +220,71 @@ $('.preview-btn').click(function (e) {
                 }
             }
 
-
             if ($EngravingoptionTextone || $EngravingoptionTextTwo) {
-                var $productId = $($clicked).data('pid');
-                var $form = {
-                    line1Text: $EngravingoptionTextone,
-                    line2Text: $EngravingoptionTextTwo,
-                    productId: $productId
+                if ($EngravingoptionTextone) {
+                    profaneTextOne = profanityFilter.isProfane($EngravingoptionTextone);                    
                 }
-                var $url = $($clicked).data('url');
-                $.spinner().start();
-                $.ajax({
-                    url: $url,
-                    method: 'POST',
-                    data: $form,
-                    success: function (response) {
 
-                        if (response && response.result && response.result.success && response.result.response) {
-                            $('.engraving-save.save').prop('disabled', false);
-                            $('.preview-img').attr('src', response.result.response);
-                            $('.preview-btn').attr('preview-url', response.result.response);
-                            $('.preview-img').prev().attr('srcset', response.result.response);
-                            $('.preview-img').prev().prev().attr('srcset', response.result.response);
-                        } else {
-                            $engravingErrorMsg.text(response.message);
-                        }
-                        $.spinner().stop();
-                    },
-                    error: function () {
-                        $.spinner().stop();
-                    }
-                });
+                if ($EngravingoptionTextTwo) {
+                    profaneTextTwo = profanityFilter.isProfane($EngravingoptionTextTwo);
+                }
             }
 
+            if (profaneTextOne !== true && profaneTextTwo !== true) {
+                if ($EngravingoptionTextone || $EngravingoptionTextTwo) {
+                    var $productId = $($clicked).data('pid');
+                    var $form = {
+                        line1Text: $EngravingoptionTextone,
+                        line2Text: $EngravingoptionTextTwo,
+                        productId: $productId
+                    }
+                    var $url = $($clicked).data('url');
+                    $.spinner().start();
+                    $.ajax({
+                        url: $url,
+                        method: 'POST',
+                        data: $form,
+                        success: function (response) {
+    
+                            if (response && response.result && response.result.success && response.result.response) {
+                                $('.engraving-save.save').prop('disabled', false);
+                                $('.preview-img').attr('src', response.result.response);
+                                $('.preview-btn').attr('preview-url', response.result.response);
+                                $('.preview-img').prev().attr('srcset', response.result.response);
+                                $('.preview-img').prev().prev().attr('srcset', response.result.response);
+                            } else {
+                                $engravingErrorMsg.text(response.message);
+                            }
+
+                            if (!profaneTextOne) {
+                                $('.engraving-input-one').removeClass('input-highlight');
+                            }
+            
+                            if (!profaneTextTwo) {
+                                $('.engraving-input-two').removeClass('input-highlight');
+                            }
+                            $.spinner().stop();
+                        },
+                        error: function () {
+                            $.spinner().stop();
+                        }
+                    });
+                }
+            } else {
+                $engravingProfanityErrorMsg.text(window.Resources.ENGRAVING_PROFANE_ERROR_MESSAGE);
+
+                if (profaneTextOne) {
+                    $('.engraving-input-one').addClass('input-highlight');
+                } else {
+                    $('.engraving-input-one').removeClass('input-highlight');
+                }
+
+                if (profaneTextTwo) {
+                    $('.engraving-input-two').addClass('input-highlight');
+                } else {
+                    $('.engraving-input-two').removeClass('input-highlight');
+                }
+            }
         }
     }
 });
