@@ -941,7 +941,7 @@ $stored-payment-spacing: rem(16);
                             &.is-invalid,
                             &.auto-is-invalid {
 
-                                & ~ .validation-icon{
+                                & ~ .validation-icon {
                                   
                                     @include media-breakpoint-down(sm) {
                                         right: rem(33);
@@ -952,7 +952,7 @@ $stored-payment-spacing: rem(16);
                           &.is-valid,
                           &.auto-is-valid {
 
-                              & ~ .validation-icon{
+                              & ~ .validation-icon {
                                   @include media-breakpoint-down(sm) {
                                       right: rem(33);
                                   }
