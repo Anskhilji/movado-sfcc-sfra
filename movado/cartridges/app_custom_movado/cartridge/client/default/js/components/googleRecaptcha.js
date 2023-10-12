@@ -8,3 +8,12 @@ window.onSubmitCaptcha = function(token) {
         $($submitForm).click(); 
     });
 }
+
+window.onsubmitCaptchaLogin = function (token) {
+    $(document).ready(function () {
+        var $submitFormButton = $('form.login');
+        var $gCaptchaInput = $('.g-recaptcha-token');
+        $gCaptchaInput.val(token);
+        $submitFormButton.submit();
+    });
+}

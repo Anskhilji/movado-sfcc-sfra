@@ -120,10 +120,36 @@ server.replace(
 server.append(
     'Login',
     function (req, res, next) {
+        var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+        var googleRecaptchaToken = req.form.gRecaptchaToken;
+        
+        var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+
         var viewData = res.getViewData();
         var authenticatedCustomer = viewData.authenticatedCustomer;
         if (!empty(authenticatedCustomer)) {
             var newProfile = authenticatedCustomer.getProfile();
+
+            if (isGoogleRecaptchaEnabled) {
+                var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+                if (empty(googleRecaptchaToken)) {
+                    res.json({
+                        success: false,
+                        errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+                    });
+                    return next(); 
+                }
+        
+                var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+                if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
+                    res.json({
+                        success: false,
+                        errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+                    });
+                    return next(); 
+                }
+            }
+
             Transaction.wrap(function () {
                 newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
             });

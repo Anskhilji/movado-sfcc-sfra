@@ -46,5 +46,11 @@
 
     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
 
-    <button type="submit" class="btn btn-block btn-primary">${Resource.msg('button.text.loginform', 'login', null)}</button>
+    <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken-login" value="" name="gRecaptchaToken" />
+
+    <button type="submit" class="btn btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''}">${Resource.msg('button.text.loginform', 'login', null)}</button>
+
+    <isif condition="${isGoogleRecaptchaEnabled}">
+        <button type="submit" class="btn btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onsubmitCaptchaLogin'>${Resource.msg('button.text.loginform', 'login', null)}</button>
+    </isif>
 </form>
