@@ -8,12 +8,16 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
         assets.addCss('/css/lib/product-tile-name.css');
+        assets.addJs('/js/backInStockNotification.js');
+        assets.addJs('/js/listrakBackInStock.js');
     </isscript>
-    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
+    <isset name="isListrakEnable" value="${!empty(sitePref.Listrak_Cartridge_Enabled) ? sitePref.Listrak_Cartridge_Enabled : false}" scope="page" />
     <isif condition="${isListrakEnable}">
         <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>
     </isif>
-    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
+    <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+    <isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePref.eswProductRestrictionsEnabled) ? sitePref.eswProductRestrictionsEnabled : false}" scope="page" />
     <isif condition="${sitePref.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
@@ -33,6 +37,11 @@
                     <isinclude template="product/components/pricing/main" />
                 </span>
                 <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
+                    <div class="esw-restricted-product-msg">
+                        <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+                            <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                        </isif>
+                    </div>
             </div>
         </div>
     </section>
@@ -142,7 +151,6 @@
                         <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                         <isif condition="${isEswEnabled}" >
-                            <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
                             <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
                             <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
                                 <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
@@ -237,16 +245,21 @@
                             <div class="row">
                                 <div class="col-12 prices-add-to-cart-actions-top">
                                     <div class="d-block">
-                                        <!-- Cart and [Optionally] Apple Pay -->
                                         <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
+                                            <div class="esw-restricted-product-msg">
+                                                <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+                                                    <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                                </isif>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                         <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
-                        <isif condition="${!product.available}">
-                            <div class="d-block d-md-none back-in-Stock-mobile">
+                        
+                        <div class="d-block d-md-none back-in-Stock-mobile">
+                            <isif condition="${!product.available}">
                                 <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
                                 <iselseif condition="${isListrakEnable}">
@@ -259,8 +272,8 @@
                                 <iselse>
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                                 </isif>
-                            </div>
-                        </isif>
+                            </isif>
+                        </div>
                         <isif condition="${product.available && !empty(product.isGiftBoxAllowed) && typeof product.giftBoxSKUData != 'undefined' && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-mobile custom-checkbox-pdp pdp-gift-box-container-wrapper">
                                 <label for="gift-allowed-checkout-mob" class="gift-box-wrapper-label custom-control-label-pdp">
@@ -293,7 +306,7 @@
                         </div>
                         <div class="show-cart-button-mobile">
                             <div class="row">
-                                <div class="col-12 prices-add-to-cart-actions">
+                                <div class="col-12 prices-add-to-cart-actions ${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry ? 'd-none' : ''}">
                                     <div class="d-block show-cart-button-mobile-container">
                                         <!-- Cart and [Optionally] Apple Pay -->
                                         <isinclude template="product/components/showCartButtonProduct" sf-toolkit="on" />
@@ -352,17 +365,22 @@
                             </isif>
                         </div>
                         
-
                         <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
                         <div class="show-cart-button-desktop">
                             <div class="row">
                                 <div class="col-12 prices-add-to-cart-actions">
-                                <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
+                                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
+                                        <div class="esw-restricted-product-msg mb-3">
+                                            <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+                                                <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                                            </isif>
+                                        </div>
                                 </div>
                             </div>
                         </div>
-                        <isif condition="${!product.available}">
-                            <div class="d-none d-md-block back-in-Stock-desktop">
+                        
+                        <div class="d-none d-md-block back-in-Stock-desktop">
+                            <isif condition="${!product.available}">
                                 <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
                                 <iselseif condition="${isListrakEnable}">
@@ -375,8 +393,8 @@
                                 <iselse>
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                                 </isif>
-                            </div>
-                        </isif>
+                            </isif>
+                        </div>
                         <isif condition="${product.available && !empty(product.isGiftBoxAllowed) && typeof product.giftBoxSKUData != 'undefined' && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-desktop custom-checkbox-pdp">
                                 <label for="gift-allowed-checkout" class="gift-box-wrapper-label custom-control-label-pdp">
@@ -460,7 +478,6 @@
                     <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
                         <div class="pdp-content-body accordian-mobile-body d-block">
                             <div id="yotpoReviews" class="w-100 bottom-yotpo-review">
-                                <h3 class="details-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
                                 <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
                                 then appropriate template should be overridden. </iscomment>
                                 <isinclude template="widget/yotporeviewswidget" />
@@ -560,5 +577,11 @@
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
         </isif>
         <!-- End: Listrak persistent popup -->
+
+        <isif condition="${sitePref.enableBackInStock}">
+            <div class="bis-slot-content d-none">
+                <isslot id="cs-pdp-back-in-stock-notification" context="global" description="Content slot for back in stock notification on pdp" />
+            </div>
+        </isif>
     </isobject>
 </isdecorate>

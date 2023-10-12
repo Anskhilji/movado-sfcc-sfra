@@ -2518,7 +2518,7 @@
 
   @media(max-width:$custom-lg4) {
     padding: 0 rem(24);
-
+    
   }
 
   .selected-filters-nav {
@@ -3076,6 +3076,10 @@
               align-items: center;
               padding: 0 rem(24);
               top: rem(98);
+            }
+
+            &.filter-bar-updated {
+              top: 0;
             }
               
             .filter-and-count {

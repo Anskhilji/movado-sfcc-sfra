@@ -1,6 +1,8 @@
 <div class="container px-0">
     <!--- name and remove buttons --->
     <isset name="lineItem" value="${childlineItem}" scope="page" />
+    <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+    <isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
     <div class="row gift-product-row border-top-0 gift-product-id-${lineItem.id} gift-product-remove-${lineItem.UUID} ${bonuslineitemrow} item-info">
         <div class="col-12">
             <div class="border-gift"></div>
@@ -60,7 +62,7 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
-
+                        <isinclude template="cart/productCard/eswRestrictedProductMessage" />
                         <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
                             <div class="product-edit">
                                 <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>

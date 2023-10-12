@@ -1,6 +1,14 @@
 <isset name="product" value="${pdict.product}" scope="page"/>
+<isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
 <isif condition="${typeof recommendationRail != 'undefined' ? recommendationRail : false}">
-    <isinclude template="product/components/recommendationRailaddToCart" />
+    <isif condition="${isEswProductRestrictionsEnabled && product.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+        <div class="recommendation-restricted-country-msg">
+            <isprint value="${product.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+        </div>
+    <iselse/>
+        <isinclude template="product/components/recommendationRailaddToCart" />
+    </isif>
 <iselse/>
     <isinclude template="product/components/addToCartProduct" />
 </isif>

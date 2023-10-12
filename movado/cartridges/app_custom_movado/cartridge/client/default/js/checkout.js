@@ -68,7 +68,7 @@ $(document).ready(function() { // eslint-disable-line
     
     function checkForInput(element) {
         const $label = $(element).siblings('.field-label-wrapper');
-        if ($(element).val().length > 0) {
+        if ($(element) && $(element).val() && $(element).val().length && $(element).val().length > 0) {
             $label.addClass('input-has-value');
         } else {
             $label.removeClass('input-has-value');

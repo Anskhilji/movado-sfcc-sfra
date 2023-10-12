@@ -966,7 +966,7 @@ function getChildProducts() {
     var $childProducts = [];
     $('.bundle-item').each(function () {
         $childProducts.push({
-            pid: $(this).find('.product-id').text(),
+            pid: $(this).data('pid'),
             quantity: parseInt($(this).find('label.quantity').data('quantity'), 10)
         });
     });

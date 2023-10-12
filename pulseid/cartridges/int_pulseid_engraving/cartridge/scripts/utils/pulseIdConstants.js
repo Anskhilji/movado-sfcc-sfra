@@ -21,3 +21,4 @@ exports.ENGRAVING_OPTION_PRODUCT_TAX_ID = !empty(Site.current.preferences.custom
 exports.PULSE_ID_CUSTOM_OBJ = 'PulseIDOrders';
 exports.ENGRAVING_ID = 'pulseIdEngraving';
 exports.PULSE_JOBID_SEPARATOR = '_';
+exports.ENGRAVING_OPTION_PRODUCT_VALUE_ID = 'Engraving'
