@@ -18,14 +18,14 @@ server.get(
         var topLevelCategories = siteRootCategory.hasOnlineSubCategories() ?
             siteRootCategory.getOnlineSubCategories() : null;
         var headerTemplate = null;
-
+        
         // Custom Start: A/B Test for Header Redesign
         if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
             headerTemplate = '/components/header/pageHeader';
-            session.privacy.mcsHeaderABTest = true;
+            session.privacy.isMcsHeaderNewDesign = true;
         } else {
             headerTemplate = '/components/header/old/pageHeader';
-            session.privacy.mcsHeaderABTest = false;
+            session.privacy.isMcsHeaderNewDesign = false;
         }
         // Custom End
 
