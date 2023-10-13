@@ -104,7 +104,7 @@ $(document).on('click', '.close-button, .close-icon', function(e) {
 });
 
 $(document).ready(function(e) {
-
+    isTablet();
     var $slickCarouselSlider = $('.dropdown-best-Seller .js-carousel');
 
     // Get the data value from the data-carousel-config attribute
@@ -128,3 +128,14 @@ $('.home-search input').focus(function () {
 }).blur(function () {
     $('.home-search').removeClass('active');
 });
+
+function isTablet() {
+    var userAgent = navigator.userAgent;
+    var tabletRegex = /iPad|Android(?!.*Mobile)|Tablet|Silk/i;
+    var isTablet = tabletRegex.test(userAgent);
+    
+    if (isTablet) {
+        return true;
+    }
+    return false;
+}
