@@ -51,6 +51,6 @@
     <button type="submit" class="btn btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''}">${Resource.msg('button.text.loginform', 'login', null)}</button>
 
     <isif condition="${isGoogleRecaptchaEnabled}">
-        <button type="submit" class="btn btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onsubmitCaptchaLogin'>${Resource.msg('button.text.loginform', 'login', null)}</button>
+        <button type="submit" class="btn btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback="onsubmitCaptchaLogin">${Resource.msg('button.text.loginform', 'login', null)}</button>
     </isif>
 </form>

@@ -120,18 +120,18 @@ server.replace(
 server.append(
     'Login',
     function (req, res, next) {
-        var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
-        var googleRecaptchaToken = req.form.gRecaptchaToken;
-        
-        var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
-
         var viewData = res.getViewData();
         var authenticatedCustomer = viewData.authenticatedCustomer;
         if (!empty(authenticatedCustomer)) {
-            var newProfile = authenticatedCustomer.getProfile();
-
+            var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+        
             if (isGoogleRecaptchaEnabled) {
+                var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+
+                var googleRecaptchaToken = req.form && req.form.gRecaptchaToken ? req.form.gRecaptchaToken : '';
                 var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+        
+                
                 if (empty(googleRecaptchaToken)) {
                     res.json({
                         success: false,
@@ -149,7 +149,7 @@ server.append(
                     return next(); 
                 }
             }
-
+            var newProfile = authenticatedCustomer.getProfile();
             Transaction.wrap(function () {
                 newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
             });
