@@ -66,7 +66,7 @@
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<div class="col-12 show-resultcount-not-zero">
 						    <isset name="isMcsHeaderNewDesign" value="${session.privacy.isMcsHeaderNewDesign}" scope="page" />
-							<div class="row ${isMcsHeaderNewDesign ? 'filter-redesign' : 'search-filter-bar'} ">
+							<div class="row filer-redesign-container">
 								<div class="col-6 col-sm-8 order-sm-1 sort-filters-button sort-col">
 									<div class="d-flex">
 										<div class="position-relative sort-box-filter">
