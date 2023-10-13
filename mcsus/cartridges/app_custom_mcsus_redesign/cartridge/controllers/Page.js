@@ -19,7 +19,10 @@ server.get(
             siteRootCategory.getOnlineSubCategories() : null;
         var headerTemplate = null;
         
-        delete session.privacy.isMcsHeaderNewDesign;
+        if (session.privacy.isMcsHeaderNewDesign) {
+            delete session.privacy.isMcsHeaderNewDesign;
+        }
+        
         // Custom Start: A/B Test for Header Redesign
         if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
             headerTemplate = '/components/header/pageHeader';
