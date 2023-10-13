@@ -130,8 +130,7 @@ server.append(
 
                 var googleRecaptchaToken = req.form && req.form.gRecaptchaToken ? req.form.gRecaptchaToken : '';
                 var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
-        
-                
+
                 if (empty(googleRecaptchaToken)) {
                     res.json({
                         success: false,
@@ -141,6 +140,7 @@ server.append(
                 }
         
                 var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+
                 if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
                     res.json({
                         success: false,
