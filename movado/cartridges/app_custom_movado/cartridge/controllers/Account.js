@@ -135,7 +135,7 @@ server.append(
                 if (empty(googleRecaptchaToken)) {
                     res.json({
                         success: false,
-                        errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+                        errorMessage: Resource.msg('error.message.login.form', 'login', null)
                     });
                     return next(); 
                 }
@@ -144,7 +144,7 @@ server.append(
                 if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
                     res.json({
                         success: false,
-                        errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+                        errorMessage: Resource.msg('error.message.login.form', 'login', null)
                     });
                     return next(); 
                 }
