@@ -784,8 +784,8 @@ $(window).on('load resize scroll', function() {
     var $filterBottom = $filterTop + $searchBanner.outerHeight();
     
     if ($filterTop >= $viewportTop && $filterBottom <= $viewportBottom) {
-        $('.filer-redesign-container').removeClass('sticky-search-filter-bar');
+        $('.filter-redesign-container').removeClass('sticky-search-filter-bar');
     } else {
-        $('.filer-redesign-container').addClass('sticky-search-filter-bar');
+        $('.filter-redesign-container').addClass('sticky-search-filter-bar');
     }
 });
