@@ -134,7 +134,7 @@ server.prepend(
                     errorMessage: Resource.msg('error.message.login.form', 'login', null)
                 });
                 this.emit('route:Complete', req, res);
-                return; // eslint-disable-line consistent-return
+                return;
             }
 
             var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
@@ -145,7 +145,7 @@ server.prepend(
                     errorMessage: Resource.msg('error.message.login.form', 'login', null)
                 });
                 this.emit('route:Complete', req, res);
-                return; // eslint-disable-line consistent-return
+                return;
             }
         }
         return next();
