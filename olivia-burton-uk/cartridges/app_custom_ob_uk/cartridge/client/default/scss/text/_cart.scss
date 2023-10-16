@@ -627,3 +627,30 @@ div.checkout-button-wrapper {
     }
   }
 }
+
+.cart-recommendation-wrapper {
+
+  .new-rec-carosel {
+
+    .cta-add-to-cart {
+      display: block;
+    }
+  }
+
+  .cs-carousel-wrapper {
+
+    &.recommendation-carousel-pdp {
+
+      .product {
+
+        .tile-body {
+
+          .add-to-cart-plp-redesign {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+

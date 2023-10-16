@@ -36,7 +36,7 @@
     </div>
 </isif>
 
-<isif condition="${pdict.lastNameError}">
+<isif condition="${pdict.lastNameError == true}">
     <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">
         ${Resource.msg('error.last.name', 'checkout', null)}
     </div>
