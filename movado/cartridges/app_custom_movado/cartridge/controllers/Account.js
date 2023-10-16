@@ -116,6 +116,42 @@ server.replace(
     }
 );
 
+server.prepend(
+    'Login',
+    server.middleware.https,
+    function (req, res, next) {
+        var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
+        
+        if (isGoogleRecaptchaEnabled) {
+            var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+
+            var googleRecaptchaToken = req.form && req.form.gRecaptchaToken ? req.form.gRecaptchaToken : '';
+            var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+
+            if (empty(googleRecaptchaToken)) {
+                res.json({
+                    success: false,
+                    errorMessage: Resource.msg('error.message.login.form', 'login', null)
+                });
+                this.emit('route:Complete', req, res);
+                return; // eslint-disable-line consistent-return
+            }
+
+            var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+
+            if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
+                res.json({
+                    success: false,
+                    errorMessage: Resource.msg('error.message.login.form', 'login', null)
+                });
+                this.emit('route:Complete', req, res);
+                return; // eslint-disable-line consistent-return
+            }
+        }
+        return next();
+    }
+);
+
 
 server.append(
     'Login',
@@ -123,32 +159,6 @@ server.append(
         var viewData = res.getViewData();
         var authenticatedCustomer = viewData.authenticatedCustomer;
         if (!empty(authenticatedCustomer)) {
-            var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
-        
-            if (isGoogleRecaptchaEnabled) {
-                var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
-
-                var googleRecaptchaToken = req.form && req.form.gRecaptchaToken ? req.form.gRecaptchaToken : '';
-                var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
-
-                if (empty(googleRecaptchaToken)) {
-                    res.json({
-                        success: false,
-                        errorMessage: Resource.msg('error.message.login.form', 'login', null)
-                    });
-                    return next(); 
-                }
-        
-                var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
-
-                if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
-                    res.json({
-                        success: false,
-                        errorMessage: Resource.msg('error.message.login.form', 'login', null)
-                    });
-                    return next(); 
-                }
-            }
             var newProfile = authenticatedCustomer.getProfile();
             Transaction.wrap(function () {
                 newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
