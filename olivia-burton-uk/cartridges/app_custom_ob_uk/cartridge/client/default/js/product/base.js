@@ -971,13 +971,98 @@ function validateOptions($el) {
     }
 }
 
-var updateCartPage = function(data) {
-  $('.cart-section-wrapper').html(data.cartPageHtml);
-  if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+function updateCartTotals(data) {
+    $('.number-of-items').empty().append(data.resources.numberOfItems);
+    if(data.totals.isFree === true) {
+        $('.shipping-cost').empty().append(data.totals.freeShippingLabel);
+    } else {
+        $('.shipping-cost').empty().append(data.totals.totalShippingCost);
+    }
+
+
+    if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
+        
+        var $promoProgressBarHtml = '<div class="progress-meter d-flex flex-column align-items-center">'+
+        '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
+        '<div class="progress-meter-box">'+
+        '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
+        '</div>'+
+        '</div>';
+
+        var $progressMeterMain = $('.progress-meter-container');
+        $progressMeterMain.empty();
+        $progressMeterMain.append($promoProgressBarHtml);
+    } else {
+        var $freeShippingIcon = $('.progress-meter-container').data('shipping-image');
+        var $progressBarSuccessMsg = data.progressBarSuccessMsg;
+        var $progressMeterMain = $('.progress-meter-container');
+
+        if ($freeShippingIcon && $freeShippingIcon.length > 0 && $progressBarSuccessMsg) {
+            var $applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
+            '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
+            '<p>'+ data.progressBarSuccessMsg +'</p>'+
+            '</div>';
+        }
+
+        $progressMeterMain.empty();
+        $progressMeterMain.append($applicablePromoMessageHtml);
+    }
+    
+    if (typeof data.totals.deliveryTime != 'undefined' &&  typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
+        $('.delivery-time').removeClass('d-none');
+    } else {
+        $('.delivery-time').addClass('d-none');
+    }
+    $('.delivery-date').empty().append(data.totals.deliveryDate);
+    $('.tax-total').empty().append(data.totals.totalTax);
+    $('.grand-total-sum, .cart-total').empty().append(data.totals.grandTotal);
+    $('.sub-total').empty().append(data.totals.subTotal);
+    /* Affirm block for refreshing promo message */
+    var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
+    $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
+    if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
         affirm.ui.ready(function() {
             affirm.ui.refresh();
         });
-   }
+    }
+    $('.minicart-quantity').empty().append(data.numItems);
+
+    if (data.totals.orderLevelDiscountTotal.value > 0) {
+        $('.order-discount').removeClass('hide-order-discount');
+        $('.order-discount-total').empty()
+            .append('- ' + data.totals.orderLevelDiscountTotal.formatted);
+    } else {
+        $('.order-discount').addClass('hide-order-discount');
+    }
+
+    if (data.totals.shippingLevelDiscountTotal.value > 0) {
+        $('.shipping-discount').addClass('hide-shipping-discount');
+        $('.shipping-discount-total').empty().append('- ' + data.totals.shippingLevelDiscountTotal.formatted);
+    } else {
+        $('.shipping-discount').addClass('hide-shipping-discount');
+    }
+
+    data.items.forEach(function (item) {
+        $('.item-' + item.UUID).empty().append(item.renderedPromotions);
+        $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
+    });
+}
+var updateCartPage = function (data) {
+    $('.cart-section-wrapper').html(data.cartPageHtml);
+    if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+        affirm.ui.ready(function () {
+            affirm.ui.refresh();
+        });
+    }
+};
+
+var updateCartLineItems = function (data) {
+    $('.product-list-block-ob').html(data.cartPageHtml);
+    if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+        affirm.ui.ready(function () {
+            affirm.ui.refresh();
+        });
+    }
 };
 
 module.exports = {
@@ -1379,7 +1464,7 @@ module.exports = {
 
     getPidValue: getPidValue,
     getQuantitySelected: getQuantitySelected,
-    addToCartPLP : function() {
+    addToCartPLP: function () {
         $(document).on('click', '.add-to-cart-plp-redesign', function (e) {
             var addToCartUrl;
             var pid;
@@ -1390,7 +1475,7 @@ module.exports = {
             $('body').trigger('product:beforeAddToCart', this);
             $.spinner().stop();
             $.spinner().start();
-
+            var currentPage = $('.page[data-action]').data('action') || '';
             addToCartUrl = getAddToCartUrl();
             if ($this.data('product-set') == true) {
                 setPids = [];
@@ -1411,7 +1496,8 @@ module.exports = {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: 1
+                quantity: 1,
+                currentPage: currentPage
             };
             var $currentRecommendedProduct = $(this).data('rec-pid');
             var $addToCartButtonText = $(this).data('add-to-cart-text')
@@ -1421,7 +1507,9 @@ module.exports = {
                     method: 'POST',
                     data: form,
                     success: function (data) {
-                        updateCartPage(data);
+                        // updateCartPage(data);
+                        updateCartLineItems(data);
+                        updateCartTotals(data.currentBasket);
                         handlePostCartAdd(data, addToCartRecommendationButton, $currentRecommendedProduct, $addToCartButtonText);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {

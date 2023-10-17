@@ -23,12 +23,15 @@ server.append('AddProduct', function (req, res, next) {
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
         var personalizationType = req.form.personalizationType;
-        
+
         if (embossedMessage || engravedMessage || personalizationType) {
             customProductOptionsHelper.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage, orientation, font, personalizationType);
         }
 
-        viewData.cartPageHtml =  renderTemplateHelper.getRenderedHtml(basketModel, '/cart/cartSection');
+        viewData.currentBasket = basketModel;
+        if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
+            viewData.cartPageHtml = renderTemplateHelper.getRenderedHtml(basketModel, '/cart/cartLineItems');
+        }
     }
     next();
 });
