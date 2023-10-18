@@ -643,10 +643,45 @@ div.checkout-button-wrapper {
 
       .product {
 
+        .product-tile {
+
+          &.new-tile {
+            background-color: $gray;
+          }
+        }
+
         .tile-body {
 
           .add-to-cart-plp-redesign {
+            width: 100%;
+            background: transparent;
+            border: rem(1) solid $black;
+            border-radius: rem(3);
+            font-family: $font-gill-std-semibold;
+            font-size: rem(13);
+            color: $gray20;
+            font-weight: 600;
+            font-style: normal;
+            letter-spacing: 0.5px;
+            padding: rem(5) rem(3);
             display: block;
+
+            @include media-breakpoint-up(lg) {
+              font-size: rem(15);
+              margin-top: rem(15);
+            }
+
+            &:not(.out-of-stock-btn) {
+              &:hover {
+                background-color: $dark-cyan;
+                color: $white;
+                border-color: $dark-cyan;
+              }
+            }
+
+            &.out-of-stock-btn {
+              cursor: default;
+            }
           }
         }
       }

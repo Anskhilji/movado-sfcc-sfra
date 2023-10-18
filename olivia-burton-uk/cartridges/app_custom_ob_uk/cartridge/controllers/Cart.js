@@ -13,7 +13,7 @@ server.append('AddProduct', function (req, res, next) {
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var CartModel = require('*/cartridge/models/cart');
     var viewData = res.getViewData();
-    var addCartGtmArray;
+
     if (!viewData.error) {
         // variables for personalization message
         var embossedMessage = req.form.EmbossedMessage; // message to be Embossed Or Engraved  //'EM\nEngraveMessage';
@@ -28,10 +28,11 @@ server.append('AddProduct', function (req, res, next) {
             customProductOptionsHelper.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage, orientation, font, personalizationType);
         }
 
-        viewData.currentBasket = basketModel;
         if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
             viewData.cartPageHtml = renderTemplateHelper.getRenderedHtml(basketModel, '/cart/cartLineItems');
         }
+
+        viewData.currentBasket = basketModel;
     }
     next();
 });
