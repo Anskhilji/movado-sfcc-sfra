@@ -9,29 +9,29 @@ module.exports = function () {
         var $imageContainer = $productContainer.find('.image-container').find('img');
 
         if ($winWidth > $mediumBreakPoint) {
-            $productContainer.find('.image-container .tile-picture-primary').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
-            $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
+            $productContainer.find('.image-container .tile-picture-primary').find('source').attr('srcset', primaryImageUrls.tile640Xtile764[0].url);
+            $imageContainer.attr('src', primaryImageUrls.tile640Xtile764[0].url);
             $productContainer.find('.image-container').find('a').attr('href', $pdpURL);
     
             // Update life style images
-            if ($productContainer && primaryImageUrls && primaryImageUrls.pdp533[2] && primaryImageUrls.pdp533[2].url) {
-                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.pdp533[2].url);
-                $imageContainer.attr('src', primaryImageUrls.pdp533[2].url);
+            if ($productContainer && primaryImageUrls && primaryImageUrls.tile640Xtile764[2] && primaryImageUrls.tile640Xtile764[2].url) {
+                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile640Xtile764[2].url);
+                $imageContainer.attr('src', primaryImageUrls.tile640Xtile764[2].url);
             } else {
-                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
-                $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
+                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile640Xtile764[0].url);
+                $imageContainer.attr('src', primaryImageUrls.tile640Xtile764[0].url);
             }
         } else {
-            $productContainer.find('.image-container .tile-picture-primary').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
-            $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
+            $productContainer.find('.image-container .tile-picture-primary').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[0].url);
+            $imageContainer.attr('src', primaryImageUrls.tile512Xtile640[0].url);
             $productContainer.find('.image-container').find('a').attr('href', $pdpURL);
             // Update life style images
-            if ($productContainer && primaryImageUrls && primaryImageUrls.pdp533[2] && primaryImageUrls.pdp533[2].url) {
-                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.pdp533[2].url);
-                $imageContainer.attr('src', primaryImageUrls.pdp533[2].url);
+            if ($productContainer && primaryImageUrls && primaryImageUrls.tile512Xtile640[2] && primaryImageUrls.tile512Xtile640[2].url) {
+                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[2].url);
+                $imageContainer.attr('src', primaryImageUrls.tile512Xtile640[2].url);
             } else {
-                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
-                $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
+                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[0].url);
+                $imageContainer.attr('src', primaryImageUrls.tile512Xtile640[0].url);
             }
         }
 

@@ -1,6 +1,5 @@
-<iscomment> <h1>${JSON.stringify(product)}</h1> </iscomment>
-<isif condition="${product.variationsAttributes && product.variationsAttributes.length > 0}">
-    <isif condition="${product.variationsAttributes[0].values.length > 0}">
+<isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+    <isif condition="${product.variationAttributes[0].values.length > 0}">
         <div class="swatches-watches-olny">
             <div class="color-swatches color-Attribute" data-attr="colorVar">
                 <div class="swatches swatches-watches swatches-watches-desktop d-none d-sm-flex">
