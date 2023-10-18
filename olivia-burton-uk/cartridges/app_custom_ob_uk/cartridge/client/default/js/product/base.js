@@ -1507,7 +1507,6 @@ module.exports = {
                     method: 'POST',
                     data: form,
                     success: function (data) {
-                        // updateCartPage(data);
                         updateCartLineItems(data);
                         updateCartTotals(data.cart);
                         handlePostCartAdd(data, addToCartRecommendationButton, $currentRecommendedProduct, $addToCartButtonText);
