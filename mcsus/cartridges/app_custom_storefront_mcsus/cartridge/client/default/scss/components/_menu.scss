@@ -90,7 +90,7 @@
           font-family: $font-medium;
           font-weight: 500;
           font-size: rem(16);
-          letter-spacing: 0.5px;
+          letter-spacing: rem(0.5);
           text-transform: capitalize;
         }
       }
@@ -199,11 +199,11 @@ nav {
       .caret-left {
         background-image: url(../../images/icons/arrow_left.png);
         background-repeat: no-repeat;
-        background-size: 0.5rem;
+        background-size: rem(8);
         background-position: center;
         display: inline-block;
-        height: 1.5625rem;
-        width: 1.5625rem;
+        height: rem(25);
+        width: rem(25);
         padding: 0.3125rem 0.5rem;
       }
     }
@@ -220,7 +220,7 @@ nav {
 
       @include media-breakpoint-down(lg) {
         position: absolute;
-        right: 0.9375rem;
+        right: rem(15);
         display: flex;
       }
     }
@@ -257,10 +257,10 @@ nav {
           content: "";
           background-image: url(../../images/icons/arrow_right.png);
           background-repeat: no-repeat;
-          background-size: 0.5rem;
+          background-size: rem(8);
           background-position: 50%;
           display: inline-block;
-          padding: 0.3125rem 0.5rem;
+          padding: rem(5) rem(8);
           position: absolute;
           border: 0;
         }
@@ -315,7 +315,7 @@ nav {
 
         @include media-breakpoint-down(lg) {
           background-color: $white;
-          color: #222;
+          color: $grey7;
         }
       }
 
