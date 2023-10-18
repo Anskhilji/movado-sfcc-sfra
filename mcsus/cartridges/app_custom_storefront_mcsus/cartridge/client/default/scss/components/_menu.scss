@@ -408,8 +408,12 @@ nav {
    @include media-breakpoint-down(lg) {
     position: fixed;
     top: 0;
-    z-index: 11;
+    z-index: 1000;
     width: 100%;
+
+    @include media-breakpoint-down(md) {
+      z-index: 11;
+    }
    }
 
    @include media-breakpoint-down(sm) {
@@ -977,7 +981,7 @@ nav {
               }
 
               @include media-breakpoint-down(sm) {
-                top: rem(123);
+                top: rem(140);
               }
             } 
           }
