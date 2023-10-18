@@ -1347,7 +1347,7 @@ function clydeAddProductToCart() {
             data: form,
             success: function (data) {
                 if (data.cartPageHtml) {
-                    updateCartTotals(data.currentBasket);
+                    updateCartTotals(data.cart);
                     updateCartLineItems(data);
                 } else {
                     updateCartPage(data);
@@ -1489,7 +1489,7 @@ function clydeAddProductSetToCart($this) {
             data: form,
             success: function (data) {
                 if (data.cartPageHtml) {
-                    updateCartTotals(data.currentBasket);
+                    updateCartTotals(data.cart);
                     updateCartLineItems(data);
                 } else {
                     updateCartPage(data);
@@ -1634,7 +1634,7 @@ function addProductToCartPlp($this) {
             data: form,
             success: function (data) {
                 if (data.cartPageHtml) {
-                    updateCartTotals(data.currentBasket);
+                    updateCartTotals(data.cart);
                     updateCartLineItems(data);
                 } else {
                     updateCartPage(data);

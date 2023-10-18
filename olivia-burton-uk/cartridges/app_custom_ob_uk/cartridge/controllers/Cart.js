@@ -11,7 +11,6 @@ server.extend(module.superModule);
 server.append('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
-    var CartModel = require('*/cartridge/models/cart');
     var viewData = res.getViewData();
 
     if (!viewData.error) {
@@ -21,7 +20,6 @@ server.append('AddProduct', function (req, res, next) {
         var orientation = req.form.orientation;
         var font = req.form.font;
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
-        var basketModel = new CartModel(currentBasket);
         var personalizationType = req.form.personalizationType;
 
         if (embossedMessage || engravedMessage || personalizationType) {
@@ -29,10 +27,8 @@ server.append('AddProduct', function (req, res, next) {
         }
 
         if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
-            viewData.cartPageHtml = renderTemplateHelper.getRenderedHtml(basketModel, '/cart/cartLineItems');
+            viewData.cartPageHtml = renderTemplateHelper.getRenderedHtml(viewData.cart, '/cart/cartLineItems');
         }
-
-        viewData.currentBasket = basketModel;
     }
     next();
 });

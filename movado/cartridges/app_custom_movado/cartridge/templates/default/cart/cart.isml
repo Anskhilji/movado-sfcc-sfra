@@ -17,7 +17,9 @@
     <div class="cart-section-wrapper">
         <isinclude template="cart/cartSection"/>
     </div>
-    <div class="container cart-recommendation-wrapper mt-4">
-        <isslot id="cs-cart-recommendations" description="Recommended products" context="global" />
-    </div>
+    <isif condition="${pdict.items && pdict.items.length > 0}">
+        <div class="container cart-recommendation-wrapper mt-4">
+            <isslot id="cs-cart-recommendations" description="Recommended products" context="global" />
+        </div>
+    </isif>
 </isdecorate>

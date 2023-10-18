@@ -1509,7 +1509,7 @@ module.exports = {
                     success: function (data) {
                         // updateCartPage(data);
                         updateCartLineItems(data);
-                        updateCartTotals(data.currentBasket);
+                        updateCartTotals(data.cart);
                         handlePostCartAdd(data, addToCartRecommendationButton, $currentRecommendedProduct, $addToCartButtonText);
                         $('body').trigger('product:afterAddToCart', data);
                         if (window.Resources.LISTRAK_ENABLED) {

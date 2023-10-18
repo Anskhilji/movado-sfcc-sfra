@@ -32,21 +32,14 @@ server.prepend(
 server.append(
     'AddProduct',
     function (req, res, next) {
-        var BasketMgr = require('dw/order/BasketMgr');
         var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
-        var CartModel = require('*/cartridge/models/cart');
         var viewData = res.getViewData();
 
         if (!viewData.error) {
-            // variables for personalization message
-            var currentBasket = BasketMgr.getCurrentOrNewBasket();
-            var basketModel = new CartModel(currentBasket);
 
             if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
-                viewData.cartPageHtml = renderTemplateHelper.getRenderedHtml(basketModel, '/cart/productCard/cartLineItems');
+                viewData.cartPageHtml = renderTemplateHelper.getRenderedHtml(viewData.cart, '/cart/productCard/cartLineItems');
             }
-
-            viewData.currentBasket = basketModel;
         }
 
     next();
