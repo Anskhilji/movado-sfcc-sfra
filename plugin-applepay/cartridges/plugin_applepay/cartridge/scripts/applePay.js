@@ -188,7 +188,13 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         deliveryValidationFail = true;
     }
     // State code Check for billing Address
-    var billingStateCode = order.getBillingAddress().stateCode ? order.getBillingAddress().stateCode : '';
+    var billingStateCode = order.getBillingAddress().stateCode ? order.getBillingAddress().stateCode.toUpperCase() : '';
+
+    if (!empty(billingStateCode)) {
+        Transaction.wrap(function () {
+            order.billingAddress.stateCode = billingStateCode;
+        });
+    }
 
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
@@ -230,7 +236,14 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
-            var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
+            var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim().toUpperCase() : '';
+
+            if (!empty(shippingAddressStateCode)) {
+                Transaction.wrap(function () {
+                    orderShippingAddress.setStateCode(shippingAddressStateCode);
+                });
+            }
+
             var shippingAddressCountryCode = !empty(orderShippingAddress.countryCode) ? orderShippingAddress.countryCode.value : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
