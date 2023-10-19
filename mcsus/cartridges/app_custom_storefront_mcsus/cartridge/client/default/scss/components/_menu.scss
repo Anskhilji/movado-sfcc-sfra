@@ -1770,7 +1770,7 @@ nav {
 
                 @include media-breakpoint-down(sm) {
                   margin-top: 0;
-                  top: 0;
+                  top: rem(-1);
                 }
 
                 .minicart-total {
