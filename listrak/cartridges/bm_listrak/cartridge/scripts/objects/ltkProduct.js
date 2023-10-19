@@ -318,7 +318,7 @@ ltkProduct.prototype.getProductPrice = function (product) {
 
     var priceModel = product.getPriceModel();
     if (priceModel)	{
-        price = priceModel.getMinPrice();
+        price = priceModel.getPrice();
     }
 
     return price.toNumberString();
@@ -554,10 +554,12 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
                 productCategory = product.categories[i];
                 percentProductCategory = productCategory.displayName;
                 percentResult = percentProductCategory ? percentProductCategory.indexOf("%") : '';
+
                 if (percentResult > -1) {
                     specifiedMeta4 = productCategory.displayName;
                     continue;
                 }
+
                 while (productCategory.parent != null) {
                     if (productCategory.parent.topLevel === true) {
                         for (var j = 0; j < getConfiguredCategories.length; j++) {
@@ -575,10 +577,10 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
                         break;
                     }
                     productCategory = productCategory.parent;
-                }
-                specifiedCategories.specifiedMeta4 = specifiedMeta4;
-                specifiedCategories.specifiedMeta5 = specifiedMeta5;
+                } 
             }
+            specifiedCategories.specifiedMeta4 = specifiedMeta4;
+            specifiedCategories.specifiedMeta5 = specifiedMeta5;
         }
         return specifiedCategories;
     } catch (error) {
