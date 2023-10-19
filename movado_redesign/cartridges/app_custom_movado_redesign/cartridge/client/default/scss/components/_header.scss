@@ -1397,7 +1397,7 @@ header.new-header {
               width: rem(44);
               margin-right: rem(4);
               position: inherit;
-              padding: rem(22px);
+              padding: rem(22);
 
               @include media-breakpoint-down(md) {
                 margin-right: rem(-4);
