@@ -243,8 +243,8 @@ header.new-header {
     }
 
     .minicart-quantity {
-      right: rem(-3);
-      top: rem(-1);
+      right: rem(11);
+      top: rem(11);
 
       @include media-breakpoint-down(sm) {
         right: rem(11);
@@ -1341,7 +1341,7 @@ header.new-header {
           cursor: pointer;
           padding: rem(12.5) 0;
 
-          @include media-breakpoint-down(sm) {
+          @include media-breakpoint-down(md) {
             padding: rem(17.5) rem(13);
             margin-left: rem(-14.5);
           }

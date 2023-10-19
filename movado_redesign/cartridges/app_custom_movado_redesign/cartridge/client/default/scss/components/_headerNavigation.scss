@@ -31,7 +31,7 @@
             align-items: center;
         }
 
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(md) {
             padding: rem(15);
             margin-left: rem(-15);
             cursor: pointer;
@@ -222,6 +222,10 @@
             display: flex;
             align-items: center;
             gap: rem(12);
+
+            @include media-breakpoint-up(lg) {
+                padding: rem(10) 0;
+            }
 
             svg {
                 cursor: pointer;
