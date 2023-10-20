@@ -318,7 +318,7 @@ ltkProduct.prototype.getProductPrice = function (product) {
 
     var priceModel = product.getPriceModel();
     if (priceModel)	{
-        price = priceModel.getPrice();
+        price = priceModel.getMinPrice();
     }
 
     return price.toNumberString();
