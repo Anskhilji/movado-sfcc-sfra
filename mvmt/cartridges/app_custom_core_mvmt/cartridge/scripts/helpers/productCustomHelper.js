@@ -124,7 +124,7 @@ function getProductAttributes(apiProduct) {
 function getIsWatchTile(apiProduct) {
     try {
         if (!empty(apiProduct)) {
-            var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
+            const isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
         }
         return isWatchTile;
         
@@ -441,9 +441,9 @@ function getPdpCollectionContentAssetID(apiProduct) {
 }
 
 function getCurrentCountry() {
-    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    var availableCountry = 'US';
+    const eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+    const isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    let availableCountry = 'US';
     if (isEswEnabled) { 
         availableCountry = eswHelper.getAvailableCountry();
         if (availableCountry == null || empty(availableCountry)) {
@@ -455,15 +455,15 @@ function getCurrentCountry() {
 }
 
 function getGtmPromotionObject (promotions) {
-    var promotionObj = [];
+    const promotionObj = [];
     if (!empty(promotions)) {
         try {
-            for (var i = 0; i < promotions.length; i++) {
-                var promotionId = promotions[i].ID;
-                var promotionName = stringUtils.removeSingleQuotes(promotions[i].name);
-                var promotionCreated = promotions[i].startDate;
-                var promotionPostistion = promotions[i].promotionClass;
-                var pageType = session.custom.gtmPageType;
+            for (let i = 0; i < promotions.length; i++) {
+                const promotionId = promotions[i].ID;
+                const promotionName = stringUtils.removeSingleQuotes(promotions[i].name);
+                const promotionCreated = promotions[i].startDate;
+                const promotionPostistion = promotions[i].promotionClass;
+                const pageType = session.custom.gtmPageType;
                 promotionObj.push({
                     id: promotionId,
                     name: promotionName,
@@ -489,9 +489,9 @@ function getGtmPromotionObject (promotions) {
  * @returns {String }Diameter name
  */
 function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
-    var caseDiameterWatches = '';
-    var caseDiameterUnit;
-    var caseDiameterHyphen = isRedesigned ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN
+    let caseDiameterWatches = '';
+    let caseDiameterUnit;
+    let caseDiameterHyphen = isRedesigned ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN
         : Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
     if (!empty(caseDiametterUnitPdp)) {
         caseDiameterUnit = caseDiametterUnitPdp;
@@ -499,10 +499,10 @@ function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
     } else {
         caseDiameterUnit = Constants.MM_UNIT;
     }
-    var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
-    var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
-    var productName = !empty(apiProduct.name) ? apiProduct.name : '';
-    var isWatchTile = getIsWatchTile(apiProduct);
+    const caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
+    const collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
+    const productName = !empty(apiProduct.name) ? apiProduct.name : '';
+    const isWatchTile = getIsWatchTile(apiProduct);
     if (isWatchTile && !empty(collectionName) && !empty(caseDiameter)) {
         caseDiameterWatches = caseDiameterHyphen + caseDiameter + caseDiameterUnit;
     } else if (!isWatchTile && !empty(productName) && !empty(caseDiameter)) {
@@ -519,7 +519,7 @@ function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
  * @returns {String }color name
  */
 function getColor(apiProduct, product) {
-    var color = '';
+    let color = '';
     color = apiProduct.custom.color || '';
     if (apiProduct.master && product && product.variationAttributes.length > 0) {
         try {

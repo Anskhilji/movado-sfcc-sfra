@@ -57,12 +57,12 @@ function getBreadCrumbs(classificationFolder, breadcrumbs) {
  * @returns {Object} 
  */
 function getCategoryBreadcrumb(categoryObj) {
-    var primaryCategory = '';
-    var secondaryCategory = '';
-    var tertiaryCategory = '';
-    var levelCount = 0;
+    const primaryCategory = '';
+    const secondaryCategory = '';
+    const tertiaryCategory = '';
+    const levelCount = 0;
     if (categoryObj) {
-        var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
+        const categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
         if (categoryLevel == 3) {
             tertiaryCategory = categoryObj.displayName;
             secondaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
@@ -95,7 +95,7 @@ function escapeQuotes(value) {
  * @returns levelCount
  */
 function getCategoryLevelCount(category, levelCount) {
-    var currentCategory = category.parent;
+    const currentCategory = category.parent;
     if (!category.root) {
         levelCount += 1;
         levelCount = getCategoryLevelCount(currentCategory, levelCount);
@@ -109,12 +109,12 @@ function getCategoryLevelCount(category, levelCount) {
  * @returns categoryNameWithoutApostrophe
  */
 function getPlPDepartmentCategory(apiProductSearch) {
-    var plpCategory = '';
+    const plpCategory = '';
     try {
         if (apiProductSearch && apiProductSearch.category && apiProductSearch.category.ID) {
-            var productBreadcrumbs  = getCategoryBreadcrumb(apiProductSearch.category);
-            var primaryCategory = escapeQuotes(productBreadcrumbs.primaryCategory);
-            var secoundaryCategory = escapeQuotes(productBreadcrumbs.secondaryCategory);
+            const productBreadcrumbs  = getCategoryBreadcrumb(apiProductSearch.category);
+            const primaryCategory = escapeQuotes(productBreadcrumbs.primaryCategory);
+            const secoundaryCategory = escapeQuotes(productBreadcrumbs.secondaryCategory);
             plpCategory = (!empty(secoundaryCategory)) ? primaryCategory + '|' + secoundaryCategory : primaryCategory;
         } 
     } catch (exception) {
@@ -124,9 +124,9 @@ function getPlPDepartmentCategory(apiProductSearch) {
 }
 
 function getSingleColumnPerRow(productSearch) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
-    var currentCategory;
-    var isEnableSingleProductRow;
+    const CatalogMgr = require('dw/catalog/CatalogMgr');
+    let currentCategory;
+    const isEnableSingleProductRow;
     if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
         currentCategory = CatalogMgr.getCategory(productSearch.category.id);
         if (!empty(currentCategory.custom.isEnableSingleProductRow)) {
@@ -137,9 +137,9 @@ function getSingleColumnPerRow(productSearch) {
 }
 
 function getIsNonWatchesTileAttribute (productSearch) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
-    var isNonWatchesTileEnable = false;
-    var currentCategory;
+    const CatalogMgr = require('dw/catalog/CatalogMgr');
+    const isNonWatchesTileEnable = false;
+    let currentCategory;
     if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
         currentCategory = CatalogMgr.getCategory(productSearch.category.id);
         if (!empty(currentCategory.custom.isNonWatchesTile)) {
@@ -150,12 +150,12 @@ function getIsNonWatchesTileAttribute (productSearch) {
 }
 
 function getEyewearTile(productSearch) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
-    var isEyewearTile = false;
+    const CatalogMgr = require('dw/catalog/CatalogMgr');
+    const isEyewearTile = false;
     if (!empty(productSearch) && productSearch.category && !empty(productSearch.category.id)) {
-        var currentCategory = CatalogMgr.getCategory(productSearch.category.id);
-        var currentCategoryTemplate = currentCategory.template;
-        var categoryTemplateEyewear = 'search/searchResultsEyewear';
+        const currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+        const currentCategoryTemplate = currentCategory.template;
+        const categoryTemplateEyewear = 'search/searchResultsEyewear';
         if (currentCategoryTemplate == categoryTemplateEyewear) {
             isEyewearTile = true;
         }

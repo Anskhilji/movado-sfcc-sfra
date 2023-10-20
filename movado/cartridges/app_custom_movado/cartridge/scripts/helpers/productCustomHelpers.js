@@ -940,43 +940,41 @@ function formatProductId(pid) {
  */
 
 function getMarketingProducts(apiProduct, quantity) {
-    var Logger = require('dw/system/Logger');
-    var PromotionMgr = require('dw/campaign/PromotionMgr');
-    var priceFactory = require('*/cartridge/scripts/factories/price');
-    var productFactory = require('*/cartridge/scripts/factories/product');
-    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-    var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+
+    const Logger = require('dw/system/Logger');
+    const PromotionMgr = require('dw/campaign/PromotionMgr');
+    const priceFactory = require('*/cartridge/scripts/factories/price');
+    const productFactory = require('*/cartridge/scripts/factories/product');
+    const productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    const stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
     try {
-        var defaultVariant = apiProduct.variationModel.defaultVariant;
-        var defaultVariantPrice;
-        var marketingProductData;
-        var price;
-        var productType = productHelper.getProductType(apiProduct);
-        var productModel;
+        const defaultVariant = apiProduct.variationModel.defaultVariant;
+        const productType = productHelper.getProductType(apiProduct);
+
+        let defaultVariantPrice,marketingProductData,price,productModel;
 
         if (apiProduct.master) {
-            var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
+            const promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
             defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null);
         }
         productModel = productFactory.get({pid: apiProduct.ID});
 
-        if (defaultVariantPrice) {
-            if(defaultVariantPrice.sales) {
-                price = defaultVariantPrice.sales.value;
-            } else {
-                price = defaultVariantPrice.list.value;
-            }
+
+        if(defaultVariantPrice && defaultVariantPrice.sales) {
+            price = defaultVariantPrice.sales.value;
         } else {
-            if (productModel.price && productModel.price.sales) {
-                price = productModel.price.sales.value;
-            } else {
-                price = prodcutModel.price.list.value;
-            }
+            price = defaultVariantPrice.list.value;
         }
 
-        var productCategory = '';
-        var apiCategories;
+        if (productModel.price && productModel.price.sales) {
+            price = productModel.price.sales.value;
+        } else {
+            price = prodcutModel.price.list.value;
+        }
+
+        let productCategory = '';
+        let apiCategories;
 
         if (apiProduct.getOnlineCategories().length > 0) {
             apiCategories = apiProduct.getOnlineCategories();

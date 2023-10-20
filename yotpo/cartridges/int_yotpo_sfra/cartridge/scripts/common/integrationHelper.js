@@ -7,22 +7,22 @@
  * @returns {Object} a JSON object of the yotpo configurations.
  */
 function getYotpoConfig(request, locale) {
-    var Site = require('dw/system/Site');
-    var URLUtils = require('dw/web/URLUtils');
-    var YotpoUtils = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoUtils.js');
-    var isCartridgeEnabled = YotpoUtils.isCartridgeEnabled();
+    const Site = require('dw/system/Site');
+    const URLUtils = require('dw/web/URLUtils');
+    const YotpoUtils = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoUtils.js');
+    const isCartridgeEnabled = YotpoUtils.isCartridgeEnabled();
 
-    var isReviewEnabled = false;
-    var isRatingEnabled = false;
+    const isReviewEnabled = false;
+    const isRatingEnabled = false;
 
     if (isCartridgeEnabled) {
-        var currentLocaleID = YotpoUtils.getCurrentLocaleMFRA(locale);
-        var yotpoAppKey = YotpoUtils.getAppKeyForCurrentLocale(currentLocaleID);
+        const currentLocaleID = YotpoUtils.getCurrentLocaleMFRA(locale);
+        const yotpoAppKey = YotpoUtils.getAppKeyForCurrentLocale(currentLocaleID);
         isReviewEnabled = YotpoUtils.isReviewsEnabledForCurrentLocale(currentLocaleID);
         isRatingEnabled = YotpoUtils.isBottomLineEnabledForCurrentLocale(currentLocaleID);
-        var isBottomLineEnabledForCurrentLocale = YotpoUtils.isBottomLineEnabledForCurrentLocale(currentLocaleID);
-        var domainAddress = URLUtils.home();
-        var productInformationFromMaster = Site.getCurrent().preferences.custom.producInformationFromMaster;
+        const isBottomLineEnabledForCurrentLocale = YotpoUtils.isBottomLineEnabledForCurrentLocale(currentLocaleID);
+        const domainAddress = URLUtils.home();
+        const productInformationFromMaster = Site.getCurrent().preferences.custom.producInformationFromMaster;
 
         return {
             isCartridgeEnabled: isCartridgeEnabled,
@@ -50,20 +50,20 @@ function getYotpoConfig(request, locale) {
  * @returns {Object} a JSON object of the yotpo ratings and reviews.
  */
 function getRatingsOrReviewsData(yotpoConfig, productId) {
-    var URLUtils = require('dw/web/URLUtils');
-    var isReviewEnabled = false;
-    var isRatingEnabled = false;
+    const URLUtils = require('dw/web/URLUtils');
+    let isReviewEnabled = false;
+    let isRatingEnabled = false;
 
     if (yotpoConfig.isCartridgeEnabled) {
-        var ProductMgr = require('dw/catalog/ProductMgr');
-        var product = ProductMgr.getProduct(productId);
-        var yotpoAppKey = yotpoConfig.yotpoAppKey;
+        const ProductMgr = require('dw/catalog/ProductMgr');
+        const product = ProductMgr.getProduct(productId);
+        const yotpoAppKey = yotpoConfig.yotpoAppKey;
         isReviewEnabled = yotpoConfig.isReviewEnabled;
         isRatingEnabled = yotpoConfig.isRatingEnabled;
 
         if (isReviewEnabled || isRatingEnabled) {
-            var producInformationFromMaster = yotpoConfig.productInformationFromMaster;
-            var currentProduct = product;
+            const producInformationFromMaster = yotpoConfig.productInformationFromMaster;
+            let currentProduct = product;
 
             if (product.variant) {
                 if (producInformationFromMaster) {
@@ -71,24 +71,24 @@ function getRatingsOrReviewsData(yotpoConfig, productId) {
                 }
             }
 
-            var model = currentProduct.brand;
+            let model = currentProduct.brand;
             if (empty(model)) {
                 model = '';
             }
 
-            var YotpoUtils = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoUtils.js');
+            const YotpoUtils = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoUtils.js');
 
-            var domainAddress = yotpoConfig.domainAddress;
-            var regex = '([\/])';
-            var productID = YotpoUtils.escape(currentProduct.ID, regex, '-');
-            var name = currentProduct.name;
-            var productDesc	= currentProduct.shortDescription;
-            var productURL = URLUtils.abs('Product-Show', 'pid', currentProduct.ID);
+            const domainAddress = yotpoConfig.domainAddress;
+            const regex = '([\/])';
+            const productID = YotpoUtils.escape(currentProduct.ID, regex, '-');
+            const name = currentProduct.name;
+            const productDesc	= currentProduct.shortDescription;
+            let productURL = URLUtils.abs('Product-Show', 'pid', currentProduct.ID);
             productURL = encodeURI(productURL);
 
-            var imageURL = encodeURI(YotpoUtils.getImageLink(currentProduct));
+            let imageURL = encodeURI(YotpoUtils.getImageLink(currentProduct));
             imageURL = empty(imageURL) ? 'Image not available' : imageURL;
-            var productCategory = YotpoUtils.getCategoryPath(currentProduct);
+            const productCategory = YotpoUtils.getCategoryPath(currentProduct);
 
             return {
                 isReviewEnabled: isReviewEnabled,

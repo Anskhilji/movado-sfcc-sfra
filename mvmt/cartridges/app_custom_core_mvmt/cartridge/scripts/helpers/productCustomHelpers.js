@@ -19,13 +19,13 @@ function escapeQuotes(value) {
 
 function getProductGtmObj(product, categoryName, position) {
     try {
-        var productGtmObj = []; 
-        var jewelryType = '';
-        var watchGender = '';
-        var dimension22 = '';
-        var dimension23 = '';
-        var productObj = ProductMgr.getProduct(product.id);
-        var productObjDefaultVariant = productObj.variationModel ? productObj.variationModel.defaultVariant : null;
+        const productGtmObj = []; 
+        let jewelryType = '';
+        let watchGender = '';
+        let dimension22 = '';
+        let dimension23 = '';
+        let productObj = ProductMgr.getProduct(product.id);
+        const productObjDefaultVariant = productObj.variationModel ? productObj.variationModel.defaultVariant : null;
         if (productObjDefaultVariant) {
             if (productObjDefaultVariant.custom.watchGender && productObjDefaultVariant.custom.watchGender.length) {
                 watchGender = productObjDefaultVariant.custom.watchGender[0];
@@ -53,8 +53,8 @@ function getProductGtmObj(product, categoryName, position) {
                 dimension23 = productObj.custom.color;
             }
         }
-        var customCategory = watchGender + " " + jewelryType;
-        var variantID = '';
+        const customCategory = watchGender + " " + jewelryType;
+        let variantID = '';
         if (categoryName != null) {
         // Custom Start: Push product object in Array.
             productGtmObj.push({
@@ -75,8 +75,8 @@ function getProductGtmObj(product, categoryName, position) {
                 currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))    
             });
         } else {
-            var productObj = ProductMgr.getProduct(product.id);
-            var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
+            let productObj = ProductMgr.getProduct(product.id);
+            const category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
             : '')
             : ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
             : '')) : '');
@@ -143,10 +143,10 @@ function getVariantSize(apiProduct) {
  */
 
 function getGtmProductClickObj(product, categoryName, position) {
-    var familyName = '';
-    var productColor = '';
-    var productClickGtmObj = [];
-    var productObj = ProductMgr.getProduct(product.id);
+    let familyName = '';
+    let productColor = '';
+    let productClickGtmObj = [];
+    const productObj = ProductMgr.getProduct(product.id);
 
     if (!empty(productObj.custom.familyName)) {
         familyName = productObj.custom.familyName[0];
@@ -172,7 +172,7 @@ function getGtmProductClickObj(product, categoryName, position) {
             list: 'PLP'
         });
     }	else {
-        var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productObj.masterProduct.primaryCategory.ID)
+        const category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productObj.masterProduct.primaryCategory.ID)
         : '')
         : ((productObj.primaryCategory != null) ? stringUtils.removeSingleQuotes(productObj.primaryCategory.ID)
         : ''))
