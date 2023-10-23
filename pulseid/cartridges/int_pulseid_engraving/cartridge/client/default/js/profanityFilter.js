@@ -1,6 +1,6 @@
 module.exports = {
-    isProfane: function(word) {
+    isProfane: function (word) {
         var badWords = window.Resources.BAD_WORDS_LIST;
-        return badWords.some(badWord => badWord.toLowerCase() ===  word.toLowerCase());
+        return badWords.some(badWord => badWord.toLowerCase() === word.toLowerCase());
     }
 }
