@@ -1,5 +1,5 @@
 <div class="form-check panel-heading" data-method-id="${paymentOption.ID}">
-    <button type='button' id="${paymentOption.ID}" name='paymentOption' class="nav-link google-pay-link"  data-bs-toggle="pill" data-bs-target="#googlepay-content" role="button" aria-controls="googlepay-content" aria-selected="false" aria-label="${Resource.msg('label.button.gogglepay', 'common', null)}">
+    <button type='button' id="${paymentOption.ID}" name='paymentOption' class="nav-link google-pay-link"  data-bs-toggle="pill" data-bs-target="#googlepay-content" role="button" aria-controls="googlepay-content" aria-selected="false" aria-label="${Resource.msg('label.button.googlepay', 'common', null)}">
         <label for="${paymentOption.ID}" class="form-check-label d-block" >
             <img src="${URLUtils.staticURL('/images/google-pay-logo.png')}" alt="${Resource.msg('payment.name', 'googlePay', null)}"/>
         </label>
