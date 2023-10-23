@@ -2,6 +2,7 @@
 var mediumWidth = 992;
 var $zoomSlick = true;
 var $applePayButtonLabel = window.Resources.APPLEPAY_BUTTON_LABEL;
+var $googlePayButtonLabel = window.Resources.GOOGLEPAY_BUTTON_LABEL;
 
 function copyText() {
     var $text = $('.promotions .promo-icon .icon').text();
@@ -477,6 +478,7 @@ $(document).ready(function () {
 
     setTimeout(function() {
         $('.apple-pay-pdp').attr('aria-label', $applePayButtonLabel);
+        $('.gpay-button').attr('aria-label', $googlePayButtonLabel);
     }, 2000);
 });
 
