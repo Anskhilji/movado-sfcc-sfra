@@ -483,6 +483,7 @@ $negative-spacer: -0.625rem;
 .cart-recommendation-wrapper {
 
   .mcs-product-carousel-redesign {
+    overflow: visible;
 
     .mcs-product-carousel-container {
 
@@ -496,13 +497,13 @@ $negative-spacer: -0.625rem;
 
               .slick-prev {
                 @include media-breakpoint-up(xl) {
-                  left: rem(-69);
+                  left: rem(-72);
                 }
               }
 
               .slick-next {
                 @include media-breakpoint-up(xl) {
-                  right: rem(-70);
+                  right: rem(-73);
                 }
               }
             }
