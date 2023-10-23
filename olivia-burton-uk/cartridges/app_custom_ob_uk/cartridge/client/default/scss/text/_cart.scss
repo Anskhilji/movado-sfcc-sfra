@@ -635,52 +635,72 @@ div.checkout-button-wrapper {
     .cta-add-to-cart {
       display: block;
     }
-  }
 
-  .cs-carousel-wrapper {
+    .cs-carousel-wrapper {
 
-    &.recommendation-carousel-pdp {
-
-      .product {
-
-        .product-tile {
-
-          &.new-tile {
-            background-color: $gray;
-          }
-        }
-
-        .tile-body {
-
-          .add-to-cart-plp-redesign {
-            width: 100%;
-            background: transparent;
-            border: rem(1) solid $black;
-            border-radius: rem(3);
-            font-family: $font-gill-std-semibold;
-            font-size: rem(13);
-            color: $gray20;
-            font-weight: 600;
-            font-style: normal;
-            letter-spacing: 0.5px;
-            padding: rem(5) rem(3);
-            display: block;
-
-            @include media-breakpoint-up(lg) {
-              font-size: rem(15);
-              margin-top: rem(15);
+      &.recommendation-carousel-pdp {
+  
+        .product {
+  
+          .product-tile {
+  
+            &.new-tile {
+              background-color: $gray;
             }
-
-            &:not(.out-of-stock-btn) {
-              &:hover {
-                background-color: $dark-cyan;
-                color: $white;
-                border-color: $dark-cyan;
+          }
+  
+          .tile-body {
+  
+            .add-to-cart-plp-redesign {
+              width: 100%;
+              background: transparent;
+              border: rem(1) solid $black;
+              border-radius: rem(3);
+              font-family: $font-gill-std-semibold;
+              font-size: rem(13);
+              color: $gray20;
+              font-weight: 600;
+              font-style: normal;
+              letter-spacing: rem(0.5);
+              padding: rem(5) rem(3);
+              display: block;
+  
+              @include media-breakpoint-up(lg) {
+                font-size: rem(15);
+                margin-top: rem(15);
+              }
+  
+              &:not(.out-of-stock-btn) {
+                &:hover {
+                  background-color: $dark-cyan;
+                  color: $white;
+                  border-color: $dark-cyan;
+                }
+              }
+  
+              &.out-of-stock-btn {
+                cursor: default;
               }
             }
-
-            &.out-of-stock-btn {
-              cursor: default;
+          }
+        }
+  
+        .cs-carousel {
+  
+          .slick-arrow {
+  
+            &.slick-prev {
+              @include media-breakpoint-up(xl) {
+                left: rem(-55);
+                transform: translateY(-50%);
+              }
+            }
+  
+            &.slick-next {
+              @include media-breakpoint-up(xl) {
+                right: rem(-57);
+                transform: translateY(-50%);
+              }
             }
           }
         }

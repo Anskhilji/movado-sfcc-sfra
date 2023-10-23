@@ -479,3 +479,36 @@ $negative-spacer: -0.625rem;
   position:absolute;
   left: -999em;
 }
+
+.cart-recommendation-wrapper {
+
+  .mcs-product-carousel-redesign {
+
+    .mcs-product-carousel-container {
+
+      .mcs-product-carousel-row {
+
+        .mcs-product-carousel-column {
+
+          .cs-carousel-wrapper {
+
+            .cs-carousel {
+
+              .slick-prev {
+                @include media-breakpoint-up(xl) {
+                  left: rem(-69);
+                }
+              }
+
+              .slick-next {
+                @include media-breakpoint-up(xl) {
+                  right: rem(-70);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
