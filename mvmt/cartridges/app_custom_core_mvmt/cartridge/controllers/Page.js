@@ -5,23 +5,22 @@ var page = module.superModule;
 var cache = require('*/cartridge/scripts/middleware/cache');
 server.extend(page);
 
-const ABTestMgr = require('dw/campaign/ABTestMgr');
-const URLUtils = require('dw/web/URLUtils');
-const Site = require('dw/system/Site');
-const catalogMgr = require('dw/catalog/CatalogMgr');
-let Categories = require('*/cartridge/models/categories');
+var URLUtils = require('dw/web/URLUtils');
+var Site = require('dw/system/Site');
 
 server.replace(
     'IncludeHeaderMenu',
     server.middleware.include,
     cache.applyPromotionSensitiveCache,
     function (req, res, next) {
+        var catalogMgr = require('dw/catalog/CatalogMgr');
+        var Categories = require('*/cartridge/models/categories');
+        var siteRootCategory = catalogMgr.getSiteCatalog().getRoot();
 
-        const siteRootCategory = catalogMgr.getSiteCatalog().getRoot();
-        const topLevelCategories = siteRootCategory.hasOnlineSubCategories() ?
+        var topLevelCategories = siteRootCategory.hasOnlineSubCategories() ?
                 siteRootCategory.getOnlineSubCategories() : null;
                 
-        const menuTemplate = '/components/header/menu';
+        var menuTemplate = '/components/header/menu';
 
         res.setViewData({ 
             loggedIn: req.currentCustomer.raw.authenticated

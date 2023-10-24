@@ -1,14 +1,18 @@
 'use strict';
 
+var eswCountrySelector = $('.esw-country-selector');
+var dropdownCountrySelector = $('.dropdown-country-selector');
+var eswFooterSelector = $('.esw-country-selector-footer');
+
 $(document).ready(function () {
-    var eswFooterUrl = $('.esw-country-selector-footer').data('url');
+    var eswFooterUrl = eswFooterSelector.data('url');
     $.ajax({
         url: eswFooterUrl,
         method: 'get',
 
         success: function (response) {
             if (response) {
-                $('.esw-country-selector-footer').append(response);
+                eswFooterSelector.append(response);
             }
         }
     });
@@ -17,12 +21,12 @@ $(document).ready(function () {
 $('.esw-country-selector-footer').hover(
 
     function () {
-        $('.esw-country-selector').addClass('show');
-        $('.dropdown-country-selector').addClass('show');
+        eswCountrySelector.addClass('show');
+        dropdownCountrySelector.addClass('show');
     },
 
     function () {
-        $('.esw-country-selector').removeClass('show');
-        $('.dropdown-country-selector').removeClass('show');
+        eswCountrySelector.removeClass('show');
+        dropdownCountrySelector.removeClass('show');
     }
 );

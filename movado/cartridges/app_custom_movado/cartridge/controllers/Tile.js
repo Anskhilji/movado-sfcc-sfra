@@ -2,21 +2,21 @@
 
 var server = require('server');
 
-const cache = require('*/cartridge/scripts/middleware/cache');
-const Site = require('dw/system/Site');
-const logger = require('dw/system/Logger');
-const URLUtils = require('dw/web/URLUtils');
-const ProductFactory = require('*/cartridge/scripts/factories/product');
-const productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-const customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
-const SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-const productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
-const productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-const YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
-const YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
-const SitePrefrence = Site.getCurrent().preferences.custom;
+var cache = require('*/cartridge/scripts/middleware/cache');
 
 server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var Site = require('dw/system/Site');
+    var logger = require('dw/system/Logger');
+    var URLUtils = require('dw/web/URLUtils');
+    var ProductFactory = require('*/cartridge/scripts/factories/product');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
+    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
+    var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
+    var SitePrefrence = Site.getCurrent().preferences.custom;
     
     // The req parameter has a property called querystring. In this use case the querystring could
     // have the following:
@@ -26,12 +26,12 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     //
     // pview - string to determine if the product factory returns a model for
     //         a tile or a pdp/quickview display
-    const productTileParams = { pview: 'tile' };
+    var productTileParams = { pview: 'tile' };
     Object.keys(req.querystring).forEach(function (key) {
         productTileParams[key] = req.querystring[key];
     });
     
-    let product,productUrl,quickViewUrl;
+    var product,productUrl,quickViewUrl;
 
     // TODO: remove this logic once the Product factory is
     // able to handle the different product types
@@ -40,8 +40,11 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
         quickViewUrl = URLUtils.url('Product-ShowQuickView', 'pid', !empty(product) ? product.id : '')
             .relative().toString();
-        const smartGift = SmartGiftHelper.getSmartGiftCardBasket(!empty(product) ? product.id : '');
-        res.setViewData(smartGift);
+        
+        if (Site.getCurrent().getCustomPreferenceValue('enableSmartGift')) {
+            var smartGift = SmartGiftHelper.getSmartGiftCardBasket(!empty(product) ? product.id : '');
+            res.setViewData(smartGift);
+        }
 
     } catch (e) {
         product = false;
@@ -50,7 +53,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         logger.error('Tile-Show: Error occured while getting product: {0} and error is: {1} in {2} : {3}', productTileParams.pid, e.toString(), e.fileName, e.lineNumber);
     }
 
-    let showProductPageHelperResult = '';
+    var showProductPageHelperResult = '';
 
     // Process product data
     if (product) {
@@ -59,14 +62,14 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
 
     showProductPageHelperResult = productHelper.showProductPage({ pid: product.id }, req.pageMetaData);
 
-    const customURL = productCustomHelper.getPLPCustomURL(product);
-    const categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
-    const wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);
-    const productClickGtmObj = productCustomHelpers.getGtmProductClickObj(product, categoryName, productTileParams.position);
-    const productGtmObj = productCustomHelpers.getProductGtmObj(product, categoryName, productTileParams.position);
-    const qvGtmObj = productCustomHelpers.getQVGtmObj(product, categoryName);
+    var customURL = productCustomHelper.getPLPCustomURL(product);
+    var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
+    var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);
+    var productClickGtmObj = productCustomHelpers.getGtmProductClickObj(product, categoryName, productTileParams.position);
+    var productGtmObj = productCustomHelpers.getProductGtmObj(product, categoryName, productTileParams.position);
+    var qvGtmObj = productCustomHelpers.getQVGtmObj(product, categoryName);
 
-    let context = {
+    var context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
         product: product,
         apiProduct: !empty(showProductPageHelperResult) ? showProductPageHelperResult.product : '',
@@ -88,8 +91,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         plpProductFamilyName: SitePrefrence.plpProductFamilyName ? SitePrefrence.plpProductFamilyName : false
     };
     
-    let viewData = res.getViewData();
-    const readyToOrder = showProductPageHelperResult.product.readyToOrder ? showProductPageHelperResult.product.readyToOrder : '';
+    var viewData = res.getViewData();
+    var readyToOrder = showProductPageHelperResult.product.readyToOrder ? showProductPageHelperResult.product.readyToOrder : '';
     viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl ? showProductPageHelperResult.addToCartUrl : '';
     viewData.product = showProductPageHelperResult.product ? showProductPageHelperResult.product : '';
     viewData.isPLPProduct = true;
@@ -114,7 +117,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         }
         else {
                 viewData = res.getViewData();
-                const yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+                var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
         
                 if (yotpoConfig.isCartridgeEnabled) {
                     viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, req.querystring.pid);

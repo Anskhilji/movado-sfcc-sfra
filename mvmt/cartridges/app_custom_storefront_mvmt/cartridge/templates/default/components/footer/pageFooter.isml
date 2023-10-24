@@ -2,7 +2,8 @@
 <div id="footer-overlay"></div>
 <iscomment> Custom End </iscomment>
 <iscomment> Custom Start: Template is changed according to the mvmt footer design and new content assest are added like mvmt-shop, join-the-mvmt and company-info.</iscomment> 
-<isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences.custom.enableUsablenetAccessibility : false}" scope="page" />
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
+<isset name="enableUsablenetAccessibility" value="${!empty(sitePref.enableUsablenetAccessibility) ? sitePref.enableUsablenetAccessibility : false}" scope="page" />
 <footer class="footer">
 
     <div class="banner-with-contents">
@@ -26,8 +27,7 @@
                     </div>
                 </div>
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
-                <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
+                <isif condition="${sitePref.eswEshopworldModuleEnabled && sitePref.eswEnableFooterBar}">
                     <div class="esw-country-selector-footer desktop-esw-country" data-url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
                         !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}">
                     </div>  
@@ -74,8 +74,7 @@
                 </div>
             </div>
             <iscomment> Custom Start: Adding ESW Logic </iscomment>
-            <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
-            <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
+            <isif condition="${sitePref.eswEshopworldModuleEnabled && sitePref.eswEnableFooterBar}">
                 <div class="esw-country-selector-footer mobile-esw-contury" data-url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}">
                 </div>  

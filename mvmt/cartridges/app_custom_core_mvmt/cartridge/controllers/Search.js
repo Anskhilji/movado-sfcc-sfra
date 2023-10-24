@@ -283,7 +283,7 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
         marketingProductData: marketingProductData,
         isEnableSingleProductRow: isEnableSingleProductRow,
         isEyewearTile: isEyewearTile,
-        marketingProductUrl : URLUtils.url('Search-GetMarketingProducts', 'productSearch', JSON.stringify(productSearch))
+        marketingProductUrl : URLUtils.url('Search-GetMarketingProducts', 'productSearch', JSON.stringify(productSearch.productIds))
     });
 
     next();
@@ -293,26 +293,23 @@ server.get(
     'GetMarketingProducts',
     server.middleware.https,
     function (req, res, next) { 
-        const ProductMgr = require('dw/catalog/ProductMgr');
-        const productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+        var ProductMgr = require('dw/catalog/ProductMgr');
+        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 
-        const productSearch = JSON.parse(req.querystring.productSearch);
-        const quantity = 0;
-        let marketingProductsData = [];
-        let marketingProduct,marketingProductData;
+        var productSearch = JSON.parse(req.querystring.productSearch);
+        var quantity = 0;
+        var marketingProductsData = [];
+        var marketingProduct,marketingProductData;
 
-        if (productSearch && productSearch.category && productSearch.category.id) {
-            for (var i = 0; i < productSearch.productIds.length; i++) {
-                var productID = productSearch.productIds[i].productID;
-                var apiProduct = ProductMgr.getProduct(productID);
-                marketingProduct = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
-                if (marketingProduct !== null) {
-                    marketingProductsData.push(marketingProduct);
-                }
+        for (var i = 0; i < productSearch.productIds.length; i++) {
+            var productID = productSearch.productIds[i].productID;
+            var apiProduct = ProductMgr.getProduct(productID);
+            marketingProduct = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
+            if (marketingProduct !== null) {
+                marketingProductsData.push(marketingProduct);
             }
-            marketingProductData = JSON.stringify(marketingProductsData);
-    
         }
+        marketingProductData = JSON.stringify(marketingProductsData);
 
         res.json({
             marketingProductData: marketingProductData
