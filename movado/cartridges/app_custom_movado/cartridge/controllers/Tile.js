@@ -66,7 +66,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     const productGtmObj = productCustomHelpers.getProductGtmObj(product, categoryName, productTileParams.position);
     const qvGtmObj = productCustomHelpers.getQVGtmObj(product, categoryName);
 
-    const context = {
+    let context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
         product: product,
         apiProduct: !empty(showProductPageHelperResult) ? showProductPageHelperResult.product : '',
@@ -88,7 +88,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         plpProductFamilyName: SitePrefrence.plpProductFamilyName ? SitePrefrence.plpProductFamilyName : false
     };
     
-    const viewData = res.getViewData();
+    let viewData = res.getViewData();
     const readyToOrder = showProductPageHelperResult.product.readyToOrder ? showProductPageHelperResult.product.readyToOrder : '';
     viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl ? showProductPageHelperResult.addToCartUrl : '';
     viewData.product = showProductPageHelperResult.product ? showProductPageHelperResult.product : '';

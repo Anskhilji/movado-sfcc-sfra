@@ -1,5 +1,5 @@
-	<isif condition="${pdict.marketingProductData}">
-    <div id="marketingProductData" data-marketing-product-data="${pdict.marketingProductData}" class="d-none"></div>
+<isif condition="${pdict.marketingProductUrl}">
+    <div id="marketingProductData" data-marketing-product-url="${pdict.marketingProductUrl}" class="d-none"></div>
 </isif>
 <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
 <isset name="plpTileSlotPosition" value="${!empty(sitePref.plpTileSlotPosition) ? JSON.parse(sitePref.plpTileSlotPosition) : false}" scope="page" />
@@ -34,7 +34,7 @@
                         </div>
                     </isif>
                 </isif>
-            </isloop>
+            </isloop>.
         </isif>
             <div class="${pdict.isEyewearTile ? 'col-12 col-sm-4 col-lg-4' : (pdict.isEnableSingleProductRow ? 'col-12 col-sm-4 col-lg-4': 'col-6 col-sm-4 col-lg-3')}">
                 <isobject object="${product.productSearchHit}" view="searchhit">

@@ -29,28 +29,6 @@ const YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogge
 var marketingProductsData = [];
 
 server.append(
-    'Show',
-    function (req, res, next) {
-        const viewData = res.getViewData();
-        if (viewData.productSearch && viewData.productSearch.category && viewData.productSearch.category.id) {
-            for (let i = 0; i < viewData.productSearch.productIds.length; i++) {
-                const apiProduct = ProductMgr.getProduct(viewData.productSearch.productIds[i].productID);
-                const quantity = 0;
-                if (!empty(apiProduct)) {
-                    marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
-                }
-            }
-            viewData.marketingProductData = JSON.stringify(marketingProductsData);
-            viewData = {
-                relativeURL: URLUtils.url('Search-Show', 'cgid', viewData.productSearch.category.id)
-            };
-        }
-        res.setViewData(viewData);
-        next();
-    }
-);
-
-server.append(
     'ShowContent',
     function (req, res, next) {
         var viewData = res.getViewData();
@@ -73,7 +51,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     });
 
     const isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with') && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
-    const apiProductSearch = new ProductSearchModel();
+    let apiProductSearch = new ProductSearchModel();
     const maxSlots = 4;
     let categoryAnalyticsTrackingData,reportingURLs
     const searchRedirect = reqQuerystring.q ? apiProductSearch.getSearchRedirect(reqQuerystring.q) : null;
@@ -106,7 +84,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     }
 
     // Create product search instance
-    const productSearch = new ProductSearch(
+    let productSearch = new ProductSearch(
         apiProductSearch,
         reqQuerystring,
         reqQuerystring.srule,
@@ -117,7 +95,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     // Set page meta tags
     pageMetaHelper.setPageMetaTags(req.pageMetaData, productSearch);
 
-    const refineurl = URLUtils.url('Search-Refinebar');
+    let refineurl = URLUtils.url('Search-Refinebar');
     const whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule', 'pmid'];
     let isRefinedSearch = false;
 
@@ -272,8 +250,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
 }, pageMetaData.computedPageMetaData);
 
 server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, res, next) {
-    var ProductMgr = require('dw/catalog/ProductMgr');
-    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var productGridTemplate = '/search/productGrid';
     var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
@@ -297,14 +273,6 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
     );
 
     if (productSearch && productSearch.category && productSearch.category.id) {
-        for (var i = 0; i < productSearch.productIds.length; i++) {
-            apiProduct = ProductMgr.getProduct(productSearch.productIds[i].productID);
-            marketingProduct = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
-            if (marketingProduct !== null) {
-                marketingProductsData.push(marketingProduct);
-            }
-        }
-        marketingProductData = JSON.stringify(marketingProductsData);
         isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
         isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
         isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
@@ -317,10 +285,42 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
         marketingProductData: marketingProductData,
         isEnableSingleProductRow: isEnableSingleProductRow,
         isEyewearTile: isEyewearTile,
-        isNonWatchesTileEnable: isNonWatchesTileEnable
+        marketingProductUrl : URLUtils.url('Search-GetMarketingProducts', 'productSearch', JSON.stringify(productSearch))
     });
 
     next();
 });
+
+server.get(
+    'GetMarketingProducts',
+    server.middleware.https,
+    function (req, res, next) { 
+        const ProductMgr = require('dw/catalog/ProductMgr');
+        const productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+
+        const productSearch = JSON.parse(req.querystring.productSearch);
+        const quantity = 0;
+        let marketingProductsData = [];
+        let marketingProduct,marketingProductData;
+
+        if (productSearch && productSearch.category && productSearch.category.id) {
+            for (var i = 0; i < productSearch.productIds.length; i++) {
+                var productID = productSearch.productIds[i].productID;
+                var apiProduct = ProductMgr.getProduct(productID);
+                marketingProduct = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
+                if (marketingProduct !== null) {
+                    marketingProductsData.push(marketingProduct);
+                }
+            }
+            marketingProductData = JSON.stringify(marketingProductsData);
+    
+        }
+
+        res.json({
+            marketingProductData: marketingProductData
+        });
+
+        next();
+    });
 
 module.exports = server.exports();

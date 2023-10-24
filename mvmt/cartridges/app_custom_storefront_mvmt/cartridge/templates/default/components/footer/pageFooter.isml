@@ -26,13 +26,12 @@
                     </div>
                 </div>
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <div class="desktop-esw-country">
-                    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
-                    <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
-                        <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
-                        !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
-                    </isif>
-                </div>
+                <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+                <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
+                    <div class="esw-country-selector-footer desktop-esw-country" data-url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
+                        !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}">
+                    </div>  
+                </isif>
                 <iscomment> Custom End </iscomment>
             </div>
             <div class="footer-left-contents footer-item col-sm-4 col-lg-3 d-none">
@@ -75,13 +74,12 @@
                 </div>
             </div>
             <iscomment> Custom Start: Adding ESW Logic </iscomment>
-            <div class="mobile-esw-contury">
-                <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
-                <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
-                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
-                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
-                </isif>
-            </div>
+            <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+            <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
+                <div class="esw-country-selector-footer mobile-esw-contury" data-url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
+                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}">
+                </div>  
+            </isif>
             <iscomment> Custom End </iscomment>
         </div>
         <div class="terms-and-conditions justify-content-center row">

@@ -124,11 +124,10 @@ function getPlPDepartmentCategory(apiProductSearch) {
 }
 
 function getSingleColumnPerRow(productSearch) {
-    const CatalogMgr = require('dw/catalog/CatalogMgr');
     let currentCategory;
     const isEnableSingleProductRow;
-    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
-        currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+    if (!empty(productSearch) && !empty(productSearch.productSearch) &&  !empty(productSearch.productSearch.category)) {
+        currentCategory = productSearch.productSearch.category;
         if (!empty(currentCategory.custom.isEnableSingleProductRow)) {
             isEnableSingleProductRow = currentCategory.custom.isEnableSingleProductRow;
         }
@@ -137,11 +136,10 @@ function getSingleColumnPerRow(productSearch) {
 }
 
 function getIsNonWatchesTileAttribute (productSearch) {
-    const CatalogMgr = require('dw/catalog/CatalogMgr');
     const isNonWatchesTileEnable = false;
     let currentCategory;
-    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
-        currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+    if (!empty(productSearch) && !empty(productSearch.productSearch) &&  !empty(productSearch.productSearch.category)) {
+        currentCategory = productSearch.productSearch.category;
         if (!empty(currentCategory.custom.isNonWatchesTile)) {
             isNonWatchesTileEnable = currentCategory.custom.isNonWatchesTile;
         }
@@ -150,10 +148,9 @@ function getIsNonWatchesTileAttribute (productSearch) {
 }
 
 function getEyewearTile(productSearch) {
-    const CatalogMgr = require('dw/catalog/CatalogMgr');
     const isEyewearTile = false;
-    if (!empty(productSearch) && productSearch.category && !empty(productSearch.category.id)) {
-        const currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+    if (!empty(productSearch) && !empty(productSearch.productSearch) &&  !empty(productSearch.productSearch.category)) {
+        const currentCategory = productSearch.productSearch.category;
         const currentCategoryTemplate = currentCategory.template;
         const categoryTemplateEyewear = 'search/searchResultsEyewear';
         if (currentCategoryTemplate == categoryTemplateEyewear) {
