@@ -961,7 +961,7 @@ function getMarketingProducts(apiProduct, quantity) {
         productModel = productFactory.get({pid: apiProduct.ID});
 
 
-        if(defaultVariantPrice) {
+        if (defaultVariantPrice) {
             if (defaultVariantPrice.sales) {
                 price = defaultVariantPrice.sales.value;
             } else {

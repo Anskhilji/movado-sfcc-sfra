@@ -57,9 +57,9 @@ function getBreadCrumbs(classificationFolder, breadcrumbs) {
  * @returns {Object} 
  */
 function getCategoryBreadcrumb(categoryObj) {
-    const primaryCategory = '';
-    const secondaryCategory = '';
-    const tertiaryCategory = '';
+    let primaryCategory = '';
+    let secondaryCategory = '';
+    let tertiaryCategory = '';
     const levelCount = 0;
     if (categoryObj) {
         const categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
@@ -109,7 +109,7 @@ function getCategoryLevelCount(category, levelCount) {
  * @returns categoryNameWithoutApostrophe
  */
 function getPlPDepartmentCategory(apiProductSearch) {
-    const plpCategory = '';
+    let plpCategory = '';
     try {
         if (apiProductSearch && apiProductSearch.category && apiProductSearch.category.ID) {
             const productBreadcrumbs  = getCategoryBreadcrumb(apiProductSearch.category);
@@ -136,7 +136,7 @@ function getSingleColumnPerRow(productSearch) {
 }
 
 function getIsNonWatchesTileAttribute (productSearch) {
-    const isNonWatchesTileEnable = false;
+    let isNonWatchesTileEnable = false;
     let currentCategory;
     if (!empty(productSearch) && !empty(productSearch.productSearch) &&  !empty(productSearch.productSearch.category)) {
         currentCategory = productSearch.productSearch.category;
@@ -148,7 +148,7 @@ function getIsNonWatchesTileAttribute (productSearch) {
 }
 
 function getEyewearTile(productSearch) {
-    const isEyewearTile = false;
+    let isEyewearTile = false;
     if (!empty(productSearch) && !empty(productSearch.productSearch) &&  !empty(productSearch.productSearch.category)) {
         const currentCategory = productSearch.productSearch.category;
         const currentCategoryTemplate = currentCategory.template;
