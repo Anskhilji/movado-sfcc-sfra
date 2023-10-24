@@ -26,8 +26,6 @@ const Resource = require('dw/web/Resource');
 const YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
 const YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
 
-var marketingProductsData = [];
-
 server.append(
     'ShowContent',
     function (req, res, next) {
