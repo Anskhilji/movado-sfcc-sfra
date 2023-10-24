@@ -19,14 +19,16 @@ header {
     .checkout-header-wrapper {
 
         .minicart-link {
-            width: rem(16);
-            height: rem(16);
+            width: rem(44);
+            height: rem(44);
             background: url(../../images/shopping-bag.svg) center center no-repeat;
+            top: rem(-14);
+            right: rem(-14);
         }
 
         .minicart-quantity { 
-            right: rem(-3);
-            top: rem(-1);
+            right: rem(11);
+            top: rem(13);
             width: rem(4);
             height: rem(4);
         }
@@ -51,6 +53,16 @@ header {
                 .logo-checkout-text {
                     font-family: $the-futura-font;
                 }
+            }
+        }
+    }
+
+    .header-redesign-wrapper2 {
+
+        .checkout-header-wrapper {
+            
+            .minicart-link {
+                top: rem(0);
             }
         }
     }
