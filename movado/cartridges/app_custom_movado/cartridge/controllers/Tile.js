@@ -17,7 +17,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
     var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
     var SitePrefrence = Site.getCurrent().preferences.custom;
-    var context = {};
     
     // The req parameter has a property called querystring. In this use case the querystring could
     // have the following:
@@ -31,12 +30,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
 
     Object.keys(req.querystring).forEach(function (key) {
         productTileParams[key] = req.querystring[key];
-        if (req.querystring[key] === 'true') {
-            context.display[key] = true;
-
-        } else if (req.querystring[key] === 'false') {
-            context.display[key] = false;
-        }
     });
     
     var product,productUrl,quickViewUrl;
@@ -77,7 +70,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var productGtmObj = productCustomHelpers.getProductGtmObj(product, categoryName, productTileParams.position);
     var qvGtmObj = productCustomHelpers.getQVGtmObj(product, categoryName);
 
-    context = {
+    var context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
         product: product,
         apiProduct: !empty(showProductPageHelperResult) ? showProductPageHelperResult.product : '',
@@ -109,7 +102,13 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     viewData.customURL = customURL;
     res.setViewData(viewData);
 
-
+    Object.keys(req.querystring).forEach(function (key) {
+        if (req.querystring[key] === 'true') {
+            context.display[key] = true;
+        } else if (req.querystring[key] === 'false') {
+            context.display[key] = false;
+        }
+    });
     
     if (SitePrefrence.isReviewsEnableOnPlp) {
         try {
