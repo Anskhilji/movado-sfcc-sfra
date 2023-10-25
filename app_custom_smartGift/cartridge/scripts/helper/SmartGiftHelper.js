@@ -4,16 +4,16 @@ var ProductMgr = require('dw/catalog/ProductMgr');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
-const getSmartGiftCardBasket = function(productID) {
-    const isEnableSmartGift = Site.getCurrent().getCustomPreferenceValue('enableSmartGift');
-    const productUrl = URLUtils.abs('Product-Show', 'pid', productID);
-    const smartGift;
+var getSmartGiftCardBasket = function(productID) {
+    var isEnableSmartGift = Site.getCurrent().getCustomPreferenceValue('enableSmartGift');
+    var productUrl = URLUtils.abs('Product-Show', 'pid', productID);
+    var smartGift;
     if (isEnableSmartGift && productID) {
-        const apiProduct = ProductMgr.getProduct(productID);
-        const imageFile = apiProduct.getImage('large', 0);
-        const imagePath = imageFile ? imageFile.absURL : '';
-        let quantity = 0;
-        const inventoryRecord =  apiProduct.getAvailabilityModel().getInventoryRecord();
+        var apiProduct = ProductMgr.getProduct(productID);
+        var imageFile = apiProduct.getImage('large', 0);
+        var imagePath = imageFile ? imageFile.absURL : '';
+        var quantity = 0;
+        var inventoryRecord =  apiProduct.getAvailabilityModel().getInventoryRecord();
         if (inventoryRecord) { 
             quantity = inventoryRecord.ATS.available ? 1 : 0;
         }

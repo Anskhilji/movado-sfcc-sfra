@@ -19,12 +19,12 @@ var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
 var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
 
-const reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
-const pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
-const productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-const Resource = require('dw/web/Resource');
-const YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
-const YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
+var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
+var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+var Resource = require('dw/web/Resource');
+var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
+var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
 
 server.append(
     'ShowContent',
@@ -41,18 +41,18 @@ server.append(
 );
 
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-    const reqQuerystring = req.querystring;
-    const compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
+    var reqQuerystring = req.querystring;
+    var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
 
     res.setViewData({
         compareBoxEnabled: compareBoxEnabled,
     });
 
-    const isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with') && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
-    let apiProductSearch = new ProductSearchModel();
-    const maxSlots = 4;
-    let categoryAnalyticsTrackingData,reportingURLs
-    const searchRedirect = reqQuerystring.q ? apiProductSearch.getSearchRedirect(reqQuerystring.q) : null;
+    var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with') && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
+    var apiProductSearch = new ProductSearchModel();
+    var maxSlots = 4;
+    var categoryAnalyticsTrackingData,reportingURLs
+    var searchRedirect = reqQuerystring.q ? apiProductSearch.getSearchRedirect(reqQuerystring.q) : null;
 
     if (searchRedirect) {
         res.redirect(searchRedirect.getLocation());
@@ -63,7 +63,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, reqQuerystring);
     apiProductSearch.search();
 
-    let departmentCategoryName = searchCustomHelper.getPlPDepartmentCategory(apiProductSearch);
+    var departmentCategoryName = searchCustomHelper.getPlPDepartmentCategory(apiProductSearch);
     if (empty(departmentCategoryName)) {
         departmentCategoryName = req.querystring.q ? stringUtils.removeSingleQuotes(req.querystring.q) : '';
     }
@@ -71,9 +71,9 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         departmentCategoryName: departmentCategoryName
     });
 
-    let categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
-    let resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
-    const categoryTemplateEyewear = 'search/searchResultsEyewear';
+    var categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
+    var resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
+    var categoryTemplateEyewear = 'search/searchResultsEyewear';
 
     if (categoryTemplate === categoryTemplateEyewear) {
         categoryTemplate = '/search/searchResultsEyewear';
@@ -82,7 +82,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     }
 
     // Create product search instance
-    let productSearch = new ProductSearch(
+    var productSearch = new ProductSearch(
         apiProductSearch,
         reqQuerystring,
         reqQuerystring.srule,
@@ -93,9 +93,9 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     // Set page meta tags
     pageMetaHelper.setPageMetaTags(req.pageMetaData, productSearch);
 
-    let refineurl = URLUtils.url('Search-Refinebar');
-    const whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule', 'pmid'];
-    let isRefinedSearch = false;
+    var refineurl = URLUtils.url('Search-Refinebar');
+    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule', 'pmid'];
+    var isRefinedSearch = false;
 
     Object.keys(reqQuerystring).forEach(function (element) {
         if (whitelistedParams.indexOf(element) > -1) {
@@ -107,7 +107,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         }
 
         if (element === 'preferences') {
-            let i = 1;
+            var i = 1;
             isRefinedSearch = true;
             Object.keys(reqQuerystring[element]).forEach(function (preference) {
                 refineurl.append('prefn' + i, preference);
@@ -117,9 +117,9 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         }
     });
 
-    const isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
-    const isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
-    const isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
+    var isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
+    var isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
+    var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
 
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
@@ -127,11 +127,11 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
 
     if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         if (productSearch && productSearch.category && productSearch.category.id) {
-            const categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(productSearch.category.name);
+            var categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(productSearch.category.name);
         } else {
-            const searchQueryWithoutApostrophe = stringUtils.removeSingleQuotes(reqQuerystring.q);
+            var searchQueryWithoutApostrophe = stringUtils.removeSingleQuotes(reqQuerystring.q);
         }
-        const email = (customer.isAuthenticated() && customer.getProfile()) ? customer.getProfile().getEmail() : '';
+        var email = (customer.isAuthenticated() && customer.getProfile()) ? customer.getProfile().getEmail() : '';
 
         categoryAnalyticsTrackingData = {
             categoryId: categoryNameWithoutApostrophe || '',
@@ -183,8 +183,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     }
 
     if (productSearch.category) {
-        const categoryId = productSearch.category.id;
-        const breadcrumbs = productHelper.getAllBreadcrumbs(categoryId,null,[]);
+        var categoryId = productSearch.category.id;
+        var breadcrumbs = productHelper.getAllBreadcrumbs(categoryId,null,[]);
 
         breadcrumbs.push({
             htmlValue: Resource.msg('label.search.home', 'search', null),
@@ -197,16 +197,16 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             breadcrumbs: breadcrumbs
         });
     } else if (productSearch.searchKeywords) {
-        const facetNav = false;
+        var facetNav = false;
         if (reqQuerystring.pmin || reqQuerystring.prefn1) {
             facetNav = true;
         }
 
         if (productSearch.count === 1 && productSearch.productIds.length > 0 && !facetNav) {
-            const prodId = productSearch.productIds[0].productID;
+            var prodId = productSearch.productIds[0].productID;
             res.redirect(URLUtils.url('Product-Show', 'pid', prodId));
         } else {
-            const breadcrumb = productHelper.getAllBreadcrumbs(null, null, [
+            var breadcrumb = productHelper.getAllBreadcrumbs(null, null, [
                 {
                     htmlValue: Resource.msg(
                         'label.search.home',
@@ -221,9 +221,9 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 }
             ]);
 
-            const reqStr = req.querystring;
+            var reqStr = req.querystring;
             reqStr.startingPage = 0;
-            const contentSearch = searchHelper.setupContentSearch(reqStr);
+            var contentSearch = searchHelper.setupContentSearch(reqStr);
             
             res.setViewData({
                 breadcrumbs: breadcrumb,
@@ -234,8 +234,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     }
     
     try {
-        const viewData = res.getViewData();
-        const yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+        var viewData = res.getViewData();
+        var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
         if (yotpoConfig.isCartridgeEnabled) {
             session.custom.yotpoConfig = yotpoConfig;

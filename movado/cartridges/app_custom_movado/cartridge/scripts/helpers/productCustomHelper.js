@@ -116,11 +116,11 @@ function getPdpVideoConfigs(apiProduct) {
  */
 
  function getPLPCustomURL(product) {
-     const Site = require('dw/system/Site');
-     const URLUtils = require('dw/web/URLUtils');
-     let customURL;
-     const customURLObj = !empty(Site.current.preferences.custom.plpCustomUrl) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
-     const brandID = Site.current.ID;
+     var Site = require('dw/system/Site');
+     var URLUtils = require('dw/web/URLUtils');
+     var customURL;
+     var customURLObj = !empty(Site.current.preferences.custom.plpCustomUrl) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
+     var brandID = Site.current.ID;
      try {
          if (customURLObj && customURLObj[brandID]) {
              if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
@@ -477,10 +477,10 @@ function getBadWordsList() {
 
 function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry) {
     try {
-        const isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
-        const eswRestrictedProducts = !empty(Site.current.preferences.custom.eswRestrictedProducts) ? Site.current.preferences.custom.eswRestrictedProducts : '';
-        let isProductNotRestrictedOnEswCountries = false;
-        const productId = apiProduct && apiProduct.ID ? apiProduct.ID : apiProduct.id;
+        var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
+        var eswRestrictedProducts = !empty(Site.current.preferences.custom.eswRestrictedProducts) ? Site.current.preferences.custom.eswRestrictedProducts : '';
+        var isProductNotRestrictedOnEswCountries = false;
+        var productId = apiProduct && apiProduct.ID ? apiProduct.ID : apiProduct.id;
 
         if (eswRestrictedProducts.length > 0) {
             eswRestrictedProducts.filter(function (id) {
