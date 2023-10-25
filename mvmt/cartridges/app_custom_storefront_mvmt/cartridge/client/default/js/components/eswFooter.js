@@ -1,7 +1,5 @@
 'use strict';
 
-var eswCountrySelector = $('.esw-country-selector');
-var dropdownCountrySelector = $('.dropdown-country-selector');
 var eswFooterSelector = $('.esw-country-selector-footer');
 
 $(document).ready(function () {
@@ -21,12 +19,12 @@ $(document).ready(function () {
 $('.esw-country-selector-footer').hover(
 
     function () {
-        eswCountrySelector.addClass('show');
-        dropdownCountrySelector.addClass('show');
+        $('.esw-country-selector').addClass('show');
+        $('.dropdown-country-selector').addClass('show');
     },
 
     function () {
-        eswCountrySelector.removeClass('show');
-        dropdownCountrySelector.removeClass('show');
+        $('.esw-country-selector').removeClass('show');
+        $('.dropdown-country-selector').removeClass('show');
     }
 );

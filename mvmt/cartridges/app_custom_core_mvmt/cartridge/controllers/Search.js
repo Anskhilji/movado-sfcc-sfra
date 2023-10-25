@@ -233,15 +233,17 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         }
     }
     
-    try {
-        var viewData = res.getViewData();
-        var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+    if (Site.current.getCustomPreferenceValue('isReviewsEnableOnPlp')) {
+        try {
+            var viewData = res.getViewData();
+            var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
-        if (yotpoConfig.isCartridgeEnabled) {
-            session.custom.yotpoConfig = yotpoConfig;
+            if (yotpoConfig.isCartridgeEnabled) {
+                session.custom.yotpoConfig = yotpoConfig;
+            }
+        } catch (ex) {
+            YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews configuration data, Exception code is: ' + ex, 'error', 'Yotpo~Search-Show');
         }
-    } catch (ex) {
-        YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews configuration data, Exception code is: ' + ex, 'error', 'Yotpo~Search-Show');
     }
 
     return next();

@@ -17,6 +17,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
     var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
     var SitePrefrence = Site.getCurrent().preferences.custom;
+    var context = {};
     
     // The req parameter has a property called querystring. In this use case the querystring could
     // have the following:
@@ -27,8 +28,15 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     // pview - string to determine if the product factory returns a model for
     //         a tile or a pdp/quickview display
     var productTileParams = { pview: 'tile' };
+
     Object.keys(req.querystring).forEach(function (key) {
         productTileParams[key] = req.querystring[key];
+        if (req.querystring[key] === 'true') {
+            context.display[key] = true;
+
+        } else if (req.querystring[key] === 'false') {
+            context.display[key] = false;
+        }
     });
     
     var product,productUrl,quickViewUrl;
@@ -69,7 +77,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var productGtmObj = productCustomHelpers.getProductGtmObj(product, categoryName, productTileParams.position);
     var qvGtmObj = productCustomHelpers.getQVGtmObj(product, categoryName);
 
-    var context = {
+    context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
         product: product,
         apiProduct: !empty(showProductPageHelperResult) ? showProductPageHelperResult.product : '',
@@ -101,31 +109,27 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     viewData.customURL = customURL;
     res.setViewData(viewData);
 
-    Object.keys(req.querystring).forEach(function (key) {
-        if (req.querystring[key] === 'true') {
-            context.display[key] = true;
-        } else if (req.querystring[key] === 'false') {
-            context.display[key] = false;
-        }
-    });
+
     
-    try {
-        if (!empty(session.custom.yotpoConfig)) {
-            viewData = res.getViewData();
-            viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(session.custom.yotpoConfig, req.querystring.pid);
-            res.setViewData(viewData);
-        }
-        else {
+    if (SitePrefrence.isReviewsEnableOnPlp) {
+        try {
+            if (!empty(session.custom.yotpoConfig)) {
                 viewData = res.getViewData();
-                var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
-        
-                if (yotpoConfig.isCartridgeEnabled) {
-                    viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, req.querystring.pid);
-                    res.setViewData(viewData);
-                }
+                viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(session.custom.yotpoConfig, req.querystring.pid);
+                res.setViewData(viewData);
+            }
+            else {
+                    viewData = res.getViewData();
+                    var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+            
+                    if (yotpoConfig.isCartridgeEnabled) {
+                        viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, req.querystring.pid);
+                        res.setViewData(viewData);
+                    }
+            }
+        } catch (ex) {
+            YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews data for current product, Exception code is: ' + ex, 'error', 'Yotpo~Tile-Show');
         }
-    } catch (ex) {
-        YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews data for current product, Exception code is: ' + ex, 'error', 'Yotpo~Tile-Show');
     }
 
     res.render('product/gridTile.isml', context);   
