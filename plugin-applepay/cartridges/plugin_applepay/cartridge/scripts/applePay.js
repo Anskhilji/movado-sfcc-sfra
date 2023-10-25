@@ -20,6 +20,7 @@ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Constants = require('*/cartridge/utils/Constants');
 var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var usStateCodes = require('*/cartridge/scripts/helpers/usStateCodesHelper');
 
 var server = require('server');
 
@@ -191,6 +192,10 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     // State code Check for billing Address
     var billingStateCode = order.getBillingAddress().stateCode ? order.getBillingAddress().stateCode.toUpperCase() : '';
 
+    if (billingStateCode.length > 1) {
+        billingStateCode = usStateCodes.getStateCodeByStateName(billingStateCode);
+    }
+
     if (!empty(billingStateCode)) {
         Transaction.wrap(function () {
             order.billingAddress.stateCode = billingStateCode;
@@ -238,6 +243,10 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim().toUpperCase() : '';
+
+            if (shippingAddressStateCode.length > 1) {
+                shippingAddressStateCode = usStateCodes.getStateCodeByStateName(shippingAddressStateCode);
+            }
 
             if (!empty(shippingAddressStateCode)) {
                 Transaction.wrap(function () {
