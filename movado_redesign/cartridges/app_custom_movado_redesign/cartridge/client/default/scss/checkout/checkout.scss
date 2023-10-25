@@ -24,8 +24,8 @@ header {
             background: url(../../images/shopping-bag.svg) center center no-repeat;
             top: rem(-14);
             right: rem(-14);
-            
-            @include media-breakpoint-down(md) {
+
+            @include media-breakpoint-down(lg) {
                 top: 0;
             }
         }
