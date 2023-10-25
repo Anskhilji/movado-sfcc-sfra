@@ -24,6 +24,10 @@ header {
             background: url(../../images/shopping-bag.svg) center center no-repeat;
             top: rem(-14);
             right: rem(-14);
+            
+            @include media-breakpoint-down(md) {
+                top: 0;
+            }
         }
 
         .minicart-quantity { 
