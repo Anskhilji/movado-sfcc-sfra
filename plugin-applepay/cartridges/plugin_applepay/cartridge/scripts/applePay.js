@@ -196,12 +196,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         billingStateCode = usStateCodes.getStateCodeByStateName(billingStateCode);
     }
 
-    if (!empty(billingStateCode)) {
-        Transaction.wrap(function () {
-            order.billingAddress.stateCode = billingStateCode;
-        });
-    }
-
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
         var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
@@ -248,12 +242,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
                 shippingAddressStateCode = usStateCodes.getStateCodeByStateName(shippingAddressStateCode);
             }
 
-            if (!empty(shippingAddressStateCode)) {
-                Transaction.wrap(function () {
-                    orderShippingAddress.setStateCode(shippingAddressStateCode);
-                });
-            }
-
             var shippingAddressCountryCode = !empty(orderShippingAddress.countryCode) ? orderShippingAddress.countryCode.value : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
@@ -272,6 +260,10 @@ exports.afterAuthorization = function (order, payment, custom, status) {
                 deliveryValidationFail = true;
                 Logger.error('Selected state is {0} which is restricted for order: {1}', shippingAddressStateCode, order.orderNo);
             }
+
+            Transaction.wrap(function () {
+                orderShippingAddress.setStateCode(shippingAddressStateCode);
+            });
         }
 
         if (billingStateCode) {
@@ -284,6 +276,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
                 deliveryValidationFail = true;
                 Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
             }
+
+
+            Transaction.wrap(function () {
+                order.billingAddress.stateCode = billingStateCode;
+            });
+            
         }
 
         var email = order.customerEmail;
