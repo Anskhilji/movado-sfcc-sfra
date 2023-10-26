@@ -220,7 +220,7 @@ function createOrderCustomAttr(order) {
         try {
             while (productLineItemsItr.hasNext()) {
                 var productLineItem = productLineItemsItr.next();
-                if (!empty(productLineItem.optionID)) {
+                if (!empty(productLineItem.optionID) && !empty(productLineItem.custom.clydeAssociatedProductSku) && !empty(productLineItem.custom.ClydeContractSku)) {
                     if (productLineItem.optionID === clydeConstants.CLYDE_OPTION_PRODUCT_ID) {
                         var clydeItem = {
                             productId: productLineItem.custom.clydeAssociatedProductSku,
@@ -232,7 +232,7 @@ function createOrderCustomAttr(order) {
                     }
                 }
             }
-            if (contractjsonObj.length > 0) {
+            if (contractjsonObj.length > 0 && !empty(contractjsonObj.productId) && !empty(contractjsonObj.contractSku)) {
                 Transaction.wrap(function () {
                     currentOrder.custom.isContainClydeContract = true;
                     currentOrder.custom.clydeContractProductMapping = JSON.stringify(contractjsonObj);

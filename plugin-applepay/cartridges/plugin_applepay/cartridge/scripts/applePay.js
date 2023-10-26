@@ -540,6 +540,17 @@ exports.beforeAuthorization = function (order, payment, custom) {
     var optionProductLineItem;
     var pulseIdConstants;
 
+
+    // remove null option line item
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+        
+        if (!empty(optionProductLineItem)) {
+            customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
+        }
+    }
+
     /**
      * Custom Start: Clyde Integration
      */
@@ -574,16 +585,6 @@ exports.beforeAuthorization = function (order, payment, custom) {
     /**
      * Custom: End
      */
-
-    // remove null option line item
-    while (orderLineItemsIterator.hasNext()) {
-        productLineItem = orderLineItemsIterator.next();
-        optionProductLineItem = productLineItem.optionProductLineItems.iterator();
-        
-        if (!empty(optionProductLineItem)) {
-            customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
-        }
-    }
 
     var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);
     RiskifiedService.storePaymentDetails({
