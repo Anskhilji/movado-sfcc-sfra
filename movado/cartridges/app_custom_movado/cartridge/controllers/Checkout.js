@@ -161,7 +161,7 @@ server.append(
         Transaction.wrap(function () {
             if (productLineItem instanceof dw.order.ProductLineItem &&
                 !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItem) {
-                productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                productLineItem.custom.ClydeProductUnitPrice = productLineItem.basePrice.decimalValue ? productLineItem.basePrice.decimalValue : '';
             }
         });
 
