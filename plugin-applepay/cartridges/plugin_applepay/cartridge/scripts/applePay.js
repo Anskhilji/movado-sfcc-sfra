@@ -277,7 +277,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
                 Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
             }
 
-
             Transaction.wrap(function () {
                 order.billingAddress.stateCode = billingStateCode;
             });
