@@ -109,6 +109,8 @@ function getLastName(fullName, order) {
  * @returns status
  */
 exports.afterAuthorization = function (order, payment, custom, status) {
+    var billingFormServer;
+    var billingFormServerStateCode;
     var isBillingPostalNotValid;
     var orderShippingAddress;
     var isShippingPostalNotValid;
@@ -116,6 +118,8 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var paymentInstruments = order.getPaymentInstruments(
         PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     var currentCountry = productCustomHelper.getCurrentCountry();
+    var shippingFormServer;
+    var shippingFormServerStateCode;
     if (!paymentInstruments.length) {
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
@@ -189,11 +193,16 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
         deliveryValidationFail = true;
     }
+
+    
     // State code Check for billing Address
     var billingStateCode = order.getBillingAddress().stateCode ? order.getBillingAddress().stateCode.toUpperCase() : '';
+    
+    billingFormServer = server.forms.getForm('billing');
+    billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
 
     if (billingStateCode.length > 1) {
-        billingStateCode = usStateCodes.getStateCodeByStateName(billingStateCode);
+        billingStateCode = usStateCodes.getStateCodeByStateName(billingFormServerStateCode, billingStateCode);
     }
 
     try {
@@ -238,8 +247,11 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim().toUpperCase() : '';
 
+            var shippingFormServer = server.forms.getForm('shipping');
+            var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
+
             if (shippingAddressStateCode.length > 1) {
-                shippingAddressStateCode = usStateCodes.getStateCodeByStateName(shippingAddressStateCode);
+                shippingAddressStateCode = usStateCodes.getStateCodeByStateName(shippingFormServerStateCode, shippingAddressStateCode);
             }
 
             var shippingAddressCountryCode = !empty(orderShippingAddress.countryCode) ? orderShippingAddress.countryCode.value : '';
@@ -251,8 +263,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         }
 
         if (shippingAddressStateCode) {
-            var shippingFormServer = server.forms.getForm('shipping');
-            var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
             var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(shippingFormServerStateCode, shippingAddressStateCode);
 
             if ((!empty(isValidStateCode) && !isValidStateCode) || (empty(isValidStateCode) && shippingAddressCountryCode == Constants.COUNTRY_US)) {
@@ -267,8 +277,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         }
 
         if (billingStateCode) {
-            var billingFormServer = server.forms.getForm('billing');
-            var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
             var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(billingFormServerStateCode, billingStateCode);
 
             if ((!empty(isValidStateCode) && !isValidStateCode) || (empty(isValidStateCode) && billCountryCode == Constants.COUNTRY_US)) {

@@ -1,22 +1,5 @@
 'use strict';
 
-var Site = require('dw/system/Site');
-
-var usStateCodes = Site.current.preferences.custom.usStatesList;
-var stateNamesByCode = JSON.parse(usStateCodes);
-var stateCodesByName = getReversedJSON(stateNamesByCode);
-
-// normalizes case and removes invalid characters
-// returns null if can't find sanitized code in the state map
-var sanitizeStateCode = function(code) {
-    if (!code || typeof code !== 'string') {
-        return null;
-    }
-
-    code = code.trim().toUpperCase().replace(/[^A-Z]/g, '');
-    return stateNamesByCode[code] ? code : null;
-}
-
 // normalizes case and removes invalid characters
 // returns null if can't find sanitized name in the state map
 function sanitizeStateName(name) {
@@ -38,35 +21,27 @@ function sanitizeStateName(name) {
     }
 
     name = tokens.join(' ');
-    return stateCodesByName[name] ? name : null;
-}
-
-
-// returns a valid state name else null
-function getStateNameByStateCode(code) {
-    return stateNamesByCode[sanitizeStateCode(code)] || null;
+    return name;
 }
 
 // returns a valid state code else null
-function getStateCodeByStateName(name) {
-    return stateCodesByName[sanitizeStateName(name)] || null;
-}
-
-function getReversedJSON(originalJSON) {
-    var reversedJSON = {};
-
-    Object.keys(originalJSON).forEach(function (key) {
-        if (originalJSON.hasOwnProperty(key)) {
-            reversedJSON[originalJSON[key]] = key;
+function getStateCodeByStateName(allowedStateNames, stateName) {
+    var currentStateCodeName;
+    var sanitizedStateName = sanitizeStateName(stateName) || null;
+    var stateCode = ''
+    if (!empty(allowedStateNames) && !empty(sanitizedStateName)) {
+        for (var index = 0; index < allowedStateNames.length; index++) {
+            currentStateCodeName = allowedStateNames[index].label.toString();
+            if (!empty(currentStateCodeName) && !empty(sanitizedStateName) && currentStateCodeName == sanitizedStateName) {
+                stateCode = allowedStateNames[index].id.toString();
+                break;
+            }
         }
-    });
-
-    return reversedJSON;
+    }
+    return stateCode;
 }
 
 module.exports = {
-  getStateNameByStateCode: getStateNameByStateCode,
   getStateCodeByStateName: getStateCodeByStateName,
-  sanitizeStateName: sanitizeStateName,
-  sanitizeStateCode: sanitizeStateCode
+  sanitizeStateName: sanitizeStateName
 };
