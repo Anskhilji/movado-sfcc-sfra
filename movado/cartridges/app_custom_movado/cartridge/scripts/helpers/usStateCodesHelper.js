@@ -52,16 +52,16 @@ function getStateCodeByStateName(name) {
     return stateCodesByName[sanitizeStateName(name)] || null;
 }
 
-function getReversedJSON(originalObject) {
-    var reversedObject = {};
+function getReversedJSON(originalJSON) {
+    var reversedJSON = {};
 
-    Object.keys(originalObject).forEach(function (key) {
-        if (originalObject.hasOwnProperty(key)) {
-            reversedObject[originalObject[key]] = key;
+    Object.keys(originalJSON).forEach(function (key) {
+        if (originalJSON.hasOwnProperty(key)) {
+            reversedJSON[originalJSON[key]] = key;
         }
     });
 
-    return reversedObject;
+    return reversedJSON;
 }
 
 module.exports = {
