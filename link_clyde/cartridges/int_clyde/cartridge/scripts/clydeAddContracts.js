@@ -232,7 +232,7 @@ function createOrderCustomAttr(order) {
                     }
                 }
             }
-            if (contractjsonObj.length > 0 && !empty(contractjsonObj.productId) && !empty(contractjsonObj.contractSku)) {
+            if (contractjsonObj.length > 0) {
                 Transaction.wrap(function () {
                     currentOrder.custom.isContainClydeContract = true;
                     currentOrder.custom.clydeContractProductMapping = JSON.stringify(contractjsonObj);
