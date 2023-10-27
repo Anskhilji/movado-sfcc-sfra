@@ -40,11 +40,9 @@ $(function() {
 
 if (window.innerWidth < 768) {
     $(window).on("scroll", function () {
-      if ($(this).scrollTop() > 5) {
+      if ($(this).scrollTop() > 5   ) {
         if ($(".new-header-deign.fixed-header").length) {
           $("#mainContent").addClass("pdp-maineConeten");
-          console.log("pdp");
-          alert("pdp justs")
         }
       } else {
         $("#mainContent").removeClass("pdp-maineConeten");
