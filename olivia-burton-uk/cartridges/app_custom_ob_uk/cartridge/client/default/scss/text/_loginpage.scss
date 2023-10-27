@@ -3,11 +3,13 @@
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
     letter-spacing: rem(0.4);
+    font-weight: 300;
   }
 
   .form-group {
     label {
       font-family: $font-gills-light;
+      font-weight: 300;
     }
   }
 
@@ -21,6 +23,7 @@
     font-family: $font-gills-light;
     font-size: $font-size-heading1;
     letter-spacing: rem(1);
+    font-weight: 300;
   }
 
   .nav-tabs {
@@ -29,6 +32,7 @@
       font-family: $font-gills-light;
       font-size: $font-size-heading3;
       letter-spacing: rem(1);
+      font-weight: 300;
     }
 
     .nav-link.active {

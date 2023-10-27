@@ -17,3 +17,9 @@ Line No: Start from 86 to 87
 Line No: Start from 90 to 91
 Line No: Start from 99 to 100
 Line No: Start from 110 to 111
+
+## app_custom_movado > clinet > defualt > js > adyen-cse.js
+Line No: Start from 92 to 112 add/ remove validation classes for auto validations
+
+## app_custom_movado > clinet > defualt > js > checkout.js
+Line No: Start from 103 to 554 add logic for auto or onchange validations for checkout fields.

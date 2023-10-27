@@ -1023,7 +1023,7 @@
                     .close-refinebar {
                         background-color: transparent;
                         border: none;
-                        font-family: $font-futura-pt-demi;
+                        font-family: $font-gill-std;
                         font-size: rem(15);
                         font-weight: 600;
                         letter-spacing: normal;
@@ -1585,36 +1585,22 @@
                     }
                     
                     @include media-breakpoint-up(sm) {
-                        padding-bottom: rem(160);
-                    }
-
-                    &.family-name-enabled {
-                        @include media-breakpoint-up(md) {
-                            padding-bottom: rem(160);
-                        }
-
-                        @include media-breakpoint-up(lg) {
-                            padding-bottom: rem(96);
-                        }
+                        padding-bottom: rem(0);
                     }
 
                     @include media-breakpoint-up(md) {
-                        padding-bottom: rem(136);
+                        padding-bottom: rem(195);
                     }
 
                     @include media-breakpoint-up(lg) {
-                        padding-bottom: rem(96);
-                    }
-
-                    @include media-breakpoint-up(xl) {
-                        padding-bottom: rem(96);
+                        padding-bottom: rem(133);
                     }
 
                     a {
                         height: 100%;
                         width: 100%;
                         position: relative;
-                        display: block;
+                        display: block !important; /*need to override inline style*/
                     }
 
                     .product-badge.redesigned {
@@ -1666,6 +1652,10 @@
 
                     @include media-breakpoint-up(sm) {
                         padding: rem(15) rem(20);
+                        position: relative;
+                    }
+
+                    @include media-breakpoint-up(md) {
                         position: absolute;
                     }
 
@@ -1854,9 +1844,9 @@
 
                         &:not(.out-of-stock-btn) {
                             &:hover {
-                                background-color: $gray20;
+                                background-color: $dark-cyan;
                                 color: $white;
-                                border-color: $gray20;
+                                border-color: $dark-cyan;
                             }
                         }
 
@@ -1952,10 +1942,11 @@
             &:hover,
             &:focus,
             &:active:focus {
-                background-color: $black;
+                background-color: $dark-cyan;
                 color: $white;
                 outline: none;
                 box-shadow: none;
+                border: rem(1) solid $dark-cyan;
             }
         }
 
@@ -2086,6 +2077,7 @@
 .pagination-wrapper {
     margin-top: rem(30);
 }
+
 .filter-and-count {
     visibility: hidden
 }
@@ -2109,7 +2101,6 @@
             max-width: rem(1140);
         }
   }
-
 
 .filter-count-visible { 
     visibility: visible;

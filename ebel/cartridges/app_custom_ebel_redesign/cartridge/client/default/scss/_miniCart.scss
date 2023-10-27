@@ -1,38 +1,44 @@
 .minicart {
+
+    .minicart-quantity {
+        background-color: $grey10;
+        height: rem(20);
+        width: rem(20);
+    }
      
     .bonus-line-item-heading {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
     }
 
     .sub-total-label {
-        font-family: $font-HelveticaNeueLT-bold;
+        font-family: $font-ProximaNova;
     }
 
     .promo-msg {
-        font-family: $font-HelveticaNeueLT-book;
+        font-family: $font-ProximaNova;
     }
 
     .sub-total {
-        font-family: $font-HelveticaNeueLT-bold;
+        font-family: $font-ProximaNova;
     }
 
     .line-item-attributes {
-        font-family: $font-HelveticaNeueLT-medium;
+        font-family: $font-ProximaNova;
     }
 
     .view-cart {
-        font-family: $font-HelveticaNeueLT-medium;
+        font-family: $font-ProximaNova;
     }
 }
 
 .model-name {
-    font-family: $font-HelveticaNeueLT-medium;
+    font-family: $font-ProximaNova;
 }
 
 label.quantity-label {
-    font-family: $font-HelveticaNeueLT-medium;
+    font-family: $font-ProximaNova;
 }
 
 .line-item-promo {
-    font-family: $font-HelveticaNeueLT-book;
+    font-family: $font-ProximaNova;
 }

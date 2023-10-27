@@ -4,41 +4,51 @@
         background-color: $pink-light;
         
         .footer-item {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
             
             h3 {
-                font-family: $font-HelveticaNeueLT-book;
+                font-family: $font-ProximaNova;
+            }
+
+            .content {
+
+                li {
+                
+                    a {
+                        font-family: $font-ProximaNova;
+                    }
+                }
             }
         }
 
         h3 {
-            font-family: $font-HelveticaNeueLT-book;
+            font-family: $font-ProximaNova;
 
             a {
-                font-family: $font-HelveticaNeueLT-book;
+                font-family: $font-ProximaNova;
             }
         }    
 
         .selectCountry,.selectLanguage {
 
             .btn {
-                font-family: $font-HelveticaNeueLT-medium;
+                font-family: $font-ProximaNova;
             }
 
             .title {
-                font-family: $font-HelveticaNeueLT-medium;
+                font-family: $font-ProximaNova;
             }
         }
 
         .footer-signup-container {
 
             .footer-newsletter-email-field {
-                font-family: $font-HelveticaNeueLT-book;
+                font-family: $font-ProximaNova;
             }
         }
 
         .copyright {
-            font-family: $font-HelveticaNeueLT-book ;
+            font-family: $font-ProximaNova ;
         }
 
         .copyright-footer-row {
@@ -56,8 +66,18 @@
             &-heading {
 
                 h2 {
-                    font-family: $font-HelveticaNeueLT-medium;
+                    font-family: $font-ProximaNova;
                 }
+            }
+        }
+    }
+
+    &-item {
+
+        h3 {
+            color: $light-black;
+            a {
+                color: $light-black;
             }
         }
     }

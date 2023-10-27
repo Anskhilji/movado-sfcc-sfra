@@ -1,0 +1,43 @@
+    <iscomment> New template of add to cart created for plp </iscomment>
+    <div class="cta-add-to-cart">
+        <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}"/>    
+        <button class='add-to-cart btn btn-primary add-to-cart-plp ${!product.available ? "out-of-stock-btn" : ""} ${!pdict.readyToOrder ? "disabled" : ""}'
+            data-pid="${product.id}"
+            data-recommendation-atc="true"
+            data-product-set="${!empty(product.individualProducts) ? true : false}"
+            data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
+            ${!product.available ? "disabled" : ""} >
+            <isif condition="${!pdict.display.showAddToCartIcon}">
+                <svg class="tick-icon" width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="D05B" transform="translate(-260.000000, -770.000000)">
+                            <g id="Group" transform="translate(208.000000, 124.000000)">
+                                <g id="Stacked-Group-2" transform="translate(42.000000, 265.000000)">
+                                    <g id="Stacked-Group" transform="translate(0.000000, 337.000000)">
+                                        <g id="Group-8" transform="translate(0.000000, 36.000000)">
+                                            <g id="check_black_24dp" transform="translate(10.000000, 8.000000)">
+                                                <polygon id="Path" points="0 0 15 0 15 15 0 15"></polygon>
+                                                <path d="M5.625,10.10625 L3.45625,7.9375 C3.2125,7.69375 2.81875,7.69375 2.575,7.9375 C2.33125,8.18125 2.33125,8.575 2.575,8.81875 L5.1875,11.43125 C5.43125,11.675 5.825,11.675 6.06875,11.43125 L12.68125,4.81875 C12.925,4.575 12.925,4.18125 12.68125,3.9375 C12.4375,3.69375 12.04375,3.69375 11.8,3.9375 L5.625,10.10625 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                <span class="updated-text">
+                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                        ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                    <iselseif condition="${product.available}"/>
+                        ${Resource.msg('button.addtocart', 'common', null)}
+                    <iselse/>
+                        ${Resource.msg('label.not.available', 'common', null)}
+                    </isif>
+                </span>
+                <isloop items="${product.individualProducts}" var="productItem" status="loopState">
+                    <div class="product-sets product-id d-none">${productItem.id}</div>
+                </isloop>
+            </isif>
+        </button>
+    </div>

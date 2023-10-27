@@ -2,6 +2,12 @@
 <isset name="bonusproductlineitem" value="${hasEmbeddedBonusProducts ? 'bonus-product-line-item' : ''}" scope="page"/>
 <isset name="bonuslineitemrow" value="${hasEmbeddedBonusProducts ? 'bonus-line-item-row' : ''}" scope="page"/>
 <isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
+<isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+<isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePref.eswProductRestrictionsEnabled) ? sitePref.eswProductRestrictionsEnabled : false}" scope="page" />
+<isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
 
 <div class="card ${JSON.stringify(lineItem)} product-info pb-0 ${bonusproductlineitem} uuid-${lineItem.UUID} product-card-wrapper">
     <!--- name and remove buttons --->
@@ -61,7 +67,7 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
-
+                        <isinclude template="cart/productCard/eswRestrictedProductMessage" />
                         <isif condition="${pdict.loggedIn}">
                              <div class="hidden-xs-down edit-add-to-wishlist">
                                   <isinclude template="cart/productCard/cartProductCardEdit" />
@@ -69,6 +75,12 @@
                         </isif>
                     </div>
                     <div class="remove-line-item remove-line-item-mobile d-lg-none">
+                        <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                            <isif condition="${lineItem.productATSValue <= lowStockThreshold}">
+                                <iscontentasset aid="ca-low-stock-message-cart" />
+                            </isif>
+                        </isif>
+                        
                         <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
                                 data-target="#removeProductModal" data-pid="${lineItem.id}"
                                 data-name="${lineItem.productName}"
@@ -91,10 +103,18 @@
             <isset name="price" value="${lineItem.price}" scope="page"/>
             <isinclude template="/product/components/pricing/main" />
         </div>
-        <div class="col-3 col-sm-2 hidden-md-down">
+        
+        <div class="col-3 col-sm-2 hidden-md-down text-left">
+
+            <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+                <isif condition="${lineItem.productATSValue <= lowStockThreshold}">
+                    <iscontentasset aid="ca-low-stock-message-cart" />
+                </isif>
+            </isif>
+
             <isif condition="${!lineItem.isBonusProductLineItem}"/>
                 <div class="remove-line-item">
-                    <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
+                    <button type="button" class="remove-btn remove-product btn btn-light px-0" data-toggle="modal"
                             data-target="#removeProductModal" data-pid="${lineItem.id}"
                             data-name="${lineItem.productName}"
                             data-action="${pdict.actionUrls.removeProductLineItemUrl}"
@@ -129,7 +149,6 @@
             <isinclude template="cart/productCard/cartGiftProduct" />
         </isif>
     </isloop>
-
     <isset name="itemLevelGiftMessage" value="${parentLineItemId.customAttributes['itemLevelGiftMessage'] ? parentLineItemId.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}" scope="page" />
     <isset name="isCartPage" value="${true}" scope="page" />
     <isif condition="${!empty(itemLevelGiftMessage) || !empty(parentLineItemId.giftPid)}">

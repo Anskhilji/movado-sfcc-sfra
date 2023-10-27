@@ -10,6 +10,7 @@ var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
 
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
 var RiskifiedService = require('int_riskified');
@@ -24,7 +25,7 @@ var server = require('server');
 
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
-var PULSEID_ENGRAVING = 'pulseIdEngraving'
+var PULSEID_ENGRAVING = 'pulseIdEngraving';
 var NEWLINE = '\n';
 
 
@@ -62,11 +63,39 @@ function comparePostalCode(address) {
     var result = !postalCodeRegex.test(address);
     if (result) {
         // postal code validation for UK
-        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g;
+        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? ?[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/i
+
         result = !postalCodeRegex.test(address);
     }
 
     return result;
+}
+
+/**
+ * This method is used to split the full name and return the last name if its applicable.
+ * @param fullName
+ * @returns results
+ */
+function getLastName(fullName, order) {
+    try {
+        var lastName = '';
+        if (!empty(fullName)) {
+            var splittedFullName = fullName.split(" ");
+            lastName = splittedFullName[splittedFullName.length - 1];
+
+            if (empty(lastName)) {
+                var currentCustomer = order.getCustomer();
+                if (currentCustomer && currentCustomer.registered) {
+                    var profileLastName = currentCustomer.profile && currentCustomer.profile.lastName ? currentCustomer.profile.lastName : '';
+                    var lastName = profileLastName;
+                }
+            }
+        }
+        return lastName;
+    } catch (e) {
+        Logger.error('(applePay.js) --> Something went wrong while getting last name. Error: {0} \n Message: {1} \n lineNumber: {2} \n fileName: {3} \n', 
+        e.stack, e.message, e.lineNumber, e.fileName);
+    }
 }
 
 /**
@@ -165,6 +194,17 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
         var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
         var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : '';
+
+        if (empty(billingAddressLastName)) {
+            billingAddressLastName = getLastName(billingAddressFirstName, order);
+
+            if (billingAddressLastName) {
+                Transaction.wrap(function () {
+                    order.billingAddress.lastName = billingAddressLastName;
+                });
+            }
+        }
+
         var billingAddressAddress1 = !empty(order.billingAddress.address1) ? order.billingAddress.address1.trim() : '';
         var billingAddressCity = !empty(order.billingAddress.city) ? order.billingAddress.city.trim() : '';
         if (empty(billingAddressFirstName) || empty(billingAddressLastName) || empty(billingAddressAddress1) || isBillingPostalNotValid || empty(billingAddressCity)) {
@@ -177,6 +217,17 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
             var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
             var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
+
+            if (empty(shippingAddressLastName)) {
+                shippingAddressLastName = getLastName(shippingAddressFirstName, order);
+
+                if (shippingAddressLastName) {
+                    Transaction.wrap(function () {
+                        orderShippingAddress.setLastName(shippingAddressLastName);
+                    });
+                }
+            }
+
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
@@ -238,11 +289,22 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     if (!deliveryValidationFail) {
         var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
         if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+            var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
             // Riskified order declined response from decide API
-            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-            if (riskifiedOrderDeclined) {
+            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
+
+            if (!riskifiedOrderDeclined.error) {
                 var riskifiedError = new Status(Status.ERROR);
+
+                if (riskifiedOrderDeclined.shopperRecovery) {
+                    session.privacy.riskifiedShoppperRecovery = false;
+                    riskifiedOrderDeclined.returnUrl.append('ID', order.orderNo);
+                } else {
+                    session.privacy.riskifiedShoppperRecovery = true;
+                }
+                
                 session.privacy.riskifiedDeclined = true;
+                session.privacy.riskifiedShoppperRecoveryEndURL = riskifiedOrderDeclined.returnUrl;
                 return riskifiedError;
             }
         } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
@@ -322,8 +384,21 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var URLUtils = require('dw/web/URLUtils');
 
     if (session.privacy.riskifiedDeclined) {
+        var declinedUrl = session.privacy.riskifiedShoppperRecoveryEndURL;
         delete session.privacy.riskifiedDeclined;
-        return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-Declined', 'ID', order.orderNo));
+        delete session.privacy.riskifiedShoppperRecoveryEndURL;
+
+        if (session.custom.applePaySku) {
+            session.privacy.applePayBasketReOpen = session.custom.applePaySku;
+        }
+
+        if (session.privacy.riskifiedShoppperRecovery) {
+            delete session.privacy.riskifiedShoppperRecovery;
+
+            return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-ShoperRecovery', 'returnUrl', declinedUrl));
+        }
+        delete session.privacy.riskifiedShoppperRecovery;
+        return new ApplePayHookResult(new Status(Status.ERROR), declinedUrl);
     } else {
         return new Status(Status.OK);
     }
@@ -341,10 +416,11 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
-
     var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {
+        session.custom.applePaySku = parameters.sku;
+
         if (!basket.custom.storePickUp) {
             session.custom.StorePickUp = false;
             session.custom.applePayCheckout = true;
@@ -372,8 +448,9 @@ exports.prepareBasket = function (basket, parameters) {
         var appleEmbossedMessage = session.custom.appleEmbossedMessage;
         var appleEngravedMessage = session.custom.appleEngravedMessage;
         var pulseIDPreviewURL = session.custom.pulseIDPreviewURL;
+        var appleProductId = session.custom.appleProductId;
 
-        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL);
+        updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL, appleProductId);
         // sample data for testing
         // updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
     }
@@ -381,6 +458,7 @@ exports.prepareBasket = function (basket, parameters) {
     if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
         session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
     }
+
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
     return result;
@@ -395,7 +473,7 @@ exports.prepareBasket = function (basket, parameters) {
  * @param engravedMessage
  * @returns
  */
-function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL) {
+function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL, appleProductId) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
     // since there will be only on Product from PDP/ Quick view
     var pli = lineItemCtnr.productLineItems[0];
@@ -438,6 +516,7 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
                         option.updateOptionPrice();
                         if (engravedMessage) {
                             option.custom.pulseIDPreviewURL = pulseIDPreviewURL;
+                            option.custom.pulseIDAssociatedProductId = appleProductId;
                             // code to split the message based on newline character
                             engravedMessage = engravedMessage.split(NEWLINE);
                             option.custom.engraveMessageLine1 = engravedMessage[0];
@@ -457,56 +536,53 @@ exports.beforeAuthorization = function (order, payment, custom) {
     var Status = require('dw/system/Status');
     var orderLineItems = order.getAllProductLineItems();
     var orderLineItemsIterator = orderLineItems.iterator();
-    var pulseIdEngraving = 'pulseIdEngraving';
     var productLineItem;
+    var optionProductLineItem;
     var pulseIdConstants;
-    /**~
+
+    /**
      * Custom Start: Clyde Integration
      */
 
     var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+    var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
+    
     if (enablePulseIdEngraving) {
         pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
     }
 
-    if (Site.current.preferences.custom.isClydeEnabled) {
+    if (isClydeEnabled) {
         var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+
         Transaction.wrap(function () {
-            while (orderLineItemsIterator.hasNext()) {
-                productLineItem = orderLineItemsIterator.next();
-                if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                    order.removeProductLineItem(productLineItem);
-                } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
-                    order.removeProductLineItem(productLineItem);
-                }
-            }
             order.custom.isContainClydeContract = false;
             order.custom.clydeContractProductMapping = '';
         });
+
         addClydeContract.createOrderCustomAttr(order);
-        //custom : PulseID engraving
+        /** 
+         * Custom Start : PulseID engraving 
+        */
         if (enablePulseIdEngraving) {
             var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
             pulseIdAPIHelper.setPulseJobID(order);
         }
-        // custom end
+        /**
+        * Custom: End
+        */ 
     }
     /**
      * Custom: End
      */
 
-     if (!Site.getCurrent().preferences.custom.isClydeEnabled) {
-        var orderLineItems = order.getAllProductLineItems();
-        var orderLineItemsIterator = orderLineItems.iterator();
-        var productLineItem;
-        Transaction.wrap(function () {
-            while (orderLineItemsIterator.hasNext()) {
-                productLineItem = orderLineItemsIterator.next();
-                if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                    order.removeProductLineItem(productLineItem);
-                }
-            }
-        });
+    // remove null option line item
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+        
+        if (!empty(optionProductLineItem)) {
+            customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
+        }
     }
 
     var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);

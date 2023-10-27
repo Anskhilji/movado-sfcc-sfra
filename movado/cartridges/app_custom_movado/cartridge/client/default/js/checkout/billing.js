@@ -161,6 +161,7 @@ function updateBillingAddressFormValues(order) {
            // $('input[name$=cardNumber]').data('cleave').setRawValue('');
         	$('input[name$=cardNumber]', form).val($('#originalCardNumber').val());
         }
+        $('.securityCode').removeClass('is-valid');
     }
 }
 

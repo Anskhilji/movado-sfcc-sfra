@@ -1,0 +1,43 @@
+{
+    "step-types": {
+        "script-module-step": [
+            {
+                "@type-id": "custom.adyen.processAdyenCancelledOrders",
+                "timeout-in-seconds": "180000",
+                "description": "This job is used to cancel the orders if orders not cancel through adyen.",
+                "module": "int_custom_adyen/cartridge/scripts/job/adyenCancelOrders.js",
+                "transactional": "true",
+                "function": "processAdyenCancelledOrders",
+                "parameters": {
+                    "parameters": [
+                      {
+                    "@name":"eventCode",
+                    "@type":"string",
+                    "@required":"true",
+                    "description":"Define AdyenNotification eventCode status here and possible values should be CANCELLATION, TECHNICAL_CANCEL or CANCEL_REFUND."
+                  },
+                  {
+                    "@name":"successCode",
+                    "@type":"string",
+                    "@required":"true",
+                    "description":"Define AdyenNotification success status here and possible values should be true or false."
+                  }
+                ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+  }
+  

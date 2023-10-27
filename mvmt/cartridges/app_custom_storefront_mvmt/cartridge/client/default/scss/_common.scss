@@ -1185,3 +1185,11 @@ div {
 .body-text {
     font-family: $font-brandon-grotesque;
 }
+
+.check-order-status-btn {
+    &:hover {
+        background-color: $dark-blue-btn;
+        color: $white;
+        border-color: $dark-blue-btn;
+    }
+}

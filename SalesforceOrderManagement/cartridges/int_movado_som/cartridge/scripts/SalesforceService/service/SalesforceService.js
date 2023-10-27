@@ -171,7 +171,7 @@ module.exports.getSalesforceRestService = function () {
         },
         parseResponse: function (service, response) {
             var responseObject = {};
-            if (response.statusCode === 200 || response.statusCode === 201) {
+            if (response.statusCode === 200 || response.statusCode === 201 || response.statusCode === 204) {
                 responseObject = JSON.parse(response.text);
             } else {
                 throw new Error('Salesforce Service Errored with Status Code: ' + service.statusCode);

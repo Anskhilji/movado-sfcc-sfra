@@ -1,4 +1,8 @@
 <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+<isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/account.css');
+</isscript>
 <div class="row justify-content-center">
     <div class="col-sm-6">
         <!---Profile--->

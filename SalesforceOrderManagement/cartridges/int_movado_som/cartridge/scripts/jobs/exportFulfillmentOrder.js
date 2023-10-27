@@ -206,6 +206,12 @@ function createSAPOrderFile(args, impexFilePath, record) {
         if (Object.hasOwnProperty.call(record.poHeader, 'fulfilledStatus')) {
             writeXmlElement(streamWriter, 'FulfilledStatus', record.poHeader.fulfilledStatus);
         }
+        if (Object.hasOwnProperty.call(record.poHeader, 'Exchange')) {
+            writeXmlElement(streamWriter, 'Exchange', record.poHeader.Exchange);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'OriginalTransaction')) {
+            writeXmlElement(streamWriter, 'OriginalTransaction', record.poHeader.OriginalTransaction);
+        }
         if (Object.hasOwnProperty.call(record.poHeader, 'fulfilledDate')) {
             writeXmlElement(streamWriter, 'FulfilledDate', record.poHeader.fulfilledDate);
         }
@@ -308,6 +314,9 @@ function createSAPOrderFile(args, impexFilePath, record) {
             }
             if (Object.hasOwnProperty.call(poItem, 'commercialEntity')) {
                 writeXmlElement(streamWriter, 'CommercialEntity', poItem.commercialEntity);
+            }
+            if (Object.hasOwnProperty.call(poItem, 'clydeProductUnitPrice')) {
+                writeXmlElement(streamWriter, 'clydeProductUnitPrice', poItem.clydeProductUnitPrice.toFixed(2), true);
             }
             if (Object.hasOwnProperty.call(poItem, 'grossValue')) {
                 writeXmlElement(streamWriter, 'GrossValue', poItem.grossValue.toFixed(2), true);
@@ -435,6 +444,9 @@ function createSAPOrderFile(args, impexFilePath, record) {
                     }
                     if (Object.hasOwnProperty.call(personalization, 'contractSku')) {
                         writeXmlElement(streamWriter, 'ContractSku', personalization.contractSku);
+                    }
+                    if (Object.hasOwnProperty.call(poItem, 'clydeProductUnitPrice')) {
+                        writeXmlElement(streamWriter, 'clydeProductUnitPrice', poItem.clydeProductUnitPrice.toFixed(2), true);
                     }
                     if (Object.hasOwnProperty.call(personalization, 'grossValue')) {
                         writeXmlElement(streamWriter, 'GrossValue', personalization.grossValue.toFixed(2), true);

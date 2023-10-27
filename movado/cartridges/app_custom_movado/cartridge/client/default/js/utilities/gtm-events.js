@@ -283,7 +283,6 @@ var sliceProductImpressionArray = function (e, currency) {
                     ecommerce: {
                         currencyCode: currency,
                         impressions: productObj
-
                     }
                 });
             }
@@ -429,7 +428,8 @@ var updateCheckoutStage = function () {
              var productObj = dataLayerCheckout.splice(0, maxProducts);
              dataLayer.push({ ecommerce: { checkout: {
                  actionField: { step: checkoutStep, option: checkoutStage },
-                 products: productObj }
+                 products: productObj
+                }
              },
                  event: 'checkout' });
          }
@@ -547,6 +547,25 @@ var carouselAfterChangeEvent = function () {
     });
 };
 
+var onUpdateQuantity = function () {
+    $('body').on('change', '.quantity-selector-pdp .quantity-select.quantity.custom-select', function () {
+        var $qauantity = $('.quantity-selector > .quantity').val();
+
+        if ($qauantity) {
+            dataLayer.push({
+                event: 'productDetail',
+                ecommerce: {
+                    detail: {
+                        products: [{
+                            quantity: $qauantity
+                        }]
+                    }
+                }
+            });
+          }
+    });
+}
+
 var onClickEvents = function () {
     onPromoClickEvent();
     onClickLinkEvent();
@@ -559,6 +578,7 @@ var onClickEvents = function () {
     onMorestyleLoadEvent();
     onAddtoCartClickEvent();
     onEmailSubscribe();
+    onUpdateQuantity();
 };
 
 

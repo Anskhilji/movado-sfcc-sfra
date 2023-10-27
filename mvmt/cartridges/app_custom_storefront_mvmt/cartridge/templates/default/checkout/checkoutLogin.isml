@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isdecorate template="common/layout/checkoutRedesign">
     <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
 
@@ -18,6 +19,7 @@
         <isinclude template="reporting/reportingUrls" />
     </isif>
     <div class="container checkout-page">
+        <isinclude template="components/cart/eswRestrictedProductErrorMsg" />
         <div class="row d-sm-none">
             <div class="col-12 cleafix">
                 <span class="total-items-label pull-left">${Resource.msgf('label.number.items.in.cart','cart', null, pdict.details.totalQuantity)}</span>
@@ -37,7 +39,7 @@
                         </p>
                         <a
                             href="${URLUtils.https('Checkout-Begin')}"
-                            class="btn btn-block btn-primary checkout-as-guest">
+                            class="btn btn-block btn-primary checkout-as-guest ${pdict.isRestrictedCheckout ? 'disabled' : ''}">
                             ${Resource.msg('button.checkout.as.guest', 'checkout', null)}
                         </a>
                         <iscomment> Amazon Pay Button </iscomment>

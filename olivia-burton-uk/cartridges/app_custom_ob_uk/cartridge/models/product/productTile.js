@@ -305,7 +305,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
                 value: defaultVariantImage
             });
 
-            Object.defineProperty(product, 'defaultVariantTile640X764 ', {
+            Object.defineProperty(product, 'defaultVariantTile640X764', {
                 enumerable: true,
                 value: tile640Xtile764
             });
@@ -441,5 +441,6 @@ module.exports = function productTile(product, apiProduct, productType, params, 
             value: ociPreOrderParameters
         });
     }
+
     return product;
 };
