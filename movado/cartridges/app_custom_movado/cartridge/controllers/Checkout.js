@@ -108,6 +108,7 @@ server.append(
 
         // Custom Start: Adding ESW country switch control
         var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
+        var isClydePromotionPriceEnabled = !empty(Site.current.preferences.custom.isPromotionalPrice) ? Site.current.preferences.custom.isPromotionalPrice : false;
         if (isEswEnabled) {
             
             var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');

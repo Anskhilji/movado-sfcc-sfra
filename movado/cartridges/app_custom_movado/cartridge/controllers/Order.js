@@ -35,6 +35,7 @@ server.replace(
         var token = req.querystring.token ? req.querystring.token : null;
         var userIPAddress = request.httpRemoteAddress || '';
         var currencyCode = order.getCurrencyCode();
+        var isClydePromotionPriceEnabled = !empty(Site.current.preferences.custom.isPromotionalPrice) ? Site.current.preferences.custom.isPromotionalPrice : false;
 
         if (!order
             || !token
@@ -89,6 +90,11 @@ server.replace(
             Transaction.wrap(function () {
                 if (productLineItem instanceof dw.order.ProductLineItem &&
                     !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItem) {
+                    if (isClydePromotionPriceEnabled) {
+
+                    } else {
+                        
+                    }
                     productLineItem.custom.ClydeProductUnitPrice = productLineItem.basePrice.decimalValue ? productLineItem.basePrice.decimalValue : '';
                 }
 
