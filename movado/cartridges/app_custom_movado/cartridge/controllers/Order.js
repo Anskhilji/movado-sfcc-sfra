@@ -91,11 +91,10 @@ server.replace(
                 if (productLineItem instanceof dw.order.ProductLineItem &&
                     !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItem) {
                     if (isClydePromotionPriceEnabled) {
-
+                        productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
                     } else {
-                        
+                        productLineItem.custom.ClydeProductUnitPrice = productLineItem.basePrice.decimalValue ? productLineItem.basePrice.decimalValue : '';    
                     }
-                    productLineItem.custom.ClydeProductUnitPrice = productLineItem.basePrice.decimalValue ? productLineItem.basePrice.decimalValue : '';
                 }
 
                 if (!empty(optionProductLineItem)) {
