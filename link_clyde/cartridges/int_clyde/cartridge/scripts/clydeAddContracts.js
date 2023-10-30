@@ -220,7 +220,7 @@ function createOrderCustomAttr(order) {
         try {
             while (productLineItemsItr.hasNext()) {
                 var productLineItem = productLineItemsItr.next();
-                if (!empty(productLineItem.optionID) && !empty(productLineItem.custom.clydeAssociatedProductSku) && !empty(productLineItem.custom.ClydeContractSku)) {
+                if (!empty(productLineItem.optionID) && productLineItem.custom.clydeAssociatedProductSku && productLineItem.custom.ClydeContractSku) {
                     if (productLineItem.optionID === clydeConstants.CLYDE_OPTION_PRODUCT_ID) {
                         var clydeItem = {
                             productId: productLineItem.custom.clydeAssociatedProductSku,
