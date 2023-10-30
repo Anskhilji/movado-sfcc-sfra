@@ -1209,6 +1209,14 @@ nav {
               @include media-breakpoint-up(lg) {
                 margin-right: rem(15);
               }
+
+              .popover {
+
+                @include media-breakpoint-up(xl) {
+                  top: rem(40);
+                  right: rem(-5);
+                }
+              }
             }
 
             .right {
