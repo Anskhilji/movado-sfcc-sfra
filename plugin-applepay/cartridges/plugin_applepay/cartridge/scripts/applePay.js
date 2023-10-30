@@ -201,7 +201,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     billingFormServer = server.forms.getForm('billing');
     billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
 
-    if (billingStateCode.length > 1) {
+    if (billingStateCode.length > 2) {
         billingStateCode = usStateCodes.getStateCodeByStateName(billingFormServerStateCode, billingStateCode);
     }
 
@@ -250,7 +250,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var shippingFormServer = server.forms.getForm('shipping');
             var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
 
-            if (shippingAddressStateCode.length > 1) {
+            if (shippingAddressStateCode.length > 2) {
                 shippingAddressStateCode = usStateCodes.getStateCodeByStateName(shippingFormServerStateCode, shippingAddressStateCode);
             }
 
