@@ -34,11 +34,13 @@
                 </isif>
 
                 <isinclude template="product/components/productTileName" />
-                <div class="plp-swatches-wrapper">
-                    <isif condition="${pdict.display.swatches !== false && product.productType == 'master' || product.productType == 'variationGroup'}">
-                        <isinclude template="product/components/productTileSwatch" />
-                    </isif>
-                </div>
+                <isif condition="${!pdict.display.recommendationsAddToCartIcon}">
+                    <div class="plp-swatches-wrapper">
+                        <isif condition="${pdict.display.swatches !== false && product.productType == 'master' || product.productType == 'variationGroup'}">
+                            <isinclude template="product/components/productTileSwatch" />
+                        </isif>
+                    </div>
+                </isif>
 
                 <div class="pricing-save">
                     <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice) || product.productType == 'variationGroup'}">
@@ -59,8 +61,11 @@
                     </isif>
                 </div>
                 <iscomment> new add to card button template addded </iscomment>
-                <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
-
+                <isif condition="${pdict.display.recommendationsAddToCartIcon == true}">
+                    <isinclude template="product/components/addToCartRecommendations.isml" sf-toolkit="on" />
+                <iselse/>
+                    <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
+                </isif>
             </div>
         </isif>
         <!-- END_dwmarker -->

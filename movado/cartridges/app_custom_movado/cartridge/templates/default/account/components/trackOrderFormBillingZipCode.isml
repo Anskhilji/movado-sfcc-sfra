@@ -1,0 +1,13 @@
+<div class="form-group required">
+    <label class="form-control-label" for="trackorder-form-zip">
+        ${Resource.msg('label.input.trackorder.postalcode', 'login', null)}
+    </label>
+    <input
+        type="text"
+        required
+        class="form-control HamzaMovado"
+        id="trackorder-form-zip"
+        name="trackOrderPostal"
+        pattern="(GIR 0AA)|((([A-Za-z-[QVX]][0-9][0-9]?)|(([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][0-9]?)|(([A-Za-z-[QVX‌]][0-9][A-HJKSTUWa-hjkstuw])|([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][ABEHMNPRVWXYabehmnprvwxy]))))\s?[0-9][A-Za-z-[C‌IKMOV]]{2})">
+    <div class="invalid-feedback"></div>
+</div>

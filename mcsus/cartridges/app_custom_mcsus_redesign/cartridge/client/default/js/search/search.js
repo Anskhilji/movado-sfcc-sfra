@@ -7,7 +7,7 @@ var $isLoadOnScroll = false;
 var $initiallyLoadedProducts = $('.product-grid').data('initial-products');
 var $isInfiniteScrollEnabled = $('.search-results-plp-redesign').data('infinte-scroll-enabled');
 var $isPaginationEnabled = $('.search-results-plp-redesign').data('enable-pagination');
-var $loadMoreIndex = parseInt($initiallyLoadedProducts / 2) - 1;
+var $loadMoreIndex = parseInt($initiallyLoadedProducts / 2);
 var $loadMoreInProcessing = false;
 var $mobileInfiniteScrollSize = $('.product-grid').data('mobile-infinite-scroll');
 var $mediumWidth = 992;
@@ -25,6 +25,18 @@ function updateDom($results, selector) {
     var $updates = $results.find(selector);
     $(selector).empty().html($updates.html());
 }
+
+// Custom Start: [MSS-1348 Fix for not applying price filters]
+function plpGrid() {
+    $('.product-tiles-wrapper .slot-column').each(function () {
+        if ($(this).children('div').length > 0) {
+          $(this).addClass('d-block');
+        } else {
+          $(this).remove();
+        }
+    });
+}
+// custom end
 
 /**
  * Keep refinement panes expanded/collapsed after Ajax refresh
@@ -327,9 +339,10 @@ function getTileHeight() {
     }, 100);
 }
 
-$( document ).ready(function() {
-    if($(window).width() > 991) {
-        getTileHeight()
+$(document).ready(function () {
+    plpGrid();
+    if ($(window).width() > 991) {
+      getTileHeight()
     }
 });
 
@@ -359,6 +372,18 @@ function hideSelectedFilterTabs() {
     }
 }
 
+function showLoadMoreButton() {
+    if ($windowWidth < $mediumWidth) {
+        if (($('.searech-results-wrapper .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
+            $('.grid-footer').removeClass('d-none');
+        }
+    } else {
+        if (($('.searech-results-wrapper .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
+            $('.grid-footer').removeClass('d-none');
+        }
+    }
+}
+
 $('.filter-container').on('click', '.filter-results', function (e) {
     e.preventDefault();
     e.stopPropagation();
@@ -369,6 +394,7 @@ module.exports = {
     filter: function () {
         // Display refinements bar when Menu icon clicked
         $('.filter-container').on('click', 'button.filter-results', function () {
+            plpGrid();
             $('.refinement-bar, .movado-modal').show();
             $('.modal-background').addClass('filter-modal-background');
             var $refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
@@ -437,8 +463,11 @@ module.exports = {
                 	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                 	$('body').trigger('facet:success', [gtmFacetArray]);
                     $('.product-grid').empty().html(response);
+                    plpGrid();
                     // edit
                     updatePageURLForSortRule(url);
+                    //show load more button
+                    showLoadMoreButton();
                     if (window.Resources.IS_YOTPO_ENABLED) {
                         refreshYotpoWidgets();
                     }
@@ -461,13 +490,13 @@ module.exports = {
     },
 
     loadMoreProductsOnScroll: function () {
-        if ($('.search-results-plp-redesign').length == 0){
+        if ($('.search-results-plp-redesign').length == 0) {
             return;
         }
-        
+
         // Load more products on scroll
         if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
-    
+
             $(window).scroll(function (e) {
 
                 if (!$loadMoreInProcessing) {
@@ -475,14 +504,11 @@ module.exports = {
                 } else {
                     return;
                 }
-    
-                if ($totalProductCount == $('.searech-results-wrapper .product-tile').length) {
-                    return;
-                }
-    
+
                 var $productTileHeigth = $('.searech-results-wrapper .product-tile').outerHeight();
                 var $scrollPostion = $(window).scrollTop() + $productTileHeigth;
-                var $nextLoadMorePosition = $('.searech-results-wrapper .product-tile').eq($loadMoreIndex).offset().top;
+                var $productTileSize = Math.floor($('.searech-results-wrapper .product-tile').length / 4);
+                var $nextLoadMorePosition = $('.searech-results-wrapper .product-tile').eq($productTileSize).offset().top;
                 var $initialScroll = (($('.searech-results-wrapper .product-tile').length % $initiallyLoadedProducts) == 0);
 
                 if ($windowWidth < $mediumWidth) {
@@ -499,16 +525,9 @@ module.exports = {
                     }
                 }
 
-                if ($windowWidth < $mediumWidth) {
-                    if (($('.searech-results-wrapper .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                        $('.grid-footer').removeClass('d-none');
-                    }
-                } else {
-                    if (($('.searech-results-wrapper .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                        $('.grid-footer').removeClass('d-none');
-                    }
-                }
-    
+                //show load more button
+                showLoadMoreButton();
+
                 if (($scrollPostion >= $nextLoadMorePosition) && $loadMoreInProcessing && $isLoadOnScroll && $initialScroll) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -518,26 +537,22 @@ module.exports = {
                     $loaderIcon.removeClass('d-none');
                     $.ajax({
                         url: $showMoreUrl,
-                        data: { selectedUrl: $showMoreUrl },
+                        data: {
+                            selectedUrl: $showMoreUrl
+                        },
                         method: 'GET',
                         success: function (response) {
                             $loadMoreIndex += parseInt($initiallyLoadedProducts / 2);
-                            var $gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                            var $gtmFacetArray = $(response).find('.gtm-product').map(function () {
+                                return $(this).data('gtm-facets');
+                            }).toArray();
                             $('body').trigger('facet:success', [$gtmFacetArray]);
                             $('.grid-footer').replaceWith(response);
                             updateSortOptions(response);
                             updatePageURLForShowMore($showMoreUrl);
                             $loadMoreInProcessing = false;
-
-                            if ($windowWidth < $mediumWidth) {
-                                if (($('.searech-results-wrapper .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                                    $('.grid-footer').removeClass('d-none');
-                                }
-                            } else {
-                                if (($('.searech-results-wrapper .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                                    $('.grid-footer').removeClass('d-none');
-                                }
-                            }
+                            //show load more button
+                            showLoadMoreButton();
                             $loaderIcon.addClass('d-none');
                         }
                     });
@@ -582,6 +597,7 @@ module.exports = {
                 	$('body').trigger('facet:success', [gtmFacetArray]);
                     $('.grid-footer').replaceWith(response);
                     updateSortOptions(response);
+                    plpGrid();
                     // edit
                     updatePageURLForShowMore(showMoreUrl);
                     if (window.Resources.IS_YOTPO_ENABLED) {
@@ -596,7 +612,7 @@ module.exports = {
                         $('.product-tile-plp-container').removeClass('disable-hover');
                     }, 200);
                     if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
-                        $loadMoreIndex = $('.searech-results-wrapper .product-tile').length - (parseInt($initiallyLoadedProducts / 2) + 1);
+                        $loadMoreIndex = $('.searech-results-wrapper .product-tile').length - (parseInt($initiallyLoadedProducts / 2));
                     }
                 },
                 error: function () {

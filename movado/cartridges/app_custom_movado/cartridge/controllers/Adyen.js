@@ -216,10 +216,12 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
                 return next();
             } else if (checkoutDecisionStatus && checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+                var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
                 // Riskified order declined response from decide API
-                riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-                if (riskifiedOrderDeclined) {
-                    res.redirect(URLUtils.url('Checkout-Declined'));
+                riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
+                
+                if (!riskifiedOrderDeclined.error) {
+                    res.redirect(riskifiedOrderDeclined.returnUrl);
                     return next();
                 }
             } else if (checkoutDecisionStatus && checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {

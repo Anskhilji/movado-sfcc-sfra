@@ -422,6 +422,10 @@
             padding-left: rem(8);
         }
 
+        .remove-btn {
+            position: static;
+        }
+
         .item-info, .bundled-line-item {
             border-bottom: 0rem;
             align-items: center;
@@ -473,6 +477,10 @@
                         text-overflow: ellipsis;
                         letter-spacing: 0;
                         overflow: hidden;
+                    }
+
+                    .full-cart-esw-restricted-countries-msg {
+                        font-size: rem(12);
                     }
                 }
             }
@@ -643,10 +651,6 @@
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         letter-spacing: 0;
-
-                        @include media-breakpoint-up(lg) {
-                            margin-left: rem(50);
-                        }
                     }
                 }
             }
@@ -1035,4 +1039,8 @@
             }
         }
     }
+}
+
+.quantity {
+    min-width: auto;
 }

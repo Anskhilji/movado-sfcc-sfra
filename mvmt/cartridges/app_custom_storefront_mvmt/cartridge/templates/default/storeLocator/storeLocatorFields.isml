@@ -1,3 +1,5 @@
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
 <div class="card-body find-store-form">
     <${pdict.isForm === 'true' ? 'form' : 'div'} action="${pdict.stores.actionUrl}" class="store-locator justify-content-center" method="get" name="storelocator">
         <div class="form-group required">
@@ -7,8 +9,15 @@
         <div class="form-group-2">
             <isinclude template="storeLocator/storeLocatorRadius" />
        </div>
+        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" />
+        
        <div class="button-align">
-           <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search" type="${pdict.isForm === 'true' ? 'submit' : 'button'}">
+            <isif condition="${isGoogleRecaptchaEnabled}">
+                <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search g-recaptcha" type="${pdict.isForm === 'true' ? 'submit' : 'button'}"  data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha'>
+                    ${Resource.msg('button.find.stores','storeLocator',null)}
+                </button>
+            </isif>
+           <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search ${isGoogleRecaptchaEnabled ? 'd-none' : ''} form-submit" type="${pdict.isForm === 'true' ? 'submit' : 'button'}">
                ${Resource.msg('button.find.stores','storeLocator',null)}
            </button>
        </div>

@@ -408,12 +408,17 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
     return new Promise(function (resolve, reject) {
         var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
         var $pdpQuantityValue = null;
+        var $bundleQuantity = $('.bundle-footer .quantity-select').val();
+        
         if (window.Resources.IS_PDP_QUANTITY_SELECTOR && $('.quantity-selector').length && $('.quantity-selector').closest('quantity')) {
             $pdpQuantityValue = $('.quantity-selector > .quantity').val();
             $pdpQuantityValue = $pdpQuantityValue;
+            
             if ($pdpQuantityValue == "") {
                 $pdpQuantityValue = null;
             }
+        } else if ($bundleQuantity) {
+            $pdpQuantityValue = $bundleQuantity;
         }
 
         var data = {

@@ -1,4 +1,3 @@
-
 'use strict';
 var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Logger = require('dw/system/Logger').getLogger('PulseID', 'PluseID');
@@ -9,12 +8,12 @@ var pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
 
 function pulseIdAPICall(payLoad, service) {
     var responsePayload = null;
-    
+
     var result = {
         success: false,
         response: null
     }
-    
+
     try {
         responsePayload = service.call(payLoad);
     } catch (e) {
@@ -62,7 +61,7 @@ function savePulseObj(orderID) {
     var UUID = UUIDUtils.createUUID();
     try {
         if (!empty(orderID)) {
-            Transaction.wrap( function() {
+            Transaction.wrap(function () {
                 var pulseCustomObject = CustomObjectMgr.createCustomObject(pulseIdConstants.PULSE_ID_CUSTOM_OBJ, UUID);
                 pulseCustomObject.custom.orderId = orderID;
             });
@@ -75,6 +74,7 @@ function savePulseObj(orderID) {
 
 function setPulseJobID(order) {
     if (order && order.productLineItems.length > 0) {
+
         Transaction.wrap(function () {
             for (var i = 0; i < order.productLineItems.length; i++) {
                 var optionProductLineItems = order.productLineItems[i].optionProductLineItems.toArray();
@@ -83,7 +83,6 @@ function setPulseJobID(order) {
                     if (optionItem.optionID == pulseIdConstants.ENGRAVING_ID) {
                         order.custom.IsPulseIDEngraved = true;
                         optionItem.custom.pulseIDJobId = pulseIDJobId;
-                        savePulseObj(order.orderNo);
                         return;
                     }
                 });
@@ -105,7 +104,7 @@ function setOptionalLineItemUUID(modelItems, product) {
 
                         item.options.forEach(function (option) {
 
-                            if (option.optionId == pulseIdConstants.ENGRAVING_ID && optionProduct.optionID == pulseIdConstants.ENGRAVING_ID) {
+                            if (option.optionId == pulseIdConstants.ENGRAVING_ID && optionProduct.optionID == pulseIdConstants.ENGRAVING_ID && product.UUID == item.UUID) {
                                 var engraveMessageLine1 = !empty(optionProduct.custom.engraveMessageLine1) ? optionProduct.custom.engraveMessageLine1 : product.custom.engraveMessageLine1 ? product.custom.engraveMessageLine1 : '';
                                 var engraveMessageLine2 = !empty(optionProduct.custom.engraveMessageLine2) ? optionProduct.custom.engraveMessageLine2 : product.custom.engraveMessageLine2 ? product.custom.engraveMessageLine2 : '';
 
@@ -125,11 +124,36 @@ function setOptionalLineItemUUID(modelItems, product) {
     }
 }
 
+/**
+ * Created new Pulse Object
+ * @param {Object} order 
+ */
+function getLineItemOnOrderDetailsForEngraving(order, orderModel, session) {
+    var productLineItem;
+    var orderLineItems = order.getAllProductLineItems();
+    var orderLineItemsIterator = orderLineItems.iterator();
+
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+
+        // custom : PulseID engraving
+        var items = orderModel.items;
+        setOptionalLineItemUUID(items, productLineItem);
+
+        session.raw.custom.appleProductId = '';
+        session.raw.custom.appleEngraveOptionId = '';
+        session.raw.custom.appleEngravedMessage = '';
+        session.raw.custom.pulseIDPreviewURL = '';
+    // custom end
+    }
+}
+
 module.exports = {
     savePulseObj: savePulseObj,
     getPulseObjs: getPulseObjs,
     removePulseObjs: removePulseObjs,
     pulseIdAPICall: pulseIdAPICall,
     setPulseJobID: setPulseJobID,
-    setOptionalLineItemUUID: setOptionalLineItemUUID
+    setOptionalLineItemUUID: setOptionalLineItemUUID,
+    getLineItemOnOrderDetailsForEngraving: getLineItemOnOrderDetailsForEngraving
 }

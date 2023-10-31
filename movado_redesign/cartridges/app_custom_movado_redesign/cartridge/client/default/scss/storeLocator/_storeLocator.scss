@@ -1,0 +1,36 @@
+@import '~movado/storeLocator/storeLocator';
+@import "../vars";
+
+.store-locator-container {
+
+    .card-button {
+        font-family: $movado-font;
+    }
+
+    .find-store-form {
+
+        .form-control-label {
+            font-family: $the-futura-font;
+        }
+    }
+
+    .results-card {
+
+        .store-name {
+            font-family: $the-futura-font;
+        }
+    }
+
+    .find-store-select {
+        
+        select {
+            font-family: $the-futura-font;
+        }
+    }
+}
+
+.get-direction {
+    a {
+        font-family: $the-futura-font;
+    }
+}

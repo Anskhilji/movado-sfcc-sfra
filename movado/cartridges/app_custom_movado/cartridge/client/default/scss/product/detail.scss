@@ -299,3 +299,100 @@ label.availability {
 .slick-slider{
     touch-action: auto!important;
 }
+
+.bundle-details {
+
+    .bundle-affirm-message {
+        .affirm-modal-trigger {
+            display: inline-block;
+            text-transform: capitalize;
+            padding: rem(0);
+            color: $black;
+        }
+    }
+
+    .bundle-footer {
+        .gpay-button {
+            border-radius: 0;
+        } 
+
+        .gpay-button-fill {
+            min-width: rem(190);
+            width: 100%;
+        }
+    }
+
+    .add-to-cart {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .prices-add-to-cart-actions {
+        background-color: transparent;
+        position: static;
+        padding: 0;
+    }
+
+    .global-availability {
+        margin-bottom: rem(10);
+        margin-top: rem(10);
+    }
+
+    .product-availability {
+        margin-top: rem(15);
+    }
+
+    .availability-msg {
+        margin-top: rem(1);
+
+        .message {
+            font-size: rem(14);
+            font-weight: 300;
+        }
+
+        .availability {
+            font-size: rem(16);
+        }
+    }
+
+    label.availability {
+        text-transform: capitalize;
+    }
+
+    .bundle-quantity, .quantity {
+        text-transform: capitalize;
+    }
+
+    .product-name {
+        color: $black;
+        font-weight: 400;
+        font-size: rem(40);
+        letter-spacing: rem(0);
+        line-height: rem(30);
+        margin-bottom: rem(25);
+        font-family: inherit;
+    }
+
+    .description-and-detail {
+
+        .title {
+            font-family: inherit;
+        
+            @include media-breakpoint-up(sm) {
+
+                &:after {
+                    content: '';
+                }
+            }   
+        }
+
+        .description {
+            width: auto;
+            font-weight: 300;
+    
+            .content {
+                padding-left: rem(15);
+            }
+        }
+    }
+}
