@@ -677,7 +677,7 @@ nav {
           @include media-breakpoint-down(md) {
             color: $black;
             font-family: $font-book-std;
-            font-size: rem(16  );
+            font-size: rem(16);
             font-weight: 300;
             letter-spacing: 0;
             line-height: rem(16);
@@ -1618,7 +1618,7 @@ nav {
 
                     .login-icon {
                         background: url(../images/add-to-cart.svg) center center no-repeat;
-                        width: rem(24px);
+                        width: rem(24);
                         height: rem(30);
                         background-size: rem(24);
 
@@ -1657,7 +1657,7 @@ nav {
                   }
 
                   a {
-                    margin-left: rem(15px);
+                    margin-left: rem(15);
                     display: flex;
                     align-items: center;
 
