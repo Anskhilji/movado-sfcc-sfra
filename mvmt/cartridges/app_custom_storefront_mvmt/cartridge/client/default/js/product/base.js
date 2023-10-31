@@ -207,6 +207,28 @@ function openMiniCart() {
     //Custom End
 }
 
+// // Get all images with loading="lazy" attribute
+// var lazyImages = document.querySelectorAll('img[loading="lazy"]');
+
+// // Define a callback function
+// var lazyLoad = (entries, observer) => {
+//   entries.forEach((entry) => {
+//     if (entry.isIntersecting) {
+//       var lazyImage = entry.target;
+//       lazyImage.src = lazyImage.dataset.src; // Set the actual image source
+//       observer.unobserve(lazyImage); // Stop observing this image
+//     }
+//   });
+// };
+
+// // Create an Intersection Observer
+// const observer = new IntersectionObserver(lazyLoad);
+
+// // Observe each lazy image
+// lazyImages.forEach((img) => {
+//   observer.observe(img);
+// });
+
 function updateCartIcons() {
     var $cartItems = $('.cart-quantity-items').data('quantity-id');
     var $cartIcon = $('.cart-icon');
