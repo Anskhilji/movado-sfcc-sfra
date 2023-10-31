@@ -657,6 +657,7 @@ module.exports = function () {
                     $('.cart-error').empty();
                     $('.cart-store-pickup').prop('checked', false);
                     $('.progress-meter-container').hide();
+                    $('.cart-recommendation-wrapper').empty();
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {

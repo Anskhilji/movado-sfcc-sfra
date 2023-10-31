@@ -97,16 +97,10 @@
         <div class="main-cart-block-ob row">
             <!---product cards--->
             <div class="product-list-block-ob col-sm-7 col-md-8">
-                <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
-                    <isif condition="${lineItem.productType === 'bundle'}">
-                        <isinclude template="cart/productCard/cartBundleCard" />
-                    <iselse/>
-                        <isinclude template="cart/productCard/cartProductCard" />
-                    </isif>
-                </isloop>
+                <isinclude  template="cart/cartLineItems" />
             </div>
             <!---totals, and checkout actions--->
-            <div class="col-sm-5 col-md-4 totals">
+            <div class="col-sm-5 col-md-4 totals order-2 order-sm-1">
                 <isinclude template="cart/cartPromoCode" />
                 <div class="coupons-and-promos coupons-wrapper coupon-card-icon mb-3">
                     <isinclude template="cart/cartCouponDisplay" />
@@ -132,7 +126,7 @@
                     </div>
                 </div>
                 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
-                <isif condition="${isEswEnabled}" > 
+                <isif condition="${isEswEnabled}" >
                     <isset name="isDomesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
                     <isif condition="${!isDomesticAllowedCountry}" >
                         <isslot id="esw-cart-disclaimer-message" description="esw cart disclaimer message" context="global" />
@@ -142,6 +136,14 @@
                     <isprint value="${pdict.assets.needHelp}" encoding="off" />
                 </div>
                 <br/>
+            </div>
+
+            <div class="col-12 order-1 order-sm-2">
+                <isif condition="${pdict.items && pdict.items.length > 0}">
+                    <div class="cart-recommendation-wrapper mt-4">
+                        <isslot id="cs-cart-recommendations" description="Recommended products" context="global" />
+                    </div>
+                </isif>
             </div>
         </div>
     </div>
