@@ -143,11 +143,11 @@ function productSync() {
             // Custom End:
 
             // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
-            if (!empty(productFeedMaterialJson)) {
-                productFile.AddRowItem('Meta2');
-            }
-
             if (Site.current.ID === 'MovadoUS') {
+                if (!empty(productFeedMaterialJson)) {
+                    productFile.AddRowItem('Meta2');
+                }
+
                 productFile.AddRowItem('Meta3');
                 productFile.AddRowItem('Meta4');
                 productFile.AddRowItem('Color');
@@ -165,10 +165,10 @@ function productSync() {
                 productFile.AddRowItem('Color');
                 productFile.AddRowItem('Size');
                 productFile.AddRowItem('Style');
-            }
 
-            if (!empty(productFeedMaterialJson)) {
-                productFile.AddRowItem('Meta2');
+                if (!empty(productFeedMaterialJson)) {
+                    productFile.AddRowItem('Meta2');
+                }
             }
             
             if (!empty(productFeedDialBackgroundColorJson)) {
@@ -379,11 +379,11 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-2302 Movado - Listrak - New Product Feed]
-                if (!empty(productFeedMaterialJson)) {
-                    productFile.AddRowItem(prd.meta2, true);
-                }
-
                 if (Site.current.ID === 'MovadoUS') {
+                    if (!empty(productFeedMaterialJson)) {
+                        productFile.AddRowItem(prd.meta2, true);
+                    }
+
                     productFile.AddRowItem(prd.meta3, true);
                     productFile.AddRowItem(prd.movement, true);
                     productFile.AddRowItem(prd.strapColor, true);
@@ -402,11 +402,11 @@ function productSync() {
                     productFile.AddRowItem(prd.strapColor, true);
                     productFile.AddRowItem(prd.caseDiameter, true);
                     productFile.AddRowItem(prd.meta3, true);
-                }
 
-                if (!empty(productFeedMaterialJson)) {
-                    productFile.AddRowItem(prd.meta2, true);
-                }
+                    if (!empty(productFeedMaterialJson)) {
+                        productFile.AddRowItem(prd.meta2, true);
+                    }
+                }   
 
                 if (!empty(productFeedDialBackgroundColorJson)) {
                     productFile.AddRowItem(prd.dialBackgroundColor, true);

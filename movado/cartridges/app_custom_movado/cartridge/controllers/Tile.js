@@ -89,7 +89,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         ecommerceFunctionalityEnabled: SitePrefrence.ecommerceFunctionalityEnabled,
         tileImageBackground: SitePrefrence.tileImageBackgroundColor ? SitePrefrence.tileImageBackgroundColor : '',
         tileBodyBackground: SitePrefrence.tileBodyBackgroundColor ? SitePrefrence.tileBodyBackgroundColor : '',
-        plpProductFamilyName: SitePrefrence.plpProductFamilyName ? SitePrefrence.plpProductFamilyName : false
+        plpProductFamilyName: SitePrefrence.plpProductFamilyName ? SitePrefrence.plpProductFamilyName : false,
+        plpTilePosition: req.querystring.position
     };
     
     var viewData = res.getViewData();

@@ -1,7 +1,25 @@
 .product-card-wrapper {
-    
+
+    .line-items-name {
+        font-size: rem(16);
+        font-weight: 300;
+        font-family: $font-ProximaNova;
+    }
+ 
     .line-item-name {
         font-family: $font-ProximaNova;  
+        font-weight: 500;
+        color: $dark-black;
+
+        a,span {
+            font-family: $font-ProximaNova;
+            font-weight: 500;
+            color: $dark-gray;
+
+            &:hover {
+                color: $grey25;
+            }
+        }
     }
 
     .item-info {

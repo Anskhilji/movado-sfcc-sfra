@@ -60,6 +60,19 @@
 
             .shippingMethods {
                 font-family: $the-futura-font;
+                border-radius: rem(0);
+                letter-spacing: 0;
+                border: 0;
+                border-bottom: rem(1) solid $black;
+
+                &:focus {
+                    box-shadow: none;
+                    color: $black;
+                }
+
+               + i {
+                    right: 0;
+                }
 
               option {
                   font-family: $the-futura-font;

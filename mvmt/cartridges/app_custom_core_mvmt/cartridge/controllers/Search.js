@@ -140,7 +140,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         };
     }
 
-    if (productSearch.isCategorySearch && !productSearch.isRefinedCategorySearch && categoryTemplate) {
+    if (productSearch.isCategorySearch && categoryTemplate) {
         pageMetaHelper.setPageMetaData(req.pageMetaData, productSearch.category);
 
         if (isAjax) {
