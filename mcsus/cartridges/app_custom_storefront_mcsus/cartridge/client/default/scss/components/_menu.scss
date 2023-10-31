@@ -145,6 +145,10 @@ nav {
 // MSS-2220
 .new-header-deign {
 
+  .header-menu-wrapper {
+    box-shadow: rem(1) rem(1) rem(7) 0 $light-black-shadow;
+  }
+
   .set-store-login {
     margin-right: rem(40);
 
