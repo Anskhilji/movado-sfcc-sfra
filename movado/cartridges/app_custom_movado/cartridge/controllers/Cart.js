@@ -40,7 +40,7 @@ server.prepend('AddProduct', function (req, res, next) {
 // Show add to Cart Button as Remote Include
 server.get('ShowAddProductButton', 
     server.middleware.include,
-    cache.applyDefaultCache,
+    cache.applyPromotionSensitiveCache,
     function (req, res, next) {
         var Site = require('dw/system/Site');
         var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
