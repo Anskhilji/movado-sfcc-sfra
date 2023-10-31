@@ -26,6 +26,7 @@ $border-color1: #D4D4D4 !default;
 // Consolidated values
 $black1: #212529 !default;
 $silver: #C6C4C4 !default;
+$silver1: #CACACA !default;
 $star-light-brown: #C7B299 !default;
 
 $light-grey: #d8d8d8 !default;
@@ -133,7 +134,7 @@ $grey-light13: rgba(196,193,193,0.45);
 $grey-light14: rgba(0,0,0,0.6) !default;
 $grey-light15: rgba(0,0,0,0.7) !default;
 $grey-light6: rgba(0,0,0,0.5) !default;
-$font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
+$font-futura-demi: "futura-pt", sans-serif;
 
 $grid-breakpoints: (
     xs: 0,
@@ -194,6 +195,7 @@ $laptop-screen-width:1300px;
 
 // For screen 320px to 543px
 $small-screen-width: 320px;
+$small-screen-width1: 375px;
 $small-screen-width4: 543px;
 
 @mixin custom-media-query1($small-screen-width, $small-screen-width4) {
@@ -212,9 +214,9 @@ $font-primary: $font-book;
 $font-regular: "proxima-nova";
 $font-awesome: "FontAwesome";
 $font-proxima-nova: "proxima-nova-bold";
-$font-book-std: "FuturaStd-Book", Arial, sans-serif !default;
-$font-std-medium: "FuturaStd-Medium", Arial, sans-serif !default;
+$font-book-std: "futura-pt", sans-serif !default;
+$font-std-medium: "futura-pt", sans-serif !default;
 $width: 100%;
 $spaceLeft: rem(20);
 $marginLeftlg : 60%;
-$futura-book : "FuturaStd-Book", Arial, sans-serif !default;
+$futura-book: "futura-pt", sans-serif !default;

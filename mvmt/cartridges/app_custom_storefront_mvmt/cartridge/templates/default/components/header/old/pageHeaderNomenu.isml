@@ -4,7 +4,6 @@
       <div class="sticky-header-placeholder"></div>
       <div class="header-menu-wrapper desktop-menu-wrapper header-container-checkout-guest">
         <div class="header-wrapper checkout-header-wrapper">
-
           <div class="header-left align-start-box">
               <div class="flex align-items-center checkout-logo">
                 <isslot id="brand-logo" description="Brand Logo" context="global" />
@@ -15,7 +14,6 @@
                   </h5>
               </div>
           </div>
-
           <div class="right">
             <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
                 <isinclude url="${URLUtils.url('Cart-MiniCartCheckout')}"/>
@@ -23,16 +21,13 @@
           </div>
         </div>
       </div>
-
       <div class="header-menu-wrapper mobile-menu-wrapper">
         <div class="header-wrapper checkout-header-wrapper">
-
           <div class="header-left">
               <div class="flex v-middle align-items-center checkout-logo">
                 <isslot id="brand-logo" description="Brand Logo" context="global" />
               </div>
           </div>
-
           <div class="right">
             <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
               <isinclude url="${URLUtils.url('Cart-MiniCartCheckout')}"/>
@@ -41,8 +36,6 @@
           
         </div>
       </div>
-
     </div>
   </nav>
 </header>
-

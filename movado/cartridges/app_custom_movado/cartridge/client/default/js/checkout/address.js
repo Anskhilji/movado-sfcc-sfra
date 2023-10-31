@@ -154,6 +154,15 @@ function getAddressFieldsFromUI(form) {
     return address;
 }
 
+function checkForInput(element) {
+    if ($(element).val().length > 0) {
+        $(element).addClass('auto-is-valid is-valid');
+    } else {
+        $(element).removeClass('auto-is-valid is-valid');
+    }
+}
+
+
 module.exports = {
     methods: {
         populateAddressSummary: populateAddressSummary,
@@ -174,6 +183,7 @@ module.exports = {
             form.attr('data-address-mode', 'details');
             form.find('.multi-ship-address-actions').removeClass('d-none');
             form.find('.multi-ship-action-buttons .col-12.btn-save-multi-ship').addClass('d-none');
+            paymentFieldValidationIcon(false);
         });
     },
 
@@ -190,16 +200,78 @@ module.exports = {
                 $option.text('New Address');
                 $option.prop('selected', 'selected');
                 $el.parents('[data-address-mode]').attr('data-address-mode', 'new');
+                $('.billing-form input').removeClass('is-valid auto-is-valid is-invalid auto-is-invalid');
+                $('.billing-form input').each(function () {
+                    var $input = $(this);
+                    if ($input.hasClass('cardNumber') || $input.hasClass('creditcard-holdername') || $input.hasClass('expirationDate') || $input.hasClass('creditcard-securitycode')) {
+                        checkForInput(this);
+                    }
+                });
+
+                $('.billing-form select').removeClass('auto-is-invalid auto-is-valid is-valid is-invalid');
             } else {
                 // Handle shipping address case
                 var $newEl = $el.parents('form').find('.addressSelector option[value=new]');
                 $newEl.prop('selected', 'selected');
                 $newEl.parent().trigger('change');
+                $('.shipping-form input').removeClass('is-valid auto-is-valid is-invalid auto-is-invalid');
+                $('.shipping-form select').removeClass('auto-is-invalid auto-is-valid is-valid is-invalid');
             }
             var $emailField = $('.billing-email');
             $emailField.val($('.shipping-email').val());
             var $phoneField = $('.billing-phone');
             $phoneField.val($('.shippingPhoneNumber').val());
+            paymentFieldValidationIcon(true);
         });
     }
 };
+
+function paymentFieldValidationIcon(el) {
+    $('.mx-field-wrapper input.input-wrapper-checkout,.mx-field-wrapper select.custom-select-box,.shipping-section .mx-field-wrapper input.input-wrapper-checkout,shipping-section .mx-field-wrapper select.custom-select-box').each(function () {
+        if (($(this)[0].id !== 'cardNumber') && ($(this)[0].id !== 'holderName') && ($(this)[0].id !== 'expirationDate') && ($(this)[0].id !== 'securityCode')) {
+            if ($(this)[0].id == 'shippingCountrydefault') {
+                var selectedOption = $(this).siblings('.field-label-wrapper');
+                if (el === true) {
+                    selectedOption.removeClass('input-has-value');
+                } else {
+                    selectedOption.addClass('input-has-value');
+                }
+                $(this).removeClass('is-valid');
+                if (selectedOption.hasClass('input-has-value')) {
+                    $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                    $(this).addClass('is-valid');
+                    $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+                }
+            } else if ($(this)[0].id == 'shippingCountry') {
+                var selectedOption = $(this).siblings('.field-label-wrapper');
+                if (el === true) {
+                    selectedOption.removeClass('input-has-value');
+                } else {
+                    selectedOption.addClass('input-has-value');
+                }
+                $(this).removeClass('is-valid');
+                if (selectedOption.hasClass('input-has-value')) {
+                    $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                    $(this).addClass('is-valid');
+                    $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+                }
+            } else if ($(this)[0].id == 'shippingState') {
+                var selectedOption = $(this).siblings('.field-label-wrapper');
+                $(this).removeClass('is-valid');
+                if (selectedOption.hasClass('input-has-value')) {
+                    $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                    $(this).addClass('is-valid');
+                    $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+                }
+            } else if (!$(this).hasClass('is-invalid') && $(this).val().length > 0) {
+                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('d-none');
+                $(this).addClass('is-valid');
+                $(this).closest('.security-code-group').find('.info-icon.info-icon-email').addClass('d-none');
+            } else {
+                $(this).removeClass('is-valid');
+                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('d-none');
+                $(this).closest('.security-code-group').find('.info-icon.info-icon-email').removeClass('d-none');
+            }
+        }
+    });
+}

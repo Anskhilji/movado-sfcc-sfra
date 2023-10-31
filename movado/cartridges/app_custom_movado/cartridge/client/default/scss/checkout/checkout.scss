@@ -590,6 +590,7 @@ header {
             text-decoration: none;
             margin-bottom: rem(0);
             line-height: 1.45;
+            font-weight: 500;
 
             @include media-breakpoint-down(sm) {
                 font-size: rem(10);
@@ -717,54 +718,34 @@ header {
 .shipping-form{
     .form-group {
         .form-control {
-            &.is-invalid {
-                border: rem(1) solid $invalid-red;
-                background: url("../../images/invalid.svg") center right no-repeat;
-                background-position-x: 97%;
+            &.is-invalid,&.auto-is-invalid {
+                border: rem(2.4) solid $invalid-red !important;
+
+                ~ .invalid-feedback {
+                    display: block !important;
+                }
+                
+                @include red-tick-image;
+                @include background-postion(33);
+                
                 @include media-breakpoint-down(sm) {
-                    background: none;
-                }
-            }
-            &.input-invalid-icon {
-                &.is-invalid {
-                    background-position-x: 93.5%;
-
-                    @include media-breakpoint-down(sm) {
-                        background: none;
-                    }
+                    @include background-postion(14);
                 }
             }
 
-            &#shippingState,
-            &#shippingCountrydefault,
-            &#shippingCountry,
-            &#billingState,
-            &#billingCountry {
-                &.form-control {
-                    &.is-invalid {
-                        background-position-x: 90%;
-                    }
-                }
-            }
 
-            &#shippingZipCode,
-            &#shippingLastName,
-            &#shippingFirstName,
-            &#shippingAddressCity,
-            &#billingZipCode,
-            &#billingAddressCity,
-            &#billingFirstName,
-            &#billingLastName {
-                &.form-control {
-                    &.is-invalid {
-                        background-position-x: 93.5%;
-                    }
+            &.is-valid,&.auto-is-valid {
+                @include green-tick-image;
+                @include background-postion(33);
+
+                @include media-breakpoint-down(sm) {
+                    @include background-postion(14);
                 }
             }
         }
 
         .invalid-feedback {
-            font-size: rem(11);
+            font-size: rem(16);
             font-weight: 500;
             letter-spacing: rem(0.33);
             line-height: rem(24);
@@ -779,13 +760,13 @@ header {
     height: rem(24);
     width: rem(600);
     color: $invalid-red;
-    font-size: rem(14);
+    font-size: rem(16);
     font-weight: 500;
     letter-spacing: rem(0.75);
     line-height: rem(24);
 
     @include media-breakpoint-down(sm) {
-        font-size: rem(13);
+        font-size: rem(16);
         margin-bottom: rem(20);
         letter-spacing: rem(0.7);
         background: url("../../images/invalid-mobile.svg") center left no-repeat;
@@ -1651,7 +1632,6 @@ header {
                     line-height: rem(24);
                     text-align: center;
                     padding: rem(8.512) rem(20);
-
 
                     &.btn-bg-white {
                         background-color: $white;

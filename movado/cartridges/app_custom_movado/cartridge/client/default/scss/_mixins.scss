@@ -117,3 +117,45 @@ $base-font-size: 16px;
 @mixin boxShadow($horizantal,$vertical,$blur,$spread,$color){
   box-shadow:$horizantal $vertical $blur $spread $color;
 }
+
+// Targets the sibling element with the class "validation-icon" that appears after the element using this mixin
+@mixin green-tick-image{
+    & ~ .validation-icon{
+        background: url("../../images/green_tick.svg") center no-repeat;
+        position: absolute;
+        height: rem(20);
+        width: rem(20);
+        top: rem(13);
+    }
+}
+
+@mixin red-tick-image{
+    & ~ .validation-icon{
+        background: url("../../images/invalid.svg") center no-repeat;
+        position: absolute;
+        height: rem(20);
+        width: rem(20);
+        top: rem(13);
+    }
+}
+
+// background position 
+@mixin background-postion($bgPosition-x){
+    & ~ .validation-icon{
+        right: rem($bgPosition-x);
+    }
+}
+
+@mixin card-icons{
+    &.cardNumber, &.expirationDate{
+        & ~ .validation-icon {
+            right: rem(15);
+        }
+    }
+
+    &.holderName, &.securityCode {
+        & ~ .validation-icon {
+            right: rem(24);
+        }
+    }
+}

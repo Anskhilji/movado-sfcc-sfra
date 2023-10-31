@@ -7,7 +7,7 @@ var $isLoadOnScroll = false;
 var $initiallyLoadedProducts = $('.product-grid').data('initial-products');
 var $isInfiniteScrollEnabled = $('.plp-new-design.search-results').data('infinte-scroll-enabled');
 var $isPaginationEnabled = $('.plp-new-design.search-results').data('enable-pagination');
-var $loadMoreIndex = parseInt($initiallyLoadedProducts / 2) - 1;
+var $loadMoreIndex = parseInt($initiallyLoadedProducts / 2);
 var $loadMoreInProcessing = false;
 var $mobileInfiniteScrollSize = $('.product-grid').data('mobile-infinite-scroll');
 var $mediumWidth = 992;
@@ -355,7 +355,18 @@ function moreFilterBtn($moreFilterBtn) {
         $('.refine-wrapper-sidebar').addClass('fillterslideinleft');
     });
 }
- // Custom:MSS-2073 end
+// Custom:MSS-2073 end
+function showLoadMoreButton() {
+    if ($windowWidth < $mediumWidth) {
+        if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
+            $('.grid-footer').removeClass('d-none');
+        }
+    } else {
+        if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
+            $('.grid-footer').removeClass('d-none');
+        }
+    }
+}
 
 //custome: update URL 2362
 function updateSortingRuleURL(response) {
@@ -367,16 +378,10 @@ function updateSortingRuleURL(response) {
     }
 }
 //custome: END
-
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
-    var screenWidth = 130;
-
-    //  this var use for mobile scree 
-    if (window.innerWidth <= 1200) {
-        screenWidth = 60;
-    } 
+    var screenWidth = 0;
 
     if (scroll > screenWidth) {
        $('.filter-box').addClass('filter-bar-sticky');
@@ -504,6 +509,7 @@ module.exports = {
                     $('.product-grid').empty().html(response);
                     // edit
                     updatePageURLForSortRule(url);
+                    showLoadMoreButton();
                     // edit
                     $.spinner().stop();
                 },
@@ -536,7 +542,8 @@ module.exports = {
     
                 var $productTileHeigth = $('#product-search-results .product-tile').outerHeight();
                 var $scrollPostion = $(window).scrollTop() + $productTileHeigth;
-                var $nextLoadMorePosition = $('#product-search-results .product-tile').eq($loadMoreIndex).offset().top;
+                var $productTileSize = Math.floor($('#product-search-results .product-tile').length / 4);
+                var $nextLoadMorePosition = $('#product-search-results .product-tile').eq($productTileSize).offset().top;
                 var $initialScroll = (($('#product-search-results .product-tile').length % $initiallyLoadedProducts) == 0);
 
                 if ($windowWidth < $mediumWidth) {
@@ -552,16 +559,8 @@ module.exports = {
                         $isLoadOnScroll = false;
                     }
                 }
-    
-                if ($windowWidth < $mediumWidth) {
-                    if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                        $('.grid-footer').removeClass('d-none');
-                    }
-                } else {
-                    if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                        $('.grid-footer').removeClass('d-none');
-                    }
-                }
+                //show load more button
+                showLoadMoreButton();
 
                 if (($scrollPostion >= $nextLoadMorePosition) && $loadMoreInProcessing && $isLoadOnScroll && $initialScroll) {
                     e.preventDefault();
@@ -583,15 +582,7 @@ module.exports = {
                             updatePageURLForShowMore($showMoreUrl);
                             $loadMoreInProcessing = false;
 
-                            if ($windowWidth < $mediumWidth) {
-                                if (($('#product-search-results .product-tile').length % ($mobileInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                                    $('.grid-footer').removeClass('d-none');
-                                }
-                            } else {
-                                if (($('#product-search-results .product-tile').length % ($desktopInfiniteScrollSize * $initiallyLoadedProducts)) === 0) {
-                                    $('.grid-footer').removeClass('d-none');
-                                }
-                            }
+                            showLoadMoreButton();
                             $loaderIcon.addClass('d-none');
                         }
                     });
@@ -640,7 +631,7 @@ module.exports = {
                     // edit end
                     $.spinner().stop();
                     if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
-                        $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2) + 1);
+                        $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2));
                     }
                 },
                 error: function () {
@@ -811,7 +802,7 @@ module.exports = {
                             }
                         }, 20);
                         if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
-                            $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2) + 1);
+                            $loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt($initiallyLoadedProducts / 2));
                         }
                         moveFocusToTop();
                         swatches.showSwatchImages();

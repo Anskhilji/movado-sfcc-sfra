@@ -172,7 +172,7 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProduct
             return '';
         }
     }
-
+    paging.pageSize = DEFAULT_PAGE_SIZE;
     paging.setStart(nextStart);
 
     var baseUrl = productSearch.url(showMoreEndpoint);

@@ -8,6 +8,25 @@
         top: 0;
     }
 }
+
+.page {
+
+  &.page-set {
+    margin-top: rem(40);
+
+    .checkout-page {
+      padding-bottom: rem(20);
+    }
+  }
+}
+
+.header-placeholder-sec {
+
+  &.header-section-set {
+    position: absolute;
+ }
+
+}
 .header-banner {
 
   .html-slot-container {
@@ -1313,6 +1332,23 @@ header.new-header {
       }
     }
 
+      .header-menu-wrapper {
+        transition: .4s ease all;
+      }
+
+      &.hide-header {
+
+        .sticky-header-wrapper {
+
+          .header-menu-wrapper {
+            
+            &.non-sticky {
+              top: rem(-150) !important; //i'm using important to overwrite inline css
+            }
+          }
+        }
+      }
+
   .overlay {
 
     height: rem(80);
@@ -1480,9 +1516,67 @@ header.new-header {
       }
     }
   }
+
+  .minicart {
+
+    .popover-bottom {
+      opacity: 1;
+
+      &.mini-cart-hide {
+        opacity: 0;
+      }
+    }
+  }
 }
 
-.checkout-header {
+// Hide-header
+.site-tophat-main-sec {
+
+  .header-banner {
+    top: 0;
+    transition: .4s ease all;
+    
+    &.header-banner-hide {
+      top: rem(-50);
+    }
+  }
+}
+
+.checkout-header-redesign {
+  transition: .4s ease all;
+
+  .desktop-menu-wrapper {
+    transition: .4s ease all;
+  }
+  
+  &.fixed-header-wrapper {
+    position: absolute;
+    top: rem(-120);
+  
+    .fixed-header {
+  
+      .header-menu-wrapper {
+  
+        &.desktop-menu-wrapper {
+          top: rem(-120) !important;
+        }
+      }
+  
+      .mobile-menu-wrapper {
+        
+        @include media-breakpoint-down(md) {
+  
+          .header-wrapper {
+            top: rem(-120);
+          }
+        }
+      }
+    }
+  
+    .sticky-header-wrapper {
+      transition: .4s ease all;
+    }
+  }
 
   .white-logo {
     display: none;

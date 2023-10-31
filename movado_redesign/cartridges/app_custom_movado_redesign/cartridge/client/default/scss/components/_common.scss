@@ -1,4 +1,6 @@
-
+body {
+    font-weight: 400;
+}
 .heading-one,.heading-two, .heading-three, .heading-four {
     font-family: $movado-font;
 }
@@ -21,6 +23,7 @@
 
 .body-text {
     font-family: $the-futura-font;
+    font-weight: 300;
 }
 
 @include media-breakpoint-up(md) {

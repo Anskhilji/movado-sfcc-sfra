@@ -154,6 +154,21 @@
                         }
                     }
 
+                    .engraving-profanity-error-msg {
+                        display: flex;
+                        font-weight: 300;
+                        font-style: normal;
+                        font-size: rem(12);
+                        letter-spacing: normal;
+                        text-align: left;
+                        margin-bottom: rem(20);
+                        color: $invalid-red;
+
+                        &:empty {
+                            display: none;
+                        }
+                    }
+
                     .engraving-input-box {
                         position: relative;
                         margin-bottom: rem(20);
@@ -184,6 +199,10 @@
                             right: rem(10);
                             transform: translateY(-50%);
                             cursor: pointer;
+                        }
+                        
+                        .input-highlight {
+                            border: rem(1) solid $invalid-red;
                         }
                     }
 

@@ -30,6 +30,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var product;
     var productUrl;
     var quickViewUrl;
+    var productCount;
 
     // TODO: remove this logic once the Product factory is
     // able to handle the different product types
@@ -84,7 +85,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         tileImageBackground: Site.getCurrent().preferences.custom.tileImageBackgroundColor ? Site.getCurrent().preferences.custom.tileImageBackgroundColor : '',
         tileBodyBackground: Site.getCurrent().preferences.custom.tileBodyBackgroundColor ? Site.getCurrent().preferences.custom.tileBodyBackgroundColor : '',
-        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
+        plpTilePosition: req.querystring.position
     };
     
     var viewData = res.getViewData();

@@ -572,11 +572,51 @@ $('.updated-input-style input').focus(function () {
     }
 });
 
+// header hide on scroll
+var lastScrollTop = 0;
+
+  $(window).on('scroll',function() {
+    var scrollTop = $(this).scrollTop();
+
+    if ((scrollTop > 0 && lastScrollTop > 0) && (scrollTop != 0 && lastScrollTop != 0) && scrollTop >= lastScrollTop) {
+      // Scrolling down
+        $('.transparent-header , .home-header-transparent').addClass('hide-header');
+        $('.transparent-header .minicart .popover-bottom , .home-header-transparent .minicart .popover-bottom').addClass('mini-cart-hide' , '0');
+        $('.header-banner-redesign').addClass('header-banner-hide');
+        $('.page').addClass('page-set');
+        $('.header-placeholder-sec').addClass('header-section-set');
+        $('.search-results-updated .filter-bar-sticky').addClass('filter-bar-updated');
+        $('.checkout-header-redesign').addClass('fixed-header-wrapper');
+        $('.accessible-link').css('display','none');
+        $('.search-results-updated .left-sec .result-count').css('display','none');
+    } else {
+      // Scrolling up
+        $('.page').removeClass('page-set');
+        $('.transparent-header , .home-header-transparent').removeClass('hide-header');
+        $('.header-banner-redesign').removeClass('header-banner-hide');
+        $('.checkout-header-redesign').removeClass('fixed-header-wrapper');
+        $('.search-results-updated .filter-bar-sticky').removeClass('filter-bar-updated');
+        $('.header-placeholder-sec').removeClass('header-section-set');
+        $('.accessible-link').css('display','block');
+        $('.transparent-header .minicart .popover-bottom , .home-header-transparent .minicart .popover-bottom').removeClass('mini-cart-hide');
+        $('.search-results-updated .left-sec .result-count').css('display','block');
+    }
+
+    lastScrollTop = scrollTop;
+});
+
 setTimeout(function () {
     $('.updated-input-style input:-webkit-autofill').each(function() {
         $(this).closest('.updated-input-style').addClass('input-blur');
     });
 }, 1000);
+
+// on load scroll on top
+  $(window).on('load', function() {
+    if ($('.modal-is-open').length == 0) {
+        $(window).scrollTop(0);
+    }
+  });
 
 $(function () {
     $('form .updated-input-style').each(function () {

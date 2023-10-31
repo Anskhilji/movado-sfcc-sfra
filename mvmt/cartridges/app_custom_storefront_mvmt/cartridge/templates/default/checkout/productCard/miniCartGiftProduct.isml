@@ -1,5 +1,7 @@
         <isset name="lineItem" value="${childlineItem}" scope="page" />
-        
+        <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+        <isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
+
         <div class="gift-lineitem-container gift-product-id-${lineItem.id} gift-lineitem-container-${lineItem.UUID} gift-item-total-${lineItem.UUID} align-items-center product-line-item-details item-info d-flex flex-row">
             <div class="item-image">
                 <img class="product-image"
@@ -75,6 +77,7 @@
                         <isinclude template="/product/components/pricing/giftMain" />
                     </p>
                 </isif>
+                <isinclude template="cart/productCard/eswRestrictedProductMessage" />
                 <iscomment> Custom Start: Remove actionUrls object from Pdict </iscomment>
                 <div class="remove-line-item d-block mb-2">
                     <button type="button" class="remove-btn remove-product-from-mini-cart btn btn-light"
