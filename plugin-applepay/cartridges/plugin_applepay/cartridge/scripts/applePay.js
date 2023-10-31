@@ -20,6 +20,7 @@ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Constants = require('*/cartridge/utils/Constants');
 var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var usStateCodes = require('*/cartridge/scripts/helpers/usStateCodesHelper');
 
 var server = require('server');
 
@@ -46,8 +47,9 @@ function comparePoBox(address) {
  * @returns results
  */
 function emailValidation (email) {
-    var regex =/^(?=[a-zA-Z0-9_-]{1,64}(?!.*?\.\.)+(?!\@)+[a-zA-Z0-9!.#\/$%&'*+-=?^_`{|}~\S+-]{1,64})+[^\\@,;:"[\]()<>\s]{1,64}[^\\@.,;:"[\]\/()<>\s-]+@[^\\@!.,;:#$%&'*+=?^_`{|}()[\]~+<>"\s\-][a-zA-Z0-9\-\.]*[^\\@!,;:#$%&'*+=?^_`{|}()[\]~+<>"\s]*[\.]+(?!.*web|.*'')[a-zA-Z]{1,15}$/i;
-    var results = regex.test(email);
+    var regex =/^(?=[a-zA-Z0-9_-]{0,64}(?!.*?\.\.)+(?!\@)+[a-zA-Z0-9!.#\/$%&'*+-=?^_`{|}~\S+-]{0,64})+[^\\@,;:"[\]()<>\s]{0,64}[^\\@.,;:"[\]\/()<>\s-]+@[^\\@!.,;:#$%&'*+=?^_`{|}()[\]~+<>"\s\-][a-zA-Z0-9\-\.]*[^\\@!,;:#$%&'*+=?^_`{|}()[\]~+<>"\s]*[\.]+(?!.*web|.*'')[a-zA-Z]{1,15}$/i;
+    var useremail = email.replace(/\s/g, '');
+    var results = regex.test(useremail);
     return results;
 }
 
@@ -107,6 +109,8 @@ function getLastName(fullName, order) {
  * @returns status
  */
 exports.afterAuthorization = function (order, payment, custom, status) {
+    var billingFormServer;
+    var billingFormServerStateCode;
     var isBillingPostalNotValid;
     var orderShippingAddress;
     var isShippingPostalNotValid;
@@ -114,6 +118,8 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var paymentInstruments = order.getPaymentInstruments(
         PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     var currentCountry = productCustomHelper.getCurrentCountry();
+    var shippingFormServer;
+    var shippingFormServerStateCode;
     if (!paymentInstruments.length) {
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
@@ -187,8 +193,17 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
         deliveryValidationFail = true;
     }
+
+    
     // State code Check for billing Address
-    var billingStateCode = order.getBillingAddress().stateCode ? order.getBillingAddress().stateCode : '';
+    var billingStateCode = order.getBillingAddress().stateCode ? order.getBillingAddress().stateCode.toUpperCase() : '';
+    
+    billingFormServer = server.forms.getForm('billing');
+    billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
+
+    if (billingStateCode.length > 2) {
+        billingStateCode = usStateCodes.getStateCodeByStateName(billingFormServerStateCode, billingStateCode);
+    }
 
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
@@ -230,7 +245,15 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
-            var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
+            var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim().toUpperCase() : '';
+
+            var shippingFormServer = server.forms.getForm('shipping');
+            var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
+
+            if (shippingAddressStateCode.length > 2) {
+                shippingAddressStateCode = usStateCodes.getStateCodeByStateName(shippingFormServerStateCode, shippingAddressStateCode);
+            }
+
             var shippingAddressCountryCode = !empty(orderShippingAddress.countryCode) ? orderShippingAddress.countryCode.value : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
@@ -240,8 +263,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         }
 
         if (shippingAddressStateCode) {
-            var shippingFormServer = server.forms.getForm('shipping');
-            var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
             var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(shippingFormServerStateCode, shippingAddressStateCode);
 
             if ((!empty(isValidStateCode) && !isValidStateCode) || (empty(isValidStateCode) && shippingAddressCountryCode == Constants.COUNTRY_US)) {
@@ -249,11 +270,13 @@ exports.afterAuthorization = function (order, payment, custom, status) {
                 deliveryValidationFail = true;
                 Logger.error('Selected state is {0} which is restricted for order: {1}', shippingAddressStateCode, order.orderNo);
             }
+
+            Transaction.wrap(function () {
+                orderShippingAddress.setStateCode(shippingAddressStateCode);
+            });
         }
 
         if (billingStateCode) {
-            var billingFormServer = server.forms.getForm('billing');
-            var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
             var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(billingFormServerStateCode, billingStateCode);
 
             if ((!empty(isValidStateCode) && !isValidStateCode) || (empty(isValidStateCode) && billCountryCode == Constants.COUNTRY_US)) {
@@ -261,6 +284,11 @@ exports.afterAuthorization = function (order, payment, custom, status) {
                 deliveryValidationFail = true;
                 Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
             }
+
+            Transaction.wrap(function () {
+                order.billingAddress.stateCode = billingStateCode;
+            });
+            
         }
 
         var email = order.customerEmail;
