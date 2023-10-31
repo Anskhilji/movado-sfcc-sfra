@@ -1,7 +1,7 @@
 'use strict';
 var Constants = require('*/cartridge/scripts/util/Constants');
 var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
-
+var productCustomHepler = require('*/cartridge/scripts/helpers/productCustomHelper')
 /**
  * Resource helper
  *
@@ -29,6 +29,8 @@ function getResources(pageContext) {
     
     var lowStockMessage = ContentMgr.getContent('ca-low-stock-message');
     lowStockMessage = lowStockMessage && lowStockMessage.custom.body && lowStockMessage.custom.body.source ? lowStockMessage.custom.body.source : '';
+
+    var badWordsList = productCustomHepler.getBadWordsList();
 
     var isPickUpFromStore;
     if (currentBasket) {
@@ -136,7 +138,9 @@ function getResources(pageContext) {
         LABEL_IN_STOCK: Resource.msg('label.instock', 'common', null),
         LOW_STOCK_MESSAGE: lowStockMessage,
         APPLEPAY_BUTTON_LABEL: Resource.msg('label.button.applepay', 'common', null),
-        GOOGLEPAY_BUTTON_LABEL: Resource.msg('label.button.googlepay', 'common', null)
+        GOOGLEPAY_BUTTON_LABEL: Resource.msg('label.button.googlepay', 'common', null),
+        ENGRAVING_PROFANE_ERROR_MESSAGE: Resource.msg('engraving.profane.error.message', 'product', null),
+        BAD_WORDS_LIST: badWordsList
     };
     return resources;
 }

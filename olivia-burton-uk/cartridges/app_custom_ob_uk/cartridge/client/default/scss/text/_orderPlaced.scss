@@ -123,10 +123,13 @@
   }
 }
 
-.order-confirmation-continue-shopping {
+.order-confirmation-continue-shopping,
+.cancellation-order-tracking,
+.check-order-status-btn {
   background-color: $dark-cyan;
   border: rem(1) solid $dark-cyan;
-  &:focus, 
+  
+  &:focus,
   &:active {
       border: rem(1) solid $dark-cyan !important;
       background-color: $dark-cyan !important;

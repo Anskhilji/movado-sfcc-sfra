@@ -2518,7 +2518,7 @@
 
   @media(max-width:$custom-lg4) {
     padding: 0 rem(24);
-
+    
   }
 
   .selected-filters-nav {
@@ -2636,7 +2636,7 @@
                 align-items: center;
                 font-family: $movado-font;
 
-                label {
+                h1 {
                   color: $light-black7;
                   font-family: $movado-font;
                   font-size: rem(24);
@@ -2644,6 +2644,7 @@
                   font-weight: 400;
                   line-height: rem(32);
                   margin: 0;
+                  letter-spacing: normal;
                 }
 
                 span {
@@ -3077,6 +3078,10 @@
               padding: 0 rem(24);
               top: rem(98);
             }
+
+            &.filter-bar-updated {
+              top: 0;
+            }
               
             .filter-and-count {
 
@@ -3133,7 +3138,7 @@
                     align-items: center;
                     font-family: $movado-font;
 
-                    label {
+                    h1 {
                       color: $light-black7;
                       font-family: $movado-font;
                       font-size: rem(24);
@@ -3141,6 +3146,7 @@
                       font-weight: 400;
                       line-height: rem(32);
                       margin: 0;
+                      letter-spacing: normal;
                     }
 
                     span {

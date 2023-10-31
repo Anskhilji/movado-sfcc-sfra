@@ -1,0 +1,14 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<isif condition="${pdict.isPostCheckoutEnabled}">
+  <!-- Begin Talkable integration code -->
+  <isif condition="${empty(pdict.talkableSiteId)}">
+    <!-- Talkable Site ID is blank, check your Talkable extension settings -->
+  <iselsif condition="${empty(pdict.Order)}">
+    <!-- Order could not be found -->
+  <iselse>
+    <script type="text/javascript">
+      _talkableq.push(["register_purchase", JSON.parse("<isprint value="${pdict.talkableData}" encoding="jsonvalue"/>")]);
+    </script>
+  </isif>
+  <!-- End Talkable integration code -->
+</isif>

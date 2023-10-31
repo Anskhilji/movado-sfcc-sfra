@@ -102,7 +102,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
         decorators.mgattributes(product, apiProduct);
     }
     if (!params.images || params.images == true) {
-        decorators.images(product, apiProduct, { types: ['tile533', 'tile256', 'tile217', 'tile640', 'tile520', 'tile300', 'tile150', 'tile512'], quantity: 'single' });
+        decorators.images(product, apiProduct, { types: ['tile533', 'tile256', 'tile217', 'tile640', 'tile520', 'tile300', 'tile150', 'tile512'], quantity: 'all' });
     }
     if (!params.promotions || params.promotions == true) {
         decorators.promotions(product, options.promotions);
@@ -305,7 +305,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
                 value: defaultVariantImage
             });
 
-            Object.defineProperty(product, 'defaultVariantTile640X764 ', {
+            Object.defineProperty(product, 'defaultVariantTile640X764', {
                 enumerable: true,
                 value: tile640Xtile764
             });

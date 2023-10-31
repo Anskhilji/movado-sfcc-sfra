@@ -937,3 +937,16 @@ header~.container .promotions .callout a{
         }
     }
 }
+
+.order-tracking-title {
+  font-size: rem(34);
+  letter-spacing: rem(2);
+
+  @include media-breakpoint-down(md) {
+    font-size: rem(26);
+  }
+
+  @include media-breakpoint-down(sm) {
+    font-size: rem(22);
+  }
+}
