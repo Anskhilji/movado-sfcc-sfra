@@ -187,8 +187,8 @@ $('.preview-btn').click(function (e) {
         var $engravedTextOne = $('.engraved-text-one');
         var $engravedTextTwo = $('.engraved-text-two');
         var $engravingProfanityErrorMsg = $('.engraving-profanity-error-msg');
-        var profaneTextOne;
-        var profaneTextTwo;
+        var profaneTextOne = false;
+        var profaneTextTwo = false;
         $engravedTextOne.text('');
         $engravedTextTwo.text('');
         $engravingErrorMsg.text('');
@@ -220,7 +220,7 @@ $('.preview-btn').click(function (e) {
                 }
             }
 
-            if ($EngravingoptionTextone || $EngravingoptionTextTwo) {
+            if ((window.Resources.BAD_WORDS_LIST) && ($EngravingoptionTextone || $EngravingoptionTextTwo)) {
                 if ($EngravingoptionTextone) {
                     profaneTextOne = profanityFilter.isProfane($EngravingoptionTextone);                    
                 }
