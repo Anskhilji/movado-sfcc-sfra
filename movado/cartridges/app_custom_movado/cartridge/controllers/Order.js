@@ -391,6 +391,21 @@ server.append('Confirm', function (req, res, next) {
     }
     // custom end
 
+
+    //custom Start : MSS-2339-integration-Talkable-Marketing-platform
+    var isTalkableEnabled = Site.current.preferences.custom.talkableEnabled || "";
+    if (isTalkableEnabled) { 
+        var talkableHelper = require("*/cartridge/scripts/talkable/libTalkable");
+        var talkable = new talkableHelper.TalkableHelper();
+        viewData.isPostCheckoutEnabled = talkable.isPostCheckoutEnabled();
+        viewData.talkableSiteId = talkable.getSiteId();
+        if (!empty(viewData.order)) {
+            viewData.recentOrder = OrderMgr.getOrder(viewData.order.orderNumber);
+            viewData.talkableData = talkable.getPurchaseData(viewData.recentOrder);
+        }
+    }
+    // custom end
+
     res.setViewData({
         orderConfirmationObj: JSON.stringify(orderConfirmationObj)
     });
