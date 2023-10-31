@@ -124,11 +124,10 @@ function getPlPDepartmentCategory(apiProductSearch) {
 }
 
 function getSingleColumnPerRow(productSearch) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
     var currentCategory;
     var isEnableSingleProductRow;
-    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
-        currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+    if (!empty(productSearch) && !empty(productSearch.productSearch) &&  !empty(productSearch.productSearch.category)) {
+        currentCategory = productSearch.productSearch.category;
         if (!empty(currentCategory.custom.isEnableSingleProductRow)) {
             isEnableSingleProductRow = currentCategory.custom.isEnableSingleProductRow;
         }
@@ -137,11 +136,10 @@ function getSingleColumnPerRow(productSearch) {
 }
 
 function getIsNonWatchesTileAttribute (productSearch) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
     var isNonWatchesTileEnable = false;
     var currentCategory;
-    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
-        currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+    if (!empty(productSearch) && !empty(productSearch.productSearch) &&  !empty(productSearch.productSearch.category)) {
+        currentCategory = productSearch.productSearch.category;
         if (!empty(currentCategory.custom.isNonWatchesTile)) {
             isNonWatchesTileEnable = currentCategory.custom.isNonWatchesTile;
         }
@@ -150,10 +148,9 @@ function getIsNonWatchesTileAttribute (productSearch) {
 }
 
 function getEyewearTile(productSearch) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
     var isEyewearTile = false;
-    if (!empty(productSearch) && productSearch.category && !empty(productSearch.category.id)) {
-        var currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+    if (!empty(productSearch) && !empty(productSearch.productSearch) &&  !empty(productSearch.productSearch.category)) {
+        var currentCategory = productSearch.productSearch.category;
         var currentCategoryTemplate = currentCategory.template;
         var categoryTemplateEyewear = 'search/searchResultsEyewear';
         if (currentCategoryTemplate == categoryTemplateEyewear) {

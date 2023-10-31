@@ -1,6 +1,7 @@
 // This is the main file please add submodules into it
 var processInclude = require('base/util');
 
+processInclude(require('./components/eswFooter'));
 processInclude(require('movado/utilities/modal'));
 processInclude(require('movado/components/menu'));
 processInclude(require('base/components/cookie'));

@@ -126,7 +126,7 @@ function updateCountryList () {
     	changeAjaxCall(dataObj);
     });
 
-    $('.esw-country-selector').on('click','a.selected-link',function(){
+	$(document).on('click','a.selected-link', function () {
     	var locale = $(this).attr('data-locale').split('_');
         var dataObj = {
             	  'country': $(this).attr('data-country'),
