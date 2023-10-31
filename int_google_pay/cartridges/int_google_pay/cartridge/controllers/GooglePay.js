@@ -385,6 +385,19 @@ server.post('ProcessPayments',
             return next(new Error('Could not place order'));
         }
 
+        var productLineItems = order.getAllProductLineItems().iterator();
+        var productLineItem;
+        var optionProductLineItem;
+
+        // remove null option line item
+        while (productLineItems.hasNext()) {
+            productLineItem = productLineItems.next();
+            optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
+            }
+        }
+
         /**~
 		 * Custom Start: Clyde Integration && Pulse (Engraving)
 		 */
@@ -407,19 +420,6 @@ server.post('ProcessPayments',
 		/**
 		 * Custom: End
 		 */
-
-        var productLineItems = order.getAllProductLineItems().iterator();
-        var productLineItem;
-        var optionProductLineItem;
-
-        // remove null option line item
-        while (productLineItems.hasNext()) {
-            productLineItem = productLineItems.next();
-            optionProductLineItem = productLineItem.optionProductLineItems.iterator();
-            if (!empty(optionProductLineItem)) {
-                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
-            }
-        }
         
         // Send order confirmation based upon Riskified
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
