@@ -13,7 +13,7 @@
             <div class="sticky-header-placeholder"></div>
             <div class="header-menu-wrapper">
                 <div class="header-wrapper">
-                    <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse"
+                    <button class="navbar-toggler" role="tab" type="button" aria-controls="sg-navbar-collapse"
                         aria-expanded="false">
                         <i class="new-hamburger"></i>
                         <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
