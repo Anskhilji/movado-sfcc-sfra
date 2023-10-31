@@ -84,9 +84,26 @@ header {
 
                     span {
                         font-family: $font-ProximaNova;
+                        color: $light-black2
                     }
                 }
             }
         }
     }
+}
+
+.receipt {
+    
+    .order-product-summary {
+
+        .product-summary-block {
+
+            .line-item-name {
+
+                span {
+                    color: $grey14;
+                }
+            }
+        }
+    } 
 }

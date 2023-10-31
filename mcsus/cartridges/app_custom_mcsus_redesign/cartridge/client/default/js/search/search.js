@@ -481,6 +481,7 @@ module.exports = {
                     setTimeout(() => {
                         $('.product-tile-plp-container').removeClass('disable-hover');
                     }, 200);
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -554,6 +555,7 @@ module.exports = {
                             //show load more button
                             showLoadMoreButton();
                             $loaderIcon.addClass('d-none');
+                            initializePrimarySlider();
                         }
                     });
                 } else {
@@ -614,6 +616,7 @@ module.exports = {
                     if ($isInfiniteScrollEnabled && ($isPaginationEnabled == false)) {
                         $loadMoreIndex = $('.searech-results-wrapper .product-tile').length - (parseInt($initiallyLoadedProducts / 2));
                     }
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -674,6 +677,7 @@ module.exports = {
                     if($(window).width() > 991) {
                         getTileHeight()
                     }
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -738,6 +742,7 @@ module.exports = {
 
                     checkResultCount();
                     hideSelectedFilterTabs();
+                    initializePrimarySlider();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -784,8 +789,28 @@ $(window).on('load resize scroll', function() {
     var $filterBottom = $filterTop + $searchBanner.outerHeight();
     
     if ($filterTop >= $viewportTop && $filterBottom <= $viewportBottom) {
-        $('.search-filter-bar, .filter-redesign').removeClass('sticky-search-filter-bar');
+        $('.filter-redesign-container').removeClass('sticky-search-filter-bar');
     } else {
-        $('.search-filter-bar, .filter-redesign').addClass('sticky-search-filter-bar');
+        $('.filter-redesign-container').addClass('sticky-search-filter-bar');
     }
 });
+
+function initializePrimarySlider() {
+    $('.plp-image-carousel-config').not('.slick-initialized').slick({
+      lazyLoad: 'ondemand',
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      dots: true,
+      arrows: false,
+      responsive: [{
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false
+        }
+      }],
+    });
+  }
+  
+  initializePrimarySlider();

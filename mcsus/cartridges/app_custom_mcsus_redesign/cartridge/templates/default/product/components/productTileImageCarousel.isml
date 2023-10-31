@@ -1,0 +1,46 @@
+<isset name="slidesToShow" value="${dw.system.Site.current.preferences.custom.isPlpCarouselConfig}" scope="page" />
+<div class="image-container">
+    <isloop items="${product.badges.imageBadges}" var="imageBadge">
+    	<div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+    </isloop>
+    <div class="d-flex text-badges-container">
+        <isloop items="${product.badges.textBadges}" var="badge">
+            <div class="exclusive-product">
+                ${badge.text}
+            </div>
+        </isloop>
+    </div>
+    <div class="plp-image-carousel-config">
+        <isloop items="${product.images['tile256']}" var="image" status="loopStatus">
+            <a href="${pdict.urls.product}">
+                <isif condition="${product && product.images}">
+                    <picture>
+                        <isif condition="${image[loopStatus.count-1]}">
+                            <source media="(min-width: 992px)" srcset="${image[loopStatus.count-1].url}" />
+                        </isif>
+                        <isif condition="${product.images.tile217[loopStatus.count-1]}">
+                            <source media="(min-width: 544px)" srcset="${product.images.tile217[loopStatus.count-1].url}" />
+                        </isif>
+                        <isif condition="${product.images.tile150[loopStatus.count-1]}">
+                            <source media="(min-width: 320px)" srcset="${product.images.tile150[loopStatus.count-1].url}" />
+                        </isif>
+                        <isif condition="${image}">
+                            <img class="tile-image gtm-product ${loopStatus.count-1}" fetchpriority="${pdict.plpTilePosition < 5 ? 'high' : '' }" src="${image[loopStatus.count-1].url}" alt="${product.productName}" itemprop="image" data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}' />
+                        </isif>
+                    </picture>
+                </isif>
+            </a>
+            <isif condition="${loopStatus.count == slidesToShow}">
+                <isbreak/>
+            </isif>
+        </isloop>
+    </div>
+    <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj), 'page', 'tile')}"/>
+    <isif condition="${pdict.display.showQuickView !== false}">
+     <isif condition="${!('display' in pdict && 'quickView' in pdict.display && pdict.display.quickView == false)}">
+        <a class="quickview hidden-xs-down" href="${pdict.urls.quickView}" data-gtm-qv='${JSON.stringify(pdict.qvGtmObj)}'>
+            <span class="sr-only">${Resource.msg('button.quickview', 'common', null)} ${product.productName} ${product.id}</span>
+        </a>
+      </isif>
+    </isif>
+</div>

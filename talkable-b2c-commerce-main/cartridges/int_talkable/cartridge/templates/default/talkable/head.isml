@@ -1,0 +1,20 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<!-- Begin Talkable integration code -->
+<isif condition="${empty(pdict.talkableSiteId)}">
+  <!-- Talkable Site ID is blank, check your Talkable extension settings -->
+  <script type="text/javascript" src="//d2jjzw81hqbuqv.cloudfront.net/integration/talkable-4.5.min.js"></script>
+<iselse>
+  <script type="text/javascript">
+    var _talkableq = _talkableq || [];
+    _talkableq.push(["init", {
+      site_id: "${pdict.talkableSiteId}",
+      integration_platform: "sfcc"
+    }]);
+
+    _talkableq.push(["authenticate_customer", JSON.parse("<isprint value="${pdict.talkableData}" encoding="jsonvalue"/>")]);
+    <isif condition="${pdict.isRegisterAffiliateEnabled}">_talkableq.push(["register_affiliate", {}]);</isif>
+  </script>
+  
+  <script type="text/javascript" src="//d2jjzw81hqbuqv.cloudfront.net/integration/clients/${encodeURIComponent(pdict.talkableSiteId)}.min.js"></script>
+</isif>
+<!-- End Talkable integration code -->

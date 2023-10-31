@@ -123,6 +123,33 @@ body {
                     padding-left: 0;
                 }
             }
+
+            .flex-box-contianer-bottom {
+
+                .order-product-summary {
+
+                    .product-summary-block {
+
+                        .card {
+
+                            .product-line-item-details {
+
+                                .line-item-header {
+
+                                    .line-item-name {
+
+                                        span {
+                                            font-family: $the-futura-font;
+                                            color: $light-black8;
+                                            font-weight: 500;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -230,5 +257,29 @@ body {
             }
         }
     }
+}
+
+.receipt {
+    
+    .order-product-summary {
+
+        .product-summary-block {
+
+            .product-card-wrapper {
+                border-radius: rem(3);
+            }
+
+            .line-item-name {
+                font-weight: 500;
+                color: $dark-black;
+
+                span {
+                    font-weight: 500;
+                    font-family: $the-futura-font;
+                    color: $dark-black;
+                }
+            }
+        }
+    } 
 }
 
