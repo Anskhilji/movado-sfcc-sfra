@@ -196,10 +196,10 @@ $('.preview-btn').click(function (e) {
 
         if ($engravingInputOne.length > 0) {
             $EngravingoptionTextone = $engravingInputOne.val().trim();
-            var $regex = /^[a-zA-Z0-9\s]*$/;
+            var $regex = /^[a-zA-Z0-9\s-!.,“"”/]*$/;
             var $isValid = $regex.test($EngravingoptionTextone);
 
-            if ($EngravingoptionTextone == '' || $EngravingoptionTextone.length > 10 || !$isValid) {
+            if ($EngravingoptionTextone == '' || $EngravingoptionTextone.length > 15 || !$isValid) {
                 $engravingErrorMsg.text(window.Resources.ENGRAVING_ERROR_MESSAGE);
                 $EngravingoptionTextone = '';
                 $EngravingoptionTextTwo = '';
@@ -212,7 +212,7 @@ $('.preview-btn').click(function (e) {
 
                 var $isValidOptionalVal = $regex.test($EngravingoptionTextTwo);
 
-                if ($EngravingoptionTextTwo.length > 10 || !$isValidOptionalVal) {
+                if ($EngravingoptionTextTwo.length > 15 || !$isValidOptionalVal) {
                     $engravingErrorMsg.text(window.Resources.ENGRAVING_ERROR_MESSAGE);
                     $EngravingoptionTextone = '';
                     $EngravingoptionTextTwo = '';
