@@ -39,13 +39,13 @@ $(function() {
 });
 
 if (window.innerWidth < 768) {
-  $(window).on("scroll", function () {
+  $(window).on('scroll', function () {
     if ($(this).scrollTop() > 5) {
-      if ($(".new-header-deign.fixed-header").length) {
-        $("#mainContent").addClass("pdp-maineConeten");
+      if ($('.new-header-deign.fixed-header').length) {
+        $('#mainContent').addClass('pdp-maine-content');
       }
     } else {
-      $("#mainContent").removeClass("pdp-maineConeten");
+      $('#mainContent').removeClass('pdp-maine-content');
     }
   });
 }
