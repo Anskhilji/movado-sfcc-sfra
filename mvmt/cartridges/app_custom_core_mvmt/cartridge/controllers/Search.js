@@ -160,7 +160,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
 
     if (
         productSearch.isCategorySearch
-        && !productSearch.isRefinedCategorySearch
         && categoryTemplate
     ) {
         pageMetaHelper.setPageMetaData(req.pageMetaData, productSearch.category);
