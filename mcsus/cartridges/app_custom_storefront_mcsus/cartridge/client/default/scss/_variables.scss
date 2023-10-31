@@ -26,6 +26,7 @@ $border-color1: #D4D4D4 !default;
 // Consolidated values
 $black1: #212529 !default;
 $silver: #C6C4C4 !default;
+$silver1: #CACACA !default;
 $star-light-brown: #C7B299 !default;
 
 $light-grey: #d8d8d8 !default;
@@ -194,6 +195,7 @@ $laptop-screen-width:1300px;
 
 // For screen 320px to 543px
 $small-screen-width: 320px;
+$small-screen-width1: 375px;
 $small-screen-width4: 543px;
 
 @mixin custom-media-query1($small-screen-width, $small-screen-width4) {
