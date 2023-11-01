@@ -126,7 +126,7 @@ function updateCountryList () {
     	changeAjaxCall(dataObj);
     });
 
-	$(document).on('click','a.selected-link', function () {
+	$('.esw-country-selector').on('click','a.selected-link', function () {
     	var locale = $(this).attr('data-locale').split('_');
         var dataObj = {
             	  'country': $(this).attr('data-country'),
@@ -138,6 +138,7 @@ function updateCountryList () {
             	 };
     	changeAjaxCall(dataObj);
     });
+	
     $(document).on('change','#shippingCountrydefault',function(){
     	var selectedData = {'country' : $('#shippingCountrydefault').val().toUpperCase(),
     						'url'	:   $('#shippingCountrydefault').attr('data-url')
