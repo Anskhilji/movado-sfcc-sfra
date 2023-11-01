@@ -42,10 +42,10 @@ if (window.innerWidth < 768) {
   $(window).on('scroll', function () {
     if ($(this).scrollTop() > 5) {
       if ($('.new-header-deign.fixed-header').length) {
-        $('#mainContent').addClass('pdp-maine-content');
+        $('#mainContent').addClass('pdp-main-content');
       }
     } else {
-      $('#mainContent').removeClass('pdp-maine-content');
+      $('#mainContent').removeClass('pdp-main-content');
     }
   });
 }
