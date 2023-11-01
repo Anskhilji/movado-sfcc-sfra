@@ -82,7 +82,10 @@ function createFulfillmentOrderMapObjects(somFulfillmentOrders, existingOrderSum
         orderSummaryToFulfillmentOrders = {};
     }
 
-    if (somFulfillmentOrders.body.records.length > 0) {
+    if (somFulfillmentOrders
+        && somFulfillmentOrders.body
+        && somFulfillmentOrders.body.records
+        && somFulfillmentOrders.body.records.length > 0) {
         somFulfillmentOrders.body.records.forEach(function (somFulfillmentOrder) {
             var orderSummaryId = somFulfillmentOrder.OrderSummaryId;
             var fulfillmentOrders;

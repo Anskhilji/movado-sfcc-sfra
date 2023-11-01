@@ -16,7 +16,7 @@ function SomOrderItems(orderItems) {
         orderItems.forEach(function (orderItem) {
             if (orderItem.quantity > 0) {
                 // Getting product attributes from eCom since these information is not available in SOM
-                orderHelpers.addProductData(orderItem, orderItem.currencyCode);
+                //orderHelpers.addProductData(orderItem, orderItem.currencyCode);
                 // if product has a flag that it is non-returnable, set quantity available to return to zero
                 items.push(orderItem);
             }

@@ -27,7 +27,8 @@ server.get('GetDetails', function (req, res, next) {
     var hookExtensionPoint = 'app.order.update.processStatusUpdate';
 
     try {
-        var orderNo = req.httpParameterMap.orderNo.stringValue || null;
+        var httpParameterMap = req.httpParameterMap ? req.httpParameterMap : request.httpParameterMap;
+        var orderNo = httpParameterMap.orderNo.stringValue || null;
         if (!orderNo) {
             jsonResponse.msg = 'No "orderNo" parameter in the request';
             res.json(jsonResponse);
