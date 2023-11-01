@@ -1,7 +1,0 @@
-<!--- TEMPLATENAME: favicon.isml --->
-<link href="${URLUtils.staticURL('/images/favicons/favicon.ico')}" rel="shortcut icon" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-152.ico')}" sizes="152x152" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-144.ico')}" sizes="144x144" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-120.ico')}" sizes="120x120" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-72.ico')}" sizes="72x72" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-114.ico')}" sizes="114x114" />
