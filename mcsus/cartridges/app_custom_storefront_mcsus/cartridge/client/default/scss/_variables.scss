@@ -26,6 +26,7 @@ $border-color1: #D4D4D4 !default;
 // Consolidated values
 $black1: #212529 !default;
 $silver: #C6C4C4 !default;
+$silver1: #CACACA !default;
 $star-light-brown: #C7B299 !default;
 
 $light-grey: #d8d8d8 !default;
@@ -85,6 +86,7 @@ $grey-light2: rgba(195,195,195,0.5) !default;
 $grey-light3: #aaa !default;
 $grey-dark: rgba(187, 189, 191, 0.5) !default;
 $grey-dark-1: rgba(6,5,6,0.6) !default;
+$light-black-shadow: rgba(0, 0, 0, 0.24);
 
 $light-gray: $grey1 !default;
 $slightly-darker-gray: $grey4 !default;
@@ -194,6 +196,7 @@ $laptop-screen-width:1300px;
 
 // For screen 320px to 543px
 $small-screen-width: 320px;
+$small-screen-width1: 375px;
 $small-screen-width4: 543px;
 
 @mixin custom-media-query1($small-screen-width, $small-screen-width4) {

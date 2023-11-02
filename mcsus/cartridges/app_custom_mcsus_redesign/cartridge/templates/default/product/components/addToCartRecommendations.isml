@@ -6,6 +6,7 @@
             data-recommendation-atc="true"
             data-product-set="${!empty(product.individualProducts) ? true : false}"
             data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
+            ${!pdict.readyToOrder ? "disabled" : ""}
             ${!product.available ? "disabled" : ""} >
             <isif condition="${!pdict.display.showAddToCartIcon}">
                 <svg class="tick-icon" width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

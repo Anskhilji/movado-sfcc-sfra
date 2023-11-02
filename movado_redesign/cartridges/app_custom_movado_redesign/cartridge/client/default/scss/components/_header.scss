@@ -262,8 +262,13 @@ header.new-header {
     }
 
     .minicart-quantity {
-      right: rem(-3);
-      top: rem(-1);
+      right: rem(11);
+      top: rem(11);
+
+      @include media-breakpoint-down(sm) {
+        right: rem(11);
+        top: rem(11);
+      }
     }
   }
 
@@ -1370,6 +1375,12 @@ header.new-header {
           align-items: center;
           gap: rem(12);
           cursor: pointer;
+          padding: rem(12.5) 0;
+
+          @include media-breakpoint-down(md) {
+            padding: rem(17.5) rem(13);
+            margin-left: rem(-14.5);
+          }
 
           .Menu-text {
             font-size: rem(14);
@@ -1401,24 +1412,31 @@ header.new-header {
             .minicart {
 
               @include media-breakpoint-down(md) {
-                width: rem(16);
-                height: rem(16);
+                width: rem(44);
+                height: rem(44);
+              }
+              
+              @include media-breakpoint-down(sm) {
+                width: rem(44);
+                height: rem(44);
+                margin-right: rem(-14);
               }
 
               &-total {
-                width: rem(16);
-                height: rem(16);
+                width: rem(44);
+                height: rem(44);
               }
             }
 
             .header-icon {
-              height: rem(16);
-              width: rem(16);
-              margin-right: rem(37);
+              height: rem(44);
+              width: rem(44);
+              margin-right: rem(4);
               position: inherit;
+              padding: rem(22);
 
               @include media-breakpoint-down(md) {
-                margin-right: rem(20);
+                margin-right: rem(-4);
               }
             }
 
@@ -1449,6 +1467,11 @@ header.new-header {
 
             .search-icon {
               background: url("../images/search.svg") center center no-repeat;
+              
+              @include media-breakpoint-down(sm) {
+                padding: rem(22px);
+                margin-right: rem(-8);
+              }
             }
 
             .user {
@@ -1468,20 +1491,30 @@ header.new-header {
             }
             .minicart-link {
               background: url("../images/shopping-bag.svg") center center no-repeat;
+
+              @include media-breakpoint-down(sm) {
+                padding: rem(22);
+              }
             }
           }
           
           .minicart {
             margin-right: rem(0);
+            width: rem(44);
+            height: rem(44);
+
+            .popover {
+              top: rem(40);
+              right: rem(-5);
+            }
           }
 
           .user {
-
             position: relative;
-            padding: rem(18) rem(4) rem(16) rem(3);
-            top: rem(1);
+            padding: rem(11) rem(14);
+            top: rem(0);
             border: 0;
-            margin-right: rem(36);
+            margin-right: rem(4);
 
             .user-icon {
               height: rem(16);

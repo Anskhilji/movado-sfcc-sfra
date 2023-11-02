@@ -2,7 +2,7 @@
     <isloop items="${slotcontent.content}" var="product" status="loopState" begin="0" end="3">
         <li>
             <isobject object="${product}" view="recommendation">
-                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'plpTile', true, 'showAddToCart',true)}"/>  
+                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'plpTile', true, 'showAddToCart',true, 'countryCode', session.privacy.countryCode)}" />
             </isobject>
         </li>
     </isloop>

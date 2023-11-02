@@ -1,4 +1,7 @@
 <iscomment>Custom Start: Adding placeholder text in the input fields and Changing in html structure similar to mvmt design </iscomment>
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
+
 <form action="${pdict.actionUrl}" class="login" method="POST" name="login-form">
     <div class="form-group required">
         <label class="form-control-label" for="login-form-email">
@@ -37,7 +40,13 @@
 
     <div class="submit-form-section text-left">
         <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
-        <button type="submit" class="btn btn-block btn-primary">${Resource.msg('link.text.sign.in', 'cart', null)}</button>
+        <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken-login" value="" name="gRecaptchaToken" />
+
+        <button type="submit" class="btn btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''}">${Resource.msg('link.text.sign.in', 'cart', null)}</button>
+
+        <isif condition="${isGoogleRecaptchaEnabled}">
+            <button type="submit" class="btn btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback="onsubmitCaptchaLogin">${Resource.msg('link.text.sign.in', 'cart', null)}</button>
+        </isif>
     </div>
  <iscomment>   <div class="forgot-password text-center">
         <a id="forget-password-btn">${Resource.msg('link.login.forgotpassword', 'login', null)}</a>

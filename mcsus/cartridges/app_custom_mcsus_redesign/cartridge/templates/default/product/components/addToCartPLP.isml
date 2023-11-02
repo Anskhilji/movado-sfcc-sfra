@@ -6,6 +6,7 @@
             data-plp-addtocart="true"
             data-product-set="${!empty(product.individualProducts) ? true : false}"
             data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
+            ${!pdict.readyToOrder ? "disabled" : ""}
             ${!product.available ? "disabled" : ""} >
             <isif condition="${!pdict.display.showAddToCartIcon}">
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>

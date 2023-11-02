@@ -55,7 +55,7 @@
 	                    <isinclude template="product/components/badges" />
 	                </div>
                     <!-- Product Name -->
-                    <h2 class="product-name product-title-for-gtm">${product.productName}</h2>
+                    <h1 class="product-name product-title-for-gtm">${product.productName}</h1>
                     
                     <!-- Prices -->
                     <div class="prices pdp-price">

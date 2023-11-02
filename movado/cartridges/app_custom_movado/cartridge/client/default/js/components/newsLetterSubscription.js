@@ -48,18 +48,12 @@ function processSubscription(response) {
         wrapperContainer.removeClass('d-none');
         $innerWrapperContainer.text(response.message);
         if (!response.error) {
-            if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS) {
-                $innerWrapperContainer.attr('class', 'success');
-                //Custom:MSS-2290 subscription-successful-modal
-                subscriptionCouponCodeModal();
-            } else {
-                $innerWrapperContainer.attr('class', 'error');
-                //Custom:MSS-2290 subscription-successful-modal
-                subscriptionCouponCodeModal();
-            }
-            triggerEmailSubscription(response);
+          $innerWrapperContainer.attr("class", "success");
+          //Custom:MSS-2290 subscription-successful-modal
+          subscriptionCouponCodeModal();
+          triggerEmailSubscription(response);
         } else {
-            $innerWrapperContainer.attr('class', 'error');
+          $innerWrapperContainer.attr("class", "error");
         }
     }
 }

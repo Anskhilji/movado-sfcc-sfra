@@ -128,3 +128,13 @@ $('.home-search input').focus(function () {
 }).blur(function () {
     $('.home-search').removeClass('active');
 });
+
+$(window).scroll(function () { 
+    if ($('.new-header-deign').hasClass('fixed-header')) {
+        $('.new-header-deign').parents('header').siblings('#mainContent').find('.sticky-search-filter-bar').addClass('filter-redesign');
+        $('.new-header-deign').parents('header').siblings('#mainContent').find('.sticky-search-filter-bar').removeClass('search-filter-bar');
+    } else {
+        $('.sticky-search-filter-bar').removeClass('filter-redesign');
+        $('.sticky-search-filter-bar').addClass('search-filter-bar');
+    }
+});
