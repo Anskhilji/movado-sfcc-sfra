@@ -44,6 +44,7 @@ function setCookiesResponse(name, value, path) {
     newCookie.setPath(path);
     newCookie.setMaxAge(2592000);
     newCookie.setDomain('.' + request.httpHost);
+    newCookie.setHttpOnly(true);
     response.addHttpCookie(newCookie);
     return newCookie;
 }
