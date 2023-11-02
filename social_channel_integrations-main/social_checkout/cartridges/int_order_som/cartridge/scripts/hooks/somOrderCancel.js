@@ -120,7 +120,7 @@ exports.processCancelOrder = function (order, orderInput) {
     var somOrder = orderHelpers.getOrderSummary([orderID]);
     // make sure the OMS order is not shipped
     if (somOrder != null && somOrder.length > 0 && somOrder[0].orderedStatusGroupItems != null && somOrder[0].orderedStatusGroupItems.length > 0) {
-        var cancelReason = orderInput.c_cancelInfo.get('reason');
+        var cancelReason = orderInput.c_cancelInfo.get('reasonCode');
         if (cancelReason == null) {
             cancelReason = DEFAULT_CANCEL_REASON;
         }
