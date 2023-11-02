@@ -108,6 +108,7 @@ server.append(
 
         // Custom Start: Adding ESW country switch control
         var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
+        var isClydePromotionPriceEnabled = !empty(Site.current.preferences.custom.isPromotionalPrice) ? Site.current.preferences.custom.isPromotionalPrice : false;
         if (isEswEnabled) {
             
             var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
@@ -161,7 +162,11 @@ server.append(
         Transaction.wrap(function () {
             if (productLineItem instanceof dw.order.ProductLineItem &&
                 !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItem) {
-                productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                if (isClydePromotionPriceEnabled) {
+                    productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                } else {
+                    productLineItem.custom.ClydeProductUnitPrice = productLineItem.basePrice.decimalValue ? productLineItem.basePrice.decimalValue : '';    
+                }
             }
         });
 

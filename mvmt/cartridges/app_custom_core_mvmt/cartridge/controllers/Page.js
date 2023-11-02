@@ -18,8 +18,8 @@ server.replace(
         var siteRootCategory = catalogMgr.getSiteCatalog().getRoot();
 
         var topLevelCategories = siteRootCategory.hasOnlineSubCategories() ?
-            siteRootCategory.getOnlineSubCategories() : null;
-        
+                siteRootCategory.getOnlineSubCategories() : null;
+                
         var menuTemplate = '/components/header/menu';
 
         res.setViewData({ 

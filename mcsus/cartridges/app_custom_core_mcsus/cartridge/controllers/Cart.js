@@ -29,6 +29,22 @@ server.prepend(
     next();
 });
 
+server.append(
+    'AddProduct',
+    function (req, res, next) {
+        var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+        var viewData = res.getViewData();
+
+        if (!viewData.error) {
+
+            if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
+                viewData.cartPageHtml = renderTemplateHelper.getRenderedHtml(viewData.cart, '/cart/productCard/cartLineItems');
+            }
+        }
+
+    next();
+});
+
 server.get('MiniCartCheckout', server.middleware.include, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
 

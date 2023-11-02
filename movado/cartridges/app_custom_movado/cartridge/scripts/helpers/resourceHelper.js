@@ -137,6 +137,8 @@ function getResources(pageContext) {
         LOW_STOCK_THRESHOLD: !empty(Site.current.preferences.custom.lowStockThreshold) ? Site.current.preferences.custom.lowStockThreshold : false,
         LABEL_IN_STOCK: Resource.msg('label.instock', 'common', null),
         LOW_STOCK_MESSAGE: lowStockMessage,
+        APPLEPAY_BUTTON_LABEL: Resource.msg('label.button.applepay', 'common', null),
+        GOOGLEPAY_BUTTON_LABEL: Resource.msg('label.button.googlepay', 'common', null),
         ENGRAVING_PROFANE_ERROR_MESSAGE: Resource.msg('engraving.profane.error.message', 'product', null),
         BAD_WORDS_LIST: badWordsList
     };

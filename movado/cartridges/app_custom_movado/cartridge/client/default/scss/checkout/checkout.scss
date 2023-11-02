@@ -742,6 +742,29 @@ header {
                     @include background-postion(14);
                 }
             }
+
+            &.custom-select {
+
+                &.is-invalid,
+                &.auto-is-invalid {
+
+                    & ~ .validation-icon {
+                        @include media-breakpoint-down(sm) {
+                            right: rem(33);
+                        }
+                    }
+                }
+
+                &.is-valid,
+                &.auto-is-valid {
+
+                    & ~ .validation-icon {
+                        @include media-breakpoint-down(sm) {
+                            right: rem(33);
+                        }
+                    }
+                }
+            }
         }
 
         .invalid-feedback {

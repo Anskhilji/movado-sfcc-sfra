@@ -34,7 +34,10 @@
                 <isinclude template="account/wishlist/listCards"/>
             </div>
         </isif>
-        
+
+        <isif condition="${sitePreferences.talkableEnabled}">
+            <isinclude template="account/dashboardCard"/>
+        </isif>
         <!---MyWatches--->
         	<isinclude template="account/myWatches"/> 
     </div>

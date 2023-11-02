@@ -39,7 +39,7 @@
                 <isloop items="${pdict.suggestions.product.products}" var="product">
                     <div class="col-6 col-sm-4 item">
                         <iscomment> Custom Start: Added new parameter isSuggestionTile to detect suggestion tiles in template </iscomment>
-                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.id, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isSuggestionTile', true, 'lazyload', true, 'isRedesigned', true, 'showAddToCart', true, 'searchSuggestion', true)}"/>
+                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.id, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isSuggestionTile', true, 'lazyload', true, 'isRedesigned', true, 'showAddToCart', true, 'searchSuggestion', true, 'countryCode', session.privacy.countryCode)}" />
                         <iscomment> Custom End: </iscomment>
                     </div>
                 </isloop>

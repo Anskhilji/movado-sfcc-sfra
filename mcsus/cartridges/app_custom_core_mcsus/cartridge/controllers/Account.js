@@ -255,7 +255,7 @@ server.replace('Header', server.middleware.include, function (req, res, next) {
     var headerTemplate = null;
 
 	// Custom Start: A/B Test for Header Redesign
-	if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
+	if (session.privacy.isMcsHeaderNewDesign) {
 	    headerTemplate = req.querystring.mobile ? 'account/mobileHeader' : 'account/header';
 	} else {
 	    headerTemplate = req.querystring.mobile ? 'account/old/mobileHeader' : 'account/old/header';

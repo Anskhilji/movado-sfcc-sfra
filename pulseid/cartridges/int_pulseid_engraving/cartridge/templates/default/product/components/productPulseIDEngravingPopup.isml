@@ -28,6 +28,7 @@
                 <div class="text-area">
                     <div class="mb-3 option-message">
                         <span class="engraving-error-msg"></span>
+                        <span class="engraving-profanity-error-msg"></span>
                         <div class="engraving-input-box">
                             <input rows="${product.engravingTextValidations['casebackLineLimit']}"
                                 class="form-control engraving-input engraving-input-one" wrap="hard"

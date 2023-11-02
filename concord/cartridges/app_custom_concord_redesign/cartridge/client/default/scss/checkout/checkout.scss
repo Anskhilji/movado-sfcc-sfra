@@ -26,3 +26,40 @@ header {
         }
     }
 }
+
+.data-checkout-stage {
+
+    .order-product-summary {
+
+        .product-summary-block {
+
+            .product-line-item {
+
+                .line-item-name {
+
+                    span {
+                        font-family: $font-raleway-medium;
+                        color: $light-black2;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.receipt {
+    
+    .order-product-summary {
+
+        .product-summary-block {
+
+            .line-item-name {
+
+                span {
+                    color: $grey14;
+                }
+            }
+        }
+    } 
+}
