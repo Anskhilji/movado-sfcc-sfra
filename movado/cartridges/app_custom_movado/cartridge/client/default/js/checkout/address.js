@@ -182,12 +182,13 @@ module.exports = {
 
             $('.billing-form input').each(function () {
                 var $input = $(this);
+                var $selectOption = $('.billing-form select');
                 if ($input.val()) {
-                    $($input).removeClass('is-invalid auto-is-invalid');
-                    $('.billing-form select').removeClass('is-invalid auto-is-invalid');
+                    $input.removeClass('is-invalid auto-is-invalid');
+                    $selectOption.removeClass('is-invalid auto-is-invalid');
                 } else {
-                    $($input).removeClass('is-valid auto-is-valid is-invalid auto-is-invalid');
-                    $('.billing-form select').removeClass('auto-is-invalid auto-is-valid is-valid is-invalid');
+                    $input.removeClass('is-valid auto-is-valid is-invalid auto-is-invalid');
+                    $selectOption.removeClass('auto-is-invalid auto-is-valid is-valid is-invalid');
                 }
             });
 
