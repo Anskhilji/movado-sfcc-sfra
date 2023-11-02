@@ -1,0 +1,13 @@
+<div id="bm-breadcrumb">
+    <a class="breadcrumb" href="${URLUtils.url('SiteNavigationBar-ShowMenuitemOverview', 'CurrentMenuItemId', 'social_channels_customadminmenuextension').toString()}">${Resource.msg('socialchannels.title', 'snapchat', null)}</a>
+    &nbsp;&gt;&nbsp;
+    ${Resource.msg('snapchat.title', 'snapchat', null)}
+</div>
+
+<div id="spinner-container" class="slds-spinner_container slds-hide">
+    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+</div>

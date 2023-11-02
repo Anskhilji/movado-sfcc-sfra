@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns="http://www.demandware.com/xml/impex/services/2014-09-26">
+    <service-credential service-credential-id="tiktok-ads">
+        <url>https://ads.tiktok.com</url>
+    </service-credential>
+
+    <service-credential service-credential-id="tiktok-business-api">
+        <url>https://business-api.tiktok.com</url>
+    </service-credential>
+
+    <service-credential service-credential-id="userSearch">
+        <url>/s/-/dw/data/v22_6/user_search</url>
+        <user-id/>
+    </service-credential>
+
+    <service-credential service-credential-id="tiktok.order.cred">
+        <url>https://business-api.tiktok.com</url>
+        <user-id/>
+    </service-credential>
+
+    <service-profile service-profile-id="tiktok.order.prof">
+        <timeout-millis>5000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>3</rate-limit-calls>
+        <rate-limit-millis>10000</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>5</cb-calls>
+        <cb-millis>10000</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="tiktok-catalog">
+        <timeout-millis>5000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>3</rate-limit-calls>
+        <rate-limit-millis>10000</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>5</cb-calls>
+        <cb-millis>10000</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="tiktok-disconnect">
+        <timeout-millis>1000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="tiktok-rest">
+        <timeout-millis>5000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>3</rate-limit-calls>
+        <rate-limit-millis>5000</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>5</cb-calls>
+        <cb-millis>1000</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="tiktok-tracking-profile">
+        <timeout-millis>2000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>5</cb-calls>
+        <cb-millis>2000</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="userSearch">
+        <timeout-millis>2000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service service-id="tiktok.order.svc">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix/>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>tiktok.order.prof</profile-id>
+        <credential-id>tiktok.order.cred</credential-id>
+    </service>
+
+    <service service-id="tiktok.catalog">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>TikTok</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>tiktok-catalog</profile-id>
+        <credential-id>tiktok-business-api</credential-id>
+    </service>
+
+    <service service-id="tiktok.rest">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>TikTok</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>tiktok-rest</profile-id>
+        <credential-id>tiktok-ads</credential-id>
+    </service>
+
+    <service service-id="tiktok.tracking">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>TikTok</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>tiktok-tracking-profile</profile-id>
+        <credential-id>tiktok-business-api</credential-id>
+    </service>
+
+    <service service-id="user.search.service">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>userSearch</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>userSearch</profile-id>
+        <credential-id>userSearch</credential-id>
+    </service>
+
+</services>
