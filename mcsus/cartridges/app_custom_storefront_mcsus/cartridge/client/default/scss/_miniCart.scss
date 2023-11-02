@@ -83,3 +83,21 @@ label.quantity-label {
     font-size: rem(14);
 }
 
+.cart-recommendation-wrapper {
+
+    .mcs-product-carousel-redesign {
+
+        .product-tile {
+
+            &-plp-container {
+
+                .tile-body {
+
+                    .cta-add-to-cart {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}

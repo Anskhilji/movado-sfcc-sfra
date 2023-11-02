@@ -141,12 +141,12 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
         if (typeof orderStatusItem.TrackingNumber === 'object') {
             orderStatusItem.TrackingNumber = '';
         }
+        var deliveryNumber = (typeof orderStatusItem.DeliveryNumber === 'string' || orderStatusItem.DeliveryNumber instanceof String) ? orderStatusItem.DeliveryNumber : '';
         if (orderStatusItem.TrackingNumber.toString() !== '') {
             var trackingGroup = _.find(trackingGroups, function (r) {
                 return r.TrackingNumber === orderStatusItem.TrackingNumber;
             });
             if (!trackingGroup) {
-                var deliveryNumber = (typeof orderStatusItem.DeliveryNumber === 'string' || orderStatusItem.DeliveryNumber instanceof String) ? orderStatusItem.DeliveryNumber : '';
                 trackingGroups.push({
                     TrackingNumber: orderStatusItem.TrackingNumber,
                     CarrierCode: orderStatusItem.CarrierCode,
@@ -157,6 +157,17 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             } else {
                 trackingGroup.FulfillmentOrderLineItems.push(foLineItem.Id);
             }
+        } else if (orderStatusItem.CarrierCode.toString() !== '') {
+            trackingGroups.push({
+                CarrierCode: orderStatusItem.CarrierCode,
+                DeliveryNumber: deliveryNumber,
+                FulfillmentOrderLineItems: [foLineItem.Id]
+            });
+        } else {
+            trackingGroups.push({
+                DeliveryNumber: deliveryNumber,
+                FulfillmentOrderLineItems: [foLineItem.Id]
+            });
         }
 
         // Quantity Cancelled / Rejected

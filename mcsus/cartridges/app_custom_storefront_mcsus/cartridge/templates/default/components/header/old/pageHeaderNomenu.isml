@@ -1,3 +1,4 @@
+<isset name="sitePreferences" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 <header class="checkout-header">
   <nav>
     <div class="sticky-header-wrapper">
@@ -45,4 +46,11 @@
 
     </div>
   </nav>
+  
+  <iscomment>Custom Start: MSS-2339 include Talkable Remote include for tracking </iscomment>
+  <isset name="talkableEnabled" value="${sitePreferences.talkableEnabled ? sitePreferences.talkableEnabled : false}" scope="page" />
+  <isif condition="${talkableEnabled}">
+      <isinclude url="${URLUtils.url('Talkable-Head')}"/>
+  </isif>
+  <iscomment>Custom end: Talkable Remote include </iscomment>
 </header>

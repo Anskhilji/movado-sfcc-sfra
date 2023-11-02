@@ -1694,6 +1694,25 @@ function replaceUrlParam(url, paramName, paramValue) {
 }
 // Added container-fluid class alongside container
 
+function renderMarketingProducts() {
+    var marketingProductsUrl = $('#marketingProductData').data('marketing-product-url');
+    var productSearch = $('#marketingProductData').data('product');
+    
+    $.ajax({
+        url: marketingProductsUrl,
+        method: 'GET',
+        data : {
+            data : productSearch
+        },
+
+        success: function (response) {
+            if (response) {
+                $('#marketingProductData').attr('data-marketing-product-data', response.marketingProductData);
+            }
+        }
+    });
+}
+
 module.exports = {
 
     load: function() {
@@ -1779,7 +1798,6 @@ module.exports = {
         $('.container, .container-fluid').on('click', '.plp-show-more button, .show-more button', function (e) {
             e.stopPropagation();
             var showMoreUrl = $(this).data('url');
-
             e.preventDefault();
 
             $.spinner().start();
@@ -1799,6 +1817,7 @@ module.exports = {
                     }
                     bulidLifeStyleCarousel();
                     $.spinner().stop();
+                    renderMarketingProducts();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -1889,6 +1908,7 @@ module.exports = {
                             $loaderIcon.addClass('d-none');
                         }
                     });
+                    renderMarketingProducts();
                 } else {
                     loadMoreInProcessing = false;
                 }
@@ -1927,6 +1947,7 @@ module.exports = {
                     $.spinner().stop();
                 }
             });
+            renderMarketingProducts();
         });
     },
 
@@ -2058,6 +2079,7 @@ module.exports = {
                                 filterLoadInProgress = false;
                             }
                         });
+                        renderMarketingProducts();
                     }
                 }
 
@@ -2262,6 +2284,7 @@ module.exports = {
                                 $.spinner().stop();
                             }
                         });
+                        renderMarketingProducts();
                     }                    
                 }
 

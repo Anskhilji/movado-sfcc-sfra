@@ -7,7 +7,6 @@ var ProductSortOptions = require('*/cartridge/models/search/productSortOptions')
 var urlHelper = require('*/cartridge/scripts/helpers/urlHelpers');
 var ProductPagination = require('*/cartridge/scripts/helpers/ProductPagination');
 var Site = require('dw/system/Site');
-var catalogMgr = require('dw/catalog/CatalogMgr');
 var Constants = require('*/cartridge/scripts/util/Constants');
 
 var ACTION_ENDPOINT = 'Search-Show';
@@ -140,7 +139,7 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProduct
 
     var currentStart = httpParams.start || 0;
     var pageSize = httpParams.sz || DEFAULT_PAGE_SIZE;
-    var category = catalogMgr.getCategory(productSearch.categoryID);
+    var category = productSearch.category;
     var categoryTemplateEyewear = 'search/searchResultsEyewear';
     if (category && category.template == categoryTemplateEyewear) {
         pageSize = Site.getCurrent().preferences.custom.eyewearPageSize;
@@ -331,7 +330,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
 function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, rootCategory) {
     var sortProductsOnBasisOfSalesPrice = Site.getCurrent().getCustomPreferenceValue('sortProductsOnBasisOfSalesPrice');
     this.pageSize = parseInt(httpParams.sz, 10) || DEFAULT_PAGE_SIZE;
-    var category = catalogMgr.getCategory(productSearch.categoryID);
+    var category = productSearch.category
     var categoryTemplateEyewear = 'search/searchResultsEyewear';
     if (category && category.template == categoryTemplateEyewear) {
         this.pageSize = Site.getCurrent().preferences.custom.eyewearPageSize;
