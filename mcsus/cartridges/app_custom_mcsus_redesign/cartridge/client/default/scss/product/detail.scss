@@ -2667,6 +2667,23 @@
     }
 }
 
-.pdp-main-content {
-    padding-top: rem(125);
+.sticky-header {
+    display: unset;
+    
+    nav {
+        display: unset;
+        
+        .sticky-header-wrapper {
+            &.new-header-deign {
+                position: sticky;
+                top: 0;
+        
+                &.fixed-header {
+                    position: sticky;
+                    position: -webkit-sticky;
+                    top: 0;
+                }
+            }
+        }
+    }
 }
