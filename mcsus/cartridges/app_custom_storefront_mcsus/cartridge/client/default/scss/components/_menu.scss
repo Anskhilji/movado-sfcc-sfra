@@ -3468,8 +3468,7 @@ nav {
               .home-search {
 
                 form {
-                  .suggestions 
-
+                  
                   &.suggestions-dropdown {
                     top: rem(15);
                   }
@@ -3987,76 +3986,74 @@ nav {
 
     &.in {
 
-        .mobile-menu-search {
+      .mobile-menu-search {
 
-            .site-search {
-              padding: 0 rem(15);
+        .site-search {
+          padding: 0 rem(15);
 
-              &.active {
+          &.active {
 
+            &::before {
 
-                &::before {
+              @include media-breakpoint-down(lg) {
+                display: block;
+              }
+            }
+          }
 
-                  @include media-breakpoint-down(lg) {
-                    display: block;
+          @include media-breakpoint-down(lg) {
+
+            &::before {
+              content: '';
+              position: absolute;
+              top: rem(3);
+              right: 0;
+              background: url(../images/search-cross.svg) center center no-repeat;
+              width: rem(9);
+              height: rem(9);
+              z-index: 9;
+              display: none;
+            }
+          }
+
+            form {
+                width: 100%;
+                
+                .search-field {
+                  max-width: 100%;
+                  margin: 0 auto;
+                }
+
+                .search-icon {
+                  left: rem(0);
+                  background-image: url(../images/search-icon.svg);
+                  background-repeat: no-repeat;
+                  background-position: center;
+                }
+
+                .suggestions-wrapper {
+                  width: calc(100% + 30px);
+                  margin-left: rem(-15);
+
+                  .suggestions-dropdown {
+
+                    .do-you-mean,.term,.product-text {
+                      padding: 0 rem(15);
+                    }
                   }
-                }
-              }
 
-              @include media-breakpoint-down(lg) 
-              
-              {
-                &::before {
-                  content: '';
-                  position: absolute;
-                  top: rem(3);
-                  right: 0;
-                  background: url(../images/search-cross.svg) center center no-repeat;
-                  width: rem(9);
-                  height: rem(9);
-                  z-index: 9;
-                  display: none;
-                }
-              }
+                  .suggestion-request {
 
-                form {
-                    width: 100%;
-                    
-                    .search-field {
-                      max-width: 100%;
-                      margin: 0 auto;
-                    }
-
-                    .search-icon {
-                      left: rem(0);
-                      background-image: url(../images/search-icon.svg);
-                      background-repeat: no-repeat;
-                      background-position: center;
-                    }
-
-                    .suggestions-wrapper {
+                    .search-recomendation {
+                      margin:0;
                       width: calc(100% + 30px);
-                      margin-left: rem(-15);
-
-                      .suggestions-dropdown {
-
-                        .do-you-mean,.term,.product-text {
-                          padding: 0 rem(15);
-                        }
-                      }
-
-                      .suggestion-request {
-
-                        .search-recomendation {
-                          margin:0;
-                          width: calc(100% + 30px);
-                          height: 100vh;
-                        }
-                      }
+                      height: 100vh;
                     }
+                  }
                 }
             }
         }
+      }
     }
 
     .navbar>.close-menu>.menu-search-mmobile>.back {
@@ -4293,8 +4290,11 @@ nav {
       }
     }
 
-    .dropdown-toggle::after {
-      border: none;
+    .dropdown-toggle {
+
+      &::after {
+        border: none;
+      }
     }
 
     .navbar-nav {
@@ -4643,11 +4643,14 @@ nav {
           padding-left: rem(65);
         }
       }
+
       .logout-login,
       .my-wishlist {
+
         a {
           padding: 0 rem(15);
         }
+        
         i {
           font-size: rem(15);
         }
@@ -4676,25 +4679,33 @@ nav {
           font-size: rem(16);
         }
       }
-      .dropdown-toggle::after {
-        border: none;
+
+      .dropdown-toggle {
+
+        &::after {
+          border: none;
+        }
       }
       .navbar-nav {
         position: relative;
         z-index: 2;
       }
+
       .nav-item {
         position: static;
+
         &.show, &:hover {
           box-shadow: 0 rem(2) rem(10) 0 $grey10;
         }
       }
+
       .nav-item {
 
         .nav-link {
           padding: rem(15) rem(12);
           line-height: rem(20);
         }
+
         &.show {
 
           .nav-link {
