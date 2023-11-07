@@ -41,15 +41,15 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
 
 .main-menu.menu-toggleable-left {
 
-    &.in {
+  &.in {
 
-        .mcs-show {
+    .mcs-show {
 
-            > .dropdown-menu {
-                left: 0;
-        }
+      > .dropdown-menu {
+        left: 0;
       }
     }
+  }
 }
 
 .modal-background {
@@ -101,7 +101,9 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
         }
       }
     }
+
     @include media-breakpoint-down(lg) {
+
       &.menu-scroll-bar {
         overflow-y: auto;
         -webkit-overflow-y: auto;
@@ -128,7 +130,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(16);
-        letter-spacing: 0.5px;
+        letter-spacing: rem(0.5);
         text-transform: capitalize;
       }
     }
@@ -176,9 +178,9 @@ nav {
 
                 &:hover {
 
-                    a {
-                        color: $black;
-                    }
+                  a {
+                    color: $black;
+                  }
 
                 }
             }
@@ -2143,6 +2145,7 @@ nav {
       justify-content: space-between;
     }
   }
+
   .close-menu {
     display: none;
 
@@ -2347,8 +2350,8 @@ nav {
       height: rem(12);
       background: url(../../images/search-icons.svg) center;
       position: relative;
-      top: -3px;
-      left: -2px;
+      top: rem(-3);
+      left: rem(-2);
     }
 
     .store-pickup-button {
@@ -2909,6 +2912,7 @@ nav {
             }
           }
         }
+
         .close-menu {
 
           @include media-breakpoint-down(lg) {
@@ -3976,7 +3980,6 @@ nav {
     width: 100%;
   }
 }
-
 
 @include media-breakpoint-down(lg) {
 
