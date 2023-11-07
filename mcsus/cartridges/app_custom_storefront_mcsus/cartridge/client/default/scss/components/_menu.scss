@@ -201,6 +201,13 @@ nav {
 // MSS-2220
 .new-header-deign {
 
+  .main-menu-mobile {
+
+    &.main-menu {
+      display: none;
+    }
+  }
+
   .set-store-login {
     margin-right: rem(40);
 

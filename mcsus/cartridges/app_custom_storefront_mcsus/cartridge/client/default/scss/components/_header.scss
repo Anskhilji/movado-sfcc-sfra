@@ -1,4 +1,4 @@
-// @import "../variables";
+@import "../variables";
 @import "menu";
 $breakpoint-name: 'sm';
 $breakpoint-index: index(map-keys($grid-breakpoints), $breakpoint-name);
@@ -691,7 +691,7 @@ header {
           top: rem(-21);
           left: rem(6);
         }
-        
+
         &.show {
           display: block;
         }
