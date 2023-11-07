@@ -2669,11 +2669,12 @@
 
 .sticky-header {
     display: unset;
-    
+
     nav {
         display: unset;
         
         .sticky-header-wrapper {
+            
             &.new-header-deign {
                 position: sticky;
                 top: 0;
