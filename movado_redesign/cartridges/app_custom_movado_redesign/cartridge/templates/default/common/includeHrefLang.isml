@@ -1,7 +1,7 @@
 <isif condition="${pdict.relativeURL}">
-    <link rel="alternate" hreflang="x-default" href="https://www.movado.com/en${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="en" href="https://www.movado.com/en${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="en-us" href="https://www.movado.com/en${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="en-gb" href="https://www.movado.com/en${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="fr" href="https://www.movado.com/fr${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="x-default" href="https://www.movado.com${pdict.relativeURL.toString().replace(/\/us\/([^\/]*)\//, '/us/en/')}"/>
+    <link rel="alternate" hreflang="en-us" href="https://www.movado.com${pdict.relativeURL.toString().replace(/\/us\/([^\/]*)\//, '/us/en/')}"/>
+    <link rel="alternate" hreflang="fr-us" href="https://www.movado.com${pdict.relativeURL.toString().replace(/\/us\/([^\/]*)\//, '/us/fr/')}"/>
+    <link rel="alternate" hreflang="fr-ca" href="https://www.movado.com${pdict.relativeURL.toString().replace(/\/us\/([^\/]*)\//, '/us/fr/')}"/>
+
 </isif>

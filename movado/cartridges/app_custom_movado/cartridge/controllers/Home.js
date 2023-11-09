@@ -16,7 +16,7 @@ var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
-var relativeURL = "/home";
+var relativeURL = URLUtils.url('Home-Show');
 
 server.append('Show', consentTracking.consent, cache.applyDefaultCache, function (req, res, next) {
     var ContentMgr = require('dw/content/ContentMgr');
