@@ -1784,7 +1784,7 @@ nav {
 
                 @include media-breakpoint-down(md) {
                   right: rem(20);
-                  top: rem(20);
+                  top: rem(22);
                 }
               }
 
@@ -1917,7 +1917,7 @@ nav {
 
                         @include media-breakpoint-down(lg) {
                           position: relative;
-                          top: rem(6);
+                          top: rem(7);
                           left: rem(8);
                         }
 
@@ -1962,9 +1962,13 @@ nav {
                     align-items: center;
 
                     @include media-breakpoint-down(lg) {
-                      transform: translateY(3px);
+                      transform: translateY(0px);
                     }
                     
+                    @include media-breakpoint-down(md) {
+                      transform: translateY(3px);
+                    }
+
                     @include media-breakpoint-down(sm) {
                       transform: translateY(0px);
                     }
