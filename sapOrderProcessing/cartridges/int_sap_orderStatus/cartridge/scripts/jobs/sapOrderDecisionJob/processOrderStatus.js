@@ -58,8 +58,6 @@ function processSAPAttributes() {
     var status;
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     var failedOrders = [];
-    
-    var isJob = true;
 
     Logger.debug('processOrderStatus: Starting Execution of Job -2 :Order Process Job : ');
 
@@ -69,7 +67,7 @@ function processSAPAttributes() {
             order = ordersToProcess.next();
             Logger.info('Started processing of order with Order ID : ' + order.orderNo);
             try {
-                status = orderStatusHelper.processOrder(order, isJob);
+                status = orderStatusHelper.processOrder(order);
 
                 Logger.debug('Getting sapEventType for order with Order ID : ' + order.orderNo);
                 /* get the event type */

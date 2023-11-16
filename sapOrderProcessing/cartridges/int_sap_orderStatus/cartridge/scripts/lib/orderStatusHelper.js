@@ -333,7 +333,7 @@ function checkEventType(event, transaction) {
  * @param sfccOrder
  * @returns {JSON}
  */
-function processOrder(sfccOrder, isJob) {
+function processOrder(sfccOrder) {
     var transactionType;
     var eventType;
     var paymentMethod;
@@ -401,7 +401,7 @@ function processOrder(sfccOrder, isJob) {
                             }							else {
                                 captureResponse = hooksHelper('app.payment.adyen.capture', 'capture', sfccOrder, result.amountToCapture, sendMail, require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').capture);
                             }
-                            refundResponse = hooksHelper('app.payment.adyen.refund', 'refund', sfccOrder, result.amountToRefund, isJob, sendMail, require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+                            refundResponse = hooksHelper('app.payment.adyen.refund', 'refund', sfccOrder, result.amountToRefund, sendMail, require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
                         }
                         if (captureResponse && captureResponse.decision == RESP_SUCCESS && refundResponse && refundResponse.decision == RESP_SUCCESS) {
                             updateOrderStatus(sfccOrder, eventType);
@@ -449,7 +449,7 @@ function processOrder(sfccOrder, isJob) {
                         if (paymentMethod == PYMNT_AFFIRM) {
                             refundResponse = hooksHelper('app.payment.affirm.refund', 'refund', sfccOrder, result.amountToRefund, require('*/cartridge/scripts/hooks/payment/affirmCaptureRefundSVC').refund);
                         } else {
-                            refundResponse = hooksHelper('app.payment.adyen.refund', 'refund', sfccOrder, result.amountToRefund, isJob, sendMail, require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+                            refundResponse = hooksHelper('app.payment.adyen.refund', 'refund', sfccOrder, result.amountToRefund, sendMail, require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
                         }
                         if (refundResponse && refundResponse.decision == RESP_SUCCESS) {
                             updateOrderStatus(sfccOrder, eventType);
@@ -473,7 +473,7 @@ function processOrder(sfccOrder, isJob) {
                         if (paymentMethod == PYMNT_AFFIRM) {
                             refundResponse = hooksHelper('app.payment.affirm.refund', 'refund', sfccOrder, result.amountToRefund, require('*/cartridge/scripts/hooks/payment/affirmCaptureRefundSVC').refund);
                         } else {
-                            refundResponse = hooksHelper('app.payment.adyen.refund', 'refund', sfccOrder, result.amountToRefund, isJob, sendMail, require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+                            refundResponse = hooksHelper('app.payment.adyen.refund', 'refund', sfccOrder, result.amountToRefund, sendMail, require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
                         }
 
                         if (refundResponse && refundResponse.decision == RESP_SUCCESS) {
@@ -510,7 +510,7 @@ function processOrder(sfccOrder, isJob) {
                         if (paymentMethod == PYMNT_AFFIRM) {
                             refundResponse = hooksHelper('app.payment.affirm.refund', 'refund', sfccOrder, result.amountToRefund, require('*/cartridge/scripts/hooks/payment/affirmCaptureRefundSVC').refund);
                         } else {
-                            refundResponse = hooksHelper('app.payment.adyen.refund', 'refund', sfccOrder, result.amountToRefund, isJob, sendMail, require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+                            refundResponse = hooksHelper('app.payment.adyen.refund', 'refund', sfccOrder, result.amountToRefund, sendMail, require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
                         }
                         if (refundResponse && refundResponse.decision == RESP_SUCCESS) {
                             updateOrderStatus(sfccOrder, eventType);
