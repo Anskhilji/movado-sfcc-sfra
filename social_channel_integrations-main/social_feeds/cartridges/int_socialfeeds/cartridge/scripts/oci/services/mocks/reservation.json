@@ -1,0 +1,16 @@
+{
+    "reservationTime": "2023-08-17T17:51:48.35Z",
+    "expirationTime": null,
+    "success": true,
+    "locations": [
+        {
+            "id": "inventory_m",
+            "details": [
+                {
+                    "sku": "701642964124M",
+                    "quantity": 1
+                }
+            ]
+        }
+    ]
+}

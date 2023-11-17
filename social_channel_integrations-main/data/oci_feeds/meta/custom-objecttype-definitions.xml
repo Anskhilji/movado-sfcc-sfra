@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <custom-type type-id="OCIExport">
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="ID">
+            <display-name xml:lang="x-default">ID</display-name>
+            <description xml:lang="x-default">Custom Objects ID. It used in the job to map the custom object record to the job.</description>
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="LocationGroupIds">
+                <display-name xml:lang="x-default">Location Group IDs to Export</display-name>
+                <description xml:lang="x-default">Comma separated location group ids that should be exported</description>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="LocationIds">
+                <display-name xml:lang="x-default">Location IDs to Export</display-name>
+                <description xml:lang="x-default">Comma separated location ids that should be exported</description>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="OrgId">
+                <display-name xml:lang="x-default">Organization Id</display-name>
+                <description xml:lang="x-default">Get this value from Administration &gt;  Site Development &gt;  Salesforce Commerce API Settings</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="dataJSON">
+                <display-name xml:lang="x-default">Data JSON</display-name>
+                <description xml:lang="x-default">Stores service response values like exportId, exportStatusLink and deltaToken used for subsequent job runs.</description>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="retryDownload">
+                <display-name xml:lang="x-default">Retry Download</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="OCIExport">
+                <display-name xml:lang="x-default">OCI Export</display-name>
+                <attribute attribute-id="ID"/>
+                <attribute attribute-id="LocationIds"/>
+                <attribute attribute-id="LocationGroupIds"/>
+                <attribute attribute-id="OrgId"/>
+                <attribute attribute-id="dataJSON"/>
+                <attribute attribute-id="retryDownload"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+</metadata>

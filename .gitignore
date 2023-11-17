@@ -16,5 +16,11 @@
 !**/int_listrak**/cartridge/static/**/js/*
 !**/int_listrak_sfra**/cartridge/static/**/js/*
 !**/int_custom_listrak**/cartridge/static/**/js/*
+!**/bc_library**/cartridge/static/**/css/*
+!**/bc_library**/cartridge/static/**/js/*
+!**/bm_socialfeeds**/cartridge/static/**/css/*
+!**/bm_socialfeeds**/cartridge/static/**/js/*
+!**/bm_socialchannels**/cartridge/static/**/css/*
+!**/bm_socialchannels**/cartridge/static/**/js/*
 !einstein-recommendations.js
 rkb.code-workspace

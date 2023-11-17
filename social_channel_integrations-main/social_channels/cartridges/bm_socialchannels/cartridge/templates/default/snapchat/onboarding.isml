@@ -1,0 +1,181 @@
+<isdecorate template="application/MenuFrame">
+    <iscontent type="text/html" charset="UTF-8" />
+    <isinclude template="inc/Modules" />
+    <isinclude template="components/bmModules" />
+    <isinclude template="common/head" />
+
+    <isinclude template="snapchat/breadcrumb" />
+
+    <div class="slds-grid slds-m-top_medium">
+        <div class="slds-col slds-size_3-of-4">
+            <div class="slds-row">
+                <isinclude template="snapchat/responses" />
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-16"></div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <p class="slds-m-vertical_large"><isprint value="${Resource.msg('snapchat.form.onboarding', 'snapchat', null)}" encoding="off"/></p>
+                    </div>
+                </div>
+            </div>
+            <form method="POST" id="onboarding-form"
+                  data-get-org-details="${URLUtils.url('BM_Snapchat-GetOrgDetails')}"
+                  data-get-ad-acct-pixels="${URLUtils.url('BM_Snapchat-GetAdAccountPixels')}"
+                  data-get-catalog-product-feeds="${URLUtils.url('BM_Snapchat-GetCatalogProductFeeds')}"
+                  action="${URLUtils.url('BM_Snapchat-Start', 'onboarding', true, 'csrf_token', request.httpParameterMap.csrf_token.stringValue)}">
+                <article class="slds-col slds-size_1-of-1 slds-card">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-card__body slds-card__body_inner slds-m-top_large">
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_10-of-12">
+                                        <div class="slds-form">
+                                            <div class="slds-text-heading_small">
+                                                <p>${Resource.msg('snapchat.form.org.title', 'snapchat', null)}</p>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label class="slds-form-element__label" for="snapOrgId">${Resource.msg('snapchat.form.snapOrgId.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <select type="text" id="snapOrgId" name="${session.forms.snapchat.snapOrgId.htmlName}" class="slds-input" >
+                                                        <isloop items=${session.forms.snapchat.snapOrgId.options} var="snapOrg">
+                                                            <option id="${snapOrg.optionId}" value="${snapOrg.htmlValue}" ${snapOrg.selected ? 'selected' : ''}>${snapOrg.label}</option>
+                                                        </isloop>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked ${session.forms.snapchat.snapAdAccountId.options.optionsCount === 0 ? 'slds-hide' : ''}" id="snap-ad-accounts">
+                                                <label class="slds-form-element__label" for="snapAdAccountId">${Resource.msg('snapchat.form.snapAdAccountId.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <select type="text" id="snapAdAccountId" name="${session.forms.snapchat.snapAdAccountId.htmlName}" class="slds-input" >
+                                                        <isloop items=${session.forms.snapchat.snapAdAccountId.options} var="snapAdAccount">
+                                                            <option id="${snapAdAccount.optionId}" value="${snapAdAccount.htmlValue}" ${snapAdAccount.selected ? 'selected' : ''}>${snapAdAccount.label}</option>
+                                                        </isloop>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked ${session.forms.snapchat.snapPixelId.options.optionsCount === 0 ? 'slds-hide' : ''}" id="snap-pixel-ids">
+                                                <label class="slds-form-element__label" for="snapPixelId">${Resource.msg('snapchat.form.snapPixelId.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <select type="text" id="snapPixelId" name="${session.forms.snapchat.snapPixelId.htmlName}" class="slds-input" >
+                                                        <isloop items=${session.forms.snapchat.snapPixelId.options} var="snapPixel">
+                                                            <option id="${snapPixel.optionId}" value="${snapPixel.htmlValue}" ${snapPixel.selected ? 'selected' : ''}>${snapPixel.label}</option>
+                                                        </isloop>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="slds-text-heading_small">
+                                                <p>${Resource.msg('snapchat.form.catalog.title', 'snapchat', null)}</p>
+                                            </div>
+
+                                            <isset name="showCreateCatalogForm" value="${session.forms.snapchat.snapCatalogId.options.optionsCount === 0}" scope="page" />
+                                            <isset name="showCreateProductFeedForm" value="${session.forms.snapchat.snapCatalogId.options.optionsCount === 0}" scope="page" />
+
+                                            <div class="slds-form-element slds-form-element_stacked ${showCreateCatalogForm ? 'slds-hide' : ''}" id="snap-catalog-ids">
+                                                <label class="slds-form-element__label" for="snapCatalogId">${Resource.msg('snapchat.form.snapCatalogId.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <select type="text" id="snapCatalogId" name="${session.forms.snapchat.snapCatalogId.htmlName}" class="slds-input" >
+                                                        <isloop items=${session.forms.snapchat.snapCatalogId.options} var="snapCatalog">
+                                                            <option id="${snapCatalog.optionId}" value="${snapCatalog.htmlValue}" ${snapCatalog.selected ? 'selected' : ''}>${snapCatalog.label}</option>
+                                                        </isloop>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div id="create-catalog-form-container" class="${showCreateCatalogForm ? '' : 'slds-hide'}">
+                                                <div class="slds-form-element slds-form-element_stacked">
+                                                    <label class="slds-form-element__label" for="catalogName">${Resource.msg('snapchat.form.catalogName.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                    <div class="slds-form-element__control">
+                                                        <input type="text" id="catalogName" name="${session.forms.snapchat.catalogName.htmlName}" value="${session.forms.snapchat.catalogName.value}" class="slds-input" ${showCreateCatalogForm ? 'required' : ''}/>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-form-element slds-form-element_stacked">
+                                                    <label class="slds-form-element__label" for="catalogCurrencyCode">${Resource.msg('snapchat.form.catalogCurrencyCode.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                    <div class="slds-form-element__control">
+                                                        <select type="text" id="catalogCurrencyCode" name="${session.forms.snapchat.catalogCurrencyCode.htmlName}" class="slds-input" ${showCreateCatalogForm ? 'required' : ''}>
+                                                        <isloop items=${session.forms.snapchat.catalogCurrencyCode.options} var="currencyCode">
+                                                            <option id="${currencyCode.optionId}" value="${currencyCode.htmlValue}" ${currencyCode.selected ? 'selected' : ''}>${currencyCode.label}</option>
+                                                        </isloop>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked ${showCreateProductFeedForm ? 'slds-hide' : ''}" id="snap-product-feed-ids">
+                                                <label class="slds-form-element__label" for="snapProductFeedId">${Resource.msg('snapchat.form.snapProductFeedId.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <select type="text" id="snapProductFeedId" name="${session.forms.snapchat.snapProductFeedId.htmlName}" class="slds-input" >
+                                                        <isloop items=${session.forms.snapchat.snapProductFeedId.options} var="snapProductFeed">
+                                                            <option id="${snapProductFeed.optionId}" value="${snapProductFeed.htmlValue}" ${snapProductFeed.selected ? 'selected' : ''}>${snapProductFeed.label}</option>
+                                                        </isloop>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div id="create-product-feed-form-container" class="${showCreateProductFeedForm ? '' : 'slds-hide'}">
+                                                <div class="slds-form-element slds-form-element_stacked">
+                                                    <label class="slds-form-element__label" for="productFeedName">${Resource.msg('snapchat.form.productFeedName.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                    <div class="slds-form-element__control">
+                                                        <input type="text" id="productFeedName" name="${session.forms.snapchat.productFeedName.htmlName}" value="${session.forms.snapchat.productFeedName.value}" class="slds-input" ${showCreateProductFeedForm ? 'required' : ''}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-card__body slds-card__body_inner slds-m-top_large">
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_10-of-12">
+                                        <div class="slds-form">
+                                            <div class="slds-text-heading_small">
+                                                <p>${Resource.msg('snapchat.form.b2c.title', 'snapchat', null)}</p>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label class="slds-form-element__label" for="bizMngrUsername">${Resource.msg('snapchat.form.bizMngrUsername.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="bizMngrUsername" name="${session.forms.snapchat.bizMngrUsername.htmlName}" value="${session.forms.snapchat.bizMngrUsername.value}" class="slds-input" required/>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label class="slds-form-element__label" for="bizMngrAccessKeyWebdav">${Resource.msg('snapchat.form.bizMngrAccessKeyWebdav.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="password" id="bizMngrAccessKeyWebdav" name="${session.forms.snapchat.bizMngrAccessKeyWebdav.htmlName}" value="${session.forms.snapchat.bizMngrAccessKeyWebdav.value}" class="slds-input" required/>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label class="slds-form-element__label" for="shopperClientId">${Resource.msg('snapchat.form.shopperClientId.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="shopperClientId" name="${session.forms.snapchat.shopperClientId.htmlName}" value="${session.forms.snapchat.shopperClientId.value}" class="slds-input" required/>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label class="slds-form-element__label" for="shopperClientSecret">${Resource.msg('snapchat.form.shopperClientSecret.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="password" id="shopperClientSecret" name="${session.forms.snapchat.shopperClientSecret.htmlName}" value="${session.forms.snapchat.shopperClientSecret.value}" class="slds-input" required/>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label class="slds-form-element__label" for="orgId">${Resource.msg('snapchat.form.orgId.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="orgId" name="${session.forms.snapchat.orgId.htmlName}" value="${session.forms.snapchat.orgId.value}" class="slds-input" required/>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label class="slds-form-element__label" for="shortCode">${Resource.msg('snapchat.form.shortCode.label', 'snapchat', null)}<span class="star">*</span></label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="shortCode" name="${session.forms.snapchat.shortCode.htmlName}" value="${session.forms.snapchat.shortCode.value}" class="slds-input" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <div class="slds-button-group slds-align_absolute-center slds-m-vertical_large" role="group">
+                    <button type="submit" class="slds-button slds-button_brand">${Resource.msg('snapchat.button.continue', 'snapchat', null)}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script defer type="module" src="${URLUtils.staticURL('/js/snapchat/onboarding.js')}"></script>
+</isdecorate>

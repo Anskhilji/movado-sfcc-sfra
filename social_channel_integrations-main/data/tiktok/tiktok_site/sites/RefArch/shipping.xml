@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shipping xmlns="http://www.demandware.com/xml/impex/shipping/2007-03-31">
+    <shipping-method method-id="TTS001" default="false">
+        <display-name xml:lang="x-default">TikTok Standard Shipping (4PL)</display-name>
+        <description xml:lang="x-default">Shipped by TikTok; standard shipping for social channel customers</description>
+        <online-flag>true</online-flag>
+        <tax-class-id>standard</tax-class-id>
+        <price-table>
+            <amount order-value="0.01">10</amount>
+        </price-table>
+        <custom-attributes>
+            <custom-attribute attribute-id="storePickupEnabled">false</custom-attribute>
+        </custom-attributes>
+        <currency>USD</currency>
+    </shipping-method>
+    <shipping-method method-id="TTS002" default="false">
+        <display-name xml:lang="x-default">TikTok Economy Shipping (4PL)</display-name>
+        <description xml:lang="x-default">Shipped by TikTok; economy shipping for social channel customers</description>
+        <online-flag>true</online-flag>
+        <tax-class-id>standard</tax-class-id>
+        <price-table>
+            <amount order-value="0.01">10</amount>
+        </price-table>
+        <custom-attributes>
+            <custom-attribute attribute-id="storePickupEnabled">false</custom-attribute>
+        </custom-attributes>
+        <currency>USD</currency>
+    </shipping-method>
+    <shipping-method method-id="TTS003" default="false">
+        <display-name xml:lang="x-default">TikTok Express Shipping (4PL)</display-name>
+        <description xml:lang="x-default">Shipped by TikTok; express shipping for social channel customers</description>
+        <online-flag>true</online-flag>
+        <tax-class-id>standard</tax-class-id>
+        <price-table>
+            <amount order-value="0.01">10</amount>
+        </price-table>
+        <custom-attributes>
+            <custom-attribute attribute-id="storePickupEnabled">false</custom-attribute>
+        </custom-attributes>
+        <currency>USD</currency>
+    </shipping-method>
+    <shipping-method method-id="TTS004" default="false">
+        <display-name xml:lang="x-default">TikTok Seller Standard Shipping (3PL)</display-name>
+        <description xml:lang="x-default">Shipped by seller; standard shipping for social channel customers</description>
+        <online-flag>true</online-flag>
+        <tax-class-id>standard</tax-class-id>
+        <price-table>
+            <amount order-value="0.01">10</amount>
+        </price-table>
+        <custom-attributes>
+            <custom-attribute attribute-id="storePickupEnabled">false</custom-attribute>
+        </custom-attributes>
+        <currency>USD</currency>
+    </shipping-method>
+</shipping>
