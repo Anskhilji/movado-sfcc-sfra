@@ -1,0 +1,28 @@
+{
+    "hooks": [
+        {
+            "name": "app.order.update.processStatusUpdate",
+            "script": "./cartridge/scripts/hooks/updateSFCCOrder.js"
+        },            
+        {
+            "name": "app.order.return.processReturn",
+            "script": "./cartridge/scripts/hooks/somOrderReturn.js"
+        },    
+        {
+            "name": "app.order.return.processReturnOrder",
+            "script": "./cartridge/scripts/hooks/somOrderReturn.js"
+        },               
+        {
+            "name": "app.order.cancel.processCancel",
+            "script": "./cartridge/scripts/hooks/somOrderCancel.js"
+        },
+        {
+            "name": "app.order.cancel.processCancelOrder",
+            "script": "./cartridge/scripts/hooks/somOrderCancel.js"
+        },
+        {
+            "name": "app.order.status.getOrderDetails",
+            "script": "./cartridge/scripts/hooks/somOrderDetail.js"
+        }                    
+    ]
+}

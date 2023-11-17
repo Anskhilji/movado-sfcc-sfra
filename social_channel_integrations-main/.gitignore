@@ -1,0 +1,16 @@
+node_modules/
+
+.vscode
+.idea
+.history
+.DS_Store
+
+*.code-workspace
+dw.json
+jsdoc/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+data/zips/
+*.zip
+tmp/

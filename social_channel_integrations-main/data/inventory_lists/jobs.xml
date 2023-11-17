@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+    <job job-id="ExportInventoryLists" priority="0">
+        <description>Exports inventory in native XML format.</description>
+        <parameters>
+            <parameter name="FileNamePrefixInventory">feeds/export/social/google/inventory/inventory</parameter>
+            <parameter name="OverwriteExportFile">true</parameter>
+        </parameters>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="ExportInventoryLists" type="ExportInventoryLists" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="InventoryListIDs">inventory_m, inventory_m_store_store1, inventory_m_store_store2, inventory_m_store_store3, inventory_m_store_store4</parameter>
+                    <parameter name="FileNamePrefix" job-parameter-ref="FileNamePrefixInventory"/>
+                    <parameter name="OverwriteExportFile" job-parameter-ref="OverwriteExportFile"/>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-running runtime-threshold="60m" enabled="false">
+                <mark-job-as-hanging/>
+            </on-running>
+        </rules>
+        <triggers>
+            <run-once enabled="false">
+                <date>2023-07-14Z</date>
+                <time>20:10:00.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+</jobs>

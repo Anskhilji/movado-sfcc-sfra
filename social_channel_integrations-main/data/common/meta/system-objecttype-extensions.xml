@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="Basket">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="buyerNote">
+                <display-name xml:lang="x-default">Buyer Note</display-name>
+                <description xml:lang="x-default">Note from buyer</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalChannelOrderStatus">
+                <display-name xml:lang="x-default">External Order Status</display-name>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">CREATED</display>
+                        <value>2</value>
+                    </value-definition>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">NEW</display>
+                        <value>3</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">COMPLETED</display>
+                        <value>5</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CANCELLED</display>
+                        <value>6</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CANCELLED_PARTIAL</display>
+                        <value>7</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">REFUNDED</display>
+                        <value>7</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalExportStatus">
+                <display-name xml:lang="x-default">External Order Export Status</display-name>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">EXPORT_STATUS_NOTEXPORTED</display>
+                        <value>0</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">EXPORT_STATUS_EXPORTED</display>
+                        <value>1</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">EXPORT_STATUS_READY</display>
+                        <value>2</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalOrderId">
+                <display-name xml:lang="x-default">External Order ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalReturnStatus">
+                <display-name xml:lang="x-default">External Return Status</display-name>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">CONFIRMED</display>
+                        <value>2</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">NEW</display>
+                        <value>3</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">RETURNED</display>
+                        <value>4</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">PARTIAL_RETURN</display>
+                        <value>5</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CANCELLED</display>
+                        <value>6</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">REFUNDED</display>
+                        <value>7</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="orderAction">
+                <display-name xml:lang="x-default">Order Action</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="orderNote">
+                <display-name xml:lang="x-default">Order Note</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="orderNoteHistory">
+                <display-name xml:lang="x-default">Order Note History</display-name>
+                <type>text</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="orderTag">
+                <display-name xml:lang="x-default">Order Tag</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="returnCase">
+                <display-name xml:lang="x-default">Return Case</display-name>
+                <type>text</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="returnCaseHistory">
+                <display-name xml:lang="x-default">History of Return Cases</display-name>
+                <type>text</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="socialChannel">
+                <display-name xml:lang="x-default">Social Channel</display-name>
+                <description xml:lang="x-default">used to set the basket channel type in custom hook (dw.ocapi.shop.basket.afterPOST)</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+        </custom-attribute-definitions>
+    </type-extension>
+
+    <type-extension type-id="Order">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="buyerNote">
+                <display-name xml:lang="x-default">Buyer Note</display-name>
+                <description xml:lang="x-default">Note from buyer</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="cancelInfo">
+                <display-name xml:lang="x-default">Cancel Info</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="cancelInfoHistory">
+                <display-name xml:lang="x-default">Cancel Info History</display-name>
+                <type>text</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalExportStatus">
+                <display-name xml:lang="x-default">External Order Export Status</display-name>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">EXPORT_STATUS_NOTEXPORTED</display>
+                        <value>0</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">EXPORT_STATUS_EXPORTED</display>
+                        <value>1</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">EXPORT_STATUS_READY</display>
+                        <value>2</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalOrderId">
+                <display-name xml:lang="x-default">External Order ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalChannelOrderStatus">
+                <display-name xml:lang="x-default">External Order Status</display-name>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">CREATED</display>
+                        <value>2</value>
+                    </value-definition>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">NEW</display>
+                        <value>3</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">COMPLETED</display>
+                        <value>5</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CANCELLED</display>
+                        <value>6</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CANCELLED_PARTIAL</display>
+                        <value>7</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">REFUNDED</display>
+                        <value>8</value>
+                    </value-definition>                    
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalReturnStatus">
+                <display-name xml:lang="x-default">External Return Status</display-name>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">CONFIRMED</display>
+                        <value>2</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">NEW</display>
+                        <value>3</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">RETURNED</display>
+                        <value>4</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">PARTIAL_RETURN</display>
+                        <value>5</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CANCELLED</display>
+                        <value>6</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">REFUNDED</display>
+                        <value>7</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="orderAction">
+                <display-name xml:lang="x-default">Order Action</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="orderNote">
+                <display-name xml:lang="x-default">Order Note</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="orderNoteHistory">
+                <display-name xml:lang="x-default">Order Note History</display-name>
+                <type>text</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="orderTag">
+                <display-name xml:lang="x-default">Order Tag</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="returnCase">
+                <display-name xml:lang="x-default">Return Case</display-name>
+                <type>text</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="returnCaseHistory">
+                <display-name xml:lang="x-default">History of Return Cases</display-name>
+                <type>text</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Social">
+                <display-name xml:lang="x-default">Social Channel Attributes</display-name>
+                <attribute attribute-id="buyerNote"/>
+                <attribute attribute-id="cancelCode" system="true"/>
+                <attribute attribute-id="cancelInfo"/>
+                <attribute attribute-id="cancelInfoHistory"/>
+                <attribute attribute-id="externalOrderId"/>
+                <attribute attribute-id="externalExportStatus"/>
+                <attribute attribute-id="externalChannelOrderStatus"/>
+                <attribute attribute-id="externalReturnStatus"/>
+                <attribute attribute-id="orderAction"/>
+                <attribute attribute-id="orderNote"/>
+                <attribute attribute-id="orderNoteHistory"/>
+                <attribute attribute-id="orderTag"/>
+                <attribute attribute-id="returnCase"/>
+                <attribute attribute-id="returnCaseHistory"/>
+                <attribute attribute-id="shippingStatus" system="true"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+
+    <type-extension type-id="ProductLineItem">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="carrier">
+                <display-name xml:lang="x-default">Carrier</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalLineItemReturnStatus">
+                <display-name xml:lang="x-default">OMS Line Item Return Status</display-name>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">NEW</display>
+                        <value>1</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CONFIRMED</display>
+                        <value>2</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CANCELLED</display>
+                        <value>3</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">RETURNED</display>
+                        <value>4</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">PARTIAL_RETURN</display>
+                        <value>5</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">REFUNDED</display>
+                        <value>8</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalLineItemStatus">
+                <display-name xml:lang="x-default">OMS Line Item Status</display-name>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">SHIPPING_STATUS_NOTSHIPPED</display>
+                        <value>0</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">SHIPPING_STATUS_PARTSHIPPED</display>
+                        <value>1</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">SHIPPING_STATUS_SHIPPED</display>
+                        <value>2</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CANCELLED</display>
+                        <value>6</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">CANCELLED_PARTIAL</display>
+                        <value>7</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="reason">
+                <display-name xml:lang="x-default">Cancel/Return Reason</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="trackingNumber">
+                <display-name xml:lang="x-default">Shipment Tracking Number</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Social">
+                <display-name xml:lang="x-default">Social Channel Attributes</display-name>
+                <attribute attribute-id="carrier"/>
+                <attribute attribute-id="externalLineItemStatus"/>
+                <attribute attribute-id="externalLineItemReturnStatus"/>
+                <attribute attribute-id="reason"/>
+                <attribute attribute-id="trackingNumber"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+</metadata>
