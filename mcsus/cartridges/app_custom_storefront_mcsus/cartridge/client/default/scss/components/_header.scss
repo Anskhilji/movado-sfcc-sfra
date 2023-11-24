@@ -282,3 +282,23 @@ header {
         }
     }
 }
+
+// sticky-search-header
+header {
+
+  &.sticky-search-header {
+    
+    nav {
+
+      .sticky-header-wrapper {
+
+        .sticky-header-placeholder {
+
+          @include media-breakpoint-down(xs) {
+            height: rem(120);
+          }
+        }
+      }
+    }
+  }
+}

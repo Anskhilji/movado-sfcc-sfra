@@ -28,7 +28,7 @@ server.get(
             headerTemplate = '/components/header/pageHeader';
             session.privacy.isMcsHeaderNewDesign = true;
         } else {
-            headerTemplate = '/components/header/old/pageHeader';
+            headerTemplate = '/components/header/old/stickyPageHeader';
             session.privacy.isMcsHeaderNewDesign = false;
         }
         // Custom End
