@@ -134,6 +134,21 @@
 
                     .search-filter-bar {
 
+                        &.header-sticky-search-bar {
+
+                            &.sticky-search-filter-bar {
+
+                                @include media-breakpoint-down(sm) {
+                                    top: rem(115);
+                                    margin-left: rem(-46);
+                                }
+
+                                @include media-breakpoint-down(xs) {
+                                    margin-left: rem(-30);
+                                } 
+                            }
+                        }
+
                         &.sticky-search-filter-bar {
                             position: fixed;
                             top: rem(125);
