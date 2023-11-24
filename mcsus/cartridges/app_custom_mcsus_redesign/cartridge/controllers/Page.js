@@ -25,11 +25,19 @@ server.get(
         
         // Custom Start: A/B Test for Header Redesign
         if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
-            headerTemplate = '/components/header/pageHeader';
+            delete session.privacy.isStickySearchBar;
             session.privacy.isMcsHeaderNewDesign = true;
+            session.privacy.isStickySearchBar = false;
+            headerTemplate = '/components/header/pageHeader';
+        } else if (ABTestMgr.isParticipant('MCSStickySearchHeader', 'render-sticky-search')) {
+            delete session.privacy.isStickySearchBar;
+            session.privacy.isStickySearchBar = true;
+            headerTemplate = '/components/header/stickyPageHeader';
         } else {
-            headerTemplate = '/components/header/old/stickyPageHeader';
+            delete session.privacy.isStickySearchBar;
+            session.privacy.isStickySearchBar = false;
             session.privacy.isMcsHeaderNewDesign = false;
+            headerTemplate = '/components/header/old/pageHeader';
         }
         // Custom End
 
