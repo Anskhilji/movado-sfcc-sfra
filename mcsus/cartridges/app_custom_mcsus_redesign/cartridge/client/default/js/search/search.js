@@ -780,18 +780,23 @@ module.exports = {
 // MSS-2176 
 $(window).on('load resize scroll', function() {
     var $searchBanner = $('.search-banner');
+    var $filterRedesignContainer = $('.filter-redesign-container');
+    var $stickySearchHeader = $('.sticky-search-header');
     if (!$searchBanner.length) {
         return; // Exit the function if the element is not found
     }
+
     var $viewportTop = $(window).scrollTop();
     var $viewportBottom = $viewportTop + $(window).height();
     var $filterTop = $searchBanner.offset().top;
     var $filterBottom = $filterTop + $searchBanner.outerHeight();
     
     if ($filterTop >= $viewportTop && $filterBottom <= $viewportBottom) {
-        $('.filter-redesign-container').removeClass('sticky-search-filter-bar');
+        $filterRedesignContainer.removeClass('sticky-search-filter-bar');
+        if($stickySearchHeader.length > 0) $filterRedesignContainer.removeClass('header-sticky-search-bar');
     } else {
-        $('.filter-redesign-container').addClass('sticky-search-filter-bar');
+        $filterRedesignContainer.addClass('sticky-search-filter-bar');
+        if($stickySearchHeader.length > 0) $filterRedesignContainer.addClass('header-sticky-search-bar'); 
     }
 });
 

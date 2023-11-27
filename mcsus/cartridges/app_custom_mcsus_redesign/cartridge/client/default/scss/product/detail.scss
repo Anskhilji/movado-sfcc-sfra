@@ -635,6 +635,13 @@
         @include media-breakpoint-down(md) {
             top: rem(74);
         }
+
+        &.sticky-scroll-top {
+
+            @include media-breakpoint-down(sm) {
+                top: rem(100);
+            }
+        }
     }
 }
 

@@ -288,6 +288,13 @@ header {
 
   &.sticky-search-header {
     
+    .sticky-header-placeholder {
+      
+      @include media-breakpoint-down(sm) {
+        height: rem(105);
+      }
+    }
+    
     nav {
 
       .sticky-header-wrapper {
