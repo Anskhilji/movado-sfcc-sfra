@@ -508,23 +508,6 @@
             padding-top: rem(25);
             position: relative;
 
-            &.ps--active-y {
-
-                .ps__rail-y {
-                    height: fit-content !important; // i'm using important to overwrite perfect scroll styling
-
-                    &:hover {
-                        background-color: $white !important; // i'm using important to overwrite perfect scroll styling
-                    }
-
-                    .ps__thumb-y {
-                        width: rem(4) !important;
-                        background-color: $dark-gray !important; // i'm using important to overwrite perfect scroll styling
-                    }
-                }
-
-            }
-
             .mini-cart-fixed {
                 margin: 0 rem(12) rem(12) rem(12);
                 padding-bottom: rem(20);
@@ -864,6 +847,15 @@
                     }
                 }
             }
+        }
+
+        .scrollbar-track-y {
+            width: rem(4) !important;
+            background-color: $track-bg-gray !important;
+        }
+
+        .scrollbar-thumb {
+            width: rem(4) !important;
         }
 
         .minicart-footer, .coupon-code-field-static {

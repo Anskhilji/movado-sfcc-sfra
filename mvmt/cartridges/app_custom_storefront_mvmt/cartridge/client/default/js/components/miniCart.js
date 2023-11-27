@@ -1,6 +1,6 @@
 'use strict';
 
-var PerfectScrollbar  = require('perfect-scrollbar/dist/perfect-scrollbar');
+var smoothScrollbar  = require('smooth-scrollbar/dist/smooth-scrollbar');
 
 var $formValidation = require('base/components/formValidation');
 var $createErrorNotification = require('base/components/errorNotification');
@@ -40,10 +40,22 @@ function isIE() {
 }
 
 function initializeScroll() {
-    const container =
-    document.querySelector('.product-summary');
+    const container = document.querySelector('.product-summary');
     if(container) {
-        const ps = new PerfectScrollbar(container);
+        const options = {
+            damping: 0.1,         // Controls the amount of damping applied during scrolling (0 to 1)
+            thumbMinSize: 20,     // Minimum size for the scrollbar thumb
+            renderByPixels: true, // Forces pixels to be used as the unit for scrolling
+            alwaysShowTracks: false, // Always show scrollbar tracks
+            continuousScrolling: true, // Enables continuous scrolling
+            overscrollEffect: 'none', // Overscroll effect ('bounce', 'glow', 'none')
+            overscrollDamping: 0.2,     // Overscroll damping
+            overscrollEffectColor: '#222222', // Overscroll effect color
+          
+            // More options may be available depending on the specific version of the Smooth Scrollbar plugin you are using
+        };
+
+        smoothScrollbar.init(document.querySelector('.product-summary'), options);
     } else {
         setTimeout(initializeScroll, 500);
     }
