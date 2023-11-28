@@ -46,11 +46,9 @@ function initializeScroll() {
             renderByPixels: true, // Forces pixels to be used as the unit for scrolling
             alwaysShowTracks: false, // Always show scrollbar tracks
             continuousScrolling: true, // Enables continuous scrolling
-            overscrollEffect: 'none', // Overscroll effect ('bounce', 'glow', 'none')
+            overscrollEffect: 'bounce', // Overscroll effect ('bounce', 'glow', 'none')
             overscrollDamping: 0.2,     // Overscroll damping
-            overscrollEffectColor: '#222222', // Overscroll effect color
-          
-            // More options may be available depending on the specific version of the Smooth Scrollbar plugin you are using
+            overscrollEffectColor: '#222222', // Overscroll effect color          
         };
 
         smoothScrollbar.init(document.querySelector('.product-summary'), options);
