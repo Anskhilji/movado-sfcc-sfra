@@ -40,7 +40,7 @@ function isIE() {
 }
 
 function initializeScroll() {
-    const container = document.querySelector('.product-summary');
+    const container = $('.product-summary');
     if(container) {
         const options = {
             damping: 0.1,         // Controls the amount of damping applied during scrolling (0 to 1)
