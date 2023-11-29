@@ -352,7 +352,7 @@ header.new-header {
           font-size: rem(16);
           @include font-medium;
           color: $grey8;
-          border-radius: rem(30);
+          border-radius: rem(30) !important;
           white-space: unset;
 
           &:hover {
