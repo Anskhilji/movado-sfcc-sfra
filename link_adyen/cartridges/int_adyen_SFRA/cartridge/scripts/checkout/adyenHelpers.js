@@ -6,6 +6,7 @@ var PaymentMgr = require('dw/order/PaymentMgr');
 var OrderMgr = require('dw/order/OrderMgr');
 var Order = require('dw/order/Order');
 var Status = require('dw/system/Status');
+var Site = require('dw/system/Site');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 
@@ -136,6 +137,16 @@ function placeOrder(order, fraudDetectionStatus) {
     adyenLogger.debug('(adyenHelpers) -> placeOrder: Inside placeOrder and going to place order with order number: ' + orderNumber);
 
     try {
+        //custom : PulseID engraving
+        if (Site.current.preferences.custom.enablePulseIdEngraving) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            pulseIdAPIHelper.setPulseJobID(order);
+
+            if (order.custom.IsPulseIDEngraved == true) {
+                pulseIdAPIHelper.savePulseObj(order.orderNo);
+            }
+        }
+        // custom end
         if (order.paymentInstrument.paymentMethod == 'Adyen') {
             adyenLogger.debug('(adyenHelpers) -> placeOrder: Going to set the order_created status true with order number: ' + orderNumber);
             result.order_created = true;
