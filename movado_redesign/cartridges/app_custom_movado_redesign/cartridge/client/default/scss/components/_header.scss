@@ -352,7 +352,7 @@ header.new-header {
           font-size: rem(16);
           @include font-medium;
           color: $grey8;
-          border-radius: rem(30) !important;
+          border-radius: rem(30);
           white-space: unset;
 
           &:hover {
@@ -431,7 +431,7 @@ header.new-header {
     }
   }
 
-  .header-search-field{
+  .header-search-field {
     font-family: $font-medium;
     font-size: rem(16);
     border: none;
@@ -441,6 +441,7 @@ header.new-header {
     width: 100%;
     padding: 0;
     padding-bottom: rem(10);
+    height: auto;
 
     &:focus {
       box-shadow: none;

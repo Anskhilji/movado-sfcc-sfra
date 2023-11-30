@@ -520,13 +520,14 @@
                     letter-spacing: rem(1);
                     margin-bottom: rem(5);
                     line-height: 1;
+                    height: auto;
 
                     &.is-invalid {
                         border-color: $red;
                     }
 
                     &.custom-select {
-                        padding: 0 rem(32);
+                        padding: rem(16) rem(32);
                     }
 
                     &:focus {
