@@ -137,7 +137,7 @@ function placeOrder(order, fraudDetectionStatus) {
     adyenLogger.debug('(adyenHelpers) -> placeOrder: Inside placeOrder and going to place order with order number: ' + orderNumber);
 
     try {
-        //custom : PulseID engraving
+        // Custom Start : PulseID engraving
         if (Site.current.preferences.custom.enablePulseIdEngraving) {
             var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
             pulseIdAPIHelper.setPulseJobID(order);
@@ -146,7 +146,7 @@ function placeOrder(order, fraudDetectionStatus) {
                 pulseIdAPIHelper.savePulseObj(order.orderNo);
             }
         }
-        // custom end
+        // Custom End
         if (order.paymentInstrument.paymentMethod == 'Adyen') {
             adyenLogger.debug('(adyenHelpers) -> placeOrder: Going to set the order_created status true with order number: ' + orderNumber);
             result.order_created = true;
