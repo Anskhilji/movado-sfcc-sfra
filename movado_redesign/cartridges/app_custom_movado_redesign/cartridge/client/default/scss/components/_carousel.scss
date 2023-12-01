@@ -192,6 +192,7 @@ header {
 
         &.cs-carousel-update {
             margin-bottom: rem(0);
+            margin-inline: 0;
 
             @include media-breakpoint-down(sm) {
                 margin-top: rem(44);
@@ -239,6 +240,7 @@ header {
                         
                         &.draggable {
                             margin: rem(0) rem(-3);
+                            padding: 0 !important; //i'm using important to overwrite inline css
 
                             .slick-slide {
                                 margin: rem(0) rem(3);
