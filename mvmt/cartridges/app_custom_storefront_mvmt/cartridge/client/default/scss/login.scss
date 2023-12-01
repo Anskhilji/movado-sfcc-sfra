@@ -527,7 +527,8 @@
                     }
 
                     &.custom-select {
-                        padding: rem(16) rem(32);
+                        padding: 0 rem(32);
+                        height: calc(2.25rem + 2px);
                     }
 
                     &:focus {
