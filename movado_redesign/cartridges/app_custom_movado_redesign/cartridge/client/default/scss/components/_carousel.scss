@@ -181,18 +181,24 @@ header {
     }
 }
 
-.aruliden-carousel {
-    padding: rem(0) rem(48) rem(118);
+.plp-new-design {
 
-    .row {
-
-        .col-12,.product {
-
-            @include media-breakpoint-down(sm) {
-                padding: 0;
+    .aruliden-carousel {
+    
+        .row {
+    
+            .col-12,.product {
+    
+                @include media-breakpoint-down(sm) {
+                    padding: 0;
+                }
             }
         }
     }
+}
+
+.aruliden-carousel {
+    padding: rem(0) rem(48) rem(118);
 
     @include media-breakpoint-down(sm) {
         padding: rem(0) rem(48) rem(90);
