@@ -731,12 +731,6 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.product-name').text(response.product.productName);
     }
 
-    //Update product pageDescription
-    if (typeof response.product.pageDescription !== 'undefined' && response.product.pageDescription !== '' && response.product.pageDescription !== null) {
-        $productContainer.find('.description-redesign .content').text(response.product.pageDescription);
-        $productContainer.find('.bottom-detail-mobile').text(response.product.pageDescription);
-    }
-
     //update wishlist icon
     $('.add-to-wish-list').removeClass('added-to-wishlist');
     var $exclusiveBadges = $('.exclusive-badges');
@@ -770,11 +764,11 @@ function handleVariantResponse(response, $productContainer) {
         $('.google-pay-container').data('pid', response.product.id);
     }
 
-    // Update Product Long Description & Higlight Attributes
-    if (response.product.longDescription !== 'undefined' && response.product.longDescription !== '' && response.product.longDescription !== null) {
-        $('.product-bottom-detail').html(response.product.longDescription);
-    } else {
-        $('.product-bottom-detail').html(response.product.shortDescription);
+    // Update Product Short Description
+    if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
+        if ($productContainer.find('.description-redesign').length > 0) {
+            $productContainer.find('.description-redesign .content').html(response.product.shortDescription);
+        }
     }
 
     // Update Product Higlight Attributes
