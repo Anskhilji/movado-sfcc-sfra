@@ -47,10 +47,10 @@ function initializeScroll() {
             thumbMinSize: 20,     // Minimum size for the scrollbar thumb
             renderByPixels: true, // Forces pixels to be used as the unit for scrolling
             alwaysShowTracks: false, // Always show scrollbar tracks
-            continuousScrolling: true, // Enables continuous scrolling
+            continuousScrolling: false, // Enables continuous scrolling
             overscrollEffect: 'bounce', // Overscroll effect ('bounce', 'glow', 'none')
             overscrollDamping: 0.2,     // Overscroll damping
-            overscrollEffectColor: '#222222', // Overscroll effect color          
+            overscrollEffectColor: '#222222', // Overscroll effect color    
         };
 
         smoothScrollbar.init(document.querySelector('.product-summary'), options);
@@ -693,13 +693,13 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                $('body, html').addClass('scroll-remove');
                 // Custom:MSS-2034 add class when open miniCart
                 if ($homeHeaderTransparent.length > 0) {
                     $homeHeaderTransparent.addClass('solid-header');
                 }
                 loadAmazonButton();
                 initializeScroll();
-                $('body, html').addClass('scroll-remove');
                 $('#AmazonPayButtonCheckout').css('width', '100%');
             });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {
@@ -708,6 +708,7 @@ module.exports = function () {
                 $('#footer-overlay').addClass('footer-form-overlay');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                $('body, html').addClass('scroll-remove');
                 // Custom:MSS-2034 add class when open miniCart
                 if ($homeHeaderTransparent.length > 0) {
                     $homeHeaderTransparent.addClass('solid-header');
@@ -727,6 +728,7 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                $('body, html').addClass('scroll-remove');
                 initializeScroll();
                 // Custom:MSS-2034 add class when open miniCart
                 if ($homeHeaderTransparent.length > 0) {

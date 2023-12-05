@@ -45,7 +45,7 @@ function initializeScroll() {
             thumbMinSize: 20,     // Minimum size for the scrollbar thumb
             renderByPixels: true, // Forces pixels to be used as the unit for scrolling
             alwaysShowTracks: false, // Always show scrollbar tracks
-            continuousScrolling: true, // Enables continuous scrolling
+            continuousScrolling: false, // Enables continuous scrolling
             overscrollEffect: 'bounce', // Overscroll effect ('bounce', 'glow', 'none')
             overscrollDamping: 0.2,     // Overscroll damping
             overscrollEffectColor: '#222222', // Overscroll effect color          
@@ -206,12 +206,12 @@ function openMiniCart() {
             checkGiftBoxItem();
             $('.mini-cart-data .popover').addClass('show');
             $('body').trigger('miniCart:recommendations');
+            $('body, html').addClass('scroll-remove');
             updateMiniCart = false;
             $.spinner().stop();
             loadAmazonButton();
             hideMiniCartCheckbox();
             initializeScroll();
-            $('body, html').addClass('scroll-remove');
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
