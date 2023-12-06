@@ -463,6 +463,7 @@ server.post('ProcessPayments',
         if (isPreOrder) {
             Transaction.wrap(function () {
                 order.custom.isPreorder = isPreOrder;
+                order.custom.isPreorderProcessing = isPreOrder;
             });
         }
         /**
