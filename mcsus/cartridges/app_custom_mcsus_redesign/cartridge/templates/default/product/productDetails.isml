@@ -233,7 +233,16 @@
                         <iscomment> accordion start here </iscomment>
                             <isinclude template="product/components/accordion" />
                         <iscomment> accordion end here </iscomment>
-
+                            <div class="col-12">
+                            <div class="wishlist-row row">
+                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                        <div class="d-none d-md-none smartgift-medium-scr"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>
+                                </isif>
+                                <span class="product-id d-none" itemprop="productID" >${product.id}</span>
+                            </div>
+                        </div>
                         <iscomment> Custom style: more style hidden </iscomment>
                         <iscomment> <isinclude template="product/components/moreStyles" /> </iscomment>
                     </div>
