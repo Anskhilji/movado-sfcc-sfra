@@ -233,7 +233,7 @@
                         <iscomment> accordion start here </iscomment>
                             <isinclude template="product/components/accordion" />
                         <iscomment> accordion end here </iscomment>
-                            <div class="col-12">
+                        <div class="col-12">
                             <div class="wishlist-row row">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
