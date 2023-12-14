@@ -286,8 +286,7 @@
         </div>
         <!-- The Modal: Ends-->
         <!-- sticky ATC -->
-        <isset name="isMcsHeaderNewDesign" value="${session.privacy.isMcsHeaderNewDesign}" scope="page" />
-        <div class="${isMcsHeaderNewDesign ? 'top-header-redesign' : 'top-sticky-card'} scroll-hidden">
+        <div class="top-sticky-card scroll-hidden">
             <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
         <div class="bottom-sticky-card ${mcsPdpATCABTest ? 'sticky-test-wrapper' : ''} scroll-hidden">

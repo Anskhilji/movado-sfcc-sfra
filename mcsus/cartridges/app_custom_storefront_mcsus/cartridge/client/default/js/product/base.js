@@ -648,15 +648,19 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  */
 $(document).ready(function () {
     var $addToCartBtn = $('.prices-add-to-cart-redesign .cta-add-to-cart');
+    var $topStickyCard = $('.top-sticky-card');
+    var $newHeader = $('.new-header-deign');
     if ($addToCartBtn.length > 0) {
         var $divOffsetTop = $addToCartBtn.offset().top;
         if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
             if ($(window).scrollTop() > $divOffsetTop) {
                 $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
                 $('.bottom-sticky-card').addClass('scroll-hidden');
+                if($newHeader.length > 0) $topStickyCard.addClass('top-header-redesign');
             } else {
                 $('.top-sticky-card').addClass('scroll-hidden');
                 $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+                if($newHeader.length > 0) $topStickyCard.removeClass('top-header-redesign');
             }
         }
         $(window).scroll(function () {
@@ -666,18 +670,22 @@ $(document).ready(function () {
 
                 if ($addToCatViewPort) { // check if  button is on screen
                     $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden'); // both bottom and top will hidde
+                    if($newHeader.length > 0) $topStickyCard.removeClass('top-header-redesign');
                 } else {
                     if ($scrollDistance > $divOffsetTop) { // top sticky will be active
                         $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
                         $('.bottom-sticky-card').addClass('scroll-hidden');
+                        if($newHeader.length > 0) $topStickyCard.addClass('top-header-redesign');
                     } else { // bottom sticky will be active
                         $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
                         $('.top-sticky-card').addClass('scroll-hidden');
+                        if($newHeader.length > 0) $topStickyCard.removeClass('top-header-redesign');
                     }
                 }
             } else { // mobile case
                 $('.top-sticky-card').addClass('scroll-hidden') //top scroll button  will forever hide in mobile case
                 $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+                if($newHeader.length > 0) $topStickyCard.removeClass('top-header-redesign');
             }
         });
     }
