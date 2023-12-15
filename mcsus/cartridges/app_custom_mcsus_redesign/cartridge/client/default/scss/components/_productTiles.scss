@@ -470,7 +470,7 @@
 
         &-plp-container {
             @include media-breakpoint-up(lg) {
-                padding-bottom: rem(0) !important;
+                padding-bottom: rem(0) !important; // i'm using important to overwrite inline css
             }
 
             .tile-body { 
