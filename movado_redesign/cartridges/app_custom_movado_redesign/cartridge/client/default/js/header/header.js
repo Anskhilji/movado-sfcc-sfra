@@ -577,6 +577,14 @@ var lastScrollTop = 0;
 
   $(window).on('scroll',function() {
     var scrollTop = $(this).scrollTop();
+    var documentHeight = $(document).height();
+    var windowHeight = $(this).height();
+    var scrollBottom = documentHeight - windowHeight;
+
+    if (scrollTop >= scrollBottom) {
+        event.preventDefault();
+        return;
+    }
 
     if ((scrollTop > 0 && lastScrollTop > 0) && (scrollTop != 0 && lastScrollTop != 0) && scrollTop >= lastScrollTop) {
       // Scrolling down
