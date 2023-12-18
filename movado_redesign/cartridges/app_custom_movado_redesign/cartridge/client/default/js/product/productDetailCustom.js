@@ -497,7 +497,7 @@ function showMoreDescription() {
             if (firstPeriodIndex !== -1) {
                 var $firstLine = $content.substring(0, firstPeriodIndex + 1);
                 
-                if ($firstLine.localeCompare($content) !== 0) {
+                if ($firstLine.localeCompare($content) === -1) {
                     var $html = '<span class="first-line">' + $firstLine + '</span>' +
                                 '<span style="display:none" class="morecontent-wrapper"><span>' + $content + '</span></span>' +
                                 '<div><a href="#" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + $moreText + '</a></div>';
