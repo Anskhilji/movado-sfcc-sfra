@@ -124,7 +124,7 @@ function orderSync(args) {
                     break;
                 }
 
-                if (order.getChannelType() != order.CHANNEL_TYPE_TIKTOK && order.totalGrossPrice.value < dw.system.Site.current.preferences.custom.Listrak_OrderProcessingThreshold) {
+                if (order.getChannelType() != order.CHANNEL_TYPE_TIKTOK && order.totalGrossPrice.value <= dw.system.Site.current.preferences.custom.Listrak_OrderProcessingThreshold) {
                     var o = new ltkOrder();
                     o.LoadOrder(order);
 
