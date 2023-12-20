@@ -2668,7 +2668,7 @@
 }
 
 .sticky-header {
-
+   
     @include media-breakpoint-down(sm) {
         display: unset;
     }
@@ -2684,11 +2684,30 @@
             &.new-header-deign {
                 position: sticky;
                 top: 0;
+                z-index: 1019;
         
                 &.fixed-header {
                     position: sticky;
                     position: -webkit-sticky;
-                    top: 0;
+                    top: 0;   
+                }
+            }
+            
+            .main-menu-top {
+
+                @include media-breakpoint-down(lg) {
+                    
+                    &.main-menu-top-fixed {
+
+                        &:after {
+                            content: '';
+                            background: $black;
+                            position: absolute;
+                            inset: 0;
+                            opacity: 0.5;
+                            z-index: 2;
+                        }
+                    }
                 }
             }
         }

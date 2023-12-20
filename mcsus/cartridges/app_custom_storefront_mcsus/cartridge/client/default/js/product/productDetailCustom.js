@@ -113,3 +113,7 @@ module.exports = {
         });
     },
 }
+
+$('.new-header-deign .navbar-toggler').click(function (e) {
+    $('.main-menu-top').addClass('main-menu-top-fixed')
+});
