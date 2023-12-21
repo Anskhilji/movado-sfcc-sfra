@@ -12,6 +12,7 @@ var ArrayList = require('dw/util/ArrayList');
 var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Logger = require('dw/system/Logger').getLogger('Listrak');
+var Money = require('dw/value/Money');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
@@ -355,15 +356,35 @@ ltkProduct.prototype.getCategory = function () {
 // Custom Start: Get Product Sales Info [MSS-1473]
 ltkProduct.prototype.getSaleInfo = function (product) {
 
-    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    var currentPromotionalPrice = Money.NOT_AVAILABLE;
     var onSale = false;
+    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    var promotionalPrice = Money.NOT_AVAILABLE;
+    var promo;
+
     while (PromotionIt.hasNext()) {
-        var promo = PromotionIt.next();
+        promo = PromotionIt.next();
         if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
-            onSale = true;
-            break;
+            if (product.optionProduct) {
+                currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+            } else {
+                currentPromotionalPrice = promo.getPromotionalPrice(product);
+            }
+
+            if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
+                promotionalPrice = currentPromotionalPrice;
+            } else if (promotionalPrice.value == 0) {
+                if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                    promotionalPrice = currentPromotionalPrice;
+                }
+            }
         }
     }
+
+    if (promotionalPrice.available) {
+        onSale = true;
+    }
+
     return onSale;
 }
 // Custom End
