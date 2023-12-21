@@ -12,7 +12,6 @@ var ArrayList = require('dw/util/ArrayList');
 var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Logger = require('dw/system/Logger').getLogger('Listrak');
-var Money = require('dw/value/Money');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
@@ -355,6 +354,7 @@ ltkProduct.prototype.getCategory = function () {
 
 // Custom Start: Get Product Sales Info [MSS-1473]
 ltkProduct.prototype.getSaleInfo = function (product) {
+    var Money = require('dw/value/Money');
 
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
     var onSale = false;
