@@ -36,7 +36,7 @@ function execute() {
                 var payload = pulseIdRequestGenerator.generatePulseIdOrderPayload(order, jobs);
                 //create service
                 var result = pulseIdAPI.pulseIdEngravingApi(payload, pulseIdConstants.PULSEID_SERVICE_ID.PULSEID_SUBMIT_ORDER_API_ENDPOINT, pulseIdConstants.PULSEID_SERVICE_ID.PULSEID_REQUEST_METHOD);
-                if (result.success && !empty(result.response)) {
+                if (result.success && result.response) {
                     Logger.info('(pulseIdOrders Job) -> execute -> order has been submitted with order : ' + orderID + ' to PulseID. Response:' + result.success);
                     pulseIdAPIHelper.removePulseObjs(pulseObj);
                 }
