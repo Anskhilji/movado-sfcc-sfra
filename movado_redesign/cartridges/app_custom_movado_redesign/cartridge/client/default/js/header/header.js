@@ -580,6 +580,7 @@ var lastScrollTop = 0;
     var documentHeight = $(document).height();
     var windowHeight = $(this).height();
     var scrollBottom = documentHeight - windowHeight;
+    var windowSize = $(window).width();
 
     if (scrollTop >= scrollBottom) {
         event.preventDefault();
@@ -608,7 +609,7 @@ var lastScrollTop = 0;
         $('.search-results-updated .left-sec .result-count').css('display','block');
     }
 
-    if (scrollTop > 200) {
+    if (scrollTop > 200 && windowSize < 768) {
         $('.header-placeholder-sec').addClass('d-none');
     } else {
         $('.header-placeholder-sec').removeClass('d-none');
