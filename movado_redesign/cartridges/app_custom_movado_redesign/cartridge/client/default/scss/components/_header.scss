@@ -13,6 +13,10 @@
 
   &.page-set {
     margin-top: rem(40);
+    
+    @include media-breakpoint-down(sm) {
+      margin-top: 0;
+    }
 
     .checkout-page {
       padding-bottom: rem(20);

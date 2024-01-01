@@ -600,7 +600,7 @@ var lastScrollTop = 0;
         $('.search-results-updated .left-sec .result-count').css('display','none');
     } else {
       // Scrolling up
-        $('.page').addClass('page-set');
+        $('.page').removeClass('page-set');
         $('.transparent-header , .home-header-transparent').removeClass('hide-header');
         $('.header-banner-redesign').removeClass('header-banner-hide');
         $('.checkout-header-redesign').removeClass('fixed-header-wrapper');
