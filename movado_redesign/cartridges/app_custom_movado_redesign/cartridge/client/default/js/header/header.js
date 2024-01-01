@@ -591,6 +591,7 @@ var lastScrollTop = 0;
       // Scrolling down
         $('.transparent-header , .home-header-transparent').addClass('hide-header');
         $('.transparent-header .minicart .popover-bottom , .home-header-transparent .minicart .popover-bottom').addClass('mini-cart-hide' , '0');
+        $('.page').addClass('page-set');
         $('.header-banner-redesign').addClass('header-banner-hide');
         $('.header-placeholder-sec').addClass('header-section-set');
         $('.search-results-updated .filter-bar-sticky').addClass('filter-bar-updated');
@@ -599,6 +600,7 @@ var lastScrollTop = 0;
         $('.search-results-updated .left-sec .result-count').css('display','none');
     } else {
       // Scrolling up
+        $('.page').addClass('page-set');
         $('.transparent-header , .home-header-transparent').removeClass('hide-header');
         $('.header-banner-redesign').removeClass('header-banner-hide');
         $('.checkout-header-redesign').removeClass('fixed-header-wrapper');
