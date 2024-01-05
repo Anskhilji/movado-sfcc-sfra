@@ -648,6 +648,11 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  */
 $(document).ready(function () {
     var $addToCartBtn = $('.prices-add-to-cart-redesign .cta-add-to-cart');
+
+    if ($('.new-header-deign').length > 0) {
+        $('.top-sticky-card').addClass('top-header-redesign');
+    }
+
     if ($addToCartBtn.length > 0) {
         var $divOffsetTop = $addToCartBtn.offset().top;
         if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
