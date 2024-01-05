@@ -571,6 +571,16 @@ function placeOrder(order, fraudDetectionStatus) {
     var result = { error: false };
 
     try {
+        // Custom Start : PulseID engraving
+        if (Site.current.preferences.custom.enablePulseIdEngraving) {
+            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
+            pulseIdAPIHelper.setPulseJobID(order);
+
+            if (order.custom.IsPulseIDEngraved == true) {
+                pulseIdAPIHelper.savePulseObj(order.orderNo);
+            }
+        }
+        // Custom End
         affirmLogger.debug('(checkoutHelpers) -> placeOrder: Inside placeOrder and order number is: ' + order.orderNo);
         Transaction.begin();
         var placeOrderStatus = OrderMgr.placeOrder(order);

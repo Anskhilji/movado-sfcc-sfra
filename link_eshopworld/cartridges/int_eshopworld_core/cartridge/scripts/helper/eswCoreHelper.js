@@ -660,6 +660,7 @@
      createCookie: function (name, value, path) {
          var newCookie = new Cookie(name, value);
          newCookie.setPath(path);
+         newCookie.setHttpOnly(true);
          response.addHttpCookie(newCookie);
          return newCookie;
      },
@@ -669,6 +670,7 @@
      updateCookieValue: function (changeCookie, value) {
          changeCookie.setValue(value);
          changeCookie.setPath('/');
+         changeCookie.setHttpOnly(true);
          response.addHttpCookie(changeCookie);
      },
      /*

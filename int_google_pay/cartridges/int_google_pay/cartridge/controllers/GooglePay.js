@@ -96,6 +96,7 @@ server.post('ProcessPayments',
         var OrderMgr = require('dw/order/OrderMgr');
         var PaymentManager = require('dw/order/PaymentMgr');
 
+        var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
         
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
@@ -372,14 +373,12 @@ server.post('ProcessPayments',
         if (orderPlacementStatus.error) {
             checkoutLogger.error('(GooglePay) -> ProcessPayments: Order placement is failed and going to the error page and order number is: ' + order.orderNo);
             var sendMail = true;
-            var isJob = false;
             var refundResponse = hooksHelper(
                 'app.payment.adyen.refund',
                 'refund',
                 order,
                 order.getTotalGrossPrice().value,
                 sendMail,
-                isJob,
                 require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
             Riskified.sendCancelOrder(order, Resource.msg('error.payment.not.valid', 'checkout', null));
             return next(new Error('Could not place order'));
@@ -410,12 +409,6 @@ server.post('ProcessPayments',
 		        order.custom.clydeContractProductMapping = '';
 		    });
 		    addClydeContract.createOrderCustomAttr(order);
-		    //custom : PulseID engraving
-		    if (enablePulseIdEngraving) {
-		        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-		        pulseIdAPIHelper.setPulseJobID(order);
-		    }
-		    // custom end
 		}
 		/**
 		 * Custom: End
@@ -450,6 +443,24 @@ server.post('ProcessPayments',
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
         }
+
+        /**
+         * Custom Start Adding preOrder Logic for Google Pay
+         */
+
+        //Check if order includes Pre-Order item
+        var isPreOrder = orderCustomHelpers.isPreOrder(order);
+
+        //Set order custom attribute if there is any pre-order item exists in order
+        if (isPreOrder) {
+            Transaction.wrap(function () {
+                order.custom.isPreorder = isPreOrder;
+                order.custom.isPreorderProcessing = isPreOrder;
+            });
+        }
+        /**
+         * Custom End
+         */
 
         Transaction.wrap(function () {
             var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);

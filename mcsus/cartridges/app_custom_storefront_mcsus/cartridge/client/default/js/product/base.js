@@ -96,7 +96,7 @@ function initializeZoomSlickDots() {
         slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: '.primary-images .main-carousel',
-        dots: false,
+        dots: true,
         arrows: false,
         focusOnSelect: true,
         infinite: false,
@@ -253,12 +253,16 @@ function updateCartTotals(data) {
     });
 }
 
-$(window).resize(function () {
-    $('.primary-images .main-carousel')[0].slick.refresh();
-    $('.carousel-nav-redesign')[0].slick.refresh();
-});
-
 $(document).ready(function () {
+    // Resize Event
+    $(window).resize(function() {
+        // Check window width has actually changed and it's not just iOS triggering a resize event on scroll
+        if ($(window).width() != winWidth) {
+            $('.primary-images .main-carousel')[0].slick.refresh();
+            $('.carousel-nav-redesign')[0].slick.refresh();
+        }
+    });
+
     // Custom Start: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
     $(window).on('resize', function () {
         var winWidth = $(window).width();
@@ -651,6 +655,10 @@ $(document).ready(function () {
     var $topStickyCard = $('.top-sticky-card');
     var $stickySearchHeader = $('.sticky-search-header');
 
+    if ($('.new-header-deign').length > 0) {
+        $topStickyCard.addClass('top-header-redesign');
+    }
+
     if ($addToCartBtn.length > 0) {
         var $divOffsetTop = $addToCartBtn.offset().top;
 
@@ -742,12 +750,6 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.product-name').text(response.product.productName);
     }
 
-    //Update product pageDescription
-    if (typeof response.product.pageDescription !== 'undefined' && response.product.pageDescription !== '' && response.product.pageDescription !== null) {
-        $productContainer.find('.description-redesign .content').text(response.product.pageDescription);
-        $productContainer.find('.bottom-detail-mobile').text(response.product.pageDescription);
-    }
-
     //update wishlist icon
     $('.add-to-wish-list').removeClass('added-to-wishlist');
     var $exclusiveBadges = $('.exclusive-badges');
@@ -781,11 +783,11 @@ function handleVariantResponse(response, $productContainer) {
         $('.google-pay-container').data('pid', response.product.id);
     }
 
-    // Update Product Long Description & Higlight Attributes
-    if (response.product.longDescription !== 'undefined' && response.product.longDescription !== '' && response.product.longDescription !== null) {
-        $('.product-bottom-detail').html(response.product.longDescription);
-    } else {
-        $('.product-bottom-detail').html(response.product.shortDescription);
+    // Update Product Short Description
+    if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
+        if ($productContainer.find('.description-redesign').length > 0) {
+            $productContainer.find('.description-redesign .content').html(response.product.shortDescription);
+        }
     }
 
     // Update Product Higlight Attributes

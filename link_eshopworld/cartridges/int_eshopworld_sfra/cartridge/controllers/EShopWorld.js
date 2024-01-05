@@ -136,6 +136,7 @@ server.get('GetEswLandingPage', function (req, res, next) {
 	    var Cookie = require('dw/web/Cookie');
 	    var eswLandingCookie = new Cookie('esw.Landing.Played', true);
 	    eswLandingCookie.setPath('/');
+        eswLandingCookie.setHttpOnly(true);
 	    response.addHttpCookie(eswLandingCookie);
 	    setInitialCookies(req);
 	

@@ -24,3 +24,4 @@
 !**/bm_socialchannels**/cartridge/static/**/js/*
 !einstein-recommendations.js
 rkb.code-workspace
+package-lock.json

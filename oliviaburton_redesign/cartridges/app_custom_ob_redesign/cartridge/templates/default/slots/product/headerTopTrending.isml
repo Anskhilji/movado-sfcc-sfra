@@ -1,7 +1,7 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
     <div class="container">
         <isloop items="${slotcontent.content}" begin="0" end="0"  var="product" status="loopStatus">
-            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', false, 'swatches', false, 'isHighResolutionImage', false)}"/>
+            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', false, 'swatches', false, 'isHighResolutionImage', false, 'lazyload', true)}"/>
         </isloop>
     </div>
 </isif>

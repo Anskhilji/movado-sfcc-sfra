@@ -24,6 +24,7 @@ function checkRedirect() {
             if (cookie.name && cookie.name === WELCOMEMAT) {
                 var welcomeMatCookie = new Cookie(WELCOMEMAT, false);
                 welcomeMatCookie.setMaxAge(0);
+                welcomeMatCookie.setHttpOnly(true);
                 response.addHttpCookie(welcomeMatCookie);
                 return false;
             }
