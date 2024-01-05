@@ -372,14 +372,12 @@ server.post('ProcessPayments',
         if (orderPlacementStatus.error) {
             checkoutLogger.error('(GooglePay) -> ProcessPayments: Order placement is failed and going to the error page and order number is: ' + order.orderNo);
             var sendMail = true;
-            var isJob = false;
             var refundResponse = hooksHelper(
                 'app.payment.adyen.refund',
                 'refund',
                 order,
                 order.getTotalGrossPrice().value,
                 sendMail,
-                isJob,
                 require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
             Riskified.sendCancelOrder(order, Resource.msg('error.payment.not.valid', 'checkout', null));
             return next(new Error('Could not place order'));
