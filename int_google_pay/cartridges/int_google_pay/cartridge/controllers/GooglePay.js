@@ -96,6 +96,7 @@ server.post('ProcessPayments',
         var OrderMgr = require('dw/order/OrderMgr');
         var PaymentManager = require('dw/order/PaymentMgr');
 
+        var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
         
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
@@ -448,6 +449,24 @@ server.post('ProcessPayments',
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
         }
+
+        /**
+         * Custom Start Adding preOrder Logic for Google Pay
+         */
+
+        //Check if order includes Pre-Order item
+        var isPreOrder = orderCustomHelpers.isPreOrder(order);
+
+        //Set order custom attribute if there is any pre-order item exists in order
+        if (isPreOrder) {
+            Transaction.wrap(function () {
+                order.custom.isPreorder = isPreOrder;
+                order.custom.isPreorderProcessing = isPreOrder;
+            });
+        }
+        /**
+         * Custom End
+         */
 
         Transaction.wrap(function () {
             var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
