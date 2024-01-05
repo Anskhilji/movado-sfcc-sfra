@@ -96,7 +96,7 @@ function initializeZoomSlickDots() {
         slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: '.primary-images .main-carousel',
-        dots: false,
+        dots: true,
         arrows: false,
         focusOnSelect: true,
         infinite: false,
