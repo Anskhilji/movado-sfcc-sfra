@@ -492,8 +492,8 @@ function countNumberOfLines() {
 
 // Custom Start: [MSS-2360 To Show/Hide More Short Description on PDP]
 function showMoreDescription() {
-    var $lessText = ' show less';
-    var $moreText = ' Read More';
+    var $lessText = window.Resources.SHOW_LESS_TEXT;
+    var $moreText = window.Resources.READ_MORE_TEXT;
     var $numberOfLines = countNumberOfLines();
     var $showChar = 245;
 
