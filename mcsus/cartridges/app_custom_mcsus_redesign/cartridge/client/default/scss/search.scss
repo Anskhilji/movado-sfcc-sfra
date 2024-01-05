@@ -167,13 +167,17 @@
                                 padding: 0;
                             }
 
-                            @include media-breakpoint-down(md) {
+                            @include media-breakpoint-down(lg) {
                                 margin: 0;
                                 width: 100%;
                                 margin-left: rem(-30);
                                 top: rem(75);
                                 z-index: 1;
                                 border-top: rem(1) solid $border-color;
+                            }
+
+                            @include media-breakpoint-down(md) {
+                                top: rem(60);
                             }
 
                             @include media-breakpoint-down(sm) {

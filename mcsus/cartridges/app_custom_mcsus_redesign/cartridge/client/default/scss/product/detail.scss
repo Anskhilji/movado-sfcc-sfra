@@ -632,8 +632,12 @@
         transform: translateY(0);
         transition: all 0.4s;
 
-        @include media-breakpoint-down(md) {
+        @include media-breakpoint-down(lg) {
             top: rem(74);
+        }
+
+        @include media-breakpoint-down(md) {
+            top: rem(60);
         }
 
         &.sticky-scroll-top {
@@ -657,6 +661,10 @@
         
         &.scroll-top {
             top: rem(170);
+
+            @include media-breakpoint-down(lg) {
+                top: rem(165);
+            }
 
             @include media-breakpoint-down(sm) {
                 top: rem(224);
