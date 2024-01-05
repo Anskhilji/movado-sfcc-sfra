@@ -435,7 +435,7 @@ header.new-header {
     }
   }
 
-  .header-search-field{
+  .header-search-field {
     font-family: $font-medium;
     font-size: rem(16);
     border: none;
@@ -445,6 +445,7 @@ header.new-header {
     width: 100%;
     padding: 0;
     padding-bottom: rem(10);
+    height: auto;
 
     &:focus {
       box-shadow: none;
