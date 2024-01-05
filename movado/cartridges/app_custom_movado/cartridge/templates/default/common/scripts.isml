@@ -2,7 +2,7 @@
 <isinclude sf-toolkit="off" template="/common/trackingPixelScript"/>
 <script src="${URLUtils.staticURL('/js/libs.js')}"></script>
 <script src="${URLUtils.staticURL('/lib/slick@1.8.1/slick.js')}"></script>
-<script defer src="${URLUtils.staticURL('/lib/jquery-validation@1.19.0/jquery.validate.min.js')}"></script>
+<script defer src="${URLUtils.staticURL('/lib/jquery-validation@1.19.5/jquery.validate.min.js')}"></script>
 <script defer type="text/javascript" src="${URLUtils.staticURL('/js/main.js')}"></script>
 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('AffirmOnline')}">
 	<script defer type="text/javascript" src="${URLUtils.staticURL('/js/vcn.js')}"></script>

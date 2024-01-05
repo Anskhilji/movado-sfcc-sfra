@@ -3,11 +3,29 @@
     assets.addCss('/css/components/pdpStorePickUp.css');
 </isscript>
 <isset name="pickupStoreOpenDays" value="${!empty(dw.system.Site.current.preferences.custom.pickupStoreOpenDays) ? dw.system.Site.current.preferences.custom.pickupStoreOpenDays : ''}" scope="page" />
+<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isset name="lowStockMessageEnabled" value="${!empty(sitePref.lowStockMessageEnabled) ? sitePref.lowStockMessageEnabled : false}" scope="page" />
+<isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
+<isinclude template="/components/modules" sf-toolkit="off" />
 <div class="col-sm-6 pdp-store-pickup-inventory">
-    <div class="pdp-store-pickup-display-inline-block-inventory-icon"></div> 
     <div class="pdp-store-pickup-display-inline-block-delevery">
-        <h3 class="pick-up-store-stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'storePickUp', null)}</h3>
-        <p class="pick-up-store-openings">${pickupStoreOpenDays || ''}</p>  
+        <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
+            <isif condition="${pdict.store.productATSValue <= lowStockThreshold}">
+                <h3 class="low-stock-message">
+                    <iscontentasset aid="ca-low-stock-message" />
+                </h3>
+                <h3 class="pick-up-store-stock-for-deliver d-none">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'storePickUp', null)}</h3>
+                <p class="pick-up-store-openings">${pickupStoreOpenDays || ''}</p>
+            <iselse/>
+                <h3 class="low-stock-message d-none">
+                    <iscontentasset aid="ca-low-stock-message" />
+                </h3>
+                <p class="pick-up-store-openings">${pickupStoreOpenDays || ''}</p>
+            </isif>
+        <iselse/>
+            <p class="pick-up-store-openings">${pickupStoreOpenDays || ''}</p>
+        </isif>
+          
     </div>
 </div>
 <div class="col-sm-6">

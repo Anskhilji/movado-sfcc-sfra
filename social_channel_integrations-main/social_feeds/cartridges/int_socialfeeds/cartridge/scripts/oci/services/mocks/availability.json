@@ -1,0 +1,60 @@
+{
+    "locations": [
+        {
+            "id": "inventory_m",
+            "records": [
+                {
+                    "sku": "701642964124M",
+                    "atf": 100.0,
+                    "ato": 100.0,
+                    "reserved": 0,
+                    "safetyStockCount": 0.0,
+                    "effectiveDate": "2023-12-31T14:23:35Z",
+                    "futures": [],
+                    "onHand": 100.0
+                },
+                {
+                    "sku": "701644154974M",
+                    "atf": 97.0,
+                    "ato": 97.0,
+                    "reserved": 1.0,
+                    "safetyStockCount": 0.0,
+                    "effectiveDate": "2023-12-31T14:23:35Z",
+                    "futures": [],
+                    "onHand": 98.0
+                }
+            ]
+        }
+    ],
+    "groups": [
+        {
+            "id": "refarch_group",
+            "records": [
+                {
+                    "sku": "701642964124M",
+                    "atf": 65.0,
+                    "ato": 65.0,
+                    "reserved": 0.0,
+                    "safetyStockCount": 0.0,
+                    "effectiveDate": "2022-12-31T14:23:35Z",
+                    "futures": [],
+                    "onHand": 65.0,
+                    "groupReserved": 0.0,
+                    "sharedGroupReserved": 0.0
+                },
+                {
+                    "sku": "701644154974M",
+                    "atf": 65.0,
+                    "ato": 65.0,
+                    "reserved": 0.0,
+                    "safetyStockCount": 0.0,
+                    "effectiveDate": "2022-12-31T14:23:35Z",
+                    "futures": [],
+                    "onHand": 65.0,
+                    "groupReserved": 0.0,
+                    "sharedGroupReserved": 0.0
+                }
+            ]
+        }
+    ]
+}

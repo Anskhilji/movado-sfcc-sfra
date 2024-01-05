@@ -1,3 +1,4 @@
+<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
 <isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 <header>
@@ -12,7 +13,7 @@
             <div class="sticky-header-placeholder"></div>
             <div class="header-menu-wrapper">
                 <div class="header-wrapper">
-                    <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse"
+                    <button class="navbar-toggler" role="tab" type="button" aria-controls="sg-navbar-collapse"
                         aria-expanded="false">
                         <i class="new-hamburger"></i>
                         <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
@@ -70,7 +71,7 @@
                         <div class="main-menu-mobile main-menu navbar-toggleable-sm menu-toggleable-left multilevel-dropdown menu-scroll-bar" id="sg-navbar-collapse">
                             <div class="container">
                                 <div class="row">
-                                    <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                                    <isinclude template="components/header/menu" />
                                 </div>
                             </div>
                         </div>
@@ -103,6 +104,12 @@
           </isif>
         </isif>
     </nav>
+
+    <iscomment>Custom Start: MSS-2339 include Talkable Remote include for tracking </iscomment>
+    <isif condition="${sitePreferences.talkableEnabled}">
+        <isinclude url="${URLUtils.url('Talkable-Head')}"/>
+    </isif>
+    <iscomment>Custom end: Talkable Remote include </iscomment>
 </header>
 
 <iscomment> overlayer add for dropdown menu` </iscomment>

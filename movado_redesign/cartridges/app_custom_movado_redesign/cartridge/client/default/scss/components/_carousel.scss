@@ -1,15 +1,22 @@
 .cs-carousel-update {
     
+    &.cs-carousel-wrapper {
+
+        .carousel-title {
+            font-family: $movado-font;
+        }
+    }
+
     .cs-carousel {
-        
+
         .carousel-tile {
-            
+
             .product-tile {
-                
+
                 .promotions {
-                    
+
                     .callout {
-                        
+
                         &.promo-msg {
                             color: $black;
                         }
@@ -21,7 +28,7 @@
 }
 
 header {
-    
+
     &.new-header {
 
         .top-search-update {
@@ -32,9 +39,318 @@ header {
 
                     .promo-msg {
                         color: $black;
+                        font-family: $the-futura-font;
                     }
                 }
             }
+        }
+    }
+}
+
+.cs-carousel-update {
+
+    &.plp-aruliden-tile {
+
+        .cs-carousel {
+
+            .carousel-tile {
+            
+                .product-tile {
+                    background: $white;
+                
+                    @include media-breakpoint-down(md) {
+                        margin-bottom: 0;
+                    }
+
+                    .image-container {
+                        background: $grey-silver-light;
+                    }
+            
+                    .out-of-stock, .pre-order {
+                        right: rem(16);
+                        color: $black;
+                        font-size: rem(10);
+                        letter-spacing: rem(0.5);
+                        padding: rem(3) rem(10);
+                        background: $white;
+                        font-weight: 500;
+                        border-radius: rem(18.682);
+                        border: rem(0.701) solid $silver-light;
+                        line-height: rem(11.5);
+                        font-family: $the-futura-font;
+
+                        @include media-breakpoint-down(sm) {
+                            right: rem(5);
+                        }
+    
+                        @include media-breakpoint-down(xs) {
+                            font-size: rem(8);
+                        }
+                    }
+            
+                    .new-product {
+                        color: $black;
+                        right: rem(1);
+                        letter-spacing: rem(0.5);
+                        padding: rem(3) rem(10);
+                        background: $white;
+                        border-radius: rem(18.682);
+                        border: rem(0.701) solid $silver-light;
+                        font-family: $the-futura-font;   
+                        font-weight: 500;
+                        line-height: rem(11.5);
+                        font-size: rem(10);
+
+                        @include media-breakpoint-down(sm) {
+                            right: rem(5);
+                        }
+    
+                        @include media-breakpoint-down(xs) {
+                            font-size: rem(8);
+                        }
+                    }
+            
+                    .tile-body {
+                        background: $white;
+                        font-family: $the-futura-font;
+                        padding: rem(16);
+                        
+                        .pdp-link {
+                            margin-bottom: rem(4);
+                            
+                            .product-name {
+                                font-size: rem(16);
+                                color: $black;
+                                letter-spacing: rem(0.25);
+                                font-family: $movado-font;
+                                line-height: rem(20);
+                    
+                                @include media-breakpoint-down(md){
+                                    font-size: rem(16);
+                                    line-height: rem(18);
+                                }
+                            }
+                        }
+
+                        .tile-body-content {
+                            font-family: $the-futura-font;
+                        }
+                
+                        .price {
+                            font-size: rem(14);
+                            letter-spacing: rem(0.25);
+                            font-weight: 400;
+                            font-family: $the-futura-font;
+                            line-height: rem(16);
+                
+                            @include media-breakpoint-down(md) {
+                                font-size: rem(14);
+                                letter-spacing: rem(0.14);
+
+                                span {
+                                    font-size: rem(14);
+                                }
+                            }
+
+                            del {
+              
+                                @include media-breakpoint-up(lg) {
+                                    font-size: rem(14);
+                                }
+                            }
+                
+                            span:nth-child(1) {
+                              
+                                @include media-breakpoint-up(lg) {
+                                    font-size: rem(14);
+                                }
+                            }
+                        }
+
+                        .callout {
+                            
+                            &.promo-msg {
+                                font-family: $the-futura-font;
+                                font-size: rem(14);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.plp-new-design {
+
+    .aruliden-carousel {
+    
+        .row {
+    
+            .col-12,.product {
+    
+                @include media-breakpoint-down(sm) {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+
+.aruliden-carousel {
+    padding: rem(0) rem(48) rem(118);
+
+    @include media-breakpoint-down(sm) {
+        padding: rem(0) rem(48) rem(90);
+    }
+
+    .cs-carousel-wrapper {
+
+        &.cs-carousel-update {
+            margin-bottom: rem(0);
+            margin-inline: 0;
+
+            @include media-breakpoint-down(sm) {
+                margin-top: rem(44);
+            }
+
+            .carousel-title {
+                font-size: rem(32);
+                font-style: normal;
+                font-weight: 400;
+                line-height: rem(40);
+                font-family: $movado-font;
+                color: $black;
+                margin-bottom: rem(25);
+                letter-spacing: normal;
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(24);
+                    line-height: rem(32);
+                    margin-bottom: rem(17);
+                }
+
+                &.carousel-title-left-align {
+                    font-size: rem(32);
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: rem(40);
+                    font-family: $movado-font;
+                    color: $black;
+
+                    @include media-breakpoint-down(sm) {
+                        font-size: rem(24);
+                        line-height: rem(32);
+                        margin-bottom: rem(17);
+                    }
+                }
+            }
+
+            .cs-carousel {
+
+                &.slick-slider {
+                    margin: 0;
+                    padding: 0;
+
+                    .slick-list {
+                        
+                        &.draggable {
+                            margin: rem(0) rem(-3);
+                            padding: 0 !important; //i'm using important to overwrite inline css
+
+                            .slick-slide {
+                                margin: rem(0) rem(3);
+                            }
+                        }
+                    }
+
+
+                    .slick-dots {
+                        opacity: 1;
+                        max-width: calc(100% - 156px);
+                        margin: rem(7) auto 0 0;
+                        position: static;
+                        height: rem(48);
+                        display: flex;
+                        align-items: center;
+
+                        @include media-breakpoint-down(sm) {
+                            max-width: 100%;
+                            height: auto;
+                            margin: rem(5) auto 0 0;
+                        }
+
+                        li {
+                            width: 100%;
+                            height: rem(3);
+                            background: $neutrals-300;
+                            margin: 0;
+
+                            button {
+                                height: 100%;
+                                width: 100%;
+                                background-color: transparent;
+
+                                &::before {
+                                    content: unset;
+                                }
+                            }
+
+                            &.slick-active {
+                                background: $black;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .aruliden-carousel-arrow {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: rem(116);
+                margin-left: auto;
+                position: relative;
+                margin-top: rem(-50);
+
+                .slick-hidden {
+                    
+                    svg {
+                        display: none;
+                    }
+                }
+
+                .aruliden-prev,
+                .aruliden-left-arrow,
+                .aruliden-next,
+                .aruliden-right-arrow,
+                .youMayLike-prev,
+                .youMayLike-next {
+                    opacity: 0;
+
+                    &.slick-arrow {
+                        top: 0;
+                        transform: translateY(0);
+                        position: static;
+                        background-color: transparent;
+                        padding: 0;
+                        width: rem(48);
+                        height: rem(48);
+                        display: block;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.cs-carousel-wrapper {
+
+    &.cs-carousel-progress {
+
+        .carousel-title {
+            font-family: $movado-font;
         }
     }
 }

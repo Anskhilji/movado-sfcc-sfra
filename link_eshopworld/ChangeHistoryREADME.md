@@ -11,6 +11,7 @@
 - Line No: Start from 98 to 101
 - Line No: Start from 134 to 138
 - Line No: Start from 557 to 559
+- Line No: Start from 557 to 559
 
 ## countries.json
 - Line No: Start from 1557 to 5155
@@ -36,6 +37,7 @@
 - Line No: Start from 311 to 312
 - Line No: 22
 - Line No: Start from 27 to 35
+- Line No: Start from 222 to 237
 
 ## default.js
 - Line No: 25

@@ -24,7 +24,7 @@ function getExplicitRecommendations(pid) {
     var recommendation;
     var recommendationTilesList = [];
     var productRecommendationTile = {};
-    
+
     try {
         if (productRecommendations) {
             for (var i = 0; i < productRecommendations.length; i++) {
@@ -401,7 +401,6 @@ function getOCIPreOrderParameters(apiProduct) {
     }
 }
 
-
 /**
  * Method used to check if current product belongs to watches category
  * @param {Object} apiProduct - apiProduct is from ProductMgr
@@ -430,6 +429,108 @@ function getRunningABTestSegments() {
     return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
 }
 
+function getPulseIDPreviewURL(lineItem) {
+    var pulseIDPreviewURL;
+    try {
+        if (!empty(lineItem)) {
+            var optionProductLineItems = lineItem.optionProductLineItems.toArray();
+            optionProductLineItems.filter(function (optionLineItem) {
+                if (!empty(optionLineItem.custom.pulseIDPreviewURL)) {
+                    pulseIDPreviewURL = optionLineItem.custom.pulseIDPreviewURL;
+                }
+            });
+        }
+        return pulseIDPreviewURL;
+        
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getPulseIDPreviewURL) Error occured while getting Product PulseID PreviewURL: ' + e.stack, e.message, apiProduct.ID);
+        return false;
+    }
+}
+
+function getProductATSValue(apiProduct) {
+    try {
+        var productAvailability;
+
+        if (!empty(apiProduct)) {
+            var productAvailabilityModel = apiProduct.getAvailabilityModel();
+            if (!empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord)) {
+                if (productAvailabilityModel.inventoryRecord.ATS && productAvailabilityModel.inventoryRecord.ATS.value) { 
+                    productAvailability = productAvailabilityModel.inventoryRecord.ATS.value;
+                    productAvailability = productAvailability.toString();
+                }             
+            }
+        }
+
+        return productAvailability;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getProductATSValue) Error occured while getting product available to sell value. Product {0}: \n Error: {1} \n', apiProduct.ID, e);
+    }
+}
+
+function getBadWordsList() {
+    var badWordsList = !empty(Site.current.preferences.custom.pulseIDBadWordsList) ? JSON.parse(Site.current.preferences.custom.pulseIDBadWordsList) : '';
+    badWordsList = !empty(badWordsList) && !empty(badWordsList.words) ? badWordsList.words : '';
+
+    return badWordsList;
+}
+
+function productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry) {
+    try {
+        var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
+        var eswRestrictedProducts = !empty(Site.current.preferences.custom.eswRestrictedProducts) ? Site.current.preferences.custom.eswRestrictedProducts : '';
+        var isProductNotRestrictedOnEswCountries = false;
+        var productId = apiProduct && apiProduct.ID ? apiProduct.ID : apiProduct.id;
+
+        if (eswRestrictedProducts.length > 0) {
+            eswRestrictedProducts.filter(function (id) {
+                if (productId == id) {
+                    if (isEswProductRestrictionsEnabled && !isCurrentDomesticAllowedCountry) {
+                        var productNotRestrictedOnEswCountries = apiProduct.custom.hasOwnProperty('productNotRestrictedOnEswCountries') ? apiProduct.custom.productNotRestrictedOnEswCountries : false;
+                        isProductNotRestrictedOnEswCountries = true;
+                        if (productNotRestrictedOnEswCountries) {
+                            productNotRestrictedOnEswCountries.forEach(function (countryCode) {
+                                if (countryCode === currentCountry) {
+                                    isProductNotRestrictedOnEswCountries = false;
+                                }
+                            });
+                        }
+                    }
+                    return;
+                }
+            });
+        }
+        return isProductNotRestrictedOnEswCountries;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> productNotRestrictedOnEswCountries) Error occured while checking is esw restricted countries product or not. Error: {0} : in {1}', e.toString(), e.lineNumber);
+    }
+}
+
+function checkRestrictedProducts() {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+    var CartModel = require('*/cartridge/models/cart');
+    try {
+        var isRestrictedCheckout = false;
+
+        var isEswProductRestrictionsEnabled = !empty(Site.current.preferences.custom.eswProductRestrictionsEnabled) ? Site.current.preferences.custom.eswProductRestrictionsEnabled : false;
+        if (isEswProductRestrictionsEnabled) {
+            var currentBasket = BasketMgr.getCurrentOrNewBasket();
+            var basketModel = new CartModel(currentBasket);
+            for (var i = 0; i < basketModel.items.length; i++) {
+                var lineItem = basketModel.items[i];
+                if (isEswProductRestrictionsEnabled && lineItem.isProductNotRestrictedOnEswCountries && !eswCustomHelper.isCurrentDomesticAllowedCountry()) {
+                    isRestrictedCheckout = true;
+                    break;
+                }
+            }
+        }
+
+        return isRestrictedCheckout;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> checkRestrictedProducts) An error occurred during checkout for products restricted in certain countries. Error: {0} : in {1}', e.toString(), e.lineNumber);
+    }
+}
 
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
@@ -446,5 +547,10 @@ module.exports = {
     getGiftBoxSKU: getGiftBoxSKU,
     getIsWatchTile: getIsWatchTile,
     getRunningABTestSegments: getRunningABTestSegments,
-    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute
+    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
+    getPulseIDPreviewURL: getPulseIDPreviewURL,
+    getProductATSValue: getProductATSValue,
+    getBadWordsList: getBadWordsList,
+    productNotRestrictedOnEswCountries: productNotRestrictedOnEswCountries,
+    checkRestrictedProducts: checkRestrictedProducts
 };

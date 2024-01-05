@@ -599,8 +599,6 @@ function checkVideoStatus() {
             $imageSlide.css('pointer-events', 'none');
             $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
         }
-        $slideVideo.removeClass('d-none');
-
         clearInterval(videoStatusChecker);
     } else if (document.readyState == 'complete') {
         clearInterval(videoStatusChecker);
@@ -809,6 +807,64 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+    var $backInStockDesktop = $('.back-in-Stock-desktop');
+    var $backInStockMobile = $('.back-in-Stock-mobile');
+    var $listrakBackInStockSMS = window.Resources.LISTRAK_ENABLE_BACK_IN_STOCK_SMS;
+    var $listrakBackInStockEmail = window.Resources.LISTRAK_ENABLE_BACK_IN_STOCK_EMAIL;
+    var $listrakSuccessMsg = $('.listrak-success-msg').html();
+    var $listrakSMSApiResponse = $('.listrak-sms-api-response-msg').hasClass('d-none');
+
+    if (!response.product.available && response && response.backInStockHtml) {
+        if ($backInStockDesktop.length > 0) {
+            $backInStockDesktop.empty();
+            $backInStockDesktop.append(response.backInStockHtml);
+        }  
+        
+        if ($backInStockMobile.length > 0) {
+            $backInStockMobile.empty();
+            $backInStockMobile.append(response.backInStockHtml);
+        }
+    }
+
+    var $backInStockTerms = $('.bis-terms');
+    var $backInStockSubscription = $('.bis-subscription');
+    var $backInStockSlotContent = $('.bis-slot-content').html();
+    var $backInStockNotification = $('.back-in-stock-notification-container');
+    var $backInStockSuccessMsg = $('.back-in-stock-notification-container-success');
+
+    if ($backInStockTerms.length > 0 && response && response.listrakBackInStockTerms) {
+        $backInStockTerms.empty();
+        $backInStockTerms.append(response.listrakBackInStockTerms)
+    }
+
+    if ($listrakBackInStockEmail && !$listrakBackInStockSMS) {
+        if ($backInStockSubscription.length > 0 && response && response.listrakBISSubscription) {
+            $backInStockSubscription.empty();
+            $backInStockSubscription.append(response.listrakBISSubscription);
+        }
+    } else if ($listrakBackInStockSMS && !$listrakBackInStockEmail) {
+        if ($backInStockSubscription.length > 0 && response && response.listrakBISSubscriptionSMS) {
+            $backInStockSubscription.empty();
+            $backInStockSubscription.append(response.listrakBISSubscriptionSMS);
+        }
+    } else if ($listrakBackInStockSMS && $listrakBackInStockEmail) {
+        if ($backInStockSubscription.length > 0 && response && response.listrakBISSubscription && response.listrakBISSubscriptionSMS) {
+            $backInStockSubscription.empty();
+            $backInStockSubscription.append(response.listrakBISSubscription);
+            $backInStockSubscription.append(response.listrakBISSubscriptionSMS);
+        }
+    }
+
+    if (response.product.isBackInStockEnabled && $backInStockSlotContent && $backInStockNotification.length) {
+        $backInStockNotification.append($backInStockSlotContent);
+        $('.back-in-stock-notification-container .bis-slot-content').removeClass('d-none');
+    }
+
+    if (!$backInStockSuccessMsg.hasClass('d-none')) {
+        $('.back-in-stock-notification-container-main').addClass('d-none');
+        $('.back-in-stock-notification-marketing-container').addClass('d-none');
+    }
+
     if (!response.product.available) {
         $('.gift-box-wrapper.d-show-desktop').hide();
         $('.gift-box-wrapper.d-show-mobile').hide();
@@ -836,6 +892,87 @@ function handleVariantResponse(response, $productContainer) {
             }
         }
     }
+
+    $('.form-element').on('click', function(e) {
+        e.preventDefault();
+        var $backInStockDesktop = $('.back-in-Stock-desktop');
+        var $backInStockMobile = $('.back-in-Stock-mobile');
+        var $listarkSMSReminder = $('.listrak-sms-reminder-msg');
+        var $backInStockSMSSubscription = $('.back-in-stock-sms-subscription');
+        var $backinStockselector = $('.listrak-back-in-stock-notification-container-main');
+        var $screenSize = $(window).width();
+        var $phoneNo = '';
+        var $smsSubscription = false;
+        var $phoneNoPattern;
+        var $isValidPhoneNo;
+        var $listrackPhoneCode = "+";
+        var $isBackInStockSMSSubscription;
+        var $isBackInStockSMSSubscriptionChecked;
+    
+        var $emailRequired = $('.back-in-stock-notification-error-required');
+        var $emailInvalid = $('.back-in-stock-notification-error-invalid');
+        var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
+        $emailRequired.text('');
+        $emailInvalid.text('');
+        $phoneInvalid.text('');
+    
+        if ($backinStockselector.find('.back-in-stock-notification-phone').length > 0 && $backinStockselector.find('.back-in-stock-sms-subscription').length > 0) {
+    
+            $('.back-in-stock-notification-phone').each(function () {
+                if ($(this).val().length > 0) {
+                    $phoneNo = $(this).val().trim();
+                }
+            });
+    
+            $('.back-in-stock-sms-subscription').each(function () {
+                if ($(this).is(':checked')) {
+                    $smsSubscription = true;
+                }
+            })
+    
+            if ($smsSubscription) {
+                $phoneNo = $listrackPhoneCode + $phoneNo;
+                $phoneNoPattern = /^(?!(?=(0000000000)))?[+ (](\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4}))$/;
+            } else {
+                $phoneNoPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            }
+            if ($phoneNo) {
+                $isValidPhoneNo = $phoneNoPattern.test($phoneNo);
+            }
+            if (!$isValidPhoneNo) {
+                $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
+            }
+        }
+    
+        if ($isValidPhoneNo) {
+            if ($backInStockMobile.length > 0) {
+                if ($screenSize > 768) {
+    
+                    if ($backInStockDesktop.length > 0) {
+                        listrakBackInStock.listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder);
+                    }
+                } else {
+                    if ($backInStockMobile.find($backInStockSMSSubscription).length > 0 && $backInStockMobile.find($listarkSMSReminder).length > 0) {
+                        $isBackInStockSMSSubscription = $backInStockMobile.find($backInStockSMSSubscription);
+                        $isBackInStockSMSSubscriptionChecked = $isBackInStockSMSSubscription.is(':checked');
+                        if ($backInStockMobile.find($listarkSMSReminder).hasClass('d-none') && ($backInStockMobile.find('.back-in-stock-notification-phone').val()).length > 0 && !$isBackInStockSMSSubscriptionChecked) {
+                            $backInStockMobile.find($listarkSMSReminder).removeClass('d-none');
+                        } else {
+                            listrakBackInStock.listrakBackInStockFormSubmission();
+                        }
+                    } else {
+                        listrakBackInStock.listrakBackInStockFormSubmission();
+                    }
+                }
+            } else {
+                if ($backInStockDesktop.length > 0) {
+                    listrakBackInStock.listrakBackInStockDesktop($backInStockDesktop, $backInStockSMSSubscription, $listarkSMSReminder);
+                }
+            }
+        } else {
+            listrakBackInStock.listrakBackInStockFormSubmission();
+        }
+    });
     
     if (response.product.productType == 'variant') {
         $('body').trigger('pdpChangedVariation', response.product);
@@ -867,6 +1004,7 @@ function handleVariantResponse(response, $productContainer) {
             videoStatusChecker = setInterval(function () {
                 checkVideoStatus();
             }, 1000);
+            $videoSlide.removeClass('d-none');
         }
 
         setTimeout(function () {
@@ -1087,7 +1225,7 @@ function handleVariantResponse(response, $productContainer) {
         }
         if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
             if ($productContainer.find('.pd-desc-mvmt.product-description').length > 0) {
-                $productContainer.find('.pd-desc-mvmt.product-description').text(response.product.shortDescription);
+                $productContainer.find('.pd-desc-mvmt.product-description').html(response.product.shortDescription);
             }
         }
         $.ajax({
@@ -1184,6 +1322,16 @@ function handleVariantResponse(response, $productContainer) {
                $ctaAddToCart.removeClass('d-none');
            }
        }
+
+        if ($listrakSuccessMsg) {
+            $('.listrak-back-in-stock-notification-container-main').addClass('d-none');
+            $('.listrak-success-msg').empty();
+            $('.listrak-success-msg').append($listrakSuccessMsg);
+
+            if (!$listrakSMSApiResponse) {
+                $('.listrak-sms-api-response-msg').removeClass('d-none');
+            }
+        }
    
        /**
    
@@ -1265,6 +1413,27 @@ function handleVariantResponse(response, $productContainer) {
             zoomfeature();
         },500)
     })
+
+    var $lowStockMessage = $('.low-stock-message');
+    if (response && response.product && response.product.productATSValue) {
+        var $productATSValue = response.product.productATSValue;
+        var $lowStockThreshold = window.Resources.LOW_STOCK_THRESHOLD;
+        if ($lowStockMessage.length > 0) {
+            if ($productATSValue <= $lowStockThreshold) {
+                $lowStockMessage.removeClass('d-none');
+            } else {
+                $lowStockMessage.addClass('d-none');
+            }
+        }
+    } else {
+        if ($lowStockMessage.length > 0 && (!$lowStockMessage.hasClass('d-none'))) {
+            $lowStockMessage.addClass('d-none');
+        }
+    }
+    $('.ats-value').text($productATSValue)
+    if (window.Resources.ESW_PRODUCT_RESTRICTIONS_ENABLED) {
+        handleRestrictedEswProducts(response.product);
+    }
 }
 
 /**
@@ -1280,6 +1449,19 @@ function updateQuantities(quantities, $productContainer) {
                 selected + '>' + quantity.value + '</option>';
         }).join('');
         getQuantitySelector($productContainer).empty().html(optionsHtml);
+    }
+}
+
+function handleRestrictedEswProducts(product) {
+    if (!window.Resources.DOMESTIC_ALLOWED_COUNTRY) {
+        $('.add-to-cart').addClass('d-none');
+        $('.show-cart-button-mobile').addClass('d-none');
+        $('.esw-restricted-product-msg').text(product.eswNotRestrictedCountriesProductMsgBody ? product.eswNotRestrictedCountriesProductMsgBody : '');
+        if (!product.isProductNotRestrictedOnEswCountries) {
+            $('.add-to-cart').removeClass('d-none');
+            $('.show-cart-button-mobile').removeClass('d-none');
+            $('.prices-add-to-cart-actions,.atc-btn-hide').removeClass('d-none');
+        }
     }
 }
 
@@ -1548,7 +1730,5 @@ movadoBase.addToCart = function () {
         }
     });
 }
-
-
 
 module.exports = movadoBase; 

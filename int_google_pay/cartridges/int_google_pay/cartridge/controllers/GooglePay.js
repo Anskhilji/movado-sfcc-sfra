@@ -13,6 +13,7 @@ var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var checkoutLogger = require('app_custom_movado/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
 var googlePayHelper = require('*/cartridge/scripts/helpers/googlePayHelpers.js');
@@ -95,13 +96,16 @@ server.post('ProcessPayments',
         var OrderMgr = require('dw/order/OrderMgr');
         var PaymentManager = require('dw/order/PaymentMgr');
 
+        var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
+        
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var referralUrl = req.referer;
         var googlePayEntryPoint = referralUrl && (referralUrl.indexOf('Cart-Show') > -1) || (referralUrl.indexOf('shopping-bag') > -1) ? false : true;
         var productID = (!empty(currentBasket)) ? currentBasket.productLineItems[0].productID : '';
-        var pulseIdEngraving = 'pulseIdEngraving';
-        var pulseIdConstants;
+
+        var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
 
         if (!currentBasket) {
             res.json({
@@ -120,11 +124,21 @@ server.post('ProcessPayments',
             });
         }
 
-         // Added Smart Gift Logic
-         if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
-             session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
-         }
+        // Added Smart Gift Logic
+        if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
+            session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
+        }
 
+        // Basket level custom attribute set to true for shopperRecovery redirection in case of express payment
+        var isExpressPayment = false;
+        if (req.form.isGooglePayExpress == 'true' && currentBasket) {
+            isExpressPayment = true;
+        }
+
+        Transaction.wrap(function () {
+            currentBasket.custom.isExpressPayment = isExpressPayment;
+        });
+        
         var validatedProducts = validationHelpers.validateProducts(currentBasket);
 
         if (validatedProducts.error) {
@@ -317,15 +331,17 @@ server.post('ProcessPayments',
         } else {
             var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
             if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-                    // Riskified order declined response from decide API
-                    riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-                    if (riskifiedOrderDeclined) {
-                        res.json({
-                            error: false,
-                            redirectUrl: URLUtils.url('Checkout-Declined').toString()
-                        });
-                        return next();
-                    }
+                var riskifiedOrderStatus = checkoutDecisionStatus.response.order.category;
+                // Riskified order declined response from decide API
+                riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order, riskifiedOrderStatus);
+
+                if (!riskifiedOrderDeclined.error) {
+                    res.json({
+                        error: false,
+                        redirectUrl: riskifiedOrderDeclined.returnUrl.toString()
+                    });
+                    return next();
+                }
             } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
                 // Riskified order approved response from decide API
                 RiskifiedOrderDescion.orderApproved(order);
@@ -357,19 +373,47 @@ server.post('ProcessPayments',
         if (orderPlacementStatus.error) {
             checkoutLogger.error('(GooglePay) -> ProcessPayments: Order placement is failed and going to the error page and order number is: ' + order.orderNo);
             var sendMail = true;
-            var isJob = false;
             var refundResponse = hooksHelper(
                 'app.payment.adyen.refund',
                 'refund',
                 order,
                 order.getTotalGrossPrice().value,
                 sendMail,
-                isJob,
                 require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
             Riskified.sendCancelOrder(order, Resource.msg('error.payment.not.valid', 'checkout', null));
             return next(new Error('Could not place order'));
         }
 
+        var productLineItems = order.getAllProductLineItems().iterator();
+        var productLineItem;
+        var optionProductLineItem;
+
+        // remove null option line item
+        while (productLineItems.hasNext()) {
+            productLineItem = productLineItems.next();
+            optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, order);
+            }
+        }
+
+        /**~
+		 * Custom Start: Clyde Integration && Pulse (Engraving)
+		 */
+
+		if (isClydeEnabled) {
+		    var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+
+		    Transaction.wrap(function () {
+		        order.custom.isContainClydeContract = false;
+		        order.custom.clydeContractProductMapping = '';
+		    });
+		    addClydeContract.createOrderCustomAttr(order);
+		}
+		/**
+		 * Custom: End
+		 */
+        
         // Send order confirmation based upon Riskified
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 
@@ -386,61 +430,6 @@ server.post('ProcessPayments',
             ltkSendOrder.SendPost();
         }
 
-		/**~
-		 * Custom Start: Clyde Integration && Pulse (Engraving)
-		 */
-		var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
-		if (enablePulseIdEngraving) {
-		    pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
-		}
-		if (Site.current.preferences.custom.isClydeEnabled || enablePulseIdEngraving) {
-		    var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
-		    var Constants = require('*/cartridge/utils/Constants');
-
-		    var orderLineItems = order.getAllProductLineItems();
-		    var orderLineItemsIterator = orderLineItems.iterator();
-		    var productLineItem;
-
-		    Transaction.wrap(function () {
-		        while (orderLineItemsIterator.hasNext()) {
-		            productLineItem = orderLineItemsIterator.next();
-		            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-		                order.removeProductLineItem(productLineItem);
-		            } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
-		                order.removeProductLineItem(productLineItem);
-		            }
-		        }
-		        order.custom.isContainClydeContract = false;
-		        order.custom.clydeContractProductMapping = '';
-		    });
-		    addClydeContract.createOrderCustomAttr(order);
-		    //custom : PulseID engraving
-		    if (enablePulseIdEngraving) {
-		        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-		        pulseIdAPIHelper.setPulseJobID(order);
-		    }
-		    // custom end
-		}
-		/**
-		 * Custom: End
-		 */
-
-        if (!Site.getCurrent().preferences.custom.isClydeEnabled) {
-            var Constants = require('*/cartridge/utils/Constants');
-            
-            var orderLineItems = order.getAllProductLineItems();
-            var orderLineItemsIterator = orderLineItems.iterator();
-            var productLineItem;
-            Transaction.wrap(function () {
-                while (orderLineItemsIterator.hasNext()) {
-                    productLineItem = orderLineItemsIterator.next();
-                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                        order.removeProductLineItem(productLineItem);
-                    }
-                }
-            });
-        }
-
         // SOM API call
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             // Salesforce Order Management attributes
@@ -454,6 +443,24 @@ server.post('ProcessPayments',
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
         }
+
+        /**
+         * Custom Start Adding preOrder Logic for Google Pay
+         */
+
+        //Check if order includes Pre-Order item
+        var isPreOrder = orderCustomHelpers.isPreOrder(order);
+
+        //Set order custom attribute if there is any pre-order item exists in order
+        if (isPreOrder) {
+            Transaction.wrap(function () {
+                order.custom.isPreorder = isPreOrder;
+                order.custom.isPreorderProcessing = isPreOrder;
+            });
+        }
+        /**
+         * Custom End
+         */
 
         Transaction.wrap(function () {
             var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);

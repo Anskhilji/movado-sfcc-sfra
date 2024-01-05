@@ -16,13 +16,14 @@ var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
-var relativeURL = "/home";
+var relativeURL = URLUtils.url('Home-Show');
 
 server.append('Show', consentTracking.consent, cache.applyDefaultCache, function (req, res, next) {
     var ContentMgr = require('dw/content/ContentMgr');
     var FolderSearch = require('*/cartridge/models/search/folderSearch');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
+
     var viewData = res.getViewData();
     var content = ContentMgr.getContent('ca-home-hreflang');
 

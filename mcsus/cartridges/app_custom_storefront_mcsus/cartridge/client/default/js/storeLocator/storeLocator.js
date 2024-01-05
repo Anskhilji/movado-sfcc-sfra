@@ -5,6 +5,33 @@ processInclude(require('movado/storeLocator/storeLocator'));
 /* globals google */
 'use strict';
 
+
+window.onSubmitCaptchaG = function (token) {
+    $(document).ready(function () {
+        var $submitForm = $('.button-search');
+        var $gCaptchaInput = $('.g-recaptcha-token')
+        $($gCaptchaInput).val(token);
+        $($submitForm).click(); 
+    });
+}
+
+function triggerSearch(form) {
+    var searchValue = $('.search-input').val().trim();
+    var recaptchaToken = $('.g-recaptcha-token').val();
+    sessionStorage.setItem('address', searchValue);
+    sessionStorage.setItem('recaptchaToken', recaptchaToken);
+    var searchFilter = getFilterValues();
+    var $buttonSearch = $('.button-search');
+    var url = $buttonSearch.data('action');
+    var urlParams = {};
+    searchFilter.searchValue ? urlParams.address = searchFilter.searchValue : null;
+    searchFilter.radius ? urlParams.radius = searchFilter.radius : null;
+    searchFilter.googleRecaptchaToken ? urlParams.googleRecaptchaToken = searchFilter.googleRecaptchaToken : null;
+    urlParams.isForm = form;
+    url = appendToUrl(url, urlParams);
+    searchLocator(url);
+}
+
 /**
  * appends params to a url
  * @param {string} url - Original url
@@ -25,6 +52,7 @@ function appendToUrl(url, params) {
 function getFilterValues() {
     var searchValue = $('.search-input').val().trim();
     var radius = $('input[name="radio"]:checked').val();
+    var googleRecaptchaToken = $('.g-recaptcha-token').val();
     if (!radius && sessionStorage.getItem('radius') === null) {
         $('input[name="radio"][value=15]').prop('checked', true);
     }
@@ -34,15 +62,24 @@ function getFilterValues() {
     } else {
         searchValue = sessionStorage.getItem("address");
     }
+
     if (radius) {
         sessionStorage.setItem("radius", radius);
     } else {
         radius = sessionStorage.getItem("radius");
         $('input[name="radio"][value='+radius+']').prop('checked', true);
     }
+
+    if (googleRecaptchaToken) {
+        sessionStorage.setItem('googleRecaptchaToken', googleRecaptchaToken);
+    } else {
+        googleRecaptchaToken = sessionStorage.getItem('googleRecaptchaToken');
+    }
+
     return {
         searchValue: searchValue,
-        radius: radius
+        radius: radius,
+        googleRecaptchaToken: googleRecaptchaToken
     }
 }
 
@@ -182,7 +219,8 @@ function searchWithin() {
         if (radius) {
             urlParams = {
                 radius: radius,
-                address: searchValue
+                address: searchValue,
+                isForm: false
             };
             url = appendToUrl(url, urlParams);
         }
@@ -213,25 +251,19 @@ $('.store-sidebar-link').on('click', function () {
         $('.search-input').val(sessionStorage.getItem("address"));
     }
     searchFilter.radius ? urlParams.radius = searchFilter.radius : null;
+    urlParams.isForm = false;
     url = appendToUrl(url, urlParams);
     searchLocator(url);
 });
 
 $('.button-search').on('click', function () {
-    var searchValue = $('.search-input').val().trim();
-    sessionStorage.setItem("address", searchValue);
-    var searchFilter = getFilterValues();
-    var url = $(this).data('action');
-    var urlParams = {};
-    searchFilter.searchValue ? urlParams.address = searchFilter.searchValue : null;
-    searchFilter.radius ? urlParams.radius = searchFilter.radius : null;
-    url = appendToUrl(url, urlParams);
-    searchLocator(url);
+    $buttonSearch = $('.button-search');
+    triggerSearch(true);
 });
 
-$(".search-input").keyup(function (event) {
+$('.search-input').keyup(function (event) {
     if (event.keyCode === 13) {
-        $('.button-search').click();
+        triggerSearch(false);
     }
 });
 
@@ -260,6 +292,8 @@ $('.miles-action-btn-apply').on('click', function () {
     var urlParams = {};
     searchFilter.searchValue ? urlParams.address = searchFilter.searchValue : null;
     searchFilter.radius ? urlParams.radius = searchFilter.radius : null;
+    searchFilter.googleRecaptchaToken ? urlParams.googleRecaptchaToken = searchFilter.googleRecaptchaToken : null;
+    urlParams.isForm = false;
     url = appendToUrl(url, urlParams);
     searchLocator(url);
     $('.radius-sidebar').removeClass('show');

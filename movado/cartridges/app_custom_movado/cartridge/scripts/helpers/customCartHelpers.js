@@ -372,39 +372,36 @@ function getCountrySwitch() {
 
 };
 
-function removeNullClydeWarrantyLineItemAndEngraving(currentBasket) {
-    var Transaction = require('dw/system/Transaction');
-
+function removeNUllOptionLineItem(productLineItems, currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
 
     var enablePulseIdEngraving = !empty(Site.current.preferences.custom.enablePulseIdEngraving) ? Site.current.preferences.custom.enablePulseIdEngraving : false;
-    var orderLineItems = currentBasket.allProductLineItems;
-    var orderLineItemsIterator = orderLineItems.iterator();
-    var pulseIdEngraving = 'pulseIdEngraving';
-    var productLineItem;
+    var PULSE_ID_ENGRAVING = 'pulseIdEngraving';
     var pulseIdConstants;
+    var optionProductLineItem;
 
     if (enablePulseIdEngraving) {
         pulseIdConstants = require('*/cartridge/scripts/utils/pulseIdConstants');
     }
 
-    Transaction.wrap(function () {
-        while (orderLineItemsIterator.hasNext()) {
-            productLineItem = orderLineItemsIterator.next();
-            if (productLineItem instanceof dw.order.ProductLineItem && (productLineItem.optionID == Constants.ENGRAVING || productLineItem.optionID == Constants.CLYDE_WARRANTY) && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                currentBasket.removeProductLineItem(productLineItem);
-            } else if ((productLineItem instanceof dw.order.ProductLineItem && pulseIdConstants && productLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && productLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && productLineItem.optionID == pulseIdEngraving)) {
-                currentBasket.removeProductLineItem(productLineItem);
-            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == EMBOSSED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
-                currentBasket.removeProductLineItem(productLineItem);
-            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == ENGRAVED && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE)) {
-                currentBasket.removeProductLineItem(productLineItem);
-            } else if ((productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == GIFTWRAPPED && productLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
-                currentBasket.removeProductLineItem(productLineItem);
+    while (productLineItems.hasNext()) {
+        optionProductLineItem = productLineItems.next();
+        
+        Transaction.wrap(function () {
+            if (optionProductLineItem.optionID == Constants.CLYDE_WARRANTY && optionProductLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((pulseIdConstants && optionProductLineItem.optionID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_ID && optionProductLineItem.optionValueID == pulseIdConstants.PULSEID_SERVICE_ID.ENGRAVED_OPTION_PRODUCT_VALUE_ID_NONE) || (!enablePulseIdEngraving && optionProductLineItem.optionID == PULSE_ID_ENGRAVING)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((optionProductLineItem.optionID == EMBOSSED && optionProductLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((optionProductLineItem.optionID == ENGRAVED && optionProductLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
+            } else if ((optionProductLineItem.optionID == GIFTWRAPPED && optionProductLineItem.optionValueID == Constants.OPTION_VALUE_ID_ZERO)) {
+                currentBasket.removeProductLineItem(optionProductLineItem);
             }
-        }
-    });
-};
+        });
+    }
+}
 
 function removeClydeWarranty(currentItems) {
     var Constants = require('*/cartridge/utils/Constants');
@@ -448,6 +445,76 @@ function escapeQuotes(value) {
     return value;
 }
 
+/**
+ * Code to populate personalization message in the ProductLineItem for Apple pay button from PDP and Quickview
+ * @param lineItemCtnr : current basket
+ * @param embossOptionID
+ * @param engraveOptionID
+ * @param embossedMessage
+ * @param engravedMessage
+ * @returns
+ */
+
+var EMBOSSED = 'Embossed';
+var ENGRAVED = 'Engraved';
+var PULSEID_ENGRAVING = 'pulseIdEngraving';
+var NEWLINE = '\n';
+function updateOptionLineItemAfterShopperRecovery(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage, pulseIDPreviewURL) {
+    // since there will be only on Product from PDP/ Quick view
+    var pli = lineItemCtnr.productLineItems[0];
+    if (pli.optionProductLineItems) {
+        Transaction.wrap(function () {
+            collections.forEach(pli.optionProductLineItems, function (option) {
+                if (option.optionID === EMBOSSED) {
+                    if (embossOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(EMBOSSED);
+                        var optionValue = optionModel.getOptionValue(getOption, embossOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (embossedMessage) {
+                            pli.custom.embossMessageLine1 = embossedMessage;
+                        }
+                    }
+                } else if (option.optionID === ENGRAVED) {
+                    if (engraveOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(ENGRAVED);
+                        var optionValue = optionModel.getOptionValue(getOption, engraveOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (engravedMessage) {
+                            // code to split the message based on newline character
+                            engravedMessage = engravedMessage.split(NEWLINE);
+                            pli.custom.engraveMessageLine1 = engravedMessage[0];
+                            if (engravedMessage[1]) {
+                                pli.custom.engraveMessageLine2 = engravedMessage[1];
+                            }
+                        }
+                    }
+                } else if (option.optionID === PULSEID_ENGRAVING) { // PulseID Engraving
+                    if (engraveOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(PULSEID_ENGRAVING);
+                        var optionValue = optionModel.getOptionValue(getOption, engraveOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (engravedMessage) {
+                            option.custom.pulseIDPreviewURL = pulseIDPreviewURL;
+                            // code to split the message based on newline character
+                            engravedMessage = engravedMessage.split(NEWLINE);
+                            option.custom.engraveMessageLine1 = engravedMessage[0];
+                            if (engravedMessage[1]) {
+                                option.custom.engraveMessageLine2 = engravedMessage[1];
+                            }
+                        }
+                    }
+                }
+            });
+        }); // end of Transaction
+    }
+}
+
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
     updateOption: updateOption,
@@ -464,6 +531,7 @@ module.exports = {
     getGiftTransactionATC: getGiftTransactionATC,
     getCountrySwitch: getCountrySwitch,
     removeClydeWarranty: removeClydeWarranty,
-    removeNullClydeWarrantyLineItemAndEngraving: removeNullClydeWarrantyLineItemAndEngraving,
-    removeGiftMessaging: removeGiftMessaging
+    removeNUllOptionLineItem: removeNUllOptionLineItem,
+    removeGiftMessaging: removeGiftMessaging,
+    updateOptionLineItemAfterShopperRecovery: updateOptionLineItemAfterShopperRecovery
 };

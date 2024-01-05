@@ -487,6 +487,8 @@ body {
 
 .modal {
     z-index: 999999;
+    right: 0;
+    bottom: 0;
 }
 
 .modal-backdrop {
@@ -1184,4 +1186,12 @@ div {
 }
 .body-text {
     font-family: $font-brandon-grotesque;
+}
+
+.check-order-status-btn {
+    &:hover {
+        background-color: $dark-blue-btn;
+        color: $white;
+        border-color: $dark-blue-btn;
+    }
 }

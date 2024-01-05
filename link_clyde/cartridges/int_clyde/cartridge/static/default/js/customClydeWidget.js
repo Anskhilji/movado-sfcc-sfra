@@ -12,7 +12,7 @@ var productData;
 if (document.querySelector('.product-number span')) {
     productId = document.querySelector('.product-number span').innerHTML || '';
 } else {
-    var cartValue = document.querySelector('.add-to-cart');
+    var cartValue = document.querySelector('.prices-add-to-cart-actions .add-to-cart');
     var clydeCta = document.querySelector('#clyde-cta');
     if (clydeCta && cartValue) {
         productId = cartValue.dataset.pid;

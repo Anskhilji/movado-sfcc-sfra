@@ -1,0 +1,94 @@
+{
+    "step-types": {
+        "script-module-step": [
+            {
+                "@type-id": "custom.UpdateOrderStatus",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Update order and shipping status",
+                "module": "int_social_checkout/cartridge/scripts/jobs/UpdateOrderStatus",
+                "function": "execute",
+                "transactional": "true",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "statusFileName",
+                            "@description": "Order status import Filename",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true
+                        },
+                        {
+                            "@name": "statusFileFolder",
+                            "@description": "Local folder where the file resides, relative to IMPEX/",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.SocialOrderExport",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Export Orders from social channel",
+                "module": "int_social_checkout/cartridge/scripts/jobs/ExportOrders.js",
+                "function": "socialOrderExport",
+                "transactional": "true",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name": "FileName",
+                            "@description": "Order export Filename",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true
+                        },
+                        {
+                            "@name": "FileFolder",
+                            "@description": "Local folder where the file to be exported, relative to IMPEX/",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true
+                        },
+                        {
+                            "@name": "SocialChannel",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "description": "Social Channel for the orders we are exporting",
+                            "enum-values": {
+                                "value": ["TikTok", "Snapchat"]
+                            }
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,7 +1,25 @@
 .product-card-wrapper {
-    
+
+    .line-items-name {
+        font-size: rem(16);
+        font-weight: 300;
+        font-family: $font-ProximaNova;
+    }
+ 
     .line-item-name {
-        font-family: $font-HelveticaNeueLT-medium;  
+        font-family: $font-ProximaNova;  
+        font-weight: 500;
+        color: $dark-black;
+
+        a,span {
+            font-family: $font-ProximaNova;
+            font-weight: 500;
+            color: $dark-gray;
+
+            &:hover {
+                color: $grey25;
+            }
+        }
     }
 
     .item-info {
@@ -9,18 +27,18 @@
         .item-attributes {
 
             .total-amount {
-                font-family: $font-HelveticaNeueLT-medium;  
+                font-family: $font-ProximaNova;  
             }
             
             .model-name, .original-price, .savings {
-                font-family: $font-HelveticaNeueLT-medium;  
+                font-family: $font-ProximaNova;  
             }
     
             .personalize-msg, .personalize-price {
-                font-family: $font-HelveticaNeueLT-medium;
+                font-family: $font-ProximaNova;
                 font-weight: 500;
                 font-size: rem(14);
-                letter-spacing: rem(1.75);
+                letter-spacing: rem(1.75); 
             }
             .option-wrapper {
                 font-size: rem(12);

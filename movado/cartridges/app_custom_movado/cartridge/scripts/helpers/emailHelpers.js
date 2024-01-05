@@ -1,6 +1,7 @@
 'use strict';
 
 var Mail = require('dw/net/Mail');
+var Site = require('dw/system/Site');
 
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 
@@ -15,8 +16,8 @@ var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
  * @param {obj} context - Object with context to be passed as pdict into ISML template.
  */
 function send(emailObj, template, context) {
+    var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
     var Currency = require('dw/util/Currency');
-    var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var messageType = '';
     var messageContext = '';
@@ -29,7 +30,6 @@ function send(emailObj, template, context) {
     };
     var listrakTransactionalSwitch = !empty(Site.current.preferences.custom.transactionalSwitch.value) ? Site.current.preferences.custom.transactionalSwitch.value.toString() : '';
     var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
-    var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
 
     
     if (context && context.order && context.order.currencyCode) {
@@ -212,11 +212,16 @@ function sendSFCCEmail(emailObj, template, context) {
 }
 
 function productLayout(products) {
+    var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
     var allLineItems = products.order.items.items;
+    
     var productHTML = '';
     for each(var lineItem in allLineItems){
+        var allOptionLineItems = lineItem.options;
         var imageUrl = lineItem.images.tile150[0] && lineItem.images.tile150[0].url ? lineItem.images.tile150[0].url : ""; 
         var imageAlt = lineItem.images.tile150[0] && lineItem.images.tile150[0].alt ? lineItem.images.tile150[0].alt : "";
+        var lineItemPrice = lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : lineItem.formattedPrice;
+        var pulseIDPreviewURL = lineItem && lineItem.pulseIDPreviewURL ? lineItem.pulseIDPreviewURL : '';
         productHTML += "<table width='100%' class='Column-2 mobile-align-center' cellpadding='0' cellspacing='0' border='0'>" +
         "<tr>" +
             "<td style='text-align:center; font-size:0px; padding:20px 0;'>" +
@@ -245,7 +250,7 @@ function productLayout(products) {
                   "</tr>" +
                   "<tr>" +
                     "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
-                      'Price: ' + lineItem.priceTotal.price + 
+                      'Price: ' + lineItemPrice +
                     "</td>" +
                   "</tr>" +
                 "</table>" +
@@ -254,6 +259,106 @@ function productLayout(products) {
             "</td>" +
           "</tr>" +
         "</table>";
+
+        if (!empty(allOptionLineItems)) {
+
+            for each (var optionLineItem in allOptionLineItems) {
+                var clydeImageURL = '';
+                var displayName = '';
+                var optionPrice = '';
+
+                if (optionLineItem.optionId == Constants.CLYDE_WARRANTY) {
+                    clydeImageURL = optionLineItem.imageURL ? optionLineItem.imageURL : '';
+                    displayName = optionLineItem.displayName ? optionLineItem.displayName : '';
+                    optionPrice = optionLineItem.price ? optionLineItem.price : '';
+                }
+
+                if (optionLineItem.optionId == Constants.PULSE_ENGRAVING) {
+                    displayName = optionLineItem.displayName ? optionLineItem.displayName : '';
+                    optionPrice = optionLineItem.price ? optionLineItem.price : '';
+                } 
+
+                if (!Site.current.preferences.custom.enablePulseIdEngraving && optionLineItem.optionId == Constants.ENGRAVING && !empty(lineItem.customAttributes['engrave'])) {
+                    displayName = products.engraveLabel + (lineItem.customAttributes['engrave'].price) +':'+ lineItem.customAttributes['engrave'].msgLine1;
+                    optionPrice = lineItem.customAttributes['engrave'].price;
+                }
+
+                if (optionLineItem.optionId == Constants.EMBOSSED && !empty(lineItem.customAttributes['emboss'])) {
+                    displayName = products.embossLabel +(lineItem.customAttributes['emboss'].price)+ ':'+ lineItem.customAttributes['emboss'].msgLine1;
+                    optionPrice = lineItem.customAttributes['emboss'].price;
+                }
+
+                if (!empty(displayName) && !empty(optionPrice)) {
+                    if (optionLineItem.optionId == Constants.PULSE_ENGRAVING) {
+                        productHTML += "<table width='100%' class='Column-2 mobile-align-center' cellpadding='0' cellspacing='0' border='0'>" +
+                        "<tr>" +
+                            "<td style='text-align:center; font-size:0px; padding:20px 0;'>" +
+                              "<table width='100%' cellpadding='0' cellspacing='0' border='0'><tr><td style='width:300px; vertical-align:middle;'>" +
+                              "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0'>" +
+                                "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
+                                  "<tr>" +
+                                    "<td align='right' style='padding: 10px 10px 10px 10px;'>" +
+                                      "<img src='"+ pulseIDPreviewURL +"' alt='' style='display:block; width: 100%; max-width: 200px;border:0px;' width='200'>" +
+                                    "</td>" +
+                                  "</tr>" +
+                                "</table>" +
+                              "</div>" +
+                              "</td><td style='width:300px; vertical-align:middle;'>" +
+                              "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0;'>" +
+                                "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
+                                  "<tr>" +
+                                    "<td style='padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                                    displayName +"<br>"+ 
+                                    "</td>" +
+                                  "</tr>" +
+                                  "<tr>" +
+                                    "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                                      'Price: ' + optionPrice + 
+                                    "</td>" +
+                                  "</tr>" +
+                                "</table>" +
+                              "</div>" +
+                              "</td></tr></table>" +
+                            "</td>" +
+                          "</tr>" +
+                        "</table>";
+                    } else {
+                        productHTML += "<table width='100%' class='Column-2 mobile-align-center' cellpadding='0' cellspacing='0' border='0'>" +
+                        "<tr>" +
+                            "<td style='text-align:center; font-size:0px; padding:20px 0;'>" +
+                              "<table width='100%' cellpadding='0' cellspacing='0' border='0'><tr><td style='width:300px; vertical-align:middle;'>" +
+                              "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0'>" +
+                                "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
+                                  "<tr>" +
+                                    "<td align='right' style='padding: 10px 10px 10px 10px;'>" +
+                                      "<img src='"+ clydeImageURL +"' alt='' style='display:block; width: 100%; max-width: 200px;border:0px;' width='200'>" +
+                                    "</td>" +
+                                  "</tr>" +
+                                "</table>" +
+                              "</div>" +
+                              "</td><td style='width:300px; vertical-align:middle;'>" +
+                              "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0;'>" +
+                                "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
+                                  "<tr>" +
+                                    "<td style='padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                                    displayName +"<br>"+ 
+                                    "</td>" +
+                                  "</tr>" +
+                                  "<tr>" +
+                                    "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                                      'Price: ' + optionPrice + 
+                                    "</td>" +
+                                  "</tr>" +
+                                "</table>" +
+                              "</div>" +
+                              "</td></tr></table>" +
+                            "</td>" +
+                          "</tr>" +
+                        "</table>";
+                    } 
+                }
+            }
+        }
     }
     return productHTML;
 }

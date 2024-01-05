@@ -447,14 +447,13 @@ $stored-payment-spacing: rem(16);
             margin-bottom: rem(0);
             color: $black;
             font-size: rem(13);
-            font-weight: 300;
+            font-weight: 500;
             letter-spacing: rem(0.7);
             line-height: rem(20);
 
             span {
                 color: $black;
                 font-size: rem(13);
-                font-weight: 300;
                 letter-spacing: rem(0.7);
                 line-height: rem(20);
                 background-color: transparent;
@@ -469,14 +468,13 @@ $stored-payment-spacing: rem(16);
             margin-bottom: rem(0);
             color: $black;
             font-size: rem(13);
-            font-weight: 300;
+            font-weight: 500;
             letter-spacing: rem(0.7);
             line-height: rem(20);
 
             span {
                 color: $black;
                 font-size: rem(13);
-                font-weight: 300;
                 letter-spacing: rem(0.7);
                 line-height: rem(20);
                 background-color: transparent;
@@ -887,26 +885,90 @@ $stored-payment-spacing: rem(16);
                 padding: rem(0) rem(5);
             }
 
-          .credit-card-form-container {
-              @include custom-media-query-max($medium-screen-width) {
-                  padding: rem(0) rem(5);
-              }
+            .credit-card-form-container {
+                @include custom-media-query-max($medium-screen-width) {
+                    padding: rem(0) rem(5);
+                }
 
-              @include media-breakpoint-down(sm) {
-                  padding: rem(0);
-              }
+                @include media-breakpoint-down(sm) {
+                    padding: rem(0);
+                }
 
-              .mx-field-wrapper {
-                  @include media-breakpoint-down(xs) {
-                      padding: rem(0) rem(10);
-                  }
-              }
-              .dwfrm_billing_subscribetomovado {
-                  @include media-breakpoint-down(xs) {
-                      padding: rem(0) rem(10);
-                  }
-              }
-          }
+                .mx-field-wrapper {
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0) rem(10);
+                    }
+                }
+                .dwfrm_billing_subscribetomovado {
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0) rem(10);
+                    }
+                }
+
+                .form-group {
+
+                    .form-control {
+
+                        &.is-invalid,&.auto-is-invalid {
+                            border: rem(2.4) solid $invalid-red !important;
+                            @include red-tick-image;
+                            @include background-postion(33);
+                            
+                            @include media-breakpoint-down(sm) {
+                                @include background-postion(14);
+                            }
+                            
+                            @include card-icons;
+
+                          ~ .invalid-feedback {
+                              display: block!important;
+                          }
+                        }
+      
+                        &.is-valid,&.auto-is-valid {
+                          background-image: none !important;
+
+                          @include green-tick-image;
+                          @include background-postion(33);
+
+                          @include media-breakpoint-down(sm) {
+                              @include background-postion(14);
+                          }
+
+                          @include card-icons;
+                        }
+
+                        &.custom-select {
+
+                            &.is-invalid,
+                            &.auto-is-invalid {
+
+                                & ~ .validation-icon {
+                                  
+                                    @include media-breakpoint-down(sm) {
+                                        right: rem(33);
+                                    }
+                                }
+                            }
+
+                          &.is-valid,
+                          &.auto-is-valid {
+                              background-image: none !important;
+
+                              & ~ .validation-icon {
+                                  @include media-breakpoint-down(sm) {
+                                      right: rem(33);
+                                  }
+                              }
+                          }
+                        }
+                    }
+
+                    .invalid-feedback{
+                        font-size: rem(16);
+                    }
+                }
+            }
         }
 
         .card-body {
@@ -945,7 +1007,7 @@ $stored-payment-spacing: rem(16);
 
               &.info-icon-email {
                   position: absolute;
-                  right: rem(25);
+                  right: rem(64);
                   top: rem(11);
                   padding-bottom: rem(0);
 
@@ -964,7 +1026,7 @@ $stored-payment-spacing: rem(16);
                       padding-bottom: rem(0);
 
                       @include media-breakpoint-down(sm) {
-                          right: rem(25);
+                          right: rem(48);
                       }
                   }
               }
@@ -1055,6 +1117,10 @@ $stored-payment-spacing: rem(16);
       
         .form-control {
 
+          &:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 rem(1000) white inset;
+          }
+
           &.input-wrapper-checkout {
               height: rem(45);
               border: rem(1) solid $grey16;
@@ -1071,6 +1137,10 @@ $stored-payment-spacing: rem(16);
                   border-color: $black;
                   box-shadow: none;
                   border-width: rem(1);
+
+                  &:-webkit-autofill {
+                    -webkit-box-shadow: 0 0 0 rem(1000) white inset;
+                  }
 
                   + .field-label-wrapper {
                       transition: 0.2s ease-in-out;
@@ -1112,10 +1182,14 @@ $stored-payment-spacing: rem(16);
                   }
               }
 
-              &.is-invalid {
+              &.is-invalid,&.auto-is-invalid {
 
                   &:focus {
-                      border: rem(1) solid $invalid-red;
+                      border: rem(2.4) solid $invalid-red;
+                  }
+
+                  ~ .invalid-feedback {
+                    display: block!important;
                   }
               }
           }
@@ -1147,12 +1221,52 @@ $stored-payment-spacing: rem(16);
                 text-align: center;
             }
 
-              &.is-invalid {
+              &.is-invalid,&.auto-is-invalid {
 
                 &:focus {
-                    border: rem(1) solid $invalid-red;
+                    border: rem(2.4) solid $invalid-red;
+                }
+                ~ .invalid-feedback {
+                  display: block!important;
                 }
               }
+          }
+
+          &.is-valid,&.auto-is-valid {
+            background-image: none !important;
+            
+            @include green-tick-image;
+            @include background-postion(33);
+
+            @include media-breakpoint-down(sm) {
+                @include background-postion(14);
+            }
+
+            @include card-icons;
+          }
+
+          &.custom-select {
+
+            &.is-invalid,
+            &.auto-is-invalid {
+
+                & ~ .validation-icon {
+                    @include media-breakpoint-down(sm) {
+                        right: rem(33);
+                    }
+                }
+            }
+
+            &.is-valid,
+            &.auto-is-valid {
+              background-image: none !important;
+
+                & ~ .validation-icon {
+                    @include media-breakpoint-down(sm) {
+                        right: rem(33);
+                    }
+                }
+            }
           }
         }
 
@@ -1272,7 +1386,7 @@ $stored-payment-spacing: rem(16);
                 margin-bottom: rem(0);
                 color: $grey8;
                 font-size: rem(14);
-                font-weight: 500;
+                font-weight: 600;
                 letter-spacing: rem(0.65);
                 line-height: rem(21);
                 background-color: transparent;
@@ -1291,7 +1405,7 @@ $stored-payment-spacing: rem(16);
                   .grand-total-sum {
                       font-size: rem(14);
                       color: $grey8;
-                      font-weight: 500;
+                      font-weight: 600;
                       letter-spacing: rem(0.65);
                       line-height: rem(21);
                       background-color: transparent;
@@ -1788,4 +1902,46 @@ $stored-payment-spacing: rem(16);
         }
        }
     }
+}
+
+.order-cancel-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .cancel-order-btn {
+        background-color: transparent;
+        border: transparent;
+        outline: none;
+        box-shadow: none;
+        padding: 0;
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+        }
+    }
+
+    .form-select {
+        height: rem(30);
+        max-width: rem(250);
+        width: 100%;
+    }
+}
+
+body:has(.checkout-content) {
+  
+  #INDblindNotif {
+      display:none !important;
+  }
 }

@@ -553,25 +553,16 @@
                         .quantity {
 
                             &-form {
-                                position:relative;
                                 margin-top: 0;
 
                                 .quantity {
-                                    overflow: visible;
-                                    padding: 0 rem(14);
-                                    outline: 0;
-                                    border: rem(1) solid $border-gray1;
-                                    line-height: 1.15;
-                                    margin: 0;
-                                    width: rem(82);
+                                    width: rem(27);
                                     height: rem(30);
-                                    border-radius: rem(64.5);
-                                    font-size: rem(14);
-                                    letter-spacing: rem(1);
+                                    padding: 0;
+                                    border: none;
+                                    box-shadow: none;
+                                    text-align: center;
                                     font-weight: 400;
-                                    text-indent: rem(23);
-                                    margin-right: rem(20);
-                                    -moz-appearance: textfield;
 
                                     @include media-breakpoint-down(sm) {
                                         font-size: rem(16);
@@ -580,64 +571,64 @@
                                     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
                                         -webkit-appearance: none;
                                         margin: 0;
-    
+                                    }
+
+                                    &[readonly] {
+                                        background-color: transparent;
                                     }
                                } 
                             }
 
                             &-btn-group {
                                 display: flex;
-                                flex-direction: column;
-                                position: absolute;
-                                right: rem(0);
-                                top: 0;
-                                width: 100%;
-                                height: 100%;
+                                justify-content: space-between;
+                                align-items: center;
+                                overflow: hidden;
+                                padding: 0 rem(0);
+                                outline: 0;
+                                border: rem(1) solid $border-gray1;
+                                line-height: 1.15;
+                                margin: 0;
+                                width: rem(82);
+                                height: rem(30);
+                                border-radius: rem(64.5);
+                                font-size: rem(14);
+                                letter-spacing: rem(1);
+                                font-weight: 400;
+                                text-indent: rem(23);
+                                margin-right: rem(20);
+                                -moz-appearance: textfield;
+
+                                @include media-breakpoint-down(sm) {
+                                    font-size: rem(16);
+                                }
+
+                                &::-webkit-inner-spin-button,
+                                &::-webkit-outer-spin-button {
+                                    -webkit-appearance: none;
+                                    margin: 0;
+                                }
 
                                 button {
                                     border: none;
                                     outline: none;
                                     padding: 0;
+                                    background: none;
+                                    width: rem(27);
+                                    height: rem(30);
 
                                     &:hover {
-                                        background-color: $light-silver;
+                                        background-color: transparent;
                                     }
 
                                     &.up-qty-btn {
-                                        
-                                        svg {
-                                            position: absolute;
-                                            width: rem(9);
-                                            height: rem(9);
-                                            top: 50%;
-                                            right: rem(33);
-                                            transform: translateY(-50%);
-                                        }
+                                        margin-right: rem(5);
                                     }
 
                                     &.down-qty-btn {
-                                        
-                                        svg {
-                                            position: absolute;
-                                            width: rem(9);
-                                            height: rem(0.93);
-                                            top: 50%;
-                                            left: rem(14);
-                                            transform: translateY(-50%);
-                                        }
+                                        transform: translateY(-3px);
+                                        margin-left: rem(5)
                                     }
-                                }
-                            }
-    
-                            &-btn-up {
-                                svg {
-                                    top: rem(6);
-                                }
-                            }
-    
-                            &-btn-down {
-                                svg {
-                                    top: rem(-1);
                                 }
                             }
                         }
@@ -2106,6 +2097,10 @@
                                 }
                             }
                         }
+                    }
+
+                    .recommendation-restricted-country-msg {
+                        text-align: center;
                     }
                 }
             }

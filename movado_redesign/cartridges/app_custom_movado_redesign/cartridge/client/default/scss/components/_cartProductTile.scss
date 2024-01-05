@@ -1,0 +1,117 @@
+@import "../vars";
+
+.product-card-wrapper {
+    border-radius: rem(15);
+
+    .line-items-name {
+        font-weight: 400;
+        color: $black;
+        font-family: $movado-font;
+    }
+
+    .line-item-name {
+        font-family: $movado-font;
+        font-weight: 400;
+        color: $black;
+
+        a,span {
+            font-weight: 400;
+            color: $black;
+            font-family: $movado-font;
+        }
+
+    }
+
+  .line-item-brand-name {
+
+        a, span {
+            font-family: $the-futura-font;
+        }
+    }
+
+  .item-info {
+
+      .item-attributes {
+
+          .total-amount {
+              font-family: $the-futura-font;
+          }
+
+          .model-name, .original-price, .savings {
+              font-family: $the-futura-font;
+          }
+
+          .personalize-msg, .personalize-price {
+              font-family: $the-futura-font;
+          }
+
+          .edit-add-to-wishlist {
+
+              .product-edit {
+
+                  .move {
+                      font-family: $the-futura-font;
+                  }
+              }
+          }
+
+
+        .engraving-box {
+
+            .remove-engraved {
+                font-family: $the-futura-font;
+            }
+
+            .engraved-text {
+                font-family: $the-futura-font;
+            }
+
+        }
+      }
+  }
+}
+
+.product-gift-wrap {
+
+    .gift-message-wrapper {
+
+        .gift-description-font {
+            font-family: $the-futura-font;
+        }
+
+        .is-gift-row {
+
+            .character-limit {
+
+                span {
+                    font-family: $the-futura-font;
+                }
+            }
+
+           .gift-textarea {
+
+                textarea[placeholder] {
+                    font-family: $the-futura-font;
+                }
+           } 
+
+           .gift-error-wrapper {
+
+               span {
+                font-family: $the-futura-font;
+               }
+           }
+
+           .add-gift-message {
+
+                .apply-button {
+                    font-family: $movado-font;
+                }
+
+                .saved-button {
+                    font-family: $movado-font;
+                }
+           }
+        }
+    }
+}

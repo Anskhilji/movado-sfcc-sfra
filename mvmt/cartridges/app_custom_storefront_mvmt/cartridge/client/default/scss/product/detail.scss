@@ -1236,6 +1236,7 @@
                         &-product-name {
                             @include collection-subtitle-font;
                             line-height: rem(41);
+                            font-family: $font-brandon-grotesque;
     
                             &.product-center-text {
                                 @include media-breakpoint-down(sm) {
@@ -1253,6 +1254,7 @@
                         &-collection-name {
                             @include collection-title-font;
                             display: block;
+                            font-family: $font-brandon-grotesque;
                         }
                         &-seprator {
                             @include collection-subtitle-font;
@@ -1260,6 +1262,7 @@
         
                         &-case-diameter {
                             @include collection-subtitle-font;
+                            font-family: $font-brandon-grotesque;
                         }
                     }
                 }
@@ -1328,7 +1331,7 @@
 
                     h1 {
                         margin-bottom: rem(5);
-                        font-family: $font-ivypresto-headline;
+                        font-family: $font-brandon-grotesque;
                     }
                     
                     .eyewear {
@@ -1339,7 +1342,8 @@
                             text-overflow: ellipsis;
                             display: -webkit-box;
                             -webkit-line-clamp: 3;
-    
+                            font-family: $font-brandon-grotesque;
+                            text-transform: capitalize;    
                             &.product-center-text {
                                 @include media-breakpoint-down(sm) {
                                     text-align: center;
@@ -1355,6 +1359,7 @@
                             line-height: rem(41);
                             .eyewear-colors-wrapper {
                                 @include collection-subtitle-font;
+                                font-family: $font-brandon-grotesque;
                             }
                         }
                     }
@@ -1376,6 +1381,7 @@
                             text-overflow: ellipsis;
                             display: -webkit-box;
                             -webkit-line-clamp: 3;
+                            font-family: $font-brandon-grotesque;
     
                             &.product-center-text {
                                 @include media-breakpoint-down(sm) {
@@ -1402,6 +1408,7 @@
     
                 .product-colors {
                     @include collection-subtitle-font;
+                    font-family: $font-brandon-grotesque;
                 }
     
                 .uncategotized-product-name {
@@ -1410,6 +1417,7 @@
                     display: -webkit-box;
                     -webkit-line-clamp: 3;
                     @include collection-title-font;
+                    font-family: $font-brandon-grotesque;
                 }
 
                 .product-center-text {
@@ -1431,6 +1439,7 @@
                     &-product-name {
                         @include collection-subtitle-font-2;
                         line-height: rem(41);
+                        font-family: $font-brandon-grotesque;
 
                         &.product-center-text {
                             @include media-breakpoint-down(sm) {
@@ -1450,14 +1459,17 @@
                     &-collection-name {
                         @include collection-title-font;
                         display: block;
+                        font-family: $font-brandon-grotesque;
                     }
 
                     &-seprator {
                         @include collection-subtitle-font;
+                        font-family: $font-brandon-grotesque;
                     }
     
                     &-case-diameter {
                         @include collection-subtitle-font;
+                        font-family: $font-brandon-grotesque;;
                     }
                 }
             }
@@ -1472,7 +1484,7 @@
                    span {
                         color: $light-black;
                         font-size: rem(34);
-                        font-family: $font-ivypresto-headline;
+                        font-family: $font-brandon-grotesque;
                         letter-spacing: rem(0.7);
                         line-height: rem(41); 
                         margin: rem(0);
@@ -1495,7 +1507,7 @@
                         }
 
                         span {
-                            font-family: $font-ivypresto-headline;
+                            font-family: $font-brandon-grotesque;
                             font-size: rem(16);
                             display: block;
                             letter-spacing: rem(1.5);
@@ -1530,7 +1542,7 @@
                 padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
-                    font-family: $font-ivypresto-headline;
+                    font-family: $font-brandon-grotesque;
                 }
                 
                 .eyewear {
@@ -1541,6 +1553,7 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        font-family: $font-brandon-grotesque;
 
                         &.product-center-text {
                             @include media-breakpoint-down(sm) {
@@ -1555,8 +1568,10 @@
                         margin-top: rem(10);
                         text-align: left;
                         line-height: rem(41);
+                        font-family: $font-brandon-grotesque;
                         .eyewear-colors-wrapper {
                             @include collection-subtitle-font-2;
+                            font-family: $font-brandon-grotesque;
                         }
                     }
                 }
@@ -1567,7 +1582,7 @@
 
                 h1 {
                     margin-bottom: rem(5);
-                    font-family: $font-ivypresto-headline;
+                    font-family: $font-brandon-grotesque;
                 }
                 
                 .jewlery {
@@ -1578,6 +1593,8 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        text-transform: capitalize;
+                        font-family: $font-brandon-grotesque;
 
                         &.product-center-text {
                             @include media-breakpoint-down(sm) {
@@ -1590,6 +1607,7 @@
                         display: block;
                         @include collection-subtitle-font-2;
                         margin-top: rem(10);
+                        font-family: $font-brandon-grotesque;
                     }
                 }
             }
@@ -1604,6 +1622,7 @@
 
             .product-colors {
                 @include collection-subtitle-font-2;
+                font-family: $font-brandon-grotesque;
             }
 
             .uncategotized-product-name {
@@ -1612,6 +1631,7 @@
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
                 @include collection-title-font;
+                font-family: $font-brandon-grotesque;
             }
 
             .product-center-text {
@@ -3048,21 +3068,7 @@
 }
 
 .description-and-detail {
-    
-    @include media-breakpoint-up(md-down) {
-        padding: rem(25) rem(25) 0;
-    }
-
-    @include media-breakpoint-up(lg) {
-        padding: rem(20) rem(60);
-    }
-
-    @include media-breakpoint-up(xl) {
-        padding: rem(35) rem(60) rem(25);
-    }
-
     margin: 0 auto;
-    margin-top: rem(40);
 
     .title {
         font-family: $font-bold;
@@ -3149,7 +3155,6 @@
 }
 
 .description-container {
-    max-width: $container-max-width;
     margin: 0 auto;
 }
 
@@ -3341,7 +3346,7 @@
             flex-direction: column;
             max-width: 100%;
             margin: 0 auto;
-            padding: rem(20) rem(30);
+            padding: 0;
             display: none;
             transition: all .5s ease-in-out;
         
@@ -3350,22 +3355,10 @@
             }
 
             @include media-breakpoint-up(md-down) {
-                padding: rem(60) rem(30);
-                padding-bottom: rem(20);
                 display: flex;
                 flex-direction: row;
             }
 
-            .details-heading {
-                font-family: $font-medium;
-                font-size: rem(24);
-                font-weight: 500;
-                line-height: rem(24);
-                letter-spacing: rem(1.5);
-                color: $black;
-                margin-bottom: rem(30);
-                text-transform: uppercase;
-            }
 
             .attribute-list {
                 padding: 0 0 rem(45);
@@ -4480,9 +4473,16 @@
                     color: $light-black;
                     letter-spacing: rem(0);
                     text-transform: uppercase;
+                    display: flex;
+                    align-items: center;
 
                     .pdp-stras{
-                        margin-left: rem(30);
+                        margin-left: rem(5);
+                        margin-top: rem(-3);
+
+                        .yotpo-bottomline {
+                            align-items: center;
+                        }
                     }
 
                     .yotpo {
@@ -4497,13 +4497,14 @@
                             letter-spacing: 0 !important;
                             line-height: rem(20); 
                             text-decoration: underline !important;
+                            margin-left: rem(5);
                         }
                         .yotpo-stars {
                             .yotpo-icon {
-                                font-size: rem(20);
+                                font-size: rem(15);
 
                                 &::before {
-                                    font-size: rem(20);
+                                    font-size: rem(15);
                                 }
                             }
                         }
@@ -4617,6 +4618,13 @@
                         &_wrapper {
                             text-align: center;
                             position: relative;
+
+                            .upsell_text {
+                                
+                                .pdp-recommendation-esw-restricted-country-msg {
+                                    font-size: rem(12);
+                                }
+                            }
         
                             &:hover {
                                 .upsell_text {
@@ -4922,4 +4930,16 @@
     @include media-breakpoint-up(md-down) {
         display: none;
     }  
+}
+
+.low-stock-message {
+    
+    @include media-breakpoint-up(md) {
+        margin-bottom: rem(10);
+    }
+
+    @include media-breakpoint-down(sm) {
+        margin-top: rem(10);
+        margin-bottom: rem(-10);
+    }
 }

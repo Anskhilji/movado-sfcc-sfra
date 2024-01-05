@@ -10,6 +10,34 @@
     .privacy-policy {
         font-family: $font-gill-std-medium;
     }
+
+    .form-group {
+
+        .form-control-field-label {
+            font-family: $font-gill-std-medium;
+        }
+    }
+        
+    .reset-password-form {
+
+        .btn-primary {
+
+            background-color: $dark-cyan;
+            border: rem(1) solid $dark-cyan;
+            
+            &:hover {
+                background-color: $white;
+                color: $black;
+                border: rem(1) solid $black;
+            }
+
+            &:active {
+                color: $white !important;
+                background-color: $dark-cyan !important;
+                border: rem(1) solid $dark-cyan !important;
+            }
+        }
+    }
 }
 
 .login-page {
@@ -17,11 +45,98 @@
     input[placeholder],label {
         font-family: $font-gill-std-medium;
     }
+
+    .card {
+
+        .card-body {
+
+            .login {
+
+                .btn-primary {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+    
+                    &:hover {
+                        background-color: $white;
+                        color: $black;
+                        border: rem(1) solid $black;
+                    }
+                }
+            }
+
+            .registration {
+
+                .btn-primary {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+    
+                    &:hover {
+                        background-color: $white;
+                        color: $black;
+                        border: rem(1) solid $black;
+                    }
+                }
+            }
+        }
+        .trackorder {
+
+            .card-body {
+
+                .btn-primary {
+                    background-color: $dark-cyan;
+                    border: rem(1) solid $dark-cyan;
+    
+                    &:hover {
+                        background-color: $white;
+                        color: $black;
+                        border: rem(1) solid $black;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .track-order-header-description {
     
     & a {
         font-family: $font-gill-std-medium;
+    }
+}
+
+.checkout-content {
+
+    .card.payment-form {
+
+        .payment-information {
+
+            .payment-options {
+
+                .nav-item {
+
+                    .credit-card-label {
+                        font-family: $font-gill-std-medium;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.container {
+    &.login-page {
+
+        .card-body {
+
+            .login-form-nav {
+
+                .form-group {
+
+                    .form-control-field-label {
+                        font-family: $font-gill-std-medium;
+                    }
+                }
+            }
+        }
     }
 }

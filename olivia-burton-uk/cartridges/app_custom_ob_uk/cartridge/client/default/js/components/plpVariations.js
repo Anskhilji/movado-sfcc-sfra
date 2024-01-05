@@ -1,22 +1,83 @@
 'use strict';
 module.exports = function () {
+
+    function initializePrimarySlider() {
+        $('.plp-image-carousel-config').slick({
+            lazyLoad: 'ondemand',
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows: false,
+            responsive: [{
+                breakpoint: 768,
+                settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false
+                }
+            }],
+        });
+    }
+
     function handleVariantResponse(response, $productContainer, $pdpURL) {
+        var $winWidth = $(window).width();
+        var $mediumBreakPoint= 991;
         var $product = response.product;
         // Update primary images
         var primaryImageUrls = response.product.images;
         var $imageContainer = $productContainer.find('.image-container').find('img');
 
-        $productContainer.find('.image-container .tile-picture-primary').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[0].url);
-        $imageContainer.attr('src', primaryImageUrls.tile512Xtile640[0].url);
-        $productContainer.find('.image-container').find('a').attr('href', $pdpURL);
-
-        // Update life style images
-        if ($productContainer && primaryImageUrls && primaryImageUrls.tile512Xtile640[2] && primaryImageUrls.tile512Xtile640[2].url) {
-            $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[2].url);
-            $imageContainer.attr('src', primaryImageUrls.tile512Xtile640[2].url);
+        if ($winWidth > $mediumBreakPoint) {
+            $productContainer.find('.image-container .tile-picture-primary').find('source').attr('srcset', primaryImageUrls.tile640Xtile764[0].url);
+            $imageContainer.attr('src', primaryImageUrls.tile640Xtile764[0].url);
+            $productContainer.find('.image-container').find('a').attr('href', $pdpURL);
+    
+            // Update life style images
+            if ($productContainer && primaryImageUrls && primaryImageUrls.tile640Xtile764[2] && primaryImageUrls.tile640Xtile764[2].url) {
+                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile640Xtile764[2].url);
+                $imageContainer.attr('src', primaryImageUrls.tile640Xtile764[2].url);
+            } else {
+                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile640Xtile764[0].url);
+                $imageContainer.attr('src', primaryImageUrls.tile640Xtile764[0].url);
+            }
         } else {
-            $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[0].url);
+            $productContainer.find('.image-container .tile-picture-primary').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[0].url);
             $imageContainer.attr('src', primaryImageUrls.tile512Xtile640[0].url);
+            $productContainer.find('.image-container').find('a').attr('href', $pdpURL);
+            // Update life style images
+            if ($productContainer && primaryImageUrls && primaryImageUrls.tile512Xtile640[2] && primaryImageUrls.tile512Xtile640[2].url) {
+                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[2].url);
+                $imageContainer.attr('src', primaryImageUrls.tile512Xtile640[2].url);
+            } else {
+                $productContainer.find('.image-container .tile-picture-hidden').find('source').attr('srcset', primaryImageUrls.tile512Xtile640[0].url);
+                $imageContainer.attr('src', primaryImageUrls.tile512Xtile640[0].url);
+            }
+        }
+
+        var $isPlpCarouselEnabled = $('.is-plp-carousel-enabled');
+        if ($isPlpCarouselEnabled.length > 0) {
+            var $plpCarouselConfig = $('.plp-image-carousel-config');
+            var $slidesToShow = $('.slides-to-show').attr('slides');
+            var $slidesParseValue = parseInt($slidesToShow);
+            $plpCarouselConfig.slick('unslick');
+            $productContainer.find('.plp-image-carousel-config').empty();
+
+            for (var i = 0; i < $product.images.tile640.length; i++) {
+                var $html = `<a href="${$pdpURL}">
+                                <picture class="tile-picture tile-picture-primary">
+                                    <source media="(min-width: 992px)" srcset="${$product && $product.images && $product.images.tile640Xtile764 && $product.images.tile640Xtile764.length > 0 && $product.images.tile640Xtile764[i].url ? $product.images.tile640Xtile764[i].url : ''}" />
+                                    <source media="(min-width: 544px)" srcset="${$product && $product.images && $product.images.tile512Xtile640 && $product.images.tile512Xtile640.length > 0 && $product.images.tile512Xtile640[i].url ? $product.images.tile512Xtile640[i].url : ''}" />
+                                    <source media="(min-width: 320px)" srcset="${$product && $product.images && $product.images.tile512Xtile640 && $product.images.tile512Xtile640.length > 0 && $product.images.tile512Xtile640[i].url ? $product.images.tile512Xtile640[i].url : ''}" />
+                                    <img class="tile-image gtm-product" src="${$product.images.tile640[i].url}" alt="${$product.images.tile640[i].alt}" itemprop="image"/>
+                                </picture>
+                            </a>`;
+                $productContainer.find('.plp-image-carousel-config').append($html);
+
+                if (i == $slidesParseValue-1) {
+                   break;
+                }
+            }
+             
         }
 
         //update product gtm data
@@ -92,6 +153,7 @@ module.exports = function () {
                 });
             }
         }
+        initializePrimarySlider();
 
         var $variationPid = response.product.id;
         var $isVariationQantityExist = response.product.quantities;

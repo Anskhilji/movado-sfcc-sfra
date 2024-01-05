@@ -39,10 +39,12 @@
                     </div>
                 </div>
             </div>
-            <div class="row movado-pdp-row">
+            <div class="row movado-pdp-row product-aruliden-sec">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
-                <div class="col-12 col-lg-5 detail-sec pt-sm-5">
+                <isinclude template="product/components/productGalleryDesktop" />
+                <div class="col pt-sm-5">
+                <div class="detail-sec">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">
@@ -50,7 +52,7 @@
                         </div>
 	                </div>
                     <!-- Product Name -->
-                    <h2 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h2>
+                    <h1 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h1>
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
@@ -166,7 +168,7 @@
                                     <div class="cta-add-to-cart">
                                         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
                                         <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
-                                        <button class='add-to-cart btn btn-primary <isif condition="${product.isProductRestricted}">d-none</isif>'
+                                        <button class='add-to-cart btn btn-primary mb-2 <isif condition="${product.isProductRestricted}">d-none</isif>'
                                             data-pid="${product.id}"
                                             ${!product.readyToOrder ? 'disabled' : ''}  >
                                                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
@@ -237,6 +239,7 @@
                             <isinclude template="product/components/sizeChart" />
                         </div>
                     </isif>
+                </div>
                 </div>
                 <div class="col-12 pdp-movado prices-add-to-cart-actions cart-sticky-wrapper-btn scroll-hidden">
                     <!-- Prices -->

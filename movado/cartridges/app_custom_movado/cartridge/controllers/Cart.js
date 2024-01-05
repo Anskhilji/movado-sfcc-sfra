@@ -2,8 +2,9 @@
 
 var server = require('server');
 
+var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
 var cache = require('*/cartridge/scripts/middleware/cache');
-
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var collections = require('*/cartridge/scripts/util/collections');
@@ -39,7 +40,7 @@ server.prepend('AddProduct', function (req, res, next) {
 // Show add to Cart Button as Remote Include
 server.get('ShowAddProductButton', 
     server.middleware.include,
-    cache.applyDefaultCache,
+    cache.applyPromotionSensitiveCache,
     function (req, res, next) {
         var Site = require('dw/system/Site');
         var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -69,8 +70,6 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
     var basketModel = new CartModel(currentBasket);
     var viewData = res.getViewData();
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-    var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var recommendedProductCardHtml = '';
     var isCartPage = req.form.isCartPage;
@@ -161,6 +160,7 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
 
         // update the success message from content
         var content = ContentMgr.getContent('product-successfully-added');
+
         if (content) {
             viewData.message = content.custom.body.markup;
         }
@@ -200,6 +200,12 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
             if (marketingProductData !== null) {
                 marketingProductsData.push(marketingProductData);
             }
+
+            var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, currentBasket);
+            }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
         res.setViewData({marketingProductData : marketingProductsData});
@@ -217,8 +223,6 @@ server.append('AddProduct', csrfProtection.generateToken, function (req, res, ne
         } else {
             quantityTotal = 0;
         }
-
-        customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
 
         // Custom Start MSS-1930 Added code for Listrak Cart Tracking
         if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
@@ -346,14 +350,50 @@ server.prepend(
     csrfProtection.generateToken,
     function (req, res, next) {
     res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
+    
     var BasketMgr = require('dw/order/BasketMgr');
+    var Transaction = require('dw/system/Transaction');
+
     var CartModel = require('*/cartridge/models/cart');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
-    var basketModel = new CartModel(currentBasket);
     var productLineItems = currentBasket.productLineItems.iterator();
+    var result;
+
+    if (session.privacy.applePayBasketReOpen) {
+        var productId = session.privacy.applePayBasketReOpen;
+        var appleEngraveOptionId = session.custom.appleEngraveOptionId;
+        var appleEmbossOptionId = session.custom.appleEmbossOptionId;
+        var appleEmbossedMessage = session.custom.appleEmbossedMessage;
+        var appleEngravedMessage = session.custom.appleEngravedMessage;
+        var pulseIDPreviewURL = session.custom.pulseIDPreviewURL;
+
+        Transaction.wrap(function () {
+            result = cartHelper.addProductToCart(
+                currentBasket,
+                productId,
+                1,
+                [],
+                []
+            );
+
+            if (!result.error) {
+                cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+                basketCalculationHelpers.calculateTotals(currentBasket);
+            }
+        });
+        customCartHelpers.updateOptionLineItemAfterShopperRecovery(currentBasket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage, pulseIDPreviewURL);
+
+        delete session.custom.applePaySku;
+        delete session.privacy.applePayBasketReOpen;
+    }
 
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
+        var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+
+        if (!empty(optionProductLineItem)) {
+            customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, currentBasket);
+        }
     }
 
 next();
@@ -383,7 +423,6 @@ server.append(
         var currentCountry = productCustomHelper.getCurrentCountry();
         var marketingProductsData = [];
 
-        
         // Custom Start: Adding ESW cartridge integration
         if (isEswEnabled) {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
@@ -457,6 +496,12 @@ server.append(
             }
             // custom end
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+
+            var optionProductLineItem = productLineItem.optionProductLineItems.iterator();
+
+            if (!empty(optionProductLineItem)) {
+                customCartHelpers.removeNUllOptionLineItem(optionProductLineItem, currentBasket);
+            }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
         res.setViewData({
@@ -476,11 +521,17 @@ server.append(
         });
 
         customCartHelpers.removeClydeWarranty(viewData);
-        customCartHelpers.removeNullClydeWarrantyLineItemAndEngraving(currentBasket);
+        
 
         if (!empty(req.querystring.lastNameError)) {
             res.setViewData({ 
                 lastNameError: req.querystring.lastNameError
+            });
+        }
+
+        if (!empty(req.querystring.shopperRecoverySuccess)) {
+            res.setViewData({ 
+                shopperRecoverySuccess: req.querystring.shopperRecoverySuccess
             });
         }
 

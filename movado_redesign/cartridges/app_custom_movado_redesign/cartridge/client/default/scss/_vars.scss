@@ -2,6 +2,7 @@ $storm-gray:#787a8a !default;
 $gray94:#f0f0f0 !default;
 $white-grey:#eaeaea !default;
 $gray-x11:#bcbec0 !default;
+$gray-x12:#B2B2B4 !default;
 $regent-grey:#787A8A !default;
 $gray90:#E5E5E5 !default;
 $gull-gray-light:rgba(160, 169, 186, 0.1) !default;
@@ -19,43 +20,62 @@ $zircon: #eaebeb;
 $slate-grey-light: #f5f6f8;
 $slate-grey: #A0A9BA;
 $black: #000;
+
+$light-black2:#2C2C30;
 $light-black3:rgba(0,0,0,0.89);
 $light-black5:rgba(0,0,0,0.09);
+$light-black7: #222B33;
+$light-black8: #2C2C2C;
 $dark-black:#060506;
 $cerulean: #0092DB;
+$neutrals-400:#B2B2B4;
+$invalidRed: #D73F20;
 
 $footer-redesign-bg: #f1f2f5 !default;
+$light-black6: #121214;
 $sonic-silver:  #78797a !default;
 $dim-gray: #696969;
+$grey-suit: #949496;
+$dark-gray3: #808082;
 $storm-gray: #787A8A;
+$storm-gray2: #949496;
 $mine-shaft: #333333;
 $grey10-light: #C4C1C1;
 $grey11-light: #F5F5F5;
+$neutrals-300: #E2E3E4;
+$neutrals-600: #767678;
+$neutrals-700: #6D6D70;
+$dark-storm-grey: #767678;
+$dark-light-grey: #B2B2B4;
+$grey-silver-light: #F8F8F8;
+$silver-light: #E2E3E4;
 
-$font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
-$font-fotter: "futura-pt", "FuturaStd-Medium", sans-serif;
+$font-futura-demi: "futura-pt", sans-serif;
+$font-fotter: "futura-pt", sans-serif;
 $heart-icon: "\F004";
+$movado-font: "Movado Sans";
+$the-futura-font:  "The Future";
 
 @mixin font-bold {
-    font-family: "futura-pt-bold", "FuturaStd-Bold", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 700;
     font-style: normal;
 }
 
 @mixin font-medium {
-    font-family: "futura-pt", "FuturaStd-Medium", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 500;
     font-style: normal;
 }
 
 @mixin font-light {
-    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 300;
     font-style: normal;
 }
 
 @mixin font-book {
-    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-family: "futura-pt", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -67,6 +87,7 @@ $heart-icon: "\F004";
 }
 
 $container-1366: 1366px;
+$custom-xlg:1920px;
 $custom-xll:1440px;
 $custom-xl:1280px;
 $custom-lg:1070px;
@@ -90,6 +111,7 @@ $custom-lg2: 1120px;
 $custom-lg3: 992px;
 $custom-lg4: 769px;
 $custom-sm13: 351px;
+$custom-sm14: 370px;
 
 @mixin scrollBar {
 

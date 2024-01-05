@@ -1,0 +1,11 @@
+<label class="bundle-quantity" for="quantity-dropdown">${Resource.msg('label.bundle.quantity', 'common', null)}</label>
+<select class="quantity-select custom-select form-control" id="quantity-dropdown">
+    <isloop items="${product.quantities}" var="quantity">
+        <option value="${quantity.value}"
+                <isif condition="${product.productType !== 'bundle'}">data-url="${quantity.url}"</isif>
+                ${quantity.selected ? 'selected' : ''}
+        >
+            ${quantity.value}
+        </option>
+    </isloop>
+</select>

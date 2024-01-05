@@ -1,4 +1,6 @@
 <iscomment> Custom: Start new template added for recommendation products </iscomment>
+<isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
 <div class="mini-cart-product-list">
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
         <button class="mini-cart-show-recommendations" id="btn-${pdict.pid}">${Resource.msg('label.minicart.recommendatation.text', 'cart', null)}</button>
@@ -23,7 +25,13 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="mini-cart-add-to-cart btn " data-pid="${recommendation.id}" data-url="${URLUtils.url('Cart-AddProduct')}"> Add To Cart</button>
+                        <isif condition="${isEswProductRestrictionsEnabled && recommendation.isProductNotRestrictedOnEswCountries && !domesticAllowedCountry}">
+                            <div>
+                                <isprint value="${recommendation.eswNotRestrictedCountriesProductMsgBody}" encoding="off" />
+                            </div>
+                        <iselse/>
+                            <button class="mini-cart-add-to-cart btn " data-pid="${recommendation.id}" data-url="${URLUtils.url('Cart-AddProduct')}">${Resource.msg('label.add-to-cart', 'cart', null)}</button>
+                        </isif>
                     </div>
                 </isif>
             </isloop>

@@ -21,6 +21,10 @@
     </div>
 </isif>
 
+<isif condition="${!empty(pdict.shopperRecoverySuccess)}">
+    <isinclude template="cart/productCard/cartShopperRecoverySuccess" />
+</isif>
+
 <isif condition="${pdict.cartOptionalProductError}">
     <div class="container cart-error-messaging cart-error mt-2">
         <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
@@ -32,7 +36,7 @@
     </div>
 </isif>
 
-<isif condition="${pdict.lastNameError}">
+<isif condition="${pdict.lastNameError == true}">
     <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">
         ${Resource.msg('error.last.name', 'checkout', null)}
     </div>
@@ -80,27 +84,10 @@
                 <isif condition="${dw.system.Site.current.preferences.custom.isPickupStoreEnabled}">
                     <isinclude url="${URLUtils.url('Cart-GetCartPickupStore')}" />
                 </isif>
-                <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
-                    <isif condition="${lineItem.productType === 'bundle'}">
-                        <isinclude template="cart/productCard/cartBundleCard" />
-                    <iselse/>
-                        <isinclude template="cart/productCard/cartProductCard" />
-                    </isif>
-                    <isset name="clydeProductId" value="${lineItem.id}" scope="page"/>
-                    <isset name="clydeProductLineItemUUID" value="${bonusproductlineitem + "uuid-" + lineItem.UUID}" scope="page" />
-                    <isif condition="${dw.system.Site.current.preferences.custom.clydeWidgetDisplayCart && !clydeOption}">
-                            <isinclude template="clyde/widgets/clydeCartWidgets" />
-                    </isif>
-                    <!---Show Clyde Protection badge on cart page, if the clyde warranty is deleted from cart--->
-                    <div class="add-clyde-badge-${lineItem.UUID} clyde-cart-widget-control">
-                        <isif condition="${dw.system.Site.current.preferences.custom.clydeWidgetDisplayCart}">
-                            <isinclude template="clyde/widgets/clydeCartWidgets" />
-                        </isif>
-                    </div>
-                </isloop>
+                <isinclude template="cart/productCard/cartLineItems" />
             </div>
             <!---totals, and checkout actions--->
-            <div class="col-sm-5 col-md-4 totals">
+            <div class="col-sm-5 col-md-4 totals order-2 order-sm-1">
                 <isinclude template="cart/cartPromoCode" />
                 <div class="coupons-and-promos coupons-wrapper coupon-card-icon mb-3">
                     <isinclude template="cart/cartCouponDisplay" />
@@ -137,6 +124,14 @@
                     <isprint value="${pdict.assets.needHelp}" encoding="off" />
                 </div>
                 <br/>
+            </div>
+
+            <div class="col-12 order-1 order-sm-2">
+                <isif condition="${pdict.items && pdict.items.length > 0}">
+                    <div class="cart-recommendation-wrapper mt-4">
+                        <isslot id="cs-cart-recommendations" description="Recommended products" context="global" />
+                    </div>
+                </isif>
             </div>
         </div>
     </div>

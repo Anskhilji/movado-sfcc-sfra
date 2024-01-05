@@ -940,6 +940,7 @@ function formatProductId(pid) {
  */
 
 function getMarketingProducts(apiProduct, quantity) {
+
     var Logger = require('dw/system/Logger');
     var PromotionMgr = require('dw/campaign/PromotionMgr');
     var priceFactory = require('*/cartridge/scripts/factories/price');
@@ -949,11 +950,9 @@ function getMarketingProducts(apiProduct, quantity) {
 
     try {
         var defaultVariant = apiProduct.variationModel.defaultVariant;
-        var defaultVariantPrice;
-        var marketingProductData;
-        var price;
         var productType = productHelper.getProductType(apiProduct);
-        var productModel;
+
+        var defaultVariantPrice,marketingProductData,price,productModel;
 
         if (apiProduct.master) {
             var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
@@ -961,8 +960,9 @@ function getMarketingProducts(apiProduct, quantity) {
         }
         productModel = productFactory.get({pid: apiProduct.ID});
 
+
         if (defaultVariantPrice) {
-            if(defaultVariantPrice.sales) {
+            if (defaultVariantPrice.sales) {
                 price = defaultVariantPrice.sales.value;
             } else {
                 price = defaultVariantPrice.list.value;

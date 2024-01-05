@@ -8,6 +8,7 @@ $receipt-font-size: rem(14);
 
 .data-checkout-stage {
   .form-group {
+    
     .form-control-label {
       font-family: $font-regular;
       font-weight: 400;
@@ -210,11 +211,127 @@ $receipt-font-size: rem(14);
 }
 
 .data-checkout-stage .form-group .form-control {
-  @include media-breakpoint-up(lg) {
-    font-size:rem(16);
-    font-family: $font-medium;
-    font-weight: 500;
-  }
+
+    @include media-breakpoint-up(lg) {
+      font-size:rem(16);
+      font-family: $font-medium;
+      font-weight: 500;
+    }
+
+    &#billingAddressOne,
+    &#billingAddressTwo {
+        &.form-control {
+            &.is-valid {
+                    background-position-x: 97% !important;
+                    background-image: none !important;
+            }
+        }
+    }
+
+    &#billingAddressOne,
+    &#billingAddressTwo,
+    &#billingCompanyName {
+        &.form-control {
+            &.is-valid {
+              background-image: none !important;
+
+                @include media-breakpoint-down(xs) {
+                    background-position-x: 93.5% !important;
+                }            
+            }
+        }
+    }
+
+    &#billingCompanyName {
+      &.form-control {
+          &.is-valid {
+            background-image: none !important;
+
+              @include media-breakpoint-up(sm) {
+                  background-position-x: 97% !important;
+              }            
+          }
+      }
+    }
+
+    &#cardNumber,
+    &#holderName {
+
+        &.form-control {
+
+            &.is-valid {
+                background-position-x: 98.4% !important;
+                background-image: none !important;
+            }
+        }
+    }
+
+    &#email,
+    &#shippingCompanyName,
+    &#shippingAddressOne,
+    &#shippingAddressTwo,
+    &#shippingPhoneNumber {
+
+        &.form-control {
+
+            &.is-valid {
+                background-image: none !important;
+                background-position-x: 97% !important;
+
+                @include media-breakpoint-down(xs) {
+                  background-position-x: 97% !important;
+                }
+            }
+        }
+    }
+
+    &#shippingFirstName,
+    &#shippingLastName,
+    &#shippingAddressCity,
+    &#shippingZipCode {
+
+        &.form-control {
+
+            &.is-valid {
+                background-image: none !important;
+
+                @include media-breakpoint-up(sm) {
+                  background-position-x: 93.5% !important;
+                }
+              
+                @include media-breakpoint-down(xs) {
+                    background-position-x: 97% !important;
+                }
+            }
+        }
+    }
+
+    &#securityCode,
+    &#expirationDate {
+      
+        &.form-control {
+
+            &.is-valid {
+                background-image: none !important;
+                background-position-x: 97% !important;
+
+                @include media-breakpoint-down(md) {
+                    background-position-x: 98.4% !important;;
+                }
+            }
+        }
+    }
+
+    &.custom-select {
+
+        &.custom-select-box {
+
+            &.is-valid {
+                background-image: none !important;
+                background-position-x: 90% !important;
+            }
+        }
+    }
 }
 
 .billing-address,
@@ -222,43 +339,12 @@ $receipt-font-size: rem(14);
     .form-group {
         .form-control {
             &.is-invalid {
-                border: rem(1) solid $invalid-red;
-                background: url("../../images/invalid.svg") center right no-repeat;
-                background-position-x: 97%;
-                @include media-breakpoint-down(sm) {
-                  background: none;
-                }
-            }
-
-            &#shippingState,
-            &#shippingCountry,
-            &#billingState,
-            &#billingCountry {
-              &.is-invalid {
-                background: url("../../images/invalid.svg") center right no-repeat !important;
-                background-position-x: 90% !important;
-                @include media-breakpoint-down(sm) {
-                  background: none !important;
-                }
-              }
-            }
-            
-            &#shippingZipCode,
-            &#shippingLastName,
-            &#shippingFirstName,
-            &#shippingAddressCity,
-            &#billingZipCode,
-            &#billingAddressCity,
-            &#billingFirstName,
-            &#billingLastName {
-              &.is-invalid {
-                  background-position-x: 93.5%;
-              }
+                border: rem(2.4) solid $invalid-red;
             }
         }
 
         .invalid-feedback {
-          font-size: rem(11);
+          font-size: rem(16);
           font-weight: 500;
           letter-spacing: rem(0.33);
           line-height: rem(24);
@@ -333,7 +419,7 @@ $receipt-font-size: rem(14);
       
             &.info-icon-email {
                 position: absolute;
-                right: rem(25);
+                right: rem(64);
                 top: rem(9);
                 
                 .icon {
@@ -350,7 +436,7 @@ $receipt-font-size: rem(14);
                     top: rem(9);
 
                     @include media-breakpoint-down(sm) {
-                      right: rem(25);
+                      right: rem(48);
                     }
                 }
               }
@@ -456,5 +542,12 @@ $receipt-font-size: rem(14);
 
   .cart-quantity-btn {
     display: none;
+  }
+}
+
+body:has(.checkout-content) {
+  
+  #INDblindNotif {
+      display:none !important;
   }
 }

@@ -2,11 +2,14 @@
 
 var Site = require('dw/system/Site');
 
+
 var productDecorators = require('*/cartridge/models/product/decorators/index');
 var productLineItemDecorators = require('*/cartridge/models/productLineItem/decorators/index');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
+var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
+
 
 /**
  * Decorate product with product line item information
@@ -47,8 +50,28 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
 
+    var currentCountry = productCustomHelper.getCurrentCountry();
+    var isCurrentDomesticAllowedCountry;
+
+    if (isEswEnabled) {
+        var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+        isCurrentDomesticAllowedCountry = eswCustomHelper.isCurrentDomesticAllowedCountry();
+        var isProductNotRestrictedOnEswCountries = productCustomHelper.productNotRestrictedOnEswCountries(currentCountry, apiProduct, isCurrentDomesticAllowedCountry);
+        
+        if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+            var ContentMgr = require('dw/content/ContentMgr');
+    
+            var eswNotRestrictedCountriesProductMsg = ContentMgr.getContent('ca-esw-not-restricted-countries-product-msg');
+            var eswNotRestrictedCountriesProductMsgBody = eswNotRestrictedCountriesProductMsg && eswNotRestrictedCountriesProductMsg.custom && eswNotRestrictedCountriesProductMsg.custom.body && !empty(eswNotRestrictedCountriesProductMsg.custom.body.markup) ? eswNotRestrictedCountriesProductMsg.custom.body : '';
+        }
+    }
+    
+
+
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
     var plpCustomUrl = productCustomHelper.getPLPCustomURL(apiProduct);
+    var pulseIDPreviewURL = productCustomHelper.getPulseIDPreviewURL(options.lineItem);
+    var productATSValue = productCustomHelper.getProductATSValue(apiProduct);
 
     /**
      * Custom Start:  Clyde Integration
@@ -105,5 +128,34 @@ module.exports = function productLineItem(product, apiProduct, options) {
             value: plpCustomUrl
         });
     }
+
+    if (!empty(pulseIDPreviewURL)) {
+        Object.defineProperty(product, 'pulseIDPreviewURL', {
+            enumerable: true,
+            value: pulseIDPreviewURL
+        });
+    }
+
+    if (!empty(productATSValue)) {
+        Object.defineProperty(product, 'productATSValue', {
+            enumerable: true,
+            value: productATSValue
+        });
+    }
+
+    if (!empty(isProductNotRestrictedOnEswCountries)) {
+        Object.defineProperty(product, 'isProductNotRestrictedOnEswCountries', {
+            enumerable: true,
+            value: isProductNotRestrictedOnEswCountries
+        });
+    }
+
+    if (isProductNotRestrictedOnEswCountries && !isCurrentDomesticAllowedCountry) {
+        Object.defineProperty(product, 'eswNotRestrictedCountriesProductMsgBody', {
+            enumerable: true,
+            value: eswNotRestrictedCountriesProductMsgBody
+        });
+    }
+    
     return product;
 };

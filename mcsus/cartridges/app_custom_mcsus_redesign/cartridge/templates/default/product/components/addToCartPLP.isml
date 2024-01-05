@@ -6,17 +6,30 @@
             data-plp-addtocart="true"
             data-product-set="${!empty(product.individualProducts) ? true : false}"
             data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
+            ${!pdict.readyToOrder ? "disabled" : ""}
             ${!product.available ? "disabled" : ""} >
+            <isif condition="${!pdict.display.showAddToCartIcon}">
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
-                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
-                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
-                <iselseif condition="${product.available}"/>
-                    ${Resource.msg('button.addtocart', 'common', null)}
+                <isif condition="${product.productType === 'bundle'}">
+                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                        ${Resource.msg('button.preorder.all.now', 'common', null)} </br>
+                    <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                        ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                    <iselse/>
+                        ${Resource.msg('button.addalltocart', 'common', null)}
+                    </isif>
                 <iselse/>
-                    ${Resource.msg('label.not.available', 'common', null)}
+                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                        ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                    <iselseif condition="${product.available}"/>
+                        ${Resource.msg('button.addtocart', 'common', null)}
+                    <iselse/>
+                        ${Resource.msg('label.not.available', 'common', null)}
+                    </isif>
                 </isif>
                 <isloop items="${product.individualProducts}" var="productItem" status="loopState">
                     <div class="product-sets product-id d-none">${productItem.id}</div>
                 </isloop>
+            </isif>
         </button>
     </div>

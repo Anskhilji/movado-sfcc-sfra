@@ -19,19 +19,8 @@ server.replace(
 
         var topLevelCategories = siteRootCategory.hasOnlineSubCategories() ?
                 siteRootCategory.getOnlineSubCategories() : null;
-
-        var ABTestMgr = require('dw/campaign/ABTestMgr');
-        
-        var menuTemplate = null;
-        
-        // A/B testing for header design
-        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','Control')) {
-            menuTemplate = '/components/header/old/menu';
-        } else if (ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')) {
-            menuTemplate = '/components/header/menu';
-        } else {
-            menuTemplate = '/components/header/old/menu';
-        }
+                
+        var menuTemplate = '/components/header/menu';
 
         res.setViewData({ 
             loggedIn: req.currentCustomer.raw.authenticated
@@ -41,31 +30,25 @@ server.replace(
     }
 );
 
-// AB test logic implemented for mobile header
+
 server.get(
     'IncludeHeader',
     server.middleware.include,
     cache.applyPromotionSensitiveCache,
     function (req, res, next) {
-        var ABTestMgr = require('dw/campaign/ABTestMgr');
-        var assigned = ABTestMgr.getAssignedTestSegments();
-        var headerTemplate = null;
-        // A/B testing for header design
-        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')) {
-            headerTemplate = '/components/header/pageHeader';
-        } else {
-            headerTemplate = '/components/header/old/pageHeader';
-        }
+        var countryCode = ''
+        var httpURL = ''
+        var productSearch = '';
+        var headerTemplate = '/components/header/pageHeader';
 
-        var countryCode = "";
         if (!empty(request.httpParameterMap.get('countryCode').value)) {
             countryCode = request.httpParameterMap.get('countryCode').value;
         }
-        var productSearch = "";
+        
         if (!empty(request.httpParameterMap.get('productSearch').value)) {
             productSearch = request.httpParameterMap.get('productSearch').value;
         }
-        var httpURL = "";
+        
         if (!empty(request.httpParameterMap.get('httpURL').value)) {
             httpURL = request.httpParameterMap.get('httpURL').value;
         }

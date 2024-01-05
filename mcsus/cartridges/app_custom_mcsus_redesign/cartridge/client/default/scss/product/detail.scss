@@ -635,24 +635,36 @@
         @include media-breakpoint-down(md) {
             top: rem(74);
         }
+
+        &.sticky-scroll-top {
+
+            @include media-breakpoint-down(sm) {
+                top: rem(100);
+            }
+        }
+    }
+
+    &.top-header-redesign {
+        position: fixed;
+        left: rem(0);
+        right: rem(0);
+        background-color: $white;
+        z-index: 1;
+        transition: all 0.4s;
+        transform: translateY(-100px);
+        top: rem(125);
+        box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
+        
+        &.scroll-top {
+            top: rem(170);
+
+            @include media-breakpoint-down(sm) {
+                top: rem(224);
+            }
+        }
     }
 }
 
-.top-header-redesign {
-    position: fixed;
-    left: rem(0);
-    right: rem(0);
-    background-color: $white;
-    z-index: 1;
-    transition: all 0.4s;
-    transform: translateY(-100px);
-    top: rem(125);
-    box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
-    
-    &.scroll-top {
-        top: rem(170);
-    }
-}
 
 .scroll-hidden {
     visibility: hidden;
@@ -2467,6 +2479,17 @@
                 display: inline-block;
             }
 
+            .low-stock-message {
+                font-family: $font-book;
+                font-size: rem(14);
+                letter-spacing: rem(0);
+                line-height: rem(24);
+                color: $black;
+                font-weight: 400;
+                margin-bottom: rem(0);
+                display: inline-block;
+            }
+            
             .pick-up-store-openings {
                 display: none;
             }
@@ -2651,6 +2674,53 @@
                 border: 0;
                 height: 100%;
                 font-weight: 500;
+            }
+        }
+    }
+}
+
+.sticky-header {
+   
+    @include media-breakpoint-down(sm) {
+        display: unset;
+    }
+
+    nav {
+        
+        @include media-breakpoint-down(sm) {
+            display: unset;
+        }
+        
+        .sticky-header-wrapper {
+            
+            &.new-header-deign {
+                position: sticky;
+                top: 0;
+                z-index: 1019;
+        
+                &.fixed-header {
+                    position: sticky;
+                    position: -webkit-sticky;
+                    top: 0;   
+                }
+            }
+            
+            .main-menu-top {
+
+                @include media-breakpoint-down(lg) {
+                    
+                    &.main-menu-top-fixed {
+
+                        &:after {
+                            content: '';
+                            background: $black;
+                            position: absolute;
+                            inset: 0;
+                            opacity: 0.5;
+                            z-index: 2;
+                        }
+                    }
+                }
             }
         }
     }

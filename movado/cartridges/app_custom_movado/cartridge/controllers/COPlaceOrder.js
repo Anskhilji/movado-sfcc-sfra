@@ -37,14 +37,12 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
 
     if (orderPlacementStatus.error) {
         var sendMail = true;
-        var isJob = false;
         var refundResponse = hooksHelper(
             'app.payment.adyen.refund',
             'refund',
             order,
             order.getTotalGrossPrice().value,
             sendMail,
-            isJob,
             require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
         Riskified.sendCancelOrder(order, Resource.msg('error.payment.not.valid', 'checkout', null));
     	return next(new Error('Could not place order'));

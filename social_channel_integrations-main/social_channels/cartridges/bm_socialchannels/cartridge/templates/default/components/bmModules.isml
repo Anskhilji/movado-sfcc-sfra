@@ -1,0 +1,7 @@
+<ismodule template="/components/content/welcomeMat"
+    name="welcomemat"
+    attribute="welcomemat_title"
+    attribute="welcomemat_message"
+    attribute="welcomemat_action_url"
+    attribute="welcomemat_action_cta"
+/>

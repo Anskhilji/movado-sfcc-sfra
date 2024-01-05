@@ -24,21 +24,15 @@ var URLUtils = require('dw/web/URLUtils');
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
-    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
 
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var explicitRecommendations = [];
     var klarnaProductPrice = '0';
-    var isEmbossEnabled;
-    var isEngraveEnabled;
-    var isGiftWrapEnabled;
     var collectionName;
 
     var productDecimalPrice = 0.0;
 
-    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
-    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
     var productType = showProductPageHelperResult.product.productType;
     var template = null;
 
@@ -78,42 +72,20 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
             Logger.error('Product.js: Error occured while getting product price for Klarna and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
         // Custom End
-        isEmbossEnabled = product.custom.Emboss;
-        isEngraveEnabled = product.custom.Engrave;
-        isGiftWrapEnabled = product.custom.GiftWrap;
         viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, product.ID);
-        var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
-        var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
-        var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
+
     }
 
-    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
-    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    //Custom End
-
     viewData = {
-        isEmbossEnabled: isEmbossEnabled,
-        isEngraveEnabled: isEngraveEnabled,
-        isGiftWrapEnabled: isGiftWrapEnabled,
-        productDetailAttribute1: productDetailAttribute1,
-        productDetailAttribute2: productDetailAttribute2,
-        productDetailAttribute3: productDetailAttribute3,
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
         loggedIn: req.currentCustomer.raw.authenticated,
         klarnaProductPrice: klarnaProductPrice,
         productPrice: productPrice,
-        eswModuleEnabled: eswModuleEnabled,
         explicitRecommendations: explicitRecommendations,
-        strapGuideText: strapGuideText,
         upsellHeadingText: upsellHeadingText,
         collectionName: collectionName,
-        addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
-        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
     };
-
-    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
-    res.setViewData(smartGift);
 
     if (product.custom.renderingTemplate) {
         template = showProductPageHelperResult.template;
@@ -144,7 +116,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     } else {
         res.render(template, {
             product: showProductPageHelperResult.product,
-            addToCartUrl: showProductPageHelperResult.addToCartUrl,
             productUrl: productUrl,
             resources: showProductPageHelperResult.resources,
             breadcrumbs: showProductPageHelperResult.breadcrumbs
@@ -174,7 +145,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
 
         viewData.product =  showProductPageHelperResult.product,
-        viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
         viewData.resources = showProductPageHelperResult.resources,
         viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
     }
@@ -234,11 +204,46 @@ server.prepend('Variation', function (req, res, next) {
     var product = ProductFactory.get(params);
     var productHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImagesTemplate);
     viewData.productImages = productHTML;
+    var backInStockTemplate;
+    var backInStockHtml;
+    var enableBackInStock = !empty(dw.system.Site.current.preferences.custom.enableBackInStock) ? dw.system.Site.current.preferences.custom.enableBackInStock : false;
+    var listrakCartridgeEnabled =  !empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
+    var listrakEnableBackInStockSms = !empty(dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockSms) ? dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockSms : false;
+    var listrakEnableBackInStockEmail = !empty(dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockEmail) ? dw.system.Site.current.preferences.custom.Listrak_EnableBackInStockEmail : false;
+    var listrakBackInStockTerms = ContentMgr.getContent('listrak-back-in-stock-terms');
+    listrakBackInStockTerms = listrakBackInStockTerms && listrakBackInStockTerms.custom.body ? listrakBackInStockTerms.custom.body : '';
+    listrakBackInStockTerms = listrakBackInStockTerms && listrakBackInStockTerms.markup ? listrakBackInStockTerms.markup : '';
+    var listrakBISSubscription = ContentMgr.getContent('listrak-back-in-stock-subscription-checkbox');
+    listrakBISSubscription = listrakBISSubscription && listrakBISSubscription.custom.body ? listrakBISSubscription.custom.body : '';
+    listrakBISSubscription = listrakBISSubscription && listrakBISSubscription.markup ? listrakBISSubscription.markup : '';
+    var listrakBISSubscriptionSMS = ContentMgr.getContent('listrak-back-in-stock-subscription-checkbox-sms');
+    listrakBISSubscriptionSMS = listrakBISSubscriptionSMS && listrakBISSubscriptionSMS.custom.body ? listrakBISSubscriptionSMS.custom.body : '';
+    listrakBISSubscriptionSMS = listrakBISSubscriptionSMS && listrakBISSubscriptionSMS.markup ? listrakBISSubscriptionSMS.markup : '';
 
-    recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
+    recommendedProductTemplate = renderTemplateHelper.getRenderedHtml (
             attributeContext,
             attributeTemplateLinked
-        );
+    );
+
+    if (enableBackInStock && !listrakEnableBackInStockSms && !listrakEnableBackInStockEmail) {
+        backInStockTemplate = 'product/backInStockNotificationForm';
+    } else if (listrakCartridgeEnabled) {
+        if (listrakEnableBackInStockSms || listrakEnableBackInStockEmail) {
+            backInStockTemplate = 'product/listrackBackInstockForm';
+        } else {
+            backInStockTemplate = 'product/backInStockNotificationForm';
+        }
+    } else {
+        backInStockTemplate = 'product/backInStockNotificationForm';
+    }
+
+    backInStockHtml = renderTemplateHelper.getRenderedHtml({product: product}, backInStockTemplate);
+    viewData.backInStockHtml = backInStockHtml;
+    viewData.listrakBackInStockTerms = listrakBackInStockTerms;
+    viewData.listrakBISSubscription = listrakBISSubscription;
+    viewData.listrakBISSubscriptionSMS = listrakBISSubscriptionSMS;
+
+
     res.json({
         recommendedProductTemplate: recommendedProductTemplate
     });

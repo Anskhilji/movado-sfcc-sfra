@@ -1,0 +1,94 @@
+@import '~movado/checkout/checkout';
+@import "checkoutComponents";
+@import "../vars";
+
+body {
+    font-family: $the-futura-font;
+}
+
+.shipping-method-option {
+    font-family: $the-futura-font;
+}
+
+.shipping-method-pricing {
+    font-family: $the-futura-font;
+}
+
+header {
+
+    .checkout-header-wrapper {
+
+        .minicart-link {
+            width: rem(44);
+            height: rem(44);
+            background: url(../../images/shopping-bag.svg) center center no-repeat;
+            top: rem(-14);
+            right: rem(-14);
+
+            @include media-breakpoint-down(lg) {
+                top: 0;
+            }
+        }
+
+        .minicart-quantity { 
+            right: rem(11);
+            top: rem(13);
+            width: rem(4);
+            height: rem(4);
+        }
+
+        .header-left {
+
+            .checkout-text {
+
+                h5 {
+                    align-items: center;
+
+                    &::before {
+                        width: rem(24);
+                        height: rem(24);
+                        background: url(../../images/lock.svg) center center no-repeat;
+                    }
+                }
+            }
+
+            .checkout-logo {
+
+                .logo-checkout-text {
+                    font-family: $the-futura-font;
+                }
+            }
+        }
+    }
+
+    .header-redesign-wrapper2 {
+
+        .checkout-header-wrapper {
+            
+            .minicart-link {
+                top: rem(0);
+            }
+        }
+    }
+}
+
+// Google Autocomplete Address Style -------------------------------
+.pac-container {
+
+    .pac-item {
+        font-family: $the-futura-font;
+
+        .pac-item-query {
+            font-family: $the-futura-font;
+        }
+    }
+}
+
+.checkout-progressbar {
+
+    li {
+        p {
+            font-weight: 400;
+        }
+    }
+}

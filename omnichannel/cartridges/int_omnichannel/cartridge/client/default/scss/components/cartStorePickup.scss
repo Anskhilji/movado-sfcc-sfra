@@ -54,6 +54,10 @@
       align-items: flex-start;
       line-height: rem(20);
 
+      .low-stock {
+          margin-bottom: rem(9) !important; // using !important to override inline css
+      }
+
       &-icon {
         padding: rem(10);
         margin-right: rem(10);

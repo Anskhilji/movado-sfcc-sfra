@@ -1,5 +1,8 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
-<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+<isset name="sitePreferences" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+<isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(sitePreferences.eswProductRestrictionsEnabled) ? sitePreferences.eswProductRestrictionsEnabled : false}" scope="page" />
+<isinclude template="cart/productCard/eswRestrictedProduct" />
 <iscomment> Custom Start: Adding amazonpay and applepay button </iscomment>
 <div class="row checkout-button-wrapper">
     <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
@@ -9,9 +12,9 @@
     <iselse/>
         <isset name="checkoutBtn" value="${Resource.msg('button.esw.checkout', 'cart', null)}" scope="page" /> 
     </isif>
-    <a  href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
+    <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
     <isif condition="${eswHelper.getEShopWorldModuleEnabled() && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != null && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
-        ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
+        ${!empty(pdict.countrySwitch) ? 'disabled' : ''}  ${isEswRestrictedProduct == 'true' ? 'disabled' : ''}"
         role="button" aria-pressed="true">
         ${checkoutBtn}
 

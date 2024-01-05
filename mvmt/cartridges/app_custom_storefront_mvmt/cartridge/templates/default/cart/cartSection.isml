@@ -2,6 +2,8 @@
 <iscontent type="text/html" charset="UTF-8" compact="true" />
 <isset name="itemsLength" value="${pdict.items.length}" scope="page" />
 <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+<isset name="isEswProductRestrictionsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled) ? dw.system.Site.current.preferences.custom.eswProductRestrictionsEnabled : false}" scope="page" />
+
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -23,6 +25,12 @@
     </div>
 </isif>
 
+<isinclude template="common/progressMeter" sf-toolkit="on" />
+
+<isif condition="${!empty(pdict.shopperRecoverySuccess)}">
+    <isinclude template="cart/productCard/cartShopperRecoverySuccess" />
+</isif>
+
 <isif condition="${pdict.cartOptionalProductError}">
     <div class="container cart-error-messaging cart-error mt-2">
         <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
@@ -32,6 +40,10 @@
            ${Resource.msg('cart.optional.product.country.error', 'cart', null)}
         </div>
     </div>
+</isif>
+
+<isif condition="${isEswProductRestrictionsEnabled}">
+    <isinclude template="cart/productCard/eswRestrictedProductErrorAlert" />
 </isif>
 
 <isif condition="${pdict.lastNameError}">
@@ -77,7 +89,6 @@
                 <div class="row hidden-md-down d-none">
                     <a class="continue-shopping" href="${URLUtils.url('Home-Show')}"><img src="${URLUtils.staticURL('/images/cartLeftArrow.svg')}"/>${Resource.msg('link.continue.shopping', 'cart',null)}</a>
                 </div>
-                <isinclude template="cart/cartApproachingDiscount" />
             </isif>
             <isif condition="${itemsLength === 0}">
                 <div class="container my-5 cart-empty order-1 d-none">

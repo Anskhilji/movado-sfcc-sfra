@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <custom-type type-id="SalesChannelFeedConfig">
+        <display-name xml:lang="x-default">Sales Channel Feed Config</display-name>
+        <description xml:lang="x-default">Configurations for Social Sales Channel Feeds</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>organization</storage-scope>
+        <key-definition attribute-id="id">
+            <display-name xml:lang="x-default">ID</display-name>
+            <description xml:lang="x-default">The ID of the feed</description>
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="assignedSites">
+                <display-name xml:lang="x-default">Assigned Sites</display-name>
+                <type>set-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="configuration">
+                <display-name xml:lang="x-default">Configuration</display-name>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="exportCategoryId">
+                <display-name xml:lang="x-default">Export Category ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="feedContext">
+                <display-name xml:lang="x-default">Feed Context</display-name>
+                <type>enum-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">Catalog</display>
+                        <value>Catalog</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="fileEncoding">
+                <display-name xml:lang="x-default">File encoding</display-name>
+                <description xml:lang="x-default">default is UTF-8</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="fileName">
+                <display-name xml:lang="x-default">File name</display-name>
+                <description xml:lang="x-default">The file to export to, the following placeholders are allowed:
+                    {{timestamp format="yyyMMdd"}}</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="folderName">
+                <display-name xml:lang="x-default">Folder name</display-name>
+                <description xml:lang="x-default">The folder to export to, should always start with 'IMPEX/'</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="googleShoppingCategories">
+                <display-name xml:lang="x-default">googleShoppingCategories</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="includeNoPriceProducts">
+                <display-name xml:lang="x-default">Include Products Without Prices</display-name>
+                <description xml:lang="x-default">Only applies in the catalog context</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="includeOfflineProducts">
+                <display-name xml:lang="x-default">Include Offline Products</display-name>
+                <description xml:lang="x-default">Only applies in the catalog context</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="includeOutOfStockProducts">
+                <display-name xml:lang="x-default">Include Out Of Stock Products</display-name>
+                <description xml:lang="x-default">Only applies in the catalog context</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="includeSearchableIfUnavailableProducts">
+                <display-name xml:lang="x-default">Include Searchable if Unavailable Products</display-name>
+                <description xml:lang="x-default">Only applies in the catalog context</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="socialCategory">
+                <display-name xml:lang="x-default">Channel Type</display-name>
+                <type>enum-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Google</display>
+                        <value>SocialChannelGoogle</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Instagram</display>
+                        <value>SocialChannelInstagram</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Snapchat</display>
+                        <value>SocialChannelSnapchat</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">TikTok</display>
+                        <value>SocialChannelTiktok</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="type">
+                <display-name xml:lang="x-default">Type</display-name>
+                <type>enum-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">CSV</display>
+                        <value>CSV</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">XML</display>
+                        <value>XML</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Attributes">
+                <display-name xml:lang="de-DE">Attributes</display-name>
+                <display-name xml:lang="x-default">Attributes</display-name>
+                <attribute attribute-id="id"/>
+                <attribute attribute-id="type"/>
+                <attribute attribute-id="configuration"/>
+                <attribute attribute-id="folderName"/>
+                <attribute attribute-id="fileName"/>
+                <attribute attribute-id="fileEncoding"/>
+                <attribute attribute-id="assignedSites"/>
+                <attribute attribute-id="feedContext"/>
+                <attribute attribute-id="includeSearchableIfUnavailableProducts"/>
+                <attribute attribute-id="includeNoPriceProducts"/>
+                <attribute attribute-id="includeOutOfStockProducts"/>
+                <attribute attribute-id="lastModified" system="true"/>
+                <attribute attribute-id="includeOfflineProducts"/>
+                <attribute attribute-id="creationDate" system="true"/>
+                <attribute attribute-id="googleShoppingCategories"/>
+                <attribute attribute-id="socialCategory"/>
+                <attribute attribute-id="exportCategoryId"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+
+    <custom-type type-id="SocialChannels">
+        <display-name xml:lang="x-default">Social Channels</display-name>
+        <description xml:lang="x-default">Manages Social Integration Channels</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="channel">
+            <display-name xml:lang="x-default">Channel</display-name>
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="acceptTerms">
+                <display-name xml:lang="x-default">Accept Terms</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="accessToken">
+                <display-name xml:lang="x-default">Access Token</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="advertiserAccount">
+                <display-name xml:lang="x-default">Ad Account</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="advertiserId">
+                <display-name xml:lang="x-default">Advertiser ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="appId">
+                <display-name xml:lang="x-default">App ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="appSecret">
+                <display-name xml:lang="x-default">App Secret</display-name>
+                <type>password</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="bcId">
+                <display-name xml:lang="x-default">Business Center ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="bizMngrAccessKeyWebdav">
+                <display-name xml:lang="x-default">Business Manager Access Token (WebDAV)</display-name>
+                <type>password</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="bizMngrUsername">
+                <display-name xml:lang="x-default">Business Manager Username</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="businessManagerId">
+                <display-name xml:lang="x-default">Business Manager ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="catalogId">
+                <display-name xml:lang="x-default">Catalog ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="catalogOverview">
+                <display-name xml:lang="x-default">Catalog Overview</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="commercePartnerIntegrationId">
+                <display-name xml:lang="x-default">Commerce Partner Int. ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="enableAddToCartEvent">
+                <display-name xml:lang="x-default">Enable Add to Cart Event (Cart-AddProduct)</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="enableAdvancedMatchingEmail">
+                <display-name xml:lang="x-default">Enable Advanced Matching Email</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="enableAdvancedMatchingPhone">
+                <display-name xml:lang="x-default">Enable Advanced Matching Phone</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="enableCompletePaymentEvent">
+                <display-name xml:lang="x-default">Enable Complete Payment Event (CheckoutServices-PlaceOrder)</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="enableInitiateCheckoutEvent">
+                <display-name xml:lang="x-default">Enable Initiate Checkout Event (Checkout-Begin)</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="enableProductShowEvent">
+                <display-name xml:lang="x-default">Enable View Content Event (Product-Show)</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="enableTracking">
+                <display-name xml:lang="x-default">Events API Based Tracking</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalBusinessId">
+                <display-name xml:lang="x-default">External Business ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalData">
+                <display-name xml:lang="x-default">External Data</display-name>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalDataKey">
+                <display-name xml:lang="x-default">External Data Key</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="externalData_base64">
+                <display-name xml:lang="x-default">External Data Base 64</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="feedUploadId">
+                <display-name xml:lang="x-default">Feed Upload ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="gmcid">
+                <display-name xml:lang="x-default">Google Merchant Center ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="maxNumberEvents">
+                <display-name xml:lang="x-default">Maximum number of events</display-name>
+                <description xml:lang="x-default">maximum number of events stored in custom objects</description>
+                <type>int</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-value>1.0</min-value>
+                <max-value>300000.0</max-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="orgId">
+                <display-name xml:lang="x-default">Organization ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="pixelCode">
+                <display-name xml:lang="x-default">Pixel Code</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="productFeedId">
+                <display-name xml:lang="x-default">Product Feed ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="refreshToken">
+                <display-name xml:lang="x-default">Refresh Token</display-name>
+                <type>password</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="shopperClientId">
+                <display-name xml:lang="x-default">Shopper API Client ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="shopperClientSecret">
+                <display-name xml:lang="x-default">Shopper API Client Secret</display-name>
+                <type>password</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="shortCode">
+                <display-name xml:lang="x-default">Short Code</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="tikTokShopConnected">
+                <display-name xml:lang="x-default">Is Connected to TikTok Shop?</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="viewContentEventTracking">
+                <display-name xml:lang="x-default">Event Tracking Mode - View Content (Product-Show)</display-name>
+                <description xml:lang="x-default">Determines if view content tracking mode should be a real-time call or queued in a custom object and sent to TikTok via a scheduled job (TikTok-WebEvents-Push)</description>
+                <type>enum-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">Real Time</display>
+                        <value>1</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Queue Events</display>
+                        <value>2</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="webDavClientId">
+                <display-name xml:lang="x-default">WebDAV Client ID</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="webDavClientSecret">
+                <display-name xml:lang="x-default">WebDAV Client Secret</display-name>
+                <type>password</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="system">
+                <display-name xml:lang="x-default">System</display-name>
+                <attribute attribute-id="creationDate" system="true"/>
+                <attribute attribute-id="lastModified" system="true"/>
+            </attribute-group>
+            <attribute-group group-id="channel">
+                <display-name xml:lang="x-default">Channel</display-name>
+                <attribute attribute-id="channel"/>
+            </attribute-group>
+            <attribute-group group-id="credentials">
+                <display-name xml:lang="x-default">Credentials</display-name>
+                <attribute attribute-id="appId"/>
+                <attribute attribute-id="appSecret"/>
+                <attribute attribute-id="bizMngrUsername"/>
+                <attribute attribute-id="bizMngrAccessKeyWebdav"/>
+                <attribute attribute-id="shopperClientId"/>
+                <attribute attribute-id="shopperClientSecret"/>
+                <attribute attribute-id="webDavClientId"/>
+                <attribute attribute-id="webDavClientSecret"/>
+            </attribute-group>
+            <attribute-group group-id="custom">
+                <display-name xml:lang="x-default">Custom</display-name>
+                <attribute attribute-id="acceptTerms"/>
+                <attribute attribute-id="advertiserAccount"/>
+                <attribute attribute-id="advertiserId"/>
+                <attribute attribute-id="bcId"/>
+                <attribute attribute-id="businessManagerId"/>
+                <attribute attribute-id="catalogId"/>
+                <attribute attribute-id="catalogOverview"/>
+                <attribute attribute-id="commercePartnerIntegrationId"/>
+                <attribute attribute-id="externalBusinessId"/>
+                <attribute attribute-id="externalData"/>
+                <attribute attribute-id="externalDataKey"/>
+                <attribute attribute-id="externalData_base64"/>
+                <attribute attribute-id="gmcid"/>
+                <attribute attribute-id="orgId"/>
+                <attribute attribute-id="pixelCode"/>
+                <attribute attribute-id="productFeedId"/>
+                <attribute attribute-id="shortCode"/>
+                <attribute attribute-id="feedUploadId"/>
+                <attribute attribute-id="tikTokShopConnected"/>
+            </attribute-group>
+            <attribute-group group-id="tracking">
+                <display-name xml:lang="x-default">Tracking</display-name>
+                <attribute attribute-id="enableTracking"/>
+                <attribute attribute-id="enableAdvancedMatchingEmail"/>
+                <attribute attribute-id="enableAdvancedMatchingPhone"/>
+                <attribute attribute-id="enableProductShowEvent"/>
+                <attribute attribute-id="viewContentEventTracking"/>
+                <attribute attribute-id="enableAddToCartEvent"/>
+                <attribute attribute-id="enableInitiateCheckoutEvent"/>
+                <attribute attribute-id="enableCompletePaymentEvent"/>
+                <attribute attribute-id="maxNumberEvents"/>
+            </attribute-group>
+            <attribute-group group-id="tokens">
+                <display-name xml:lang="x-default">Tokens</display-name>
+                <attribute attribute-id="accessToken"/>
+                <attribute attribute-id="refreshToken"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+</metadata>
