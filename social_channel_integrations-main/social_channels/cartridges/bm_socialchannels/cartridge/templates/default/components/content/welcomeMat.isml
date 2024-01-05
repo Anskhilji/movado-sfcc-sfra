@@ -1,0 +1,24 @@
+<section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-labelledby="welcome-mat-label" aria-describedby="welcome-mat-content" aria-modal="true">
+    <div class="slds-modal__container">
+        <div class="slds-modal__content" id="welcome-mat-content">
+            <div class="slds-welcome-mat slds-welcome-mat_splash">
+                <div class="slds-welcome-mat__content slds-grid">
+                    <div class="slds-welcome-mat__info slds-size_1-of-1">
+                        <div class="slds-welcome-mat__info-content">
+                            <h2 class="slds-welcome-mat__info-title" id="welcome-mat-label">${pdict.welcomemat_title}</h2>
+                            <div class="slds-welcome-mat__info-description slds-text-longform">
+                                <p><isprint value="${pdict.welcomemat_message}" encoding="off" /></p>
+                            </div>
+                            <isif condition="${pdict.welcomemat_action_url && pdict.welcomemat_action_cta}">
+                                <div class="slds-welcome-mat__info-actions">
+                                    <a href="${pdict.welcomemat_action_url}" class="slds-button slds-button_brand">${pdict.welcomemat_action_cta}</a>
+                                </div>
+                            </isif>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="slds-backdrop slds-backdrop_open"></div>

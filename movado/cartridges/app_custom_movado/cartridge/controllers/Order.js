@@ -385,18 +385,6 @@ server.append('Confirm', function (req, res, next) {
         session.custom.pickupFromStore = false;
     }
 
-    //custom : PulseID engraving
-    if (Site.current.preferences.custom.enablePulseIdEngraving) {
-        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-        pulseIdAPIHelper.setPulseJobID(order);
-
-        if (order.custom.IsPulseIDEngraved == true) {
-            pulseIdAPIHelper.savePulseObj(order.orderNo);
-        }
-    }
-    // custom end
-
-
     //custom Start : MSS-2339-integration-Talkable-Marketing-platform
     var isTalkableEnabled = Site.current.preferences.custom.talkableEnabled || "";
     if (isTalkableEnabled) { 

@@ -43,14 +43,12 @@ function processAdyenCancelledOrders(param) {
             orderID = customObject.custom.orderId.split('-', 1)[0];
             if (!empty(order) && order.status.displayValue === 'FAILED' && resultHandler.status || resultHandler.status === 'SUCCESS' && order.custom.canceledViaAdyenHook == false) {   
                 var sendMail = true;
-                var isJob = true;
                 var refundResponse = hooksHelper(
                     'app.payment.adyen.refund',
                     'refund',
                     order,
                     order.getTotalGrossPrice().value,
                     sendMail,
-                    isJob,
                     require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
                 
                 Transaction.wrap(function () {

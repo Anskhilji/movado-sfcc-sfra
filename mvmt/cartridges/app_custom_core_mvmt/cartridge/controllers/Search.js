@@ -19,29 +19,12 @@ var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
 var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
 
-var marketingProductsData = [];
-
-server.append(
-    'Show',
-    function (req, res, next) {
-        var viewData = res.getViewData();
-        if (viewData.productSearch && viewData.productSearch.category && viewData.productSearch.category.id) {
-            for (var i = 0; i < viewData.productSearch.productIds.length; i++) {
-                var apiProduct = ProductMgr.getProduct(viewData.productSearch.productIds[i].productID);
-                var quantity = 0;
-                if (!empty(apiProduct)) {
-                    marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
-                }
-            }
-            viewData.marketingProductData = JSON.stringify(marketingProductsData);
-            viewData = {
-                relativeURL: URLUtils.url('Search-Show', 'cgid', viewData.productSearch.category.id)
-            };
-        }
-        res.setViewData(viewData);
-        next();
-    }
-);
+var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
+var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+var Resource = require('dw/web/Resource');
+var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
+var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
 
 server.append(
     'ShowContent',
@@ -58,35 +41,28 @@ server.append(
 );
 
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-    var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
-    var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
-    
-    var viewData = res.getViewData();
-
-    var productSearch;
+    var reqQuerystring = req.querystring;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
+
     res.setViewData({
         compareBoxEnabled: compareBoxEnabled,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     });
-    var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
-        && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
+
+    var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with') && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
     var apiProductSearch = new ProductSearchModel();
     var maxSlots = 4;
-    var reportingURLs;
-    var searchRedirect = req.querystring.q
-        ? apiProductSearch.getSearchRedirect(req.querystring.q)
-        : null;
-    var categoryAnalyticsTrackingData;
+    var categoryAnalyticsTrackingData,reportingURLs
+    var searchRedirect = reqQuerystring.q ? apiProductSearch.getSearchRedirect(reqQuerystring.q) : null;
 
     if (searchRedirect) {
         res.redirect(searchRedirect.getLocation());
         return next();
     }
 
-    apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
+    // Set up the search and perform it
+    apiProductSearch = searchHelper.setupSearch(apiProductSearch, reqQuerystring);
     apiProductSearch.search();
-    var categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
+
     var departmentCategoryName = searchCustomHelper.getPlPDepartmentCategory(apiProductSearch);
     if (empty(departmentCategoryName)) {
         departmentCategoryName = req.querystring.q ? stringUtils.removeSingleQuotes(req.querystring.q) : '';
@@ -95,33 +71,35 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         departmentCategoryName: departmentCategoryName
     });
 
+    var categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
     var resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
     var categoryTemplateEyewear = 'search/searchResultsEyewear';
 
-        if (categoryTemplate == categoryTemplateEyewear) {
-            categoryTemplate = '/search/searchResultsEyewear';
-        } else {
-            if (!empty(categoryTemplate) && (categoryTemplate.indexOf('searchResults') > 0)) {
-                categoryTemplate = '/search/searchResults';
-            }
-        }
+    if (categoryTemplate === categoryTemplateEyewear) {
+        categoryTemplate = '/search/searchResultsEyewear';
+    } else if (!empty(categoryTemplate) && categoryTemplate.indexOf('searchResults') > 0) {
+        categoryTemplate = '/search/searchResults';
+    }
 
-    productSearch = new ProductSearch(
+    // Create product search instance
+    var productSearch = new ProductSearch(
         apiProductSearch,
-        req.querystring,
-        req.querystring.srule,
+        reqQuerystring,
+        reqQuerystring.srule,
         CatalogMgr.getSortingOptions(),
         CatalogMgr.getSiteCatalog().getRoot()
     );
 
+    // Set page meta tags
     pageMetaHelper.setPageMetaTags(req.pageMetaData, productSearch);
 
     var refineurl = URLUtils.url('Search-Refinebar');
-    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule','pmid'];
+    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule', 'pmid'];
     var isRefinedSearch = false;
-    Object.keys(req.querystring).forEach(function (element) {
+
+    Object.keys(reqQuerystring).forEach(function (element) {
         if (whitelistedParams.indexOf(element) > -1) {
-            refineurl.append(element, req.querystring[element]);
+            refineurl.append(element, reqQuerystring[element]);
         }
 
         if (['pmin', 'pmax'].indexOf(element) > -1) {
@@ -131,9 +109,9 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         if (element === 'preferences') {
             var i = 1;
             isRefinedSearch = true;
-            Object.keys(req.querystring[element]).forEach(function (preference) {
+            Object.keys(reqQuerystring[element]).forEach(function (preference) {
                 refineurl.append('prefn' + i, preference);
-                refineurl.append('prefv' + i, req.querystring[element][preference]);
+                refineurl.append('prefv' + i, reqQuerystring[element][preference]);
                 i++;
             });
         }
@@ -150,18 +128,19 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         if (productSearch && productSearch.category && productSearch.category.id) {
             var categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(productSearch.category.name);
-            categoryAnalyticsTrackingData = { categoryId: categoryNameWithoutApostrophe };
         } else {
-            var searchQueryWithoutApostrophe = stringUtils.removeSingleQuotes(req.querystring.q);
-            categoryAnalyticsTrackingData = { searchQuery: searchQueryWithoutApostrophe };
+            var searchQueryWithoutApostrophe = stringUtils.removeSingleQuotes(reqQuerystring.q);
         }
-        categoryAnalyticsTrackingData.email = (customer.isAuthenticated() && customer.getProfile()) ? customer.getProfile().getEmail() : '';
+        var email = (customer.isAuthenticated() && customer.getProfile()) ? customer.getProfile().getEmail() : '';
+
+        categoryAnalyticsTrackingData = {
+            categoryId: categoryNameWithoutApostrophe || '',
+            searchQuery: searchQueryWithoutApostrophe || '',
+            email: email,
+        };
     }
 
-    if (
-        productSearch.isCategorySearch
-        && categoryTemplate
-    ) {
+    if (productSearch.isCategorySearch && categoryTemplate) {
         pageMetaHelper.setPageMetaData(req.pageMetaData, productSearch.category);
 
         if (isAjax) {
@@ -203,26 +182,23 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         });
     }
 
-    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-    var Resource = require('dw/web/Resource');
     if (productSearch.category) {
         var categoryId = productSearch.category.id;
-        var breadcrumbs = productHelper.getAllBreadcrumbs(
-            categoryId,
-            null,
-            []
-        );
+        var breadcrumbs = productHelper.getAllBreadcrumbs(categoryId,null,[]);
+
         breadcrumbs.push({
             htmlValue: Resource.msg('label.search.home', 'search', null),
             url: URLUtils.url('Home-Show')
         });
+
         breadcrumbs.reverse();
+
         res.setViewData({
             breadcrumbs: breadcrumbs
         });
     } else if (productSearch.searchKeywords) {
         var facetNav = false;
-        if (req.querystring.pmin || req.querystring.prefn1) {
+        if (reqQuerystring.pmin || reqQuerystring.prefn1) {
             facetNav = true;
         }
 
@@ -248,6 +224,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             var reqStr = req.querystring;
             reqStr.startingPage = 0;
             var contentSearch = searchHelper.setupContentSearch(reqStr);
+            
             res.setViewData({
                 breadcrumbs: breadcrumb,
                 contentSearch: contentSearch,
@@ -256,25 +233,23 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         }
     }
     
-    try {
-        var viewData = res.getViewData();
-        var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
-        var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+    if (Site.current.getCustomPreferenceValue('isReviewsEnableOnPlp')) {
+        try {
+            var viewData = res.getViewData();
+            var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
-        if (yotpoConfig.isCartridgeEnabled) {
-            session.custom.yotpoConfig = yotpoConfig;
+            if (yotpoConfig.isCartridgeEnabled) {
+                session.custom.yotpoConfig = yotpoConfig;
+            }
+        } catch (ex) {
+            YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews configuration data, Exception code is: ' + ex, 'error', 'Yotpo~Search-Show');
         }
-    } catch (ex) {
-        var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
-        YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews configuration data, Exception code is: ' + ex, 'error', 'Yotpo~Search-Show');
     }
 
     return next();
 }, pageMetaData.computedPageMetaData);
 
 server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, res, next) {
-    var ProductMgr = require('dw/catalog/ProductMgr');
-    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var productGridTemplate = '/search/productGrid';
     var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
@@ -298,14 +273,6 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
     );
 
     if (productSearch && productSearch.category && productSearch.category.id) {
-        for (var i = 0; i < productSearch.productIds.length; i++) {
-            apiProduct = ProductMgr.getProduct(productSearch.productIds[i].productID);
-            marketingProduct = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
-            if (marketingProduct !== null) {
-                marketingProductsData.push(marketingProduct);
-            }
-        }
-        marketingProductData = JSON.stringify(marketingProductsData);
         isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
         isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
         isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
@@ -318,10 +285,39 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
         marketingProductData: marketingProductData,
         isEnableSingleProductRow: isEnableSingleProductRow,
         isEyewearTile: isEyewearTile,
-        isNonWatchesTileEnable: isNonWatchesTileEnable
+        marketingProductUrl : URLUtils.url('Search-GetMarketingProducts', 'productSearch', JSON.stringify(productSearch.productIds))
     });
 
     next();
 });
+
+server.get(
+    'GetMarketingProducts',
+    server.middleware.https,
+    function (req, res, next) { 
+        var ProductMgr = require('dw/catalog/ProductMgr');
+        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+
+        var productSearch = JSON.parse(req.querystring.productSearch);
+        var quantity = 0;
+        var marketingProductsData = [];
+        var marketingProduct,marketingProductData;
+
+        for (var i = 0; i < productSearch.productIds.length; i++) {
+            var productID = productSearch.productIds[i].productID;
+            var apiProduct = ProductMgr.getProduct(productID);
+            marketingProduct = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
+            if (marketingProduct !== null) {
+                marketingProductsData.push(marketingProduct);
+            }
+        }
+        marketingProductData = JSON.stringify(marketingProductsData);
+
+        res.json({
+            marketingProductData: marketingProductData
+        });
+
+        next();
+    });
 
 module.exports = server.exports();

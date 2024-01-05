@@ -1,0 +1,24 @@
+{
+    "hooks": [        
+        {
+            "name": "app.order.return.processReturn",
+            "script": "./cartridge/scripts/hooks/orderReturn.js"
+        },   
+        {
+            "name": "app.order.return.processReturnOrder",
+            "script": "./cartridge/scripts/hooks/orderReturn.js"
+        },             
+        {
+            "name": "app.order.cancel.processCancel",
+            "script": "./cartridge/scripts/hooks/orderCancel.js"
+        },
+        {
+            "name": "app.order.cancel.processCancelOrder",
+            "script": "./cartridge/scripts/hooks/orderCancel.js"
+        },
+        {
+            "name": "app.order.refund.processRefundOrder",
+            "script": "./cartridge/scripts/hooks/orderRefund.js"
+        }                
+    ]
+}

@@ -735,6 +735,8 @@ header {
 
 
             &.is-valid,&.auto-is-valid {
+                background-image: none !important;
+
                 @include green-tick-image;
                 @include background-postion(33);
 
@@ -757,6 +759,7 @@ header {
 
                 &.is-valid,
                 &.auto-is-valid {
+                    background-image: none !important;
 
                     & ~ .validation-icon {
                         @include media-breakpoint-down(sm) {

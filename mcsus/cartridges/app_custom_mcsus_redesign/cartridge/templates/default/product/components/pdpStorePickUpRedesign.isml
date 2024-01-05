@@ -8,7 +8,6 @@
 <isset name="lowStockThreshold" value="${!empty(sitePref.lowStockThreshold) ? sitePref.lowStockThreshold : 0}" scope="page" />
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="col-sm-6 pdp-store-pickup-inventory">
-    <div class="pdp-store-pickup-display-inline-block-inventory-icon ${pdict.store.productATSValue && lowStockThreshold && pdict.store.productATSValue <= lowStockThreshold ? 'd-none' : ''}"></div>  
     <div class="pdp-store-pickup-display-inline-block-delevery">
         <isif condition="${lowStockMessageEnabled && lowStockThreshold}">
             <isif condition="${pdict.store.productATSValue <= lowStockThreshold}">
@@ -21,11 +20,9 @@
                 <h3 class="low-stock-message d-none">
                     <iscontentasset aid="ca-low-stock-message" />
                 </h3>
-                <h3 class="pick-up-store-stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'storePickUp', null)}</h3>
                 <p class="pick-up-store-openings">${pickupStoreOpenDays || ''}</p>
             </isif>
         <iselse/>
-            <h3 class="pick-up-store-stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'storePickUp', null)}</h3>
             <p class="pick-up-store-openings">${pickupStoreOpenDays || ''}</p>
         </isif>
           

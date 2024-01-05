@@ -24,37 +24,6 @@ function formatDateTimeISO_8601(date) {
 }
 
 /**
- * This method is used to format the Calendar object according to the specified date format.
- * @param {dw.util.Calendar} unformattedDate - Calendar object of unformated date
- * @returns {string} formated date include day and month name e.g. 2020-01-13
- */
-function getFormattedDate(unformattedDate) {
-    return StringUtils.formatCalendar(unformattedDate, Constants.YEAR_MONTH_DATE_PATTERN);
-}
-
-/**
- * This method is used to subtract specified number of days from current date
- * @param {Number} a number to subtract days from the date.
- * @returns {dw.util.Calendar} a calendar object after subtracting the specified number of days from current date.
- */
-function subtractDaysFromDate(noOfDaysToSubtract) {
-    var calendar = new Calendar();
-    var date = new Date();
-    date.setHours(0);
-    date.setMinutes(0);
-    date.setSeconds(0);
-    calendar.setTime(date);
-
-    if (noOfDaysToSubtract === 0) {
-        return calendar;
-    }
-
-    noOfDaysToSubtract = noOfDaysToSubtract ? noOfDaysToSubtract : 0;
-    calendar.add(calendar.DAY_OF_MONTH, -(noOfDaysToSubtract));
-    return calendar;
-}
-
-/**
  * This method is used to get pricebook id of a specifed currency
  * @param {String} a currency code.
  * @returns {String} Pricebook id.
@@ -88,8 +57,6 @@ function getProductPrice(product, currencyCode) {
 }
 
 module.exports = {
-    getFormattedDate: getFormattedDate,
-    subtractDaysFromDate : subtractDaysFromDate,
     getPriceBookId: getPriceBookId,
     getProductPrice: getProductPrice,
     formatDateTimeISO_8601:formatDateTimeISO_8601

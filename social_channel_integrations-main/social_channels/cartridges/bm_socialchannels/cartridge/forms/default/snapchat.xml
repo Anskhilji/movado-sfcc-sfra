@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19" secure="false">
+    <field formid="appId" type="string" mandatory="true" min-length="25" max-length="50" missing-error="error.missing.appid" range-error="error.message.appid.between25and50" />
+    <field formid="appSecret" type="string" mandatory="true" min-length="25" max-length="50" missing-error="error.missing.appsecret" range-error="error.message.appsecret.between25and50" />
+
+    <field formid="bizMngrUsername" type="string" />
+    <field formid="bizMngrAccessKeyWebdav" type="string" />
+    <field formid="webDavClientId" type="string" />
+    <field formid="webDavClientSecret" type="string" />
+    <field formid="shopperClientId" type="string" />
+    <field formid="shopperClientSecret" type="string" />
+    <field formid="orgId" type="string" />
+    <field formid="shortCode" type="string" />
+
+    <field formid="catalogName" type="string" />
+    <field formid="catalogCurrencyCode" type="string" default-value="USD">
+        <options>
+            <option optionid="" label="Select Currency" value=""/>
+            <option optionid="AED" label="AED" value="AED" />
+            <option optionid="AFN" label="AFN" value="AFN" />
+            <option optionid="ALL" label="ALL" value="ALL" />
+            <option optionid="AMD" label="AMD" value="AMD" />
+            <option optionid="ANG" label="ANG" value="ANG" />
+            <option optionid="AOA" label="AOA" value="AOA" />
+            <option optionid="ARS" label="ARS" value="ARS" />
+            <option optionid="AUD" label="AUD" value="AUD" />
+            <option optionid="AWG" label="AWG" value="AWG" />
+            <option optionid="AZN" label="AZN" value="AZN" />
+            <option optionid="BAM" label="BAM" value="BAM" />
+            <option optionid="BBD" label="BBD" value="BBD" />
+            <option optionid="BDT" label="BDT" value="BDT" />
+            <option optionid="BGN" label="BGN" value="BGN" />
+            <option optionid="BHD" label="BHD" value="BHD" />
+            <option optionid="BIF" label="BIF" value="BIF" />
+            <option optionid="BMD" label="BMD" value="BMD" />
+            <option optionid="BND" label="BND" value="BND" />
+            <option optionid="BOB" label="BOB" value="BOB" />
+            <option optionid="BOV" label="BOV" value="BOV" />
+            <option optionid="BRL" label="BRL" value="BRL" />
+            <option optionid="BSD" label="BSD" value="BSD" />
+            <option optionid="BTN" label="BTN" value="BTN" />
+            <option optionid="BWP" label="BWP" value="BWP" />
+            <option optionid="BYN" label="BYN" value="BYN" />
+            <option optionid="BZD" label="BZD" value="BZD" />
+            <option optionid="CAD" label="CAD" value="CAD" />
+            <option optionid="CDF" label="CDF" value="CDF" />
+            <option optionid="CHE" label="CHE" value="CHE" />
+            <option optionid="CHF" label="CHF" value="CHF" />
+            <option optionid="CHW" label="CHW" value="CHW" />
+            <option optionid="CLF" label="CLF" value="CLF" />
+            <option optionid="CLP" label="CLP" value="CLP" />
+            <option optionid="CNY" label="CNY" value="CNY" />
+            <option optionid="COP" label="COP" value="COP" />
+            <option optionid="COU" label="COU" value="COU" />
+            <option optionid="CRC" label="CRC" value="CRC" />
+            <option optionid="CUC" label="CUC" value="CUC" />
+            <option optionid="CUP" label="CUP" value="CUP" />
+            <option optionid="CVE" label="CVE" value="CVE" />
+            <option optionid="CZK" label="CZK" value="CZK" />
+            <option optionid="DJF" label="DJF" value="DJF" />
+            <option optionid="DKK" label="DKK" value="DKK" />
+            <option optionid="DOP" label="DOP" value="DOP" />
+            <option optionid="DZD" label="DZD" value="DZD" />
+            <option optionid="EGP" label="EGP" value="EGP" />
+            <option optionid="ERN" label="ERN" value="ERN" />
+            <option optionid="ETB" label="ETB" value="ETB" />
+            <option optionid="EUR" label="EUR" value="EUR" />
+            <option optionid="FJD" label="FJD" value="FJD" />
+            <option optionid="FKP" label="FKP" value="FKP" />
+            <option optionid="GBP" label="GBP" value="GBP" />
+            <option optionid="GEL" label="GEL" value="GEL" />
+            <option optionid="GHS" label="GHS" value="GHS" />
+            <option optionid="GIP" label="GIP" value="GIP" />
+            <option optionid="GMD" label="GMD" value="GMD" />
+            <option optionid="GNF" label="GNF" value="GNF" />
+            <option optionid="GTQ" label="GTQ" value="GTQ" />
+            <option optionid="GYD" label="GYD" value="GYD" />
+            <option optionid="HKD" label="HKD" value="HKD" />
+            <option optionid="HNL" label="HNL" value="HNL" />
+            <option optionid="HRK" label="HRK" value="HRK" />
+            <option optionid="HTG" label="HTG" value="HTG" />
+            <option optionid="HUF" label="HUF" value="HUF" />
+            <option optionid="IDR" label="IDR" value="IDR" />
+            <option optionid="ILS" label="ILS" value="ILS" />
+            <option optionid="INR" label="INR" value="INR" />
+            <option optionid="IQD" label="IQD" value="IQD" />
+            <option optionid="IRR" label="IRR" value="IRR" />
+            <option optionid="ISK" label="ISK" value="ISK" />
+            <option optionid="JMD" label="JMD" value="JMD" />
+            <option optionid="JOD" label="JOD" value="JOD" />
+            <option optionid="JPY" label="JPY" value="JPY" />
+            <option optionid="KES" label="KES" value="KES" />
+            <option optionid="KGS" label="KGS" value="KGS" />
+            <option optionid="KHR" label="KHR" value="KHR" />
+            <option optionid="KMF" label="KMF" value="KMF" />
+            <option optionid="KPW" label="KPW" value="KPW" />
+            <option optionid="KRW" label="KRW" value="KRW" />
+            <option optionid="KWD" label="KWD" value="KWD" />
+            <option optionid="KYD" label="KYD" value="KYD" />
+            <option optionid="KZT" label="KZT" value="KZT" />
+            <option optionid="LAK" label="LAK" value="LAK" />
+            <option optionid="LBP" label="LBP" value="LBP" />
+            <option optionid="LKR" label="LKR" value="LKR" />
+            <option optionid="LRD" label="LRD" value="LRD" />
+            <option optionid="LSL" label="LSL" value="LSL" />
+            <option optionid="LYD" label="LYD" value="LYD" />
+            <option optionid="MAD" label="MAD" value="MAD" />
+            <option optionid="MDL" label="MDL" value="MDL" />
+            <option optionid="MGA" label="MGA" value="MGA" />
+            <option optionid="MKD" label="MKD" value="MKD" />
+            <option optionid="MMK" label="MMK" value="MMK" />
+            <option optionid="MNT" label="MNT" value="MNT" />
+            <option optionid="MOP" label="MOP" value="MOP" />
+            <option optionid="MRU" label="MRU" value="MRU" />
+            <option optionid="MUR" label="MUR" value="MUR" />
+            <option optionid="MVR" label="MVR" value="MVR" />
+            <option optionid="MWK" label="MWK" value="MWK" />
+            <option optionid="MXN" label="MXN" value="MXN" />
+            <option optionid="MXV" label="MXV" value="MXV" />
+            <option optionid="MYR" label="MYR" value="MYR" />
+            <option optionid="MZN" label="MZN" value="MZN" />
+            <option optionid="NAD" label="NAD" value="NAD" />
+            <option optionid="NGN" label="NGN" value="NGN" />
+            <option optionid="NIO" label="NIO" value="NIO" />
+            <option optionid="NOK" label="NOK" value="NOK" />
+            <option optionid="NPR" label="NPR" value="NPR" />
+            <option optionid="NZD" label="NZD" value="NZD" />
+            <option optionid="OMR" label="OMR" value="OMR" />
+            <option optionid="PAB" label="PAB" value="PAB" />
+            <option optionid="PEN" label="PEN" value="PEN" />
+            <option optionid="PGK" label="PGK" value="PGK" />
+            <option optionid="PHP" label="PHP" value="PHP" />
+            <option optionid="PKR" label="PKR" value="PKR" />
+            <option optionid="PLN" label="PLN" value="PLN" />
+            <option optionid="PYG" label="PYG" value="PYG" />
+            <option optionid="QAR" label="QAR" value="QAR" />
+            <option optionid="RON" label="RON" value="RON" />
+            <option optionid="RSD" label="RSD" value="RSD" />
+            <option optionid="RUB" label="RUB" value="RUB" />
+            <option optionid="RWF" label="RWF" value="RWF" />
+            <option optionid="SAR" label="SAR" value="SAR" />
+            <option optionid="SBD" label="SBD" value="SBD" />
+            <option optionid="SCR" label="SCR" value="SCR" />
+            <option optionid="SDG" label="SDG" value="SDG" />
+            <option optionid="SEK" label="SEK" value="SEK" />
+            <option optionid="SGD" label="SGD" value="SGD" />
+            <option optionid="SHP" label="SHP" value="SHP" />
+            <option optionid="SLL" label="SLL" value="SLL" />
+            <option optionid="SOS" label="SOS" value="SOS" />
+            <option optionid="SRD" label="SRD" value="SRD" />
+            <option optionid="SSP" label="SSP" value="SSP" />
+            <option optionid="STN" label="STN" value="STN" />
+            <option optionid="SVC" label="SVC" value="SVC" />
+            <option optionid="SYP" label="SYP" value="SYP" />
+            <option optionid="SZL" label="SZL" value="SZL" />
+            <option optionid="THB" label="THB" value="THB" />
+            <option optionid="TJS" label="TJS" value="TJS" />
+            <option optionid="TMT" label="TMT" value="TMT" />
+            <option optionid="TND" label="TND" value="TND" />
+            <option optionid="TOP" label="TOP" value="TOP" />
+            <option optionid="TRY" label="TRY" value="TRY" />
+            <option optionid="TTD" label="TTD" value="TTD" />
+            <option optionid="TWD" label="TWD" value="TWD" />
+            <option optionid="TZS" label="TZS" value="TZS" />
+            <option optionid="UAH" label="UAH" value="UAH" />
+            <option optionid="UGX" label="UGX" value="UGX" />
+            <option optionid="USD" label="USD" value="USD" />
+            <option optionid="USN" label="USN" value="USN" />
+            <option optionid="UYI" label="UYI" value="UYI" />
+            <option optionid="UYU" label="UYU" value="UYU" />
+            <option optionid="UYW" label="UYW" value="UYW" />
+            <option optionid="UZS" label="UZS" value="UZS" />
+            <option optionid="VES" label="VES" value="VES" />
+            <option optionid="VND" label="VND" value="VND" />
+            <option optionid="VUV" label="VUV" value="VUV" />
+            <option optionid="WST" label="WST" value="WST" />
+            <option optionid="XAF" label="XAF" value="XAF" />
+            <option optionid="XBC" label="XBC" value="XBC" />
+            <option optionid="XCD" label="XCD" value="XCD" />
+            <option optionid="XOF" label="XOF" value="XOF" />
+            <option optionid="XPF" label="XPF" value="XPF" />
+            <option optionid="XSU" label="XSU" value="XSU" />
+            <option optionid="XUA" label="XUA" value="XUA" />
+            <option optionid="YER" label="YER" value="YER" />
+            <option optionid="ZAR" label="ZAR" value="ZAR" />
+            <option optionid="ZMW" label="ZMW" value="ZMW" />
+            <option optionid="ZWL" label="ZWL" value="ZWL" />
+        </options>
+    </field>
+    <field formid="productFeedName" type="string" />
+
+    <field formid="snapOrgId" type="string">
+        <options optionid-binding="value" value-binding="value" label-binding="label" />
+    </field>
+    <field formid="snapAdAccountId" type="string">
+        <options optionid-binding="value" value-binding="value" label-binding="label">
+            <option optionid="" label="Select Ad Account" value=""/>
+        </options>
+    </field>
+    <field formid="snapPixelId" type="string">
+        <options optionid-binding="value" value-binding="value" label-binding="label">
+            <option optionid="" label="Select Pixel" value=""/>
+        </options>
+    </field>
+    <field formid="snapCatalogId" type="string">
+        <options optionid-binding="value" value-binding="value" label-binding="label">
+            <option optionid="" label="Select Catalog" value=""/>
+        </options>
+    </field>
+    <field formid="snapProductFeedId" type="string">
+        <options optionid-binding="value" value-binding="value" label-binding="label">
+            <option optionid="" label="Select Product Feed" value=""/>
+        </options>
+    </field>
+
+    <action formid="submit" valid-form="true" />
+    <action formid="accept" valid-form="false" />
+</form>

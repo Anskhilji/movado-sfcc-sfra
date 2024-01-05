@@ -140,7 +140,9 @@ function getResources(pageContext) {
         APPLEPAY_BUTTON_LABEL: Resource.msg('label.button.applepay', 'common', null),
         GOOGLEPAY_BUTTON_LABEL: Resource.msg('label.button.googlepay', 'common', null),
         ENGRAVING_PROFANE_ERROR_MESSAGE: Resource.msg('engraving.profane.error.message', 'product', null),
-        BAD_WORDS_LIST: badWordsList
+        BAD_WORDS_LIST: badWordsList,
+        READ_MORE_TEXT: Resource.msg('read.more.text', 'product', null),
+        SHOW_LESS_TEXT: Resource.msg('show.less.text', 'product', null)
     };
     return resources;
 }

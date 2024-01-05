@@ -181,6 +181,22 @@ header {
     }
 }
 
+.plp-new-design {
+
+    .aruliden-carousel {
+    
+        .row {
+    
+            .col-12,.product {
+    
+                @include media-breakpoint-down(sm) {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+
 .aruliden-carousel {
     padding: rem(0) rem(48) rem(118);
 
@@ -192,6 +208,7 @@ header {
 
         &.cs-carousel-update {
             margin-bottom: rem(0);
+            margin-inline: 0;
 
             @include media-breakpoint-down(sm) {
                 margin-top: rem(44);
@@ -239,6 +256,7 @@ header {
                         
                         &.draggable {
                             margin: rem(0) rem(-3);
+                            padding: 0 !important; //i'm using important to overwrite inline css
 
                             .slick-slide {
                                 margin: rem(0) rem(3);
@@ -303,7 +321,9 @@ header {
                 }
 
                 .aruliden-prev,
+                .aruliden-left-arrow,
                 .aruliden-next,
+                .aruliden-right-arrow,
                 .youMayLike-prev,
                 .youMayLike-next {
                     opacity: 0;
