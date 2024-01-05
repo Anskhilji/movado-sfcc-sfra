@@ -306,6 +306,33 @@ header {
     }
 }
 
+// sticky-search-header
+header {
+
+  &.sticky-search-header {
+    
+    .sticky-header-placeholder {
+      
+      @include media-breakpoint-down(sm) {
+        height: rem(105);
+      }
+    }
+    
+    nav {
+
+      .sticky-header-wrapper {
+
+        .sticky-header-placeholder {
+
+          @include media-breakpoint-down(xs) {
+            height: rem(120);
+          }
+        }
+      }
+    }
+  }
+}
+
 // old header style
 .header-banner {
   background-color: $grey14;
