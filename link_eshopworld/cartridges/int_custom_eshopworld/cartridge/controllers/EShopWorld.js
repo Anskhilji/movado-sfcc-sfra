@@ -186,6 +186,9 @@ server.append('GetEswLandingPage', function (req, res, next) {
 });
 
 server.append('NotifyV2', function(req, res, next) {
+
+    var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
+
     // Custom Start: [MSS-1642 Call Facebook Api after ESW Conversion]
     var isFacebookConversionAPIEnabled = !empty(Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled')) ? Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled') : false;
     // Custom End
@@ -215,6 +218,23 @@ server.append('NotifyV2', function(req, res, next) {
         }
     }
     // End Salesforce Order Management
+    
+    /**
+     * Custom Start: Adding preOrder Logic for eShop World
+    */
+
+    //Check if order includes Pre-Order item
+    var isPreOrder = orderCustomHelpers.isPreOrder(order);
+
+    //Set order custom attribute if there is any pre-order item exists in order
+    if (isPreOrder) {
+        Transaction.wrap(function () {
+            order.custom.isPreorder = isPreOrder;
+        });
+    }
+    /**
+     * Custom End:
+    */
 
     var emailOptIn = !empty(obj.shopperCheckoutExperience.emailMarketingOptIn) ? obj.shopperCheckoutExperience.emailMarketingOptIn : false;
     if (emailOptIn) {

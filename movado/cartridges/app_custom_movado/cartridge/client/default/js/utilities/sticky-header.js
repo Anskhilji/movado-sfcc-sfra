@@ -18,7 +18,7 @@
             var prevOffset = $thisInstance.prev(opts.stickyPlaceholder).length ? $thisInstance.prev(opts.stickyPlaceholder).offset().top : 0;
             var top = parseInt(prevOffset - opts.offsetTop),
                 scroll = parseInt(opts.$stickyParent.scrollTop());
-            if (scroll > 0 && parseInt(opts.$stickyParent.scrollTop()) >= top) {
+            if (scroll > 0) {
                 $thisInstance.addClass('sticky-header').css({
                     top: 0 + (opts.offsetTop || 0)
                 });

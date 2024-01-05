@@ -35,6 +35,7 @@ server.replace(
         var token = req.querystring.token ? req.querystring.token : null;
         var userIPAddress = request.httpRemoteAddress || '';
         var currencyCode = order.getCurrencyCode();
+        var isClydePromotionPriceEnabled = !empty(Site.current.preferences.custom.isPromotionalPrice) ? Site.current.preferences.custom.isPromotionalPrice : false;
 
         if (!order
             || !token
@@ -89,7 +90,11 @@ server.replace(
             Transaction.wrap(function () {
                 if (productLineItem instanceof dw.order.ProductLineItem &&
                     !productLineItem.bonusProductLineItem && !productLineItem.optionID && !productLineItem.bundledProductLineItem) {
-                    productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                    if (isClydePromotionPriceEnabled) {
+                        productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                    } else {
+                        productLineItem.custom.ClydeProductUnitPrice = productLineItem.basePrice.decimalValue ? productLineItem.basePrice.decimalValue : '';    
+                    }
                 }
 
                 if (!empty(optionProductLineItem)) {
@@ -380,13 +385,16 @@ server.append('Confirm', function (req, res, next) {
         session.custom.pickupFromStore = false;
     }
 
-    //custom : PulseID engraving
-    if (Site.current.preferences.custom.enablePulseIdEngraving) {
-        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-        pulseIdAPIHelper.setPulseJobID(order);
-
-        if (order.custom.IsPulseIDEngraved == true) {
-            pulseIdAPIHelper.savePulseObj(order.orderNo);
+    //custom Start : MSS-2339-integration-Talkable-Marketing-platform
+    var isTalkableEnabled = Site.current.preferences.custom.talkableEnabled || "";
+    if (isTalkableEnabled) { 
+        var talkableHelper = require("*/cartridge/scripts/talkable/libTalkable");
+        var talkable = new talkableHelper.TalkableHelper();
+        viewData.isPostCheckoutEnabled = talkable.isPostCheckoutEnabled();
+        viewData.talkableSiteId = talkable.getSiteId();
+        if (!empty(viewData.order)) {
+            viewData.recentOrder = OrderMgr.getOrder(viewData.order.orderNumber);
+            viewData.talkableData = talkable.getPurchaseData(viewData.recentOrder);
         }
     }
     // custom end

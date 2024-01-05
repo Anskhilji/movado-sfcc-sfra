@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                             </isif>
-                                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'isPLP', true, 'isTopSearch', true)}" />
+                                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'isPLP', true, 'isTopSearch', true, 'lazyload', true)}" />
                             <isif condition="${counter >= 3}">
                                 <isbreak/>
                             </isif>

@@ -62,7 +62,7 @@ server.replace('GetSuggestions', cache.applyDefaultCache, function (req, res, ne
         }
 
         // Custom Start: A/B Test for Header Redesign
-        if (ABTestMgr.isParticipant('MCSHeaderRedesign', 'render-new-design')) {
+        if (session.privacy.isMcsHeaderNewDesign) {
             suggestionsTemplate = 'search/suggestions';
         } else {
             suggestionsTemplate = 'search/old/suggestions';

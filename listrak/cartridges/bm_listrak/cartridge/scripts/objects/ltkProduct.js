@@ -162,7 +162,7 @@ ltkProduct.prototype.LoadProduct = function (product) {
     this.inStock = this.QOH !== 0;
     this.getAttributes(product);
      // Custom Start: Adding product sale info [MSS-1473]
-     this.onSale = this.getSaleInfo(product);
+     this.onSale = this.getSalePriceInfo(product).onSale;
      // Custom End:
  
      // Custom Start: Adding Catagory value [MSS-1473]
@@ -170,7 +170,7 @@ ltkProduct.prototype.LoadProduct = function (product) {
      // Custom End
 
      // Custom Start: [MSS-1690 Adding Product Sale Price Information]
-    this.salePrice = this.getSalePriceInfo(product);
+    this.salePrice = this.getSalePriceInfo(product).salePrice;
     // Custom End:
 
     // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
@@ -352,22 +352,6 @@ ltkProduct.prototype.getCategory = function () {
     }
 };
 
-// Custom Start: Get Product Sales Info [MSS-1473]
-ltkProduct.prototype.getSaleInfo = function (product) {
-
-    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
-    var onSale = false;
-    while (PromotionIt.hasNext()) {
-        var promo = PromotionIt.next();
-        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
-            onSale = true;
-            break;
-        }
-    }
-    return onSale;
-}
-// Custom End
-
 // Custom Start: Get the product categories [MSS-1473]
 ltkProduct.prototype.getCategoriesValue = function (product) {
     var categoriesIt = product.getOnlineCategories().iterator();
@@ -396,13 +380,14 @@ ltkProduct.prototype.getCategoriesValue = function (product) {
 }
 // Custom End
 
-// Custom Start: [MSS-1690 Get Product Sale Price Information]
+// Custom Start: [MSS-1690, MSS-2484 Get Product Sale Price and On Sale Information]
 ltkProduct.prototype.getSalePriceInfo = function (product) {
     var Money = require('dw/value/Money');
     var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
     var promotionalPrice = Money.NOT_AVAILABLE;
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
     var salePrice = '';
+    var onSale = false;
 
     while (PromotionItr.hasNext()) {
         var promo = PromotionItr.next();
@@ -424,11 +409,20 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
         }
     }
 
-    if (promotionalPrice && promotionalPrice.available) {
-        salePrice = promotionalPrice.decimalValue.toString();
+    var priceModel = product.getPriceModel();
+    if (priceModel)	{
+        price = priceModel.getMinPrice();
     }
 
-    return salePrice;
+    if (promotionalPrice && promotionalPrice.available && promotionalPrice < price) {
+        salePrice = promotionalPrice.decimalValue.toString();
+        onSale = true;
+    }
+
+    return {
+        salePrice: salePrice,
+        onSale : onSale
+    };
 }
 // Custom End:
 
@@ -554,10 +548,12 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
                 productCategory = product.categories[i];
                 percentProductCategory = productCategory.displayName;
                 percentResult = percentProductCategory ? percentProductCategory.indexOf("%") : '';
+
                 if (percentResult > -1) {
                     specifiedMeta4 = productCategory.displayName;
                     continue;
                 }
+
                 while (productCategory.parent != null) {
                     if (productCategory.parent.topLevel === true) {
                         for (var j = 0; j < getConfiguredCategories.length; j++) {
@@ -575,10 +571,10 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
                         break;
                     }
                     productCategory = productCategory.parent;
-                }
-                specifiedCategories.specifiedMeta4 = specifiedMeta4;
-                specifiedCategories.specifiedMeta5 = specifiedMeta5;
+                } 
             }
+            specifiedCategories.specifiedMeta4 = specifiedMeta4;
+            specifiedCategories.specifiedMeta5 = specifiedMeta5;
         }
         return specifiedCategories;
     } catch (error) {

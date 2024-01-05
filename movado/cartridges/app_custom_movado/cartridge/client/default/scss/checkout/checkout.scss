@@ -735,11 +735,37 @@ header {
 
 
             &.is-valid,&.auto-is-valid {
+                background-image: none !important;
+
                 @include green-tick-image;
                 @include background-postion(33);
 
                 @include media-breakpoint-down(sm) {
                     @include background-postion(14);
+                }
+            }
+
+            &.custom-select {
+
+                &.is-invalid,
+                &.auto-is-invalid {
+
+                    & ~ .validation-icon {
+                        @include media-breakpoint-down(sm) {
+                            right: rem(33);
+                        }
+                    }
+                }
+
+                &.is-valid,
+                &.auto-is-valid {
+                    background-image: none !important;
+
+                    & ~ .validation-icon {
+                        @include media-breakpoint-down(sm) {
+                            right: rem(33);
+                        }
+                    }
                 }
             }
         }

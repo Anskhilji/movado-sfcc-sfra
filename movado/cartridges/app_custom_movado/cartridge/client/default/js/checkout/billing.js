@@ -308,6 +308,9 @@ module.exports = {
             if (optionID === 'new') {
           // Show Address
                 $(form).attr('data-address-mode', 'new');
+                $('.shippingAddressId').val('');
+                $('.billing-form input, .billing-form select').removeClass('is-valid auto-is-valid is-invalid auto-is-invalid');
+                $('.billing-form .field-label-wrapper').removeClass('input-has-value');
             } else {
           // Hide Address
                 $(form).attr('data-address-mode', 'shipment');

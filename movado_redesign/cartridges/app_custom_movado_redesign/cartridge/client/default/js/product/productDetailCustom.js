@@ -1,6 +1,8 @@
 'use strict';
 var mediumWidth = 992;
 var $zoomSlick = true;
+var $applePayButtonLabel = window.Resources.APPLEPAY_BUTTON_LABEL;
+var $googlePayButtonLabel = window.Resources.GOOGLEPAY_BUTTON_LABEL;
 
 function copyText() {
     var $text = $('.promotions .promo-icon .icon').text();
@@ -473,33 +475,39 @@ $(document).ready(function () {
     }
     
     showMoreDescription();
-});
 
-function countNumberOfLines() {
-    var $productDescription = $('.product-aruliden-sec .product-description p');
-    var $divHeight = $productDescription.height();
-    var $lineHeight = parseInt($productDescription.css('line-height'), 10);
-    var $numberOfLines = Math.round($divHeight / $lineHeight);
-    return $numberOfLines;
-}
+    setTimeout(function() {
+        $('.apple-pay-pdp').attr('aria-label', $applePayButtonLabel);
+        $('.gpay-button').attr('aria-label', $googlePayButtonLabel);
+    }, 2000);
+});
 
 // Custom Start: [MSS-2360 To Show/Hide More Short Description on PDP]
 function showMoreDescription() {
-    var $lessText = ' show less';
-    var $moreText = ' Read More';
-    var $numberOfLines = countNumberOfLines();
-    var $showChar = 245;
-
+    var $lessText = window.Resources.SHOW_LESS_TEXT;
+    var $moreText = window.Resources.READ_MORE_TEXT;
+    var $showChar = 250;
 
     $('.product-aruliden-sec .product-description p').each(function() {
         var $content = $(this).html();
-        if($numberOfLines > 4) {
-            var $splittedCharacters = $content.substring($showChar, $content.length - $showChar).split('.');
-            var $firstLine = $content.substring($content, $showChar + $splittedCharacters[0].length);
-            var $html = '<span class="first-line">' + $firstLine + "." + '</span>' + '<span style="display:none" class="morecontent-wrapper"><span>' + $content + '</span></span><div><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + $moreText + '</a></div>';
-            $(this).html($html);
+
+        if ($content.length > $showChar) {
+            var firstPeriodIndex = $content.indexOf('.', $showChar);
+
+            if (firstPeriodIndex !== -1) {
+                var $firstLine = $content.substring(0, firstPeriodIndex + 1);
+                
+                if ($firstLine.localeCompare($content) === -1) {
+                    var $html = '<span class="first-line">' + $firstLine + '</span>' +
+                                '<span style="display:none" class="morecontent-wrapper"><span>' + $content + '</span></span>' +
+                                '<div><a href="#" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + $moreText + '</a></div>';
+            
+                    $(this).html($html);
+                }
+            }
         }
     });
+
     $('.morelink-wrapper').on('click',function() {
         if($(this).hasClass('less')) {
             $(this).removeClass('less');

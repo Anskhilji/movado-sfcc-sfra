@@ -1,0 +1,30 @@
+# NodeJS
+storefront/node_modules/**
+node_modules
+
+# OS
+.DS_Store
+
+# Visual Studio Code
+/.vscode/
+*.code-workspace
+
+# SonarLint
+/.sonarlint/
+
+# DW Upload
+/dw.json
+/cartridges/dw.json
+/yarn.lock/
+
+# Compiled files
+/cartridges/*/cartridge/static/**/js/
+/cartridges/*/cartridge/static/**/css/
+cartridges/.vscode/launch.json
+
+storefront/node_modules/*
+storefront/*/cartridge/static/**/css/
+storefront/*/cartridge/static/**/js/
+
+test/functional/jre/
+test/functional/test-output/

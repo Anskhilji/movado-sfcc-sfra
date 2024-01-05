@@ -96,7 +96,7 @@ function initializeZoomSlickDots() {
         slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: '.primary-images .main-carousel',
-        dots: false,
+        dots: true,
         arrows: false,
         focusOnSelect: true,
         infinite: false,
@@ -143,6 +143,114 @@ function initializeCarousel(winWidth, isResize) {
             }, 300);
         }
     }
+}
+
+/**
+ * re-renders the order totals and the number of items in the cart
+ * @param {Object} data - AJAX response from the server
+ */
+function updateCartTotals(data) {
+    if (typeof data.totals.deliveryTime != 'undefined' &&  typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
+        $('.delivery-time').removeClass('d-none');
+    } else {
+        $('.delivery-time').addClass('d-none');
+    }
+
+    if (data && data.approachingDiscountsTotal && data.conditionThresholdCurrencyValue && data.progressBarPromoMsg && data.progressBarpercentage) {
+        
+        var $promoProgressBarHtml = '<div class="progress-meter d-flex flex-column align-items-center">'+
+        '<div class="progress-meter-free-shipping">'+ data.progressBarPromoMsg.replace('price', data.approachingDiscountsTotal) +'</div>'+
+        '<div class="progress-meter-box">'+
+        '<div class="progress-meter-box-bar bar-grey" style="width:'+ data.progressBarpercentage +'%"</div>'+
+        '</div>'+
+        '</div>';
+
+        var $progressMeterMain = $('.progress-meter-container');
+        $progressMeterMain.empty();
+        $progressMeterMain.append($promoProgressBarHtml);
+    } else {
+        var $freeShippingIcon = $('.progress-meter-container').data('shipping-image');
+        var $progressBarSuccessMsg = data.progressBarSuccessMsg;
+        var $progressMeterMain = $('.progress-meter-container');
+
+        if ($freeShippingIcon && $freeShippingIcon.length > 0 && $progressBarSuccessMsg) {
+            var $applicablePromoMessageHtml = '<div class="got-free-shipping d-flex align-items-center justify-content-center">'+
+            '<img src="'+ $freeShippingIcon +'" alt="'+ data.progressBarSuccessMsg +'">'+
+            '<p>'+ data.progressBarSuccessMsg +'</p>'+
+            '</div>';
+        }
+
+        $progressMeterMain.empty();
+        $progressMeterMain.append($applicablePromoMessageHtml);
+    }
+    
+    var $pickupFromStore = $('.cart-store-pickup').prop('checked');
+    if ($pickupFromStore) {
+        var $productIds = [];
+        $('.quantity.custom-select').each(function () {
+            if ($(this).prop('disabled')) {
+                var $pid = $(this).data('pid');
+                $productIds.push(parseInt($pid));
+            }
+        });
+    }
+    $('.delivery-date').empty().append(data.totals.deliveryDate);
+    $('.number-of-items').empty().append(data.resources.numberOfItems);
+    $('.shipping-cost').empty().append(data.totals.totalShippingCost);
+    $('.tax-total').empty().append(data.totals.totalTax);
+    $('.grand-total-sum, .cart-total').empty().append(data.totals.grandTotal);
+    $('.sub-total').empty().append(data.totals.subTotal);
+    /* Affirm block for refreshing promo message */
+    var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
+    $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
+    if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+        affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
+    }
+    var $miniCartQuantity = $('.minicart-quantity');
+    var $showMiniCartCounter = $('.minicart-quantity').data('counter');
+    if($showMiniCartCounter != 'undefined' && $showMiniCartCounter == false) {
+        $miniCartQuantity.empty();
+        $miniCartQuantity.removeClass('d-block').addClass('d-none');
+    } else {
+        $miniCartQuantity.empty().append(data.numItems);
+    }
+
+    if (data.totals.orderLevelDiscountTotal.value > 0) {
+        $('.order-discount').removeClass('hide-order-discount');
+        $('.order-discount-total').empty()
+            .append('- ' + data.totals.orderLevelDiscountTotal.formatted);
+    } else {
+        $('.order-discount').addClass('hide-order-discount');
+    }
+
+    if (data.totals.shippingLevelDiscountTotal.value > 0) {
+        $('.shipping-discount').removeClass('hide-shipping-discount');
+        $('.shipping-discount-total').empty().append('- ' +
+            data.totals.shippingLevelDiscountTotal.formatted);
+    } else {
+        $('.shipping-discount').addClass('hide-shipping-discount');
+    }
+
+    data.items.forEach(function (item) {
+        $('.item-' + item.UUID).empty().append(item.renderedPromotions);
+        $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
+
+        if ($pickupFromStore && $productIds.indexOf(parseInt(item.id)) > -1) {
+            $('select[data-pid="' + item.id + '"]').attr('disabled', true);
+        }
+
+        if (item && item.options && item.options.length > 0) {
+            item.options.forEach(function (option) {
+                if (option && option.optionId == Resources.CLYDE_WARRANTY && option.price != '' && option.adjustedPrice != '' && option.price == option.adjustedPrice) {
+                    $('.clyde-uuid-' + item.UUID + ' .clyde-option-price').text(option.price);
+                } else if (option && option.optionId == Resources.CLYDE_WARRANTY && option.adjustedPrice != '') {
+                    $('.clyde-uuid-' + item.UUID + ' .adjusted-clyde-price').text(option.adjustedPrice);
+                }
+            });
+        }
+    });
 }
 
 $(document).ready(function () {
@@ -544,6 +652,11 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  */
 $(document).ready(function () {
     var $addToCartBtn = $('.prices-add-to-cart-redesign .cta-add-to-cart');
+
+    if ($('.new-header-deign').length > 0) {
+        $('.top-sticky-card').addClass('top-header-redesign');
+    }
+
     if ($addToCartBtn.length > 0) {
         var $divOffsetTop = $addToCartBtn.offset().top;
         if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
@@ -627,12 +740,6 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.product-name').text(response.product.productName);
     }
 
-    //Update product pageDescription
-    if (typeof response.product.pageDescription !== 'undefined' && response.product.pageDescription !== '' && response.product.pageDescription !== null) {
-        $productContainer.find('.description-redesign .content').text(response.product.pageDescription);
-        $productContainer.find('.bottom-detail-mobile').text(response.product.pageDescription);
-    }
-
     //update wishlist icon
     $('.add-to-wish-list').removeClass('added-to-wishlist');
     var $exclusiveBadges = $('.exclusive-badges');
@@ -666,11 +773,11 @@ function handleVariantResponse(response, $productContainer) {
         $('.google-pay-container').data('pid', response.product.id);
     }
 
-    // Update Product Long Description & Higlight Attributes
-    if (response.product.longDescription !== 'undefined' && response.product.longDescription !== '' && response.product.longDescription !== null) {
-        $('.product-bottom-detail').html(response.product.longDescription);
-    } else {
-        $('.product-bottom-detail').html(response.product.shortDescription);
+    // Update Product Short Description
+    if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
+        if ($productContainer.find('.description-redesign').length > 0) {
+            $productContainer.find('.description-redesign .content').html(response.product.shortDescription);
+        }
     }
 
     // Update Product Higlight Attributes
@@ -925,6 +1032,15 @@ function attributeSelect(selectedValueUrl, $productContainer) {
 
 var updateCartPage = function (data) {
     $('.cart-section-wrapper').html(data.cartPageHtml);
+    if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+          affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
+    }
+};
+
+var updateCartLineItems = function (data) {
+    $('.product-list-block').html(data.cartPageHtml);
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
           affirm.ui.ready(function() {
             affirm.ui.refresh();
@@ -1233,7 +1349,12 @@ function clydeAddProductToCart() {
             method: 'POST',
             data: form,
             success: function (data) {
-                updateCartPage(data);
+                if (data.cartPageHtml) {
+                    updateCartTotals(data.cart);
+                    updateCartLineItems(data);
+                } else {
+                    updateCartPage(data);
+                }
                 handlePostCartAdd(data, addToCartRecommendationButton);
                 $('body').trigger('product:afterAddToCart', data);
                 $.spinner().stop();
@@ -1370,7 +1491,12 @@ function clydeAddProductSetToCart($this) {
             method: 'POST',
             data: form,
             success: function (data) {
-                updateCartPage(data);
+                if (data.cartPageHtml) {
+                    updateCartTotals(data.cart);
+                    updateCartLineItems(data);
+                } else {
+                    updateCartPage(data);
+                }
                 handlePostCartAdd(data, addToCartRecommendationButton);
                 $('body').trigger('product:afterAddToCart', data);
                 $.spinner().stop();
@@ -1510,7 +1636,12 @@ function addProductToCartPlp($this) {
             method: 'POST',
             data: form,
             success: function (data) {
-                updateCartPage(data);
+                if (data.cartPageHtml) {
+                    updateCartTotals(data.cart);
+                    updateCartLineItems(data);
+                } else {
+                    updateCartPage(data);
+                }
                 handlePostCartAdd(data, addToCartRecommendationButton, $currentRecommendedProduct);
                 $('body').trigger('product:afterAddToCart', data);
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart

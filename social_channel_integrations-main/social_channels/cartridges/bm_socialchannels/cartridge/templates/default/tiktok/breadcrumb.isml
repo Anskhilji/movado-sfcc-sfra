@@ -1,0 +1,18 @@
+<div id="bm-breadcrumb">
+    <isif condition="${pdict.breadcrumbs}">
+        <isloop items="${pdict.breadcrumbs}" var="breadcrumbValue" status="loopState">
+            <isset name="showHref" value="${breadcrumbValue.url && !loopState.last}" scope="page" />
+            <isif condition="${loopState.count > 1}">
+                >
+            </isif>
+            <isif condition="${showHref}">
+                <a href="${breadcrumbValue.url}">
+            </isif>
+            <isprint value="${breadcrumbValue.htmlValue}" encoding="off" />
+            <isif condition="${showHref}">
+                </a>
+            </isif>
+        </isloop>
+    </isif>
+
+</div>

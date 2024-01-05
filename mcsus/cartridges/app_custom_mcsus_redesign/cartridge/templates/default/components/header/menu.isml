@@ -1,5 +1,6 @@
+<isset name="categoryLength" value="${0}" scope="page" />
 <nav class="navbar navbar-expand-lg movado-desktop-header bg-inverse">
-    <div class="close-menu clearfix hidden-lg-up">
+    <div class="close-menu clearfix">
       <a class="back" href="${'#'}" role="button">
             <span class="caret-left"></span>
             ${Resource.msg('link.header.menu.back', 'common', null)}
@@ -20,8 +21,9 @@
         <ul class="nav navbar-nav level-one" role="menu">
             <isif condition="${pdict.categories}">
                 <isloop items="${pdict.categories}" var="category">
+                    <isset name="categoryLength" value="${!category.isDesktopCategoryHidden && !category.disableSubCategories ? categoryLength + 1 : categoryLength}" scope="page" />
                     <isif condition="${category.subCategories}">
-                        <li class="nav-item dropdown gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                        <li class="nav-item dropdown gtm-customEvent ${category.isDesktopCategoryHidden || categoryLength > 7 ? 'd-xl-none' : ''}" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                             <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" <isif condition="${!category.disableSubCategories}"> data-toggle="dropdown"</isif> aria-haspopup="true" aria-expanded="false">
                               ${category.name}
                             </a>
@@ -31,7 +33,7 @@
                             <isinclude template="components/header/menuItem" />
                         </li>
                     <iselse/>
-                        <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                        <li class="nav-item gtm-customEvent ${category.isDesktopCategoryHidden || categoryLength > 7 ? 'd-xl-none' : ''}" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                             <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
                               ${category.name}
                             </a>
