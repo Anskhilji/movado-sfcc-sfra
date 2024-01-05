@@ -597,16 +597,6 @@ exports.beforeAuthorization = function (order, payment, custom) {
         });
 
         addClydeContract.createOrderCustomAttr(order);
-        /** 
-         * Custom Start : PulseID engraving 
-        */
-        if (enablePulseIdEngraving) {
-            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-            pulseIdAPIHelper.setPulseJobID(order);
-        }
-        /**
-        * Custom: End
-        */ 
     }
     /**
      * Custom: End

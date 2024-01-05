@@ -409,12 +409,6 @@ server.post('ProcessPayments',
 		        order.custom.clydeContractProductMapping = '';
 		    });
 		    addClydeContract.createOrderCustomAttr(order);
-		    //custom : PulseID engraving
-		    if (enablePulseIdEngraving) {
-		        var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-		        pulseIdAPIHelper.setPulseJobID(order);
-		    }
-		    // custom end
 		}
 		/**
 		 * Custom: End
