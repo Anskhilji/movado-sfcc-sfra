@@ -180,6 +180,18 @@ module.exports = {
             	$('.shippingAddressId').val(selectedAddressId);
             }
 
+            $('.billing-form input').each(function () {
+                var $input = $(this);
+                var $selectOption = $('.billing-form select');
+                if ($input.val()) {
+                    $input.removeClass('is-invalid auto-is-invalid');
+                    $selectOption.removeClass('is-invalid auto-is-invalid');
+                } else {
+                    $input.removeClass('is-valid auto-is-valid is-invalid auto-is-invalid');
+                    $selectOption.removeClass('auto-is-invalid auto-is-valid is-valid is-invalid');
+                }
+            });
+
             form.attr('data-address-mode', 'details');
             form.find('.multi-ship-address-actions').removeClass('d-none');
             form.find('.multi-ship-action-buttons .col-12.btn-save-multi-ship').addClass('d-none');
