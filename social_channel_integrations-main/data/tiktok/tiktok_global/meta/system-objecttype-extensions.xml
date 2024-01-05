@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="tiktokCustomerEmail">
+                <display-name xml:lang="x-default">TikTok Order Checkout Email</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>tiktokshop@salesforce.com</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="tiktokInventoryListID">
+                <display-name xml:lang="x-default">Inventory List ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="tiktokPaymentMethod">
+                <display-name xml:lang="x-default">Payment Method ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>SOCIAL_PAY</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="tiktokPluginJS">
+                <display-name xml:lang="x-default">Plugin JS Version</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>https://sf16-scmcdn-va.ibytedtos.com/obj/static-us/tiktok-business-plugin/tbp_external_platform-v2.3.11.js</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="tiktokVerifyBM">
+                <display-name xml:lang="x-default">Verify BM Credentials</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="tiktokVerifyWebDav">
+                <display-name xml:lang="x-default">Verify WebDAV Credentials</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="TikTok">
+                <display-name xml:lang="x-default">TikTok Settings</display-name>
+                <attribute attribute-id="tiktokCustomerEmail"/>
+                <attribute attribute-id="tiktokPaymentMethod"/>
+                <attribute attribute-id="tiktokPluginJS"/>
+                <attribute attribute-id="tiktokInventoryListID"/>
+                <attribute attribute-id="tiktokVerifyWebDav"/>
+                <attribute attribute-id="tiktokVerifyBM"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+</metadata>

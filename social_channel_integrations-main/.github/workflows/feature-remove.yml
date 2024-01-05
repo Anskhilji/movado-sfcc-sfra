@@ -1,0 +1,67 @@
+---
+name: Remove Social Integration (Internal Only)
+
+on:
+    workflow_dispatch:
+        inputs:
+            realm:
+                description: 'Realm ID (i.e. zzte)'
+                required: true
+                type: choice
+                options:
+                    - zzte
+                    - zzsb
+                    - zzcu
+                    - zzeu
+                default: 'zzte'
+            sandbox:
+                description: 'Sandbox ID (i.e. 001)'
+                required: true
+                default: '###'
+
+jobs:
+    deploy_integration:
+        timeout-minutes: 80
+        environment: sandboxes
+        name: "Deploy To Sandbox"
+        runs-on: "ubuntu-latest"
+        steps:
+            -   uses: actions/checkout@v3
+
+            -   name: Use Node.js
+                uses: actions/setup-node@v3
+                with:
+                    node-version: 18.x
+
+            -   name: Cache Modules
+                uses: actions/cache@v3
+                with:
+                    path: '**/node_modules'
+                    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+            -   name: Authenticate b2c-tools npm package
+                shell: bash
+                run: |
+                    echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+                    echo "@SalesforceCommerceCloud:registry=https://npm.pkg.github.com" >> ~/.npmrc
+
+            -   name: Install Dependencies
+                shell: bash
+                run: |
+                    npm ci
+                    npm install -g @SalesforceCommerceCloud/b2c-tools
+
+            -   name: Deploy Info
+                shell: bash
+                run: |
+                    echo "Server: ${{ github.event.inputs.realm }}-${{ github.event.inputs.sandbox }}.${{vars.SERVER}}"
+
+            -   name: Remove Social Integration Feature
+                run: b2c-tools feature remove "Social Integrations"
+                env:
+                    CI: true
+                    SFCC_SERVER: '${{ github.event.inputs.realm }}-${{ github.event.inputs.sandbox }}.${{vars.SERVER}}'
+                    SFCC_CLIENT_ID: ${{secrets.CLIENT_ID}}
+                    SFCC_CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+                    SFCC_SHORT_CODE: ${{secrets.SHORT_CODE}}
+                    SFCC_DEBUG: ${{vars.DEBUG}}

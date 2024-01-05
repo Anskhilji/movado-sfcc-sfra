@@ -926,6 +926,8 @@ $stored-payment-spacing: rem(16);
                         }
       
                         &.is-valid,&.auto-is-valid {
+                          background-image: none !important;
+
                           @include green-tick-image;
                           @include background-postion(33);
 
@@ -951,6 +953,7 @@ $stored-payment-spacing: rem(16);
 
                           &.is-valid,
                           &.auto-is-valid {
+                              background-image: none !important;
 
                               & ~ .validation-icon {
                                   @include media-breakpoint-down(sm) {
@@ -1114,6 +1117,10 @@ $stored-payment-spacing: rem(16);
       
         .form-control {
 
+          &:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 rem(1000) white inset;
+          }
+
           &.input-wrapper-checkout {
               height: rem(45);
               border: rem(1) solid $grey16;
@@ -1130,6 +1137,10 @@ $stored-payment-spacing: rem(16);
                   border-color: $black;
                   box-shadow: none;
                   border-width: rem(1);
+
+                  &:-webkit-autofill {
+                    -webkit-box-shadow: 0 0 0 rem(1000) white inset;
+                  }
 
                   + .field-label-wrapper {
                       transition: 0.2s ease-in-out;
@@ -1222,6 +1233,7 @@ $stored-payment-spacing: rem(16);
           }
 
           &.is-valid,&.auto-is-valid {
+            background-image: none !important;
             
             @include green-tick-image;
             @include background-postion(33);
@@ -1247,6 +1259,7 @@ $stored-payment-spacing: rem(16);
 
             &.is-valid,
             &.auto-is-valid {
+              background-image: none !important;
 
                 & ~ .validation-icon {
                     @include media-breakpoint-down(sm) {

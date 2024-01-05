@@ -1,0 +1,33 @@
+<isif condition="${!empty(pdict.feedUploadDetails) && Object.keys(pdict.feedUploadDetails).length > 0 && !empty(pdict.feedUploadDetails.feedUpload) && Object.keys(pdict.feedUploadDetails.feedUpload).length > 0}">
+    <div class="feed-upload-details" id="feed-upload-details">
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">${Resource.msg('snapchat.productFeedUploadStatus.label', 'snapchat', null)}</span>
+        </div>
+
+        <isif condition="${!empty(pdict.feedUploadDetails.feedUpload.id)}">
+            <div class="slds-form-element">
+                <div class="slds-form-element__static">${pdict.feedUploadDetails.feedUpload.id}</div>
+            </div>
+
+            <div class="slds-form-element slds-m-top_small">
+                <button data-href="${URLUtils.url('BM_Snapchat-GetProductFeedUploadStatus')}" data-feed-id="${pdict.feedUploadDetails.feedUpload.id}" id="refreshProductFeedUploadDetails" class="slds-button slds-button_outline-brand">
+                    <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                        <use xlink:href="${URLUtils.staticURL('icons/utility-sprite/svg/symbols.svg#refresh')}"></use>
+                    </svg>
+                    <isprint value="${Resource.msg('snapchat.productFeedUploadStatus.refresh', 'snapchat', null)}" encoding="htmlcontent" />
+                </button>
+            </div>
+        </isif>
+
+        <isif condition="${!empty(pdict.feedUploadDetails.feedUpload.status)}">
+            <div class="slds-form-element slds-m-top_small">
+                <p>
+                    <span class="slds-form-element__label">${Resource.msg('snapchat.common.status', 'snapchat', null)}:</span>
+                    <span class="slds-badge ${pdict.feedUploadDetails.feedUploadStatusBadgeClass ? pdict.feedUploadDetails.feedUploadStatusBadgeClass : 'slds-theme_warning'}">
+                        <isprint value="${pdict.feedUploadDetails.feedUpload.status}" encoding="htmlcontent" />
+                    </span>
+                </p>
+            </div>
+        </isif>
+    </div>
+</isif>

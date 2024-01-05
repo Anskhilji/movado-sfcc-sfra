@@ -8,8 +8,9 @@ var initCarousel = function ($container) {
     $parent.find('.js-carousel').each(function () {
         var $carousel = $(this);
         var $config = $carousel.data() && $carousel.data().carouselConfig || false;
+
         if ($config && ($config != undefined || $config != '')) {
-            $carousel.slick($config);
+            $carousel.not('.slick-initialized').slick($config);
             $carousel.show();
             if ($carousel.hasClass('banner-carousel')) {
                 $carousel.on('afterChange', function () {

@@ -343,14 +343,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     
     if (deliveryValidationFail) {
         var sendMail = true; // send email is set to true
-        var isJob = false; // isJob is set to false because in case of job this hook is never called
         var refundResponse = hooksHelper(
             'app.payment.adyen.refund',
             'refund',
             order,
             order.getTotalGrossPrice().value,
             sendMail,
-            isJob,
             require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
         Riskified.sendCancelOrder(order, Resource.msg('error.payment.not.valid', 'checkout', null));
         if (refundResponse.decision !== 'SUCCESS') {
@@ -599,16 +597,6 @@ exports.beforeAuthorization = function (order, payment, custom) {
         });
 
         addClydeContract.createOrderCustomAttr(order);
-        /** 
-         * Custom Start : PulseID engraving 
-        */
-        if (enablePulseIdEngraving) {
-            var pulseIdAPIHelper = require('*/cartridge/scripts/helpers/pulseIdAPIHelper');
-            pulseIdAPIHelper.setPulseJobID(order);
-        }
-        /**
-        * Custom: End
-        */ 
     }
     /**
      * Custom: End

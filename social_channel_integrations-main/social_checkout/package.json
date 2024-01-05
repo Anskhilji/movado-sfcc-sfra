@@ -1,0 +1,11 @@
+{
+    "name": "social_checkout",
+    "scripts": {
+        "code:upload:checkout": "sgmf-scripts --uploadCartridge int_social_checkout",
+        "code:upload:oms": "sgmf-scripts --uploadCartridge int_order_som",
+        "code:upload:no_oms": "sgmf-scripts --uploadCartridge int_order_no_oms"
+    },
+    "devDependencies": {
+        "sgmf-scripts": "^2.4.2"
+    }
+}

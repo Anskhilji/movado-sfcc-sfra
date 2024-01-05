@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+    <job job-id="TikTok-AdvanceMatching" priority="0">
+        <description>check advance matching flag</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="AdvanceMatching" type="custom.TikTok.AdvanceMatching" enforce-restart="false">
+                <description>check TikTok Advance matching flag</description>
+                <parameters/>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-recurring enabled="false">
+                <recurrence>
+                    <date-from>2022-11-16Z</date-from>
+                    <start-time>06:00:00.000Z</start-time>
+                    <interval>1d</interval>
+                    <day-of-week>
+                        <weekday>Sunday</weekday>
+                        <weekday>Monday</weekday>
+                        <weekday>Tuesday</weekday>
+                        <weekday>Wednesday</weekday>
+                        <weekday>Thursday</weekday>
+                        <weekday>Friday</weekday>
+                        <weekday>Saturday</weekday>
+                    </day-of-week>
+                </recurrence>
+            </run-recurring>
+        </triggers>
+    </job>
+
+    <job job-id="TikTok-ExportDeltaFeeds" priority="0">
+        <description>Used for TikTok Shop integration. Exports delta product data using custom feeds.</description>
+        <parameters>
+            <parameter name="Hostname">abcd-001.dx.commercecloud.salesforce.com</parameter>
+            <parameter name="GenerateDeleteFeed">true</parameter>
+            <parameter name="CustomObjectIds">tiktok-feed</parameter>
+            <parameter name="FeedTypeProduct">product</parameter>
+            <parameter name="UpdateTypeProduct">update</parameter>
+            <parameter name="ExportCatalogs">true</parameter>
+            <parameter name="DeltaCatalogInDays">1</parameter>
+        </parameters>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="Product Delta Feed" type="custom.CustomFeeds.ProductDeltaFeed" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ExportCatalogs" job-parameter-ref="ExportCatalogs"/>
+                    <parameter name="DeltaCatalogInDays" job-parameter-ref="DeltaCatalogInDays"/>
+                    <parameter name="GenerateDeleteFeed" job-parameter-ref="GenerateDeleteFeed"/>
+                    <parameter name="CustomObjectIds" job-parameter-ref="CustomObjectIds"/>
+                    <parameter name="Hostname" job-parameter-ref="Hostname"/>
+                </parameters>
+            </step>
+            <step step-id="TikTok Notify Product Feed Ready" type="custom.TikTokNotifyFeedReady" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="FeedType" job-parameter-ref="FeedTypeProduct"/>
+                    <parameter name="UpdateType" job-parameter-ref="UpdateTypeProduct"/>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-running runtime-threshold="60m" enabled="false">
+                <mark-job-as-hanging/>
+            </on-running>
+        </rules>
+        <triggers>
+            <run-once enabled="false">
+                <date>2022-09-27Z</date>
+                <time>18:07:00.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="TikTok-ExportFullFeeds" priority="0">
+        <description>Used for TikTok Shop integration. Exports inventory in native XML format and exports full product data using custom feeds.</description>
+        <parameters>
+            <parameter name="UpdateTypeInventory">create</parameter>
+            <parameter name="Hostname">abcd-001.dx.commercecloud.salesforce.com</parameter>
+            <parameter name="GenerateDeleteFeed">true</parameter>
+            <parameter name="InventoryListIDs">inventory_m, inventory_m_store_store1</parameter>
+            <parameter name="OverwriteExportFile">true</parameter>
+            <parameter name="CustomObjectIds">tiktok-feed</parameter>
+            <parameter name="FeedTypeProduct">product</parameter>
+            <parameter name="FileNamePrefix">feeds/export/social/tiktok/inventory/inventory</parameter>
+            <parameter name="FeedTypeInventory">inventory</parameter>
+            <parameter name="UpdateTypeProduct">update</parameter>
+            <parameter name="ExportCatalogs">true</parameter>
+        </parameters>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="Product Full Feed" type="custom.CustomFeeds.ProductFullFeed" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ExportCatalogs" job-parameter-ref="ExportCatalogs"/>
+                    <parameter name="GenerateDeleteFeed" job-parameter-ref="GenerateDeleteFeed"/>
+                    <parameter name="CustomObjectIds" job-parameter-ref="CustomObjectIds"/>
+                    <parameter name="Hostname" job-parameter-ref="Hostname"/>
+                </parameters>
+            </step>
+            <step step-id="TikTok Notify Product Feed Ready" type="custom.TikTokNotifyFeedReady" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="FeedType" job-parameter-ref="FeedTypeProduct"/>
+                    <parameter name="UpdateType" job-parameter-ref="UpdateTypeProduct"/>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="ExportInventoryLists" type="ExportInventoryLists" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="InventoryListIDs" job-parameter-ref="InventoryListIDs"/>
+                    <parameter name="FileNamePrefix" job-parameter-ref="FileNamePrefix"/>
+                    <parameter name="OverwriteExportFile" job-parameter-ref="OverwriteExportFile"/>
+                </parameters>
+            </step>
+            <step step-id="TikTok Notify Inventory Feed Ready" type="custom.TikTokNotifyFeedReady" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="FeedType" job-parameter-ref="FeedTypeInventory"/>
+                    <parameter name="UpdateType" job-parameter-ref="UpdateTypeInventory"/>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-running runtime-threshold="60m" enabled="false">
+                <mark-job-as-hanging/>
+            </on-running>
+        </rules>
+        <triggers>
+            <run-once enabled="false">
+                <date>2022-09-27Z</date>
+                <time>18:07:00.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="TikTok-ExportOrderStatus" priority="0">
+        <description/>
+        <parameters>
+            <parameter name="FileFolderOrderExport">src/feeds/export/social/tiktok/order</parameter>
+            <parameter name="FileNameOrderExport">TikTokOrderStatusUpdate</parameter>
+            <parameter name="SocialChannelOrderExport">TikTok</parameter>
+        </parameters>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="ExportOrders" type="custom.SocialOrderExport" enforce-restart="false">
+                <description>Export Orders with status updates</description>
+                <parameters>
+                    <parameter name="FileName" job-parameter-ref="FileNameOrderExport"/>
+                    <parameter name="FileFolder" job-parameter-ref="FileFolderOrderExport"/>
+                    <parameter name="SocialChannel" job-parameter-ref="SocialChannelOrderExport"/>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-running runtime-threshold="60m" enabled="false">
+                <mark-job-as-hanging/>
+            </on-running>
+        </rules>
+        <triggers>
+            <run-once enabled="false">
+                <date>2022-12-10Z</date>
+                <time>01:26:00.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="TikTok-GetOrderStatuses" priority="0">
+        <description>Get order statuses from Salesforce Order Management and update SFCC order status</description>
+        <parameters>
+            <parameter name="SocialChannelGetOrderStatuses">TikTok</parameter>
+        </parameters>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="UpdateSFCCOrderStatus" type="custom.GetSOMOrderStatus" enforce-restart="false">
+                <description>Get order statuses from Salesforce Order Management and update SFCC order status</description>
+                <parameters>
+                    <parameter name="SocialChannel" job-parameter-ref="SocialChannelGetOrderStatuses"/>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-recurring enabled="false">
+                <recurrence>
+                    <date-from>2022-11-30Z</date-from>
+                    <start-time>18:32:00.000Z</start-time>
+                    <interval>1h</interval>
+                    <day-of-week>
+                        <weekday>Sunday</weekday>
+                        <weekday>Monday</weekday>
+                        <weekday>Tuesday</weekday>
+                        <weekday>Wednesday</weekday>
+                        <weekday>Thursday</weekday>
+                        <weekday>Friday</weekday>
+                        <weekday>Saturday</weekday>
+                    </day-of-week>
+                </recurrence>
+            </run-recurring>
+        </triggers>
+    </job>
+
+    <job job-id="TikTok-Group-WebEvents" priority="0">
+        <description>Groups a number of TikTokWebEvents into a single new Custom Object</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="GroupTikTokEvents" type="custom.TikTok.GroupEvent" enforce-restart="false">
+                <description>Takes a number of events and merges it into a new custom event.</description>
+                <parameters>
+                    <parameter name="groupSize">50</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-recurring enabled="false">
+                <recurrence>
+                    <date-from>2022-11-16Z</date-from>
+                    <start-time>06:00:00.000Z</start-time>
+                    <interval>5m</interval>
+                    <day-of-week>
+                        <weekday>Sunday</weekday>
+                        <weekday>Monday</weekday>
+                        <weekday>Tuesday</weekday>
+                        <weekday>Wednesday</weekday>
+                        <weekday>Thursday</weekday>
+                        <weekday>Friday</weekday>
+                        <weekday>Saturday</weekday>
+                    </day-of-week>
+                </recurrence>
+            </run-recurring>
+        </triggers>
+    </job>
+
+    <job job-id="TikTok-Send-EventBundles" priority="0">
+        <description>Send TikTok a bundle of web events</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="sendEventBundle" type="custom.TikTok.BatchGroupEvent" enforce-restart="false">
+                <description>This will send a number of TikTokWebEventsBundle custom objects with web events information to TikTok.</description>
+                <parameters>
+                    <parameter name="runs">50</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-recurring enabled="false">
+                <recurrence>
+                    <date-from>2022-11-16Z</date-from>
+                    <start-time>06:00:00.000Z</start-time>
+                    <interval>30m</interval>
+                    <day-of-week>
+                        <weekday>Sunday</weekday>
+                        <weekday>Monday</weekday>
+                        <weekday>Tuesday</weekday>
+                        <weekday>Wednesday</weekday>
+                        <weekday>Thursday</weekday>
+                        <weekday>Friday</weekday>
+                        <weekday>Saturday</weekday>
+                    </day-of-week>
+                </recurrence>
+            </run-recurring>
+        </triggers>
+    </job>
+</jobs>
