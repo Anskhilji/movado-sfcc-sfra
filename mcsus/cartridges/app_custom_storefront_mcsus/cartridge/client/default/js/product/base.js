@@ -253,12 +253,16 @@ function updateCartTotals(data) {
     });
 }
 
-$(window).resize(function () {
-    $('.primary-images .main-carousel')[0].slick.refresh();
-    $('.carousel-nav-redesign')[0].slick.refresh();
-});
-
 $(document).ready(function () {
+    // Resize Event
+    $(window).resize(function() {
+        // Check window width has actually changed and it's not just iOS triggering a resize event on scroll
+        if ($(window).width() != winWidth) {
+            $('.primary-images .main-carousel')[0].slick.refresh();
+            $('.carousel-nav-redesign')[0].slick.refresh();
+        }
+    });
+
     // Custom Start: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
     $(window).on('resize', function () {
         var winWidth = $(window).width();

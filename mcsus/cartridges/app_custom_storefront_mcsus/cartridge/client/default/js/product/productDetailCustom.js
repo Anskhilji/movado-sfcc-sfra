@@ -38,6 +38,12 @@ $(function() {
     );
 });
 
+$(document).ready(function() {
+    if (window.innerWidth < 768) {
+        $('header').addClass('sticky-header');
+    }
+});
+
 module.exports = {
     // Custom Start: [MSS-1341 To Show/Hide More Short Description on PDP]
     showMoreDescription: function () {
@@ -107,3 +113,7 @@ module.exports = {
         });
     },
 }
+
+$('.new-header-deign .navbar-toggler').click(function (e) {
+    $('.main-menu-top').addClass('main-menu-top-fixed')
+});
