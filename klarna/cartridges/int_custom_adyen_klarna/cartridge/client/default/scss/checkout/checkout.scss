@@ -15,6 +15,7 @@
                     &.form-control {
 
                         &.is-valid {
+                            background-image: none !important;
 
                             @include media-breakpoint-up(sm) {
                                 background-position-x: 93.5% !important;

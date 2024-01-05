@@ -18,7 +18,7 @@
             <div class="row">
               <div class="col-12 header-container">
                 <div class="left navbar-header">
-                  <div class="hidden-md-down account-wrapper top-navbar-label">
+                  <div class="hidden-lg-down account-wrapper top-navbar-label">
                     <isinclude url="${URLUtils.url('Account-Header')}" />
                     <iscomment>Custom Start: Adding ESW Logic </iscomment>
                     <isif condition="${isEswEnabled}">
@@ -34,11 +34,11 @@
                     </iscomment>
                     <iscomment> Custom End </iscomment>
                   </div>
-                  <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse"
+                  <button class="navbar-toggler d-xl-none" role="tab" type="button" aria-controls="sg-navbar-collapse"
                     aria-expanded="false">
                     <i class="new-hamburger"></i>
                     <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
-                    <span class="menu-text d-none d-md-inline-block d-lg-none">
+                    <span class="menu-text d-none d-md-inline-block d-xl-none">
                       ${Resource.msg('link.header.menu', 'common', null)}
                     </span>
                   </button>

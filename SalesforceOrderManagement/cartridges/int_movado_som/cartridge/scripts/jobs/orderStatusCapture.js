@@ -106,33 +106,6 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             }
         }
 
-
-        // Short Ship - Move additional quantity out of FO allocation and back to OrderSummary
-        if (shippedQuantity < foLineItem.Quantity) {
-            pendingFOCancelChangeItems.push({
-                fulfillmentOrderLineItemId: foLineItem.Id,
-                quantity: foLineItem.Quantity - shippedQuantity
-            });
-
-            // Attached Warranty
-            if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r != null && foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id != null) {
-                var warrantyShortShipQuantity = Math.min(shippedQuantity, foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity);
-                pendingFOCancelChangeItems.push({
-                    fulfillmentOrderLineItemId: foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,
-                    quantity: warrantyShortShipQuantity
-                });
-            }
-
-            // Attached Engraving
-            if (foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r != null && foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id != null) {
-                var engravingShortShipQuantity = Math.min(shippedQuantity, foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Quantity);
-                pendingFOCancelChangeItems.push({
-                    fulfillmentOrderLineItemId: foLineItem.OrderItemSummary.EngraveChildOrderItemSummary__r.Id,
-                    quantity: engravingShortShipQuantity
-                });
-            }
-        }
-
         if (shippedQuantity > foLineItem.Quantity) {
             Logger.error(Status.ERROR, 'ERROR', 'processStatusCapture - Shipped Quantity greater than the Ordered Quantity ' +  ' Shipped Quantity: ' + shippedQuantity + ' Ordered Quantity: ' + foLineItem.Quantity);
         }
@@ -216,32 +189,6 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             isFullyRejected = false;
         }
     });
-
-    //
-    // Update SF FulfillmentOrderLineItem(s)
-    //
-
-    // Find fulfillment order items missing from SAP XML.  Cancel them to move them back to the OrderSummary
-    for (let i = 0; i < fulfillmentOrderLineItems.length; i++) {
-        var isWarranty = (fulfillmentOrderLineItems[i].OrderItemSummary.WarrantyParentOrderItemSummary__r != null);
-        var isEngraving = (fulfillmentOrderLineItems[i].OrderItemSummary.EngraveParentOrderItemSummary__r != null);
-        if (!isWarranty && !isEngraving) {
-            var found = false;
-            for (let j = 0; j < SAPOrderStatus.EcommerceOrderStatusItem.length; j++) {
-                var foLineNumber = parseInt(fulfillmentOrderLineItems[i].OrderItemSummary.LineNumber);
-                var sapLineNumber = parseInt(SAPOrderStatus.EcommerceOrderStatusItem[j].POItemNumber);
-                if (foLineNumber === sapLineNumber || foLineNumber === 1000) { // Do not cancel shipping line item
-                    found = true;
-                }
-            }
-            if (!found && fulfillmentOrderLineItems[i].Quantity > 0) {
-                pendingFOCancelChangeItems.push({
-                    fulfillmentOrderLineItemId: fulfillmentOrderLineItems[i].Id,
-                    quantity: fulfillmentOrderLineItems[i].Quantity
-                });
-            }
-        }
-    }
 
     // Cancellations
     if (pendingFOCancelChangeItems.length > 0) {

@@ -60,16 +60,6 @@
                 }
             },
             {
-                "@type-id": "custom.feed.CheckoutRefundedOrders",
-                "@supports-parallel-execution": "false",
-                "@supports-site-context": "true",
-                "@supports-organization-context": "false",
-                "description": "This step is used to send email notifications for checkout refunded orders",
-                "module": "app_custom_feed/cartridge/scripts/CheckoutRefundedOrders.js",
-                "function": "checkoutRefundedOrders",
-                "transactional": "true"
-            },
-            {
                 "@type-id": "custom.feed.ExportProductFeedToDataFeedWatch",
                 "@supports-parallel-execution": "false",
                 "@supports-site-context": "true",
