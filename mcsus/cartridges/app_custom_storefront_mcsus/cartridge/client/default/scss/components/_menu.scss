@@ -2319,7 +2319,7 @@ nav {
   }
 
   .set-store-login {
-    margin-right: rem(40);
+    margin-right: rem(15);
 
     @include media-breakpoint-down(lg) {
       margin-right:rem(8) ;
@@ -2331,10 +2331,10 @@ nav {
 
     .set-your-store {
       color: $black;
-      font-size: rem(12);
+      font-size: rem(14);
       letter-spacing: 0;
-      line-height: rem(14);
-      max-width: rem(80);
+      line-height: rem(15);
+      max-width: rem(90);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -2346,9 +2346,10 @@ nav {
     }
 
     .pickup-store-popup-button {
-      width: rem(12);
-      height: rem(12);
-      background: url(../../images/search-icons.svg) center;
+      width: rem(24);
+      height: rem(30);
+      background: url(../../images/search-icons.svg) center no-repeat;
+      background-size: rem(17);
       position: relative;
       top: rem(-3);
       left: rem(-2);
@@ -2852,7 +2853,7 @@ nav {
             height: rem(20);
             margin-right: rem(10);
             background: url(../images/add-to-cart.svg) center center no-repeat;
-            background-size: rem(17);
+            background-size: rem(20);
           }
         }
       }
@@ -3019,7 +3020,7 @@ nav {
         align-items: center;
 
         @media (max-width:$laptop-screen-width) {
-          padding: rem(13) rem(25) rem(13) rem(25);
+          padding: rem(13) rem(15) rem(13) rem(15);
         }
 
         @include media-breakpoint-down(lg) {
@@ -3124,7 +3125,7 @@ nav {
             }
 
             .navbar {
-              margin-left: rem(43.5);
+              margin-left: rem(10);
               position: inherit;
               padding: 0;
 
@@ -3166,7 +3167,7 @@ nav {
                                     opacity: 0.5;
                                     color: $black;
                                     font-family: $font-book-std;
-                                    font-size: rem(12);
+                                    font-size: rem(14);
                                     font-weight: 300;
                                     letter-spacing: rem(2);
                                     line-height: rem(13);
@@ -3245,7 +3246,7 @@ nav {
                           .dropdown-link {
                             color: $grey13;
                             font-family: $font-book-std;
-                            font-size: rem(12);
+                            font-size: rem(14);
                             font-weight: 300;
                             letter-spacing: rem(2);
                             line-height: rem(13);
@@ -3333,7 +3334,7 @@ nav {
                     }
 
                     @media (max-width:$laptop-screen-width) {
-                      margin-right: rem(15);
+                      margin-right: rem(10);
                     }
 
                     @include media-breakpoint-down(lg) {
@@ -3351,7 +3352,7 @@ nav {
                     .nav-link {
                       color: $black;
                       font-family: $font-book-std;
-                      font-size: rem(12);
+                      font-size: rem(14);
                       font-weight: 500;
                       letter-spacing: 0;
                       line-height: rem(13);
@@ -3365,8 +3366,9 @@ nav {
 
                       &::after {
                         content: "";
-                        height: rem(3);
+                        height: rem(1);
                         background: $black;
+                        border: rem(1) solid $black;
                         bottom: 0;
                         position: absolute;
                         left: rem(-3);
@@ -3395,15 +3397,15 @@ nav {
 
 
             @include media-breakpoint-up(xl) {
-              margin-left: rem(90);
+              margin-left: rem(20);
             }
 
             @include custom-media-query-1440($large-screen-width-1440) {
-              margin-left: rem(140);
+              margin-left: rem(30);
             }
 
             @media (max-width:$laptop-screen-width) {
-              margin-left: rem(20);
+              margin-left: rem(10);
             }
 
             @include custom-media-query($xl-large-screen-width) {
@@ -3426,6 +3428,14 @@ nav {
               @include media-breakpoint-up(lg) {
                 margin-right: rem(15);
               }
+
+              .popover {
+
+                @include media-breakpoint-up(xl) {
+                  top: rem(40);
+                  right: rem(-5);
+                }
+              }
             }
 
             .right {
@@ -3439,6 +3449,10 @@ nav {
                 top: rem(7);
                 right: rem(102);
                 max-width: rem(180);
+
+                @include media-breakpoint-down(md) {
+                  right: rem(102);
+                }
 
                 .suggestions-wrapper {
 
@@ -3602,8 +3616,12 @@ nav {
                   @include media-breakpoint-down(lg) {
                     margin-bottom: 0;
                     height: auto;
-                    margin-top: rem(0);
+                    margin-top: rem(9);
                     margin-left: 0;
+                  }
+
+                  @include media-breakpoint-down(md) {
+                    margin-top: rem(3.5);
                   }
 
                   &.active {
@@ -3643,25 +3661,28 @@ nav {
                     padding-left: rem(0);
                     right: auto;
                     padding-bottom: 0;
-                    top: rem(2);
+                    top: rem(-9);
                     background-image: url(../images/search-icon.svg);
                     background-repeat: no-repeat;
                     background-position: center;
                     padding: 0;
-                    background-size: rem(12);
-                    width: rem(12);
-                    height: rem(12);
+                    width: rem(24);
+                    height: rem(30);
+                    background-size: rem(17);
 
                     @include media-breakpoint-down(lg) {
-                      top: 0;
+                      top: rem(0);
                     }
 
-                    @include media-breakpoint-down(lg) {
-                      top: rem(10);
+                    @include media-breakpoint-down(md) {
+                      width: rem(16);
+                      height: rem(20);
+                      background-size: rem(16);
+                      top: rem(6);
                     }
 
                     @include media-breakpoint-down(sm) {
-                      top: rem(3);
+                      top: rem(-2);
                     }
                   }
 
@@ -3671,7 +3692,7 @@ nav {
                     border-radius: 0 !important; //i'm using important to overwrite inline css
                     height: rem(20);
                     padding: 0;
-                    padding-left: rem(20);
+                    padding-left: rem(25);
                     border-bottom: rem(1) solid $black;
                     padding-bottom: rem(5);
 
@@ -3699,9 +3720,9 @@ nav {
 
                     &::placeholder {
                       color: $black;
-                      font-size: rem(12);
+                      font-size: rem(14);
                       letter-spacing: 0;
-                      line-height: rem(13);
+                      line-height: rem(15);
                     }
                   }
                 }
@@ -3712,11 +3733,13 @@ nav {
 
               @include media-breakpoint-down(lg) {
                 position: absolute;
-                top: rem(20);
+                top: rem(22);
                 right: rem(5);
+                gap: rem(5);
 
                 @include media-breakpoint-down(md) {
                   right: rem(20);
+                  top: rem(22);
                 }
               }
 
@@ -3732,26 +3755,43 @@ nav {
                   top: rem(-2);
                 }
 
+                .minicart-link {
+                  display: flex;
+                  align-items: center;
+                  gap: rem(5);
+                }
+
                 .minicart-total {
 
                   .minicart-icon {
-                    background: url(../images/sign-in-icon-updated.svg) center center no-repeat;
-                    width: rem(11);
-                    height: rem(12);
-                    margin-top: rem(5);
+                    background: url(../images/shopping-bag-icon.svg) 50% no-repeat;
+                    width: rem(24);
+                    height: rem(30);
+                    margin-top: rem(0);
+                    background-size: rem(17);
 
                     @include media-breakpoint-down(lg) {
-                      height: rem(16);
-                      width: rem(14);
+                      height: rem(20);
+                      width: rem(16);
+                      background-size: rem(16);
+                      margin-top: rem(5);
+                    }
+
+                    @include media-breakpoint-down(md) {
+                      margin-top: 0;
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                      margin-top: rem(1);
                     }
                   }
 
                   .minicart-quantity {
                     position: unset;
                     background: none;
-                    font-size: rem(12);
+                    font-size: rem(14);
                     letter-spacing: 0;
-                    line-height: rem(13);
+                    line-height: rem(15);
                     color: $black;
                     height: rem(14);
                     width: rem(8);
@@ -3761,8 +3801,12 @@ nav {
 
                     @include media-breakpoint-down(lg) {
                       position: relative;
-                      top: rem(-3);
+                      top: rem(5);
                       left: 0;
+                    }
+
+                    @include media-breakpoint-down(md) {
+                      top: rem(1);
                     }
                   }
                 }
@@ -3789,7 +3833,7 @@ nav {
               }
 
               .account-wrapper {
-                margin-left: rem(40);
+                margin-left: rem(15);
 
                 @include media-breakpoint-down(lg) {
                   margin-left: rem(10);
@@ -3797,6 +3841,17 @@ nav {
 
                 @include media-breakpoint-down(lg) {
                   margin-top: rem(-5px);
+                }
+
+                .popover {
+
+                 @include media-breakpoint-up(xl) {
+
+                  &.show {
+                    top: rem(40);
+                    left: rem(-5);
+                  }
+                 }
                 }
 
                 .user {
@@ -3811,21 +3866,30 @@ nav {
 
                     .login-icon {
                         background: url(../images/add-to-cart.svg) center center no-repeat;
-                        width: rem(12);
-                        height: rem(12);
+                        width: rem(24);
+                        height: rem(30);
+                        background-size: rem(20);
 
                         @include media-breakpoint-down(lg) {
-                        background-size: rem(15);
-                          width: rem(19);
-                          height: rem(18);
+                          position: relative;
+                          top: rem(7);
+                          left: rem(8);
+                        }
+
+                        @include media-breakpoint-down(md) {
+                          background-size: rem(20);
+                          width: rem(16);
+                          height: rem(20);
+                          margin-top: rem(5);
+                          position: unset;
                         }
                     }
 
                     .user-name {
                       color: $black;
-                      font-size: rem(12);
+                      font-size: rem(14);
                       letter-spacing: 0;
-                      line-height: rem(13);
+                      line-height: rem(15);
                       margin-left: rem(8);
                       text-overflow: ellipsis;
                       max-width: rem(75);
@@ -3848,35 +3912,41 @@ nav {
                   }
 
                   a {
-                    margin-left: rem(40);
+                    margin-left: rem(15);
                     display: flex;
                     align-items: center;
 
                     @include media-breakpoint-down(lg) {
-                      transform: translateY(3px);
+                      transform: translateY(0px);
                     }
                     
+                    @include media-breakpoint-down(md) {
+                      transform: translateY(3px);
+                    }
+
                     @include media-breakpoint-down(sm) {
                       transform: translateY(0px);
                     }
 
                     .login-icon {
                       background: url(../images/add-to-cart.svg) center center no-repeat;
-                      width: rem(12);
-                      height: rem(12);
+                      width: rem(24);
+                      height: rem(30);
+                      background-size: rem(20);
 
                       @include media-breakpoint-down(lg) {
-                       background-size: rem(15);
-                        width: rem(19);
-                        height: rem(18);
+                        width: rem(16);
+                        height: rem(20);
+                        background-size: rem(20); 
+                        margin-top: rem(5); 
                       }
                     }
 
                     .user-message {
                       color: $black;
-                      font-size: rem(12);
+                      font-size: rem(14);
                       letter-spacing: 0;
-                      line-height: rem(13);
+                      line-height: rem(15);
                       margin-left: rem(8);
 
                       @include media-breakpoint-down(lg) {
@@ -3897,18 +3967,19 @@ nav {
                     }
 
                     .pickup-store-popup-button {
-                      width: rem(10);
-                      height: rem(12);
+                      width: rem(24);
+                      height: rem(30);
+                      background-size: rem(17);
                     }
 
                     .set-your-store {
                       bottom: 0;
                       color: $black;
-                      font-size: rem(12);
+                      font-size: rem(14);
                       letter-spacing: 0;
-                      line-height: rem(13);
+                      line-height: rem(15);
                       margin-left: rem(8);
-                      max-width: rem(80);
+                      max-width: rem(90);
                       white-space: nowrap;
                       overflow: hidden;
                       text-overflow: ellipsis;
@@ -4029,6 +4100,10 @@ nav {
                   background-image: url(../images/search-icon.svg);
                   background-repeat: no-repeat;
                   background-position: center;
+                  width: rem(16);
+                  height: rem(20);
+                  background-size: rem(16);
+                  top: 0;
                 }
 
                 .suggestions-wrapper {
@@ -4113,7 +4188,7 @@ nav {
                   .dropdown-link {
                     color: $grey13;
                     font-family: $font-book-std;
-                    font-size: rem(12);
+                    font-size: rem(14);
                     font-weight: 500;
                     letter-spacing: rem(2);
                     line-height: rem(13);
