@@ -230,15 +230,9 @@
                             </div>
                         </div>
 
-                        <div class="wishlist-row">
-                            <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
-                        </div>
-
                         <iscomment> accordion start here </iscomment>
                             <isinclude template="product/components/accordion" />
                         <iscomment> accordion end here </iscomment>
-
-
                         <div class="col-12">
                             <div class="wishlist-row row">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
@@ -248,9 +242,6 @@
                                 </isif>
                                 <span class="product-id d-none" itemprop="productID" >${product.id}</span>
                             </div>
-                            <iscomment> <div class="row description">
-                                <isinclude template="product/components/description" />
-                            </div> </iscomment>
                         </div>
                         <iscomment> Custom style: more style hidden </iscomment>
                         <iscomment> <isinclude template="product/components/moreStyles" /> </iscomment>
@@ -286,8 +277,7 @@
         </div>
         <!-- The Modal: Ends-->
         <!-- sticky ATC -->
-        <isset name="isMcsHeaderNewDesign" value="${session.privacy.isMcsHeaderNewDesign}" scope="page" />
-        <div class="${isMcsHeaderNewDesign ? 'top-header-redesign' : 'top-sticky-card'} scroll-hidden">
+        <div class="top-sticky-card scroll-hidden">
             <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
         <div class="bottom-sticky-card ${mcsPdpATCABTest ? 'sticky-test-wrapper' : ''} scroll-hidden">

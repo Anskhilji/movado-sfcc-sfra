@@ -101,6 +101,7 @@ $('.nav-item.dropdown').hover(function() {
 $(document).on('click', '.close-button, .close-icon', function(e) {
     $('body').removeClass('header-body-fixed');
     $('.new-header-deign,.sticky-header-wrapper').addClass('fixed-header')
+    $('.main-menu-top').removeClass('main-menu-top-fixed')
 });
 
 $(document).ready(function(e) {

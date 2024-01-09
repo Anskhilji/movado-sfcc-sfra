@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg movado-desktop-header bg-inverse col-12">
-  <div class="close-menu clearfix hidden-lg-up">
+  <div class="close-menu clearfix hidden-xl-up">
     <a class="back" href="${'#'}" role="button">
       <span class="caret-left"></span>
       ${Resource.msg('link.header.menu.back', 'common', null)}

@@ -8,7 +8,6 @@ var Order = require('dw/order/Order');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var orderStatusHelper = require('*/cartridge/scripts/lib/orderStatusHelper');
 var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
-var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 /**
  * calls the Adyen Capture API to capture order amount
@@ -149,7 +148,7 @@ function capture(order, amount, sendMail) {
  * @param amount
  * @returns
  */
-function refund(order, amount, isJob, sendMail) {
+function refund(order, amount, sendMail) {
     var decision = 'ERROR';
     var callResult = null;
     var refundServiceRequest;
@@ -199,10 +198,10 @@ function refund(order, amount, isJob, sendMail) {
 			.getPaymentMethod());
         var isImmediateCapture = paymentMethods && paymentMethods.custom && paymentMethods.custom.isImmediateCapture ? paymentMethods.custom.isImmediateCapture : false;
         if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY' || paymentMethod == 'Adyen') && amount == orderTotal && refundedAmount == 0 && isImmediateCapture) {
-            var cancelResponse = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, amount, isJob, sendMail,
+            var cancelResponse = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, amount, sendMail,
                 require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').cancelOrRefund);
-            return cancelResponse;   
-        } 
+            return cancelResponse;
+        }
         else if (!isImmediateCapture) {
             var technicalCancel = hooksHelper('app.payment.adyen.technicalCancel', 'technicalCancel', order, require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').technicalCancel);
             return technicalCancel;
@@ -250,11 +249,6 @@ function refund(order, amount, isJob, sendMail) {
                 decision = 'SUCCESS';
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'CANCELLATION OR REFUND';
-                    if (!isJob) {
-                        checkoutLogger.warn('Order refunded from Adyen with order id: ' + order.orderNo);
-                        order.custom.isRefunded = true;
-                    }
-                    
                 });
 
                 /* update already refunded amount list*/

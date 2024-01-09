@@ -338,7 +338,7 @@ function productSync() {
                 }
 
                 // Custom Start: Adding Sales info [MSS-1473]
-                productFile.AddRowItem(!empty(prd.salePrice) && (parseInt(prd.salePrice) < parseInt(prd.price)) && prd.onSale ? true : false, true);
+                productFile.AddRowItem(!empty(prd.onSale) && prd.onSale ? true : false, true);
                 // Custom End
 
                 // Custom Start: Adding Category Value [MSS-1473]
@@ -346,7 +346,7 @@ function productSync() {
                 // Custom End:
 
                 // Custom Start: [MSS-1690 Add Sale Price Information]
-                productFile.AddRowItem(prd.onSale == true ? prd.salePrice : '' , true);
+                productFile.AddRowItem(!empty(prd.salePrice) ? prd.salePrice : '' , true);
                 // Custom End
 
                 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]

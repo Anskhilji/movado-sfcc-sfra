@@ -1,10 +1,11 @@
 'use strict';
 
+var smoothScrollbar  = require('smooth-scrollbar/dist/smooth-scrollbar');
+
 var $formValidation = require('base/components/formValidation');
 var $createErrorNotification = require('base/components/errorNotification');
 var $cart = require('../cart/cart');
 var updateMiniCart = true;
-
 
 function setMiniCartProductSummaryHeight () {
     var $miniCartHeaderTitle = parseInt($('.mini-cart-data .popover .title-free-shipping').outerHeight(true));
@@ -36,6 +37,26 @@ function isIE() {
     /* MSIE used to detect old browsers and Trident used to newer ones*/
     var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
     return is_ie; 
+}
+
+function initializeScroll() {
+    const container = $('.product-summary');
+    if(container) {
+        const options = {
+            damping: 0.1,         // Controls the amount of damping applied during scrolling (0 to 1)
+            thumbMinSize: 20,     // Minimum size for the scrollbar thumb
+            renderByPixels: true, // Forces pixels to be used as the unit for scrolling
+            alwaysShowTracks: false, // Always show scrollbar tracks
+            continuousScrolling: false, // Enables continuous scrolling
+            overscrollEffect: 'bounce', // Overscroll effect ('bounce', 'glow', 'none')
+            overscrollDamping: 0.2,     // Overscroll damping
+            overscrollEffectColor: '#222222', // Overscroll effect color    
+        };
+
+        smoothScrollbar.init(document.querySelector('.product-summary'), options);
+    } else {
+        setTimeout(initializeScroll, 500);
+    }
 }
 
 function giftMessageTooltip() {
@@ -694,7 +715,7 @@ module.exports = function () {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
          var $homeHeaderTransparent = $('.home-header-transparent');
-         $('body, html').addClass('scroll-remove');
+         
 
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
@@ -723,11 +744,13 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                $('body, html').addClass('scroll-remove');
                 // Custom:MSS-2034 add class when open miniCart
                 if ($homeHeaderTransparent.length > 0) {
                     $homeHeaderTransparent.addClass('solid-header');
                 }
                 loadAmazonButton();
+                initializeScroll();
                 $('#AmazonPayButtonCheckout').css('width', '100%');
             });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {
@@ -736,6 +759,7 @@ module.exports = function () {
                 $('#footer-overlay').addClass('footer-form-overlay');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                $('body, html').addClass('scroll-remove');
                 // Custom:MSS-2034 add class when open miniCart
                 if ($homeHeaderTransparent.length > 0) {
                     $homeHeaderTransparent.addClass('solid-header');
@@ -755,6 +779,8 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                $('body, html').addClass('scroll-remove');
+                initializeScroll();
                 // Custom:MSS-2034 add class when open miniCart
                 if ($homeHeaderTransparent.length > 0) {
                     $homeHeaderTransparent.addClass('solid-header');
@@ -776,6 +802,7 @@ module.exports = function () {
                 setMiniCartProductSummaryHeight();
                 giftMessageTooltip();
                 checkGiftBoxItem();
+                initializeScroll();
                 $('.mini-cart-data .popover').addClass('show');
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();

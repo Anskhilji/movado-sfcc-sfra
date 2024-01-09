@@ -14,6 +14,7 @@ Line No: Start from 205 to 209
 ## int_adyen_SFRA > cartridge > scripts > checkout > adyenHelpers.js
 Line No: Start from 28 to 29
 Line No: Start from 47 to 48
+Line No: Start from 140 to 149
 Line No: Start from 154 to 155
 
 ## int_adyen_overlay > cartridge > scripts > job > notifications.js

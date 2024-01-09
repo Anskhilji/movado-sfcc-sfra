@@ -1,5 +1,7 @@
 'use strict';
 var movadoBase = require('movado/product/base');
+var smoothScrollbar  = require('smooth-scrollbar/dist/smooth-scrollbar');
+
 if (window.Resources.LISTRAK_ENABLED) {
     var listrakBackInStock = require('custom_backinstock/listrakBackInStock.js');
 }
@@ -32,6 +34,26 @@ function setMiniCartProductSummaryHeight () {
         } else {
             $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight);
         }
+    }
+}
+
+function initializeScroll() {
+    const container = $('.product-summary');
+    if(container) {
+        const options = {
+            damping: 0.1,         // Controls the amount of damping applied during scrolling (0 to 1)
+            thumbMinSize: 20,     // Minimum size for the scrollbar thumb
+            renderByPixels: true, // Forces pixels to be used as the unit for scrolling
+            alwaysShowTracks: false, // Always show scrollbar tracks
+            continuousScrolling: false, // Enables continuous scrolling
+            overscrollEffect: 'bounce', // Overscroll effect ('bounce', 'glow', 'none')
+            overscrollDamping: 0.2,     // Overscroll damping
+            overscrollEffectColor: '#222222', // Overscroll effect color          
+        };
+
+        smoothScrollbar.init(document.querySelector('.product-summary'), options);
+    } else {
+        setTimeout(initializeScroll, 500);
     }
 }
 
@@ -184,10 +206,12 @@ function openMiniCart() {
             checkGiftBoxItem();
             $('.mini-cart-data .popover').addClass('show');
             $('body').trigger('miniCart:recommendations');
+            $('body, html').addClass('scroll-remove');
             updateMiniCart = false;
             $.spinner().stop();
             loadAmazonButton();
             hideMiniCartCheckbox();
+            initializeScroll();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
@@ -1582,7 +1606,7 @@ movadoBase.addToCart = function () {
         var giftPid;
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
-        $('body, html').addClass('scroll-remove');
+        
 
         if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
             setPids = [];
@@ -1685,7 +1709,7 @@ movadoBase.addToCart = function () {
                     handlePostCartAdd(data);
                     openMiniCart();
                     updateCartIcons();
-                    
+
                     $('body').trigger('product:afterAddToCart', data);
                     updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart
@@ -1700,7 +1724,7 @@ movadoBase.addToCart = function () {
                     $.spinner().stop();
                 },
                 complete: function () {
-                    $('body').trigger('miniCart:recommendations'); 
+                    $('body').trigger('miniCart:recommendations');
                 }
             });
         }

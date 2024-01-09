@@ -50,6 +50,10 @@ header {
 
                     .btn {
                         font-family: $font-ProximaNova;
+                        
+                        &.btn-outline-dark {
+                            border-radius: rem(30);
+                        }
                     }
                 }
             }

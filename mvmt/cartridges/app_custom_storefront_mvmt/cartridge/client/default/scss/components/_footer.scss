@@ -686,6 +686,8 @@ footer {
                 letter-spacing: 0.02em;
                 padding: rem(15) rem(20);
                 font-family: $font-brandon-grotesque;
+                white-space: nowrap;
+
                 &:hover {
                     opacity: 1;
                 }
